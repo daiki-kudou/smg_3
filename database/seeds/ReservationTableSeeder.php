@@ -20,9 +20,9 @@ class ReservationTableSeeder extends Seeder
    */
   public function run(Faker $faker)
   {
-    DB::table('reservations')->truncate();
+    // DB::table('reservations')->truncate();
 
-    for ($i = 1; $i < 100; $i++) {
+    for ($i = 1; $i < 20000; $i++) {
       $venues = Venue::all()->pluck("id");
       $users = User::all()->pluck("id");
       $agents = Agent::all()->pluck("id");
@@ -59,6 +59,8 @@ class ReservationTableSeeder extends Seeder
         'event_name1' => NULL,
         'event_name2' => NULL,
         'event_owner' => NULL,
+        'luggage_flag' => 1,
+        'luggage_price' => 500,
         'luggage_count' => rand(1, 9),
         'luggage_arrive' => "",
         'luggage_return' => rand(1, 9),

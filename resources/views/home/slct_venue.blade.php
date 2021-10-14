@@ -94,7 +94,6 @@
           <p class="txtCenter">
             <button type="submit" class="smit search_btn">空室状況検索<img
                 src="https://osaka-conference.com/img/icon_serch.png" alt="検索"></button>
-            {{-- <a href="https://osaka-conference.com/contact/" class="cContactBtn">問い合わせ</a> --}}
           </p>
           {{Form::close()}}
         </div>
@@ -137,15 +136,11 @@
           <td>
             <div class="selectWrap">
               <select name="enter_time" class="timeScale" id="enter_time">
-                {{-- <option value=""></option> --}}
-                {{-- {!!ReservationHelper::timeOptionsWithDefault()!!} --}}
               </select>
             </div>
             <p class="is-error-enter_time" style="color: red"></p>
             <p class="txtRed">
-              <span>入室時間より以前に入室はできません。
-                <br>
-                確認の上、チェックボックスをクリックしてください。</span>
+              <span>入室時間より以前に入室はできません。</span>
             </p>
             <p class="checkbox-txt txtRed">
               <span class="txtRed">＊</span>
@@ -160,8 +155,6 @@
           <td>
             <div class="selectWrap">
               <select name="leave_time" class="timeScale" id="leave_time">
-                {{-- <option value=""></option>
-                  {!!ReservationHelper::timeOptionsWithDefault()!!} --}}
               </select>
             </div>
             <p class="is-error-leave_time" style="color: red"></p>

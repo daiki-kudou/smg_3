@@ -3,15 +3,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="container-field mt-3">
-  {{-- <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-          メールテンプレート管理
-        </li>
-      </ol>
-    </nav>
-  </div> --}}
   <h2 class="mt-3 mb-3">メールテンプレート管理</h2>
   <hr>
 </div>
@@ -119,12 +110,14 @@
         <td rowspan="2">予約内容追加</td>
         <td>【管理者通知】追加の備品・サービス（その他）を受け付けました</td>
         <td>管理者</td>
-        <td><a href="" class="more_btn">未　編集</a></td>
+        <td><a href="{{url('/admin/maileclipse/templates/edit/adminReqAddRes')}}" class="more_btn"
+            target="_blank">編集</a></td>
       </tr>
       <tr>
         <td>追加の備品・サービス（その他）を受け付けました</td>
         <td>ユーザー</td>
-        <td><a href="" class="more_btn">未　編集</a></td>
+        <td><a href="{{url('/admin/maileclipse/templates/edit/userReqAddRes')}}" class="more_btn" target="_blank">編集</a>
+        </td>
       </tr>
     </tbody>
 
@@ -200,41 +193,6 @@
     </tbody>
 
 
-    {{-- <tbody>
-      <tr>
-        <td rowspan="2">未入金時、催促(5営業日前)</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　ご入金のお願い</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminRemindPaid')}}" class="more_btn"
-    target="_blank">編集</a>
-    </td>
-    </tr>
-    <tr>
-      <td>SMGアクセア貸し会議室　ご入金のお願い</td>
-      <td>ユーザー</td>
-      <td><a href="{{url('/admin/maileclipse/templates/edit/userRemindPaid')}}" class="more_btn" target="_blank">編集</a>
-      </td>
-    </tr>
-    </tbody> --}}
-
-
-    {{-- <tbody>
-      <tr>
-        <td rowspan="2">未入金時、催促(2営業日前)</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　ご入金のお願い(お支払いの督促) </td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminRemindPaid2')}}" class="more_btn"
-    target="_blank">編集</a>
-    </td>
-    </tr>
-    <tr>
-      <td>SMGアクセア貸し会議室　ご入金のお願い(お支払いの督促) </td>
-      <td>ユーザー</td>
-      <td><a href="{{url('/admin/maileclipse/templates/edit/userRemindPaid2')}}" class="more_btn" target="_blank">編集</a>
-      </td>
-    </tr>
-    </tbody> --}}
-
 
     <tbody>
       <tr>
@@ -251,25 +209,6 @@
         </td>
       </tr>
     </tbody>
-
-
-    {{-- <tbody>
-      <tr>
-        <td rowspan="2">管理者ダブルチェック完了、ユーザーキャンセル承認送付催促(72時間経過後)</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　キャンセル承認のお願い(再送)</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminRemindCxlChck')}}" class="more_btn"
-    target="_blank">編集</a></td>
-    </tr>
-    <tr>
-      <td>SMGアクセア貸し会議室　キャンセル承認のお願い(再送)</td>
-      <td>ユーザー</td>
-      <td><a href="{{url('/admin/maileclipse/templates/edit/userRemindCxlChck')}}" class="more_btn"
-          target="_blank">編集</a>
-      </td>
-    </tr>
-    </tbody> --}}
-
 
     <tbody>
       <tr>
@@ -304,42 +243,6 @@
       </tr>
     </tbody>
 
-
-    {{-- <tbody>
-      <tr>
-        <td rowspan="2">キャンセル料入金催促(5営業日前)</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　ご入金のお願い</td>
-        <td>管理者</td>
-        <td><a href="" class="more_btn">未　編集</a>
-        </td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　ご入金のお願い</td>
-        <td>ユーザー</td>
-        <td><a href="" class="more_btn">未　編集</a>
-        </td>
-      </tr>
-    </tbody> --}}
-
-
-    {{-- <tbody>
-      <tr>
-        <td rowspan="2">キャンセル料入金催促(2営業日前)</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　ご入金のお願い(お支払いの督促)</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminRemindCxl2')}}" class="more_btn"
-    target="_blank">編集</a>
-    </td>
-    </tr>
-    <tr>
-      <td>SMGアクセア貸し会議室　ご入金のお願い(お支払いの督促)</td>
-      <td>ユーザー</td>
-      <td><a href="{{url('/admin/maileclipse/templates/edit/userRemindCxl2')}}" class="more_btn" target="_blank">編集</a>
-      </td>
-    </tr>
-    </tbody> --}}
-
-
     <tbody>
       <tr>
         <td rowspan="2">退会</td>
@@ -355,22 +258,6 @@
         </td>
       </tr>
     </tbody>
-
-
-    {{-- <tbody>
-      <tr>
-        <td rowspan="2">パスワード再発行</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　パスワードの再発行について</td>
-        <td>管理者</td>
-        <td><a href="" class="more_btn" target="_blank">編集</a></td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　パスワードの再発行について</td>
-        <td>ユーザー</td>
-        <td><a href="" class="more_btn" target="_blank">編集</a></td>
-      </tr>
-    </tbody> --}}
-
 
   </table>
 </div>

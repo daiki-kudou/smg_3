@@ -2,7 +2,8 @@
 @section('content')
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<script src="{{ asset('/js/admin/reservation/template.js') }}"></script>
+{{-- <script src="{{ asset('/js/admin/reservation/template.js') }}"></script> --}}
+<script src="{{ asset('/js/admin/reservation/edit.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/holidays.js') }}"></script>
@@ -51,6 +52,17 @@
     </div>
   </div>
 </div>
+
+@if ($errors->any())
+<div class="alert alert-danger">
+  <ul>
+    @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+    <li>一部データに不整合があり保存に失敗しました。再度更新してください</li>
+    @endforeach
+  </ul>
+</div>
+@endif
 
 
 
@@ -361,16 +373,16 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+              <td class="table-active">荷物預かり</td>
               <td>
                 <div class="radio-box">
                   <p>
-                    <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
-                    <label for="" class="form-check-label">有り</label>
+                    {{Form::radio('luggage_flag', 1, (int)$reservation['luggage_flag']===1?true:false, ['id'=>'luggage_flag'])}}
+                    {{Form::label('luggage_flag','有り')}}
                   </p>
                   <p>
-                    <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                    <label for="" class="form-check-label">無し</label>
+                    {{Form::radio('luggage_flag', 0, (int)$reservation['luggage_flag']===0?true:false, ['id'=>'no_luggage_flag'])}}
+                    {{Form::label('no_luggage_flag','無し')}}
                   </p>
                 </div>
               </td>
@@ -630,12 +642,9 @@
     </div>
   </div>
 </section>
-{{-- <button type="button" class="btn more_btn4_lg mx-auto my-5 d-block">再計算する</button> --}}
 {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto my-5 d-block', 'id'=>'check_submit','name'=>"edit_calc"])}}
 
 
-{{-- {{ Form::open(['url' => 'admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'reservations_edit_result']) }}
-@csrf --}}
 <section class="mt-5 pt-5">
   <div class="bill">
     <div class="bill_head">
@@ -781,7 +790,7 @@
                 </h4>
               </td>
             </tr>
-            <tbody class="equipment_head">
+            <tbody class="equipment_head ">
               <tr>
                 <td>内容</td>
                 <td>単価</td>
@@ -1173,13 +1182,10 @@
   })
 
   $(function() {
-
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        // addThisTr('.others .others_main tr', 'others_breakdown_item', 'others_breakdown_cost', 'others_breakdown_count', 'others_breakdown_subtotal');
-        // addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count', 'venue_breakdown_subtotal');
         // 追加時内容クリア
         $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
@@ -1187,88 +1193,33 @@
         $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
       });
 
-      // function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
-      //   var count = $($targetTr).length;
-      //   for (let index = 0; index < count; index++) {
-      //     $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
-      //     $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCost + index);
-      //     $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
-      //     $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
-      //   }
-      // }
-
       // マイナスボタンクリック
       $(document).on("click", ".del", function() {
-        if ($(this).parent().parent().parent().attr('class') == "others_main") {
-          var count = $('.others .others_main tr').length;
-          var target = $(this).parent().parent();
-          if (target.parent().children().length > 1) {
-            target.remove();
+        var target_tbody = $(this).parent().parent().parent();
+        if (target_tbody.find('tr').length>1) {
+          $(this).parent().parent().remove();
+        }else{
+          for (let index = 0; index <= 3; index++) {
+            $(this).parent().parent().find('td').eq(index).find('input').val('');            
           }
-          for (let index = 0; index < count; index++) {
-            // console.log(index);
-            $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_breakdown_item' + index);
-            $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_breakdown_cost' + index);
-            $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_breakdown_count' + index);
-            $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_breakdown_subtotal' + index);
-          }
-          var re_count = $('.others .others_main tr').length;
-          var total_val = 0;
-          for (let index2 = 0; index2 < re_count; index2++) {
-            var num1 = $('input[name="others_breakdown_cost' + index2 + '"]').val();
-            var num2 = $('input[name="others_breakdown_count' + index2 + '"]').val();
-            var num3 = $('input[name="others_breakdown_subtotal' + index2 + '"]');
-            num3.val(num1 * num2);
-            total_val = total_val + Number(num3.val());
-          }
-          var total_target = $('input[name="others_price"]');
-          total_target.val(total_val);
-
-          var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
-          var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
-          var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
-          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
-          var result = venue + equipment + layout + others;
-          var result_tax = Math.floor(result * 0.1);
-          $('.total_result').text('').text(result);
-          $('input[name="master_subtotal"]').val(result);
-          $('input[name="master_tax"]').val(result_tax);
-          $('input[name="master_total"]').val(result + result_tax);
-        } else if ($(this).parent().parent().parent().attr('class') == "venue_main") {
-          var count = $('.venue_main tr').length;
-          var target = $(this).parent().parent();
-          if (target.parent().children().length > 1) {
-            target.remove();
-          }
-          for (let index = 0; index < count; index++) {
-            $('.venue_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'venue_breakdown_item' + index);
-            $('.venue_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'venue_breakdown_cost' + index);
-            $('.venue_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'venue_breakdown_count' + index);
-            $('.venue_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'venue_breakdown_subtotal' + index);
-          }
-          var re_count = $(' .venue_main tr').length;
-          var total_val = 0;
-          for (let index2 = 0; index2 < re_count; index2++) {
-            var num1 = $('input[name="venue_breakdown_cost' + index2 + '"]').val();
-            var num2 = $('input[name="venue_breakdown_count' + index2 + '"]').val();
-            var num3 = $('input[name="venue_breakdown_subtotal' + index2 + '"]');
-            num3.val(num1 * num2);
-            total_val = total_val + Number(num3.val());
-          }
-          var total_target = $('input[name="venue_price"]');
-          total_target.val(total_val);
-
-          var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
-          var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
-          var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
-          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
-          var result = venue + equipment + layout + others;
-          var result_tax = Math.floor(result * 0.1);
-          $('.total_result').text('').text(result);
-          $('input[name="master_subtotal"]').val(result);
-          $('input[name="master_tax"]').val(result_tax);
-          $('input[name="master_total"]').val(result + result_tax);
         }
+        var result =0;
+        target_tbody.find('tr').each(function(r){
+          result+=Number(target_tbody.find('tr').eq(r).find('td').eq(3).find('input').val());
+        })
+        console.log(result);
+        target_tbody.next().find('td').eq(1).find('input').val(result);
+
+        var venue = !isNaN($('input[name="venue_price"]').val())?Number($('input[name="venue_price"]').val()):0;
+        var equipment = !isNaN($('input[name="equipment_price"]').val())?Number($('input[name="equipment_price"]').val()):0;
+        var layout = !isNaN($('input[name="layout_price"]').val())?Number($('input[name="layout_price"]').val()):0;
+        var others = !isNaN($('input[name="others_price"]').val())?Number($('input[name="others_price"]').val()):0;
+        var result = venue + equipment + layout + others;
+        var result_tax = Math.floor(result * 0.1);
+        $('.total_result').text('').text((result + result_tax));
+        $('input[name="master_subtotal"]').val(result);
+        $('input[name="master_tax"]').val(result_tax);
+        $('input[name="master_total"]').val(result + result_tax);
       });
     });
   })

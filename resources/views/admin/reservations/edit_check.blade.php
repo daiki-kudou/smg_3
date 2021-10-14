@@ -232,9 +232,10 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">荷物預かり　工藤さん！！</td>
+              <td class="table-active">荷物預かり</td>
               <td>
-                <input class="form-control" type="text" value="工藤さん！ありかなしを表示" readonly>
+                {{ Form::text('', (int)$data['luggage_flag']===1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::hidden('luggage_flag', (int)$data['luggage_flag']===1 ) }}
               </td>
             </tr>
             <tr>
@@ -674,7 +675,8 @@
         </div>
         @endif
 
-        @if (!empty($data['others_breakdown_item']))
+
+        @if (!empty($data['others_breakdown_item'][0]))
         <div class="others billdetails_content">
           <table class="table table-borderless">
             <tr>
@@ -839,7 +841,7 @@
 
 <div class="container-field d-flex justify-content-center mt-5">
   {{Form::submit('請求内訳を修正する', ['class'=>'btn more_btn4_lg d-block mr-5', 'name'=>'back'])}}
-  {{Form::submit('保存する', ['class'=>'btn more_btn_lg d-block', 'id'=>'check_submit'])}}
+  {{Form::submit('保存する', ['class'=>'btn more_btn_lg d-block update_submit', 'id'=>'check_submit'])}}
   {{Form::close()}}
 
 </div>

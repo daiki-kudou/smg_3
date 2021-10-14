@@ -37,7 +37,7 @@ class PreusersController extends Controller
     $token = $request->token;
     $email = $request->email;
     $link = url('/') . "/user/preusers/" . $id . "/" . $token . "/" . $email;
-    $admin = explode(',', config('app.admin_email'));
+    $admin = config('app.admin_email');
     Mail::to($admin)->send(new AdminReqLeg($id, $token, $email, $link));
     Mail::to($email)->send(new UserReqLeg($id, $token, $email, $link));
 

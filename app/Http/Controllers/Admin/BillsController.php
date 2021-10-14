@@ -24,6 +24,7 @@ use App\Mail\UserPaid;
 
 use Carbon\Carbon;
 use App\Traits\PregTrait;
+use App\Service\SendSMGEmail;
 
 
 
@@ -56,7 +57,7 @@ class BillsController extends Controller
     return view('admin/bills/create', compact('reservation', 'data', 'payment_limit'));
   }
 
-  public function createSession(Request $request)
+  public function check(Request $request)
   {
     $data = $request->all();
     return view('admin.bills.check', compact(
@@ -88,10 +89,6 @@ class BillsController extends Controller
     return [$layout_prepare, $layout_clean];
   }
 
-  public function check(Request $request)
-  {
-  }
-
   /**
    * Store a newly created resource in storage.
    *
@@ -102,11 +99,10 @@ class BillsController extends Controller
   {
     $data = $request->all();
     if ($request->back) {
-      return $this->create($request);
+      return redirect(route('admin.bills.create', $data));
     }
     $bill = new Bill;
     $breakdowns = new Breakdown;
-
     DB::beginTransaction();
     try {
       $result_bill = $bill->BillStore($data['reservation_id'], $data);
@@ -114,9 +110,9 @@ class BillsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      dump($data);
-      dump($e->getMessage());
-      return $this->createSession($request)->withErrors($e->getMessage());
+      // dump($e->getMessage());
+      // return $this->createSession($request)->withErrors($e->getMessage());
+      return redirect(route('admin.bills.create', $data))->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $data['reservation_id']);
@@ -149,25 +145,19 @@ class BillsController extends Controller
       $bill->update([
         'reservation_status' => 2, 'approve_send_at' => date('Y-m-d H:i:s')
       ]);
-      $admin = explode(',', config('app.admin_email'));
-      Mail::to($admin) //管理者
-        ->send(new AdminReqAddRes());
-      Mail::to($bill->reservation->user->email) //ユーザー
-        ->send(new UserReqAddRes());
+      // $admin = explode(',', config('app.admin_email'));
+      // Mail::to($admin) //管理者
+      //   ->send(new AdminReqAddRes());
+      // Mail::to($bill->reservation->user->email) //ユーザー
+      //   ->send(new UserReqAddRes());
+      $user = User::find($bill->reservation->user->id);
+      $reservation = $bill;
+      $venue = Venue::find($bill->reservation->venue_id);
+      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+      $SendSMGEmail->send("予約内容追加。管理者からユーザーへ承認依頼を送付");
     });
     return redirect()->route('admin.reservations.index');
   }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  // public function show($id)
-  // {
-  //   //
-  // }
 
   /**
    * Show the form for editing the specified resource.
@@ -199,22 +189,58 @@ class BillsController extends Controller
    */
   public function update(Request $request, $id)
   {
-    $bill = Bill::with('reservation')->find($id);
-    $bill->UpdateBill($request);
-    $bill->ReserveStoreBreakdown($request);
+    $data = $request->all();
+    DB::beginTransaction();
+    try {
+      $bill = Bill::with('reservation', 'breakdowns')->find($id);
+      $bill->BillUpdate($data, $bill->reservation_status, $bill->double_check_status, $bill->category);
+      $bill->breakdowns->map(function ($item) {
+        return $item->delete();
+      });
+      $breakdowns = new Breakdown;
+      $result_breakdowns = $breakdowns->BreakdownStore($bill->id, $data);
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollback();
+      // return back()->withInput()->withErrors($e->getMessage());
+      return back()->withInput()->withErrors("内容・単価・数量・金額は必須です");
+    }
     $request->session()->regenerate();
     return redirect(route('admin.reservations.show', $bill->reservation->id));
   }
 
   public function agentEditUpdate(Request $request, $id)
   {
-    $bill = Bill::with('reservation')->find($id);
-    $bill->UpdateBill($request);
-    $request->session()->put('add_breakdown', $request->all());
-    $data = $request->session()->get('add_breakdown');
-    $bill->agentUpdateBreakdown($data);
+    $data = $request->all();
+    DB::beginTransaction();
+    try {
+      $bill = Bill::with('reservation', 'breakdowns')->find($id);
+      $bill->BillUpdate($data, $bill->reservation_status, $bill->double_check_status, $bill->category);
+      $bill->breakdowns->map(function ($item) {
+        return $item->delete();
+      });
+      $breakdowns = new Breakdown;
+      $result_breakdowns = $breakdowns->BreakdownStore($bill->id, $data);
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollback();
+      return back()->withInput()->withErrors("内容・単価・数量・金額は必須です");
+      // return back()->withInput()->withErrors($e->getMessage());
+    }
+
     $request->session()->regenerate();
     return redirect(route('admin.reservations.show', $bill->reservation->id));
+
+
+
+
+    // $bill = Bill::with('reservation')->find($id);
+    // $bill->UpdateBill($request);
+    // $request->session()->put('add_breakdown', $request->all());
+    // $data = $request->session()->get('add_breakdown');
+    // $bill->agentUpdateBreakdown($data);
+    // $request->session()->regenerate();
+    // return redirect(route('admin.reservations.show', $bill->reservation->id));
   }
 
   /**
@@ -260,17 +286,8 @@ class BillsController extends Controller
   public function updatePaidInfo(Request $request)
   {
     $validatedData = $request->validate(
-      [
-        'paid' => 'required',
-        'pay_day' => 'date',
-        'payment' => 'integer|min:0',
-      ],
-      [
-        'paid.required' => '[入金情報] ※入金状況は必須です',
-        'pay_day.date' => '[入金情報] ※入金日は日付で入力してください',
-        'payment.integer' => '[入金情報] ※入金額は半角英数字で入力してください',
-        'payment.min' => '[入金情報] ※入金額は0以上を入力してください',
-      ]
+      ['paid' => 'required',],
+      ['paid.required' => '[入金情報] ※入金状況は必須です',]
     );
     $bill = Bill::with('reservation.user')->find($request->bill_id);
     $bill->update(
@@ -278,11 +295,11 @@ class BillsController extends Controller
         'paid' => $request->paid,
         'pay_day' => $request->pay_day,
         'pay_person' => $request->pay_person,
-        'payment' => !empty($request->payment) ? $request->payment : 0,
+        'payment' => !empty($request->payment) ? $request->payment : NULL,
       ]
     );
     if ($bill->reservation->agent_id == 0) {
-      $this->judgePaymentStatusAndSendEmail($request->paid, $bill->reservation->user);
+      $this->judgePaymentStatusAndSendEmail($request->paid, $bill->reservation->user, $bill);
     }
     return redirect(url('admin/reservations/' . $bill->reservation->id));
   }
@@ -294,12 +311,14 @@ class BillsController extends Controller
    * @param object $user
    */
 
-  public function judgePaymentStatusAndSendEmail($status, $user)
+  public function judgePaymentStatusAndSendEmail($status, $user, $bill)
   {
-    if ($status == 1) {
-      $admin = explode(',', config('app.admin_email'));
-      Mail::to($admin)->send(new AdminPaid($user));
-      Mail::to($user->email)->send(new UserPaid($user));
+    if ((int)$status === 1) {
+      $user = $user;
+      $reservation = $bill;
+      $venue = $bill->reservation->venue;
+      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+      $SendSMGEmail->send("入金ステータスを入金済みに更新");
     }
   }
 }

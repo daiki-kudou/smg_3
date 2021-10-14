@@ -42,7 +42,6 @@ class NoteController extends Controller
 
   public function edit($date, $id)
   {
-    dump($date, $id);
     $notes = Note::where('date', $date)->get()->toArray();
     return view('admin.note.edit', compact('notes', 'date', 'id'));
   }

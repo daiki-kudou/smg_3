@@ -16,14 +16,11 @@ class AdminCxlChck extends Mailable
    *
    * @return void
    */
-  public function __construct($company, $date, $enter_time, $leave_time, $venue, $cxl_price)
+  public function __construct($user, $reservation, $venue)
   {
-    $this->company = $company;
-    $this->date = $date;
-    $this->enter_time = $enter_time;
-    $this->leave_time = $leave_time;
+    $this->user = $user;
+    $this->reservation = $reservation;
     $this->venue = $venue;
-    $this->cxl_price = $cxl_price;
   }
 
   /**
@@ -36,12 +33,9 @@ class AdminCxlChck extends Mailable
     return $this->view('maileclipse::templates.adminCxlChck')
       ->subject('管理者通知　SMGアクセア貸し会議室　キャンセル承認のお願い')
       ->with([
-        'company' => $this->company,
-        'date' => $this->date,
-        'enter_time' => $this->enter_time,
-        'leave_time' => $this->leave_time,
+        'user' => $this->user,
+        'reservation' => $this->reservation,
         'venue' => $this->venue,
-        'cxl_price' => $this->cxl_price,
       ]);
   }
 }

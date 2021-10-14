@@ -47,15 +47,7 @@
 </div>
 
 <div class="container-field mt-3">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName()) }}
-        </li>
-      </ol>
-    </nav>
-  </div>
+  @include('layouts.admin.breadcrumbs')
   <h2 class="mt-3 mb-3">予約 新規登録(仲介会社経由)</h2>
   <hr>
 </div>
@@ -326,7 +318,6 @@
                   <i class="far fa-id-card icon-size" aria-hidden="true"></i>仲介会社情報
                 </p>
                 <p class="agent_link">
-                  {{-- <a class="more_btn" href="">仲介会社詳細リンク</a> --}}
                 </p>
               </div>
             </td>
@@ -498,7 +489,7 @@
   </div>
 </section>
 
-{{Form::submit('計算する', ['class'=>'btn more_btn_lg mx-auto d-block btn-lg', 'id'=>'check_submit'])}}
+{{Form::submit('計算する', ['class'=>'btn more_btn_lg mx-auto d-block btn-lg',"name"=>'submit', 'id'=>'check_submit'])}}
 
 {{Form::close()}}
 
@@ -527,6 +518,7 @@ $(document).on('change', 'input[name="reserve_date"]', function () {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();
       if (radioTarget == 1) {
         $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+        $('input[name=eat_in_prepare]:eq(0)').prop('checked', true);
       } else {
         $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
         $('input:radio[name="eat_in_prepare"]').val("");

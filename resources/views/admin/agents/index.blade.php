@@ -3,20 +3,10 @@
 @section('content')
 <script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
 <link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
-
-{{-- <script src="{{ asset('/js/admin/venue.js') }}"></script> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="container-field">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName()) }}
-        </li>
-      </ol>
-    </nav>
-  </div>
+  @include('layouts.admin.breadcrumbs')
   <h2 class="mt-3 mb-3">仲介会社　一覧</h2>
   <hr>
   <div class="row">
@@ -39,7 +29,7 @@
         </thead>
         <tbody>
           @foreach ($agents as $agent)
-          <tr role="row" class="even">
+          <tr>
             <td>{{ReservationHelper::fixId($agent->id)}}</td>
             <td>{{$agent->name}}</td>
             <td class="text-center">
@@ -55,12 +45,22 @@
       </table>
     </div>
   </div>
-  {{ $agents->links() }}
 </div>
 <script>
-  $(function(){
-    $("#agent_sort").tablesorter();
-  })
-
+  $(document).ready(function(){
+    $.extend($.fn.dataTable.defaults, {
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+        }
+    });
+    $('#agent_sort').DataTable({
+      searching: false,
+      info: false,
+      autowidth: false,
+      "order": [[ 0, "desc" ]], //初期ソートソート条件
+      "columnDefs": [{ "orderable": false, "targets": [2,6] }],
+      "stripeClasses": [],
+     });
+    });
 </script>
 @endsection

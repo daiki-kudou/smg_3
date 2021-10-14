@@ -25,19 +25,19 @@
 
 <div class="container-field">
   <div class="table-wrap">
-    <table class="table table-bordered mt-5" id="venue_index">
+    <table class="table table-bordered mt-5" id="venue_sort">
       <thead>
         <tr class="table_row">
-          <th id="id">ID {!!ReservationHelper::sortIcon($request->id)!!}</th>
-          <th id="created_at">登録日 {!!ReservationHelper::sortIcon($request->created_at)!!}</th>
-          <th id="alliance_flag">直/携 {!!ReservationHelper::sortIcon($request->alliance_flag)!!}</th>
-          <th id="name_bldg">会場 {!!ReservationHelper::sortIcon($request->name_bldg)!!}</th>
-          <th id="size1">広さ（坪） {!!ReservationHelper::sortIcon($request->size1)!!}</th>
-          <th id="size2">広さ（㎡） {!!ReservationHelper::sortIcon($request->size2)!!}</th>
-          <th id="capacity">収容人数 {!!ReservationHelper::sortIcon($request->capacity)!!}</th>
-          <th id="layout">レイアウト変更 {!!ReservationHelper::sortIcon($request->layout)!!}</th>
-          <th id="luggage_flag">預り荷物 {!!ReservationHelper::sortIcon($request->luggage_flag)!!}</th>
-          <th id="eat_in_flag">室内飲食 {!!ReservationHelper::sortIcon($request->eat_in_flag)!!}</th>
+          <th id="id">ID </th>
+          <th id="created_at">登録日 </th>
+          <th id="alliance_flag">直/携 </th>
+          <th id="name_bldg">会場 </th>
+          <th id="size1">広さ（坪） </th>
+          <th id="size2">広さ（㎡） </th>
+          <th id="capacity">収容人数 </th>
+          <th id="layout">レイアウト変更 </th>
+          <th id="luggage_flag">預り荷物 </th>
+          <th id="eat_in_flag">室内飲食 </th>
           <th class="btn-cell">詳細</th>
         </tr>
       </thead>
@@ -49,7 +49,7 @@
           <td>{{ ReservationHelper::formatDate($venue->created_at)}}</td>
           <td class="text-center">{{$venue->alliance_flag==0?'直':'提'}}</td>
           <td>{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
-          <td class="text-right">{{ $venue->size1}}坪</td>
+          <td class="text-right" data-order="{{ $venue->size1}}">{{ $venue->size1}}坪</td>
           <td class="text-right">{{ $venue->size2 }}㎡</td>
           <td class="text-right">{{ $venue->capacity }}</td>
           <td class="text-center">{{$venue->layout==1?"可":"不可"}}</td>
@@ -63,9 +63,9 @@
           <td>{{ ReservationHelper::formatDate($venue->created_at)}}</td>
           <td class="text-center">{{$venue->alliance_flag==0?'直':'提'}}</td>
           <td>{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
-          <td class="text-right">{{ $venue->size1}}坪</td>
-          <td class="text-right">{{ $venue->size2 }}㎡</td>
-          <td class="text-right">{{ $venue->capacity }}</td>
+          <td class="text-right" data-order="{{ $venue->size1}}">{{ $venue->size1}}坪</td>
+          <td class="text-right" data-order="{{ $venue->size2}}">{{ $venue->size2 }}㎡</td>
+          <td class=" text-right">{{ $venue->capacity }}</td>
           <td class="text-center">{{$venue->layout==1?"可":"不可"}}</td>
           <td class="text-center">{{$venue->luggage_flag==1?"可":"不可"}}</td>
           <td class="text-center">{{$venue->eat_in_flag==1?"可":"不可"}}</td>
@@ -75,39 +75,13 @@
         @endforeach
       </tbody>
     </table>
-    {{ $venues->appends(request()->input())->links() }}
   </div>
 </div>
 
 
-
-{{-- 1降順　2昇順 --}}
-{{ Form::open(['url' => 'admin/venues', 'method'=>'get', 'id'=>'sort_form']) }}
-@csrf
-{{Form::hidden("id", $request->id?($request->id==1?2:1):1)}}
-{{Form::hidden("created_at", $request->created_at?($request->created_at==1?2:1):1)}}
-{{Form::hidden("alliance_flag", $request->alliance_flag?($request->alliance_flag==1?2:1):1)}}
-{{Form::hidden("name_bldg", $request->name_bldg?($request->name_bldg==1?2:1):1)}}
-{{Form::hidden("size1", $request->size1?($request->size1==1?2:1):1)}}
-{{Form::hidden("size2", $request->size2?($request->size2==1?2:1):1)}}
-{{Form::hidden("capacity", $request->capacity?($request->capacity==1?2:1):1)}}
-{{Form::hidden("layout", $request->layout?($request->layout==1?2:1):1)}}
-{{Form::hidden("luggage_flag", $request->luggage_flag?($request->luggage_flag==1?2:1):1)}}
-{{Form::hidden("eat_in_flag", $request->eat_in_flag?($request->eat_in_flag==1?2:1):1)}}
 {{Form::close()}}
 
 <script>
-  $(document).on("click", "th", function() {
-    var click_th_id=$(this).attr("id");
-    $("#sort_form input").each(function(key, item){
-      if ($(item).attr("name")!=click_th_id) {
-        $(item).val("");
-      }
-    })
-    $("#sort_form").submit();
-    })
-
-
   $(function(){
     $('td').each(function(index, element){
       if ($(element).text()=="提") {
@@ -115,6 +89,24 @@
       }
   })
   })
+</script>
+
+<script>
+  $(document).ready(function(){
+    $.extend($.fn.dataTable.defaults, {
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+        }
+    });
+    $('#venue_sort').DataTable({
+      searching: false,
+      info: false,
+      autowidth: false,
+      "order": [[ 0, "desc" ]], //初期ソートソート条件
+      "columnDefs": [{ "orderable": false, "targets": [10] }],
+      "stripeClasses": [],
+     });
+    });
 </script>
 
 @endsection

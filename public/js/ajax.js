@@ -28,7 +28,7 @@ $(function () {
   $(document).on("change", "#user_select", function () {
     var user_id = $('#user_select').val();
     $('.user_link').html('');
-    $('.user_link').append("<a class='more_btn' target='_blank' rel='noopener' href='/admin/clients/" + user_id + "'>顧客詳細</a>")
+    $('.user_link').append("<a class='more_btn' target='_blank' rel='noopener' href='" + rootPath + "/admin/clients/" + user_id + "'>顧客詳細</a>")
     getUserDetails(user_id);
   });
 
@@ -158,24 +158,6 @@ $(function () {
             index + "' class='form-control equipment_breakdown' onInput='checkForm(this)'><span class='ml-1'>個</span></div></td></tr>";
           $('.equipemnts table tbody').append(data);
         });
-        // ***********マイナス、全角制御用
-
-        // function ExceptString($target) {
-        //   $target.numeric({ negative: false, });
-        //   $target.on('change', function () {
-        //     charactersChange($(this));
-        //   })
-        //   charactersChange = function (ele) {
-        //     var val = ele.val();
-        //     var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
-        //     if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-        //       $(ele).val(han);
-        //     }
-        //   }
-        // }
-        // ExceptString($(".equipemnts table tbody input[name^='equipemnt']"));
-        // ***********マイナス、全角制御用
-
         $('.services table tbody').html('');
         $.each($items[1], function (index, value) {
           // ココでサービス取得
@@ -273,8 +255,11 @@ $(function () {
           // どちらも配列がない
           $('#price_system1').addClass("hide");
           $('#price_system2').addClass("hide");
-          // swal('選択した会場は登録された料金体系がありません。会場管理/料金管理 にて作成してください');
+          $('input[name="submit"]').prop('disabled', true);
+          return false;
         }
+        $('input[name="submit"]').prop('disabled', false);
+
       })
       .fail(function ($prices) {
         // $('#fullOverlay').css('display', 'none');
@@ -588,6 +573,22 @@ $(function () {
           $('.luggage table tbody').html('');
           var data =
             "<tr>" +
+            "<td class='table-active'>荷物預かり</td>" +
+            "<td>" +
+            "<div class='radio-box'>" +
+            "<p>" +
+            "<input id='luggage_flag' name='luggage_flag' type='radio' value='1'>" +
+            "<label for='luggage_flag' class ='form-check-label'>有り</label>" +
+            "</p>" +
+            "<p>" +
+            "<input id='no_luggage_flag' name='luggage_flag' type='radio' value='0' checked>" +
+            "<label for='no_luggage_flag' class ='form-check-label'>無し</label>" +
+            "</p>" +
+            "</div>" +
+            "</td>" +
+            "</tr>" +
+            "<tr>" +
+            "<tr>" +
             "<td class='table-active'>事前に預かる荷物<br>（目安）</td>" +
             "<td class=''>" +
             "<input type='number' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'>" +
@@ -596,7 +597,7 @@ $(function () {
             "</tr>" +
             "<tr>" +
             "<td class='table-active'>事前荷物の到着日<br>午前指定のみ</td>" +
-            "<td class=''> <input id='' type='text' class='form-control holidays' placeholder='年-月-日' name='luggage_arrive'>" +
+            "<td class=''> <input id='' type='text' class='form-control holidays readonly-no-gray' placeholder='年-月-日' name='luggage_arrive' readonly>" +
             "</td>" +
             "</tr>" +
             "<tr> " +

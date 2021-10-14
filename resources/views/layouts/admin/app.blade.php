@@ -32,10 +32,12 @@
   <!-- 住所検索 -->
   <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
   <!-- Font Awesome Icons -->
-  {{-- <link href="{{ asset('css/all.min.css')}}" rel="stylesheet"> --}}
+  {{--
+  <link href="{{ asset('css/all.min.css')}}" rel="stylesheet"> --}}
   <script src="https://kit.fontawesome.com/a98e58f6de.js" crossorigin="anonymous"></script>
   {{-- バリデーション --}}
-  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+  {{-- <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script> --}}
+  <script src="{{ asset('/js/jquery.validate.min.js') }}"></script>
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   {{-- datepicker --}}
@@ -106,10 +108,11 @@
     </div>
   </div>
   <script src="{{ asset('js/adminlte.min.js') }}"></script>
+  <script src="{{ asset('js/confirm.js') }}"></script>
   <script>
     // 自動補完無効
     $(function(){
-      $('form').attr('autocomplete', 'off');
+      $('input').attr('autocomplete', 'address-line3');
     })
 
     // enterキー無効
@@ -123,7 +126,6 @@
         });
     });
     var rootPath="{{url('/')}}";
-    console.log(rootPath);
   </script>
 </body>
 

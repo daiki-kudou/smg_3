@@ -160,23 +160,6 @@ class Agent extends Model implements PresentableInterface
   }
 
 
-  //  public function searchs($freeword, $id, $name, $person_tel)
-  //  {
-  //    if (isset($freeword)) {
-  //      return $this->where('id', 'LIKE', "%$freeword%")
-  //        ->orWhere('name', 'LIKE', "%$freeword%")
-  //        ->orWhere('person_tel', 'LIKE', "%$freeword%")->paginate(10);
-  //    } elseif (isset($id)) {
-  //      return $this->where('id', 'LIKE', "%$id%")->paginate(10);
-  //    } elseif (isset($name)) {
-  //      return $this->where('name', 'LIKE', "%$name%")->paginate(10);
-  //    } elseif (isset($person_tel)) {
-  //      return $this->where('person_tel', 'LIKE', "%$person_tel%")->paginate(10);
-  //    } else {
-  //      return $this->query()->paginate(10);
-  //    }
-  //  }
-
   public function getPayDetails($date)
   {
     $date = Carbon::parse($date);
@@ -188,6 +171,8 @@ class Agent extends Model implements PresentableInterface
       $limit = $date->addMonthsNoOverflow(1);
     } elseif ($this->payment_limit == 3) {
       $limit = $date->addMonthsNoOverflow(2);
+    } elseif ($this->payment_limit == 4) {
+      $limit = $date->addMonthsNoOverflow(3);
     }
     $result = new Carbon($limit);
     return date("Y-m-d", strtotime($result));
@@ -203,16 +188,31 @@ class Agent extends Model implements PresentableInterface
   public function getAgentPayLimit($reserve_date)
   {
     $date = Carbon::parse($reserve_date);
-    $limit = "";
-    // 1:当月末　2:翌月末　3:翌々月末
-    if ($this->payment_limit == 1) {
-      $limit = $date->endOfMonth();
-    } elseif ($this->payment_limit == 2) {
-      $limit = $date->addMonthsNoOverflow(1);
-    } elseif ($this->payment_limit == 3) {
-      $limit = $date->addMonthsNoOverflow(2);
+
+    $payment_limit = (int)$this['payment_limit'];
+
+    switch ($payment_limit) {
+      case 1:
+        return date('Y-m-d', strtotime($date->endOfMonth()));
+        break;
+      case 2:
+        $months = 1; // 追加する月数
+        $result = $date->day(1)->addMonths($months)->endOfMonth();
+        return date('Y-m-d', strtotime($result));
+        break;
+      case 3:
+        $months = 2; // 追加する月数
+        $result = $date->day(1)->addMonths($months)->endOfMonth();
+        return date('Y-m-d', strtotime($result));
+        break;
+      case 4:
+        $months = 3; // 追加する月数
+        $result = $date->day(1)->addMonths($months)->endOfMonth();
+        return date('Y-m-d', strtotime($result));
+        break;
+      default:
+        return NULL;
+        break;
     }
-    $result = new Carbon($limit);
-    return date("Y-m-d", strtotime($result));
   }
 }

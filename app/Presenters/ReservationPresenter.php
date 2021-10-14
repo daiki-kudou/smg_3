@@ -32,6 +32,12 @@ class ReservationPresenter extends Presenter
     return $subtotal + $cxl;
   }
 
+  public function totalBillAmount()
+  {
+    $subtotal = $this->bills->where('reservation_status', '<=', 6)->pluck('master_total')->sum();
+    return $subtotal;
+  }
+
   public function cxlSubtotal()
   {
     return $this->cxls->pluck('master_total')->sum();
@@ -55,9 +61,14 @@ class ReservationPresenter extends Presenter
 
   public function cxlProfit()
   {
-    $subtotal = $this->cxlSubtotal();
-    $cost = $this->cxlCost();
-    return $subtotal - $cost;
+
+    if ($this->venue->alliance_flag === 0) {
+      return 0;
+    } else {
+      $subtotal = $this->cxlSubtotal();
+      $cost = $this->cxlCost();
+      return $subtotal - $cost;
+    }
   }
 
   public function totalPaid()

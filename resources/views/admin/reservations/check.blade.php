@@ -229,9 +229,9 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">荷物預かり　工藤さん！！</td>
+              <td class="table-active">荷物預かり</td>
               <td>
-                工藤さん！こちら、ありかなしの表示をお願いします
+                {{(int)$value['luggage_flag']===1?"有り":"無し"}}
               </td>
             </tr>
             @if ($value['luggage_count'])
@@ -264,6 +264,7 @@
               <td>
                 <div class="d-flex align-items-end">
                   {{$value['luggage_price']}}
+                  {{Form::hidden('luggage_price',$value['luggage_price'] )}}
                   <span class="ml-1 annotation">円</span>
                 </div>
               </td>
@@ -417,51 +418,24 @@
         </tbody>
       </table>
 
-
-      {{-- @if (!empty($value['cost']))
-      <table class="table table-bordered sale-table" style="table-layout:fixed;">
+      <table class="table table-bordered note-table">
         <tbody>
           <tr>
             <td colspan="2">
               <p class="title-icon">
-                <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>
-                売上原価
-                <span class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
+                <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>備考
               </p>
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="cost">原価率</label></td>
             <td>
-              <div class="d-flex align-items-end">
-                {{$value['cost']}}
-      <span class="ml-1 annotation">%</span>
+              <label for="adminNote">管理者備考</label>
+              <p>{!!nl2br($value['admin_details'])!!}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <p class="is-error-cost" style="color: red"></p>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    @endif --}}
-
-    <table class="table table-bordered note-table">
-      <tbody>
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>備考
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="adminNote">管理者備考</label>
-            <p>{!!nl2br($value['admin_details'])!!}</p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
   </div>
 </section>
 
@@ -911,7 +885,7 @@
 
 <div class="container-field d-flex justify-content-center mt-5">
   <a href="{{route('admin.reservations.calculate')}}" class="btn more_btn4_lg d-block mr-5">請求内訳を修正する</a>
-  {{Form::submit('予約を登録する', ['class'=>'d-block btn more_btn_lg', 'id'=>'check_submit'])}}
+  {{Form::submit('予約を登録する', ['class'=>'d-block btn more_btn_lg confirm_submit', 'id'=>'check_submit'])}}
   {{Form::close()}}
 </div>
 

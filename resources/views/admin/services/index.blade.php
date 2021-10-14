@@ -2,8 +2,6 @@
 @section('content')
 <script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
 <link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
-
-{{-- <script src="{{ asset('/js/admin/venue.js') }}"></script> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="container-field mt-3">
@@ -21,7 +19,7 @@
   <hr>
 
   <div class="text-right">
-    <a href="/admin/services/create" class="btn more_btn3">新規登録</a>
+    <a href="{{url('/').'/admin/services/create'}}" class="btn more_btn3">新規登録</a>
   </div>
   <div class="d-flex justify-content-between my-3">
 
@@ -37,8 +35,6 @@
   <table class="table table-bordered" id="service_sort">
     <thead>
       <tr class="table_row">
-
-
         <th id="id">ID {!!ReservationHelper::sortIcon($request->id)!!}</th>
         <th id="created_at">登録日 {!!ReservationHelper::sortIcon($request->created_at)!!}</th>
         <th id="item">有料サービス名 {!!ReservationHelper::sortIcon($request->item)!!}</th>
@@ -55,7 +51,7 @@
         <td>{{ ReservationHelper::fixId($query->id) }}</td>
         <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
         <td class="s_item word_break">{{ $query->item }}</td>
-        <td class="text-right">
+        <td class="text-right" data-order="{{$query->price}}">
           <div class="d-flex justify-content-end">
             {{ number_format($query->price) }}
             <span>円</span>
@@ -74,8 +70,6 @@
           {{ Form::close() }}
         </td>
         <td class="text-center">
-          {{-- {{ link_to_route('admin.services.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
-          --}}
 
           {{ Form::model($query, ['route' => ['admin.services.destroy', $query->id], 'method' => 'delete']) }}
           @csrf
@@ -91,42 +85,23 @@
 </div>
 
 
-{{-- 1降順　2昇順 --}}
-
-{{ Form::open(['url' => 'admin/services', 'method'=>'get', 'id'=>'sort_form']) }}
-@csrf
-{{Form::hidden("id", $request->id?($request->id==1?2:1):1)}}
-{{Form::hidden("created_at", $request->created_at?($request->created_at==1?2:1):1)}}
-{{Form::hidden("item", $request->item?($request->item==1?2:1):1)}}
-{{Form::hidden("price", $request->price?($request->price==1?2:1):1)}}
-{{Form::hidden("stock", $request->stock?($request->stock==1?2:1):1)}}
-{{Form::hidden("remark", $request->remark?($request->remark==1?2:1):1)}}
-{{Form::close()}}
-
 
 <script>
-  $(function(){
-  $(document).on("click", "th", function() {
-    var click_th_id=$(this).attr("id");
-    $("#sort_form input").each(function(key, item){
-      if ($(item).attr("name")!=click_th_id) {
-        $(item).val("");
-      }
-    })
-    $("#sort_form").submit();
-    })
-
-})
-
-  $(function () {
-  $('.del_btn').on('click', function () {
-    var target = $(this).parent().parent().parent().find('td').eq(2).text();
-    if (!confirm(target+'を本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')) {
-      return false;
-    } 
-  })
-})
-
+  $(document).ready(function(){
+    $.extend($.fn.dataTable.defaults, {
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+        }
+    });
+    $('#service_sort').DataTable({
+      searching: false,
+      info: false,
+      autowidth: false,
+      "order": [[ 0, "desc" ]], //初期ソートソート条件
+      "columnDefs": [{ "orderable": false, "targets": [4,5,6] }],
+      "stripeClasses": [],
+     });
+    });
 </script>
 
 @endsection

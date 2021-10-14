@@ -21,7 +21,7 @@
   }
 </style>
 
-
+@include('layouts.admin.errors')
 @if (session('flash_message'))
 <div class="flash_message bg-success text-center py-3 my-0">
   {{ session('flash_message') }}
@@ -40,7 +40,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item active">
-              {{ Breadcrumbs::render(Route::currentRouteName(),$request->id) }}
+              {{-- {{ Breadcrumbs::render(Route::currentRouteName(),$data['id']) }} --}}
             </li>
           </ol>
         </nav>
@@ -58,92 +58,69 @@
           <tr>
             <th class="search_item_name"><label for="id">一括仮押えID</label>
             <td class="text-right">
-              {{Form::text("search_id",$request->search_id, ['class'=>'form-control'])}}
+              {{Form::text("search_id",optional($data)['search_id'], ['class'=>'form-control'])}}
               <p class="is-error-search_id text-left" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="">受付日</label></th>
             <td class="text-right form-group">
-              {{Form::text("search_created_at",$request->search_created_at, ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_created_at",optional($data)['search_created_at'],
+              ['class'=>'form-control','id'=>''])}}
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="company">会社・団体名</label></th>
             <td class="text-right">
-              {{Form::text("search_company",$request->search_company, ['class'=>'form-control'])}}
+              {{Form::text("search_company",optional($data)['search_company'], ['class'=>'form-control'])}}
             </td>
             <th class="search_item_name"><label for="person_name">担当者氏名</label></th>
             <td class="text-right">
               <dd>
-                {{Form::text('search_person',$request->search_person,['class'=>'form-control'])}}
+                {{Form::text('search_person',optional($data)['search_person'],['class'=>'form-control'])}}
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="mobile">携帯電話</label></th>
             <td>
-              {{Form::text("search_mobile",$request->search_mobile, ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_mobile",optional($data)['search_mobile'], ['class'=>'form-control','id'=>''])}}
               <p class="is-error-search_mobile text-left" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="tel">固定電話</label></th>
             <td>
-              {{Form::text("search_tel",$request->search_tel, ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_tel",optional($data)['search_tel'], ['class'=>'form-control','id'=>''])}}
               <p class="is-error-search_tel text-left" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="temp_company">会社・団体名(仮)</label></th>
             <td>
-              {{Form::text("search_unkown_user",$request->search_unkown_user, ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_unkown_user",optional($data)['search_unkown_user'],
+              ['class'=>'form-control','id'=>''])}}
             </td>
             <th class="search_item_name"><label for="agent">仲介会社</label></th>
             <td>
-              <select name="search_agent" id="search_agent" class="form-control">
-                <option value=""></option>
-                @foreach ($agents as $s_a)
-                <option value="{{$s_a->id}}" @if ($s_a->id==$request->search_agent)
-                  selected
-                  @endif
-                  >{{ReservationHelper::getAgentCompany($s_a->id)}}</option>
-                @endforeach
-              </select>
+              {{Form::select('search_agent',$agents,optional($data)['search_agent'],['class'=>'form-control','placeholder'=>''])}}
             </td>
           </tr>
-
           <tr>
             <th class="search_item_name"><label for="search_end_user">エンドユーザー</label></th>
             <td>
-              {{Form::text("search_end_user",$request->search_end_user, ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_end_user",optional($data)['search_end_user'], ['class'=>'form-control','id'=>''])}}
             </td>
             <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
             <td>
-              {{Form::text("search_free",$request->search_free, ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_free",optional($data)['search_free'], ['class'=>'form-control','id'=>''])}}
             </td>
           </tr>
         </tbody>
       </table>
-      <p class="text-left">
-        ※フリーワード検索は本画面表記の項目のみ対象となります<br>
-        ※担当者氏名の検索時は、フルネーム時はスペース禁止
-      </p>
+      <p class="text-right">
+        ※フリーワード検索は本画面表記の項目のみ対象となります</p>
+      <p class="text-right">※担当者氏名の検索時は、フルネーム時はスペース禁止</p>
 
       <div class="btn_box d-flex justify-content-center">
         <a href="{{url('admin/multiples')}}" class="btn reset_btn">リセット</a>
-        {{-- ソート用hidden --}}
-        {{Form::hidden("sort_multiple_id", $request->sort_multiple_id?($request->sort_multiple_id==1?2:1):1)}}
-        {{Form::hidden("sort_created_at", $request->sort_created_at?($request->sort_created_at==1?2:1):1)}}
-        {{Form::hidden("sort_count", $request->sort_count?($request->sort_count==1?2:1):1)}}
-        {{Form::hidden("sort_company", $request->sort_company?($request->sort_company==1?2:1):1)}}
-        {{Form::hidden("sort_person", $request->sort_person?($request->sort_person==1?2:1):1)}}
-        {{Form::hidden("sort_mobile", $request->sort_mobile?($request->sort_mobile==1?2:1):1)}}
-        {{Form::hidden("sort_tel", $request->sort_tel?($request->sort_tel==1?2:1):1)}}
-        {{Form::hidden("sort_unknown", $request->sort_unknown?($request->sort_unknown==1?2:1):1)}}
-        {{Form::hidden("sort_agent", $request->sort_agent?($request->sort_agent==1?2:1):1)}}
-        {{Form::hidden("sort_enduser", $request->sort_enduser?($request->sort_enduser==1?2:1):1)}}
-        {{Form::hidden("page", $request->page??"")}}
-        {{-- ソート用hidden --}}
         {{-- 超過用hidden --}}
-        {{Form::hidden("time_over", $request->time_over)}}
-
-
+        {{Form::hidden("time_over",empty($data)?0:((int)$data['time_over']===1?1:0))}}
         {{Form::submit('検索', ['class'=>'btn search_btn', 'id'=>''])}}
       </div>
     </div>
@@ -156,27 +133,33 @@
 
     <!-- 検索　終わり------------------------------------------------ -->
     <div class="section-wrap">
-
       <ul class="d-flex reservation_list mb-2 justify-content-between">
         <li>
           {{-- 削除ボタン --}}
-          {{Form::open(['url' => 'admin/multiples/destroy', 'method' => 'delete', 'id'=>''])}}
+          {{Form::open(['url' => 'admin/multiples/destroy', 'method' => 'delete'])}}
           @csrf
           <div id="for_destroy"></div>
+          {{Form::hidden("delete_target","")}}
           {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
           {{ Form::close() }}
         </li>
         <li>
           <div class="d-flex align-items-center">
-            <p>
-              {{-- <a class="more_btn bg-red" href="">仮押え期間超過</a> --}}
-              <button id="time_over" class="btn more_btn {{$request->time_over?"bg-red":""}}">仮押え期間超過</button>
-            </p>
-            <p class="ml-3 font-weight-bold">
+            @if (empty($data))
+            <button type="button" id="time_over" class="btn more_btn">仮押え期間超過</button>
+            @else
+            @if ((int)$data['time_over']===1)
+            <button type="button" id="time_over" class="btn more_btn bg-red">仮押え期間超過一覧表示中</button>
+            @else
+            <button type="button" id="time_over" class="btn more_btn">仮押え期間超過</button>
+            @endif
+            @endif
+
+            <p class=" ml-3 font-weight-bold">
               @if ($counter!=0)
               <span class="count-color">{{$counter}}</span>件
-              @elseif($request->counter!=0)
-              <span class="count-color">{{$request->counter}}</span>件
+              @elseif($counter!=0)
+              <span class="count-color">{{$counter}}</span>件
               @endif
             </p>
           </div>
@@ -184,29 +167,30 @@
       </ul>
 
 
-      <div class="table-wrap">
-        <table class="table table-bordered table-scroll sort_table">
+      <div class="table-wrap" id="parent_multiple_table" data-multiples="{{$multiples}}">
+        <table class="table table-bordered table-scroll sort_table compact hover order-column" id="multiple_sort">
           <thead>
             <tr class="table_row">
               <th>
                 <p class="annotation">すべて</p>
                 <input type="checkbox" name="all_check" id="all_check" />
               </th>
-              <th id="sort_multiple_id">一括仮押えID {!!ReservationHelper::sortIcon($request->sort_multiple_id)!!}</th>
-              <th id="sort_created_at">受付日 {!!ReservationHelper::sortIcon($request->sort_created_at)!!}</th>
-              <th id="sort_count">件数 {!!ReservationHelper::sortIcon($request->sort_count)!!}</th>
-              <th id="sort_company">会社・団体名 {!!ReservationHelper::sortIcon($request->sort_company)!!}</th>
-              <th id="sort_person">担当者氏名 {!!ReservationHelper::sortIcon($request->sort_person)!!}</th>
-              <th id="sort_mobile">携帯電話 {!!ReservationHelper::sortIcon($request->sort_mobile)!!}</th>
-              <th id="sort_tel">固定電話 {!!ReservationHelper::sortIcon($request->sort_tel)!!}</th>
-              <th id="sort_unknown">会社・団体名(仮) {!!ReservationHelper::sortIcon($request->sort_unknown)!!}</th>
-              <th id="sort_agent">仲介会社 {!!ReservationHelper::sortIcon($request->sort_agent)!!}</th>
-              <th id="sort_enduser">エンドユーザー {!!ReservationHelper::sortIcon($request->sort_enduser)!!}</th>
+              <th>一括仮押えID</th>
+              <th>受付日</th>
+              <th>件数</th>
+              <th>会社・団体名</th>
+              <th>担当者氏名</th>
+              <th>携帯電話</th>
+              <th>固定電話</th>
+              <th>会社・団体名</th>
+              <th>仲介会社</th>
+              <th>エンドユーザー</th>
               <th>仮押え詳細</th>
             </tr>
           </thead>
-          <tbody>
+          {{-- <tbody>
             @foreach ($multiples as $multiple)
+            @if (!empty($multiple->pre_reservations->toArray()))
             <tr>
               <td class="text-center">
                 <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
@@ -242,7 +226,7 @@
               </td>
               <td>
                 @if (empty($multiple->pre_reservations->first()->user))
-                {{$multiple->pre_reservations->first()->agent->company}}
+                {{$multiple->pre_reservations->first()->agent->name}}
                 @endif
               </td>
               <td>
@@ -258,56 +242,20 @@
                 @endif
               </td>
             </tr>
-
+            @endif
             @endforeach
-          </tbody>
+          </tbody> --}}
         </table>
       </div>
     </div>
   </div>
 
-  {{ $multiples->appends(request()->input())->links() }}
+  {{-- {{ $multiples->appends(request()->input())->links() }} --}}
 </div>
 
 
 
 <script>
-  $(document).on("click", "#time_over", function() {
-    if ($('input[name="time_over"]').val()==0) {
-      $('input[name="time_over"]').val(1);
-    }else{
-      $('input[name="time_over"]').val(0);
-    }
-    $('input[name^="sort_"]').each(function(key, item){
-        $(item).val("");
-        });
-    $('#searchMultiple').submit();
-  })
-
-
-  $(document).on("click", ".sort_table th", function() {
-    var click_th_id=$(this).attr("id");
-    var index = $('.table-scroll th').index(this);
-    if (index!=0&&index!=11) {
-      $('input[name^="sort_"]').each(function(key, item){
-        if ($(item).attr("name")!=click_th_id) {
-          $(item).val("");
-        }
-      })
-      $("#searchMultiple").submit();
-    }
-  })
-
-  $(function() {
-      $(".search_btn").on("click",function(){
-        $('input[name^="sort_"]').each(function(key, item){
-        $(item).val("");
-        })
-      })
-    })
-
-
-
   $(function() {
     $('.flash_message').fadeOut(3000);
   })
@@ -318,12 +266,6 @@
       $('.checkbox').prop('checked', $(this).is(':checked'));
     })
 
-    // 削除確認コンファーム
-    $('#confirm_destroy').on('click', function() {
-      if (!confirm('削除してもよろしいですか？\n一括仮押さえに関連する仮押さえの内容がすべて削除されます')) {
-        return false;
-      }
-    })
   })
 
 
@@ -353,21 +295,106 @@
     ActiveDateRangePicker('search_date');
   })
 
-  $(document).on("change", "input[type='checkbox']", function () {
-      $('#for_destroy').html("");
-      checked = $('[class="checkbox"]:checked').map(function() {
-        return $(this).val();
-      }).get();
-      for (let index = 0; index < checked.length; index++) {
-        var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
-        $('#for_destroy').append(ap_data);
-      }
-  });
-
-
-
+  $(document).on('click', '#all_check', function (){
+    var parent_checked = $(this).prop('checked');
+    var array = [];
+    $('.checkbox').each(function(index, element){
+    $('.checkbox').eq(index).prop('checked',false );
+    $('.checkbox').eq(index).prop('checked',parent_checked );
+    if (parent_checked===true) {
+    array.push($('.checkbox').eq(index).val());
+    }
+    })
+    console.log(JSON.stringify(array));
+    $('input[name="delete_target"]').val(JSON.stringify(array));
+    }
+    );
+    
+    $(document).on('change', 'select[name="pre_reservation_sort_length"]', function (){
+    var parent_checked = $("#all_check").prop('checked');
+    var array = [];
+    $('.checkbox').each(function(index, element){
+    $('.checkbox').eq(index).prop('checked',false );
+    $('.checkbox').eq(index).prop('checked',parent_checked );
+    if (parent_checked===true) {
+    array.push($('.checkbox').eq(index).val());
+    }
+    })
+    console.log(JSON.stringify(array));
+    $('input[name="delete_target"]').val(JSON.stringify(array));
+    }
+    );
+    
+    $(document).on('click', '.checkbox', function (){
+    var parent_checked = $("#all_check").prop('checked');
+    var array = [];
+    $('.checkbox').each(function(index, element){
+    if ($('.checkbox').eq(index).prop('checked')===true) {
+    array.push($('.checkbox').eq(index).val());
+    }
+    })
+    console.log(JSON.stringify(array));
+    $('input[name="delete_target"]').val(JSON.stringify(array));
+    });
+    
+    $(document).on('click', '.sorting', function (){
+    $('.checkbox').each(function(index, element){
+    $('.checkbox').eq(index).prop('checked',false );
+    })
+    $('input[name="delete_target"]').val("");
+    $('#all_check').prop('checked',false);
+    });
 </script>
 
+<script>
+  $(function(){
+    var multiples = $('#parent_multiple_table').data('multiples');
+      $.extend( $.fn.dataTable.defaults, {
+      // 日本語化
+        language: {
+        url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+        }
+        });
+      $("#multiple_sort").DataTable({
+      // data オプションでデータを定義する
+      data: multiples,
+      searching: false,
+      info: false,
+      autowidth: false,
+      // column オプションで view の th にあたる部分を定義する
+      columns: [
+      { title: "<p class='annotation'>すべて</p> <input type='checkbox' name='all_check' id='all_check'>" },
+      { title: "一括仮押えID" },
+      { title: "受付日" },
+      { title: "件数" },
+      { title: "会社・団体名" },
+      { title: "担当者氏名" },
+      { title: "携帯電話" },
+      { title: "固定電話" },
+      { title: "会社・団体名（仮）" },
+      { title: "仲介会社" },
+      { title: "エンドユーザー" },
+      { title: "仮押え詳細" },
+      ],
+      order: [],
+      columnDefs: [
+        {targets: 0, sortable: false, orderable: false},
+        {targets: 10, sortable: false, orderable: false},
+        ],
+      });
+  })
+</script>
+
+<script>
+  $(function(){
+    $('#time_over').on('click',function(){
+      var this_time_over_val=Number($('input[name="time_over"]').val());
+      var time_over_val=this_time_over_val===1?0:1;
+      $('input[name="time_over"]').val(time_over_val);
+      $('#searchMultiple').submit();
+    })
+  })
+</script>
 
 
 

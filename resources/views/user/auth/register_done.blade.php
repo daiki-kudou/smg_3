@@ -331,9 +331,6 @@
           </div>
 
           <div class="btn-wrapper2">
-            {{-- <button type="submit" class="btn ">
-          ログイン
-        </button> --}}
             <p class="confirm-btn"><a class="btn" href="{{url('/user/login')}}">ログインする</a></p>
           </div>
         </form>

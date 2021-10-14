@@ -258,14 +258,6 @@
           <i class="nav-icon fas fa-yen-sign"></i>
           <p>売上一覧</p>
         </a>
-        {{-- <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="{{url('admin/sales')}}" class="nav-link">
-              <i class="far fa-circle nav-icon ml-4"></i>
-              <p>一覧</p>
-            </a>
-          </li>
-        </ul> --}}
       </li>
 
       <li class="nav-item has-treeview
@@ -340,11 +332,29 @@
           </li>
         </ul>
       </li>
+      <li class="nav-item has-treeview">
+        <a class="nav-link" id="sync_btn">
+          <i class="nav-icon fab fa-fedora"></i>
+          <p>MovableTypeを同期する</p>
+        </a>
+      </li>
     </ul>
   </nav>
   <!-- /.sidebar-menu -->
 </div>
 <!-- /.sidebar -->
+
+{{Form::open(['url' => '/admin/sync', 'method' => 'post', 'id'=>'sync'])}}
+@csrf
+{{Form::close()}}
+
+<script>
+  $("#sync_btn").on('click', function () {
+    if (confirm("現在のMT環境をシステムと同期しますか？")) {
+      $('#sync').submit();
+    }
+  })
+</script>
 
 <script>
   $(function() {

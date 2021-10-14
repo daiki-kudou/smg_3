@@ -14,7 +14,6 @@ $(function () {
     ajaxGetLuggage(venue_id); //会場に荷物預りが存在するかしないか、　"0"か"1"でreturn
     ajaxGetOperatinSystem(venue_id); //会場形態の判別 直営 or　提携
     ajaxGetEatIn(venue_id); //会場形態の判別 直営 or　提携
-
   });
 
   // 日付選択トリガー
@@ -29,7 +28,7 @@ $(function () {
   $(document).on("change", "#agent_select", function () {
     var agent_id = $('#agent_select').val();
     $('.agent_link').html('');
-    $('.agent_link').append("<a class='more_btn' target='_blank' rel='noopener' href='/admin/agents/" + agent_id + "'>仲介会社詳細</a>")
+    $('.agent_link').append("<a class='more_btn' target='_blank' rel='noopener' href='" + rootPath + "/admin/agents/" + agent_id + "'>仲介会社詳細</a>")
     getAgentDetails(agent_id);
   });
 
@@ -154,7 +153,12 @@ $(function () {
         $('.equipemnts table tbody').html(''); //一旦初期会
         $.each($items[0], function (index, value) {
           // ココで備品取得
-          var data = "<tr><td class='table-active'>" + value['item'] +
+          var data = "<tr><td class='table-active'>" +
+            value['item'] +
+            "("
+            + (Number(value['price'])).toLocaleString() +
+            "円)"
+            +
             "</td>" + "<td><div class='d-flex align-items-end'><input type='number' value='' min=0 name='equipment_breakdown" +
             index + "' class='form-control equipment_breakdown' onInput='checkForm(this)'><span class='ml-1'>個</span></div></td></tr>"
           $('.equipemnts table tbody').append(data);
@@ -180,7 +184,7 @@ $(function () {
         $.each($items[1], function (index, value) {
           // ココでサービス取得
           // 有り・無しに変更するため以下コメントアウト
-          $('.services table tbody').append("<tr><td class='table-active'>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='services_breakdown" + index + "' id='service" + index + "on'><label class='mr-3 ml-1' for='service" + index + "on'>有り</label><input type='radio' value='0' id='service" + index + "off' name='services_breakdown" + index + "' checked><label for='service" + index + "off' class='ml-1'>無し</label></td></tr>");
+          $('.services table tbody').append("<tr><td class='table-active'>" + value['item'] + value['item'] + "(" + (Number(value['price'])).toLocaleString() + "円)" + "</td>" + "<td><input type='radio' value='1' name='services_breakdown" + index + "' id='service" + index + "on'><label class='mr-3 ml-1' for='service" + index + "on'>有り</label><input type='radio' value='0' id='service" + index + "off' name='services_breakdown" + index + "' checked><label for='service" + index + "off' class='ml-1'>無し</label></td></tr>");
         });
       })
       .fail(function (data) {
@@ -262,29 +266,26 @@ $(function () {
         if ($prices[0].length > 0 && $prices[1].length > 0) { //配列の空チェック
           //どちらも配列ある
           $('#price_system_radio1').prop('checked', true);
-          console.log("どちらもある");
         } else if ($prices[0].length > 0 && $prices[1].length == 0) {
           //時間枠がある・アクセアがない
           $('#price_system_radio1').prop('checked', true);
           $('#price_system2').addClass("hide");
-          console.log("時間枠がある・アクセアがない");
         } else if ($prices[0].length == 0 && $prices[1].length > 0) {
           //時間枠がない・アクセアがある
           $('#price_system_radio2').prop('checked', true);
           $('#price_system1').addClass("hide");
-          console.log("時間枠がない・アクセアがある");
         } else {
           // どちらも配列がない
           $('#price_system1').addClass("hide");
           $('#price_system2').addClass("hide");
-          // swal('選択した会場は登録された料金体系がありません。会場管理/料金管理 にて作成してください');
+          $('input[name="submit"]').prop('disabled', true);
+          return false;
         }
+        $('input[name="submit"]').prop('disabled', false);
       })
       .fail(function ($prices) {
-        // $('#fullOverlay').css('display', 'none');
         $('#price_system1').addClass("hide");
         $('#price_system2').addClass("hide");
-
       });
   };
 
@@ -595,6 +596,21 @@ $(function () {
           $('.luggage table tbody').html('');
           var data =
             "<tr>" +
+            "<td class='table-active'>荷物預かり</td>" +
+            "<td>" +
+            "<div class='radio-box'>" +
+            "<p>" +
+            "<input id='luggage_flag' name='luggage_flag' type='radio' value='1'>" +
+            "<label for='luggage_flag' class ='form-check-label'>有り</label>" +
+            "</p>" +
+            "<p>" +
+            "<input id='no_luggage_flag' name='luggage_flag' type='radio' value='0' checked>" +
+            "<label for='no_luggage_flag' class ='form-check-label'>無し</label>" +
+            "</p>" +
+            "</div>" +
+            "</td>" +
+            "</tr>" +
+            "<tr>" +
             "<td class='table-active'>事前に預かる荷物<br>（個数）</td>" +
             "<td class=''>" +
             "<input type='number' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'>" +
@@ -603,7 +619,7 @@ $(function () {
             "</tr>" +
             "<tr>" +
             "<td class='table-active'>事前荷物の到着日<br>午前指定のみ</td>" +
-            "<td class=''> <input id='' type='text' class='form-control holidays' placeholder='年-月-日' name='luggage_arrive'>" +
+            "<td class=''> <input id='' type='text' class='form-control holidays readonly-no-gray' placeholder='年-月-日' name='luggage_arrive' readonly>" +
             "</td>" +
             "</tr>" +
             "<tr> " +
@@ -687,15 +703,16 @@ $(function () {
       },
       dataType: 'text',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
+        $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($agent_result) {
         console.log($agent_result);
         $('.selected_person').text($agent_result);
+        $('#fullOverlay').css('display', 'none');
       })
       .fail(function ($agent_result) {
-        // $('#fullOverlay').css('display', 'none');
+        $('#fullOverlay').css('display', 'none');
         console.log('ajaxGetClients 失敗', $agent_result)
       });
   }

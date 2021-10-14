@@ -13,22 +13,14 @@
     background: gray;
   }
 
-  a {
+  table a {
     text-decoration: none;
     color: black;
   }
 </style>
 
 <div class="container-field">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName()) }}
-        </li>
-      </ol>
-    </nav>
-  </div>
+  @include('layouts.admin.breadcrumbs')
   <h2 class="mt-3 mb-3">予約状況カレンダー 利用日別</h2>
   <hr>
 
@@ -38,8 +30,9 @@
         <div class="d-flex align-items-center">
           <div class="row w-100">
             <div class="col text-right">
-              <a href="javascript:$('#yesterday').submit()" class="text-white"><i
-                  class="fas fa-chevron-left fa-2x"></i></a>
+              <a href="javascript:$('#yesterday').submit()" class="text-white">
+                <i class="fas fa-chevron-left fa-2x"></i>
+              </a>
               {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get','id'=>'yesterday']) }}
               @csrf
               {{ Form::hidden('date', $yesterday) }}
@@ -75,22 +68,22 @@
         <thead>
           <tr class="calender-head">
             <td class="field-title">会議室</td>
-            <td colspan="2">08:00</td>
-            <td colspan="2">09:00</td>
-            <td colspan="2">10:00</td>
-            <td colspan="2">11:00</td>
-            <td colspan="2">12:00</td>
-            <td colspan="2">13:00</td>
-            <td colspan="2">14:00</td>
-            <td colspan="2">15:00</td>
-            <td colspan="2">16:00</td>
-            <td colspan="2">17:00</td>
-            <td colspan="2">18:00</td>
-            <td colspan="2">19:00</td>
-            <td colspan="2">20:00</td>
-            <td colspan="2">21:00</td>
-            <td colspan="2">22:00</td>
-            <td colspan="2">23:00</td>
+            <td colspan="2"><span class="time-item">08:00</span></td>
+            <td colspan="2"><span class="time-item">09:00</span></td>
+            <td colspan="2"><span class="time-item">10:00</span></td>
+            <td colspan="2"><span class="time-item">11:00</span></td>
+            <td colspan="2"><span class="time-item">12:00</span></td>
+            <td colspan="2"><span class="time-item">13:00</span></td>
+            <td colspan="2"><span class="time-item">14:00</span></td>
+            <td colspan="2"><span class="time-item">15:00</span></td>
+            <td colspan="2"><span class="time-item">16:00</span></td>
+            <td colspan="2"><span class="time-item">17:00</span></td>
+            <td colspan="2"><span class="time-item">18:00</span></td>
+            <td colspan="2"><span class="time-item">19:00</span></td>
+            <td colspan="2"><span class="time-item">20:00</span></td>
+            <td colspan="2"><span class="time-item">21:00</span></td>
+            <td colspan="2"><span class="time-item">22:00</span></td>
+            <td colspan="2"><span class="time-item">23:00</span></td>
           </tr>
         </thead>
         <tbody>
@@ -136,7 +129,7 @@
     </div>
   </section>
 
-  <iframe class="mt-5" src="/admin/note?date={{$today}}" frameborder="0" width="100%" height="500px;"
+  <iframe class="mt-5" src="{{url('/')}}/admin/note?date={{$today}}" frameborder="0" width="100%" height="500px;"
     scrolling="yes"></iframe>
 
   @foreach ($reservations as $reservation)

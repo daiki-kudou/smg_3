@@ -101,7 +101,8 @@
 
 
 
-      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'multipleCalculateForm']) }}
+      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST',
+      'id'=>'multipleCalculateForm']) }}
       @csrf
       <section class="m-5 border-inwrap">
         <div class="mb-2">
@@ -136,22 +137,26 @@
                           @if ($venue->time_prices->count()!=0&&$venue->frame_prices->count()!=0)
                           <div class="">
                             <p>
-                              {{ Form::radio('cp_master_price_system', 1, true, ['class'=>'mr-2', 'id'=>'cp_master_price_system_radio1']) }}
+                              {{ Form::radio('cp_master_price_system', 1, true, ['class'=>'mr-2',
+                              'id'=>'cp_master_price_system_radio1']) }}
                               {{Form::label('cp_master_price_system_radio1','通常（枠貸）')}}
                             </p>
                             <p>
-                              {{ Form::radio('cp_master_price_system', 2, false, ['class'=>'mr-2', 'id'=>'cp_master_price_system_radio2']) }}
+                              {{ Form::radio('cp_master_price_system', 2, false, ['class'=>'mr-2',
+                              'id'=>'cp_master_price_system_radio2']) }}
                               {{Form::label('cp_master_price_system_radio2','アクセア（時間貸）')}}
                             </p>
                           </div>
                           @elseif($venue->frame_prices->count()!=0&&$venue->time_prices->count()==0)
                           <p>
-                            {{ Form::radio('cp_master_price_system', 1, true, ['class'=>'mr-2', 'id'=>'cp_master_price_system_radio1']) }}
+                            {{ Form::radio('cp_master_price_system', 1, true, ['class'=>'mr-2',
+                            'id'=>'cp_master_price_system_radio1']) }}
                             {{Form::label('cp_master_price_system_radio1','通常（枠貸）')}}
                           </p>
                           @elseif($venue->frame_prices->count()==0&&$venue->time_prices->count()!=0)
                           <p>
-                            {{ Form::radio('cp_master_price_system', 2, true, ['class'=>'mr-2', 'id'=>'cp_master_price_system_radio2']) }}
+                            {{ Form::radio('cp_master_price_system', 2, true, ['class'=>'mr-2',
+                            'id'=>'cp_master_price_system_radio2']) }}
                             {{Form::label('cp_master_price_system_radio2','アクセア（時間貸）')}}
                           </p>
                           @endif
@@ -205,7 +210,8 @@
                     <td class="table-active"><label for="eventName1">イベント名称1</label></td>
                     <td>
                       <div class="align-items-end d-flex">
-                        {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'eventname1Count'] ) }}
+                        {{ Form::text('cp_master_event_name1','',['class'=>'form-control',
+                        'placeholder'=>'入力してください','id'=>'eventname1Count'] ) }}
                         <span class="ml-1 annotation count_num1"></span>
                       </div>
                       <p class="is-error-event_name1" style="color: red"></p>
@@ -215,7 +221,8 @@
                     <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                     <td>
                       <div class="align-items-end d-flex">
-                        {{ Form::text('cp_master_event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'eventname2Count'] ) }}
+                        {{ Form::text('cp_master_event_name2', '',['class'=>'form-control',
+                        'placeholder'=>'入力してください','id'=>'eventname2Count'] ) }}
                         <span class="ml-1 annotation count_num2"></span>
                       </div>
                       <p class="is-error-event_name2" style="color: red"></p>
@@ -225,7 +232,8 @@
                     <td class="table-active"><label for="organizer">主催者名</label></td>
                     <td>
                       <div class="align-items-end d-flex">
-                        {{ Form::text('cp_master_event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'eventownerCount'] ) }}
+                        {{ Form::text('cp_master_event_owner', '',['class'=>'form-control',
+                        'placeholder'=>'入力してください','id'=>'eventownerCount'] ) }}
                         <span class="ml-1 annotation count_num3"></span>
                       </div>
                       <p class="is-error-event_owner" style="color: red"></p>
@@ -264,7 +272,8 @@
                     <tr>
                       <td class="table-active">{{$equipment->item}}</td>
                       <td>
-                        {{Form::text('cp_master_equipment_breakdown' . $key , '', ['class' => 'form-control equipment_validation'])}}
+                        {{Form::text('cp_master_equipment_breakdown' . $key , '', ['class' => 'form-control
+                        equipment_validation'])}}
                       </td>
                     </tr>
                     @endforeach
@@ -288,11 +297,13 @@
                       <td>
                         <div class="radio-box">
                           <p>
-                            {{Form::radio('cp_master_services_breakdown'.$key, 1, false , ['id' => 'cp_master_service'.$key.'on'])}}
+                            {{Form::radio('cp_master_services_breakdown'.$key, 1, false , ['id' =>
+                            'cp_master_service'.$key.'on'])}}
                             {{Form::label('cp_master_service'.$key.'on','有り')}}
                           </p>
                           <p>
-                            {{Form::radio('cp_master_services_breakdown'.$key, 0, true, ['id' => 'cp_master_service'.$key.'off'])}}
+                            {{Form::radio('cp_master_services_breakdown'.$key, 0, true, ['id' =>
+                            'cp_master_service'.$key.'off'])}}
                             {{Form::label('cp_master_service'.$key.'on','無し')}}
                           </p>
                         </div>
@@ -324,7 +335,8 @@
                             {{Form::label('cp_master_layout_prepare','有り')}}
                           </p>
                           <p>
-                            {{Form::radio('cp_master_layout_prepare', 0, true, ['id' => 'cp_master_no_layout_prepare'])}}
+                            {{Form::radio('cp_master_layout_prepare', 0, true, ['id' =>
+                            'cp_master_no_layout_prepare'])}}
                             {{Form::label('cp_master_no_layout_prepare','無し')}}
                           </p>
                         </div>
@@ -461,7 +473,8 @@
                     <tr>
                       <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                       <td>
-                        {{ Form::text('cp_master_tel', '',['class'=>'form-control','placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
+                        {{ Form::text('cp_master_tel', '',['class'=>'form-control','placeholder' =>
+                        '半角数字、ハイフンなしで入力してください'] ) }}
                         <p class="is-error-cp_master_tel" style="color: red"></p>
                       </td>
                     </tr>
@@ -573,21 +586,21 @@
       <ul class="register-list-header mt-5">
         <li class="from-group">
           <div class="form-check">
-            {{-- <input class="mr-1" type="checkbox" name="all_check" id="all_check" />
-            <label class="form-check-label">すべてチェックする</label> --}}
           </div>
         </li>
         <li>
-          {{-- <p><a class="more_btn4" href="">削除</a></p> --}}
         </li>
       </ul>
 
       {{-- jsで仮押えの件数判別のためのhidden --}}
-      {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
+      {{ Form::hidden('',
+      $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
       {{-- 以下、pre_reservationの数分　ループ --}}
       @foreach ($multiple->getPreReservations($venue->id) as $key=>$pre_reservation)
 
-      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multipleCalculateSpecificUpdateForm'.$key]) }}
+      {{ Form::open(['url' =>
+      'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update',
+      'method'=>'POST', 'id'=>'multipleCalculateSpecificUpdateForm'.$key]) }}
       @csrf
       {{ Form::hidden('split_keys', $key) }}
       <section class="register-list col">
@@ -595,8 +608,6 @@
         <div class="register-list-item">
           <div class="from-group list_checkbox">
             <div class="form-check">
-              {{-- <input class="form-check-input checkbox" type="checkbox">
-              <label class="form-check-label"></label> --}}
             </div>
           </div>
           <dl class="card">
@@ -608,14 +619,17 @@
                 <li class="col-2">
                   <div class="input-group">
                     <label for="date"></label>
-                    {{ Form::text('', ReservationHelper::formatDate($pre_reservation->reserve_date) ,['class'=>'form-control', 'readonly'] ) }}
-                    {{ Form::hidden('reserve_date'.$key, $pre_reservation->reserve_date ,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('', ReservationHelper::formatDate($pre_reservation->reserve_date)
+                    ,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::hidden('reserve_date'.$key, $pre_reservation->reserve_date ,['class'=>'form-control',
+                    'readonly'] ) }}
                   </div>
                 </li>
                 <li class="col-5">
                   <div class="input-group">
                     <label for=""></label>
-                    {{ Form::text('', ReservationHelper::getVenue($pre_reservation->venue_id) ,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('', ReservationHelper::getVenue($pre_reservation->venue_id) ,['class'=>'form-control',
+                    'readonly'] ) }}
                   </div>
                 </li>
                 <li class="col-3 d-flex align-items-center">
@@ -623,8 +637,10 @@
                   </p>
                   <div class="input-group">
                     <label for="start"></label>
-                    {{ Form::text('', ReservationHelper::formatTime($pre_reservation->enter_time) ,['class'=>'form-control', 'readonly'] ) }}
-                    {{ Form::hidden('enter_time'.$key, $pre_reservation->enter_time ,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('', ReservationHelper::formatTime($pre_reservation->enter_time)
+                    ,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::hidden('enter_time'.$key, $pre_reservation->enter_time ,['class'=>'form-control',
+                    'readonly'] ) }}
                   </div>
                   <p></p>
                   <p class="mx-1">～</p>
@@ -632,8 +648,10 @@
                   </p>
                   <div class="input-group">
                     <label for="finish"></label>
-                    {{ Form::text('', ReservationHelper::formatTime($pre_reservation->leave_time) ,['class'=>'form-control', 'readonly'] ) }}
-                    {{ Form::hidden('leave_time'.$key, $pre_reservation->leave_time ,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('', ReservationHelper::formatTime($pre_reservation->leave_time)
+                    ,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::hidden('leave_time'.$key, $pre_reservation->leave_time ,['class'=>'form-control',
+                    'readonly'] ) }}
                   </div>
                   <p></p>
                 </li>
@@ -662,22 +680,28 @@
                             @if ($venue->time_prices->count()!=0&&$venue->frame_prices->count()!=0)
                             <div class="">
                               <div>
-                                {{ Form::radio('price_system_copied'.$key, 1, $request->cp_master_price_system==1?true:false, ['class'=>'mr-2', 'id'=>'price_system_copied'.$key]) }}
+                                {{ Form::radio('price_system_copied'.$key, 1,
+                                $request->cp_master_price_system==1?true:false, ['class'=>'mr-2',
+                                'id'=>'price_system_copied'.$key]) }}
                                 {{Form::label('price_system_copied'.$key,'通常（枠貸）')}}
                               </div>
                               <div>
-                                {{ Form::radio('price_system_copied'.$key, 2, $request->cp_master_price_system==2?true:false, ['class'=>'mr-2', 'id'=>'price_system_copied_off'.$key]) }}
+                                {{ Form::radio('price_system_copied'.$key, 2,
+                                $request->cp_master_price_system==2?true:false, ['class'=>'mr-2',
+                                'id'=>'price_system_copied_off'.$key]) }}
                                 {{Form::label('price_system_copied_off'.$key,'アクセア（時間貸）')}}
                               </div>
                             </div>
                             @elseif($venue->frame_prices->count()!=0&&$venue->time_prices->count()==0)
                             <div>
-                              {{ Form::radio('price_system_copied'.$key, 1, true, ['class'=>'mr-2', 'id'=>'price_system_copied'.$key]) }}
+                              {{ Form::radio('price_system_copied'.$key, 1, true, ['class'=>'mr-2',
+                              'id'=>'price_system_copied'.$key]) }}
                               {{Form::label('price_system_copied'.$key,'通常（枠貸）')}}
                             </div>
                             @elseif($venue->frame_prices->count()==0&&$venue->time_prices->count()!=0)
                             <div>
-                              {{ Form::radio('price_system_copied'.$key, 2, true, ['class'=>'mr-2', 'id'=>'price_system_copied_off'.$key]) }}
+                              {{ Form::radio('price_system_copied'.$key, 2, true, ['class'=>'mr-2',
+                              'id'=>'price_system_copied_off'.$key]) }}
                               {{Form::label('price_system_copied_off'.$key,'アクセア（時間貸）')}}
                             </div>
                             @endif
@@ -702,11 +726,13 @@
                       <td>
                         <div class="radio-box">
                           <p>
-                            {{ Form::radio('board_flag_copied'.$key, 1, $request->cp_master_board_flag==1?true:false, ['id'=>'board_flag_copied'.$key]) }}
+                            {{ Form::radio('board_flag_copied'.$key, 1, $request->cp_master_board_flag==1?true:false,
+                            ['id'=>'board_flag_copied'.$key]) }}
                             {{Form::label('board_flag1'.$key,'有り')}}
                           </p>
                           <p>
-                            {{ Form::radio('board_flag_copied'.$key, 0, $request->cp_master_board_flag==0?true:false, ['id'=>'board_flag_copied_off'.$key]) }}
+                            {{ Form::radio('board_flag_copied'.$key, 0, $request->cp_master_board_flag==0?true:false,
+                            ['id'=>'board_flag_copied_off'.$key]) }}
                             {{Form::label('board_flag_copied_off'.$key,'無し')}}
                           </p>
                         </div>
@@ -716,7 +742,9 @@
                       <td class="table-active"><label for="eventName1">イベント名称1</label></td>
                       <td>
                         <div class="align-items-end d-flex">
-                          {{ Form::text('event_name1_copied'.$key,$request->cp_master_event_name1,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname1Count".$key] ) }}
+                          {{
+                          Form::text('event_name1_copied'.$key,$request->cp_master_event_name1,['class'=>'form-control',
+                          'placeholder'=>'入力してください', 'id'=>"copiedeventname1Count".$key] ) }}
                           <span class="ml-1 annotation {{'count_num1_copied'.$key}}"></span>
                         </div>
                         <p class="{{'eventname1_error'.$key}}" style="color: red"></p>
@@ -726,7 +754,9 @@
                       <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                       <td>
                         <div class="align-items-end d-flex">
-                          {{ Form::text('event_name2_copied'.$key,$request->cp_master_event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname2Count".$key] ) }}
+                          {{
+                          Form::text('event_name2_copied'.$key,$request->cp_master_event_name2,['class'=>'form-control',
+                          'placeholder'=>'入力してください', 'id'=>"copiedeventname2Count".$key] ) }}
                           <span class="ml-1 annotation {{'count_num2_copied'.$key}}"></span>
                         </div>
                         <p class="{{'eventname2_error'.$key}}" style="color: red"></p>
@@ -736,7 +766,8 @@
                       <td class="table-active"><label for="organizer">主催者名</label></td>
                       <td>
                         <div class="align-items-end d-flex">
-                          {{ Form::text('event_owner'.$key, $request->cp_master_event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
+                          {{ Form::text('event_owner'.$key, $request->cp_master_event_owner,['class'=>'form-control',
+                          'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
                           <span class="ml-1 annotation {{'count_num3_copied'.$key}}"></span>
                         </div>
                         <p class="{{'eventowner_error'.$key}}" style="color: red"></p>
@@ -778,7 +809,9 @@
                       <tr>
                         <td class="table-active">{{$equipment->item}}</td>
                         <td>
-                          {{Form::text('equipment_breakdown'.$e_key.'_copied'.$key , $request->{'cp_master_equipment_breakdown'.$e_key}, ['class' => 'form-control equipment_validation'])}}
+                          {{Form::text('equipment_breakdown'.$e_key.'_copied'.$key ,
+                          $request->{'cp_master_equipment_breakdown'.$e_key}, ['class' => 'form-control
+                          equipment_validation'])}}
                         </td>
                       </tr>
                       @endforeach
@@ -802,11 +835,15 @@
                         <td>
                           <div class="radio-box">
                             <p>
-                              {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, $request->{'cp_master_services_breakdown'.$s_key}==1?true:false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key])}}
+                              {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1,
+                              $request->{'cp_master_services_breakdown'.$s_key}==1?true:false , ['id' =>
+                              'services_breakdown'.$s_key.'_copied'.$key])}}
                               {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
                             </p>
                             <p>
-                              {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, $request->{'cp_master_services_breakdown'.$s_key}==0?true:false, ['id' => 'services_breakdown_off'.$s_key.'_copied'.$key])}}
+                              {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0,
+                              $request->{'cp_master_services_breakdown'.$s_key}==0?true:false, ['id' =>
+                              'services_breakdown_off'.$s_key.'_copied'.$key])}}
                               {{Form::label('services_breakdown_off'.$s_key.'_copied'.$key,'無し')}}
                             </p>
                           </div>
@@ -833,11 +870,15 @@
                         <td>
                           <div class="radio-box">
                             <p>
-                              {{Form::radio('layout_prepare_copied'.$key, 1, $request->cp_master_layout_prepare==1?true:false, ['id' => 'layout_prepare_copied'.$key])}}
+                              {{Form::radio('layout_prepare_copied'.$key, 1,
+                              $request->cp_master_layout_prepare==1?true:false, ['id' =>
+                              'layout_prepare_copied'.$key])}}
                               {{Form::label('layout_prepare_copied'.$key,'有り')}}
                             </p>
                             <p>
-                              {{Form::radio('layout_prepare_copied'.$key, 0, $request->cp_master_layout_prepare==0?true:false, ['id' => 'no_layout_prepare_copied'.$key])}}
+                              {{Form::radio('layout_prepare_copied'.$key, 0,
+                              $request->cp_master_layout_prepare==0?true:false, ['id' =>
+                              'no_layout_prepare_copied'.$key])}}
                               {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
                             </p>
                           </div>
@@ -848,11 +889,13 @@
                         <td>
                           <div class="radio-box">
                             <p>
-                              {{Form::radio('layout_clean_copied'.$key, 1, $request->cp_master_layout_clean==1?true:false, ['id' => 'layout_clean_copied'.$key])}}
+                              {{Form::radio('layout_clean_copied'.$key, 1,
+                              $request->cp_master_layout_clean==1?true:false, ['id' => 'layout_clean_copied'.$key])}}
                               {{Form::label('layout_clean_copied'.$key,'有り')}}
                             </p>
                             <p>
-                              {{Form::radio('layout_clean_copied'.$key, 0, $request->cp_master_layout_clean==0?true:false, ['id' => 'no_layout_clean_copied'.$key])}}
+                              {{Form::radio('layout_clean_copied'.$key, 0,
+                              $request->cp_master_layout_clean==0?true:false, ['id' => 'no_layout_clean_copied'.$key])}}
                               {{Form::label('no_layout_clean_copied'.$key,'無し')}}
                             </p>
                           </div>
@@ -878,21 +921,24 @@
                       <tr>
                         <td class="table-active">事前に預かる荷物<br>（個数）</td>
                         <td>
-                          {{ Form::number('luggage_count_copied'.$key, $request->cp_master_luggage_count,['class'=>'form-control'] ) }}
-                          <p class="{{"is-error-luggage_count_copied".$key}}" style="color: red"></p>
+                          {{ Form::number('luggage_count_copied'.$key,
+                          $request->cp_master_luggage_count,['class'=>'form-control'] ) }}
+                          <p class="{{" is-error-luggage_count_copied".$key}}" style="color: red"></p>
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                         <td>
-                          {{ Form::text('luggage_arrive_copied'.$key, $request->cp_master_luggage_arrive,['class'=>'form-control datepicker9'] ) }}
+                          {{ Form::text('luggage_arrive_copied'.$key,
+                          $request->cp_master_luggage_arrive,['class'=>'form-control datepicker9'] ) }}
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active">事後返送する荷物</td>
                         <td>
-                          {{ Form::number('luggage_return_copied'.$key, $request->cp_master_luggage_return,['class'=>'form-control'] ) }}
-                          <p class="{{"is-error-luggage_return_copied".$key}}" style="color: red"></p>
+                          {{ Form::number('luggage_return_copied'.$key,
+                          $request->cp_master_luggage_return,['class'=>'form-control'] ) }}
+                          <p class="{{" is-error-luggage_return_copied".$key}}" style="color: red"></p>
                         </td>
                       </tr>
                       <tr>
@@ -932,9 +978,11 @@
                           {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
                           {{Form::label('eat_in_consider',"検討中")}}
                           @else
-                          {{Form::radio('eat_in_prepare', 1, $request->cp_master_eat_in_prepare==1?true:false , ['id' => 'eat_in_prepare' ])}}
+                          {{Form::radio('eat_in_prepare', 1, $request->cp_master_eat_in_prepare==1?true:false , ['id' =>
+                          'eat_in_prepare' ])}}
                           {{Form::label('eat_in_prepare',"手配済み")}}
-                          {{Form::radio('eat_in_prepare', 2, $request->cp_master_eat_in_prepare==2?true:false , ['id' => 'eat_in_consider'])}}
+                          {{Form::radio('eat_in_prepare', 2, $request->cp_master_eat_in_prepare==2?true:false , ['id' =>
+                          'eat_in_consider'])}}
                           {{Form::label('eat_in_consider',"検討中")}}
                           @endif
                         </td>
@@ -971,14 +1019,17 @@
                         <tr>
                           <td class="table-active"><label for="ondayName">氏名</label></td>
                           <td>
-                            {{ Form::text('in_charge_copied'.$key, $request->cp_master_in_charge,['class'=>'form-control'] ) }}
+                            {{ Form::text('in_charge_copied'.$key,
+                            $request->cp_master_in_charge,['class'=>'form-control'] ) }}
                           </td>
                         </tr>
                         <tr>
                           <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                           <td>
-                            {{ Form::text('tel_copied'.$key, $request->cp_master_tel,['class'=>'form-control','placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
-                            <p class="{{"is-error-tel_copied".$key}}" style="color: red"></p>
+                            {{ Form::text('tel_copied'.$key,
+                            $request->cp_master_tel,['class'=>'form-control','placeholder' => '半角数字、ハイフンなしで入力してください'] )
+                            }}
+                            <p class="{{" is-error-tel_copied".$key}}" style="color: red"></p>
                           </td>
                         </tr>
                       </tbody>
@@ -999,11 +1050,13 @@
                         <td>
                           <div class="radio-box">
                             <p>
-                              {{Form::radio('email_flag_copied'.$key, 1, $request->cp_master_email_flag==1?true:false, ['id' => 'email_flag_copied'.$key])}}
+                              {{Form::radio('email_flag_copied'.$key, 1, $request->cp_master_email_flag==1?true:false,
+                              ['id' => 'email_flag_copied'.$key])}}
                               {{Form::label('email_flag_copied'.$key,'有り')}}
                             </p>
                             <p>
-                              {{Form::radio('email_flag_copied'.$key, 0, $request->cp_master_email_flag==0?true:false, ['id' => 'no_email_flag_copied'.$key])}}
+                              {{Form::radio('email_flag_copied'.$key, 0, $request->cp_master_email_flag==0?true:false,
+                              ['id' => 'no_email_flag_copied'.$key])}}
                               {{Form::label('no_email_flag_copied'.$key,'無し')}}
                             </p>
                           </div>
@@ -1049,7 +1102,8 @@
                       <tr>
                         <td>
                           <label for="adminNote">管理者備考</label>
-                          {{ Form::textarea('admin_details_copied'.$key, $request->cp_master_admin_details,['class'=>'form-control'] ) }}
+                          {{ Form::textarea('admin_details_copied'.$key,
+                          $request->cp_master_admin_details,['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                     </tbody>
@@ -1122,16 +1176,20 @@
                             $venue_key=>$each_venue)
                             <tr>
                               <td>
-                                {{ Form::text('venue_breakdown_item'.$venue_key.'_copied'.$key, $each_venue->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('venue_breakdown_item'.$venue_key.'_copied'.$key,
+                                $each_venue->unit_item,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('venue_breakdown_cost'.$venue_key.'_copied'.$key, $each_venue->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('venue_breakdown_cost'.$venue_key.'_copied'.$key,
+                                $each_venue->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('venue_breakdown_count'.$venue_key.'_copied'.$key, 1,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('venue_breakdown_count'.$venue_key.'_copied'.$key,
+                                1,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('venue_breakdown_subtotal'.$venue_key.'_copied'.$key, $each_venue->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('venue_breakdown_subtotal'.$venue_key.'_copied'.$key,
+                                $each_venue->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
                             @endforeach
@@ -1140,7 +1198,9 @@
                             <tr>
                               <td colspan="3"></td>
                               <td colspan="1">合計
-                                {{ Form::text('venue_price'.$key,$pre_reservation->pre_bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                                {{
+                                Form::text('venue_price'.$key,$pre_reservation->pre_bill->venue_price,['class'=>'form-control
+                                col-xs-3', 'readonly'] ) }}
                               </td>
                             </tr>
                           </tbody>
@@ -1189,10 +1249,10 @@
                       </div>
 
                       {{-- 0が料金合計　
-                    1が備品breakdown
-                    2がserviceのbreakdown
-                    3が備品料金
-                    4がサービス料金 --}}
+                      1が備品breakdown
+                      2がserviceのbreakdown
+                      3が備品料金
+                      4がサービス料金 --}}
                       {{-- 以下備品 --}}
                       @if ($pre_reservation->pre_bill->equipment_price)
                       <div class="equipment billdetails_content">
@@ -1217,16 +1277,20 @@
                             $eb_key=>$each_equ)
                             <tr>
                               <td>
-                                {{ Form::text('equipment_breakdown_item'.$eb_key.'_copied'.$key, $each_equ->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('equipment_breakdown_item'.$eb_key.'_copied'.$key,
+                                $each_equ->unit_item,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('equipment_breakdown_cost'.$eb_key.'_copied'.$key, $each_equ->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('equipment_breakdown_cost'.$eb_key.'_copied'.$key,
+                                $each_equ->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('equipment_breakdown_count'.$eb_key.'_copied'.$key, $each_equ->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('equipment_breakdown_count'.$eb_key.'_copied'.$key,
+                                $each_equ->unit_count,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('equipment_breakdown_subtotal'.$eb_key.'_copied'.$key, $each_equ->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('equipment_breakdown_subtotal'.$eb_key.'_copied'.$key,
+                                $each_equ->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
                             @endforeach
@@ -1234,16 +1298,20 @@
                             $sb_key=>$each_ser)
                             <tr>
                               <td>
-                                {{ Form::text('services_breakdown_item'.$sb_key.'_copied'.$key, $each_ser->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('services_breakdown_item'.$sb_key.'_copied'.$key,
+                                $each_ser->unit_item,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('services_breakdown_cost'.$sb_key.'_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('services_breakdown_cost'.$sb_key.'_copied'.$key,
+                                $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('services_breakdown_count'.$sb_key.'_copied'.$key, $each_ser->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('services_breakdown_count'.$sb_key.'_copied'.$key,
+                                $each_ser->unit_count,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('services_breakdown_subtotal'.$sb_key.'_copied'.$key, $each_ser->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('services_breakdown_subtotal'.$sb_key.'_copied'.$key,
+                                $each_ser->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
                             @endforeach
@@ -1252,7 +1320,8 @@
                             <tr>
                               <td colspan="3"></td>
                               <td colspan="1">合計
-                                {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('equipment_price'.$key,
+                                $pre_reservation->pre_bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
                           </tbody>
@@ -1284,16 +1353,20 @@
                             $slp_key=>$each_play)
                             <tr>
                               <td>
-                                {{ Form::text('layout_breakdown_item'.$slp_key.'_copied'.$key, $each_play->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('layout_breakdown_item'.$slp_key.'_copied'.$key,
+                                $each_play->unit_item,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('layout_breakdown_cost'.$slp_key.'_copied'.$key, $each_play->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('layout_breakdown_cost'.$slp_key.'_copied'.$key,
+                                $each_play->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('layout_breakdown_count'.$slp_key.'_copied'.$key, $each_play->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('layout_breakdown_count'.$slp_key.'_copied'.$key,
+                                $each_play->unit_count,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('layout_breakdown_subtotal'.$slp_key.'_copied'.$key, $each_play->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('layout_breakdown_subtotal'.$slp_key.'_copied'.$key,
+                                $each_play->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
                             @endforeach
@@ -1305,7 +1378,8 @@
                             <tr>
                               <td colspan="3"></td>
                               <td colspan="1">合計
-                                {{ Form::text('layout_price'.$key, $pre_reservation->pre_bill->layout_price,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('layout_price'.$key,
+                                $pre_reservation->pre_bill->layout_price,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
                           </tbody>
@@ -1322,15 +1396,19 @@
                           <tr>
                             <td>小計：</td>
                             <td>
-                              {{ Form::hidden('master_subtotal'.$key.'fixed',$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control text-right', 'readonly'] ) }}
-                              {{ Form::text('master_subtotal'.$key,$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control text-right', 'readonly'] ) }}
+                              {{
+                              Form::hidden('master_subtotal'.$key.'fixed',$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control
+                              text-right', 'readonly'] ) }}
+                              {{
+                              Form::text('master_subtotal'.$key,$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control
+                              text-right', 'readonly'] ) }}
                             </td>
                           </tr>
                           <tr>
                             <td>消費税：</td>
                             <td>
                               {{ Form::text('master_tax'.$key,$pre_reservation->pre_bill->master_tax
-                            ,['class'=>'form-control text-right', 'readonly'] ) }}
+                              ,['class'=>'form-control text-right', 'readonly'] ) }}
                             </td>
                           </tr>
                           <tr>
@@ -1435,7 +1513,8 @@
 
 
 
-{{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST', 'id'=>'master_form']) }}
+{{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST',
+'id'=>'master_form']) }}
 @csrf
 {{ Form::hidden('master_data', '',['class' => 'btn btn-primary more_btn_lg', 'id'=>'master_data'])}}
 {{ Form::close() }}
@@ -1462,6 +1541,9 @@
         var value = $(elem).val();
         data[key] = value;
       })
+
+      data['end_user_charge']=0;
+
       var encodes = JSON.stringify(data);
       $('#master_data').val(encodes);
       $('#master_form').submit();

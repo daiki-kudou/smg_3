@@ -27,4 +27,35 @@ class Enduser extends Model
   {
     return $this->belongsTo(Reservation::class);
   }
+
+  public function endUserStore($reservation_id, $data)
+  {
+    $result = $this->create([
+      'reservation_id' => $reservation_id,
+      'company' => $data['enduser_company'],
+      'person' => $data['enduser_incharge'],
+      'address' => $data['enduser_address'],
+      'tel' => $data['enduser_tel'],
+      'email' => $data['enduser_mail'],
+      'attr' => $data['enduser_attr'],
+      'charge' => $data['end_user_charge'],
+      'mobile' => $data['enduser_mobile'],
+    ]);
+    return $result;
+  }
+
+  public function endUserUpdate($data)
+  {
+    $result = $this->update([
+      'company' => $data['enduser_company'],
+      'person' => $data['enduser_incharge'],
+      'address' => $data['enduser_address'],
+      'tel' => $data['enduser_tel'],
+      'email' => $data['enduser_mail'],
+      'attr' => $data['enduser_attr'],
+      'charge' => $data['end_user_charge'],
+      'mobile' => $data['enduser_mobile'],
+    ]);
+    return $result;
+  }
 }

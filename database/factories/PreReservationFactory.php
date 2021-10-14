@@ -61,6 +61,7 @@ $factory->define(PreReservation::class, function (Faker $faker) {
     'event_name1' => NULL,
     'event_name2' => NULL,
     'event_owner' => NULL,
+    'luggage_flag' => 1,
     'luggage_count' => rand(1, 9),
     'luggage_arrive' => $date[array_rand($date, 1)],
     'luggage_return' => rand(1, 9),

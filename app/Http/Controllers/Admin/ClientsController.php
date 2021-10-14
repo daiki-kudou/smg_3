@@ -36,12 +36,6 @@ class ClientsController extends Controller
       $querys = User::orderBy('id', 'desc')->get();
       $counter = 0;
     }
-
-    // ソートのリクエストがあれば
-    $querys = $this->customSearchAndSort($querys, $request);
-    // 最後のページャー
-    $querys = $this->customPaginate($querys, 30, $request);
-
     return view('admin.clients.index', compact('querys', 'request', 'counter'));
   }
 

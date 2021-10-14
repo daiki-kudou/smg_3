@@ -32,10 +32,12 @@
   </div>
   @else
 
-  <h3 class="d-block mb-3 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
+  <h3 class="d-block mb-3 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::Fixid($venue->id)}}</span>
     {{ $venue->name_bldg }}{{ $venue->name_venue }}
   </h3>
   <hr>
+  <p class="warning-text">「編集後、保存した時点で会場情報・顧客側予約フォームの料金情報が更新されます」</p>
+
   <!-- 通常料金 -->
   <div class="mb-5">
     <h4 class="mt-5">料金体系：通常(枠貸し料金)</h4>

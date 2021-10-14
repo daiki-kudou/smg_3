@@ -11,6 +11,7 @@ use App\Models\Venue;
 use App\Models\User;
 use App\Models\Cxl;
 use App\Models\Enduser;
+use Illuminate\Support\Collection;
 
 use Carbon\Carbon;
 
@@ -50,9 +51,11 @@ class Reservation extends Model implements PresentableInterface
     'event_name1',
     'event_name2',
     'event_owner',
+    'luggage_flag',
     'luggage_count',
     'luggage_arrive',
     'luggage_return',
+    'luggage_price',
     'email_flag',
     'in_charge',
     'tel',
@@ -75,7 +78,7 @@ class Reservation extends Model implements PresentableInterface
     'eat_in',
     'eat_in_prepare',
     'multiple_reserve_id',
-    'luggage_flag'
+
   ];
   protected $dates = [
     'reserve_date',
@@ -87,40 +90,24 @@ class Reservation extends Model implements PresentableInterface
   //formatで使用できるようにするため 参考https://readouble.com/laravel/6.x/ja/eloquent-mutators.html
 
 
-  /*
-|--------------------------------------------------------------------------
-| 顧客との一対多
-|--------------------------------------------------------------------------|
-*/
+  // | 顧客との一対多
   public function user()
   {
     return $this->belongsTo(User::class)->withTrashed();
   }
 
-  /*
-|--------------------------------------------------------------------------
-| 会場との一対多
-|--------------------------------------------------------------------------|
-*/
+  // | 会場との一対多
   public function venue()
   {
     return $this->belongsTo(Venue::class);
   }
 
-  /*
-|--------------------------------------------------------------------------
-| Billsとの一対多
-|--------------------------------------------------------------------------|
-*/
+  // | Billsとの一対多
   public function bills()
   {
     return $this->hasMany(Bill::class);
   }
-  /*
-|--------------------------------------------------------------------------
-| Billsを経由してbreakdowns
-|--------------------------------------------------------------------------|
-*/
+  // | Billsを経由してbreakdowns
   public function breakdowns()
   {
     return $this->hasManyThrough(
@@ -129,11 +116,7 @@ class Reservation extends Model implements PresentableInterface
     );
   }
 
-  /*
-|--------------------------------------------------------------------------
-| 仲介会社との一対多
-|--------------------------------------------------------------------------|
-*/
+  // | 仲介会社との一対多
   public function agent()
   {
     return $this->belongsTo(Agent::class);
@@ -155,7 +138,6 @@ class Reservation extends Model implements PresentableInterface
     return $this->hasOne('App\Models\ChangeLog');
   }
 
-
   // bills 削除用
   protected static function boot()
   {
@@ -167,8 +149,6 @@ class Reservation extends Model implements PresentableInterface
     });
   }
 
-
-
   public function addAllBills()
   {
     $bills = $this->bills()->get();
@@ -179,7 +159,7 @@ class Reservation extends Model implements PresentableInterface
     return $result_subtotal;
   }
 
-  //  管理者　予約　保存
+  //  管理者予約保存
   public function ReservationStore($data)
   {
     $chkReservation = ($this->checkReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time'], $data['venue_id']));
@@ -198,34 +178,39 @@ class Reservation extends Model implements PresentableInterface
       'board_flag' => $data['board_flag'],
       'event_start' => $data['event_start'] ?? "",
       'event_finish' => $data['event_finish'] ?? "",
-      'event_name1' => $data['event_name1'] ?? "",
-      'event_name2' => $data['event_name2'] ?? "",
-      'event_owner' => $data['event_owner'] ?? "",
-      'luggage_count' => $data['luggage_count'],
-      'luggage_arrive' => $data['luggage_arrive'],
-      'luggage_return' => $data['luggage_return'],
+      'event_name1' => $data['event_name1'] ?? NULL,
+      'event_name2' => $data['event_name2'] ?? NULL,
+      'event_owner' => $data['event_owner'] ?? NULL,
+      'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
+      'luggage_price' => !empty($data['luggage_price']) ? $data['luggage_price'] : 0,
+      'luggage_count' => !empty($data['luggage_count']) ? $data['luggage_count'] : 0,
+      'luggage_arrive' => !empty($data['luggage_arrive']) ? $data['luggage_arrive'] : NULL,
+      'luggage_return' => !empty($data['luggage_return']) ? $data['luggage_return'] : NULL,
       'email_flag' => $data['email_flag'],
       'in_charge' => $data['in_charge'],
-      'tel' => $data['tel'],
+      'tel' => !empty($data['tel']) ? $data['tel'] : "",
       'cost' => !empty($data['cost']) ? $data['cost'] : 0,
-      'discount_condition' => $data['discount_condition'] ?? "",
-      'attention' => $data['attention'] ?? "",
-      'user_details' => $data['user_details'] ?? "",
-      'admin_details' => $data['admin_details'],
+      'discount_condition' => !empty($data['discount_condition']) ? $data['discount_condition'] : NULL,
+      'attention' => !empty($data['attention']) ? $data['attention'] : NULL,
+      'user_details' => !empty($data['user_details']) ? $data['user_details'] : NULL,
+      'admin_details' => !empty($data['admin_details']) ? $data['admin_details'] : NULL,
       'eat_in' => !empty($data['eat_in']) ? $data['eat_in'] : 0,
       'eat_in_prepare' => !empty($data['eat_in_prepare']) ? $data['eat_in_prepare'] : 0,
       'multiple_reserve_id' => !empty($data['multiple_reserve_id']) ? $data['multiple_reserve_id'] : 0,
-      // 'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
     ]);
     return $result;
   }
 
   public function ReservationUpdate($data)
   {
-
+    $chkReservation = ($this->checkReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time'], $data['venue_id'], $data['reservation_id']));
+    $chkPreReservation = ($this->checkPreReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time'], $data['venue_id']));
+    if (!$chkReservation || !$chkPreReservation) {
+      return "重複";
+    }
     $this->update([
       'venue_id' => $data['venue_id'],
-      'user_id' => !empty($data['venue_id']) ? $data['venue_id'] : 0,
+      'user_id' => !empty($data['user_id']) ? $data['user_id'] : 0,
       'agent_id' => !empty($data['agent_id']) ? $data['agent_id'] : 0,
       'reserve_date' => $data['reserve_date'],
       'price_system' => $data['price_system'],
@@ -237,352 +222,24 @@ class Reservation extends Model implements PresentableInterface
       'event_name1' => !empty($data['event_name1']) ? $data['event_name1'] : "",
       'event_name2' => !empty($data['event_name2']) ? $data['event_name2'] : "",
       'event_owner' => !empty($data['event_owner']) ? $data['event_owner'] : "",
-      'luggage_count' => $data['luggage_count'],
-      'luggage_arrive' => $data['luggage_arrive'],
-      'luggage_return' => $data['luggage_return'],
+      'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
+      'luggage_price' => !empty($data['luggage_price']) ? $data['luggage_price'] : 0,
+      'luggage_count' => !empty($data['luggage_count']) ? $data['luggage_count'] : 0,
+      'luggage_arrive' => !empty($data['luggage_arrive']) ? $data['luggage_arrive'] : NULL,
+      'luggage_return' => !empty($data['luggage_return']) ? $data['luggage_return'] : NULL,
       'email_flag' => !empty($data['email_flag']) ? $data['email_flag'] : 1,
       'in_charge' => !empty($data['in_charge']) ? $data['in_charge'] : "",
       'tel' => !empty($data['tel']) ? $data['tel'] : "",
       'cost' => !empty($data['cost']) ? $data['cost'] : 0,
-      'discount_condition' => $data['discount_condition'] ?? "",
-      'attention' => $data['attention'] ?? "",
-      'user_details' => $data['user_details'] ?? "",
-      'admin_details' => $data['admin_details'] ?? "",
-      'eat_in' => $data['eat_in'],
+      'discount_condition' => !empty($data['discount_condition']) ? $data['discount_condition'] : NULL,
+      'attention' => !empty($data['attention']) ? $data['attention'] : NULL,
+      'user_details' => !empty($data['user_details']) ? $data['user_details'] : NULL,
+      'admin_details' => !empty($data['admin_details']) ? $data['admin_details'] : NULL,      'eat_in' => !empty($data['eat_in']) ? $data['eat_in'] : 0,
       'eat_in_prepare' => !empty($data['eat_in_prepare']) ? $data['eat_in_prepare'] :  0,
-      'multiple_reserve_id' => $data['multiple_reserve_id'] ?? 0,
-      // 'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
+      'multiple_reserve_id' => !empty($data['multiple_reserve_id']) ? $data['multiple_reserve_id'] : 0,
     ]);
     return $this;
   }
-  // session利用
-  // public function ReserveStoreSession($request, $sessionName, $sessionName2)
-  // {
-  //   $master_info = $request->session()->get($sessionName);
-  //   $reservation = DB::transaction(function () use ($master_info, $request, $sessionName2) { //トランザクションさせる
-  //     $reservation = $this->create([
-  //       'venue_id' => $master_info['venue_id'],
-  //       'user_id' => $master_info['user_id'],
-  //       'agent_id' => 0, //デフォで0
-  //       'reserve_date' => $master_info['reserve_date'],
-  //       'price_system' => $master_info['price_system'],
-  //       'enter_time' => $master_info['enter_time'],
-  //       'leave_time' => $master_info['leave_time'],
-  //       'board_flag' => $master_info['board_flag'],
-  //       'event_start' => !empty($master_info['event_start']) ? $master_info['event_start'] : null,
-  //       'event_finish' => !empty($master_info['event_finish']) ? $master_info['event_finish'] : null,
-  //       'event_name1' => !empty($master_info['event_name1']) ? $master_info['event_name1'] : null,
-  //       'event_name2' => !empty($master_info['event_name2']) ? $master_info['event_name2'] : null,
-  //       'event_owner' => !empty($master_info['event_owner']) ? $master_info['event_owner'] : null,
-  //       'luggage_count' => !empty($master_info['luggage_count']) ? $master_info['luggage_count'] : null,
-  //       'luggage_arrive' => !empty($master_info['luggage_arrive']) ? $master_info['luggage_arrive'] : null,
-  //       'luggage_return' => !empty($master_info['luggage_return']) ? $master_info['luggage_return'] : null,
-  //       'email_flag' => $master_info['email_flag'],
-  //       'in_charge' => $master_info['in_charge'],
-  //       'tel' => $master_info['tel'],
-  //       'cost' => !empty($master_info['cost']) ? $master_info['cost'] : 0,
-  //       'discount_condition' => "",
-  //       'attention' => "",
-  //       'user_details' => $master_info['user_details'],
-  //       'admin_details' => $master_info['admin_details'],
-  //       'eat_in' => !empty($master_info['eat_in']) ? $master_info['eat_in'] : 0,
-  //       'eat_in_prepare' => !empty($master_info['eat_in_prepare']) ? $master_info['eat_in_prepare'] : 0,
-  //     ]);
-  //     // $reservation->ReserveStoreSessionBill($request, $sessionName2, $sessionName2);
-  //     return $reservation;
-  //   });
-  //   return $reservation;
-  // }
-  // session利用
-  // public function ReserveStoreSessionBill($request, $sessionName, $sessionName2, $attr = "normal")
-  // {
-  //   $discount_info = $request->session()->get($sessionName);
-  //   if ($attr == "add") {
-  //     $venue_price = !empty($discount_info['venue_price']) ? $discount_info['venue_price'] : 0;
-  //     $category = 2;
-  //   } else {
-  //     $venue_price = $discount_info['venue_price'];
-  //     $category = 1;
-  //   }
-  //   // 以下、請求書No作成用
-  //   $bill = DB::transaction(function () use ($discount_info, $request, $sessionName2, $attr, $venue_price, $category) {
-  //     $bill = $this->bills()->create([
-  //       'reservation_id' => $this->id,
-  //       'venue_price' => $venue_price,
-  //       'equipment_price' => !empty($discount_info['equipment_price']) ? $discount_info['equipment_price'] : 0, //備品・サービス・荷物
-  //       'layout_price' => !empty($discount_info['layout_price']) ? $discount_info['layout_price'] : 0,
-  //       'others_price' => !empty($discount_info['others_price']) ? $discount_info['others_price'] : 0,
-  //       'master_subtotal' => $discount_info['master_subtotal'],
-  //       'master_tax' => $discount_info['master_tax'],
-  //       'master_total' => $discount_info['master_total'],
-  //       'payment_limit' => $discount_info['pay_limit'],
-  //       'bill_company' => $discount_info['pay_company'],
-  //       'bill_person' => $discount_info['bill_person'],
-  //       'bill_created_at' => Carbon::now(),
-  //       'bill_remark' => $discount_info['bill_remark'],
-  //       'paid' => $discount_info['paid'],
-  //       'pay_day' => $discount_info['pay_day'],
-  //       'pay_person' => $discount_info['pay_person'],
-  //       'payment' => $discount_info['payment'],
-  //       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
-  //       'double_check_status' => 0, //デフォで0
-  //       'category' => $category, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
-  //       'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
-  //       'invoice_number' => $this->generateInvoiceNum(),
-  //     ]);
-  //     // $bill->ReserveStoreSessionBreakdown($request, $sessionName2);
-  //     return $bill;
-  //   });
-  //   return $bill;
-  // }
-
-  // public function ReserveStore($request, $agent_id = 0)
-  // {
-  //   DB::transaction(function () use ($request, $agent_id) { //トランザクションさせる
-  //     $reservation = $this->create([
-  //       'venue_id' => $request->venue_id,
-  //       'user_id' => $request->user_id,
-  //       'agent_id' => $agent_id,
-  //       'reserve_date' => $request->reserve_date,
-  //       'price_system' => $request->price_system,
-  //       'enter_time' => $request->enter_time,
-  //       'leave_time' => $request->leave_time,
-  //       'board_flag' => $request->board_flag,
-  //       'event_start' => $request->event_start,
-  //       'event_finish' => $request->event_finish,
-  //       'event_name1' => $request->event_name1,
-  //       'event_name2' => $request->event_name2,
-  //       'event_owner' => $request->event_owner,
-  //       'luggage_count' => $request->luggage_count,
-  //       'luggage_arrive' => $request->luggage_arrive,
-  //       'luggage_return' => $request->luggage_return,
-  //       'email_flag' => $request->email_flag,
-  //       'in_charge' => $request->in_charge,
-  //       'tel' => $request->tel,
-  //       'cost' => !empty($request->cost) ? $request->cost : 0,
-  //       'discount_condition' => $request->discount_condition,
-  //       'attention' => $request->attention,
-  //       'user_details' => $request->user_details,
-  //       'admin_details' => $request->admin_details,
-  //       'eat_in' => !empty($request->eat_in) ? $request->eat_in : 0,
-  //       'eat_in_prepare' => !empty($request->eat_in_prepare) ? $request->eat_in_prepare : 0,
-  //       'multiple_reserve_id' => ($request->multiple_reserve_id)
-  //     ]);
-  //     $reservation->ReserveStoreBill($request);
-  //   });
-  // }
-
-  // public function ReserveStoreBill($request)
-  // {
-  //   DB::transaction(function () use ($request) {
-  //     $bill = $this->bills()->create([
-  //       'reservation_id' => $this->id,
-  //       'venue_price' => $request->venue_price,
-  //       'equipment_price' => $request->equipment_price ? $request->equipment_price : 0, //備品・サービス・荷物
-  //       'layout_price' => $request->layout_price ? $request->layout_price : 0,
-  //       'others_price' => $request->others_price ? $request->others_price : 0,
-  //       'master_subtotal' => $request->master_subtotal,
-  //       'master_tax' => $request->master_tax,
-  //       'master_total' => $request->master_total,
-  //       'payment_limit' => $request->payment_limit,
-  //       'bill_company' => $request->bill_company,
-  //       'bill_person' => $request->bill_person,
-  //       'bill_created_at' => Carbon::now(),
-  //       'bill_remark' => $request->bill_remark,
-  //       'paid' => $request->paid,
-  //       'pay_day' => $request->pay_day,
-  //       'pay_person' => $request->pay_person,
-  //       'payment' => $request->payment,
-  //       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
-  //       'double_check_status' => 0, //デフォで0
-  //       'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
-  //       'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
-  //       'invoice_number' => $this->generateInvoiceNum(),
-
-  //     ]);
-  //     $bill->ReserveStoreBreakdown($request);
-  //   });
-  // }
-
-  /*
-|--------------------------------------------------------------------------
-| ユーザーからの予約
-|--------------------------------------------------------------------------|
-*/
-  // public function ReserveFromUser($value, $user)
-  // {
-  //   $venue = Venue::find($value->venue_id);
-  //   $s_user = User::find($user);
-  //   $payment_limit = $s_user->getUserPayLimit($value->date);
-  //   $reservation = DB::transaction(function () use ($value, $user, $s_user, $venue, $payment_limit) {
-  //     $reservation = $this->create([
-  //       'venue_id' => $value->venue_id,
-  //       'user_id' => $user,
-  //       'agent_id' => 0, //デフォで0
-  //       'reserve_date' => $value->date,
-  //       'price_system' => $value->price_system,
-  //       'enter_time' => $value->enter_time,
-  //       'leave_time' => $value->leave_time,
-  //       'board_flag' => $value->board_flag,
-  //       'event_start' => $value->event_start ?? NULL,
-  //       'event_finish' => $value->event_finish ?? NULL,
-  //       'event_name1' => $value->event_name1 ?? NULL,
-  //       'event_name2' => $value->event_name2 ?? NULL,
-  //       'event_owner' => $value->event_owner ?? NULL,
-  //       'luggage_count' => $value->luggage_count ?? NULL,
-  //       'luggage_arrive' => $value->luggage_arrive ?? NULL,
-  //       'luggage_return' => $value->luggage_return ?? NULL,
-  //       'email_flag' => 0,
-  //       'in_charge' => $value->in_charge,
-  //       'tel' => $value->tel,
-  //       'cost' => $value->cost ?? 0,
-  //       'discount_condition' => NULL,
-  //       'attention' => NULL,
-  //       'user_details' => $value->remark ?? NULL,
-  //       'admin_details' => NULL,
-  //       'eat_in' => !empty($value->eat_in) ? $value->eat_in : 0,
-  //       'eat_in_prepare' => !empty($value->eat_in_prepare) ? $value->eat_in_prepare : 0,
-  //     ]);
-
-  //     $layout_prepare = !empty($value->layout_prepare) ? $venue->layout_prepare : 0;
-  //     $layout_clean = !empty($value->layout_clean) ? $venue->layout_clean : 0;
-  //     $layout_sum = $layout_prepare + $layout_clean;
-  //     $bills = $reservation->bills()->create([
-  //       'reservation_id' => $reservation->id,
-  //       'venue_price' => json_decode($value->price_result)[0],
-  //       'equipment_price' => json_decode($value->items_results)[0] ? json_decode($value->items_results)[0] : 0, //備品・サービス・荷物
-  //       'layout_price' => $layout_sum,
-  //       'others_price' => 0,
-  //       // 該当billの合計額関連
-  //       'master_subtotal' => $value->master,
-  //       'master_tax' => floor($value->master * 0.1),
-  //       'master_total' => floor(($value->master * 0.1) + $value->master),
-  //       'payment_limit' => $payment_limit,
-  //       'bill_company' => $s_user->getCompany(),
-  //       'bill_person' => $s_user->getPerson(),
-  //       'bill_created_at' => Carbon::now(),
-  //       'bill_remark' => "",
-  //       'paid' => 0,
-  //       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
-  //       'double_check_status' => 0, //デフォで0
-  //       'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
-  //       'admin_judge' => 2, //管理者作成なら1 ユーザー作成なら2
-  //       'invoice_number' => $this->generateInvoiceNum(),
-  //     ]);
-
-  //     // 料金内訳
-  //     if (json_decode($value->price_result)[1] == 0) {
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => "会場料金",
-  //         'unit_cost' => json_decode($value->price_result)[0],
-  //         'unit_count' => json_decode($value->price_result)[3] - json_decode($value->price_result)[4],
-  //         'unit_subtotal' => json_decode($value->price_result)[0],
-  //         'unit_type' => 1,
-  //       ]);
-  //     } else {
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => "会場料金",
-  //         'unit_cost' => json_decode($value->price_result)[0] - json_decode($value->price_result)[1],
-  //         'unit_count' => json_decode($value->price_result)[3] - json_decode($value->price_result)[4],
-  //         'unit_subtotal' => json_decode($value->price_result)[0],
-  //         'unit_type' => 1,
-  //       ]);
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => "延長料金",
-  //         'unit_cost' => json_decode($value->price_result)[1],
-  //         'unit_count' => json_decode($value->price_result)[4],
-  //         'unit_subtotal' => json_decode($value->price_result)[1],
-  //         'unit_type' => 1,
-  //       ]);
-  //     }
-
-  //     // 備品
-  //     foreach (json_decode($value->items_results)[1] as $e_key => $equ) {
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => $equ[0],
-  //         'unit_cost' => $equ[1],
-  //         'unit_count' => $equ[2],
-  //         'unit_subtotal' => $equ[1] * $equ[2],
-  //         'unit_type' => 2,
-  //       ]);
-  //     }
-  //     // サービス
-  //     foreach (json_decode($value->items_results)[2] as $s_key => $ser) {
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => $ser[0],
-  //         'unit_cost' => $ser[1],
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $ser[1],
-  //         'unit_type' => 3,
-  //       ]);
-  //     }
-  //     // 荷物
-  //     // if (!empty($value->luggage_count) || !empty($value->luggage_arrive) || !empty($value->luggage_return)) {
-  //     //   $bills->breakdowns()->create([
-  //     //     'unit_item' => "荷物預かり",
-  //     //     'unit_cost' => 500,
-  //     //     'unit_count' => 3,
-  //     //     'unit_subtotal' => 500,
-  //     //     'unit_type' => 3,
-  //     //   ]);
-  //     // }
-  //     // レイアウト準備
-  //     if (!empty($value->layout_prepare)) {
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => "レイアウト準備料金",
-  //         'unit_cost' => $layout_prepare,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $layout_prepare,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-  //     // 片付
-  //     if (!empty($value->layout_clean)) {
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => "レイアウト片付料金",
-  //         'unit_cost' => $layout_clean,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $layout_clean,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-  //     return $reservation;
-  //   });
-  //   return $reservation;
-  // }
-
-  // 仲介会社からの予約
-  // public function ReserveFromAgent($request)
-  // {
-  //   DB::transaction(function () use ($request) {
-  //     $reservation = $this->create([
-  //       'venue_id' => $request->venue_id,
-  //       'user_id' => 0, //デフォで0
-  //       'agent_id' => $request->agent_id,
-  //       'reserve_date' => $request->reserve_date,
-  //       'price_system' => $request->price_system,
-  //       'enter_time' => $request->enter_time,
-  //       'leave_time' => $request->leave_time,
-  //       'board_flag' => $request->board_flag,
-  //       'event_start' => $request->event_start,
-  //       'event_finish' => $request->event_finish,
-  //       'event_name1' => $request->event_name1,
-  //       'event_name2' => $request->event_name2,
-  //       'event_owner' => $request->event_owner,
-  //       'luggage_count' => $request->luggage_count,
-  //       'luggage_arrive' => $request->luggage_arrive,
-  //       'luggage_return' => $request->luggage_return,
-  //       'email_flag' => 0,
-  //       'in_charge' => '',
-  //       'tel' => '',
-  //       'cost' => !empty($request->cost) ? $request->cost : 0,
-  //       'eat_in' => !empty($request->eat_in) ? $request->eat_in : 0,
-  //       'eat_in_prepare' => !empty($request->eat_in_prepare) ? $request->eat_in_prepare : 0,
-  //     ]);
-  //     $reservation->CreateEndUser($request);
-  //     $reservation->ReserveFromAgentBill($request);
-  //   });
-  // }
 
   public function CreateEndUser($request)
   {
@@ -612,38 +269,6 @@ class Reservation extends Model implements PresentableInterface
     }
   }
 
-  // public function ReserveFromAgentBill($request)
-  // {
-  //   DB::transaction(function () use ($request) {
-  //     $bill = $this->bills()->create([
-  //       'reservation_id' => $this->id,
-  //       'venue_price' => 0, //デフォで0
-  //       'equipment_price' => 0, //デフォで0
-  //       'layout_price' =>  $request->layout_price ? $request->layout_price : 0, //デフォで0
-  //       'others_price' => 0, //デフォで0
-  //       'master_subtotal' => $request->master_subtotal,
-  //       'master_tax' => $request->master_tax,
-  //       'master_total' => $request->master_total,
-  //       'payment_limit' => $request->pay_limit,
-  //       'bill_company' => $request->pay_company,
-  //       'bill_person' => $request->bill_person,
-  //       'bill_created_at' => Carbon::now(),
-  //       'bill_remark' => $request->bill_remark,
-  //       'paid' => $request->paid,
-  //       'pay_day' => $request->pay_day,
-  //       'pay_person' => $request->pay_person,
-  //       'payment' => $request->payment,
-  //       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
-  //       'double_check_status' => 0, //デフォで0
-  //       'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
-  //       'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
-  //       'invoice_number' => $this->generateInvoiceNum(),
-  //     ]);
-  //     $bill->ReserveFromAgentBreakdown($request);
-  //   });
-  // }
-
-
   // 仲介会社選択の場合のみ、エンドユーザーとの一対一
 
   public function enduser()
@@ -651,145 +276,335 @@ class Reservation extends Model implements PresentableInterface
     return $this->hasOne(Enduser::class);
   }
 
-  public function search_item($request)
+  public function SearchReservation($data)
   {
-    $class = $this->with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])
-      ->where(function ($query) use ($request) {
-        if ($request->multiple_id) {
-          $editId = $this->idFormatForSearch($request->multiple_id);
-          $query->where("multiple_reserve_id", 'LIKE', "%{$editId}%");
+    $searchTarget = $this->ReservationSearchTarget();
+
+    if (!empty($data['multiple_id']) && (int)$data['multiple_id'] > 0) {
+      for ($i = 0; $i < strlen($data['multiple_id']); $i++) {
+        if ((int)$data['multiple_id'][$i] !== 0) {
+          $id = strstr($data['multiple_id'], $data['multiple_id'][$i]);
+          break;
         }
+      }
+      $searchTarget->whereRaw('reservations.multiple_reserve_id = ? ', [$id]);
+    }
 
-        if ($request->search_id) {
-          $editId = $this->idFormatForSearch($request->search_id);
-          $query->where("id", "LIKE", "%" . $editId . "%");
+    if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
+      // for ($i = 0; $i < strlen($data['search_id']); $i++) {
+      //   if ((int)$data['search_id'][$i] !== 0) {
+      //     $id = strstr($data['search_id'], $data['search_id'][$i]);
+      //     break;
+      //   }
+      // }
+      $searchTarget->whereRaw('reservations.id LIKE ? ',  ['%' . $data['search_id'] . '%']);
+    }
+
+    if (!empty($data['user_id']) && (int)$data['user_id'] > 0) {
+      for ($i = 0; $i < strlen($data['user_id']); $i++) {
+        if ((int)$data['user_id'][$i] !== 0) {
+          $id = strstr($data['user_id'], $data['user_id'][$i]);
+          break;
         }
+      }
+      $searchTarget->whereRaw('users.id = ?', [$id]);
+    }
 
-        if ($request->reserve_date) {
-          $dates = explode(' ~ ', $request->reserve_date);
-          $query->whereBetween("reserve_date", [$dates[0], $dates[1]]);
-        }
+    if (!empty($data['reserve_date'])) {
+      $targetData = explode(" ~ ", $data['reserve_date']);
+      $searchTarget->whereRaw('reservations.reserve_date between ? AND ? ',  $targetData);
+    }
 
-        if ($request->enter_time) {
-          $query->whereTime("enter_time", '>=', $request->enter_time);
-        }
+    if (!empty($data['enter_time'])) {
+      $searchTarget->whereRaw('reservations.enter_time >= ? ',  $data['enter_time']);
+    }
 
-        if ($request->leave_time) {
-          $query->whereTime("leave_time", '<=', $request->leave_time);
-        }
+    if (!empty($data['leave_time'])) {
+      $searchTarget->whereRaw('reservations.leave_time <= ? ',  $data['leave_time']);
+    }
 
-        if ($request->venue_id) {
-          $query->where("venue_id",  $request->venue_id);
-        }
+    if (!empty($data['venue_id'])) {
+      $searchTarget->whereRaw('reservations.venue_id = ? ',  [$data['venue_id']]);
+    }
 
-        if ($request->company) {
-          $user = User::where('company', 'LIKE', "%{$request->company}%")->pluck('id')->toArray();
-          $query->whereIn("user_id", $user);
-        }
+    if (!empty($data['company'])) {
+      $searchTarget->whereRaw('users.company LIKE ? ',  ['%' . $data['company'] . '%']);
+    }
 
-        if ($request->person_name) {
-          $user = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->person_name}%")
-            ->pluck('id')
-            ->toArray();
-          $query->whereIn("user_id", $user);
-        }
+    if (!empty($data['person_name'])) {
+      $searchTarget->whereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['person_name'] . '%']);
+    }
 
-        if ($request->search_mobile) {
-          $user = User::where('mobile', 'LIKE', "%{$request->search_mobile}%")->pluck('id')->toArray();
-          $query->whereIn("user_id", $user);
-        }
+    if (!empty($data['search_mobile'])) {
+      $searchTarget->whereRaw('users.mobile LIKE ? ',  ['%' . $data['search_mobile'] . '%']);
+    }
 
-        if ($request->search_tel) {
-          $user = User::where('tel', 'LIKE', "%{$request->search_tel}%")->pluck('id')->toArray();
-          $query->whereIn("user_id", $user);
-        }
+    if (!empty($data['search_tel'])) {
+      $searchTarget->whereRaw('users.tel LIKE ? ',  ['%' . $data['search_tel'] . '%']);
+    }
 
-        if ($request->agent) {
-          $query->where("agent_id",  $request->agent);
-        }
+    if (!empty($data['agent'])) {
+      $searchTarget->whereRaw('agents.id = ? ',  [$data['agent']]);
+    }
 
-        if ($request->enduser_person) {
-          $enduser = Enduser::where('company', 'LIKE', "%{$request->enduser_person}%")->pluck('reservation_id')->toArray();
-          $query->whereIn("id", $enduser);
-        }
+    if (!empty($data['enduser_person'])) {
+      $searchTarget->whereRaw('endusers.company LIKE ? ',  ['%' . $data['enduser_person'] . '%']);
+    }
 
-        // アイコン（備品。サービス、レイアウト、ケータリング検索）
-        $query->where(function ($query) use ($request) {
-          for ($i = 1; $i <= 4; $i++) {
-            if (!empty($request->{"check_icon" . $i})) {
-              $query->orWhereHas('breakdowns', function ($query) use ($request, $i) {
-                $query->where('unit_type', $request->{'check_icon' . $i});
-              });
-            }
-          }
-        });
+    if (!empty($data['sogaku'])) {
+      $searchTarget->whereRaw('sogaku = ?', [$data['sogaku']]);
+    }
 
-        // 予約状況検索
-        $query->where(function ($query) use ($request) {
-          for ($i = 1; $i <= 6; $i++) {
-            if (!empty($request->{"check_status" . $i})) {
-              $query->orWhereHas('bills', function ($query) use ($request, $i) {
-                $query->where('reservation_status', $request->{'check_status' . $i});
-              });
-            }
-          }
-        });
-
-        if ($request->freeword) {
-          $query->where(function ($query2) use ($request) {
-            if (preg_match("/^[0-9]+$/", $request->freeword)) { //数字のみ
-              $editId = $this->idFormatForSearch($request->freeword);
-              $query2->orWhere('id', 'like', "%{$editId}%"); //予約ID
-              $query2->orWhere('multiple_reserve_id', 'like', "%{$editId}%"); //予約一括ID
-
-              $mobile = User::where('mobile', 'like', "%{$request->freeword}%")->pluck('id')->toArray();
-              $query2->orWhereIn("user_id", $mobile); //携帯電話
-
-              $tel = User::where('tel', 'like', "%{$request->freeword}%")->pluck('id')->toArray();
-              $query2->orWhereIn("user_id", $tel); //固定電話
-
-            } elseif (preg_match("/^[0-9-_:.]+$/", $request->freeword)) { //日時のみ
-              $query2->orWhere("reserve_date", $request->freeword);
-              $query2->orWhere("enter_time", $request->freeword);
-              $query2->orWhere("leave_time", $request->freeword);
-            } else { //文字列
-              $venue = Venue::where(\DB::raw('CONCAT(name_area, name_bldg, name_venue)'), 'like', "%{$request->freeword}%")->pluck('id')->toArray();
-              $query2->orWhereIn("venue_id", $venue); //会場名
-
-              $company = User::where("company", "like", "%{$request->freeword}%")->pluck("id")->toArray();
-              $query2->orWhereIn("user_id", $company); //会社名・団体名
-
-              $user = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->freeword}%")->pluck('id')->toArray();
-              $query2->orWhereIn("user_id", $user); //担当者氏名
-
-              $agent = Agent::where("company", "like", "%{$request->freeword}%")->pluck("id")->toArray();
-              $query2->orWhereIn("agent_id", $agent); //仲介会社
-
-              $end_user = Enduser::where("company", "like", "%{$request->freeword}%")->pluck("reservation_id")->toArray();
-              $query2->orWhereIn("id", $end_user); //エンドユーザー
-            }
-          });
-        }
-
-        // 前日予約
-        if ($request->day_before) {
-          $today = Carbon::now();
-          $yesterday = $today->subDay();
-          $query->whereDate('reserve_date', date('Y-m-d', strtotime($yesterday)));
-        }
-        // 当日予約
-        if ($request->today) {
-          $today = Carbon::now();
-          $query->whereDate('reserve_date', date('Y-m-d', strtotime($today)));
-        }
-        // 翌日予約
-        if ($request->day_after) {
-          $tomorrow = Carbon::tomorrow();
-          $query->whereDate('reserve_date', date('Y-m-d', strtotime($tomorrow)));
-        }
+    if (!empty($data['payment_limit'])) {
+      $date = explode(' ~ ', $data['payment_limit']);
+      $searchTarget = $searchTarget->where(function ($query) use ($date) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('payment_limit between ? and ?', $date)->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('payment_limit between ? and ?', $date)->groupBy('reservation_id'));
       });
+    }
 
-    return $class->get();
+    if (!empty($data['pay_day'])) {
+      $date = explode(' ~ ', $data['pay_day']);
+      $searchTarget = $searchTarget->where(function ($query) use ($date) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('pay_day between ? and ?', $date)->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('pay_day between ? and ?', $date)->groupBy('reservation_id'));
+      });
+    }
+
+    if (!empty($data['pay_person'])) {
+      $searchTarget = $searchTarget->where(function ($query) use ($data) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('pay_person LIKE ?', '%' . $data['pay_person'] . '%')->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('pay_person LIKE ?', '%' . $data['pay_person'] . '%')->groupBy('reservation_id'));
+      });
+    }
+
+    if (!empty($data['attr'])) {
+      $searchTarget->whereRaw('users.attr = ?', [$data['attr']]);
+    }
+
+    if (!empty($data['day_before'])) {
+      $yesterday = new Carbon('yesterday');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+    if (!empty($data['today'])) {
+      $yesterday = new Carbon('today');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+    if (!empty($data['day_after'])) {
+      $yesterday = new Carbon('tomorrow');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+
+
+    // チェックボックス
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['alliance0'])) {
+        $query->orWhereRaw('alliance_flag = ? ', [0]);
+      }
+      if (!empty($data['alliance1'])) {
+        $query->orWhereRaw('alliance_flag = ? ', [1]);
+      }
+    });
+
+    // アイコン
+    if (!empty($data['check_icon1']) && (int)$data['check_icon1'] === 1) {
+      $searchTarget->orWhereRaw('check_unit_2.master_unit_2 >= ? ', [1]);
+    }
+    if (!empty($data['check_icon2']) && (int)$data['check_icon2'] === 1) {
+      $searchTarget->orWhereRaw('check_unit_3.master_unit_3 >= ? ', [1]);
+    }
+    if (!empty($data['check_icon3']) && (int)$data['check_icon3'] === 1) {
+      $searchTarget->orWhereRaw('check_unit_4.master_unit_4 >= ? ', [1]);
+    }
+    if (!empty($data['check_icon4']) && (int)$data['check_icon4'] === 1) {
+      $searchTarget->orWhereRaw('reservations.eat_in = ? ',  [1]);
+    }
+
+    // チェックボックス
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['check_status1']) && (int)$data['check_status1'] === 1) {
+        $query->orWhereRaw('check_status1.status1 >= ? ', [1]);
+      }
+      if (!empty($data['check_status2']) && (int)$data['check_status2'] === 1) {
+        $query->orWhereRaw('check_status2.status2 >= ? ', [1]);
+      }
+      if (!empty($data['check_status3']) && (int)$data['check_status3'] === 1) {
+        $query->orWhereRaw('check_status3.status3 >= ? ', [1]);
+      }
+      if (!empty($data['check_status4']) && (int)$data['check_status4'] === 1) {
+        $query->orWhereRaw('check_status4.status4 >= ? ', [1]);
+      }
+      if (!empty($data['check_status5']) && (int)$data['check_status5'] === 1) {
+        $query->orWhereRaw('check_status5.status5 >= ? ', [1]);
+      }
+      if (!empty($data['check_status6']) && (int)$data['check_status6'] === 1) {
+        $query->orWhereRaw('check_status6.status6 >= ? ', [1]);
+      }
+    });
+
+    // チェックボックス 売上区分
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['sales1'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('category = ?', [1])->groupBy('reservation_id'));
+      }
+      if (!empty($data['sales2'])) {
+        $query->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->groupBy('reservation_id'));
+      }
+      if (!empty($data['sales3'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('category = ?', [2])->groupBy('reservation_id'));
+      }
+    });
+
+    // チェックボックス 入金状況
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['payment_status0'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [0])->groupBy('reservation_id'));
+      }
+      if (!empty($data['payment_status1'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [1])->groupBy('reservation_id'));
+      }
+      if (!empty($data['payment_status2'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [2])->groupBy('reservation_id'));
+      }
+      if (!empty($data['payment_status3'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [3])->groupBy('reservation_id'));
+      }
+      if (!empty($data['payment_status4'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [4])->groupBy('reservation_id'));
+      }
+      if (!empty($data['payment_status5'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [5])->groupBy('reservation_id'));
+      }
+    });
+
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['freeword'])) {
+        for ($i = 0; $i < strlen($data['freeword']); $i++) {
+          if ((int)$data['freeword'][$i] !== 0) {
+            $id = strstr($data['freeword'], $data['freeword'][$i]);
+            $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('users.mobile LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('users.tel LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('reservations.reserve_date LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('reservations.enter_time LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('reservations.leave_time LIKE ? ', ['%' . $id . '%']);
+            break;
+          }
+        }
+        // 利用会場
+        $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('users.company LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('concat(agents.person_firstname,agents.person_lastname) LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['freeword'] . '%']);
+      }
+    });
+
+    // 売上請求一覧用のフリーワード検索
+    // if (!empty($data['sales_search_box'])) {
+    //   if (!empty($data['free_word'])) {
+    //     if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
+    //       //数字の場合検索
+    //       $searchTarget = $searchTarget->where(function ($query) use ($data) {
+    //         if (!empty($data['free_word'])) {
+    //           for ($i = 0; $i < strlen($data['free_word']); $i++) {
+    //             if ((int)$data['free_word'][$i] !== 0) {
+    //               $id = strstr($data['free_word'], $data['free_word'][$i]);
+    //               break;
+    //             }
+    //           }
+    //           $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']); //予約ID
+    //           $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']); //一括ID
+    //           $query->orWhereRaw('users.id LIKE ? ', ['%' . $id . '%']); //顧客ID
+    //         }
+    //       });
+    //     } else {
+    //       //文字列の場合
+    //       $searchTarget = $searchTarget->where(function ($query) use ($data) {
+    //         if (!empty($data['free_word'])) {
+    //           $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]); //利用日
+    //           $query->orWhereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']); //会社名・団体名
+    //           $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']); //担当者氏名
+    //           $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+    //           $query->orWhereRaw('bills.payment_limit = ? ',  [$data['free_word']]); //支払い期日
+    //           $query->orWhereRaw('bills.pay_day = ? ',  [$data['free_word']]); //支払い日
+    //           $query->orWhereRaw('bills.pay_person = ? ',  [$data['free_word']]); //振込人名
+    //           $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['free_word'] . '%']);
+    //           $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+    //         }
+    //       });
+    //     }
+    //   }
+    // }
+
+    // $searchTarget->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
+
+    return $searchTarget;
+  }
+
+  /**   
+   * 予約一覧の検索対象マスタ
+   * @return object collectionで返る
+   */
+  public function ReservationSearchTarget()
+  {
+    $searchTarget = DB::table('reservations')
+      ->select(DB::raw(
+        '
+        distinct reservations.id as reservation_id,
+      reservations.multiple_reserve_id as multiple_reserve_id,
+      reservations.reserve_date as reserve_date,
+      reservations.enter_time as enter_time,
+      reservations.leave_time as leave_time,
+      reservations.board_flag as board_flag,
+      reservations.venue_id as venue_id,
+      reservations.eat_in as eat_in,
+      concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name, 
+      venues.alliance_flag as alliance_flag,
+      users.company as company_name,
+      concat(users.first_name, users.last_name) as user_name, 
+      users.mobile as mobile,
+      users.tel as tel,
+      users.attr as attr,
+      users.id as user_id,
+      agents.name as agent_name,
+      agents.id as agent_id,
+      endusers.company as enduser_company,
+      case when bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
+      case when reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
+      case when reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
+      case when reservations.reserve_date < CURRENT_DATE then reserve_date end as 今日未満日付,
+      check_unit_2.master_unit_2 as unit_type2,
+      check_unit_3.master_unit_3 as unit_type3,
+      check_unit_4.master_unit_4 as unit_type4,
+      check_status1.status1 as reservation_status1,
+      check_status2.status2 as reservation_status2,
+      check_status3.status3 as reservation_status3,
+      check_status4.status4 as reservation_status4,
+      check_status5.status5 as reservation_status5,
+      check_status6.status6 as reservation_status6,
+      sogaku_master.sogaku
+      '
+      ))
+      ->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')
+      ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
+      ->leftJoin('agents', 'reservations.agent_id', '=', 'agents.id')
+      ->leftJoin('endusers', 'reservations.id', '=', 'endusers.reservation_id')
+      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
+      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_2  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=2 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_2'), 'reservations.id', '=', 'check_unit_2.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_3  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=3 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_3'), 'reservations.id', '=', 'check_unit_3.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_4  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=4 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_4'), 'reservations.id', '=', 'check_unit_4.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status1 from bills where reservation_status = 1  group by reservation_id) as check_status1'), 'reservations.id', '=', 'check_status1.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status2 from bills where reservation_status = 2  group by reservation_id) as check_status2'), 'reservations.id', '=', 'check_status2.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status3 from bills where reservation_status = 3  group by reservation_id) as check_status3'), 'reservations.id', '=', 'check_status3.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status4 from bills where reservation_status = 4  group by reservation_id) as check_status4'), 'reservations.id', '=', 'check_status4.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status5 from bills where reservation_status = 5  group by reservation_id) as check_status5'), 'reservations.id', '=', 'check_status5.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status6 from bills where reservation_status = 6  group by reservation_id) as check_status6'), 'reservations.id', '=', 'check_status6.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, sum(master_total) as sogaku from bills group by reservation_id) as sogaku_master'), 'reservations.id', '=', 'sogaku_master.reservation_id');
+
+    return $searchTarget;
   }
 
   // reservations show 各請求書合計額
@@ -821,42 +636,12 @@ class Reservation extends Model implements PresentableInterface
     ];
   }
 
-  // reservations update
-  // public function UpdateReservation($basicInfo, $result)
-  // {
-  //   DB::transaction(function () use ($basicInfo, $result) {
-  //     $this->update([
-  //       'user_id' => $basicInfo['user_id'],
-  //       'agent_id' => 0, //デフォで0
-  //       'price_system' => $basicInfo['price_system'],
-  //       'enter_time' => $basicInfo['enter_time'],
-  //       'leave_time' => $basicInfo['leave_time'],
-  //       'board_flag' => $basicInfo['board_flag'],
-  //       'event_start' => $basicInfo['event_start'] ?? NULL,
-  //       'event_finish' => $basicInfo['event_finish'] ?? NULL,
-  //       'event_name1' => $basicInfo['event_name1'] ?? NULL,
-  //       'event_name2' => $basicInfo['event_name2'] ?? NULL,
-  //       'event_owner' => $basicInfo['event_owner'] ?? NULL,
-  //       'luggage_count' => $basicInfo['luggage_count'] ?? NULL,
-  //       'luggage_arrive' => $basicInfo['luggage_arrive'] ?? NULL,
-  //       'luggage_return' => $basicInfo['luggage_return'] ?? NULL,
-  //       'email_flag' => $basicInfo['email_flag'],
-  //       'in_charge' => $basicInfo['in_charge'],
-  //       'tel' => $basicInfo['tel'],
-  //       'cost' => !empty($basicInfo['cost']) ? $basicInfo['cost'] : 0,
-  //       'admin_details' => $basicInfo['admin_details'],
-  //       'eat_in' =>  $basicInfo['eat_in'] ?? 0,
-  //       'eat_in_prepare' =>  $basicInfo['eat_in_prepare'] ?? 0,
-  //     ]);
-  //   });
-  // }
-
   public function checkBillsStatus()
   {
     $collection = $this->bills->pluck('reservation_status');
     foreach ($collection as $key => $value) {
       if ($value < 3) {
-        //ステータスが予約完了　もしくは　キャンセル完了していないキャンセルプロセスがあれば
+        //ステータスが予約完了もしくはキャンセル完了していないキャンセルプロセスがあれば
         return 0;
         break;
       } elseif ($value > 3 && $value < 6) {
@@ -871,7 +656,7 @@ class Reservation extends Model implements PresentableInterface
     $collection = $this->bills->pluck('reservation_status');
     foreach ($collection as $key => $value) {
       if ($value > 3 && $value != 6) {
-        //ステータスが予約完了　もしくは　キャンセル完了していないキャンセルプロセスがあれば
+        //ステータスが予約完了もしくはキャンセル完了していないキャンセルプロセスがあれば
         return 0;
         break;
       }
@@ -887,39 +672,6 @@ class Reservation extends Model implements PresentableInterface
     }
     return $result;
   }
-
-  // public function updateAgentReservation($inputs)
-  // {
-  //   $reservation = DB::transaction(function () use ($inputs) { //トランザクションさせる
-  //     $reservation = $this->update([
-  //       'agent_id' => $inputs['agent_id'],
-  //       'price_system' => $inputs['price_system'],
-  //       'enter_time' => $inputs['enter_time'],
-  //       'leave_time' => $inputs['leave_time'],
-  //       'board_flag' => $inputs['board_flag'],
-  //       'event_start' => $inputs['event_start'] ?? NULL,
-  //       'event_finish' => $inputs['event_finish'] ?? NULL,
-  //       'event_name1' => $inputs['event_name1'] ?? NULL,
-  //       'event_name2' => $inputs['event_name2'] ?? NULL,
-  //       'event_owner' => $inputs['event_owner'] ?? NULL,
-  //       'luggage_count' => $inputs['luggage_count'] ?? NULL,
-  //       'luggage_arrive' => $inputs['luggage_arrive'] ?? NULL,
-  //       'luggage_return' => $inputs['luggage_return'] ?? NULL,
-  //       'email_flag' => 0,
-  //       'in_charge' => '',
-  //       'tel' => '',
-  //       'cost' => !empty($inputs['cost']) ? $inputs['cost'] : 0,
-  //       'discount_condition' => "",
-  //       'attention' => "",
-  //       'user_details' => null,
-  //       'admin_details' => $inputs['admin_details'],
-  //       'eat_in' => !empty($inputs['eat_in']) ? $inputs['eat_in'] : 0,
-  //       'eat_in_prepare' => !empty($inputs['eat_in_prepare']) ? $inputs['eat_in_prepare'] : 0,
-  //     ]);
-  //     return $reservation;
-  //   });
-  //   return $reservation;
-  // }
 
   public function UpdateAgentEndUser($inputs)
   {

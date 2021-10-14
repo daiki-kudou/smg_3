@@ -179,7 +179,6 @@
         <p>{{Form::submit('予約内容を変更する', ['class' => 'link-btn'])}}</p>
         {{Form::close()}}
 
-        {{-- <p class="link-btn"><a href="">予約内容を変更する</a></p> --}}
       </li>
     </ul>
   </div>

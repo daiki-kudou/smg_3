@@ -78,7 +78,8 @@
             <tr>
               <td class="table-active form_required">利用日</td>
               <td>
-                {{ Form::text('reserve_date', '' ,['class'=>'form-control', 'id'=>'datepicker', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::text('reserve_date', '' ,['class'=>'form-control', 'id'=>'datepicker',
+                'placeholder'=>'入力してください'] ) }}
                 <p class="is-error-reserve_date" style="color: red"></p>
               </td>
             </tr>
@@ -103,11 +104,15 @@
                   </div>
                   <div class="price_radio_selector">
                     <div class="d-flex justfy-content-start align-items-center" id="price_system1">
-                      {{ Form::radio('price_system', 1, isset($request->price_system)?$request->price_system==1?true:false:'', ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                      {{ Form::radio('price_system', 1,
+                      isset($request->price_system)?$request->price_system==1?true:false:'', ['class'=>'mr-2',
+                      'id'=>'price_system_radio1']) }}
                       {{Form::label('price_system_radio1','通常（枠貸）')}}
                     </div>
                     <div class="d-flex justfy-content-start align-items-center" id="price_system2">
-                      {{ Form::radio('price_system', 2, isset($request->price_system)?$request->price_system==2?true:false:'', ['class'=>'mr-2','id'=>'price_system_radio2']) }}
+                      {{ Form::radio('price_system', 2,
+                      isset($request->price_system)?$request->price_system==2?true:false:'',
+                      ['class'=>'mr-2','id'=>'price_system_radio2']) }}
                       {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                     </div>
                   </div>
@@ -122,11 +127,6 @@
                   <select name="enter_time" id="sales_start" class="form-control">
                     <option selected></option>
                     {!!ReservationHelper::timeOptions()!!}
-                    {{-- @for ($start = 0*2; $start <=24*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                    </option>
-                    @endfor --}}
                   </select>
                   <p class="is-error-enter_time" style="color: red"></p>
                 </div>
@@ -179,7 +179,8 @@
               <td class="table-active">イベント名称1</td>
               <td>
                 <div class="align-items-end d-flex">
-                  {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
+                  {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください',
+                  'id'=>'eventname1Count'] ) }}
                   <span class="ml-1 annotation count_num1"></span>
                 </div>
                 <p class="is-error-event_name1" style="color: red"></p>
@@ -189,7 +190,8 @@
               <td class="table-active">イベント名称2</td>
               <td>
                 <div class="align-items-end d-flex">
-                  {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                  {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください',
+                  'id'=>'eventname2Count'] ) }}
                   <span class="ml-1 annotation count_num2"></span>
                 </div>
                 <p class="is-error-event_name2" style="color: red"></p>
@@ -199,7 +201,8 @@
               <td class="table-active">主催者名</td>
               <td>
                 <div class="align-items-end d-flex">
-                  {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                  {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください',
+                  'id'=>'eventownerCount'] ) }}
                   <span class="ml-1 annotation count_num3"></span>
                 </div>
                 <p class="is-error-event_owner" style="color: red"></p>
@@ -308,7 +311,7 @@
                   {{Form::label('eat_in',"あり")}}
                 </td>
                 <td>
-                  {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                  {{Form::radio('eat_in_prepare', 1, true , ['id' => 'eat_in_prepare', 'disabled'])}}
                   {{Form::label('eat_in_prepare',"手配済み")}}
                   {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
                   {{Form::label('eat_in_consider',"検討中")}}
@@ -477,7 +480,8 @@
             <tr>
               <td class="table-active"><label for="cost">原価率</label></td>
               <td class="d-flex align-items-center">
-                {{ Form::number('cost', old('cost'),['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::number('cost', old('cost'),['class'=>'form-control sales_percentage',
+                'placeholder'=>'入力してください'] ) }}
                 <span class="ml-1">%</span>
                 <p class="is-error-cost" style="color: red"></p>
               </td>
@@ -496,13 +500,15 @@
             <tr>
               <td>
                 <!-- <label for="userNote">申し込みフォーム備考</label> -->
-                {{ Form::hidden('user_details', old('user_details'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::hidden('user_details', old('user_details'),['class'=>'form-control', 'placeholder'=>'入力してください']
+                ) }}
               </td>
             </tr>
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
-                {{ Form::textarea('admin_details', old('admin_details'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::textarea('admin_details', old('admin_details'),['class'=>'form-control',
+                'placeholder'=>'入力してください'] ) }}
               </td>
             </tr>
           </tbody>
@@ -548,6 +554,7 @@
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();
       if (radioTarget == 1) {
         $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+        $('input[name=eat_in_prepare]:eq(0)').prop('checked', true);
       } else {
         $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
         $('input:radio[name="eat_in_prepare"]').val("");
@@ -555,7 +562,7 @@
     })
   })
 
-  $(document).on(' click', '.holidays', function () {
+  $(document).on('click', '.holidays', function () {
   getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
 });
 

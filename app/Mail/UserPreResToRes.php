@@ -16,9 +16,11 @@ class UserPreResToRes extends Mailable
    *
    * @return void
    */
-  public function __construct($pre_reservation)
+  public function __construct($user, $reservation, $venue)
   {
-    $this->pre_reservation = $pre_reservation;
+    $this->user = $user;
+    $this->reservation = $reservation;
+    $this->venue = $venue;
   }
 
   /**
@@ -29,6 +31,12 @@ class UserPreResToRes extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userPreResToRes')
-      ->subject('【SMGアクセア貸し会議室】　予約申込受付のお知らせ')->with(['pre_reservation' => $this->pre_reservation]);
+      ->subject('【SMGアクセア貸し会議室】　予約申込受付のお知らせ')->with(
+        [
+          'user' => $this->user,
+          'reservation' => $this->reservation,
+          'venue' => $this->venue,
+        ]
+      );
   }
 }

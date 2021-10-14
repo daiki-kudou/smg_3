@@ -99,8 +99,12 @@ class ReservationHelper
 
   public static function getVenue($venue_id)
   {
-    $venue = Venue::find($venue_id);
-    return  $venue->name_bldg . $venue->name_venue;
+    if (!empty($venue_id)) {
+      $venue = Venue::find($venue_id);
+      return  $venue->name_bldg . $venue->name_venue;
+    } else {
+      return NULL;
+    }
   }
 
   public static function getVenueForUser($venue_id)
@@ -117,101 +121,170 @@ class ReservationHelper
 
   public static function getVenueFullAddress($venue_id)
   {
-    $venue = Venue::find($venue_id);
-    return $venue->post_code . ' ' . $venue->address1 . $venue->address2 . $venue->address3;
+    if (!empty($venue_id)) {
+      $venue = Venue::find($venue_id);
+      return $venue->post_code . ' ' . $venue->address1 . $venue->address2 . $venue->address3;
+    } else {
+      return NULL;
+    }
   }
 
   public static function getCompany($user_id)
   {
-    $user = User::withTrashed()->find($user_id);
-    return $user->company;
+    if (!empty($user_id)) {
+      $user = User::withTrashed()->find($user_id);
+      return $user->company;
+    } else {
+      return NULL;
+    }
   }
 
   public static function getPersonName($user_id)
   {
-    $user = User::withTrashed()->find($user_id);
-    return $user->first_name . $user->last_name;
+    if (!empty($user_id)) {
+      $user = User::withTrashed()->find($user_id);
+      return $user->first_name . $user->last_name;
+    } else {
+      return NULL;
+    }
   }
 
   public static function getPersonNameKANA($user_id)
   {
-    $user = User::find($user_id);
-    return $user->first_name_kana . $user->last_name_kana;
+    if (!empty($user_id)) {
+      $user = User::find($user_id);
+      return $user->first_name_kana . $user->last_name_kana;
+    } else {
+      return NULL;
+    }
   }
 
   public static function getPersonEmail($user_id)
   {
-    $user = User::find($user_id);
-    return $user->email;
+    if (!empty($user_id)) {
+      $user = User::find($user_id);
+      return $user->email;
+    } else {
+      return NULL;
+    }
   }
 
   public static function getPersonMobile($user_id)
   {
-    $user = User::find($user_id);
-    return $user->mobile;
+    if ((int)$user_id === 0 || empty($user_id)) {
+      return NULL;
+    } else {
+      $user = User::find($user_id);
+      return $user->mobile;
+    }
   }
 
   public static function getPersonTel($user_id)
   {
-    $user = User::find($user_id);
-    return $user->tel;
+    if ((int)$user_id === 0 || empty($user_id)) {
+      return NULL;
+    } else {
+      $user = User::find($user_id);
+      return $user->tel;
+    }
   }
+
   public static function getPersonCondition($user_id)
   {
-    $user = User::find($user_id);
-    return $user->condition;
+    if ((int)$user_id === 0 || empty($user_id)) {
+      return NULL;
+    } else {
+      $user = User::find($user_id);
+      return $user->condition;
+    }
   }
+
   public static function getPersonAttention($user_id)
   {
-    $user = User::find($user_id);
-    return $user->attention;
+    if ((int)$user_id === 0 || empty($user_id)) {
+      return NULL;
+    } else {
+      $user = User::find($user_id);
+      return $user->attention;
+    }
   }
 
   public static function getAgentPerson($agent_id)
   {
-    $agent = Agent::find($agent_id);
-    return $agent->person_firstname . $agent->person_lastname;
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
+      $agent = Agent::find($agent_id);
+      return $agent->person_firstname . $agent->person_lastname;
+    }
   }
+
   public static function getAgentPersonKANA($agent_id)
   {
-    $agent = Agent::find($agent_id);
-    return $agent->firstname_kana . $agent->lastname_kana;
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
+      $agent = Agent::find($agent_id);
+      return $agent->firstname_kana . $agent->lastname_kana;
+    }
   }
 
   public static function getAgentCompany($agent_id)
   {
-    $agent = Agent::find($agent_id);
-    return $agent->name;
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
+      $agent = Agent::find($agent_id);
+      return $agent->name;
+    }
   }
 
   public static function getAgentCompanyName($agent_id)
   {
-    $agent = Agent::find($agent_id);
-    return $agent->company;
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
+      $agent = Agent::find($agent_id);
+      return $agent->company;
+    }
   }
 
   public static function getAgentEmail($agent_id)
   {
-    $agent = Agent::find($agent_id);
-    return $agent->email;
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
+      $agent = Agent::find($agent_id);
+      return $agent->email;
+    }
   }
 
   public static function getAgentTel($agent_id)
   {
-    $agent = Agent::find($agent_id);
-    return $agent->person_tel;
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
+      $agent = Agent::find($agent_id);
+      return $agent->person_tel;
+    }
   }
 
   public static function getAgentMobile($agent_id)
   {
-    $agent = Agent::find($agent_id);
-    return $agent->person_mobile;
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
+      $agent = Agent::find($agent_id);
+      return $agent->person_mobile;
+    }
   }
 
-  public static function getAttr($user_id)
+  public static function getAttr($num)
   {
-    $user = User::withTrashed()->find($user_id);
-    switch ($user->attr) {
+    if (empty($num)) {
+      return NULL;
+    }
+    switch ($num) {
       case 1:
         return "一般企業";
         break;
@@ -229,6 +302,9 @@ class ReservationHelper
         break;
       case 6:
         return "その他";
+        break;
+      default:
+        return NULL;
         break;
     }
   }
@@ -254,6 +330,9 @@ class ReservationHelper
       case 6:
         return "その他";
         break;
+      default:
+        return NULL;
+        break;
     }
   }
 
@@ -277,14 +356,6 @@ class ReservationHelper
   {
     $tax = ($num * 0.1);
     return ($num + $tax);
-  }
-
-
-  public static function IdFormat($num)
-  {
-    if (!empty($num)) {
-      return sprintf('%05d', $num);
-    }
   }
 
   public static function judgeArrayEmpty($array)
@@ -521,6 +592,9 @@ class ReservationHelper
       case 6:
         return "その他";
         break;
+      default:
+        return NULL;
+        break;
     }
   }
 
@@ -551,12 +625,14 @@ class ReservationHelper
 
   public static function payTerm($num)
   {
-    if ($num == 0) {
+    if ($num === 1) {
       return "当月末締め／当月末支払い";
-    } elseif ($num == 1) {
+    } elseif ($num === 2) {
       return "当月末締め／翌月末支払い";
-    } elseif ($num == 2) {
+    } elseif ($num === 3) {
       return "当月末締め／翌々月末支払い";
+    } elseif ($num === 4) {
+      return "当月末締め／翌々々月末支払い";
     }
   }
 

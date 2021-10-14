@@ -16,13 +16,7 @@
 
 <div class="container-field">
   <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName(),$user->id) }}
-        </li>
-      </ol>
-    </nav>
+    @include('layouts.admin.breadcrumbs',['id'=>$user->id])
   </div>
   <h2 class="mt-3 mb-3">顧客管理 詳細情報(編集)</h2>
   <hr>
@@ -97,7 +91,7 @@
           <tr>
             <th class="table-active">{{ Form::label('attr', '顧客属性') }}</th>
             <td>
-              {{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'仲介会社', 7=>'その他'],$user->attr)}}
+              {{Form::select('attr', [0=>'',1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'仲介会社', 7=>'その他'],$user->attr)}}
             </td>
           </tr>
         </tbody>
@@ -194,7 +188,7 @@
           <tr>
             <th class="table-active form_required">{{ Form::label('pay_limit', '支払期日') }}</th>
             <td>
-              {{Form::select('pay_limit', [1=>'3営業日前', 2=>'当月末締め／当月末支払い',3=>'当月末締め／翌月末支払い',4=>'当月末締め／翌々月末支払い'],$user->pay_limit)}}
+              {{Form::select('pay_limit', [1=>'当日',2=>'3営業日前', 3=>'当月末締め／当月末支払い',4=>'当月末締め／翌月末支払い',5=>'当月末締め／翌々月末支払い'],$user->pay_limit)}}
               <p class="is-error-pay_limit" style="color: red"></p>
             </td>
           </tr>

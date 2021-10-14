@@ -5,7 +5,6 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/add_bill_ajax.js') }}"></script>
-{{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
 <script src="{{ asset('/js/admin/bills/validation.js') }}"></script>
 
 <style>
@@ -33,6 +32,8 @@
   }
 </style>
 
+@include('layouts.admin.breadcrumbs',['id'=>$reservation['id']])
+@include('layouts.admin.errors')
 
 
 <div id="fullOverlay">
@@ -46,7 +47,7 @@
 <div class="container-fluid">
   <h2 class="mt-3 mb-3">追加請求書</h2>
   <hr>
-  {{ Form::open(['url' => 'admin/bills/create_session', 'method'=>'POST','id'=>'billsCreateForm']) }}
+  {{ Form::open(['url' => 'admin/bills/check', 'method'=>'get','id'=>'billsCreateForm']) }}
   @csrf
   {{ Form::hidden('reservation_id', $reservation['id'], ['class' => 'form-control'])}}
   <section class="mt-5">
@@ -133,7 +134,7 @@
                   <td colspan="4"></td>
                   <td colspan="1">
                     <p class="text-left">合計</p>
-                    {{ Form::text('venue_price', ($data['venue_price'])??"", ['class' => 'form-control' , 'readonly'])}}
+                    {{ Form::text('venue_price', !empty($data['venue_price'])?$data['venue_price']:"", ['class' => 'form-control' , 'readonly'])}}
                   </td>
                 </tr>
               </tbody>
@@ -209,7 +210,7 @@
                   <td colspan="4"></td>
                   <td colspan="1">
                     <p class="text-left">合計</p>
-                    {{ Form::text('equipment_price', !empty($data['equipment_price'])?:"", ['class' => 'form-control' , 'readonly'])}}
+                    {{ Form::text('equipment_price', !empty($data['equipment_price'])?$data['equipment_price']:"", ['class' => 'form-control' , 'readonly'])}}
                   </td>
                 </tr>
               </tbody>
@@ -285,7 +286,7 @@
                   <td colspan="4"></td>
                   <td colspan="1">
                     <p class="text-left">合計</p>
-                    {{ Form::text('layout_price', !empty($data['layout_price'])?:"", ['class' => 'form-control' , 'readonly'])}}
+                    {{ Form::text('layout_price', !empty($data['layout_price'])?$data['layout_price']:"", ['class' => 'form-control' , 'readonly'])}}
                   </td>
                 </tr>
               </tbody>
@@ -299,7 +300,7 @@
                   <td colspan="5">
                     <div class="others_chkbox">
                       <input type="checkbox" id="others" name="others" value="1"
-                        {{!empty($others_price['others_price'])?"checked":""}}>
+                        {{!empty($data['others_price'])?"checked":""}}>
                       <label for="others">その他</label>
                     </div>
                   </td>
@@ -362,7 +363,7 @@
                   <td colspan="4"></td>
                   <td colspan="1">
                     <p class="text-left">合計</p>
-                    {{ Form::text('others_price', !empty($data['others_price'])?:"", ['class' => 'form-control' , 'readonly'])}}
+                    {{ Form::text('others_price', !empty($data['others_price'])?$data['others_price']:"", ['class' => 'form-control' , 'readonly'])}}
                   </td>
                 </tr>
               </tbody>
@@ -382,7 +383,7 @@
                 <tr>
                   <td>消費税：</td>
                   <td>
-                    {{ Form::text('master_tax', !empty($data['master_tax'])?$data['master_tax']:"", ['class' => 'form-control' , 'readonly'])}}
+                    {{ Form::text('master_tax', !empty($data['master_tax'])?$data['master_tax']:(!empty($data['master_tax'])?0:""), ['class' => 'form-control' , 'readonly'])}}
                     <p class="is-error-master_tax" style="color: red"></p>
                   </td>
                 </tr>
@@ -565,13 +566,12 @@
           var trTarget = $($targetTr).length;
           var result_add = 0;
           for (let calc = 0; calc < trTarget; calc++) {
-            console.log('calc',trTarget);
             var multiple1 = Number($($targetTr).eq(calc).find('td').eq(1).find('input').val());
             var multiple2 = Number($($targetTr).eq(calc).find('td').eq(2).find('input').val());
             $($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1 * multiple2);
             result_add += (multiple1 * multiple2);
           }
-          $($targetSum).val(multiple1 * multiple2);
+          $($targetSum).val(result_add);
         })
       };
 
@@ -590,8 +590,6 @@
         var tar2_val = tar2.prop('disabled')?0:Number(tar2.val());
         var tar3_val = tar3.prop('disabled')?0:Number(tar3.val());
         var tar4_val = tar4.prop('disabled')?0:Number(tar4.val());
-
-        // console.log(tar1_val,tar2_val, tar3_val, tar4_val);
 
         var master_sub = tar1_val + tar2_val + tar3_val + tar4_val;
         var master_tax = Math.floor(master_sub * 0.1);
@@ -620,7 +618,6 @@
         }
         MaterCalc();
       })
-
     })
   </script>
 

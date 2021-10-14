@@ -4,8 +4,6 @@
 <script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
 <link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/admin/search/validation.js') }}"></script>
-
-{{-- <script src="{{ asset('/js/admin/venue.js') }}"></script> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 
@@ -13,34 +11,12 @@
   .form-inline {
     display: block;
   }
-
-  .row {
-    display: block;
-    display: -ms-flexbox;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-right: 0px;
-    margin-left: 0px;
-  }
-
-  table.dataTable thead .sorting:after,
-  table.dataTable thead .sorting_asc:after,
-  table.dataTable thead .sorting_desc:after {
-    opacity: 0.2;
-    content: "↑↓";
-  }
 </style>
 
 
 <div class="container-field">
   <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName()) }}
-        </li>
-      </ol>
-    </nav>
+    @include('layouts.admin.breadcrumbs')
   </div>
   <h2 class="mt-3 mb-3">顧客管理　一覧</h2>
   <hr>
@@ -93,11 +69,11 @@
           <td class="text-left">
             <ul class="search_category">
               <li>
-                {{Form::radio('attention', 1, $request->attention==1?true:false,['id'=>'chk_atten'])}}
+                {{Form::radio('attention', 1, (int)$request->attention===1?true:false,['id'=>'chk_atten'])}}
                 {{Form::label("chk_atten","あり")}}
               </li>
               <li>
-                {{Form::radio('attention', 2, $request->attention==2?true:false,['id'=>'chk_atten_no'])}}
+                {{Form::radio('attention', 2, (int)$request->attention===2?true:($request->attention===1?false:true),['id'=>'chk_atten_no'])}}
                 {{Form::label("chk_atten_no","なし")}}
               </li>
             </ul>
@@ -144,22 +120,13 @@
         </tr>
       </tbody>
     </table>
-    <p class="text-left">
+    <p class="text-right">
       ※フリーワード検索は本画面表記の項目のみ対象となります<br>
       ※担当者氏名の検索時は、フルネーム時はスペース禁止
     </p>
 
     <div class="btn_box d-flex justify-content-center">
       <a href="{{url("admin/clients")}}" class="btn reset_btn">リセット</a>
-      {{-- ソート用hidden --}}
-      {{Form::hidden("sort_id", $request->sort_id?($request->sort_id==1?2:1):1)}}
-      {{Form::hidden("sort_user_company", $request->sort_user_company?($request->sort_user_company==1?2:1):1)}}
-      {{Form::hidden("sort_user_attr", $request->sort_user_attr?($request->sort_user_attr==1?2:1):1)}}
-      {{Form::hidden("sort_user_name", $request->sort_user_name?($request->sort_user_name==1?2:1):1)}}
-      {{Form::hidden("sort_user_mobile", $request->sort_user_mobile?($request->sort_user_mobile==1?2:1):1)}}
-      {{Form::hidden("sort_user_tel", $request->sort_user_tel?($request->sort_user_tel==1?2:1):1)}}
-      {{Form::hidden("sort_user_email", $request->sort_user_email?($request->sort_user_email==1?2:1):1)}}
-      {{-- ソート用hidden --}}
 
       {{Form::submit('検索', ['class'=>'btn btn-info search_btn', 'id'=>'m_submit'])}}
     </div>
@@ -186,19 +153,19 @@
       <thead>
         <tr class="table_row">
           <th>注意事項</th>
-          <th id="sort_id">顧客ID {!!ReservationHelper::sortIcon($request->sort_id)!!}</th>
-          <th id="sort_user_company">会社名・団体名 {!!ReservationHelper::sortIcon($request->sort_user_company)!!}</th>
-          <th id="sort_user_attr">顧客属性 {!!ReservationHelper::sortIcon($request->sort_user_attr)!!}</th>
-          <th id="sort_user_name">担当者 {!!ReservationHelper::sortIcon($request->sort_user_name)!!}</th>
-          <th id="sort_user_mobile">携帯電話 {!!ReservationHelper::sortIcon($request->sort_user_mobile)!!}</th>
-          <th id="sort_user_tel">固定電話 {!!ReservationHelper::sortIcon($request->sort_user_tel)!!}</th>
-          <th id="sort_user_email">担当者メールアドレス {!!ReservationHelper::sortIcon($request->sort_user_email)!!}</th>
+          <th>顧客ID </th>
+          <th>会社名・団体名 </th>
+          <th>顧客属性 </th>
+          <th>担当者 </th>
+          <th>携帯電話 </th>
+          <th>固定電話 </th>
+          <th>担当者メールアドレス </th>
           <th>詳細</th>
         </tr>
       </thead>
       <tbody>
         @foreach ($querys as $query)
-        <tr role="row" class="even">
+        <tr>
           <td class="text-center">{{$query->attention!=null?'●':''}}</td>
           <td>{{ReservationHelper::fixId($query->id)}}</td>
           <td>{{$query->company}}</td>
@@ -237,31 +204,23 @@
 
 
 </div>
-{{$querys->appends(request()->input())->links()}}
 
 <script>
-  $(document).on("click", ".table-scroll th", function() {
-    var click_th_id=$(this).attr("id");
-    var index = $('.table-scroll th').index(this);
-    console.log(index);
-    if (index!=0&&index!=8) {
-          $('input[name^="sort_"]').each(function(key, item){
-      if ($(item).attr("name")!=click_th_id) {
-        $(item).val("");
-      }
-    })
-    $("#clients_search").submit();
-    }
-    }) 
-
-    $(function() {
-      $("#m_submit").on("click",function(){
-        $('input[name^="sort_"]').each(function(key, item){
-        $(item).val("");
-        })
-      })
-    })
-
+  $(document).ready(function(){
+    $.extend($.fn.dataTable.defaults, {
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+        }
+    });
+    $('#client_sort').DataTable({
+      searching: false,
+      info: false,
+      autowidth: false,
+      "order": [[ 0, "desc" ]], //初期ソートソート条件
+      "columnDefs": [{ "orderable": false, "targets": [8] }],
+      "stripeClasses": [],
+     });
+    });
 </script>
 
 @endsection

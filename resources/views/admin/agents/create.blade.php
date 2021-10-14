@@ -2,7 +2,6 @@
 
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-{{-- <!-- <script src="{{ asset('/js/template.js') }}"></script> --> --}}
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <script src="{{ asset('/js/admin/agents/validation.js') }}"></script>
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
@@ -24,15 +23,7 @@
 
 <div class="content">
   <div class="container-field">
-    <div class="float-right">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active">
-            {{ Breadcrumbs::render(Route::currentRouteName()) }}
-          </li>
-        </ol>
-      </nav>
-    </div>
+    @include('layouts.admin.breadcrumbs')
 
     <h2 class="mt-3 mb-3">仲介会社　新規登録</h2>
     <hr>
@@ -289,7 +280,12 @@
               <tr>
                 <th class="table-active form_required"><label for="close_date">決済条件</label></th>
                 <td>
-                  {{{Form::select('payment_limit', ['当月末締め／当月末支払い', '当月末締め／翌月末支払い', '当月末締め／翌々月末支払い'],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+                  {{{Form::select('payment_limit', [
+                    1=>'当月末締め／当月末支払い', 
+                    2=>'当月末締め／翌月末支払い', 
+                    3=>'当月末締め／翌々月末支払い', 
+                    4=>'当月末締め／翌々々月末支払い'
+                    ],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
                   <p class="is-error-payment_limit" style="color: red"></p>
                 </td>
               </tr>

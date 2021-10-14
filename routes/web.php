@@ -152,6 +152,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('reservations/check_session', 'ReservationsController@checkSession')->name('reservations.checkSession');
     // 予約
     Route::resource('reservations', 'ReservationsController', ['except' => ['show']]);
+    Route::get('reservations/datatable', 'ReservationsController@datatable');
+
     // 予約　（確認）
     Route::get('reservations/check', 'ReservationsController@check')->name('reservations.check');
 
@@ -217,7 +219,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 追加請求書新規登録
     Route::get('bills/create', 'BillsController@create');
     // session 追加請求書
-    Route::post('bills/create_session', 'BillsController@createSession');
+    // Route::post('bills/create_session', 'BillsController@createSession');
     // // ajax 予約　請求書　追加
     Route::post('bills/ajaxaddbillsequipments', 'BillsController@ajaxaddbillsequipments');
     // // ajax 予約　請求書　追加　レイアウト取得
@@ -256,8 +258,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('agents_reservations', 'AgentsReservationsController@store');
     // 仲介会社　請求　追加
     Route::get('agents_reservations/add_bills', 'AgentsReservationsController@add_bills')->name('agents_reservations.add_bills');
-    // 仲介会社　session 作成
-    Route::post('agents_reservations/create_session', 'AgentsReservationsController@createSession');
     // 仲介会社　追加請求　確認
     Route::get('agents_reservations/add_bills/check', 'AgentsReservationsController@add_check')->name('agents_reservations.add_check');
     // 仲介会社　追加請求　保存
@@ -265,26 +265,27 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 仲介会社　メールなしで予約確定ボタン
     Route::post('agents_reservations/confirm', 'AgentsReservationsController@add_confirm')->name('agents_reservations.add_confirm');
     // 仲介会社予約編集
-    Route::post('agents_reservations/edit', 'AgentsReservationsController@edit');
-    Route::post('agents_reservations/edit_check', 'AgentsReservationsController@editCheck');
-    // Route::get('agents_reservations/edit_show', 'AgentsReservationsController@editShow')->name('agents_reservations.edit_show');
-    // Route::post('agents_reservations/session_input', 'AgentsReservationsController@addSessionInput');
-    // Route::get('agents_reservations/show_input', 'AgentsReservationsController@showInput')->name('agents_reservations.show_input');
-    // Route::post('agents_reservations/session_check', 'AgentsReservationsController@editCheckSession');
-    // Route::get('agents_reservations/edit_check', 'AgentsReservationsController@editCheck')->name('agents_reservations.edit_check');
-    Route::post('agents_reservations/update', 'AgentsReservationsController@update');
+    // Route::post('agents_reservations/edit', 'AgentsReservationsController@edit')->name('agents_reservations.edit');
+    Route::get('agents_reservations/{agents_reservations}/edit', 'AgentsReservationsController@edit')->name('agents_reservations.edit');
+    Route::post('agents_reservations/edit_check', 'AgentsReservationsController@editCheck')->name('agents_reservations.edit_check');
+    Route::PUT('agents_reservations/{agents_reservations}', 'AgentsReservationsController@update');
 
     //********************** */
     //***仮抑え */
     //********************** */
     // 仮押え（削除は別で作成予定）
-    Route::resource('pre_reservations', 'PreReservationsController')->except(['destroy']);
+    Route::get('pre_reservations', 'PreReservationsController@index')->name('pre_reservations.index');
+    Route::get('pre_reservations/create', 'PreReservationsController@create')->name('pre_reservations.create');
+    Route::post('pre_reservations', 'PreReservationsController@store')->name('pre_reservations.store');
+    Route::PUT('pre_reservations/{pre_reservations}', 'PreReservationsController@update')->name('pre_reservations.update');
+    Route::get('pre_reservations/{pre_reservations}/edit', 'PreReservationsController@edit')->name('pre_reservations.edit');
+
     // 仮押え ajax 顧客情報取得
     Route::post('pre_reservations/getuser', 'PreReservationsController@getuser');
     // 仮押え　新規登録　確認
-    Route::post('pre_reservations/check', 'PreReservationsController@check')->name('pre_reservations.check');
+    Route::get('pre_reservations/check', 'PreReservationsController@check')->name('pre_reservations.check');
     // 仮押え　新規登録　計算
-    Route::post('pre_reservations/calculate', 'PreReservationsController@calculate')->name('pre_reservations.calculate');
+    Route::get('pre_reservations/calculate', 'PreReservationsController@calculate')->name('pre_reservations.calculate');
     // 仮押え　新規登録　再計算
     Route::post('pre_reservations/{pre_reservation}/re_calculate', 'PreReservationsController@re_calculate')->name('pre_reservations.re_calculate');
     // 仮押え　再計算後、中身が変更する場合の保存
@@ -297,6 +298,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('pre_reservations/reject_same_time', 'PreReservationsController@rejectSameTime')->name('pre_reservations.rejectSameTime');
     // 仮押え編集時にユーザー変更
     Route::post('pre_reservations/get_user', 'PreReservationsController@get_user');
+
+    Route::get('pre_reservations/{pre_reservations}', 'PreReservationsController@show')->name('pre_reservations.show');
+
+
     // 一括仮押え index
     Route::get('multiples', 'MultiplesController@index')->name('multiples.index');
     // 一括仮押え show
@@ -366,19 +371,20 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::put('pre_agent_reservations/{pre_reservation}/update', 'PreAgentReservationsController@update');
 
-    Route::post('cxl/multi_calc', 'CxlController@multiCalc');
-    Route::get('cxl/multi_calc', 'CxlController@multiCalcShow')->name('cxl.multi_calc');
+    // 仲介会社の仮抑えを予約へ移行
+    Route::post('pre_agent_reservations/switch_status', 'PreAgentReservationsController@switch_status');
+
+
     Route::get('cxl/multi_create', 'CxlController@multiCreate')->name('cxl.multi_create');
-    Route::post('cxl/multi_check', 'CxlController@multiCheck')->name('cxl.multi_check');
+    Route::get('cxl/multi_calc', 'CxlController@multiCalc')->name('cxl.multi_calc');
+    Route::get('cxl/multi_check', 'CxlController@multiCheck')->name('cxl.multi_check');
     Route::post('cxl/store', 'CxlController@store');
     Route::post('cxl/double_check', 'CxlController@doubleCheck');
     Route::post('cxl/send_email_and_approve', 'CxlController@send_email_and_approve');
     Route::post('cxl/confirm', 'CxlController@confirm_cxl');
 
     Route::get('cxl/edit/{cxl}', 'CxlController@edit')->name('cxl.edit');
-    Route::post('cxl/edit_calc', 'CxlController@editCalc');
-    Route::get('cxl/edit_calc', 'CxlController@editCalcShow')->name('cxl.edit_calc');
-    Route::post('cxl/edit_check', 'CxlController@editCheck');
+    Route::get('cxl/edit_calc', 'CxlController@editCalc')->name('cxl.edit_calc');
     Route::post('cxl/update', 'CxlController@update');
     Route::post('cxl/update_cxl_bill_info', 'CxlController@updateCxlBillInfo');
     Route::post('cxl/update_cxl_paid_info', 'CxlController@updateCxlPaidInfo');
@@ -389,7 +395,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('cron_templates', 'MailTemplatesController@cron');
 
     Route::post('invoice', 'InvoiceController@show');
-    Route::post('board', 'BoardController@show');
+    Route::get('board/{reservation_id}', 'BoardController@show');
     // note
     Route::get('note', 'NoteController@index')->name('note');
     Route::get('note/create', 'NoteController@create');
@@ -415,5 +421,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('fake_test', 'FakeTestController@index');
 
     Route::resource('administer', 'AdminsController');
+
+    Route::post('sync', 'SyncController@sync');
+
+    Route::get('reservations/datatable', 'DataTableController@reservation');
+    Route::get('sales/datatable', 'DataTableController@sales');
+    // Route::get('pre_reservation/datatable', 'DataTableController@pre_reservations');
   });
 });

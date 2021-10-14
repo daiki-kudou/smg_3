@@ -7,6 +7,7 @@
 
 <body>
   <p>&nbsp;</p>
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   <p>{{$reservation_id->user->company}}<br />{{ReservationHelper::getPersonName($reservation_id->user->id)}}
     様<br /><br />この度は、SMG貸し会議室のご予約をいただきありがとうございます。<br />下記の内容で、予約が完了しました。</p>
   <p>

@@ -50,7 +50,8 @@
   <hr>
 </div>
 
-{{ Form::open(['url' => 'admin/pre_agent_reservations/'.$PreReservation->id.'/edit_calculate', 'method'=>'POST', 'id'=>'pre_agent_reservationSingleEditForm']) }}
+{{ Form::open(['url' => 'admin/pre_agent_reservations/'.$PreReservation->id.'/edit_calculate', 'method'=>'POST',
+'id'=>'pre_agent_reservationSingleEditForm']) }}
 @csrf
 <section class="mt-5">
   <div class="selected_user">
@@ -60,7 +61,8 @@
           <th>仲介会社情報</th>
           <th colspan="3">
             <div class="d-flex align-items-center">
-              <p class="w-25">仲介会社ID：{{ReservationHelper::fixId($PreReservation->agent_id)}}</p>
+              <p class="w-25">仲介会社ID：<span
+                  class="selected_agent_id">{{ReservationHelper::fixId($PreReservation->agent_id)}}</span></p>
               <select name="agent_id" id="agent_id">
                 @foreach ($agents as $agents)
                 <option value="{{$agents->id}}" @if ($PreReservation->agent_id==$agents->id)
@@ -192,13 +194,15 @@
             <tr>
               <td class="table-active">利用日</td>
               <td>
-                {{ Form::text('reserve_date', date('Y-m-d',strtotime($PreReservation->reserve_date)),['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::text('reserve_date',
+                date('Y-m-d',strtotime($PreReservation->reserve_date)),['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
             <tr>
               <td class="table-active">会場</td>
               <td>
-                {{ Form::text('', ReservationHelper::getVenue($PreReservation->venue_id),['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::text('', ReservationHelper::getVenue($PreReservation->venue_id),['class'=>'form-control',
+                'readonly'] ) }}
                 {{ Form::hidden('venue_id', $PreReservation->venue_id,['class'=>'form-control'] ) }}
                 <div class="price_selector">
                   <div>
@@ -208,11 +212,13 @@
                     @if ($SPVenue->getPriceSystem()[0]==1&&$SPVenue->getPriceSystem()[1]==1)
                     <div class="price_radio_selector">
                       <div class="d-flex justfy-content-start align-items-center">
-                        {{ Form::radio('price_system', 1, $PreReservation->price_system==1?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                        {{ Form::radio('price_system', 1, $PreReservation->price_system==1?true:false, ['class'=>'mr-2',
+                        'id'=>'price_system_radio1']) }}
                         {{Form::label('price_system_radio1','通常（枠貸）')}}
                       </div>
                       <div class="d-flex justfy-content-start align-items-center">
-                        {{ Form::radio('price_system', 2, $PreReservation->price_system==2?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                        {{ Form::radio('price_system', 2, $PreReservation->price_system==2?true:false, ['class'=>'mr-2',
+                        'id'=>'price_system_radio2']) }}
                         {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                       </div>
                     </div>
@@ -240,14 +246,16 @@
             <tr>
               <td class="table-active">入室時間</td>
               <td>
-                {{ Form::text('', ReservationHelper::formatTime($PreReservation->enter_time),['class'=>'form-control','readonly'] ) }}
+                {{ Form::text('',
+                ReservationHelper::formatTime($PreReservation->enter_time),['class'=>'form-control','readonly'] ) }}
                 {{ Form::hidden('enter_time', $PreReservation->enter_time ) }}
               </td>
             </tr>
             <tr>
               <td class="table-active">退室時間</td>
               <td>
-                {{ Form::text('', ReservationHelper::formatTime($PreReservation->leave_time),['class'=>'form-control','readonly'] ) }}
+                {{ Form::text('',
+                ReservationHelper::formatTime($PreReservation->leave_time),['class'=>'form-control','readonly'] ) }}
                 {{ Form::hidden('leave_time', $PreReservation->leave_time ) }}
 
 
@@ -285,7 +293,8 @@
             <td class="table-active">イベント名称1</td>
             <td>
               <div class="align-items-end d-flex">
-                {{ Form::text('event_name1', $PreReservation->event_name1,['class'=>'form-control', 'id'=>'eventname1Count'] ) }}
+                {{ Form::text('event_name1', $PreReservation->event_name1,['class'=>'form-control',
+                'id'=>'eventname1Count'] ) }}
                 <span class="ml-1 annotation count_num1"></span>
               </div>
               <p class="is-error-event_name1" style="color: red"></p>
@@ -295,7 +304,8 @@
             <td class="table-active">イベント名称2</td>
             <td>
               <div class="align-items-end d-flex">
-                {{ Form::text('event_name2', $PreReservation->event_name2,['class'=>'form-control', 'id'=>'eventname2Count'] ) }}
+                {{ Form::text('event_name2', $PreReservation->event_name2,['class'=>'form-control',
+                'id'=>'eventname2Count'] ) }}
                 <span class="ml-1 annotation count_num2"></span>
               </div>
               <p class="is-error-event_name2" style="color: red"></p>
@@ -305,7 +315,8 @@
             <td class="table-active">主催者名</td>
             <td>
               <div class="align-items-end d-flex">
-                {{ Form::text('event_owner', $PreReservation->event_owner,['class'=>'form-control', 'id'=>'eventownerCount'] ) }}
+                {{ Form::text('event_owner', $PreReservation->event_owner,['class'=>'form-control',
+                'id'=>'eventownerCount'] ) }}
                 <span class="ml-1 annotation count_num3"></span>
               </div>
               <p class="is-error-event_owner" style="color: red"></p>
@@ -352,7 +363,8 @@
                   <div class="d-flex align-items-end">
                     @foreach ($PreReservation->pre_breakdowns()->get() as $s_equ)
                     @if ($s_equ->unit_item==$equ->item)
-                    {{ Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control equipment_validation'] ) }}
+                    {{ Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control
+                    equipment_validation'] ) }}
                     @break
                     @elseif($loop->last)
                     {{ Form::text('equipment_breakdown'.$key,"",['class'=>'form-control equipment_validation'] ) }}
@@ -508,12 +520,14 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                      <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
-                      <label for="" class="form-check-label">有り</label>
+                      {{Form::radio('luggage_flag', 1,
+                      (int)$PreReservation->luggage_flag===1?true:false , ['id' =>'luggage_flag'])}}
+                      {{Form::label('luggage_flag','有り')}}
                     </p>
                     <p>
-                      <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                      <label for="" class="form-check-label">無し</label>
+                      {{Form::radio('luggage_flag', 0,
+                      (int)$PreReservation->luggage_flag===0?true:false, ['id' =>'no_luggage_flag'])}}
+                      {{Form::label('no_luggage_flag','無し')}}
                     </p>
                   </div>
                 </td>
@@ -521,20 +535,24 @@
               <tr>
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
-                  {{ Form::number('luggage_count', $PreReservation->luggage_count,['class'=>'form-control','id'=>'luggage_count'] ) }}
+                  {{ Form::number('luggage_count',
+                  $PreReservation->luggage_count,['class'=>'form-control','id'=>'luggage_count'] ) }}
                   <p class='is-error-luggage_count' style=' color: red'></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', date('Y-m-d',strtotime($PreReservation->luggage_arrive)??""),['class'=>'form-control holidays','id'=>'luggage_arrive'] ) }}
+                  {{ Form::text('luggage_arrive',
+                  date('Y-m-d',strtotime($PreReservation->luggage_arrive)??""),['class'=>'form-control
+                  holidays','id'=>'luggage_arrive'] ) }}
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事後返送する荷物</td>
                 <td>
-                  {{ Form::number('luggage_return', $PreReservation->luggage_return,['class'=>'form-control','id'=>'luggage_return'] ) }}
+                  {{ Form::number('luggage_return',
+                  $PreReservation->luggage_return,['class'=>'form-control','id'=>'luggage_return'] ) }}
                   <p class='is-error-luggage_return' style=' color: red'></p>
                 </td>
               </tr>
@@ -580,9 +598,11 @@
                   {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
                   {{Form::label('eat_in_consider',"検討中")}}
                   @else
-                  {{Form::radio('eat_in_prepare', 1, $PreReservation->eat_in_prepare==1?true:false , ['id' => 'eat_in_prepare' ])}}
+                  {{Form::radio('eat_in_prepare', 1, $PreReservation->eat_in_prepare==1?true:false , ['id' =>
+                  'eat_in_prepare' ])}}
                   {{Form::label('eat_in_prepare',"手配済み")}}
-                  {{Form::radio('eat_in_prepare', 2, $PreReservation->eat_in_prepare==2?true:false , ['id' => 'eat_in_consider'])}}
+                  {{Form::radio('eat_in_prepare', 2, $PreReservation->eat_in_prepare==2?true:false , ['id' =>
+                  'eat_in_consider'])}}
                   {{Form::label('eat_in_consider',"検討中")}}
                   @endif
                 </td>
@@ -661,7 +681,8 @@
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
-                {{ Form::textarea('admin_details', $PreReservation->admin_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::textarea('admin_details', $PreReservation->admin_details,['class'=>'form-control',
+                'placeholder'=>'入力してください'] ) }}
               </td>
             </tr>
           </tbody>
@@ -750,29 +771,24 @@
                 @foreach ($PreReservation->pre_breakdowns()->where('unit_type',1)->get() as $key=>$v_break)
                 <tr>
                   <td>
-                    {{ Form::text('venue_breakdown_item'.$key, $v_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('venue_breakdown_item'.$key, $v_break->unit_item,['class'=>'form-control col-xs-3',
+                    'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_cost'.$key, $v_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('venue_breakdown_cost'.$key, $v_break->unit_cost,['class'=>'form-control col-xs-3',
+                    'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_count'.$key, $v_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('venue_breakdown_count'.$key, $v_break->unit_count,['class'=>'form-control col-xs-3',
+                    'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_subtotal'.$key, $v_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('venue_breakdown_subtotal'.$key, $v_break->unit_subtotal,['class'=>'form-control
+                    col-xs-3', 'readonly'] ) }}
                   </td>
                 </tr>
                 @endforeach
               </tbody>
-              {{-- <tbody class="venue_result">
-                <tr>
-                  <td colspan="3"></td>
-                  <td colspan="1">
-                    <p class="text-left">合計</p>
-                    {{ Form::text('venue_price', $PreReservation->pre_bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-              </td>
-              </tr>
-              </tbody> --}}
             </table>
           </div>
 
@@ -797,32 +813,40 @@
                 @foreach ($PreReservation->pre_breakdowns()->where('unit_type',2)->get() as $key=>$e_break)
                 <tr>
                   <td>
-                    {{ Form::text('equipment_breakdown_item'.$key, $e_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('equipment_breakdown_item'.$key, $e_break->unit_item,['class'=>'form-control
+                    col-xs-3', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('equipment_breakdown_cost'.$key, $e_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('equipment_breakdown_cost'.$key, $e_break->unit_cost,['class'=>'form-control
+                    col-xs-3', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('equipment_breakdown_count'.$key, $e_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('equipment_breakdown_count'.$key, $e_break->unit_count,['class'=>'form-control
+                    col-xs-3', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('equipment_breakdown_subtotal'.$key, $e_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('equipment_breakdown_subtotal'.$key, $e_break->unit_subtotal,['class'=>'form-control
+                    col-xs-3', 'readonly'] ) }}
                   </td>
                 </tr>
                 @endforeach
                 @foreach ($PreReservation->pre_breakdowns()->where('unit_type',3)->get() as $key=>$s_break)
                 <tr>
                   <td>
-                    {{ Form::text('services_breakdown_item'.$key, $s_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('services_breakdown_item'.$key, $s_break->unit_item,['class'=>'form-control col-xs-3',
+                    'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('services_breakdown_cost'.$key, $s_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('services_breakdown_cost'.$key, $s_break->unit_cost,['class'=>'form-control col-xs-3',
+                    'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('services_breakdown_count'.$key, $s_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('services_breakdown_count'.$key, $s_break->unit_count,['class'=>'form-control
+                    col-xs-3', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('services_breakdown_subtotal'.$key, $s_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('services_breakdown_subtotal'.$key, $s_break->unit_subtotal,['class'=>'form-control
+                    col-xs-3', 'readonly'] ) }}
                   </td>
                 </tr>
                 @endforeach
@@ -832,9 +856,10 @@
                   <td colspan="3"></td>
                   <td colspan="1">
                     <p class="text-left">合計</p>
-                    {{ Form::text('equipment_price',$PreReservation->pre_bill->first()->equipment_price  ,['class'=>'form-control', 'readonly'] ) }}
-              </td>
-              </tr>
+                    {{ Form::text('equipment_price',$PreReservation->pre_bill->first()->equipment_price
+                    ,['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                </tr>
               </tbody> --}}
 
             </table>
@@ -862,16 +887,20 @@
                 @foreach ($PreReservation->pre_breakdowns()->where('unit_type',4)->get() as $key=>$l_break)
                 <tr>
                   <td>
-                    {{ Form::text('layout_breakdown_item'.$key, $l_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('layout_breakdown_item'.$key, $l_break->unit_item,['class'=>'form-control col-xs-3',
+                    'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('layout_breakdown_cost'.$key, $l_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('layout_breakdown_cost'.$key, $l_break->unit_cost,['class'=>'form-control col-xs-3',
+                    'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('layout_breakdown_count'.$key, $l_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('layout_breakdown_count'.$key, $l_break->unit_count,['class'=>'form-control col-xs-3',
+                    'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('layout_breakdown_subtotal'.$key, $l_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    {{ Form::text('layout_breakdown_subtotal'.$key, $l_break->unit_subtotal,['class'=>'form-control
+                    col-xs-3', 'readonly'] ) }}
                   </td>
                 </tr>
                 @endforeach
@@ -881,7 +910,8 @@
                   <td colspan="3"></td>
                   <td colspan="1">
                     <p class="text-left">合計</p>
-                    {{ Form::text('layout_price',$PreReservation->pre_bill->first()->layout_price ,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('layout_price',$PreReservation->pre_bill->first()->layout_price
+                    ,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
               </tbody>
@@ -895,19 +925,22 @@
               <tr>
                 <td>小計：</td>
                 <td>
-                  {{ Form::text('master_subtotal',$PreReservation->pre_bill->master_subtotal ,['class'=>'form-control text-right', 'readonly'] ) }}
+                  {{ Form::text('master_subtotal',$PreReservation->pre_bill->master_subtotal ,['class'=>'form-control
+                  text-right', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td>消費税：</td>
                 <td>
-                  {{ Form::text('master_tax',$PreReservation->pre_bill->master_tax ,['class'=>'form-control text-right', 'readonly'] ) }}
+                  {{ Form::text('master_tax',$PreReservation->pre_bill->master_tax ,['class'=>'form-control text-right',
+                  'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td class="font-weight-bold">合計金額</td>
                 <td>
-                  {{ Form::text('master_total',$PreReservation->pre_bill->master_total ,['class'=>'form-control text-right', 'readonly'] ) }}
+                  {{ Form::text('master_total',$PreReservation->pre_bill->master_total ,['class'=>'form-control
+                  text-right', 'readonly'] ) }}
                 </td>
               </tr>
             </table>
@@ -938,6 +971,7 @@
   {{Form::hidden('event_owner', $PreReservation->event_owner)}}
   {{Form::hidden('luggage_arrive', $PreReservation->luggage_arrive)}}
   {{Form::hidden('luggage_return', $PreReservation->luggage_return)}}
+  {{Form::hidden('luggage_flag', $PreReservation->luggage_flag)}}
   {{Form::hidden('discount_condition', $PreReservation->discount_condition)}}
   {{Form::hidden('attention', $PreReservation->attention)}}
   {{Form::hidden('user_details', $PreReservation->user_details)}}
@@ -959,7 +993,6 @@
 
 
 
-  {{-- {{Form::submit('保存する', ['class'=>'btn more_btn_lg mx-auto d-block my-5', 'id'=>'check_submit'])}} --}}
 
 </section>
 {{Form::close()}}
@@ -1089,12 +1122,13 @@
         })
         .done(function($agent) {
           $('#fullOverlay').css('display', 'none');
-          console.log('成功');
+          console.log($agent);
           $(".company").text("").text($agent["company"]);
           $(".person").text("").text($agent["person_firstname"] + $agent["person_lastname"]);
           $(".email").text("").text($agent["email"]);
           $(".mobile").text("").text($agent["mobile"]);
           $(".tel").text("").text($agent["tel"]);
+          $(".selected_agent_id").text("").text(( '000000' + $agent['id'] ).slice( -6 ));
         })
         .fail(function($agent) {
           $('#fullOverlay').css('display', 'none');

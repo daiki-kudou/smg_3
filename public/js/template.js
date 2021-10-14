@@ -128,14 +128,14 @@ $(function () {
 
 })
 
-$(function () {
-  $('.check_alert').on('click', function () {
-    if (!confirm('入力内容と反映された請求の一致を確認しましたか？')) {
-      return false;
-    } else {
-    }
-  })
-})
+// $(function () {
+//   $('.check_alert').on('click', function () {
+//     if (!confirm('入力内容と反映された請求の一致を確認しましたか？')) {
+//       return false;
+//     } else {
+//     }
+//   })
+// })
 
 
 // 予約新規登録、入退室時間があれば、イベント開始終了の時間制御
@@ -423,45 +423,40 @@ $(function () {
 
 
 // マイナスの場合の色変更
-$(function(){
-  $('.venue_main td:nth-child(2n) input').each(function(index, value){
-    var target=$(value).val();
-    console.log(target);
+$(function () {
+  $('.venue_main td:nth-child(2n) input').each(function (index, value) {
+    var target = $(value).val();
     if (target.match(/-/)) {
-      $(value).css('color','red');
+      $(value).css('color', 'red');
     }
   });
-  $('.equipment_main td:nth-child(2n) input').each(function(index, value){
-    var target=$(value).val();
-    console.log(target);
+  $('.equipment_main td:nth-child(2n) input').each(function (index, value) {
+    var target = $(value).val();
     if (target.match(/-/)) {
-      $(value).css('color','red');
+      $(value).css('color', 'red');
     }
   });
-  $('.layout_main td:nth-child(2n) input').each(function(index, value){
-    var target=$(value).val();
-    console.log(target);
+  $('.layout_main td:nth-child(2n) input').each(function (index, value) {
+    var target = $(value).val();
     if (target.match(/-/)) {
-      $(value).css('color','red');
+      $(value).css('color', 'red');
     }
   });
-  $('.others_main td:nth-child(2n) input').each(function(index, value){
-    var target=$(value).val();
-    // console.log(target);
+  $('.others_main td:nth-child(2n) input').each(function (index, value) {
+    var target = $(value).val();
     if (target.match(/-/)) {
-      $(value).css('color','red');
+      $(value).css('color', 'red');
     }
   });
 });
 
-$(function(){
-  $('.venue_main td:nth-child(2n), .equipment_main td:nth-child(2n), .layout_main td:nth-child(2n), .others_main td:nth-child(2n)').each(function(index, value){
-    var target=$(value).text();
-    // console.log(target);
+$(function () {
+  $('.venue_main td:nth-child(2n), .equipment_main td:nth-child(2n), .layout_main td:nth-child(2n), .others_main td:nth-child(2n)').each(function (index, value) {
+    var target = $(value).text();
     if (target.match(/-/)) {
-      $(value).css('color','red');
-    //   var result =target.replace('-','▲');
-    //   $(value).text(result);
+      $(value).css('color', 'red');
+      //   var result =target.replace('-','▲');
+      //   $(value).text(result);
     }
   });
 });

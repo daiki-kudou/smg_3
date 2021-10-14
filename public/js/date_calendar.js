@@ -16,7 +16,7 @@ $(function () {
     $.each(json[index], function ($index, $value) {
       if (status < 3) {// 3以下が黄色
         if ($index == 0) { //会社名挿入 10時以上の予約
-          var data = "<a target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
+          var data = "<a target='_blank' href='" + rootPath + "/admin/reservations/" + reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data); //リンク挿入
           if ($value !== "0800") {
             if (!$('.' + venue_id + 'cal' + $value).prev().hasClass('bg-prereserve') && !$('.' + venue_id + 'cal' + $value).prev().hasClass('bg-reserve')) {
@@ -24,7 +24,7 @@ $(function () {
             }
           }
         } else if ($value === "0800") {
-          var data = "<a target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
+          var data = "<a target='_blank' href='" + rootPath + "/admin/reservations/" + reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
         } else if ($index + 1 === json[index].length) {
           if (!$('.' + venue_id + 'cal' + $value).next().hasClass('bg-prereserve') && !$('.' + venue_id + 'cal' + $value).next().hasClass('bg-reserve')) {
@@ -40,7 +40,7 @@ $(function () {
         }
       } else if (status == 3) {// 3なら緑
         if ($index == 0) { //会社名挿入 10時以上の予約
-          var data = "<a target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
+          var data = "<a target='_blank' href='" + rootPath + "/admin/reservations/" + reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
           if ($value !== "0800") {
             if (!$('.' + venue_id + 'cal' + $value).prev().hasClass('bg-reserve')) {
@@ -48,7 +48,7 @@ $(function () {
             }
           }
         } else if ($value === "0800") {
-          var data = "<a target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
+          var data = "<a target='_blank' href='" + rootPath + "/admin/reservations/" + reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
         } else if ($index + 1 === json[index].length) {
           if (!$('.' + venue_id + 'cal' + $value).next().hasClass('bg-reserve')) {
@@ -87,14 +87,14 @@ $(function () {
       if ($index == 0) {
         if (multiple_id != 0) {
           if (agent_id > 0) { //仲介会社の場合の一括詳細
-            var data = "<a target='_blank' href='/admin/multiples/agent/" + multiple_id + "'>" + company + "</a>";
+            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/agent/" + multiple_id + "'>" + company + "</a>";
             $('.' + venue_id + 'cal' + $value).html(data);
           } else {　//ユーザーの場合の一括詳細
-            var data = "<a target='_blank' href='/admin/multiples/" + multiple_id + "'>" + company + "</a>";
+            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/" + multiple_id + "'>" + company + "</a>";
             $('.' + venue_id + 'cal' + $value).html(data);
           }
         } else {　//ユーザー||仲介会社の仮押さえ詳細
-          var data = "<a target='_blank' href='/admin/pre_reservations/" + pre_reservation_id + "'>" + company + "</a>";
+          var data = "<a target='_blank' href='" + rootPath + "/admin/pre_reservations/" + pre_reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
         }
         if ($value !== "0800") {
@@ -105,14 +105,14 @@ $(function () {
       } else if ($value == "0800") {
         if (multiple_id != 0) {
           if (agent_id > 0) { //仲介会社の場合の一括詳細
-            var data = "<a target='_blank' href='/admin/multiples/agent/" + multiple_id + "'>" + company + "</a>";
+            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/agent/" + multiple_id + "'>" + company + "</a>";
             $('.' + venue_id + 'cal' + $value).html(data);
           } else {　//ユーザーの場合の一括詳細
-            var data = "<a target='_blank' href='/admin/multiples/" + multiple_id + "'>" + company + "</a>";
+            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/" + multiple_id + "'>" + company + "</a>";
             $('.' + venue_id + 'cal' + $value).html(data);
           }
         } else {　//ユーザー||仲介会社の仮押さえ詳細
-          var data = "<a target='_blank' href='/admin/pre_reservations/" + pre_reservation_id + "'>" + company + "</a>";
+          var data = "<a target='_blank' href='" + rootPath + "/admin/pre_reservations/" + pre_reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
         }
       } else if ($index + 1 === json[index].length) {

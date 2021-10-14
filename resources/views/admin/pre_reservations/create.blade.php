@@ -35,8 +35,58 @@
   </div>
 
 
-  {{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'POST', 'id'=>'pre_reservationCreateForm'])}}
+  {{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'get', 'id'=>'pre_reservationCreateForm'])}}
   @csrf
+
+  <div class="date_selector pt-4">
+    <hr>
+    <h3 class="mb-2 pt-3">日程選択</h3>
+    <table class="table table-bordered PreResCre" style="table-layout: fixed;">
+      <thead>
+        <tr>
+          <td class="form_required">日付</td>
+          <td class="form_required">会場名</td>
+          <td class="form_required">入室時間</td>
+          <td class="form_required">退室時間</td>
+          <td>追加・削除</td>
+        </tr>
+      </thead>
+      <tbody id="pre_reservation_select_dates">
+        <tr>
+          <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker", ""] ) }}
+            <p class="is-error-pre_date0" style="color: red"></p>
+          </td>
+          <td>
+            <select name="pre_venue0" id="pre_venue" class="form-control">
+              <option value=""></option>
+              @foreach ($venues as $venue)
+              <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
+              @endforeach
+            </select>
+            <p class="is-error-pre_venue0" style="color: red"></p>
+          </td>
+          <td>
+            <select name="pre_enter0" id="pre_enter0" class="enter_control_pre_reservation0 form-control">
+              <option value=""></option>
+              {!!ReservationHelper::timeOptions()!!}
+            </select>
+            <p class="is-error-pre_enter0" style="color: red"></p>
+          </td>
+          <td>
+            <select name="pre_leave0" id="pre_leave0" class="leave_control_pre_reservation0 form-control">
+              <option value=""></option>
+              {!!ReservationHelper::timeOptions()!!}
+            </select>
+            <p class="is-error-pre_leave0" style="color: red"></p>
+          </td>
+          <td>
+            <input type="button" value="＋" class="add pluralBtn">
+            <input type="button" value="ー" class="del pluralBtn">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="user_selector mt-5">
     <h3 class="mb-2 form_required">顧客検索</h3>
@@ -151,7 +201,8 @@
           </td>
           <td class="table-active">携帯番号</td>
           <td>
-            {{ Form::text('unknown_user_mobile', '',['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
+            {{ Form::text('unknown_user_mobile', '',['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] )
+            }}
             <p class="is-error-unknown_user_mobile" style="color: red"></p>
           </td>
         </tr>
@@ -166,55 +217,7 @@
     </table>
   </div>
 
-  <div class="date_selector pt-4">
-    <hr>
-    <h3 class="mb-2 pt-3">日程選択</h3>
-    <table class="table table-bordered PreResCre" style="table-layout: fixed;">
-      <thead>
-        <tr>
-          <td class="form_required">日付</td>
-          <td class="form_required">会場名</td>
-          <td class="form_required">入室時間</td>
-          <td class="form_required">退室時間</td>
-          <td>追加・削除</td>
-        </tr>
-      </thead>
-      <tbody id="pre_reservation_select_dates">
-        <tr>
-          <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker", ""] ) }}
-            <p class="is-error-pre_date0" style="color: red"></p>
-          </td>
-          <td>
-            <select name="pre_venue0" id="pre_venue" class="form-control">
-              <option value=""></option>
-              @foreach ($venues as $venue)
-              <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
-              @endforeach
-            </select>
-            <p class="is-error-pre_venue0" style="color: red"></p>
-          </td>
-          <td>
-            <select name="pre_enter0" id="pre_enter0" class="enter_control_pre_reservation0 form-control">
-              <option value=""></option>
-              {!!ReservationHelper::timeOptions()!!}
-            </select>
-            <p class="is-error-pre_enter0" style="color: red"></p>
-          </td>
-          <td>
-            <select name="pre_leave0" id="pre_leave0" class="leave_control_pre_reservation0 form-control">
-              <option value=""></option>
-              {!!ReservationHelper::timeOptions()!!}
-            </select>
-            <p class="is-error-pre_leave0" style="color: red"></p>
-          </td>
-          <td>
-            <input type="button" value="＋" class="add pluralBtn">
-            <input type="button" value="ー" class="del pluralBtn">
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+
 
   <div class="submit_btn mt-5">
     {{Form::submit('日程をおさえる', ['class'=>'btn more_btn_lg mx-auto d-block', 'id'=>'check_submit'])}}
@@ -252,7 +255,7 @@
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          url: '/admin/pre_reservations/getuser',
+          url: rootPath+'/admin/pre_reservations/getuser',
           type: 'POST',
           data: {
             'user_id': user_id
@@ -295,9 +298,6 @@
   })
   // select2, datepicker 初期表示用
   $(function() {
-    // $('#pre_venue').select2({
-    //   width: '100%'
-    // });
     $('#pre_datepicker').datepicker({
       dateFormat: 'yy-mm-dd',
       autoclose: true,
@@ -310,10 +310,6 @@
     $(document).on("click", ".add", function() {
       var valid=$("#pre_reservationCreateForm").validate();
       valid.destroy();
-      // すべてのselect2初期化
-      // for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
-      //   $('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy");
-      // }
       var base_venue = $(this).parent().parent().find('td').eq(1).find('select').val();
       var base_date = $(this).parent().parent().find('td').eq(0).find('input').val().split('-');
       var dt = new Date(base_date);
@@ -356,16 +352,6 @@
           dateFormat: 'yy-mm-dd',
           minDate: 0,
         });
-        // select2付与
-        // $(target).eq(index).find('td').eq(1).find('select').select2({
-        //   width: '100%'
-        // });
-        // 時間の入力を初期化
-        // 意図しない一番最後がクリアされるため一旦、コメントアウト
-        //if (index == count - 1) {
-        //  $(target).eq(index).find('td').eq(2).find('input, select').val('');
-        //  $(target).eq(index).find('td').eq(3).find('input, select').val('');
-        //}
         $(target).eq(index).find('td').eq(0).find('p').remove();
         $(target).eq(index).find('td').eq(1).find('p').remove();
         $(target).eq(index).find('td').eq(2).find('p').remove();

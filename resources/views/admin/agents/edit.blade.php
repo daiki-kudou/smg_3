@@ -15,15 +15,7 @@
 </style>
 
 <div class="container-field">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName(),$agent->id) }}
-        </li>
-      </ol>
-    </nav>
-  </div>
+  @include('layouts.admin.breadcrumbs',['id'=>$agent->id])
   <h2 class="mt-3 mb-3">仲介会社 詳細情報(編集)</h2>
   <hr>
 </div>
@@ -319,9 +311,10 @@
             </th>
             <td>
               <select name="payment_limit" id="payment_limit">
-                <option value="1" {{$agent->payment_limit==1?'selected':""}}>当月末締め／当月末支払い</option>
-                <option value="2" {{$agent->payment_limit==2?'selected':""}}>当月末締め／翌月末支払い</option>
-                <option value="3" {{$agent->payment_limit==3?'selected':""}}>当月末締め／翌々月末支払い</option>
+                <option value="1" {{(int)$agent->payment_limit===1?'selected':""}}>当月末締め／当月末支払い</option>
+                <option value="2" {{(int)$agent->payment_limit===2?'selected':""}}>当月末締め／翌月末支払い</option>
+                <option value="3" {{(int)$agent->payment_limit===3?'selected':""}}>当月末締め／翌々月末支払い</option>
+                <option value="4" {{(int)$agent->payment_limit===4?'selected':""}}>当月末締め／翌々々月末支払い</option>
               </select>
             </td>
           </tr>

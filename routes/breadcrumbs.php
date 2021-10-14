@@ -22,6 +22,7 @@ Breadcrumbs::for('admin.venues.edit', function ($trail, $venue) {
   $trail->parent('admin.venues.show', $venue);
   $trail->push('会場管理 編集', route('admin.venues.edit', $venue));
 });
+
 // 備品
 Breadcrumbs::for('admin.equipments.index', function ($trail) {
   $trail->parent('admin.home.index');
@@ -266,6 +267,43 @@ Breadcrumbs::for('admin.agents_reservations.check', function ($trail) {
   $trail->push('(仲介会社)予約 詳細 確認', route('admin.agents_reservations.check'));
 });
 
+Breadcrumbs::for('admin.agents_reservations.edit', function ($trail, $id) {
+  $trail->parent('admin.reservations.show', $id);
+  $trail->push('(仲介会社)予約 編集', route('admin.agents_reservations.edit', $id));
+});
+
+Breadcrumbs::for('admin.agents_reservations.edit_check', function ($trail, $id) {
+  $trail->parent('admin.agents_reservations.edit', $id);
+  $trail->push('(仲介会社)予約 再計算・確認', route('admin.agents_reservations.edit_check', $id));
+});
+
+Breadcrumbs::for('admin.agents_reservations.add_bills', function ($trail, $id) {
+  $trail->parent('admin.reservations.show', $id);
+  $trail->push('(仲介会社)追加請求書　作成', route('admin.agents_reservations.add_bills'));
+});
+
+Breadcrumbs::for('admin.agents_reservations.add_check', function ($trail, $id) {
+  $trail->parent('admin.agents_reservations.add_bills', $id);
+  $trail->push('(仲介会社)追加請求書　確認', route('admin.agents_reservations.add_check'));
+});
+
+// 追加請求書
+Breadcrumbs::for('admin.bills.edit', function ($trail, $bill_id, $reservation_id) {
+  $trail->parent('admin.reservations.show', $reservation_id);
+  $trail->push('追加請求書　編集', route('admin.bills.edit', $bill_id));
+});
+
+Breadcrumbs::for('admin.bills.create', function ($trail, $id) {
+  $trail->parent('admin.reservations.show', $id);
+  $trail->push('追加請求書　作成', route('admin.bills.create', ['reservation_id' => $id]));
+});
+
+Breadcrumbs::for('admin.bills.check', function ($trail, $id) {
+  $trail->parent('admin.bills.create', $id);
+  $trail->push('追加請求書　確認', route('admin.bills.check'));
+});
+
+
 // 管理者　カレンダー
 Breadcrumbs::for('admin.calendar.date_calendar', function ($trail) {
   $trail->parent('admin.home.index');
@@ -308,3 +346,26 @@ Breadcrumbs::for('user.pre_reservations.show_cfm', function ($trail) {
   $trail->parent('user.pre_reservations.index');
   $trail->push('仮押え　申し込み', route('user.pre_reservations.show_cfm'));
 });
+
+// キャンセル
+
+Breadcrumbs::for('admin.cxl.multi_calc', function ($trail, $reservation_id, $bill_id, $multi) {
+  $trail->parent('admin.cxl.multi_create', $reservation_id, $bill_id, $multi);
+  $trail->push('キャンセル請求書 編集', route('admin.cxl.multi_calc', $reservation_id));
+});
+
+Breadcrumbs::for('admin.cxl.edit', function ($trail, $cxl_id, $reservation_id) {
+  $trail->parent('admin.reservations.show', $reservation_id);
+  $trail->push('キャンセル請求書 編集', route('admin.cxl.edit', $cxl_id));
+});
+
+Breadcrumbs::for('admin.cxl.edit_calc', function ($trail, $cxl_id, $reservation_id) {
+  $trail->parent('admin.cxl.edit', $cxl_id, $reservation_id);
+  $trail->push('キャンセル請求書 作成', route('admin.cxl.edit_calc', $cxl_id));
+});
+
+
+// Breadcrumbs::for('admin.cxl.multi_create', function ($trail, $reservation_id, $bill_id, $multi) {
+//   $trail->parent('admin.reservations.show', $reservation_id);
+//   $trail->push('キャンセル請求書 作成', route('admin.cxl.multi_create', $reservation_id, $bill_id, $multi));
+// });

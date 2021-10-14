@@ -18,6 +18,7 @@ use App\Models\PreReservation;
 use App\Models\PreBill;
 use App\Models\PreBreakdown;
 use App\Models\MultipleReserve;
+use App\Models\UnknownUser;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminFinPreRes;
@@ -30,7 +31,7 @@ use App\Traits\PaginatorTrait;
 
 // バリデーションロジック
 use App\Http\Requests\Admin\PreReservations\Common\VenuePriceRequiredRequest;
-
+use App\Service\SendSMGEmail;
 
 class PreReservationsController extends Controller
 {
@@ -45,124 +46,39 @@ class PreReservationsController extends Controller
    */
   public function index(Request $request)
   {
-    $today = date('Y-m-d', strtotime(Carbon::today()));
+    $data = $request->all();
 
-    if (count($request->except("_token")) != 0) {
-      $class = new PreReservation;
-      $result = $this->BasicSearch($class->with(["unknown_user", "pre_enduser", "user", 'agent', 'venue']), $request);
-      $pre_reservations = $result[0];
-      $after = $pre_reservations->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->where('status', '<', 2)->sortBy('reserve_date');
-      $before = $pre_reservations->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->where('status', '<', 2)->sortByDesc('reserve_date');
-      $pre_reservations = $after->concat($before);
-      $counter = $this->exceptSortCount($request->except('_token'), $pre_reservations);
-      if ($request->time_over) {
-        $today = Carbon::now();
-        $threeDaysBefore = date('Y-m-d H:i:s', strtotime($today->subHours(72)));
-        $pre_reservations = $pre_reservations->where('status', '<', 2)->where('updated_at', '<', $threeDaysBefore);
-        $counter = $this->exceptSortCount($request->except('_token'), $pre_reservations);
-      }
-    } else {
-      $after = PreReservation::with(["unknown_user", "pre_enduser", 'user', 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->where('status', '<', 2)->get()->sortBy('reserve_date');
-      $before = PreReservation::with(["unknown_user", "pre_enduser", "user", 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->where('status', '<', 2)->get()->sortByDesc('reserve_date');
-      $pre_reservations = $after->concat($before);
-      $counter = 0;
+    $_pre_reservations = new PreReservation;
+    $_pre_reservations = $_pre_reservations->SearchPreReservation($data)->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc')->get()->toArray();
+    $pre_reservations = [];
+    foreach ($_pre_reservations as $p) {
+      $pre_reservations[] = [
+        "<input type='checkbox' name='checkbox" . $p->pre_reservation_id_original . "' value='" . $p->pre_reservation_id_original . "' class='checkbox'>",
+        $p->pre_reservation_id,
+        $p->created_at,
+        $p->reserve_date,
+        $p->enter_time,
+        $p->leave_time,
+        $p->venue_name,
+        $p->company,
+        $p->person_name,
+        $p->mobile,
+        $p->tel,
+        $p->unknownuser,
+        $p->agent_name,
+        $p->enduser,
+        "<a href=" . url('admin/pre_reservations', $p->pre_reservation_id_original) . " class='more_btn btn'>詳細</a>",
+      ];
     }
 
-    $pre_reservations = $this->customSearchAndSort($pre_reservations, $request);
-    $pre_reservations = $this->customPaginate($pre_reservations, 30, $request);
-
-    $venues = Venue::orderBy("id", "desc")->get();
-    $agents = Agent::orderBy("id", "desc")->get();
+    $pre_reservations = json_encode($pre_reservations);
+    $venues = DB::table('venues')->select(DB::raw('id, concat(name_area, name_bldg, name_venue) as venue_name'))->orderByRaw('id desc')->pluck('venue_name', 'id')->toArray();
+    $agents = DB::table('agents')->select(DB::raw('id, name'))->orderByRaw('id desc')->pluck('name', 'id')->toArray();
 
     return view(
       'admin.pre_reservations.index',
-      compact('pre_reservations', 'venues', 'agents', "counter", 'request')
+      compact('venues', 'agents', 'data', 'pre_reservations')
     );
-  }
-
-  public function customSearchAndSort($model, $request)
-  {
-    if ($request->sort_id) {
-      if ($request->sort_id == 1) {
-        return $model->sortByDesc("id");
-      } else {
-        return $model->sortBy("id");
-      }
-    } elseif ($request->sort_created_at) {
-      if ($request->sort_created_at == 1) {
-        return $model->sortByDesc("created_at");
-      } else {
-        return $model->sortBy("created_at");
-      }
-    } elseif ($request->sort_reserve_date) {
-      if ($request->sort_reserve_date == 1) {
-        return $model->sortByDesc("reserve_date");
-      } else {
-        return $model->sortBy("reserve_date");
-      }
-    } elseif ($request->sort_enter_time) {
-      if ($request->sort_enter_time == 1) {
-        return $model->sortByDesc("enter_time");
-      } else {
-        return $model->sortBy("enter_time");
-      }
-    } elseif ($request->sort_leave_time) {
-      if ($request->sort_leave_time == 1) {
-        return $model->sortByDesc("leave_time");
-      } else {
-        return $model->sortBy("leave_time");
-      }
-    } elseif ($request->sort_venue) {
-      if ($request->sort_venue == 1) {
-        return $model->sortByDesc("venue.name_bldg");
-      } else {
-        return $model->sortBy("venue.name_bldg");
-      }
-    } elseif ($request->sort_user_company) {
-      if ($request->sort_user_company == 1) {
-        return $model->sortByDesc("user.company");
-      } else {
-        return $model->sortBy("user.company");
-      }
-    } elseif ($request->sort_user_name) {
-      if ($request->sort_user_name == 1) {
-        return $model->sortByDesc("user.first_name_kana");
-      } else {
-        return $model->sortBy("user.first_name_kana");
-      }
-    } elseif ($request->sort_user_mobile) {
-      if ($request->sort_user_mobile == 1) {
-        return $model->sortByDesc("user.mobile");
-      } else {
-        return $model->sortBy("user.mobile");
-      }
-    } elseif ($request->sort_user_tel) {
-      if ($request->sort_user_tel == 1) {
-        return $model->sortByDesc("user.tel");
-      } else {
-        return $model->sortBy("user.tel");
-      }
-    } elseif ($request->sort_unknown) {
-      if ($request->sort_unknown == 1) {
-        return $model->sortByDesc("unknown_users.unknown_user_company");
-      } else {
-        return $model->sortBy("unknown_users.unknown_user_company");
-      }
-    } elseif ($request->sort_agent) {
-      if ($request->sort_agent == 1) {
-        return $model->sortByDesc("agent.company");
-      } else {
-        return $model->sortBy("agent.company");
-      }
-    } elseif ($request->sort_enduser) {
-      if ($request->sort_enduser == 1) {
-        return $model->sortByDesc("pre_endusers.company");
-      } else {
-        return $model->sortBy("pre_endusers.company");
-      }
-    }
-
-    return $model;
   }
 
   /**
@@ -330,15 +246,18 @@ class PreReservationsController extends Controller
     $pre_reservation = new PreReservation;
     $pre_bill = new PreBill;
     $pre_breakdown = new PreBreakdown;
+    $unknownUser = new UnknownUser;
     DB::beginTransaction();
     try {
       $result_pre_reservation = $pre_reservation->PreReservationStore($data);
+      $unknownUser->UnknownUserStore($result_pre_reservation->id, $data);
+      $data['end_user_charge'] = 0; //顧客はエンドユーザーへの請求がないため0で固定
       $result_pre_bill = $pre_bill->PreBillStore($result_pre_reservation->id, $data);
       $result_breakdowns = $pre_breakdown->PreBreakdownStore($result_pre_bill->id, $data);
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      // var_dump($e);
+      // dd($e);
       return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
@@ -438,6 +357,7 @@ class PreReservationsController extends Controller
         'luggage_count' => $request->luggage_count,
         'luggage_arrive' => $request->luggage_arrive,
         'luggage_return' => $request->luggage_return,
+        'luggage_flag' => $request->luggage_flag,
         'email_flag' => $request->email_flag,
         'in_charge' => $request->in_charge,
         'tel' => $request->tel,
@@ -473,6 +393,7 @@ class PreReservationsController extends Controller
         'reservation_status' => 0, //デフォで1、仮押えのデフォは0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
+        'end_user_charge' => 0, //ユーザーからは0で固定
       ]);
       function toBreakDowns($num, $sub, $target, $type)
       {
@@ -560,38 +481,19 @@ class PreReservationsController extends Controller
 
   public function switchStatus(Request $request)
   {
-    $PreReservation = PreReservation::with('pre_bill.pre_breakdowns')->find($request->pre_reservation_id);
+    $PreReservation = PreReservation::with(['pre_bill.pre_breakdowns', 'user'])->find($request->pre_reservation_id);
 
     if ($PreReservation->user_id > 0) {
       DB::transaction(function () use ($request, $PreReservation) {
         $PreReservation->update(['status' => 1]);
       });
 
-      $admin = explode(',', config('app.admin_email'));
-      Mail::to($admin) //管理者
-        ->send(new AdminFinPreRes(
-          $PreReservation->user->company,
-          $PreReservation->id,
-          $PreReservation->reserve_date,
-          $PreReservation->enter_time,
-          $PreReservation->leave_time,
-          $PreReservation->venue->name_area . $PreReservation->venue->name_bldg . $PreReservation->venue->name_venue,
-          $PreReservation->venue->post_code,
-          $PreReservation->venue->address1 . $PreReservation->venue->address2 . $PreReservation->venue->address3,
-          url('/') . '/user/pre_reservations'
-        ));
-      Mail::to($PreReservation->user->email) //ユーザー
-        ->send(new UserFinPreRes(
-          $PreReservation->user->company,
-          $PreReservation->id,
-          $PreReservation->reserve_date,
-          $PreReservation->enter_time,
-          $PreReservation->leave_time,
-          $PreReservation->venue->name_area . $PreReservation->venue->name_bldg . $PreReservation->venue->name_venue,
-          $PreReservation->venue->post_code,
-          $PreReservation->venue->address1 . $PreReservation->venue->address2 . $PreReservation->venue->address3,
-          url('/') . '/user/pre_reservations'
-        ));
+      $user = User::find($PreReservation->user->id);
+      $reservation = $PreReservation;
+      $venue = Venue::find($PreReservation->venue_id);
+      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+      $SendSMGEmail->send("管理者仮押え完了及びユーザーへ編集権限譲渡");
+
       $flash_message = "顧客に承認権限メールを送りました";
       $request->session()->regenerate();
       return redirect()->route('admin.pre_reservations.show', $request->pre_reservation_id)->with('flash_message', $flash_message);
@@ -645,23 +547,44 @@ class PreReservationsController extends Controller
    */
   public function destroy(Request $request)
   {
-    if ($request->except('_token')) {
-      DB::transaction(function () use ($request) { //トランザクションさせる
-        foreach ($request->except('_token') as $key => $value) {
-          $pre_reservation = PreReservation::find((int) $value);
-          $pre_reservation->delete();
-          if ($pre_reservation->user_id > 0) {
-            $admin = explode(',', config('app.admin_email'));
-            $user = User::find($pre_reservation->user_id);
-            Mail::to($admin)->send(new AdminPreResCxl($pre_reservation, $user));
-            Mail::to($user->email)->send(new UserPreResCxl($pre_reservation, $user));
+    $data = $request->all();
+    if (!empty($data['delete_target']) && $data['delete_target'] !== "[]") { //空配列は弾く
+      $delete_target_array = json_decode($data['delete_target']); //配列
+      DB::beginTransaction();
+      try {
+        foreach ($delete_target_array as $value) {
+          $preReservation = PreReservation::with(['user', 'venue'])->find($value);
+          if (is_null($preReservation)) { //削除対象がなければ
+            throw new \Exception("ID" . $value . "は存在しません");
+          }
+          if (($preReservation->user_id > 0)) {
+            if (!filter_var($preReservation->user->email, FILTER_VALIDATE_EMAIL)) { //対象がメールアドレスでなければ
+              throw new \Exception("ID" . $value . "のメールアドレス" . $preReservation->user->email . "は正しくありません");
+            }
           }
         }
-      });
-      $request->session()->regenerate();
-      return redirect()->route('admin.pre_reservations.index')->with('flash_message', '仮抑え削除が成功しました');
+        // 上のforeachでメールアドレスチェックをし、全て通ったら再度foreachでメール送信処理
+        foreach ($delete_target_array as $v) {
+          $preReservation = PreReservation::with(['user', 'venue'])->find($v);
+          if ($preReservation->user_id > 0) {
+            $user = $preReservation->user;
+            $venue = $preReservation->venue;
+            $SendSMGEmail = new SendSMGEmail($user, "test", $preReservation->venue);
+            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除");
+          }
+        }
+        // 上のメール送信も問題なければ削除
+        foreach ($delete_target_array as $v) {
+          $preReservation = PreReservation::with(['user', 'venue'])->find($v);
+          $preReservation->delete();
+        }
+        DB::commit();
+      } catch (\Exception $e) {
+        DB::rollback();
+        return back()->withInput()->withErrors($e->getMessage());
+      }
+      return redirect()->route('admin.pre_reservations.index')->with('flash_message', '削除したよ');
     } else {
-      $request->session()->regenerate();
       return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '仮押えが選択されていません');
     }
   }

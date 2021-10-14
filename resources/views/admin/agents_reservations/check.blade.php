@@ -5,7 +5,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script>
-{{-- <script src="{{ asset('/js/validation.js') }}"></script> --}}
 
 
 <style>
@@ -33,15 +32,7 @@
   }
 </style>
 
-<div class="d-flex justify-content-end">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active">
-        {{ Breadcrumbs::render(Route::currentRouteName()) }}
-      </li>
-    </ol>
-  </nav>
-</div>
+@include('layouts.admin.breadcrumbs')
 
 
 <div id="fullOverlay">
@@ -59,6 +50,7 @@
   </ul>
 </div>
 @endforeach
+
 
 {{Form::open(['url' => 'admin/agents_reservations', 'method' => 'POST', 'id'=>'agentReservationCreateForm'])}}
 @csrf
@@ -187,7 +179,7 @@
           <tbody class="accordion-wrap2">
             @foreach ($venue->getEquipments() as $key=>$equ)
             <tr>
-              <td class="table-active">{{$equ->item}}</td>
+              <td class="table-active">{{$equ->item}}({{number_format($equ->price)."円"}})</td>
               <td>
                 <div class="d-flex align-items-end">
                   {{ Form::text('equipment_breakdown'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control','readonly'] ) }}
@@ -214,7 +206,7 @@
           <tbody class="accordion-wrap2">
             @foreach ($venue->getServices() as $key=>$ser)
             <tr>
-              <td class="table-active">{{$ser->item}}</td>
+              <td class="table-active">{{$ser->item}}({{number_format($ser->price)."円"}})</td>
               <td>
                 {{ Form::text('', $master_info['services_breakdown'.$key]==1?"あり":"なし",['class'=>'form-control','readonly'] ) }}
                 {{ Form::hidden('services_breakdown'.$key, $master_info['services_breakdown'.$key],['class'=>'form-control','readonly'] ) }}
@@ -270,9 +262,10 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+              <td class="table-active">荷物預かり</td>
               <td>
-                <input class="form-control" type="text" value="工藤さん！こちら、ありかなしの表示をお願いします" readonly>
+                {{ Form::text('', (int)$master_info['luggage_flag']===1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::hidden('luggage_flag', $master_info['luggage_flag'],['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
             <tr>
@@ -362,7 +355,6 @@
             <td class="table-active"><label for="name">担当者氏名<br></label></td>
             <td>
               {{ Form::text('in_charge', ReservationHelper::getAgentPerson($master_info['agent_id']),['class'=>'form-control', 'readonly'] ) }}
-              {{-- 保存用 --}}
               {{ Form::hidden('tel', ReservationHelper::getAgentTel($master_info['agent_id']),['class'=>'form-control', 'readonly'] ) }}
               {{ Form::hidden('email_flag', 0,['class'=>'form-control', 'readonly'] ) }}
             </td>
@@ -431,7 +423,7 @@
               <label for="enduser_attr" class="">利用者属性</label>
             </td>
             <td>
-              {{ Form::text('enduser_attr', $master_info['enduser_attr'],['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('enduser_attr', ReservationHelper::getEndUser($master_info['enduser_attr']),['class'=>'form-control', 'readonly'] ) }}
             </td>
           </tr>
         </tbody>
@@ -582,7 +574,6 @@
                   {{ Form::text('venue_breakdown_subtotal[]', 0,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
-              {{-- 保存用 --}}
               {{ Form::hidden('venue_price', 0,['class'=>'form-control', 'readonly'] ) }}
             </tbody>
           </table>
@@ -902,7 +893,7 @@
 
 <div class="container-field d-flex justify-content-center mt-5">
   <a href="{{route('admin.agents_reservations.calculate')}}" class="btn more_btn4_lg d-block mr-5">請求内訳を修正する</a>
-  {{Form::submit('予約を登録する', ['class'=>'d-block btn more_btn_lg', 'id'=>'check_submit'])}}
+  {{Form::submit('予約を登録する', ['class'=>'d-block btn more_btn_lg confirm_submit', 'id'=>'check_submit'])}}
   {{Form::close()}}
 </div>
 

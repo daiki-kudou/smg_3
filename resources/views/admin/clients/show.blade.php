@@ -5,13 +5,8 @@
 
 <div class="container-field">
   <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName(),$user->id) }}
-        </li>
-      </ol>
-    </nav>
+
+    @include('layouts.admin.breadcrumbs',['id'=>$user->id])
   </div>
   <h2 class="mt-3 mb-3">顧客管理 詳細</h2>
   <hr>
@@ -183,12 +178,14 @@
             <th class="table-active">{{ Form::label('pay_limit', '支払期日') }}</th>
             <td>
               @if ($user->pay_limit==1)
-              3営業日前
+              当日
               @elseif($user->pay_limit==2)
-              当月末締め／当月末支払い
+              3営業日前
               @elseif($user->pay_limit==3)
-              当月末締め／翌月末支払い
+              当月末締め／当月末支払い
               @elseif($user->pay_limit==4)
+              当月末締め／翌月末支払い
+              @elseif($user->pay_limit==5)
               当月末締め／翌々月末支払い
               @endif
             </td>
@@ -269,7 +266,6 @@
 
     <ul class="d-flex justify-content-end mt-5">
       <li class="mr-3">
-        {{-- <a href="{{url('admin/pre_reservations/create')}}" class="more_btn3">仮押えをする</a> --}}
         {{ Form::open(['url' => 'admin/pre_reservations/create', 'method'=>'get', 'id'=>'']) }}
         @csrf
         {{Form::hidden('user_id_from_client_show',$user->id)}}
@@ -384,12 +380,12 @@
 </section>
 
 <script>
-  $(function(){
-  $('#delete_btn').on('click',function(){
-      if(!confirm('削除しますか？')){
-        return false;
-      }
-  });
-  });
+  // $(function(){
+  // $('#delete_btn').on('click',function(){
+  //     if(!confirm('削除しますか？')){
+  //       return false;
+  //     }
+  // });
+  // });
 </script>
 @endsection

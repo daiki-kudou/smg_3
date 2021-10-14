@@ -6,7 +6,7 @@ $(function () {
     var date = $('input[name="date"]').eq(index).val();
     var reservation_id = $('input[name="reservation_id"]').eq(index).val();
     var company = $('input[name="company"]').eq(index).val();
-    var data = "<a  target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
+    var data = "<a  target='_blank' href='" + rootPath + "/admin/reservations/" + reservation_id + "'>" + company + "</a>";
     if (status < 3) {
       $.each(json[index], function ($index, $value) {
         $('.' + date + 'cal' + $value).addClass('bg-prereserve');
@@ -82,14 +82,14 @@ $(function () {
       if ($index == 0) {
         if (multiple_id != 0) {
           if (pre_agent_id > 0) { //仲介会社の場合の一括詳細
-            var data = "<a target='_blank' href='/admin/multiples/agent/" + multiple_id + "'>" + pre_company + "</a>";
+            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/agent/" + multiple_id + "'>" + pre_company + "</a>";
             $('.' + pre_date + 'cal' + $value).html(data);
           } else {　//ユーザーの場合の一括詳細
-            var data = "<a target='_blank' href='/admin/multiples/" + multiple_id + "'>" + pre_company + "</a>";
+            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/" + multiple_id + "'>" + pre_company + "</a>";
             $('.' + pre_date + 'cal' + $value).html(data);
           }
         } else {　//ユーザー||仲介会社の仮押さえ詳細
-          var data = "<a target='_blank' href='/admin/pre_reservations/" + pre_reservation_id + "'>" + pre_company + "</a>";
+          var data = "<a target='_blank' href='" + rootPath + "/admin/pre_reservations/" + pre_reservation_id + "'>" + pre_company + "</a>";
           $('.' + pre_date + 'cal' + $value).html(data);
         }
         if ($value !== "0800") {
@@ -101,14 +101,14 @@ $(function () {
       else if ($value == "0800") {
         if (multiple_id != 0) {
           if (pre_agent_id > 0) { //仲介会社の場合の一括詳細
-            var data = "<a target='_blank' href='/admin/multiples/agent/" + multiple_id + "'>" + pre_company + "</a>";
+            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/agent/" + multiple_id + "'>" + pre_company + "</a>";
             $('.' + pre_date + 'cal' + $value).html(data);
           } else {　//ユーザーの場合の一括詳細
-            var data = "<a target='_blank' href='/admin/multiples/" + multiple_id + "'>" + pre_company + "</a>";
+            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/" + multiple_id + "'>" + pre_company + "</a>";
             $('.' + pre_date + 'cal' + $value).html(data);
           }
         } else {　//ユーザー||仲介会社の仮押さえ詳細
-          var data = "<a target='_blank' href='/admin/pre_reservations/" + pre_reservation_id + "'>" + pre_company + "</a>";
+          var data = "<a target='_blank' href='" + rootPath + "/admin/pre_reservations/" + pre_reservation_id + "'>" + pre_company + "</a>";
           $('.' + pre_date + 'cal' + $value).html(data);
         }
       } else if ($index + 1 === pre_json[index].length) {

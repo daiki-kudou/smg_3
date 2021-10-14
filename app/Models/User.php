@@ -110,15 +110,24 @@ class User extends Authenticatable
   {
     $date = Carbon::parse($reserve_date);
     $limit = "";
-    // 1:3営業日前 2:当月末　3:翌月末　4:翌々月末
+
     if ($this->pay_limit == 1) {
-      $limit = $date->subDays(3);
+      $limit = $date;
     } elseif ($this->pay_limit == 2) {
-      $limit = $date->endOfMonth();
+      $limit = $date->subDays(3);
+      if (!$limit->isSaturday() && !$limit->isSunday()) {
+        $limit;
+      } else {
+        $limit->subDays(1);
+      }
     } elseif ($this->pay_limit == 3) {
-      $limit = $date->addMonthsNoOverflow(1);
+      $limit = $date->endOfMonth();
     } elseif ($this->pay_limit == 4) {
-      $limit = $date->addMonthsNoOverflow(2);
+      $months = 1; // 追加する月数
+      $limit = $date->day(1)->addMonths($months)->endOfMonth();
+    } elseif ($this->pay_limit == 5) {
+      $months = 2; // 追加する月数
+      $limit = $date->day(1)->addMonths($months)->endOfMonth();
     }
     $result = new Carbon($limit);
     return date("Y-m-d", strtotime($result));

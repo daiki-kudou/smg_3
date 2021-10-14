@@ -538,10 +538,17 @@ option:disabled {
     background-color: #ccc;
 }
 
+
 .form-control::placeholder {
     color: #c9c9c9;
 
 }
+
+.warning-text {
+    color: red;
+    font-weight: bold;
+}
+
 
 
 
@@ -1076,19 +1083,57 @@ table td.table_column p:last-child {
     padding: 0.5em 0.5em 0.5em 5em;
     border: 1px solid #3E4B5B;
 }
+
 .cancel-color {
     color: red;
-  }
+}
 
-  .sale-number p {
+.sale-number p {
     text-align: right;
     justify-content: flex-end;
 
-  }
+}
 
-  .sale-body td {
-    /* border-bottom: 1px solid #6f6f6f; */
-  }
+.sale-body td {
+    border-bottom: 1px solid #5c5c5c;
+}
+
+.sale-body tr:last-child td {
+    border-bottom: none;
+}
+
+.multi-column__list {
+    display: table;
+    height: 100%;
+    vertical-align: middle;
+    /* width: 110px; */
+    width: 100%;
+}
+
+.multi-column__list li {
+    display: table-row;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.multi-column__item {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+    border-bottom: 1px solid #dee2e6;
+    padding: 0 10px;
+    text-align: center;
+    height: 30px;
+}
+
+.text-limit {
+    overflow: hidden;
+    width: 100px;
+    text-overflow: ellipsis;
+}
+
+.multi-column__list li:last-child .multi-column__item {
+    border-bottom: none;
+}
 
 /* =============メールテンプレート　一覧================================================ */
 .mail_template tbody tr td:last-child {
@@ -1182,12 +1227,12 @@ h3 {
 /* カレンダー色 */
 /* 工藤　追加　Important */
 .bg-prereserve {
-    background-color: #ffff4d!important;
+    background-color: #ffff4d !important;
 }
 
 /* 工藤　追加　Important */
 .bg-reserve {
-    background-color: #35a7a7!important;
+    background-color: #35a7a7 !important;
 }
 
 .bg-closed {
@@ -1215,10 +1260,19 @@ h3 {
 }
 
 .calender-head td {
-    text-align: center;
+    /* text-align: center; */
+    text-align: left;
     font-size: 0.9rem;
     padding: 0.8em 0.3em;
     /* border-right: 2px solid #c5c5c5; */
+    position: relative;
+}
+
+.calender-head td .time-item {
+    position: absolute;
+    left: -16px;
+    top: 11px;
+
 }
 
 .calender-head .field-title {
@@ -1249,6 +1303,7 @@ h3 {
     border: none;
     border-bottom: 2px solid #c5c5c5;
 }
+
 .calender-flame .calender-data .calhalf.bg-prereserve {
     border-left: 1px solid #ffff4d;
     border-left: none;
@@ -1403,8 +1458,8 @@ h3 {
 [class^="equipment_main"] td:nth-of-type(n+2) .form-control,
 [class^="layout_main"] td:nth-of-type(n+2) .form-control,
 [class^="others_main"] td:nth-of-type(n+2) .form-control,
-[class^="equipment_cancel"] td:nth-of-type(n+2) .form-control, 
-[class^="layout_cancel"] td:nth-of-type(n+2) .form-control, 
+[class^="equipment_cancel"] td:nth-of-type(n+2) .form-control,
+[class^="layout_cancel"] td:nth-of-type(n+2) .form-control,
 [class^="others_cancel"] td:nth-of-type(n+2) .form-control {
     text-align: right;
 }
@@ -1469,7 +1524,7 @@ h3 {
 [class^="venue_result"] td:nth-of-type(n+2) .form-control,
 [class^="equipment_result"] td:nth-of-type(n+2) .form-control,
 [class^="layout_result"] td:nth-of-type(n+2) .form-control,
-[class^="others_result"] td:nth-of-type(n+2) .form-control{
+[class^="others_result"] td:nth-of-type(n+2) .form-control {
     text-align: right;
 }
 
@@ -1540,6 +1595,7 @@ h3 {
     background: #35a7a7;
     color: #fff;
 }
+
 table .master_total_subttl {
     border-bottom: 2px solid #35a7a7;
 }
@@ -1763,6 +1819,7 @@ table .master_total_subttl2 {
 .user_wrapper .bill_header li {
     display: flex;
 }
+
 .user_wrapper .bill_header li .ttl_box:first-child {
     margin-right: 10px;
 }
@@ -1771,8 +1828,10 @@ table .master_total_subttl2 {
     margin-left: 10px;
 }
 
-.user_wrapper .venue_main td, .user_wrapper .equipment_main td,
-.user_wrapper .layout_main td, .user_wrapper .others_main td {
+.user_wrapper .venue_main td,
+.user_wrapper .equipment_main td,
+.user_wrapper .layout_main td,
+.user_wrapper .others_main td {
     padding: 0.5rem;
 }
 
@@ -1785,22 +1844,25 @@ table .master_total_subttl2 {
     text-align: right;
 }
 
-.user_wrapper .venue_result td, .user_wrapper .equipment_result td,
-.user_wrapper .layout_result td, .user_wrapper .layouts_result td,
+.user_wrapper .venue_result td,
+.user_wrapper .equipment_result td,
+.user_wrapper .layout_result td,
+.user_wrapper .layouts_result td,
 .user_wrapper .others_result td {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
-  }
+}
 
-  .user-profile th {
-      background: #f2f2f2;
-  }
+.user-profile th {
+    background: #f2f2f2;
+}
 
-  .user_wrapper .bill_status ul li:last-child p {
-      text-align: right;
-  }
+.user_wrapper .bill_status ul li:last-child p {
+    text-align: right;
+}
 
-  .user-profile th, .user-profile td {
+.user-profile th,
+.user-profile td {
     font-weight: normal;
 }
 
@@ -1878,6 +1940,7 @@ table .master_total_subttl2 {
     .user-profile {
         width: 100%;
     }
+
     .notion {
         width: 100%;
     }
@@ -1885,66 +1948,70 @@ table .master_total_subttl2 {
     .cancel-profile p {
         text-align: center;
     }
+
     .cancel-profile p:first-child {
         margin-bottom: 2em;
     }
 
-} 
-
-@media screen and (max-width: 480px) { 
-    
-.result_sum {
-    width: 100%;
 }
 
-.user_wrapper .bill_total table {
-    width: 100%;
-}
+@media screen and (max-width: 480px) {
 
-.content-wrapper>.content {
-    padding: 0 0.5rem;
-}
+    .result_sum {
+        width: 100%;
+    }
 
-.master_total_body td {
-    display: block;
-}
+    .user_wrapper .bill_total table {
+        width: 100%;
+    }
 
-.user_wrap .table th,
-.user_wrap .table td {
-    display: block;
-}
+    .content-wrapper>.content {
+        padding: 0 0.5rem;
+    }
 
-.user_wrap .table-active {
-    width: 100%;
-}
+    .master_total_body td {
+        display: block;
+    }
 
-.user_wrapper .bill_status ul li:last-child p {
-    text-align: left;
-}
+    .user_wrap .table th,
+    .user_wrap .table td {
+        display: block;
+    }
+
+    .user_wrap .table-active {
+        width: 100%;
+    }
+
+    .user_wrapper .bill_status ul li:last-child p {
+        text-align: left;
+    }
 
 
-.user_wrapper .head_cancel td:nth-child(3) {
-    width: 30px;
-}
+    .user_wrapper .head_cancel td:nth-child(3) {
+        width: 30px;
+    }
 
-h2 {
-    font-size: 1.5rem;
-}
-h3 {
-    font-size: 1.3rem;
-}
-h4 {
-    font-size: 1.2rem;
-}
+    h2 {
+        font-size: 1.5rem;
+    }
 
-.confirm_inner {
-    width: 100%;
-}
+    h3 {
+        font-size: 1.3rem;
+    }
 
-.user-profile th, .user-profile td {
-    display: block;
-    font-weight: normal;
-}
+    h4 {
+        font-size: 1.2rem;
+    }
+
+    .confirm_inner {
+        width: 100%;
+    }
+
+    .user-profile th,
+    .user-profile td {
+        display: block;
+        font-weight: normal;
+    }
 
 
 
@@ -2027,16 +2094,31 @@ h4 {
 
 /* 工藤追加 */
 .not_member::after {
-  content: "(退会済)"
+    content: "(退会済)"
 }
 
 /* 工藤追加 */
-.select2-container--default 
-.select2-results>.select2-results__options {
-  max-height: 400px;
+.select2-container--default .select2-results>.select2-results__options {
+    max-height: 400px;
 }
 
 /* 工藤追加 */
 /* テーブルソーターデザイン */
-/* <i class="fas fa-sort-amount-up" style="color:darkcyan;" aria-hidden="true"></i> */
+table.dataTable thead th,
+table.dataTable thead td {
+    padding: 10px 18px;
+    border-bottom: 1px solid #dee2e6;
+}
 
+table.dataTable.no-footer {
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  /* 工藤追加 */
+  .readonly-no-gray[readonly] {
+    background-color: white!important;
+}
+
+.readonly{
+    background-color: #ccc!important;
+}

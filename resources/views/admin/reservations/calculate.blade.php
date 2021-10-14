@@ -202,7 +202,6 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                {{-- {!!ReservationHelper::timeOptionsWithRequest($value['event_finish'])!!} --}}
                 @if ($value['board_flag']==1)
                 <option value="" disabled>選択してください</option>
                 {!!ReservationHelper::timeOptionsWithRequestAndLimit($value['event_finish'],$value['enter_time'],$value['leave_time'])!!}
@@ -343,12 +342,12 @@
               <td>
                 <div class="radio-box">
                   <p>
-                    <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
-                    <label for="" class="form-check-label">有り</label>
+                    {{Form::radio('luggage_flag', 1, (int)$value['luggage_flag']===1?true:false, ['id'=>'luggage_flag'])}}
+                    {{Form::label('luggage_flag','有り')}}
                   </p>
                   <p>
-                    <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                    <label for="" class="form-check-label">無し</label>
+                    {{Form::radio('luggage_flag', 0, (int)$value['luggage_flag']===0?true:false, ['id'=>'no_luggage_flag'])}}
+                    {{Form::label('no_luggage_flag','無し')}}
                   </p>
                 </div>
               </td>
@@ -403,19 +402,19 @@
           <tbody>
             <tr>
               <td>
-                {{Form::radio('eat_in', 1, $value['eat_in']==1?true:false , ['id' => 'eat_in'])}}
+                {{Form::radio('eat_in', 1, (int)$value['eat_in']===1?true:false , ['id' => 'eat_in'])}}
                 {{Form::label('eat_in',"あり")}}
               </td>
               <td>
-                {{Form::radio('eat_in_prepare', 1, $value['eat_in']==1&&$value['eat_in_prepare']==1?true:false , ['id' => 'eat_in_prepare', $value['eat_in']!=1?"disabled":""])}}
+                {{Form::radio('eat_in_prepare', 1, (int)$value['eat_in']===1?true:false , ['id' => 'eat_in_prepare', $value['eat_in']!=1?"disabled":""])}}
                 {{Form::label('eat_in_prepare',"手配済み")}}
-                {{Form::radio('eat_in_prepare', 2, $value['eat_in']==1&&$value['eat_in_prepare']==2?true:false , ['id' => 'eat_in_consider',$value['eat_in']!=1?"disabled":""])}}
+                {{Form::radio('eat_in_prepare', 2, (int)$value['eat_in']===1?true:false , ['id' => 'eat_in_consider',$value['eat_in']!=1?"disabled":""])}}
                 {{Form::label('eat_in_consider',"検討中")}}
               </td>
             </tr>
             <tr>
               <td>
-                {{Form::radio('eat_in', 0, $value['eat_in']==0?true:false , ['id' => 'no_eat_in'])}}
+                {{Form::radio('eat_in', 0, (int)$value['eat_in']===0?true:false , ['id' => 'no_eat_in'])}}
                 {{Form::label('no_eat_in',"なし")}}
               </td>
               <td></td>
@@ -792,8 +791,7 @@
             @endif
           </table>
         </div>
-
-        @if(!empty($priceResult['item_details'])||$request->luggage_price)
+        @if(!empty($priceResult['item_details'][0])||$request->luggage_price)
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tr>

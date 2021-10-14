@@ -33,10 +33,10 @@
 
 <section class="mt-5">
   <div class="mb-2">
-    {{Form::open(['url' => 'admin/multiples/destroy', 'method' => 'delete', 'id'=>'for_destroy'])}}
+    {{Form::open(['url' => '/admin/multiples/destroy', 'method' => 'delete'])}}
     @csrf
-    {{Form::hidden('destroy'.$multiple->id, $multiple->id)}}
-    {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
+    {{Form::hidden('delete_target', "[".$multiple->id."]")}}
+    {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
     {{ Form::close() }}
   </div>
 
@@ -48,8 +48,6 @@
             一括仮押えID：{{ReservationHelper::fixId($multiple->id)}}
           </h3>
         </td>
-
-
         <td class="text-right">
           {{ Form::open(['url' => 'admin/multiples/switch_status', 'method'=>'POST','id'=>'']) }}
           @csrf
@@ -59,6 +57,12 @@
           @endif
           {{ Form::close() }}
           <span class="text-white">{{$checkVenuePrice?'※会場料金未設定が一つでもあれば、選択できません':''}}</span>
+
+          @if (!in_array(0, $multiple->pre_reservations->pluck('user_id')->toArray(),true))
+          @if (!in_array(0,$multiple->pre_reservations->pluck('status')->toArray(),true))
+          <span class="text-white">ユーザー承認メール送付済</span>
+          @endif
+          @endif
         </td>
     </tbody>
   </table>
@@ -97,27 +101,27 @@
         <tr>
           <td class="table-active" scope="row"><label for="email">担当者メールアドレス</label></td>
           <td>
-            {{ReservationHelper::getPersonEmail($multiple->pre_reservations->first()->user_id)}}
+            {{($multiple->pre_reservations->first()->user->email)}}
           </td>
           <td class="table-active" scope="row"><label for="mobile">携帯番号</label></td>
           <td>
-            {{ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user_id)}}
+            {{($multiple->pre_reservations->first()->user->mobile)}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="tel">固定電話</label></td>
           <td>
-            {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user_id)}}
+            {{($multiple->pre_reservations->first()->user->tel)}}
           </td>
           <td class="table-active" scope="row"><label for="">割引条件</label></td>
           <td>
-            {!!nl2br(e($multiple->pre_reservations->first()->user->condition))!!}
+            {!!nl2br(e(optional($multiple->pre_reservations->first()->user)->condition))!!}
           </td>
         </tr>
         <tr>
           <td class="table-active caution" scope="row"><label for="">注意事項</label></td>
           <td class="caution" colspan="3">
-            {!!nl2br(e($multiple->pre_reservations->first()->user->attention))!!}
+            {!!nl2br(e(optional($multiple->pre_reservations->first()->user)->attention))!!}
           </td>
         </tr>
       </tbody>
@@ -135,34 +139,34 @@
         <tr>
           <td class="table-active" width="25%"><label for="onedayCompany">会社・団体名(仮)</label></td>
           <td>
-            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_company}}
+            {{optional($multiple->pre_reservations->first()->unknown_user)->unknown_user_company}}
           </td>
           <td class="table-active"><label for="onedayName">担当者名(仮)</label></td>
           <td>
-            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_name}}
+            {{optional($multiple->pre_reservations->first()->unknown_user)->unknown_user_name}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
           <td>
-            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_tel}}
+            {{optional($multiple->pre_reservations->first()->unknown_user)->unknown_user_tel}}
           </td>
           <td class="table-active" scope="row"><label for="onedayMobile">携帯番号</label></td>
           <td>
-            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_mobile}}
+            {{optional($multiple->pre_reservations->first()->unknown_user)->unknown_user_mobile}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="onedayEmail">メールアドレス</label></td>
           <td>
-            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_email}}
+            {{optional($multiple->pre_reservations->first()->unknown_user)->unknown_user_email}}
           </td>
         </tr>
       </tbody>
     </table>
     <hr class="my-5 border_color">
     <div class="mt-5">
-      <p class="text-right"><a href="{{url('admin/multiples/'.$multiple->id."/add_venue")}}"
+      <p class="text-right"><a href="{{url('admin/multiples/'.$multiple->id." /add_venue")}}"
           class="more_btn3">日程を追加する</a></p>
       <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
     </div>
@@ -215,18 +219,18 @@
 
 
 <script>
-  $(function() {
-    $(".confirm_prereserve").on('click', function() {
-      if (!confirm('確定しますか？')) {
-        return false;
-      }
-    })
-    $("#for_destroy").on('click', function() {
-      if (!confirm('削除しますか？')) {
-        return false;
-      }
-    })
-  })
+  // $(function() {
+  //   $(".confirm_prereserve").on('click', function() {
+  //     if (!confirm('確定しますか？')) {
+  //       return false;
+  //     }
+  //   })
+  //   $("#for_destroy").on('click', function() {
+  //     if (!confirm('削除しますか？')) {
+  //       return false;
+  //     }
+  //   })
+  // })
 </script>
 
 

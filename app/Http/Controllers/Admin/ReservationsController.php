@@ -30,6 +30,8 @@ use App\Traits\SearchTrait;
 // ふぉーむリクエスト
 use App\Http\Requests\Admin\Reservations\ReservationsStore;
 
+use App\Service\SendSMGEmail;
+
 
 class ReservationsController extends Controller
 {
@@ -45,156 +47,38 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
-    $today = date('Y-m-d', strtotime(Carbon::today()));
-    if (!empty($request->all())) {
-      $class = new Reservation;
-      $result = $class->search_item($request);
-      $m_after = $result->where('reserve_date', '>=', $today)->sortBy('reserve_date');
-      $m_before = $result->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
-      $reservations = $this->customOrderList($m_after, $m_before);
-      $counter = $this->exceptSortCount($request->except('_token'), $result);
-    } else {
-      $m_after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
-      $m_before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
-      $reservations = $this->customOrderList($m_after, $m_before);
-      $counter = 0;
-    }
-    // ソートのリクエストがあれば
-    $reservations = $this->customSearchAndSort($reservations, $request);
-    // 最後のページャー
-    $reservations = $this->customPaginate($reservations, 30, $request);
-
+    $counter = 0;
     $venues = Venue::all()->toArray();
     $agents = Agent::all()->toArray();
-    return view('admin.reservations.index', compact('reservations', 'venues', 'agents', 'counter', 'request'));
+    $data = $request->except('_token');
+
+
+    // // 検索と初期並び設定
+    // if (count(array_filter($data)) !== 0) {
+    //   // 検索あり
+    //   $reservations = new Reservation;
+    //   $reservationsWithOrder = array_unique($reservations->search_item($data)->pluck('reservation_id')->toArray());
+    //   $ids_order = !empty(array_values($reservationsWithOrder)) ? implode(',', array_values($reservationsWithOrder)) : "''";
+    //   $reservations = Reservation::whereIn("id", $reservationsWithOrder)->orderByRaw("FIELD(id, $ids_order)")->get();
+    // } else {
+    //   // 検索なし
+    //   $reservations = new Reservation;
+    //   $reservationsWithOrder = array_unique($reservations
+    //     ->search_item($data)
+    //     ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc')
+    //     ->pluck('reservation_id')
+    //     ->toArray());
+    //   $ids_order = !empty(array_values($reservationsWithOrder)) ? implode(',', array_values($reservationsWithOrder)) : "''";
+    //   $reservations = Reservation::whereIn("id", $reservationsWithOrder)->with(['bills', 'venue', 'user'])->orderByRaw("FIELD(id, $ids_order)")->get();
+    // }
+
+    return view('admin.reservations.index', compact('venues', 'agents', 'request', 'counter'));
   }
 
-  /**
-   * reservationが持つbillsでステータスが3以上を抽出
-   * 
-   * @param object $reservations
-   * @return array
-   */
-  public function rejectCxl($reservations)
-  {
-    $array = [];
-    foreach ($reservations as $key => $value) {
-      $judge = $value->bills->every(function ($value, $key) {
-        return ($value->reservation_status > 3);
-      });
-      if ($judge) {
-        $array[] = $value->id;
-      }
-    }
-    return $array;
-  }
 
-  /**
-   * reservationが持つbillsでステータスが3以上を抽出
-   * 
-   * @param object $m_after
-   * @param object $m_before
-   * @return object
-   */
-  public function customOrderList($m_after, $m_before)
-  {
-    $m_after_reject_cxl = $this->rejectCxl($m_after);
-    $m_before_reject_cxl = $this->rejectCxl($m_before);
-    $after = $m_after->whereNotIn("id", $m_after_reject_cxl);
-    $before = $m_before->whereNotIn("id", $m_before_reject_cxl);
-    $reservations = $after->concat($before);
-    $after_cxl = $m_after->whereIn("id", $m_after_reject_cxl);
-    $before_cxl = $m_before->whereIn("id", $m_before_reject_cxl);
-    $cxl = $after_cxl->concat($before_cxl);
-    $reservations = $reservations->concat($cxl);
-    return $reservations;
-  }
 
-  /**
-   * 検索の抽出結果をさらに特定の条件でソート
-   * 
-   * @param object $request
-   * @param object $model
-   * @return object
-   */
-  public function customSearchAndSort($model, $request)
-  {
-    if ($request->sort_multiple_reserve_id) {
-      if ($request->sort_multiple_reserve_id == 1) {
-        return $model->sortByDesc("multiple_reserve_id");
-      } else {
-        return $model->sortBy("multiple_reserve_id");
-      }
-    } elseif ($request->sort_id) {
-      if ($request->sort_id == 1) {
-        return $model->sortByDesc("id");
-      } else {
-        return $model->sortBy("id");
-      }
-    } elseif ($request->sort_reserve_date) {
-      if ($request->sort_reserve_date == 1) {
-        return $model->sortByDesc("reserve_date");
-      } else {
-        return $model->sortBy("reserve_date");
-      }
-    } elseif ($request->sort_enter_time) {
-      if ($request->sort_enter_time == 1) {
-        return $model->sortByDesc("enter_time");
-      } else {
-        return $model->sortBy("enter_time");
-      }
-    } elseif ($request->sort_leave_time) {
-      if ($request->sort_leave_time == 1) {
-        return $model->sortByDesc("leave_time");
-      } else {
-        return $model->sortBy("leave_time");
-      }
-    } elseif ($request->sort_venue) {
-      if ($request->sort_venue == 1) {
-        return $model->sortByDesc("venue.name_bldg");
-      } else {
-        return $model->sortBy("venue.name_bldg");
-      }
-    } elseif ($request->sort_user_company) {
-      if ($request->sort_user_company == 1) {
-        return $model->sortByDesc("user.company");
-      } else {
-        return $model->sortBy("user.company");
-      }
-    } elseif ($request->sort_user_name) {
-      if ($request->sort_user_name == 1) {
-        return $model->sortByDesc("user.first_name_kana");
-      } else {
-        return $model->sortBy("user.first_name_kana");
-      }
-    } elseif ($request->sort_user_mobile) {
-      if ($request->sort_user_mobile == 1) {
-        return $model->sortByDesc("user.mobile");
-      } else {
-        return $model->sortBy("user.mobile");
-      }
-    } elseif ($request->sort_user_tel) {
-      if ($request->sort_user_tel == 1) {
-        return $model->sortByDesc("user.tel");
-      } else {
-        return $model->sortBy("user.tel");
-      }
-    } elseif ($request->sort_agent) {
-      if ($request->sort_agent == 1) {
-        return $model->sortByDesc("agent.company");
-      } else {
-        return $model->sortBy("agent.company");
-      }
-    } elseif ($request->sort_enduser) {
-      if ($request->sort_enduser == 1) {
-        return $model->sortByDesc("endusers.company");
-      } else {
-        return $model->sortBy("endusers.company");
-      }
-    }
 
-    return $model;
-  }
+
 
   /** ajax 備品orサービス取得*/
   public function geteitems(Request $request)
@@ -589,9 +473,9 @@ class ReservationsController extends Controller
       $reservation = Reservation::find($reservation_id);
       $reservation->bills()->first()->update(['reservation_status' => 2, 'approve_send_at' => date('Y-m-d H:i:s')]);
       $user = User::find($request->user_id);
-      $email = $user->email;
-      // 管理者側のメール本文等は未定　ここメール文章再作成必要
-      Mail::to($email)->send(new SendUserApprove($reservation));
+      $venue = Venue::find($reservation->venue_id);
+      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+      $SendSMGEmail->send("管理者ダブルチェック完了後、ユーザーへ承認依頼を送付");
     });
     return redirect()->route('admin.reservations.index')->with('flash_message', 'ユーザーに承認メールを送信しました');
   }
@@ -605,94 +489,6 @@ class ReservationsController extends Controller
     });
     return redirect()->route('admin.reservations.index');
   }
-
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  // public function edit($id)
-  // {
-  //   $bill = Bill::with(['reservation.user', 'reservation.venue.equipments', 'reservation.venue.services', 'breakdowns'])->find($id);
-  //   $reservation = $bill->reservation;
-  //   $venue = $bill->reservation->venue;
-  //   $users = User::orderBy("id", "desc")->get();
-
-  //   session()->put('reservationEditMaster', $bill);
-  //   return view('admin.reservations.edit', [
-  //     'reservation' => $reservation,
-  //     'venue' => $venue,
-  //     'bill' => $bill,
-  //     'users' => $users,
-  //   ]);
-  // }
-
-  // public function editWithoutCalc(Request $request)
-  // {
-  //   $reservationEditMaster = $request->session()->get('reservationEditMaster');
-
-  //   $bill = $reservationEditMaster;
-  //   $reservation = $bill->reservation;
-  //   $venue = $bill->reservation->venue;
-  //   $users = User::orderBy("id", "desc")->get();
-  //   session()->put('reservationEditMaster', $bill);
-
-  //   $data = $request->all();
-  //   $request->session()->put('result', $data);
-  //   $result = $request->session()->get('result');
-  //   $v_cnt = $this->preg($result, "venue_breakdown_item");
-  //   $e_cnt = $this->preg($result, "equipment_breakdown_item");
-  //   $s_cnt = $this->preg($result, "services_breakdown_item");
-  //   $o_cnt = $this->preg($result, "others_input_item");
-  //   return view('admin.reservations.edit_without_calc', [
-  //     'reservation' => $reservation,
-  //     'venue' => $venue,
-  //     'bill' => $bill,
-  //     'users' => $users,
-  //     'v_cnt' => $v_cnt,
-  //     'e_cnt' => $e_cnt,
-  //     's_cnt' => $s_cnt,
-  //     'o_cnt' => $o_cnt,
-  //     'result' => $result,
-  //   ]);
-  // }
-
-
-  // public function sessionForEditCalculate(Request $request)
-  // {
-  //   $data = $request->all();
-  //   $request->session()->put('basicInfo', $data);
-  //   return redirect(route('admin.reservations.edit_calculate'));
-  // }
-
-  // public function searchPreg($array, $target)
-  // {
-  //   $result = [];
-  //   foreach ($array as $key => $value) {
-  //     if (preg_match('/' . $target . '/', $key)) {
-  //       $result[] = $value;
-  //     }
-  //   }
-  //   return $result;
-  // }
-
-  // public function getMasterPrice($price_details, $item_details, $layouts_details, $target)
-  // {
-  //   //枠がなく会場料金を手打ちするパターン
-  //   if ($price_details == 0) {
-  //     $masters =
-  //       ($item_details[0] + ($target['luggage_price'] ?? 0))
-  //       + ($layouts_details[2] ?? 0);
-  //   } else {
-  //     $masters =
-  //       ($price_details[0] ? $price_details[0] : 0)
-  //       + ($item_details[0] + ($target['luggage_price'] ?? 0))
-  //       + ($layouts_details[2] ?? 0);
-  //   }
-  //   return $masters;
-  // }
 
   public function edit($id)
   {
@@ -737,14 +533,27 @@ class ReservationsController extends Controller
     $venue = Venue::find($data['venue_id']);
     $users = User::all();
     $price_details = $venue->calculate_price($data['price_system'], $data['enter_time'], $data['leave_time']);
-    $s_equipment = Equipment::getSessionArrays(collect($data))[0];
-    $s_services = Service::getSessionArrays(collect($data))[0];
+    $s_equipment = !empty(Equipment::getSessionArrays(collect($data))) ? Equipment::getSessionArrays(collect($data))[0] : [];
+    $s_services = !empty(Service::getSessionArrays(collect($data))) ? Service::getSessionArrays(collect($data))[0] : [];
     $item_details = $venue->calculate_items_price($s_equipment, $s_services);
-    $layouts_details = $venue->getLayoutPrice($data['layout_prepare'], $data['layout_clean']);
-    if ($price_details === 0) {
-      $masters = ($item_details[0] + $data['luggage_price']) + $layouts_details[2] + $data['others_price'];
+    if (!empty($data['layout_prepare']) || !empty($data['layout_clean'])) {
+      $layouts_details = $venue->getLayoutPrice($data['layout_prepare'], $data['layout_clean']);
     } else {
-      $masters = ($price_details[0]) + ($item_details[0] + $data['luggage_price']) + $layouts_details[2] + (!empty($data['others_price']) ? $data['others_price'] : 0);
+      $layouts_details = [0, 0, 0];
+    }
+    if ($price_details === 0) {
+      $masters =
+        ($item_details[0] +
+          (!empty($data['luggage_price']) ? $data['luggage_price'] : 0)) +
+        $layouts_details[2] +
+        (!empty($data['others_price']) ? $data['others_price'] : 0);
+    } else {
+      $masters =
+        ($price_details[0]) +
+        ($item_details[0] +
+          (!empty($data['luggage_price']) ? $data['luggage_price'] : 0)) +
+        $layouts_details[2] +
+        (!empty($data['others_price']) ? $data['others_price'] : 0);
     }
     return view('admin.reservations.edit_calc', compact(
       'data',
@@ -769,7 +578,7 @@ class ReservationsController extends Controller
   public function update(Request $request)
   {
     $data = $request->all();
-    if ($data['back']) {
+    if (!empty($data['back'])) {
       return redirect(route('admin.reservations.edit', $data['reservation_id']));
     }
     $reservation = Reservation::find($data['reservation_id']);
@@ -787,8 +596,8 @@ class ReservationsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      dd($e);
       // return back()->withInput()->withErrors($e->getMessage());
+      return $this->edit($reservation->id)->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
     return redirect(route('admin.reservations.show', $reservation->id));

@@ -33,6 +33,7 @@ class PreReservation extends Model
     'event_name1',
     'event_name2',
     'event_owner',
+    'luggage_flag',
     'luggage_count',
     'luggage_arrive',
     'luggage_return',
@@ -192,6 +193,7 @@ class PreReservation extends Model
       'event_name1' => $data['event_name1'] ?? NULL,
       'event_name2' => $data['event_name2'] ?? NULL,
       'event_owner' => $data['event_owner'] ?? NULL,
+      'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] :  0,
       'luggage_count' => $data['luggage_count'] ?? NULL,
       'luggage_arrive' => $data['luggage_arrive'] ?? NULL,
       'luggage_return' => $data['luggage_return'] ?? NULL,
@@ -211,585 +213,326 @@ class PreReservation extends Model
   }
 
 
-  // public function specificUpdate($request, $result, $venue_id)
-  // {
-  //   $splitKey = $request->split_keys;
-  //   DB::transaction(function () use ($request, $result, $venue_id, $splitKey) {
-  //     $this->pre_breakdowns()->delete();
-  //     $this->pre_bill()->delete();
-  //     $this->update([
-  //       'price_system' => $request->{'price_system_copied' . $splitKey},
-  //       'enter_time' => $request->{'enter_time' . $splitKey},
-  //       'leave_time' => $request->{'leave_time' . $splitKey},
-  //       'board_flag' => $request->{'board_flag_copied' . $splitKey},
-  //       'event_start' => $request->{'event_start_copied' . $splitKey} ?? NULL,
-  //       'event_finish' => $request->{'event_finish_copied' . $splitKey} ?? NULL,
-  //       'event_name1' => $request->{'event_name1_copied' . $splitKey} ?? NULL,
-  //       'event_name2' => $request->{'event_name2_copied' . $splitKey} ?? NULL,
-  //       'event_owner' => $request->{'event_owner' . $splitKey} ?? NULL,
-  //       'luggage_count' => $request->{'luggage_count_copied' . $splitKey} ?? NULL,
-  //       'luggage_arrive' => $request->{'luggage_arrive_copied' . $splitKey} ?? NULL,
-  //       'luggage_return' => $request->{'luggage_return_copied' . $splitKey} ?? NULL,
-  //       'email_flag' => $request->{'email_flag_copied' . $splitKey},
-  //       'in_charge' => $request->{'in_charge_copied' . $splitKey},
-  //       'tel' => $request->{'tel_copied' . $splitKey},
-  //       'discount_condition' => $request->{'discount_condition_copied' . $splitKey},
-  //       'attention' => $request->{'attention_copied' . $splitKey},
-  //       'admin_details' => $request->{'admin_details_copied' . $splitKey},
-  //       'cost' => $request->{'cost_copied' . $splitKey},
-  //       "eat_in" => $request->{'eat_in_copied' . $splitKey},
-  //       "eat_in_prepare" => $request->{'eat_in_prepare_copied' . $splitKey},
+  public function specificUpdate($request, $result, $venue_id)
+  {
+    $splitKey = $request->split_keys;
+    DB::transaction(function () use ($request, $result, $venue_id, $splitKey) {
+      $this->pre_breakdowns()->delete();
+      $this->pre_bill()->delete();
+      $this->update([
+        'price_system' => $request->{'price_system_copied' . $splitKey},
+        'enter_time' => $request->{'enter_time' . $splitKey},
+        'leave_time' => $request->{'leave_time' . $splitKey},
+        'board_flag' => $request->{'board_flag_copied' . $splitKey},
+        'event_start' => $request->{'event_start_copied' . $splitKey} ?? NULL,
+        'event_finish' => $request->{'event_finish_copied' . $splitKey} ?? NULL,
+        'event_name1' => $request->{'event_name1_copied' . $splitKey} ?? NULL,
+        'event_name2' => $request->{'event_name2_copied' . $splitKey} ?? NULL,
+        'event_owner' => $request->{'event_owner' . $splitKey} ?? NULL,
+        'luggage_count' => $request->{'luggage_count_copied' . $splitKey} ?? NULL,
+        'luggage_arrive' => $request->{'luggage_arrive_copied' . $splitKey} ?? NULL,
+        'luggage_return' => $request->{'luggage_return_copied' . $splitKey} ?? NULL,
+        'email_flag' => $request->{'email_flag_copied' . $splitKey},
+        'in_charge' => $request->{'in_charge_copied' . $splitKey},
+        'tel' => $request->{'tel_copied' . $splitKey},
+        'discount_condition' => $request->{'discount_condition_copied' . $splitKey},
+        'attention' => $request->{'attention_copied' . $splitKey},
+        'admin_details' => $request->{'admin_details_copied' . $splitKey},
+        'cost' => $request->{'cost_copied' . $splitKey},
+        "eat_in" => $request->{'eat_in_copied' . $splitKey},
+        "eat_in_prepare" => $request->{'eat_in_prepare_copied' . $splitKey},
 
-  //     ]);
+      ]);
 
-  //     $venue_price = empty($result[0][2]) ? 0 : $result[0][2];
+      $venue_price = empty($result[0][2]) ? 0 : $result[0][2];
 
-  //     $equipment_price = empty($result[1][0]) ? 0 : $result[1][0];
+      $equipment_price = empty($result[1][0]) ? 0 : $result[1][0];
 
-  //     $layout_price = empty($result[2][2]) ? 0 : $result[2][2];
+      $layout_price = empty($result[2][2]) ? 0 : $result[2][2];
 
-  //     $luggage_price = $request->{'luggage_price_copied' . $splitKey};
+      $luggage_price = $request->{'luggage_price_copied' . $splitKey};
 
-  //     $master = $venue_price + $equipment_price + $layout_price + $luggage_price;
+      $master = $venue_price + $equipment_price + $layout_price + $luggage_price;
 
-  //     $pre_bill = $this->pre_bill()->create([
-  //       'venue_price' => $venue_price,
-  //       'equipment_price' => $equipment_price + ((int) $request->{'luggage_price_copied' . $splitKey}),
-  //       'layout_price' => $layout_price,
-  //       'others_price' => 0, //othersは後ほど
-  //       'master_subtotal' => floor($master),
-  //       'master_tax' => floor($master * 0.1),
-  //       'master_total' => floor(($master) + ($master * 0.1)),
-  //       'reservation_status' => 0,
-  //       'category' => 1
-  //     ]);
+      $pre_bill = $this->pre_bill()->create([
+        'venue_price' => $venue_price,
+        'equipment_price' => $equipment_price + ((int) $request->{'luggage_price_copied' . $splitKey}),
+        'layout_price' => $layout_price,
+        'others_price' => 0, //othersは後ほど
+        'master_subtotal' => floor($master),
+        'master_tax' => floor($master * 0.1),
+        'master_total' => floor(($master) + ($master * 0.1)),
+        'reservation_status' => 0,
+        'category' => 1
+      ]);
 
-  //     if (!empty($result[0][1])) {
-  //       $venue_prices = ['会場料金', $result[0][0], $result[0][3] - $result[0][4], $result[0][0]];
-  //       $extend_prices = ['延長料金', $result[0][1], $result[0][4], $result[0][1]];
-  //     } elseif (empty($result[0][0])) {
-  //       $venue_prices = [];
-  //       $extend_prices = [];
-  //     } else {
-  //       $venue_prices = ['会場料金', $result[0][0], $result[0][3] - $result[0][4], $result[0][0]];
-  //       $extend_prices = [];
-  //     }
+      if (!empty($result[0][1])) {
+        $venue_prices = ['会場料金', $result[0][0], $result[0][3] - $result[0][4], $result[0][0]];
+        $extend_prices = ['延長料金', $result[0][1], $result[0][4], $result[0][1]];
+      } elseif (empty($result[0][0])) {
+        $venue_prices = [];
+        $extend_prices = [];
+      } else {
+        $venue_prices = ['会場料金', $result[0][0], $result[0][3] - $result[0][4], $result[0][0]];
+        $extend_prices = [];
+      }
 
-  //     if ($venue_price != 0) {
-  //       if ($extend_prices) {
-  //         $pre_bill->pre_breakdowns()->create([
-  //           'unit_item' => $venue_prices[0],
-  //           'unit_cost' => $venue_prices[1],
-  //           'unit_count' => $venue_prices[2],
-  //           'unit_subtotal' => $venue_prices[3],
-  //           'unit_type' => 1,
-  //         ]);
-  //         $pre_bill->pre_breakdowns()->create([
-  //           'unit_item' => $extend_prices[0],
-  //           'unit_cost' => $extend_prices[1],
-  //           'unit_count' => $extend_prices[2],
-  //           'unit_subtotal' => $extend_prices[3],
-  //           'unit_type' => 1,
-  //         ]);
-  //       } else {
-  //         $pre_bill->pre_breakdowns()->create([
-  //           'unit_item' => $venue_prices[0],
-  //           'unit_cost' => $venue_prices[1],
-  //           'unit_count' => $venue_prices[2],
-  //           'unit_subtotal' => $venue_prices[3],
-  //           'unit_type' => 1,
-  //         ]);
-  //       }
-  //     }
+      if ($venue_price != 0) {
+        if ($extend_prices) {
+          $pre_bill->pre_breakdowns()->create([
+            'unit_item' => $venue_prices[0],
+            'unit_cost' => $venue_prices[1],
+            'unit_count' => $venue_prices[2],
+            'unit_subtotal' => $venue_prices[3],
+            'unit_type' => 1,
+          ]);
+          $pre_bill->pre_breakdowns()->create([
+            'unit_item' => $extend_prices[0],
+            'unit_cost' => $extend_prices[1],
+            'unit_count' => $extend_prices[2],
+            'unit_subtotal' => $extend_prices[3],
+            'unit_type' => 1,
+          ]);
+        } else {
+          $pre_bill->pre_breakdowns()->create([
+            'unit_item' => $venue_prices[0],
+            'unit_cost' => $venue_prices[1],
+            'unit_count' => $venue_prices[2],
+            'unit_subtotal' => $venue_prices[3],
+            'unit_type' => 1,
+          ]);
+        }
+      }
 
-  //     $equipments = $result[1][1];
-  //     foreach ($equipments as $key => $equipment) {
-  //       $pre_bill->pre_breakdowns()->create([
-  //         'unit_item' => $equipment[0],
-  //         'unit_cost' => $equipment[1],
-  //         'unit_count' => $equipment[2],
-  //         'unit_subtotal' => $equipment[1] * $equipment[2],
-  //         'unit_type' => 2,
-  //       ]);
-  //     }
+      $equipments = $result[1][1];
+      foreach ($equipments as $key => $equipment) {
+        $pre_bill->pre_breakdowns()->create([
+          'unit_item' => $equipment[0],
+          'unit_cost' => $equipment[1],
+          'unit_count' => $equipment[2],
+          'unit_subtotal' => $equipment[1] * $equipment[2],
+          'unit_type' => 2,
+        ]);
+      }
 
-  //     $services = ($result[1][2]);
-  //     foreach ($services as $key => $service) {
-  //       $pre_bill->pre_breakdowns()->create([
-  //         'unit_item' => $service[0],
-  //         'unit_cost' => $service[1],
-  //         'unit_count' => $service[2],
-  //         'unit_subtotal' => $service[1] * $service[2],
-  //         'unit_type' => 3,
-  //       ]);
-  //     }
+      $services = ($result[1][2]);
+      foreach ($services as $key => $service) {
+        $pre_bill->pre_breakdowns()->create([
+          'unit_item' => $service[0],
+          'unit_cost' => $service[1],
+          'unit_count' => $service[2],
+          'unit_subtotal' => $service[1] * $service[2],
+          'unit_type' => 3,
+        ]);
+      }
 
-  //     if ($request->{'luggage_price_copied' . $splitKey}) {
-  //       $pre_bill->pre_breakdowns()->create([
-  //         'unit_item' => '荷物預かり',
-  //         'unit_cost' => $request->{'luggage_price_copied' . $splitKey},
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $request->{'luggage_price_copied' . $splitKey},
-  //         'unit_type' => 3,
-  //       ]);
-  //     }
+      if ($request->{'luggage_price_copied' . $splitKey}) {
+        $pre_bill->pre_breakdowns()->create([
+          'unit_item' => '荷物預かり',
+          'unit_cost' => $request->{'luggage_price_copied' . $splitKey},
+          'unit_count' => 1,
+          'unit_subtotal' => $request->{'luggage_price_copied' . $splitKey},
+          'unit_type' => 3,
+        ]);
+      }
 
-  //     $prepare = Venue::find($venue_id)->layout_prepare;
-  //     if ($request->{'layout_prepare_copied' . $splitKey} == 1) {
-  //       $pre_bill->pre_breakdowns()->create([
-  //         'unit_item' => 'レイアウト準備料金',
-  //         'unit_cost' => $prepare,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $prepare,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
+      $prepare = Venue::find($venue_id)->layout_prepare;
+      if ($request->{'layout_prepare_copied' . $splitKey} == 1) {
+        $pre_bill->pre_breakdowns()->create([
+          'unit_item' => 'レイアウト準備料金',
+          'unit_cost' => $prepare,
+          'unit_count' => 1,
+          'unit_subtotal' => $prepare,
+          'unit_type' => 4,
+        ]);
+      }
 
-  //     $clean = Venue::find($venue_id)->layout_clean;
-  //     if ($request->{'layout_clean_copied' . $splitKey} == 1) {
-  //       $pre_bill->pre_breakdowns()->create([
-  //         'unit_item' => 'レイアウト片付料金',
-  //         'unit_cost' => $clean,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $clean,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-  //   });
-  // }
-
-
-  // public function AgentSpecificUpdate($request, $result, $venue_id, $pre_reservation_id)
-  // {
-  //   $splitKey = $request->split_keys;
-  //   DB::transaction(function () use ($request, $result, $venue_id, $splitKey, $pre_reservation_id) {
-  //     $this->pre_breakdowns()->delete();
-  //     $this->pre_bill()->delete();
-  //     $this->update([
-  //       'price_system' => $request->{'price_system_copied' . $splitKey},
-  //       'enter_time' => $request->{'enter_time' . $splitKey},
-  //       'leave_time' => $request->{'leave_time' . $splitKey},
-  //       'board_flag' => $request->{'board_flag_copied' . $splitKey},
-  //       'event_start' => $request->{'event_start_copied' . $splitKey} ?? NULL,
-  //       'event_finish' => $request->{'event_finish_copied' . $splitKey} ?? NULL,
-  //       'event_name1' => $request->{'event_name1_copied' . $splitKey} ?? NULL,
-  //       'event_name2' => $request->{'event_name2_copied' . $splitKey} ?? NULL,
-  //       'event_owner' => $request->{'event_owner' . $splitKey} ?? NULL,
-  //       'luggage_count' => $request->{'luggage_count_copied' . $splitKey} ?? NULL,
-  //       'luggage_arrive' => $request->{'luggage_arrive_copied' . $splitKey} ?? NULL,
-  //       'luggage_return' => $request->{'luggage_return_copied' . $splitKey} ?? NULL,
-  //       'email_flag' => $request->{'email_flag_copied' . $splitKey},
-  //       'in_charge' => $request->{'in_charge_copied' . $splitKey},
-  //       'tel' => $request->{'tel_copied' . $splitKey},
-  //       'discount_condition' => $request->{'discount_condition_copied' . $splitKey},
-  //       'attention' => $request->{'attention_copied' . $splitKey},
-  //       'admin_details' => $request->{'admin_details_copied' . $splitKey},
-  //       "eat_in" => $request->{'eat_in_copied' . $splitKey},
-  //       "eat_in_prepare" => $request->{'eat_in_prepare_copied' . $splitKey},
-  //       "cost" => $request->{'cost_copied' . $splitKey},
-  //     ]);
-
-  //     $this->pre_enduser()->update([
-  //       'charge' => $request->{'end_user_charge_copied' . $splitKey},
-  //     ]);
-
-  //     $venue_price = 0;
-  //     $equipment_price = 0;
-  //     $layout_calc = Venue::find($venue_id);
-  //     $layout_price = $layout_calc->getLayoutPrice($request->{'layout_prepare_copied' . $splitKey}, $request->{'layout_clean_copied' . $splitKey})[2];
-  //     $luggage_price = 0;
-
-  //     $master = $result + $layout_price;
-
-  //     $pre_bill = $this->pre_bill()->create([
-  //       'venue_price' => 0,
-  //       'equipment_price' => 0,
-  //       'layout_price' => $layout_price,
-  //       'others_price' => 0, //othersは後ほど
-  //       'master_subtotal' => floor($master),
-  //       'master_tax' => floor($master * 0.1),
-  //       'master_total' => floor(($master) + ($master * 0.1)),
-  //       'reservation_status' => 0,
-  //       'category' => 1
-  //     ]);
+      $clean = Venue::find($venue_id)->layout_clean;
+      if ($request->{'layout_clean_copied' . $splitKey} == 1) {
+        $pre_bill->pre_breakdowns()->create([
+          'unit_item' => 'レイアウト片付料金',
+          'unit_cost' => $clean,
+          'unit_count' => 1,
+          'unit_subtotal' => $clean,
+          'unit_type' => 4,
+        ]);
+      }
+    });
+  }
 
 
+  public function AgentSpecificUpdate($request, $result, $venue_id, $pre_reservation_id)
+  {
+    $splitKey = $request->split_keys;
+    DB::transaction(function () use ($request, $result, $venue_id, $splitKey, $pre_reservation_id) {
+      $this->pre_breakdowns()->delete();
+      $this->pre_bill()->delete();
+      $this->update([
+        'price_system' => $request->{'price_system_copied' . $splitKey},
+        'enter_time' => $request->{'enter_time' . $splitKey},
+        'leave_time' => $request->{'leave_time' . $splitKey},
+        'board_flag' => $request->{'board_flag_copied' . $splitKey},
+        'event_start' => $request->{'event_start_copied' . $splitKey} ?? NULL,
+        'event_finish' => $request->{'event_finish_copied' . $splitKey} ?? NULL,
+        'event_name1' => $request->{'event_name1_copied' . $splitKey} ?? NULL,
+        'event_name2' => $request->{'event_name2_copied' . $splitKey} ?? NULL,
+        'event_owner' => $request->{'event_owner' . $splitKey} ?? NULL,
+        'luggage_count' => $request->{'luggage_count_copied' . $splitKey} ?? NULL,
+        'luggage_arrive' => $request->{'luggage_arrive_copied' . $splitKey} ?? NULL,
+        'luggage_return' => $request->{'luggage_return_copied' . $splitKey} ?? NULL,
+        'email_flag' => $request->{'email_flag_copied' . $splitKey},
+        'in_charge' => $request->{'in_charge_copied' . $splitKey},
+        'tel' => $request->{'tel_copied' . $splitKey},
+        'discount_condition' => $request->{'discount_condition_copied' . $splitKey},
+        'attention' => $request->{'attention_copied' . $splitKey},
+        'admin_details' => $request->{'admin_details_copied' . $splitKey},
+        "eat_in" => $request->{'eat_in_copied' . $splitKey},
+        "eat_in_prepare" => $request->{'eat_in_prepare_copied' . $splitKey},
+        "cost" => $request->{'cost_copied' . $splitKey},
+      ]);
 
-  //     $carbon1 = new Carbon($this->enter_time);
-  //     $carbon2 = new Carbon($this->leave_time);
-  //     $usage_hours = $carbon1->diffInMinutes($carbon2);
-  //     $usage_hours = $usage_hours / 60;
+      $this->pre_enduser()->update([
+        'charge' => $request->{'end_user_charge_copied' . $splitKey},
+      ]);
 
-  //     $pre_bill->pre_breakdowns()->create([
-  //       'unit_item' => "会場料金",
-  //       'unit_cost' => 0,
-  //       'unit_count' => $usage_hours,
-  //       'unit_subtotal' => 0,
-  //       'unit_type' => 1,
-  //     ]);
+      $venue_price = 0;
+      $equipment_price = 0;
+      $layout_calc = Venue::find($venue_id);
+      $layout_price = $layout_calc->getLayoutPrice($request->{'layout_prepare_copied' . $splitKey}, $request->{'layout_clean_copied' . $splitKey})[2];
+      $luggage_price = 0;
 
+      $master = $result + $layout_price;
 
-  //     $equipments = Venue::find($venue_id);
-  //     foreach ($equipments->equipments()->get() as $key => $equ) {
-  //       if ($request->{'equipment_breakdown' . $key . '_copied' . $splitKey}) {
-  //         $pre_bill->pre_breakdowns()->create([
-  //           'unit_item' => $equ->item,
-  //           'unit_cost' => 0,
-  //           'unit_count' => $request->{'equipment_breakdown' . $key . '_copied' . $splitKey},
-  //           'unit_subtotal' => 0,
-  //           'unit_type' => 2,
-  //         ]);
-  //       }
-  //     }
-
-  //     $services = Venue::find($venue_id);
-  //     foreach ($services->services()->get() as $key => $ser) {
-  //       if ($request->{'services_breakdown' . $key . '_copied' . $splitKey} != 0) {
-  //         $pre_bill->pre_breakdowns()->create([
-  //           'unit_item' => $ser->item,
-  //           'unit_cost' => 0,
-  //           'unit_count' => $request->{'services_breakdown' . $key . '_copied' . $splitKey},
-  //           'unit_subtotal' => 0,
-  //           'unit_type' => 3,
-  //         ]);
-  //       }
-  //     }
-
-  //     if ($request->{'luggage_price_copied' . $splitKey}) {
-  //       $pre_bill->pre_breakdowns()->create([
-  //         'unit_item' => '荷物預かり',
-  //         'unit_cost' => $request->{'luggage_price_copied' . $splitKey},
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $request->{'luggage_price_copied' . $splitKey},
-  //         'unit_type' => 3,
-  //       ]);
-  //     }
-
-  //     $prepare = Venue::find($venue_id)->layout_prepare;
-  //     if ($request->{'layout_prepare_copied' . $splitKey} == 1) {
-  //       $pre_bill->pre_breakdowns()->create([
-  //         'unit_item' => 'レイアウト準備料金',
-  //         'unit_cost' => $prepare,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $prepare,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-
-  //     $clean = Venue::find($venue_id)->layout_clean;
-  //     if ($request->{'layout_clean_copied' . $splitKey} == 1) {
-  //       $pre_bill->pre_breakdowns()->create([
-  //         'unit_item' => 'レイアウト片付料金',
-  //         'unit_cost' => $clean,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $clean,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-  //   });
-  // }
+      $pre_bill = $this->pre_bill()->create([
+        'venue_price' => 0,
+        'equipment_price' => 0,
+        'layout_price' => $layout_price,
+        'others_price' => 0, //othersは後ほど
+        'master_subtotal' => floor($master),
+        'master_tax' => floor($master * 0.1),
+        'master_total' => floor(($master) + ($master * 0.1)),
+        'reservation_status' => 0,
+        'category' => 1
+      ]);
 
 
-  // public function AgentSingleStore($request, $agent, $venue)
-  // {
-  //   DB::transaction(function () use ($request, $agent, $venue) {
-  //     $pre_reservation = $this->create([
-  //       'multiple_reserve_id' => 0,
-  //       'venue_id' => $venue->id,
-  //       'user_id' => 0,
-  //       'agent_id' => $agent->id,
-  //       'reserve_date' => $request->reserve_date,
-  //       'price_system' => $request->price_system,
-  //       'enter_time' => $request->enter_time,
-  //       'leave_time' => $request->leave_time,
-  //       'board_flag' => $request->board_flag,
-  //       'event_start' => $request->event_start,
-  //       'event_finish' => $request->event_finish,
-  //       'event_name1' => $request->event_name1,
-  //       'event_name2' => $request->event_name2,
-  //       'event_owner' => $request->event_owner,
-  //       'luggage_count' => $request->luggage_count,
-  //       'luggage_arrive' => $request->luggage_arrive,
-  //       'luggage_return' => $request->luggage_return,
-  //       'email_flag' => 0,
-  //       'in_charge' => '',
-  //       'tel' => '',
-  //       'discount_condition' => '',
-  //       'attention' => $request->attention,
-  //       'user_details' => $request->user_details,
-  //       'admin_details' => $request->admin_details,
-  //       'status' => 0,
-  //       'eat_in' => $request->eat_in,
-  //       'eat_in_prepare' => $request->eat_in_prepare,
-  //       'cost' => $request->cost,
-  //     ]);
-  //     $pre_bill = $pre_reservation->pre_bill()->create([
-  //       'venue_price' => 0,
-  //       'equipment_price' => 0,
-  //       'layout_price' => $request->layout_price ? $request->layout_price : 0,
-  //       'others_price' => 0,
-  //       'master_subtotal' => $request->master_subtotal,
-  //       'master_tax' => $request->master_tax,
-  //       'master_total' => $request->master_total,
-  //       'reservation_status' => 0,
-  //       'approve_send_at' => NULL,
-  //       'category' => 1
-  //     ]);
 
-  //     $venue_arrays = [];
-  //     foreach ($request->all() as $v_key => $value) {
-  //       if (preg_match("/venue_breakdown/", $v_key)) {
-  //         $venue_arrays[] = $value;
-  //       }
-  //     }
-  //     // 
-  //     $judge_venue_arrays = array_filter($venue_arrays);
-  //     if (!empty($judge_venue_arrays)) {
-  //       for ($i = 0; $i < count($venue_arrays) / 2; $i++) {
-  //         $pre_bill->pre_breakdowns()->create([
-  //           'unit_item' => $venue_arrays[($i * 2)],
-  //           'unit_cost' => 0,
-  //           'unit_count' => $venue_arrays[($i * 2) + 1],
-  //           'unit_subtotal' => 0,
-  //           'unit_type' => 1,
-  //         ]);
-  //       }
-  //     }
+      $carbon1 = new Carbon($this->enter_time);
+      $carbon2 = new Carbon($this->leave_time);
+      $usage_hours = $carbon1->diffInMinutes($carbon2);
+      $usage_hours = $usage_hours / 60;
 
-  //     $equ_arrays = [];
-  //     foreach ($request->all() as $e_key => $value) {
-  //       if (preg_match("/equipment_breakdown/", $e_key)) {
-  //         $equ_arrays[] = $value;
-  //       }
-  //     }
-  //     $judge_equ_arrays = array_filter($equ_arrays);
-  //     if (!empty($judge_equ_arrays)) {
-  //       for ($i = 0; $i < count($equ_arrays) / 2; $i++) {
-  //         $pre_bill->pre_breakdowns()->create([
-  //           'unit_item' => $equ_arrays[($i * 2)],
-  //           'unit_cost' => 0,
-  //           'unit_count' => $equ_arrays[($i * 2) + 1],
-  //           'unit_subtotal' => 0,
-  //           'unit_type' => 2,
-  //         ]);
-  //       }
-  //     }
-  //     $ser_arrays = [];
-  //     foreach ($request->all() as $s_key => $value) {
-  //       if (preg_match("/service_breakdown/", $s_key)) {
-  //         $ser_arrays[] = $value;
-  //       }
-  //     }
-  //     $judge_ser_arrays = array_filter($ser_arrays);
-  //     if (!empty($judge_ser_arrays)) {
-  //       for ($i = 0; $i < count($ser_arrays) / 2; $i++) {
-  //         $pre_bill->pre_breakdowns()->create([
-  //           'unit_item' => $ser_arrays[($i * 2)],
-  //           'unit_cost' => 0,
-  //           'unit_count' => $ser_arrays[($i * 2) + 1],
-  //           'unit_subtotal' => 0,
-  //           'unit_type' => 3,
-  //         ]);
-  //       }
-  //     }
-  //     if ($request->layout_prepare_item) {
-  //       $pre_bill->pre_breakdowns()->create([
-  //         'unit_item' => $request->layout_prepare_item,
-  //         'unit_cost' => $request->layout_prepare_cost,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $request->layout_prepare_subtotal,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-  //     if ($request->layout_clean_item) {
-  //       $pre_bill->pre_breakdowns()->create([
-  //         'unit_item' => $request->layout_clean_item,
-  //         'unit_cost' => $request->layout_clean_cost,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $request->layout_clean_subtotal,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
+      $pre_bill->pre_breakdowns()->create([
+        'unit_item' => "会場料金",
+        'unit_cost' => 0,
+        'unit_count' => $usage_hours,
+        'unit_subtotal' => 0,
+        'unit_type' => 1,
+      ]);
 
-  //     $oth_arrays = [];
-  //     foreach ($request->all() as $o_key => $value) {
-  //       if (preg_match("/others_input/", $o_key)) {
-  //         $oth_arrays[] = $value;
-  //       }
-  //     }
-  //     $judge_oth_arrays = array_filter($oth_arrays);
-  //     if (!empty($judge_oth_arrays)) {
-  //       for ($i = 0; $i < count($oth_arrays) / 2; $i++) {
-  //         $pre_bill->pre_breakdowns()->create([
-  //           'unit_item' => $oth_arrays[($i * 2)],
-  //           'unit_cost' => 0,
-  //           'unit_count' => $oth_arrays[($i * 2) + 1],
-  //           'unit_subtotal' => 0,
-  //           'unit_type' => 3,
-  //         ]);
-  //       }
-  //     }
-  //     $pre_reservation->pre_enduser()->create([
-  //       "pre_reservation_id" => $pre_reservation->id,
-  //       "company" => $request->pre_enduser_company,
-  //       "person" => $request->pre_enduser_name,
-  //       "email" => $request->pre_enduser_email,
-  //       "mobile" => $request->pre_enduser_mobile,
-  //       "tel" => $request->pre_enduser_tel,
-  //       "address" => $request->pre_enduser_address,
-  //       "attr" => $request->pre_enduser_attr,
-  //       'charge' => $request->end_user_charge
-  //     ]);
-  //   });
-  // }
 
-  // public function Updates($request)
-  // {
-  //   DB::transaction(function () use ($request) { //トランザクションさせる
-  //     // breakdowns削除
-  //     foreach ($this->pre_breakdowns()->get() as $key => $value) {
-  //       $value->delete();
-  //     }
-  //     // pre bill削除
-  //     $this->pre_bill()->delete();
-  //     // 再作成
-  //     $this->update([
-  //       'user_id' => $request->user_id,
-  //       'price_system' => $request->price_system,
-  //       'enter_time' => $request->enter_time,
-  //       'leave_time' => $request->leave_time,
-  //       'board_flag' => $request->board_flag,
-  //       'event_start' => $request->event_start,
-  //       'event_finish' => $request->event_finish,
-  //       'event_name1' => $request->event_name1,
-  //       'event_name2' => $request->event_name2,
-  //       'event_owner' => $request->event_owner,
-  //       'luggage_count' => $request->luggage_count,
-  //       'luggage_arrive' => $request->luggage_arrive,
-  //       'luggage_return' => $request->luggage_return,
-  //       'email_flag' => $request->email_flag,
-  //       'in_charge' => $request->in_charge,
-  //       'tel' => $request->tel,
-  //       'discount_condition' => $request->discount_condition,
-  //       'attention' => $request->attention,
-  //       'user_details' => $request->user_details,
-  //       'admin_details' => $request->admin_details,
-  //       'status' => $request->status,
-  //     ]);
-  //   });
-  // }
+      $equipments = Venue::find($venue_id);
+      foreach ($equipments->equipments()->get() as $key => $equ) {
+        if ($request->{'equipment_breakdown' . $key . '_copied' . $splitKey}) {
+          $pre_bill->pre_breakdowns()->create([
+            'unit_item' => $equ->item,
+            'unit_cost' => 0,
+            'unit_count' => $request->{'equipment_breakdown' . $key . '_copied' . $splitKey},
+            'unit_subtotal' => 0,
+            'unit_type' => 2,
+          ]);
+        }
+      }
 
-  // public function MoveToReservation(Request $request)
-  // {
-  //   $this->user_id != 0 ? $user = User::find($this->user_id) : $user = 0;
-  //   $this->agent_id != 0 ? $agent = Agent::find($this->agent_id) : $agent = 0;
+      $services = Venue::find($venue_id);
+      foreach ($services->services()->get() as $key => $ser) {
+        if ($request->{'services_breakdown' . $key . '_copied' . $splitKey} != 0) {
+          $pre_bill->pre_breakdowns()->create([
+            'unit_item' => $ser->item,
+            'unit_cost' => 0,
+            'unit_count' => $request->{'services_breakdown' . $key . '_copied' . $splitKey},
+            'unit_subtotal' => 0,
+            'unit_type' => 3,
+          ]);
+        }
+      }
 
-  //   // 支払期日
-  //   if (is_object($user)) $payment_limit = $user->getUserPayLimit($request->reserve_date);
-  //   if (is_object($agent)) $payment_limit = $agent->getPayDetails($request->reserve_date);
-  //   // bill company
-  //   if (is_object($user)) $bill_company = $user->company;
-  //   if (is_object($agent)) $bill_company = $agent->company;
-  //   // bill person
-  //   if (is_object($user)) $bill_person = $user->first_name . $user->last_name;
-  //   if (is_object($agent)) $bill_person = $agent->person_firstname . $agent->person_lastname;
-  //   $reservation = new Reservation();
-  //   //reservationのReserveStoreに持たせるためのrequestを作成
-  //   $request->merge([
-  //     'venue_id' => $this->venue_id,
-  //     'user_id' => $this->user_id,
-  //     'agent_id' => $agent,
-  //     'reserve_date' => $this->reserve_date,
-  //     'price_system' => $this->price_system,
-  //     'enter_time' => $this->enter_time,
-  //     'leave_time' => $this->leave_time,
-  //     'board_flag' => $this->board_flag,
-  //     'event_start' => $this->event_start,
-  //     'event_finish' => $this->event_finish,
-  //     'event_name1' => $this->event_name1,
-  //     'event_name2' => $this->event_name2,
-  //     'event_owner' => $this->event_owner,
-  //     'luggage_count' => $this->luggage_count,
-  //     'luggage_arrive' => $this->luggage_arrive,
-  //     'luggage_return' => $this->luggage_return,
-  //     'email_flag' => 0, //デフォで0(利用後の送信メール無し)を選択
-  //     'in_charge' => $this->in_charge,
-  //     'tel' => $this->tel,
-  //     'cost' => $this->cost,
-  //     'discount_condition' => $this->discount_condition,
-  //     'attention' => $this->attention,
-  //     'user_details' => $this->user_details,
-  //     'admin_details' => $this->admin_details,
-  //     'eat_in' => !empty($this->eat_in) ? $this->eat_in : 0,
-  //     'eat_in_prepare' => !empty($this->eat_in_prepare) ? $this->eat_in_prepare : 0,
-  //     "multiple_reserve_id" => $this->multiple_reserve_id,
-  //   ]);
-  //   //reservationのReserveStoreBillに持たせるためのrequestを作成
-  //   $request->merge([
-  //     'venue_price' => $this->pre_bill->venue_price,
-  //     'equipment_price' => $this->pre_bill->equipment_price ? $this->pre_bill->equipment_price : 0, //備品・サービス・荷物
-  //     'layout_price' => $this->pre_bill->layout_price ? $this->pre_bill->layout_price : 0,
-  //     'others_price' => $this->pre_bill->others_price ? $this->pre_bill->others_price : 0,
-  //     'master_subtotal' => $this->pre_bill->master_subtotal,
-  //     'master_tax' => $this->pre_bill->master_tax,
-  //     'master_total' => $this->pre_bill->master_total,
-  //     'payment_limit' => $payment_limit,
-  //     'bill_company' => $bill_company,
-  //     'bill_person' => $bill_person,
-  //     'bill_created_at' => Carbon::now(),
-  //     'bill_remark' => '',
-  //     'paid' => 0, //デフォで0、仮押さえから本予約切り替え時点では未入金のため
-  //     'pay_day' => NULL,
-  //     'pay_person' => '',
-  //     'payment' => NULL,
-  //     'reservation_status' => 1, //デフォで1、仮押えのデフォは0
-  //     'double_check_status' => 0, //デフォで0
-  //     'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
-  //     'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
-  //   ]);
-  //   // breakdown保存用に、requestに現時点のpre_breakdownsの詳細を格納
-  //   foreach ($this->pre_breakdowns()->where('unit_type', 1)->get() as $v_key => $v_breakdown) {
-  //     $request->merge([
-  //       'venue_breakdown_item' . $v_key => $v_breakdown->unit_item,
-  //       'venue_breakdown_cost' . $v_key => $v_breakdown->unit_cost,
-  //       'venue_breakdown_count' . $v_key => $v_breakdown->unit_count,
-  //       'venue_breakdown_subtotal' . $v_key => $v_breakdown->unit_subtotal,
-  //     ]);
-  //   }
-  //   foreach ($this->pre_breakdowns()->where('unit_type', 2)->get() as $e_key => $e_breakdown) {
-  //     $request->merge([
-  //       'equipment_breakdown_item' . $e_key => $e_breakdown->unit_item,
-  //       'equipment_breakdown_cost' . $e_key => $e_breakdown->unit_cost,
-  //       'equipment_breakdown_count' . $e_key => $e_breakdown->unit_count,
-  //       'equipment_breakdown_subtotal' . $e_key => $e_breakdown->unit_subtotal,
-  //     ]);
-  //   }
-  //   foreach ($this->pre_breakdowns()->where('unit_type', 3)->get() as $s_key => $s_breakdown) {
-  //     $request->merge([
-  //       'service_breakdown_item' . $s_key => $s_breakdown->unit_item,
-  //       'service_breakdown_cost' . $s_key => $s_breakdown->unit_cost,
-  //       'service_breakdown_count' . $s_key => $s_breakdown->unit_count,
-  //       'service_breakdown_subtotal' . $s_key => $s_breakdown->unit_subtotal,
-  //     ]);
-  //   }
-  //   foreach ($this->pre_breakdowns()->where('unit_type', 4)->get() as $l_key => $l_breakdown) {
-  //     if ($l_breakdown->unit_item == 'レイアウト準備料金') {
-  //       $request->merge([
-  //         'layout_prepare_item' => $l_breakdown->unit_item,
-  //         'layout_prepare_cost' => $l_breakdown->unit_cost,
-  //         'layout_prepare_subtotal' => $l_breakdown->unit_subtotal,
-  //       ]);
-  //     }
-  //     if ($l_breakdown->unit_item == 'レイアウト片付料金') {
-  //       $request->merge([
-  //         'layout_clean_item' => $l_breakdown->unit_item,
-  //         'layout_clean_cost' => $l_breakdown->unit_cost,
-  //         'layout_clean_subtotal' => $l_breakdown->unit_subtotal,
-  //       ]);
-  //     }
-  //   }
-  //   $reservation->ReserveStore($request, $agent->id ?? 0);
-  // }
+      if ($request->{'luggage_price_copied' . $splitKey}) {
+        $pre_bill->pre_breakdowns()->create([
+          'unit_item' => '荷物預かり',
+          'unit_cost' => $request->{'luggage_price_copied' . $splitKey},
+          'unit_count' => 1,
+          'unit_subtotal' => $request->{'luggage_price_copied' . $splitKey},
+          'unit_type' => 3,
+        ]);
+      }
+
+      $prepare = Venue::find($venue_id)->layout_prepare;
+      if ($request->{'layout_prepare_copied' . $splitKey} == 1) {
+        $pre_bill->pre_breakdowns()->create([
+          'unit_item' => 'レイアウト準備料金',
+          'unit_cost' => $prepare,
+          'unit_count' => 1,
+          'unit_subtotal' => $prepare,
+          'unit_type' => 4,
+        ]);
+      }
+
+      $clean = Venue::find($venue_id)->layout_clean;
+      if ($request->{'layout_clean_copied' . $splitKey} == 1) {
+        $pre_bill->pre_breakdowns()->create([
+          'unit_item' => 'レイアウト片付料金',
+          'unit_cost' => $clean,
+          'unit_count' => 1,
+          'unit_subtotal' => $clean,
+          'unit_type' => 4,
+        ]);
+      }
+    });
+  }
+
+
+
+  public function Updates($request)
+  {
+    DB::transaction(function () use ($request) { //トランザクションさせる
+      // breakdowns削除
+      foreach ($this->pre_breakdowns()->get() as $key => $value) {
+        $value->delete();
+      }
+      // pre bill削除
+      $this->pre_bill()->delete();
+      // 再作成
+      $this->update([
+        'user_id' => $request->user_id,
+        'price_system' => $request->price_system,
+        'enter_time' => $request->enter_time,
+        'leave_time' => $request->leave_time,
+        'board_flag' => $request->board_flag,
+        'event_start' => $request->event_start,
+        'event_finish' => $request->event_finish,
+        'event_name1' => $request->event_name1,
+        'event_name2' => $request->event_name2,
+        'event_owner' => $request->event_owner,
+        'luggage_count' => $request->luggage_count,
+        'luggage_arrive' => $request->luggage_arrive,
+        'luggage_return' => $request->luggage_return,
+        'email_flag' => $request->email_flag,
+        'in_charge' => $request->in_charge,
+        'tel' => $request->tel,
+        'discount_condition' => $request->discount_condition,
+        'attention' => $request->attention,
+        'user_details' => $request->user_details,
+        'admin_details' => $request->admin_details,
+        'status' => $request->status,
+      ]);
+    });
+  }
+
+  public function MoveToReservation(Request $request)
+  {
+    $request_data = $request->all();
+  }
 
   /*
 |--------------------------------------------------------------------------
@@ -807,6 +550,133 @@ class PreReservation extends Model
       foreach ($model->unknown_user()->get() as $child2) {
         $child2->delete();
       }
+      foreach ($model->pre_enduser()->get() as $child3) {
+        $child3->delete();
+      }
     });
+  }
+
+  /**   
+   * 予約一覧の検索対象マスタ
+   * @return object collectionで返る
+   */
+  public function PreReservationSearchTarget()
+  {
+    $searchTarget = DB::table('pre_reservations')
+      ->select(DB::raw(
+        "
+        LPAD(pre_reservations.id,6,0) as pre_reservation_id,
+        pre_reservations.id as pre_reservation_id_original,
+        concat(date_format(pre_reservations.created_at, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(pre_reservations.created_at) = 1 then '(日)' 
+        when DAYOFWEEK(pre_reservations.created_at) = 2 then '(月)'
+        when DAYOFWEEK(pre_reservations.created_at) = 3 then '(火)'
+        when DAYOFWEEK(pre_reservations.created_at) = 4 then '(水)'
+        when DAYOFWEEK(pre_reservations.created_at) = 5 then '(木)'
+        when DAYOFWEEK(pre_reservations.created_at) = 6 then '(金)'
+        when DAYOFWEEK(pre_reservations.created_at) = 7 then '(土)'
+        end
+        ) as created_at,
+        concat(date_format(pre_reservations.reserve_date, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(pre_reservations.reserve_date) = 1 then '(日)' 
+        when DAYOFWEEK(pre_reservations.reserve_date) = 2 then '(月)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 3 then '(火)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 4 then '(水)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 5 then '(木)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 6 then '(金)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 7 then '(土)'
+        end
+        ) as reserve_date,
+        time_format(pre_reservations.enter_time, '%H:%i') as enter_time,
+        time_format(pre_reservations.leave_time, '%H:%i') as leave_time,
+        concat(venues.name_area, venues.name_bldg, venues.name_venue) as venue_name,
+        venues.id,
+        users.company as company,
+        concat(users.first_name, users.last_name) as person_name,
+        users.mobile as mobile,
+        users.tel as tel,
+        unknown_users.unknown_user_company as unknownuser,
+        agents.name as agent_name,
+        pre_endusers.company as enduser,
+        pre_reservations.status as pre_reservation_status,
+      case when pre_bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
+      case when pre_reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
+      case when pre_reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
+      case when pre_reservations.reserve_date < CURRENT_DATE then reserve_date end as 今日未満日付
+        "
+      ))
+      ->leftJoin('venues', 'pre_reservations.venue_id', '=', 'venues.id')
+      ->leftJoin('users', 'pre_reservations.user_id', '=', 'users.id')
+      ->leftJoin('unknown_users', 'pre_reservations.id', '=', 'unknown_users.pre_reservation_id')
+      ->leftJoin('agents', 'pre_reservations.agent_id', '=', 'agents.id')
+      ->leftJoin('pre_endusers', 'pre_reservations.id', '=', 'pre_endusers.pre_reservation_id')
+      ->leftJoin('pre_bills', 'pre_reservations.id', '=', 'pre_bills.pre_reservation_id')
+      ->whereRaw('pre_reservations.multiple_reserve_id = ?', [0]);
+
+
+    return $searchTarget;
+  }
+
+  public function SearchPreReservation($data)
+  {
+    $searchTarget = $this->PreReservationSearchTarget();
+
+    if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
+      $searchTarget->whereRaw('pre_reservations.id LIKE ? ',  ['%' . $data['search_id'] . '%']);
+    }
+
+    if (!empty($data['search_created_at'])) {
+      $targetData = explode(" ~ ", $data['search_created_at']);
+      $targetData[0] = $targetData[0] . ' 00:00:00';
+      $targetData[1] = $targetData[1] . ' 23:59:59';
+      $searchTarget->whereRaw('pre_reservations.created_at between ? AND ? ',  $targetData);
+    }
+
+    if (!empty($data['search_date'])) {
+      $targetData = explode(" ~ ", $data['search_date']);
+      $targetData[0] = $targetData[0] . ' 00:00:00';
+      $targetData[1] = $targetData[1] . ' 23:59:59';
+      $searchTarget->whereRaw('pre_reservations.reserve_date between ? AND ? ',  $targetData);
+    }
+
+    if (!empty($data['search_venue']) && (int)$data['search_venue'] !== 0) {
+      $searchTarget->whereRaw('venues.id = ? ',  [(int)$data['search_venue']]);
+    }
+
+    if (!empty($data['search_company'])) {
+      $searchTarget->whereRaw('users.company LIKE ? ',  ['%' . $data['search_company'] . '%']);
+    }
+
+    if (!empty($data['search_person'])) {
+      $searchTarget->whereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['search_person'] . '%']);
+    }
+
+    if (!empty($data['search_mobile'])) {
+      $searchTarget->whereRaw('users.mobile LIKE ? ',  ['%' . $data['search_mobile'] . '%']);
+    }
+
+    if (!empty($data['search_tel'])) {
+      $searchTarget->whereRaw('users.tel LIKE ? ',  ['%' . $data['search_tel'] . '%']);
+    }
+
+    if (!empty($data['search_unkown_user'])) {
+      $searchTarget->whereRaw('unknown_users.unknown_user_company LIKE ? ',  ['%' . $data['search_unkown_user'] . '%']);
+    }
+
+    if (!empty($data['search_agent']) && (int)$data['search_agent'] !== 0) {
+      $searchTarget->whereRaw('agents.id = ? ',  [(int)$data['search_agent']]);
+    }
+
+    if (!empty($data['search_end_user'])) {
+      $searchTarget->whereRaw('pre_endusers.company LIKE ? ',  ['%' . $data['search_end_user'] . '%']);
+    }
+
+    if (!empty($data['time_over']) && (int)$data['time_over'] === 1) {
+      $searchTarget->whereRaw('pre_reservations.status = ? and pre_reservations.updated_at < DATE_SUB(CURRENT_DATE(),INTERVAL ? DAY) ', [1, 3]);
+    }
+
+    return $searchTarget;
   }
 }

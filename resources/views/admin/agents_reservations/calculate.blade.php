@@ -3,9 +3,7 @@
 
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-{{-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> --}}
 <script src="{{ asset('/js/ajax_agent.js') }}"></script>
-<script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/admin/agents_reservation/validation.js') }}"></script>
 <script src="{{ asset('/js/admin/reservation/control_time.js') }}"></script>
@@ -40,15 +38,7 @@
   </style>
 
 
-  <div class="d-flex justify-content-end">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName()) }}
-        </li>
-      </ol>
-    </nav>
-  </div>
+  @include('layouts.admin.breadcrumbs')
 
 
   <div id="fullOverlay">
@@ -230,7 +220,7 @@
             <tbody class="accordion-wrap2">
               @foreach ($venues->find($master_info['venue_id'])->getEquipments() as $key=>$equipment)
               <tr>
-                <td class="table-active">{{$equipment->item}}</td>
+                <td class="table-active">{{$equipment->item}}({{number_format($equipment->price)."円"}})</td>
                 <td>
                   <div class="d-flex align-items-end">
                     {{ Form::number('equipment_breakdown'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control equipment_validation', 'placeholder'=>'入力してください'] ) }}
@@ -256,7 +246,7 @@
             <tbody class="accordion-wrap2">
               @foreach ($venues->find($master_info['venue_id'])->getServices() as $key=>$service)
               <tr>
-                <td class="table-active">{{$service->item}}</td>
+                <td class="table-active">{{$service->item}}({{number_format($service->price)."円"}})</td>
                 <td>
                   <div class="radio-box">
                     <p>
@@ -274,6 +264,7 @@
             </tbody>
           </table>
         </div>
+
 
         @if ($venues->find($master_info['venue_id'])->layout!=0)
         <div class="layouts">
@@ -337,16 +328,16 @@
             </thead>
             <tbody>
               <tr>
-                <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+                <td class="table-active">荷物預かり</td>
                 <td>
                   <div class="radio-box">
                     <p>
-                      <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
-                      <label for="" class="form-check-label">有り</label>
+                      {{Form::radio('luggage_flag', 1, (int)$master_info['luggage_flag']===1?true:false, ['id'=>'luggage_flag'])}}
+                      {{Form::label('luggage_flag','有り')}}
                     </p>
                     <p>
-                      <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                      <label for="" class="form-check-label">無し</label>
+                      {{Form::radio('luggage_flag', 0, (int)$master_info['luggage_flag']===0?true:false, ['id'=>'no_luggage_flag'])}}
+                      {{Form::label('no_luggage_flag','無し')}}
                     </p>
                   </div>
                 </td>
@@ -354,21 +345,21 @@
               <tr>
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
-                  {{ Form::number('luggage_count', $master_info['luggage_count'],['class'=>'form-control','id'=>'luggage_count'] ) }}
+                  {{ Form::number('luggage_count', (int)$master_info['luggage_flag']===1?$master_info['luggage_count']:"",['class'=>'form-control','id'=>'luggage_count'] ) }}
                   <p class="is-error-luggage_count" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', $master_info['luggage_arrive'],['class'=>'form-control holidays','id'=>'luggage_arrive'] ) }}
+                  {{ Form::text('luggage_arrive', (int)$master_info['luggage_flag']===1?$master_info['luggage_arrive']:"",['class'=>'form-control holidays','id'=>'luggage_arrive'] ) }}
                 </td>
               </tr>
 
               <tr>
                 <td class="table-active">事後返送する荷物</td>
                 <td>
-                  {{ Form::number('luggage_return', $master_info['luggage_return'],['class'=>'form-control' ,'id'=>'luggage_return'] ) }}
+                  {{ Form::number('luggage_return', (int)$master_info['luggage_flag']===1?$master_info['luggage_return']:"",['class'=>'form-control' ,'id'=>'luggage_return'] ) }}
                   <p class="is-error-luggage_return" style="color: red"></p>
                 </td>
               </tr>
@@ -428,7 +419,8 @@
                   <p class="title-icon">
                     <i class="far fa-id-card icon-size" aria-hidden="true"></i>仲介会社情報
                   </p>
-                  <p><a class="more_btn" href="">仲介会社詳細</a></p>
+                  <p><a class="more_btn" href="{{url('/admin/agents/'.$master_info['agent_id'])}}"
+                      target="_blank">仲介会社詳細</a></p>
                 </div>
               </td>
             </tr>
@@ -627,8 +619,6 @@
                 <dl class="ttl_box">
                   <dt>合計金額</dt>
                   <dd class="total_result">{{ReservationHelper::taxAndPrice($price)}}円</dd>
-                  {{-- <dd class="total_result">{{ Form::text('master_total',ReservationHelper::taxAndPrice($price) ,['class'=>'form-control text-right', 'readonly'] ) }}円
-                  </dd> --}}
                 </dl>
               </td>
               <td>
@@ -680,11 +670,11 @@
                   <td>
                     {{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                   <td>
                     {{ Form::text('venue_breakdown_count0', 1,['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                 </tr>
               </tbody>
             </table>
@@ -717,11 +707,11 @@
                   <td>
                     {{ Form::text('equipment_breakdown_item'.$key, $equipment->item,['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                   <td>
                     {{ Form::text('equipment_breakdown_count'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                 </tr>
                 @endif
                 @endforeach
@@ -731,11 +721,11 @@
                   <td>
                     {{ Form::text('service_breakdown_item'.$key, $service->item,['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                   <td>
                     {{ Form::text('service_breakdown_count'.$key, $master_info['services_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                 </tr>
                 @endif
                 @endforeach
@@ -744,11 +734,11 @@
                   <td>
                     {{ Form::text('luggage_item', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                   <td>
                     {{ Form::text('luggage_count', $master_info['luggage_count'],['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                 </tr>
                 @endif
               </tbody>
@@ -844,9 +834,9 @@
               <tbody class="others_main">
                 <tr>
                   <td>{{ Form::text('others_input_item[]', '',['class'=>'form-control'] ) }}</td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                   <td>{{ Form::text('others_input_count[]', '',['class'=>'form-control'] ) }}</td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
@@ -884,6 +874,7 @@
       </div>
     </div>
 
+
     <div class="information">
       <div class="information_details">
         <div class="head d-flex">
@@ -903,25 +894,25 @@
               <tbody>
                 <tr>
                   <td>請求日
-                    {{ Form::text('bill_created_at', date('Y-m-d'),['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+                    {{ Form::text('bill_created_at', !empty($check_info['bill_created_at'])?$check_info['bill_created_at']:date('Y-m-d'),['class'=>'form-control datepicker'] ) }}
                   </td>
                   <td>支払期日
-                    {{ Form::text('pay_limit', $calc_info[1],['class'=>'form-control datepicker', 'id'=>''] ) }}
+                    {{ Form::text('pay_limit', !empty($check_info['pay_limit'])?$check_info['bill_created_at']:$calc_info[1],['class'=>'form-control datepicker'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td>
                     請求書宛名
-                    {{ Form::text('pay_company', ReservationHelper::getAgentCompanyName($master_info['agent_id']),['class'=>'form-control'] ) }}
+                    {{ Form::text('pay_company', !empty($check_info['pay_company'])?$check_info['pay_company']:ReservationHelper::getAgentCompany($master_info['agent_id']),['class'=>'form-control'] ) }}
                   </td>
                   <td>
                     担当者
-                    {{ Form::text('bill_person', ReservationHelper::getAgentPerson($master_info['agent_id']),['class'=>'form-control'] ) }}
+                    {{ Form::text('bill_person', !empty($check_info['bill_person'])?$check_info['bill_person']:ReservationHelper::getAgentPerson($master_info['agent_id']),['class'=>'form-control'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td colspan="2">請求書備考
-                    {{ Form::textarea('bill_remark', '',['class'=>'form-control'] ) }}
+                    {{ Form::textarea('bill_remark', !empty($check_info['bill_remark'])?$check_info['bill_remark']:"",['class'=>'form-control'] ) }}
                   </td>
                 </tr>
               </tbody>
@@ -945,19 +936,21 @@
             <table class="table">
               <tbody>
                 <tr>
-                  <td>入金状況<select class="form-control" name="paid">
-                      <option value="0">未入金</option>
-                      <option value="1">入金済み</option>
-                    </select></td>
+                  <td>入金状況
+                    {{Form::select('paid', ['未入金', '入金済み','遅延','入金不足','入金過多','次回繰越'],!empty($check_info['paid'])?$check_info['paid']:"",['class'=>'form-control'])}}
+                  </td>
                   <td>
-                    入金日<input class="form-control" id="datepicker7" name="pay_day" type="text">
+                    入金日
+                    {{ Form::text('pay_day', !empty($check_info['pay_day'])?$check_info['pay_day']:"",['class'=>'form-control datepicker'] ) }}
                   </td>
                 </tr>
                 <tr>
-                  <td>振込人名<input class="form-control" name="pay_person" type="text">
+                  <td>振込人名
+                    {{ Form::text('pay_person', !empty($check_info['pay_person'])?$check_info['pay_person']:"",['class'=>'form-control '] ) }}
                     <p class="is-error-pay_person" style="color: red"></p>
                   </td>
-                  <td>入金額<input class="form-control" name="payment" type="text">
+                  <td>入金額
+                    {{ Form::text('payment', !empty($check_info['payment'])?$check_info['payment']:"",['class'=>'form-control '] ) }}
                     <p class="is-error-payment" style="color: red"></p>
                   </td>
                 </tr>
@@ -976,6 +969,16 @@
 </div>
 
 <script>
+  $('.datepicker').datepicker({
+    dateFormat: 'yy-mm-dd',
+    minDate: 0,
+    autoclose: true
+    });
+    $('.datepicker_no_min_date').datepicker({
+    dateFormat: 'yy-mm-dd',
+    autoclose: true
+    });
+
   function checkForm($this) {
           var str = $this.value;
           while (str.match(/[^A-Z^a-z\d\-]/)) {
@@ -983,12 +986,9 @@
           }
           $this.value = str;
         }
-
   $(document).on(' click', '.holidays', function () {
   getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
 });
-
-
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();
@@ -1000,29 +1000,16 @@
       }
     })
   })
-
-  $(function() {
-
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        // addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count', 'others_input_subtotal');
         // 追加時内容クリア
         $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-        $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(1).val(0);
+        $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(3).val(0);
       });
-
-      // function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
-      //   var count = $($targetTr).length;
-      //   for (let index = 0; index < count; index++) {
-      //     $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
-      //     $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCount + index);
-      //     // $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
-      //     // $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
-      //   }
-      // }
-
       // マイナスボタンクリック
       $(document).on("click", ".del", function() {
         if ($(this).parent().parent().parent().attr('class') == "others_main") {
@@ -1031,14 +1018,21 @@
           if (target.parent().children().length > 1) {
             target.remove();
           }
-          // for (let index = 0; index < count; index++) {
-          //   // console.log(index);
-          //   $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
-          //   $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_count' + index);
-          // }
         }
       });
     });
-  })
+    // アコーディオン
+    $(function () {
+    $(".accordion-wrap").hide();
+    $(".accordion-wrap2").show();
+    $(".accordion-ttl").on("click", function () {
+    $(this).next().slideToggle("fast");
+    $(this).find(".title-icon").toggleClass("active");
+    });
+    
+    $(".accordion-innbtn").on("click", function () {
+    $(this).parent().slideToggle("");
+    });
+    });
 </script>
 @endsection

@@ -80,7 +80,17 @@ class ImageHelper
     if ($breakdown->where('unit_type', 2)->count() > 0) $icon[] = $helper->equipment;
     if ($breakdown->where('unit_type', 3)->count() > 0) $icon[] = $helper->service;
     if ($breakdown->where('unit_type', 4)->count() > 0) $icon[] = $helper->layout;
-
     return $icon;
+  }
+
+  public static function catering($reservation_id)
+  {
+    $helper = new ImageHelper;
+    $r = Reservation::find($reservation_id);
+    if ((int)$r->eat_in === 1) {
+      return $helper->catering;
+    } else {
+      return NULL;
+    }
   }
 }

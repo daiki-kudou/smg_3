@@ -22,10 +22,6 @@
 </div>
 
 {{ link_to_route('admin.equipments.edit', '編集する', $parameters = $eqipment->id, ['class' => 'btn btn-primary']) }}
-{{-- {{ Form::model($venue, ['route' => ['admin.venues.destroy', $venue->id], 'method' => 'delete']) }}
-@csrf
-{{ Form::submit('削除', ['class' => 'btn btn-danger']) }}
-{{ Form::close() }} --}}
 
 
 @endsection

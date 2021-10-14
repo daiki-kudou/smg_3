@@ -30,6 +30,9 @@ use App\Traits\PaginatorTrait;
 use Session;
 use Artisan;
 
+use App\Service\SendSMGEmail;
+
+
 
 class HomeController extends Controller
 {
@@ -83,16 +86,16 @@ class HomeController extends Controller
   public function updateStatus(Request $request, $id)
   {
     return DB::transaction(function () use ($request, $id) {
-      $reservation = Reservation::find($id);
+      $reservation = Reservation::with(['user', 'venue'])->find($id);
       $reservation->bills()->first()->update([
         'reservation_status' => $request->update_status
       ]);
-      // ユーザーに予約完了メール送信
-      $email = $reservation->user->email;
-      Mail::to($email)->send(new ConfirmReservationByUser($reservation));
-      // 管理者に予約完了メール送信
-      $admins = ['kudou@web-trickster.com', 'maruoka@web-trickster.com'];
-      Mail::to($admins)->send(new ConfirmToAdmin($reservation));
+      // // ユーザーに予約完了メール送信
+      $user = $reservation->user;
+      $venue = $reservation->venue;
+      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+      $SendSMGEmail->send("予約完了");
+
 
       $request->session()->regenerate();
       return redirect()->route('user.home.index');
@@ -180,12 +183,18 @@ class HomeController extends Controller
 
   public function cxl_cfm_by_user(Request $request)
   {
-    $cxl = Cxl::with("reservation")->find($request->cxl_id);
+    $cxl = Cxl::with(["reservation.user", "reservation.venue"])->find($request->cxl_id);
     $cxl->update(["cxl_status" => 2]);
     if ($cxl->bill_id == 0) {
       $cxl->reservation->bills->map(function ($item, $key) {
         $item->update(["reservation_status" => 6]);
       });
+
+      $user = $cxl->reservation->user;
+      $reservation = $cxl;
+      $venue = $cxl->reservation->venue;
+      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+      $SendSMGEmail->send("ユーザーがキャンセルを承認");
     } else {
       $bill = Bill::find($cxl->bill_id);
       $bill->update(["reservation_status" => 6]);
@@ -195,16 +204,23 @@ class HomeController extends Controller
 
   public function approve_user_additional_cfm(Request $request)
   {
-    $bill = Bill::with('reservation')->find($request->bill_id);
+    $bill = Bill::with('reservation.user')->find($request->bill_id);
     $bill->update(['reservation_status' => 3,]);
 
-    $email = $bill->reservation->user->email;
-    Mail::to($email)->send(new UserFinAddRes()); // ユーザーに予約完了メール送信
+    // $email = $bill->reservation->user->email;
+    // Mail::to($email)->send(new UserFinAddRes()); // ユーザーに予約完了メール送信
 
-    $admin = explode(',', config('app.admin_email'));
-    Mail::to($admin)->send(new AdminFinAddRes()); // 管理者に予約完了メール送信
+    // $admin = explode(',', config('app.admin_email'));
+    // Mail::to($admin)->send(new AdminFinAddRes()); // 管理者に予約完了メール送信
+    $user = User::find($bill->reservation->user->id);
+    $reservation = $bill;
+    $venue = $bill->reservation->venue;
+    $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+    $SendSMGEmail->send("ユーザーが追加予約の承認完了後、メール送信");
 
-    return redirect('user/home/' . $bill->reservation->id);
+    $flash_message = "追加予約を受け付けました";
+    $request->session()->regenerate();
+    return redirect(url('/user/home/' . $bill->reservation->id))->with('flash_message', $flash_message);
   }
 
   public function email_reset()

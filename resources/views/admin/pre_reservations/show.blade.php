@@ -33,7 +33,6 @@
       {{Form::hidden("destroy".$pre_reservation->id, $pre_reservation->id)}}
       {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
       {{ Form::close() }}
-
     </div>
     <div class="col-12">
       <table class="table ttl_head mb-0">
@@ -46,12 +45,27 @@
             </td>
             <td>
               <div class="d-flex justify-content-end align-items-center">
-                {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST','id'=>'confirm_prereserve']) }}
-                @csrf
+
                 @if ($pre_reservation->status==0)
+                @if ($pre_reservation->user_id>0)
+                {{ Form::open(['url' =>
+                'admin/pre_reservations/switch_status','method'=>'POST','id'=>'confirm_prereserve']) }}
+                @csrf
                 {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
                 {{ Form::submit('予約の編集・承認権限を顧客に移行', ['class' => 'btn more_btn4']) }}
                 {{ Form::close() }}
+                @elseif($pre_reservation->agent_id>0)
+                {{ Form::open(['url' =>
+                'admin/pre_agent_reservations/switch_status','method'=>'POST']) }}
+                @csrf
+                {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
+                {{ Form::submit('予約に移行する', ['class' => 'btn more_btn4']) }}
+                {{ Form::close() }}
+                @endif
+                @endif
+
+                @if ($pre_reservation->user_id>0&&(int)$pre_reservation->status===1)
+                <span class="text-white">ユーザー承認メール送付済</span>
                 @endif
               </div>
             </td>
@@ -170,7 +184,7 @@
             </thead>
             <tbody>
               <tr>
-                <td class="table-active">会社名・団体名</td>
+                <td class="table-active">サービス名称</td>
                 <td colspan="3">
                   <p class="company">
                     {{ReservationHelper::getAgentCompany($pre_reservation->agent_id)}}
@@ -523,31 +537,33 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="table-active"><label for="preDelivery">荷物預かり　工藤さん！！！</label></td>
-                    <td>工藤さん！なしかありを表示でお願いします</td>
+                    <td class="table-active"><label for="preDelivery">荷物預かり</label></td>
+                    <td>{{(int)$pre_reservation->luggage_flag===1?"有り":"無し"}}</td>
                   </tr>
-                  {{-- <tr>
-                    <td class="table-active"><label for="Delivery">荷物預かり</label>
-                    </td>
-                    <td>
-                      {{$pre_reservation->luggage_count?"あり":"なし"}}
-                  </td>
-                  </tr> --}}
                   <tr>
                     <td class="table-active"><label for="preDelivery">事前に預かる荷物(目安)</label></td>
-                    <td>{{$pre_reservation->luggage_count?$pre_reservation->luggage_count:0}}個</td>
+                    <td>
+                      @if ((int)$pre_reservation->luggage_flag===1)
+                      {{$pre_reservation->luggage_count?$pre_reservation->luggage_count."個":""}}
+                      @endif
+                    </td>
                   </tr>
                   <tr>
                     <td class="table-active"><label for="preDelivery">事前荷物の到着日</label></td>
                     <td>
+                      @if ((int)$pre_reservation->luggage_flag===1)
                       {{$pre_reservation->luggage_arrive?ReservationHelper::formatDate($pre_reservation->luggage_arrive):""}}
+                      @endif
                     </td>
                   </tr>
                   <tr>
                     <td class="table-active"><label for="preDelivery">事後返送する荷物</label></td>
-                    <td>{{$pre_reservation->luggage_return?$pre_reservation->luggage_return:0}}個</td>
+                    <td>
+                      @if ((int)$pre_reservation->luggage_flag===1)
+                      {{$pre_reservation->luggage_return?$pre_reservation->luggage_return."個":""}}
+                      @endif
+                    </td>
                   </tr>
-
                 </tbody>
               </table>
             </div>
@@ -1017,19 +1033,19 @@
 </section>
 
 <script>
-  $(function() {
-    $("#confirm_prereserve").on('click', function() {
-      if (!confirm('仮押さえの内容を確定し、ユーザーにメールを送付しますか？')) {
-        return false;
-      }
-    })
+  // $(function() {
+  //   $("#confirm_prereserve").on('click', function() {
+  //     if (!confirm('仮押さえの内容を確定し、ユーザーにメールを送付しますか？')) {
+  //       return false;
+  //     }
+  //   })
 
-    $("#confirm_destroy").on('click', function() {
-      if (!confirm('本当に削除しますか？')) {
-        return false;
-      }
-    })
+  //   $("#confirm_destroy").on('click', function() {
+  //     if (!confirm('本当に削除しますか？')) {
+  //       return false;
+  //     }
+  //   })
 
-  })
+  // })
 </script>
 @endsection

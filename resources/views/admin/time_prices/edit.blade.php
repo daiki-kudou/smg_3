@@ -84,9 +84,19 @@
         </tbody>
       </table>
       {{Form::hidden('venue_id', $venue->id)}}
-      {{ Form::submit('保存する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'submit']) }}
+<div class="d-flex">
+  <button type="button" class="btn more_btn4_lg d-block btn-lg mx-auto my-5"
+    onclick="$('#delete').submit()">すべて削除する</button>
+  {{ Form::submit('保存する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5 price_confirm', 'id'=>'submit']) }}
+</div>
+
+
       {{ Form::close() }}
     </div>
+
+    {{Form::open(['url' => 'admin/time_prices/'.$venue->id, 'method' => 'delete', 'id'=>'delete'])}}
+    @csrf
+    {{ Form::close() }}
   </div>
 </div>
 
@@ -219,13 +229,13 @@
 
 
 
-  $(function() {
-    $(".del").on("click", function() {
-      if (!confirm('本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')) {
-        return false;
-      }
-    })
-  })
+  // $(function() {
+  //   $(".del").on("click", function() {
+  //     if (!confirm('本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')) {
+  //       return false;
+  //     }
+  //   })
+  // })
 
 </script>
 

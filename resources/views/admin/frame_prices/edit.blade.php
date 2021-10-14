@@ -1,10 +1,7 @@
 @extends('layouts.admin.app')
 
 @section('content')
-{{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
-{{-- <script src="{{ asset('/js/validation.js') }}"></script> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-{{-- <script src="{{ asset('/js/ctrl_form.js') }}"></script> --}}
 
 <div class="float-right">
   <nav aria-label="breadcrumb">
@@ -20,7 +17,7 @@
 <hr>
 
 <div class="section-wrap bg-white wrap_shadow">
-  <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
+  <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::fixId($venue->id)}}</span>
     {{ $venue->name_bldg }}{{ $venue->name_venue }}
   </h3>
   @if ($errors->any())
@@ -144,14 +141,20 @@
       <div>
         <div class="d-flex align-items-end">
           {{ Form::text('extend', $frame_price->extend,['class'=>'form-control w-25 mb-2'])}}
-          <span class="ml-1 mb-1">円</span>
         </div>
         <p class="{{'is-error-extend'}}" style="color: red"></p>
       </div>
       {{Form::hidden('venue_id', $venue->id)}}
-      {{ Form::submit('保存する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
+      <div class="d-flex">
+        <button type="button" class="btn more_btn4_lg d-block btn-lg mx-auto my-5"
+          onclick="$('#delete').submit()">すべて削除する</button>
+        {{ Form::submit('保存する', ['class' => 'btn more_btn_lg mx-auto d-block my-5 price_confirm']) }}
+      </div>
       {{ Form::close() }}
     </div>
+    {{Form::open(['url' => '/admin/frame_prices/'.$venue->id, 'method' => 'delete', 'id'=>'delete'])}}
+    @csrf
+    {{ Form::close() }}
   </div>
 </div>
 <script>
@@ -162,8 +165,6 @@
       var count = $('.table tbody tr').length;
       // 追加時内容クリア
       $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-      // $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
-      // $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
       $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
       for (let index = 0; index < count; index++) {
         $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', "frame" + index);
@@ -264,13 +265,5 @@
   });
 
 
-
-  $(function() {
-    $(".del").on("click", function() {
-      if (!confirm('本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')) {
-        return false;
-      }
-    })
-  })
 </script>
 @endsection

@@ -16,13 +16,7 @@
 </style>
 
 <div class="float-right">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active">
-        {{ Breadcrumbs::render(Route::currentRouteName()) }}
-      </li>
-    </ol>
-  </nav>
+  @include('layouts.admin.breadcrumbs')
 </div>
 <h2 class="mt-3 mb-3">顧客管理　新規登録</h2>
 <hr>
@@ -83,11 +77,6 @@
             <td class="table-active">{{ Form::label('address3', '住所3（建物名）') }}</td>
             <td>{{ Form::text('address3', old('address3'), ['class' => 'form-control']) }}</td>
           </tr>
-          <!-- <tr>
-                <td class="table-active">{{ Form::label('address_remark', '住所備考') }}</td>
-                <td>{{ Form::textarea('address_remark', old('address_remark'), ['class' => 'form-control']) }}
-                </td>
-              </tr> -->
           <tr>
             <td class="table-active">{{ Form::label('url', '会社・団体名URL') }}</td>
             <td>{{ Form::text('url', old('url'), ['class' => 'form-control']) }}
@@ -169,7 +158,7 @@
           </tr>
           <tr>
             <td class="table-active">{{ Form::label('fax', 'FAX') }}</td>
-            <td colspan="2">{{ Form::text('fax', old('fax'), ['class' => 'form-control']) }}
+            <td colspan="2">{{ Form::text('fax', old('fax'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-fax" style="color: red"></p>
             </td>
           </tr>
@@ -203,7 +192,7 @@
           <tr>
             <td class="table-active form_required">{{ Form::label('pay_limit', '支払期日') }}</td>
             <td>
-              {{Form::select('pay_limit', [1=>'3営業日前', 2=>'当月末締め／当月末支払い',3=>'当月末締め／翌月末支払い',4=>'当月末締め／翌々月末支払い'])}}
+              {{Form::select('pay_limit', [1=>'当日',2=>'3営業日前', 3=>'当月末締め／当月末支払い',4=>'当月末締め／翌月末支払い',5=>'当月末締め／翌々月末支払い'])}}
               <p class="is-error-pay_limit" style="color: red"></p>
             </td>
           </tr>

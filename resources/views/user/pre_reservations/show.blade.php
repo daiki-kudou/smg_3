@@ -21,7 +21,6 @@
 <hr>
 
 
-
 @if ($pre_reservation->status==1)
 <div class="confirm-box text-md-center mt-5">
   <p>
@@ -215,10 +214,10 @@
                 <td>
                   @foreach ($pre_reservation->pre_breakdowns()->get() as $s_equ)
                   @if ($s_equ->unit_item==$equ->item)
-                  {{Form::number('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control equipment_validation', 'autocomplete="off"'])}}
+                  {{Form::number('equipment_breakdown[]',$s_equ->unit_count,['class'=>'form-control equipment_validation', 'autocomplete="off"'])}}
                   @break
                   @elseif($loop->last)
-                  {{Form::number('equipment_breakdown'.$key,'',['class'=>'form-control equipment_validation', 'autocomplete="off"'])}}
+                  {{Form::number('equipment_breakdown[]','',['class'=>'form-control equipment_validation', 'autocomplete="off"'])}}
                   @endif
                   @endforeach
                 </td>
@@ -249,11 +248,11 @@
                   @if ($s_ser->unit_item==$ser->item)
                   <div class="radio-box">
                     <p>
-                      {{Form::radio('services_breakdown'.$key, 1, true , ['id' => 'service'.$key.'on', 'class' => ''])}}
+                      {{Form::radio("services_breakdown[$key]", 1, true , ['id' => 'service'.$key.'on', 'class' => ''])}}
                       {{Form::label('service'.$key.'on','あり')}}
                     </p>
                     <p>
-                      {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'services_breakdown'.$key.'off', 'class' => ''])}}
+                      {{Form::radio("services_breakdown[$key]", 0, false, ['id' => 'services_breakdown'.$key.'off', 'class' => ''])}}
                       {{Form::label('services_breakdown'.$key.'off','なし')}}
                     </p>
                   </div>
@@ -261,11 +260,11 @@
                   @elseif($loop->last)
                   <div class="radio-box">
                     <p>
-                      {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on', 'class' => ''])}}
+                      {{Form::radio("services_breakdown[$key]", 1, false , ['id' => 'service'.$key.'on', 'class' => ''])}}
                       {{Form::label('service'.$key.'on','あり')}}
                     </p>
                     <p>
-                      {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off', 'class' => ''])}}
+                      {{Form::radio("services_breakdown[$key]", 0, true, ['id' => 'services_breakdown'.$key.'off', 'class' => ''])}}
                       {{Form::label('services_breakdown'.$key.'off','なし')}}
                     </p>
                   </div>
@@ -471,219 +470,7 @@
   {{ Form::close() }}
 
 
-  {{-- <div class="bill mt-5">
-      <div class="bill_head">
-        <table class="table" style="table-layout: fixed">
-          <tbody>
-            <tr>
-              <td>
-                <h2 class="text-white">
-                  ご利用料金
-                </h2>
-              </td>
-              <td>
-                <dl class="ttl_box">
-                  <dt>合計金額</dt>
-                  <dd class="total_result">39,600円</dd>
-                </dl>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="bill_details">
-        <div class="head d-flex">
-          <div class="accordion_btn">
-            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
-          </div>
-          <div class="billdetails_ttl">
-            <h3>
-              内訳
-            </h3>
-          </div>
-        </div>
-        <div class="main">
-          <div class="venues billdetails_content">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td>
-                    <h4 class="billdetails_content_ttl">
-                      会場料
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="venue_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="venue_main">
-                <tr>
-                  <td>
-                    <input class="form-control col-xs-3" readonly="" name="venue_breakdown_item0" type="text"
-                      value="会場料金">
-                  </td>
-                  <td>
-                    <input class="form-control col-xs-3" readonly="" name="venue_breakdown_cost0" type="text"
-                      value="36000">
-                  </td>
-                  <td>
-                    <input class="form-control col-xs-3" readonly="" name="venue_breakdown_count0" type="text"
-                      value="3.5">
-                  </td>
-                  <td>
-                    <input class="form-control col-xs-3" readonly="" name="venue_breakdown_subtotal0" type="text"
-                      value="36000">
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="venue_result">
-                <tr>
-                  <td colspan="3"></td>
-                  <td colspan="1">合計
-                    <input class="form-control col-xs-3" readonly="" name="venue_price" type="text" value="36000">
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="equipment billdetails_content">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td colspan="4">
-                    <h4 class="billdetails_content_ttl">
-                      有料備品・サービス
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="equipment_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="equipment_main">
-              </tbody>
-              <tbody class="equipment_result">
-                <tr>
-                  <td>
-                    <input class="form-control" readonly="" name="equipment_breakdown_item0" type="text" value="有線マイク">
-                  </td>
-                  <td>
-                    <input class="form-control" readonly="" name="equipment_breakdown_cost0" type="text" value="3000">
-                  </td>
-                  <td>
-                    <input class="form-control" readonly="" name="equipment_breakdown_count0" type="text" value="1">
-                  </td>
-                  <td>
-                    <input class="form-control" readonly="" name="equipment_breakdown_subtotal0" type="text"
-                      value="3000">
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="3"></td>
-                  <td colspan="1">合計
-                    <input class="form-control" readonly="" name="equipment_price" type="text" value="0">
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="layout billdetails_content">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td>
-                    <h4 class="billdetails_content_ttl">
-                      レイアウト
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="layout_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="layout_main">
-              </tbody>
-              <tbody class="layout_result">
-                <tr>
-                  <td><input class="form-control" readonly="" name="layout_prepare_item" type="text" value="レイアウト準備料金">
-                  </td>
-                  <td><input class="form-control" readonly="" name="layout_prepare_cost" type="text" value="5000">
-                  </td>
-                  <td><input class="form-control" readonly="" name="layout_prepare_count" type="text" value="1"></td>
-                  <td>
-                    <input class="form-control" readonly="" name="layout_prepare_subtotal" type="text" value="5000">
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="3"></td>
-                  <td colspan="1">合計
-                    <input class="form-control" readonly="" name="layout_price" type="text" value="0">
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="bill_total">
-            <table class="table text-right">
-              <tbody>
-                <tr>
-                  <td>小計：</td>
-                  <td>
-                    <input class="form-control text-right" readonly="" name="master_subtotal" type="text" value="36000">
-                  </td>
-                </tr>
-                <tr>
-                  <td>消費税：</td>
-                  <td>
-                    <input class="form-control text-right" readonly="" name="master_tax" type="text" value="3600">
-                  </td>
-                </tr>
-                <tr>
-                  <td class="font-weight-bold">合計金額</td>
-                  <td>
-                    <input class="form-control text-right" readonly="" name="master_total" type="text" value="39600">
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div> --}}
-
 </section>
-
-{{-- <div class="confirm-box">
-    <div class="confirm_inner">
-      <p class="mb-4">上記、内容で予約を申し込んでもよろしいでしょうか。よろしければ、予約の申し込みをお願いします。</p>
-      <p class="text-center mb-5 mt-3"><a href="" class="more_btn4_lg">予約を申し込む</a></p>
-      <p>※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
-        TEL：06-1234-5678<br>
-        mail：test@gmail.com
-      </p>
-    </div>
-  </div> --}}
-
-
 
 <script>
   $(function() {

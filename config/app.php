@@ -131,7 +131,8 @@ return [
     |--------------------------------------------------------------------------
     */
 
-  'admin_email' => env('ADMIN_EMAIL', 'error'),
+  // 'admin_email' => env('ADMIN_EMAIL', 'error'),
+  'admin_email' => ['kudou@web-trickster.com', 'daikikudoh313@gmail.com'],
 
 
 
@@ -173,7 +174,6 @@ return [
     Illuminate\Translation\TranslationServiceProvider::class,
     Illuminate\Validation\ValidationServiceProvider::class,
     Illuminate\View\ViewServiceProvider::class,
-
     /*
          * Package Service Providers...
          */
@@ -188,6 +188,7 @@ return [
     App\Providers\RouteServiceProvider::class,
     // 以下追加
     Barryvdh\DomPDF\ServiceProvider::class,
+
 
 
   ],
