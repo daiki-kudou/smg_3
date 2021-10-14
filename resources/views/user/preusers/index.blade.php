@@ -10,23 +10,23 @@
   </div>
 </div>
 <section class="contents">
-  <form action="/user/preusers/create" method="POST" id="preuser_index">
+  <form action="{{url("/user/preusers/create")}}" method="POST" id="preuser_index">
     @csrf
     <div class="bgColorGray">
       <table>
         <tr>
           <th>メールアドレス<span class="txtRed c-block">＊</span></th>
           <td>
-            <input type="email" class="form-control text1 " id="email" aria-describedby="emailHelp"
-              placeholder="" name="email">
-              <p class="is-error-email" style="color: red"></p>
+            <input type="email" class="form-control text1 " id="email" aria-describedby="emailHelp" placeholder=""
+              name="email">
+            <p class="is-error-email" style="color: red"></p>
           </td>
         </tr>
         <tr>
           <th>メールアドレス（確認）<span class="txtRed c-block">＊</span></th>
           <td>
-            <input type="email2" class="form-control text1" id="email2" aria-describedby="emailHelp"
-              placeholder="" name="email2">
+            <input type="email2" class="form-control text1" id="email2" aria-describedby="emailHelp" placeholder=""
+              name="email2">
             <p class="is-error-email2" style="color: red"></p>
           </td>
         </tr>
