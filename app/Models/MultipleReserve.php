@@ -895,6 +895,11 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
       $searchTarget->whereRaw('pre_endusers.company LIKE ? ',  ['%' . $data['search_end_user'] . '%']);
     }
 
+    if (!empty($data['time_over']) && (int)$data['time_over'] === 1) {
+      $searchTarget->whereRaw('pre_reservations.status = ? and pre_reservations.updated_at < DATE_SUB(CURRENT_DATE(),INTERVAL ? DAY) ', [1, 3]);
+    }
+
+
     return $searchTarget;
   }
 

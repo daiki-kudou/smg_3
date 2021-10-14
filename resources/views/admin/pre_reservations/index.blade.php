@@ -132,10 +132,10 @@
       <p class="text-right">
         ※フリーワード検索は本画面表記の項目のみ対象となります
       </p>
-  <p class="text-right">※担当者氏名の検索時は、フルネーム時はスペース禁止</p>
+      <p class="text-right">※担当者氏名の検索時は、フルネーム時はスペース禁止</p>
       <div class="btn_box d-flex justify-content-center">
         <a href="{{url('admin/pre_reservations')}}" class="btn reset_btn">リセット</a>
-
+        {{Form::hidden("time_over",empty($data)?0:((int)$data['time_over']===1?1:0))}}
         {{Form::submit('検索', ['class'=>'btn search_btn', 'id'=>''])}}
       </div>
     </div>
@@ -154,7 +154,15 @@
       <li>
         <div class="d-flex">
           {{-- 仮押さえ超過ボタン --}}
-          <button id="time_over" class="btn more_btn {{optional($data)['time_over']?" bg-red":""}}">仮押え期間超過</button>
+          @if (empty($data))
+          <button type="button" id="time_over" class="btn more_btn">仮押え期間超過</button>
+          @else
+          @if ((int)$data['time_over']===1)
+          <button type="button" id="time_over" class="btn more_btn bg-red">仮押え期間超過一覧表示中</button>
+          @else
+          <button type="button" id="time_over" class="btn more_btn">仮押え期間超過</button>
+          @endif
+          @endif
           {{-- 件数 --}}
           <p class="ml-3 font-weight-bold">
             {{-- @if ($counter!=0)
@@ -316,6 +324,17 @@
         {targets: 14, sortable: false, orderable: false},
         ],
       });
+  })
+</script>
+
+<script>
+  $(function(){
+    $('#time_over').on('click',function(){
+      var this_time_over_val=Number($('input[name="time_over"]').val());
+      var time_over_val=this_time_over_val===1?0:1;
+      $('input[name="time_over"]').val(time_over_val);
+      $('#preserve_search').submit();
+    })
   })
 </script>
 

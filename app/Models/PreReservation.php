@@ -600,6 +600,7 @@ class PreReservation extends Model
         unknown_users.unknown_user_company as unknownuser,
         agents.name as agent_name,
         pre_endusers.company as enduser,
+        pre_reservations.status as pre_reservation_status,
       case when pre_bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
       case when pre_reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
       case when pre_reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
@@ -670,6 +671,10 @@ class PreReservation extends Model
 
     if (!empty($data['search_end_user'])) {
       $searchTarget->whereRaw('pre_endusers.company LIKE ? ',  ['%' . $data['search_end_user'] . '%']);
+    }
+
+    if (!empty($data['time_over']) && (int)$data['time_over'] === 1) {
+      $searchTarget->whereRaw('pre_reservations.status = ? and pre_reservations.updated_at < DATE_SUB(CURRENT_DATE(),INTERVAL ? DAY) ', [1, 3]);
     }
 
     return $searchTarget;

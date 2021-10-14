@@ -63,6 +63,10 @@
                 {{ Form::close() }}
                 @endif
                 @endif
+
+                @if ($pre_reservation->user_id>0&&(int)$pre_reservation->status===1)
+                <span class="text-white">ユーザー承認メール送付済</span>
+                @endif
               </div>
             </td>
           </tr>
