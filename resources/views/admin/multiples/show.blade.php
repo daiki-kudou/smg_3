@@ -48,8 +48,6 @@
             一括仮押えID：{{ReservationHelper::fixId($multiple->id)}}
           </h3>
         </td>
-
-
         <td class="text-right">
           {{ Form::open(['url' => 'admin/multiples/switch_status', 'method'=>'POST','id'=>'']) }}
           @csrf
@@ -59,6 +57,12 @@
           @endif
           {{ Form::close() }}
           <span class="text-white">{{$checkVenuePrice?'※会場料金未設定が一つでもあれば、選択できません':''}}</span>
+
+          @if (!in_array(0, $multiple->pre_reservations->pluck('user_id')->toArray(),true))
+          @if (!in_array(0,$multiple->pre_reservations->pluck('status')->toArray(),true))
+          <span class="text-white">ユーザー承認メール送付済</span>
+          @endif
+          @endif
         </td>
     </tbody>
   </table>
