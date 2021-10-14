@@ -61,7 +61,8 @@
           <th>仲介会社情報</th>
           <th colspan="3">
             <div class="d-flex align-items-center">
-              <p class="w-25">仲介会社ID：{{ReservationHelper::fixId($PreReservation->agent_id)}}</p>
+              <p class="w-25">仲介会社ID：<span
+                  class="selected_agent_id">{{ReservationHelper::fixId($PreReservation->agent_id)}}</span></p>
               <select name="agent_id" id="agent_id">
                 @foreach ($agents as $agents)
                 <option value="{{$agents->id}}" @if ($PreReservation->agent_id==$agents->id)
@@ -1121,12 +1122,13 @@
         })
         .done(function($agent) {
           $('#fullOverlay').css('display', 'none');
-          console.log('成功');
+          console.log($agent);
           $(".company").text("").text($agent["company"]);
           $(".person").text("").text($agent["person_firstname"] + $agent["person_lastname"]);
           $(".email").text("").text($agent["email"]);
           $(".mobile").text("").text($agent["mobile"]);
           $(".tel").text("").text($agent["tel"]);
+          $(".selected_agent_id").text("").text(( '000000' + $agent['id'] ).slice( -6 ));
         })
         .fail(function($agent) {
           $('#fullOverlay').css('display', 'none');
