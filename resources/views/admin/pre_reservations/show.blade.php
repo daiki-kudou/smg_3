@@ -46,7 +46,8 @@
             </td>
             <td>
               <div class="d-flex justify-content-end align-items-center">
-                {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST','id'=>'confirm_prereserve']) }}
+                {{ Form::open(['url' => 'admin/pre_reservations/switch_status',
+                'method'=>'POST','id'=>'confirm_prereserve']) }}
                 @csrf
                 @if ($pre_reservation->status==0)
                 {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
@@ -528,17 +529,27 @@
                   </tr>
                   <tr>
                     <td class="table-active"><label for="preDelivery">事前に預かる荷物(目安)</label></td>
-                    <td>{{$pre_reservation->luggage_count?$pre_reservation->luggage_count."個":""}}</td>
+                    <td>
+                      @if ((int)$pre_reservation->luggage_flag===1)
+                      {{$pre_reservation->luggage_count?$pre_reservation->luggage_count."個":""}}
+                      @endif
+                    </td>
                   </tr>
                   <tr>
                     <td class="table-active"><label for="preDelivery">事前荷物の到着日</label></td>
                     <td>
+                      @if ((int)$pre_reservation->luggage_flag===1)
                       {{$pre_reservation->luggage_arrive?ReservationHelper::formatDate($pre_reservation->luggage_arrive):""}}
+                      @endif
                     </td>
                   </tr>
                   <tr>
                     <td class="table-active"><label for="preDelivery">事後返送する荷物</label></td>
-                    <td>{{$pre_reservation->luggage_return?$pre_reservation->luggage_return."個":""}}</td>
+                    <td>
+                      @if ((int)$pre_reservation->luggage_flag===1)
+                      {{$pre_reservation->luggage_return?$pre_reservation->luggage_return."個":""}}
+                      @endif
+                    </td>
                   </tr>
                 </tbody>
               </table>

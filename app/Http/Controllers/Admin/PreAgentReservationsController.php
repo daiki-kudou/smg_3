@@ -178,6 +178,7 @@ class PreAgentReservationsController extends Controller
         'luggage_count' => $request->luggage_count,
         'luggage_arrive' => $request->luggage_arrive,
         'luggage_return' => $request->luggage_return,
+        'luggage_flag' => $request->luggage_flag,
         'email_flag' => $request->email_flag,
         'in_charge' => $request->in_charge,
         'tel' => $request->tel,
