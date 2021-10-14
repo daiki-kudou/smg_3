@@ -18,6 +18,7 @@ use App\Models\PreReservation;
 use App\Models\PreBill;
 use App\Models\PreBreakdown;
 use App\Models\MultipleReserve;
+use App\Models\UnknownUser;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminFinPreRes;
@@ -245,9 +246,11 @@ class PreReservationsController extends Controller
     $pre_reservation = new PreReservation;
     $pre_bill = new PreBill;
     $pre_breakdown = new PreBreakdown;
+    $unknownUser = new UnknownUser;
     DB::beginTransaction();
     try {
       $result_pre_reservation = $pre_reservation->PreReservationStore($data);
+      $unknownUser->UnknownUserStore($result_pre_reservation->id, $data);
       $data['end_user_charge'] = 0; //顧客はエンドユーザーへの請求がないため0で固定
       $result_pre_bill = $pre_bill->PreBillStore($result_pre_reservation->id, $data);
       $result_breakdowns = $pre_breakdown->PreBreakdownStore($result_pre_bill->id, $data);
