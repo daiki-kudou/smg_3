@@ -611,7 +611,8 @@ class PreReservation extends Model
       ->leftJoin('unknown_users', 'pre_reservations.id', '=', 'unknown_users.pre_reservation_id')
       ->leftJoin('agents', 'pre_reservations.agent_id', '=', 'agents.id')
       ->leftJoin('pre_endusers', 'pre_reservations.id', '=', 'pre_endusers.pre_reservation_id')
-      ->leftJoin('pre_bills', 'pre_reservations.id', '=', 'pre_bills.pre_reservation_id');
+      ->leftJoin('pre_bills', 'pre_reservations.id', '=', 'pre_bills.pre_reservation_id')
+      ->whereRaw('pre_reservations.multiple_reserve_id = ?', [0]);
 
 
     return $searchTarget;

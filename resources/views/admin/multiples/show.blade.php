@@ -33,10 +33,10 @@
 
 <section class="mt-5">
   <div class="mb-2">
-    {{Form::open(['url' => 'admin/multiples/destroy', 'method' => 'delete', 'id'=>'for_destroy'])}}
+    {{Form::open(['url' => '/admin/multiples/destroy', 'method' => 'delete'])}}
     @csrf
-    {{Form::hidden('destroy'.$multiple->id, $multiple->id)}}
-    {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
+    {{Form::hidden('delete_target', "[".$multiple->id."]")}}
+    {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
     {{ Form::close() }}
   </div>
 

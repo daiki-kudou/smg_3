@@ -4,6 +4,15 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/multiples/calculate.js') }}"></script>
+<script src="{{ asset('/js/admin/pre_reservation/control_time.js') }}"></script>
+
+<div id="fullOverlay">
+  <div class="frame_spinner">
+    <div class="spinner-border text-primary " role="status">
+      <span class="sr-only hide">Loading...</span>
+    </div>
+  </div>
+</div>
 
 <div class="container-field mt-3">
   <div class="float-right">
@@ -175,7 +184,7 @@
           <td>追加・削除</td>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="PreResCre">
         <tr>
           <td>
             {{Form::text('pre_date0', "",['class'=>'form-control','id'=>'datepicker1'])}}
@@ -274,9 +283,9 @@
   })
   // select2, datepicker 初期表示用
   $(function() {
-    $('#pre_venue0').select2({
-      width: '100%'
-    });
+    // $('#pre_venue0').select2({
+    //   width: '100%'
+    // });
     $('#pre_datepicker').datepicker({
       dateFormat: 'yy-mm-dd',
       autoclose: true
@@ -287,9 +296,9 @@
   $(function() {
     $(document).on("click", ".add", function() {
       // すべてのselect2初期化
-      for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
-        console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
-      }
+      // for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
+      //   console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
+      // }
       var base_venue = $(this).parent().parent().find('td').eq(1).find('select').val();
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
       $(this).parent().parent().next().find("td").eq(1).find("select option[value=" + base_venue + "]").prop('selected', true);
@@ -312,9 +321,9 @@
           minDate: 0,
         });
         // select2付与
-        $(target).eq(index).find('td').eq(1).find('select').select2({
-          width: '100%'
-        });
+        // $(target).eq(index).find('td').eq(1).find('select').select2({
+        //   width: '100%'
+        // });
         if (index == count - 1) {
           $(target).eq(index).find('td').eq(2).find('input, select').val('');
           $(target).eq(index).find('td').eq(3).find('input, select').val('');
