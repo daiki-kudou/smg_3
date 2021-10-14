@@ -115,7 +115,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             'master_tax' => floor($master * 0.1),
             'master_total' => floor(($master) + ($master * 0.1)),
             'reservation_status' => 0,
-            'category' => 1
+            'category' => 1,
+            'end_user_charge' => 0, //ユーザーからは0で固定
           ]);
         } else {
           $pre_reservation->pre_breakdowns()->delete();
@@ -129,7 +130,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             'master_tax' => floor($master * 0.1),
             'master_total' => floor(($master) + ($master * 0.1)),
             'reservation_status' => 0,
-            'category' => 1
+            'category' => 1,
+            'end_user_charge' => 0, //ユーザーからは0で固定
           ]);
         }
 
@@ -246,7 +248,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'master_tax' => empty($masterData->{'master_tax' . $key}) ? 0 : $masterData->{'master_tax' . $key},
           'master_total' => empty($masterData->{'master_total' . $key}) ? 0 : $masterData->{'master_total' . $key},
           'reservation_status' => 0,
-          'category' => 1
+          'category' => 1,
+          'end_user_charge' => 0, //ユーザーからは0で固定
         ]);
         // 以下入力された会場
         $s_venue = [];
@@ -662,7 +665,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             'master_tax' => floor($master * 0.1),
             'master_total' => floor(($master) + ($master * 0.1)),
             'reservation_status' => 0,
-            'category' => 1
+            'category' => 1,
+            'end_user_charge' => $requests->cp_master_end_user_charge,
           ]);
         } else {
           $pre_reservation->pre_breakdowns()->delete();
@@ -676,20 +680,11 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             'master_tax' => floor($master * 0.1),
             'master_total' => floor(($master) + ($master * 0.1)),
             'reservation_status' => 0,
-            'category' => 1
+            'category' => 1,
+            'end_user_charge' => $requests->cp_master_end_user_charge,
           ]);
         }
 
-        // if (!empty($result[0][$key][1])) {
-        //   $venue_prices = ['会場料金', $result[0][$key][0], $result[0][$key][3] - $result[0][$key][4], $result[0][$key][0]];
-        //   $extend_prices = ['延長料金', $result[0][$key][1], $result[0][$key][4], $result[0][$key][1]];
-        // } elseif (empty($result[0][$key][0])) {
-        //   $venue_prices = [];
-        //   $extend_prices = [];
-        // } else {
-        //   $venue_prices = ['会場料金', $result[0][$key][0], $result[0][$key][3] - $result[0][$key][4], $result[0][$key][0]];
-        //   $extend_prices = [];
-        // }
 
         $carbon1 = new Carbon($pre_reservation->enter_time);
         $carbon2 = new Carbon($pre_reservation->leave_time);

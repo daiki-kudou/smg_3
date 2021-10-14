@@ -11,7 +11,7 @@ trait InvoiceTrait
 {
   public function generateInvoiceNum()
   {
-    $tempNum = (string)date('ymdHis');
+    $tempNum = (int)date('ymdHis');
 
     $cxls = Cxl::get();
     $bills = Bill::get();

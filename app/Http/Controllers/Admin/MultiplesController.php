@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Models\MultipleReserve;
 use App\Models\PreReservation;
+use App\Models\Reservation;
+use App\Models\Bill;
+use App\Models\Breakdown;
 use App\Models\Venue;
 use App\Models\User;
 use App\Models\Agent;
@@ -329,29 +332,84 @@ class MultiplesController extends Controller
 
   public function agentMoveToReservation(Request $request)
   {
-    // dump($request->except('_token'));
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
-    // ここから着手必要
+    $data = $request->all();
+
+    $multiple = MultipleReserve::with('pre_reservations.pre_bill.pre_breakdowns')->find($data['multiple_id']);
+
+    foreach ($multiple->pre_reservations as $key => $value) {
+      $pre_reservation = $value;
+
+      $data = $pre_reservation->toArray();
+
+      $data['luggage_price'] = ""; // ※lugage_priceは手動で追加
+      $data['email_flag'] = 0; // 仲介会社は利用後メールを送信しないのでemail_flagは手動で追加
+      $data['in_charge'] = ""; // 仲介会社は利用後メールを送信しないのでemail_flagは手動で追加
+      $reservation = new Reservation;
+
+      $bill = new Bill;
+      $bill_data = $data['pre_bill'];
+      $agent = Agent::find($data['agent_id']);
+      $payment_limit = $agent->getAgentPayLimit($data['reserve_date']);
+      $bill_data['payment_limit'] = $payment_limit;
+      $bill_data['bill_company'] = $agent->name;
+      $bill_data['bill_person'] = $agent->person_firstname . $agent->person_lastname;
+      $bill_data['bill_created_at'] = Carbon::today();
+      $bill_data['paid'] = 0;
+      $bill_data['pay_day'] = NULL;
+      $bill_data['pay_person'] = NULL;
+      $bill_data['payment'] = NULL;
+
+      $breakdowns = new Breakdown;
+      $breakdown_data = [];
+      foreach ($data['pre_bill']['pre_breakdowns'] as $key => $value) {
+        if ((int)$value['unit_type'] === 1) {
+          $breakdown_data['venue_breakdown_item'][] = $value['unit_item'];
+          $breakdown_data['venue_breakdown_cost'][] = $value['unit_cost'];
+          $breakdown_data['venue_breakdown_count'][] = $value['unit_count'];
+          $breakdown_data['venue_breakdown_subtotal'][] = $value['unit_subtotal'];
+        } elseif ((int)$value['unit_type'] === 2) {
+          $breakdown_data['equipment_breakdown_item'][] = $value['unit_item'];
+          $breakdown_data['equipment_breakdown_cost'][] = $value['unit_cost'];
+          $breakdown_data['equipment_breakdown_count'][] = $value['unit_count'];
+          $breakdown_data['equipment_breakdown_subtotal'][] = $value['unit_subtotal'];
+        } elseif ((int)$value['unit_type'] === 3) {
+          $breakdown_data['service_breakdown_item'][] = $value['unit_item'];
+          $breakdown_data['service_breakdown_cost'][] = $value['unit_cost'];
+          $breakdown_data['service_breakdown_count'][] = $value['unit_count'];
+          $breakdown_data['service_breakdown_subtotal'][] = $value['unit_subtotal'];
+        } elseif ((int)$value['unit_type'] === 4) {
+          $breakdown_data['layout_breakdown_item'][] = $value['unit_item'];
+          $breakdown_data['layout_breakdown_cost'][] = $value['unit_cost'];
+          $breakdown_data['layout_breakdown_count'][] = $value['unit_count'];
+          $breakdown_data['layout_breakdown_subtotal'][] = $value['unit_subtotal'];
+        } elseif ((int)$value['unit_type'] === 5) {
+          $breakdown_data['others_breakdown_item'][] = $value['unit_item'];
+          $breakdown_data['others_breakdown_cost'][] = $value['unit_cost'];
+          $breakdown_data['others_breakdown_count'][] = $value['unit_count'];
+          $breakdown_data['others_breakdown_subtotal'][] = $value['unit_subtotal'];
+        }
+      }
+
+      DB::beginTransaction();
+      try {
+        $pre_reservation->delete();
+        $result_reservation = $reservation->ReservationStore($data);
+        if ($result_reservation === "重複") {
+          throw new \Exception("選択された会場・日付・利用時間は既に利用済みです。");
+        }
+        $result_bill = $bill->BillStore($result_reservation->id, $bill_data);
+        $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $breakdown_data);
+        DB::commit();
+      } catch (\Exception $e) {
+        DB::rollback();
+        dd($e);
+        return back()->withInput()->withErrors($e->getMessage());
+      }
+    }
+
+
+    $request->session()->regenerate();
+    return redirect()->route('admin.reservations.index');
   }
 
   public function destroy(Request $request)
