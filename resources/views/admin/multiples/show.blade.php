@@ -175,41 +175,37 @@
         <tr class="table_row">
           <th>一括仮押えID</th>
           <th>作成日</th>
+          <th>利用日</th>
           <th>利用会場</th>
-          <th>総件数</th>
           <th>件数</th>
           <th>編集</th>
         </tr>
       </thead>
-      <tbody>
-        @for ($i = 0; $i < $venue_count; $i++) @if ($i==0) <tr>
-          <td class="text-center" rowspan="{{$venue_count}}">{{$multiple->id}}</td>
-          <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>
-          <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
-          <td class="text-center" rowspan="{{$venue_count}}">
-            {{$multiple->pre_reservations()->get()->count()}}
+      <tbody class="text-center">
+        @foreach ($multiple->pre_reservations->unique('venue_id') as $v)
+        <tr>
+          <td>{{ReservationHelper::fixId($multiple->id)}}</td>
+          <td>{{ReservationHelper::formatDate($multiple->created_at)}}</td>
+          <td>
+            @foreach ($multiple->pre_reservations->where('venue_id',$v->venue_id) as $p)
+            <p>{{ReservationHelper::formatDate($p->reserve_date)}} {{ReservationHelper::formatTime($p->enter_time)}} ~
+              {{ReservationHelper::formatTime($p->leave_time)}}</p>
+            @endforeach
           </td>
-          <td class="text-center">
-            {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
+          <td>
+            {{ReservationHelper::getVenue($v->venue_id)}}
           </td>
-          <td class="text-center"><a class="more_btn"
-              href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
-          </tr>
-          @else
-          <tr>
-            <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
-            <td class="text-center">
-              {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
-            </td>
-            <td class="text-center">
-              <a class="more_btn"
-                href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a>
-            </td>
-          </tr>
-          @endif
-          @endfor
+          <td>
+            {{$multiple->pre_reservations->where('venue_id',$v->venue_id)->count()}}
+          </td>
+          <td>
+            <a class="more_btn" href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$v->venue_id)}}">編集</a>
+          </td>
+        </tr>
+        @endforeach
       </tbody>
     </table>
+    <p class="text-right">総件数：{{$multiple->pre_reservations->count().'件'}}</p>
   </div>
 
 </section>

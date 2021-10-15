@@ -70,14 +70,14 @@ class MultiplesController extends Controller
   public function show($id)
   {
     $multiple = MultipleReserve::with("pre_reservations.pre_bill")->find($id);
-    $venues = PreReservation::where("multiple_reserve_id", $id)->distinct()->select("venue_id")->get();
-    $venue_count = $venues->count("venue_id");
     $checkVenuePrice = $multiple->checkVenuePrice();
     $checkEachStatus = $multiple->checkEachStatus();
 
+    // dd($pre_reservations->pluck('formatdate'));
+
     return view(
       'admin.multiples.show',
-      compact('multiple', 'venue_count', 'venues', 'checkVenuePrice', 'checkEachStatus')
+      compact('multiple', 'checkVenuePrice', 'checkEachStatus')
     );
   }
 
