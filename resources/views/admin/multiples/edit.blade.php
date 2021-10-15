@@ -367,16 +367,16 @@
               <tbody>
                 @if ($venue->getLuggage()===1)
                 <tr>
-                  <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+                  <td class="table-active">荷物預かり</td>
                   <td>
                     <div class="radio-box">
                       <p>
-                        <input id="cp_master_luggage_flag" name="luggage_flag" type="radio" value="1">
-                        <label for="" class="form-check-label">有り</label>
+                        {{Form::radio('luggage_flag',1,false,['id'=>'cp_master_luggage_flag'])}}
+                        {{Form::label('cp_master_luggage_flag','有り')}}
                       </p>
                       <p>
-                        <input id="cp_master_no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                        <label for="" class="form-check-label">無し</label>
+                        {{Form::radio('luggage_flag',0,true,['id'=>'cp_master_no_luggage_flag'])}}
+                        {{Form::label('cp_master_no_luggage_flag','無し')}}
                       </p>
                     </div>
                   </td>
@@ -1018,6 +1018,21 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <tr>
+                    <td class="table-active">荷物預かり</td>
+                    <td>
+                      <div class="radio-box">
+                        <p>
+                          {{Form::radio('luggage_flag_copied'.$key,1,$pre_reservation->luggage_flag===1?true:false,['id'=>'luggage_flag'.$key])}}
+                          {{Form::label('luggage_flag'.$key,'有り')}}
+                        </p>
+                        <p>
+                          {{Form::radio('luggage_flag_copied'.$key,0,$pre_reservation->luggage_flag===0?true:false,['id'=>'no_luggage_flag'.$key])}}
+                          {{Form::label('no_luggage_flag'.$key,'無し')}}
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
                   <tr>
                     <td class="table-active">事前に預かる荷物<br>（個数）</td>
                     <td>

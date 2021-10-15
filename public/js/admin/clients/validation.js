@@ -83,9 +83,6 @@ $(function () {
 
   $.each(target, function (index, value) {
     $(value).validate({
-      // groups: {
-      //   nameGroup : "mobile tel"
-      // },
       rules: {
         company: {
           required: true,

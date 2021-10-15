@@ -166,10 +166,8 @@ $(function () {
         });
       })
       .fail(function (data) {
-        // $('#fullOverlay').css('display', 'none');
         $('.equipemnts table tbody').html('');
         $('.services table tbody').html('');
-        // console.log("item失敗");
       });
   };
 
@@ -186,11 +184,9 @@ $(function () {
       data: { 'venue_id': $venue_id, 'dates': $dates },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($times) {
-        // $('#fullOverlay').css('display', 'none');
         // 初期化
         $("#sales_start option").each(function ($result) {
           $('#sales_start option').eq($result).prop('disabled', false);
@@ -216,7 +212,6 @@ $(function () {
         }
       })
       .fail(function ($times) {
-        // $('#fullOverlay').css('display', 'none');
       });
   };
 
@@ -231,11 +226,9 @@ $(function () {
       data: { 'venue_id': $venue_id },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($prices) {
-        // $('#fullOverlay').css('display', 'none');
         $('#price_system_radio1').prop('checked', false).prop('disabled', false); //初期化
         $('#price_system1').removeClass("hide");
         $('#price_system2').removeClass("hide");
@@ -262,7 +255,6 @@ $(function () {
 
       })
       .fail(function ($prices) {
-        // $('#fullOverlay').css('display', 'none');
         $('#price_system1').addClass("hide");
         $('#price_system2').addClass("hide");
 
@@ -285,11 +277,9 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($details) {
-        // $('#fullOverlay').css('display', 'none');
         // 手入力部分は初期化
         $('#handinput_venue').val('');
         $('#handinput_extend').val('');
@@ -337,7 +327,6 @@ $(function () {
         }
       })
       .fail(function ($details) {
-        // $('#fullOverlay').css('display', 'none');
         swal("料金の取得に失敗しました.", '枠料金にて入退室時間が08:00~23:00で入力した場合はページをリロードし再度条件を変え再計算してください。もし08:00~23:00以外で入力した場合は、そのまま進み会場料金を手入力してください')
           .then((value) => {
             swal(`アクセア料金を選択し利用時間が15時間を超過した場合、そのまま進み会場料金を手入力してください`);
@@ -351,7 +340,6 @@ $(function () {
         $('.venue_total').val(''); //会場合計料金
         $('.venue_price_details table tbody').html('');
 
-        // $('.bill-bg .bill-box:first-child').addClass('hide');
         $('.hand_input').removeClass('hide');
         $('#handinput_venue').val('');
         $('#handinput_extend').val('');
@@ -377,7 +365,6 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($each) {
@@ -438,17 +425,6 @@ $(function () {
               + "</td></tr>";
             $('.items_equipments table tbody').append(data3);
           }
-          // else {
-          //   var data4 = "<tr class='luggage_input_price'><td>"
-          //     + '荷物預かり'
-          //     + "</td><td>"
-          //     + luggage_target
-          //     + "</td><td>"
-          //     + '1' + "</td><td>"
-          //     + luggage_target
-          //     + "</td></tr>";
-          //   $('.items_equipments table tbody').append(data4);
-          // }
         } else {
           $('.luggage_input_price').remove();
         }
@@ -463,7 +439,6 @@ $(function () {
         $('.all_items_total').val((Math.floor((Number($each[0][0]) + Number(luggage_target)) * 0.1)) + (Number($each[0][0]) + Number(luggage_target)));
       })
       .fail(function ($each) {
-        // $('#fullOverlay').css('display', 'none');
         // console.log('備品又はサービスの料金取得に失敗しました。ページをリロードし再度試して下さい');
         // console.log('備品エラー', $each);
         $('.items_equipments table tbody').html(''); //テーブル初期化
@@ -613,7 +588,6 @@ $(function () {
             "<p class='is-error-luggage_price' style='color: red'></p>" +
             "</td>" +
             "</tr>";
-          // "<script>$('#datepicker3').datepicker({dateFormat: 'yy-mm-dd', minDate: 0, maxDate:'" + maxDate + "' });</script>";
           $('.luggage table tbody').append(data);
           // ***********マイナス、全角制御用
           function ExceptString($target) {
@@ -656,11 +630,10 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
+
       },
     })
       .done(function ($operaions) {
-        // $('.sales_percentage').val('').val($operaions);
         $('#user_cost').removeClass('hide');
         $('.sales_percentage').val('');
         if ($operaions[0] == 0) {
@@ -670,7 +643,6 @@ $(function () {
         }
       })
       .fail(function ($operaions) {
-        // $('#fullOverlay').css('display', 'none');
         swal('会場の運営形態の取得に失敗しました');
       });
   };

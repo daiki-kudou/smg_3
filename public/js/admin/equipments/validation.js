@@ -53,9 +53,6 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 });
 
@@ -115,9 +112,6 @@ $(function () {
   });
   $("input").on("blur", function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 });
 

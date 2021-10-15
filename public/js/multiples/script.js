@@ -8,16 +8,6 @@ $(function () {
     });
   });
 
-  // $(function () {
-  //   $(".accordion-wrap").hide();
-  //   $(".plus_icon").on("click", function () {
-  //     $(this).parent().parent().next().slideToggle("fast");
-  //     $(this).find(".plus_icon").toggleClass("active");
-  //   });
-  // });
-
-
-
   // 追加請求　その他ラジオボタン-------------------------
   $(function () {
     $('input[name="billcategory"]:radio').change(function () {

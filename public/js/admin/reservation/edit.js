@@ -127,14 +127,6 @@ $(function () {
   OpenClose('.information_details .head');
 })
 
-// $(function () {
-//   $('.check_alert').on('click', function () {
-//     if (!confirm('入力内容と反映された請求の一致を確認しましたか？')) {
-//       return false;
-//     } else {
-//     }
-//   })
-// })
 
 // 予約新規登録、入退室時間があれば、イベント開始終了の時間制御
 $(function () {
@@ -191,7 +183,6 @@ function change_all_totals() {
   $('input[name="master_total"]').val(result + result_tax);
 }
 
-// admin reservations calculate
 $(function () {
   function discounts(
     venue_number_discount,
@@ -332,21 +323,6 @@ $(function () {
     toRed();
     change_all_totals();
   });
-  // $(document).on('input', 'input[name^="venue_breakdown"]', function (e) {
-  //   var count = $('.venue_main tr').length;
-  //   var total_val = 0;
-  //   for (let index = 0; index < count; index++) {
-  //     var num1 = $('input[name="venue_breakdown_cost' + index + '"]').val();
-  //     var num2 = $('input[name="venue_breakdown_count' + index + '"]').val();
-  //     var num3 = $('input[name="venue_breakdown_subtotal' + index + '"]');
-  //     num3.val(num1 * num2);
-  //     total_val = total_val + Number(num3.val());
-  //   }
-  //   var total_target = $('input[name="venue_price"]');
-  //   total_target.val(total_val);
-  //   toRed();
-  //   change_all_totals();
-  // });
 })
 
 

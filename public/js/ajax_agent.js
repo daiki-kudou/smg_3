@@ -20,7 +20,6 @@ $(function () {
   $('#datepicker1').on('change', function () {
     var dates = $('#datepicker1').val();
     var venue_id = $('#venues_selector').val();
-    // ajaxGetItems(venue_id);
     ajaxGetSalesHours(venue_id, dates);
   });
 
@@ -57,7 +56,6 @@ $(function () {
     var services_array = [];
     var services_length = $('.services table tbody tr').length;
     for (let services_index = 0; services_index < services_length; services_index++) {
-      // console.log('サービスの_index', services_index);
       var s_target = $('.services table tbody tr').eq(services_index).find("input:radio[name='" + 'service' + (services_index) + "']:checked").val();
       services_array.push(Number(s_target));
     }
@@ -145,11 +143,9 @@ $(function () {
       data: { 'venue_id': $venue_id, 'text': 'Ajax成功' },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($items) {
-        // $('#fullOverlay').css('display', 'none');
         $('.equipemnts table tbody').html(''); //一旦初期会
         $.each($items[0], function (index, value) {
           // ココで備品取得
@@ -188,10 +184,8 @@ $(function () {
         });
       })
       .fail(function (data) {
-        // $('#fullOverlay').css('display', 'none');
         $('.equipemnts table tbody').html('');
         $('.services table tbody').html('');
-        // console.log("item失敗");
       });
   };
 
@@ -208,11 +202,9 @@ $(function () {
       data: { 'venue_id': $venue_id, 'dates': $dates },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($times) {
-        // $('#fullOverlay').css('display', 'none');
         // 初期化
         $("#sales_start option").each(function ($result) {
           $('#sales_start option').eq($result).prop('disabled', false);
@@ -238,7 +230,6 @@ $(function () {
         }
       })
       .fail(function ($times) {
-        // $('#fullOverlay').css('display', 'none');
       });
   };
 
@@ -253,12 +244,10 @@ $(function () {
       data: { 'venue_id': $venue_id },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($prices) {
         console.log($prices);
-        // $('#fullOverlay').css('display', 'none');
         $('#price_system_radio1').prop('checked', false).prop('disabled', false); //初期化
         $('#price_system1').removeClass("hide");
         $('#price_system2').removeClass("hide");
@@ -305,11 +294,9 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($details) {
-        // $('#fullOverlay').css('display', 'none');
         // 手入力部分は初期化
         $('#handinput_venue').val('');
         $('#handinput_extend').val('');
@@ -324,7 +311,6 @@ $(function () {
         var extend_price = ($details[0][1]);
         var usage = ($details[0][2]);
         var extend_time = ($details[0][3]);
-        // console.log($details);
         $('.extend').val('');
         $('.venue_price').val('');
         $('.after_discount_price').text('');
@@ -357,7 +343,6 @@ $(function () {
         }
       })
       .fail(function ($details) {
-        // $('#fullOverlay').css('display', 'none');
         swal("料金の取得に失敗しました.", '枠料金にて入退室時間が08:00~23:00で入力した場合はページをリロードし再度条件を変え再計算してください。もし08:00~23:00以外で入力した場合は、そのまま進み会場料金を手入力してください')
           .then((value) => {
             swal(`アクセア料金を選択し利用時間が15時間を超過した場合、そのまま進み会場料金を手入力してください`);
@@ -371,7 +356,6 @@ $(function () {
         $('.venue_total').val(''); //会場合計料金
         $('.venue_price_details table tbody').html('');
 
-        // $('.bill-bg .bill-box:first-child').addClass('hide');
         $('.hand_input').removeClass('hide');
         $('#handinput_venue').val('');
         $('#handinput_extend').val('');
@@ -397,11 +381,9 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($each) {
-        // $('#fullOverlay').css('display', 'none');
         // ※$eachの[0][0]には備品とサービスの合計料金
         // ※$eachの[0][1]には連想配列で選択された備品の個数、単価、備品名
         // ※$eachの[0][2]には連想配列で選択されたサービスの個数、単価、備品名
@@ -458,17 +440,6 @@ $(function () {
               + "</td></tr>";
             $('.items_equipments table tbody').append(data3);
           }
-          // else {
-          //   var data4 = "<tr class='luggage_input_price'><td>"
-          //     + '荷物預かり'
-          //     + "</td><td>"
-          //     + luggage_target
-          //     + "</td><td>"
-          //     + '1' + "</td><td>"
-          //     + luggage_target
-          //     + "</td></tr>";
-          //   $('.items_equipments table tbody').append(data4);
-          // }
         } else {
           $('.luggage_input_price').remove();
         }
@@ -483,9 +454,6 @@ $(function () {
         $('.all_items_total').val((Math.floor((Number($each[0][0]) + Number(luggage_target)) * 0.1)) + (Number($each[0][0]) + Number(luggage_target)));
       })
       .fail(function ($each) {
-        // $('#fullOverlay').css('display', 'none');
-        // console.log('備品又はサービスの料金取得に失敗しました。ページをリロードし再度試して下さい');
-        // console.log('備品エラー', $each);
         $('.items_equipments table tbody').html(''); //テーブル初期化
         $('.selected_equipments_price').val(''); //有料備品料金初期化
         $('.selected_services_price').val(''); //有料サービス料金初期化
@@ -510,18 +478,14 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($result) {
-        // $('#fullOverlay').css('display', 'none');
-        // console.log($result);
         $('.layouts table tbody').html(''); //初期化
         var data =
           $result == 1 ? $('.layouts table tbody').append("<tr><td class='table-active'>準備</td><td><input type='radio' name='layout_prepare' id='layout_prepare' value='" + 1 + "' class='mr-1'><label for='layout_prepare' class='mr-2'>有り</label><input type='radio' name='layout_prepare' id='no_layout_prepare' value='" + 0 + "' checked class='mr-1'><label for='no_layout_prepare'>無し</label></td></tr><tr><td class='table-active'>片付</td><td><input type='radio' name='layout_clean' id='layout_clean' value='" + 1 + "' class='mr-1'><label for='layout_clean' class='mr-2'>有り</label><input type='radio' name='layout_clean' id='no_layout_clean' value='" + 0 + "'checked class='mr-1'><label for='no_layout_clean'>無し</label></td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
       })
       .fail(function ($result) {
-        // $('#fullOverlay').css('display', 'none');
         swal('レイアウトの取得に失敗しました。ページをリロードし再度試して下さい!!!!');
       });
   };
@@ -541,12 +505,9 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($result) {
-        // $('#fullOverlay').css('display', 'none');
-        // console.log($result[0]);
         $('.selected_layouts table tbody').html('');
         for (let s_layout = 0; s_layout < $result[0].length; s_layout++) {
           if ($result[0][s_layout] != '') {
@@ -568,7 +529,6 @@ $(function () {
         $('.after_duscount_layouts').val($result[1]);
       })
       .fail(function ($result) {
-        // $('#fullOverlay').css('display', 'none');
         swal('レイアウトの金額取得に失敗しました。ページをリロードし再度試して下さい!!!!');
       });
   };
@@ -587,7 +547,6 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($luggage) {
@@ -653,7 +612,6 @@ $(function () {
         }
       })
       .fail(function ($luggage) {
-        // $('#fullOverlay').css('display', 'none');
         swal('荷物預りの取得に失敗しました。ページをリロードし再度試して下さい!!!!');
       });
   };
@@ -671,11 +629,9 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($operaions) {
-        // $('.sales_percentage').val('').val($operaions);
         $('#user_cost').removeClass('hide');
         $('.sales_percentage').val('');
         if ($operaions[0] == 0) {
@@ -685,7 +641,6 @@ $(function () {
         }
       })
       .fail(function ($operaions) {
-        // $('#fullOverlay').css('display', 'none');
         swal('会場の運営形態の取得に失敗しました');
       });
   };

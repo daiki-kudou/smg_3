@@ -471,9 +471,6 @@ $(function () {
   });
   $("input").on("blur", function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
   // https://qiita.com/konnma/items/eb26651576e625b72805
   $(document).on("change", "#layout", function () {

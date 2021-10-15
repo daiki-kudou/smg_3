@@ -378,6 +378,21 @@
                   <tbody>
                     @if ($venue->getLuggage()===1)
                     <tr>
+                      <td class="table-active">荷物預かり</td>
+                      <td>
+                        <div class="radio-box">
+                          <p>
+                            {{Form::radio('luggage_flag',1,false,['id'=>'cp_master_luggage_flag'])}}
+                            {{Form::label('cp_master_luggage_flag','有り')}}
+                          </p>
+                          <p>
+                            {{Form::radio('luggage_flag',0,true,['id'=>'cp_master_no_luggage_flag'])}}
+                            {{Form::label('cp_master_no_luggage_flag','無し')}}
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
                       <td class="table-active">事前に預かる荷物<br>（個数）</td>
                       <td>
                         {{ Form::number('cp_master_luggage_count', '',['class'=>'form-control'] ) }}
@@ -401,8 +416,6 @@
                       <td class="table-active">荷物預かり<br>料金</td>
                       <td>
                         <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
-                        <!-- {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
-                        <p class="is-error-cp_master_luggage_price" style="color: red"></p> -->
                       </td>
                     </tr>
                     @endif
@@ -919,10 +932,26 @@
                     <tbody>
                       @if ($venue->getLuggage()===1)
                       <tr>
+                        <td class="table-active">荷物預かり</td>
+                        <td>
+                          <div class="radio-box">
+                            <p>
+                              {{Form::radio('luggage_flag_copied'.$key,1,(int)$request->luggage_flag===1?true:false,['id'=>'luggage_flag'.$key])}}
+                              {{Form::label('luggage_flag'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('luggage_flag_copied'.$key,0,(int)$request->luggage_flag===0?true:false,['id'=>'no_luggage_flag'.$key])}}
+                              {{Form::label('no_luggage_flag'.$key,'無し')}}
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
                         <td class="table-active">事前に預かる荷物<br>（個数）</td>
                         <td>
-                          {{ Form::number('luggage_count_copied'.$key,
-                          $request->cp_master_luggage_count,['class'=>'form-control'] ) }}
+                          {{
+                          Form::number('luggage_count_copied'.$key,$request->cp_master_luggage_count,['class'=>'form-control']
+                          ) }}
                           <p class="{{" is-error-luggage_count_copied".$key}}" style="color: red"></p>
                         </td>
                       </tr>

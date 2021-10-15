@@ -188,14 +188,6 @@ $(function () {
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
-        // venue_number_discount: { number: true },
-        // venue_percent_discount: { number: true },
-        // equipment_number_discount: { number: true },
-        // equipment_percent_discount: { number: true },
-        // layout_number_discount: { number: true },
-        // layout_percent_discount: { number: true },
-        // others_number_discount: { number: true },
-        // others_percent_discount: { number: true },
         master_subtotal: { required: true },
         master_tax: { required: true },
         master_total: { required: true },
@@ -204,14 +196,6 @@ $(function () {
         end_user_charge: { required: true },
       },
       messages: {
-        // venue_number_discount: { number: "※半角数字を入力してください" },
-        // venue_percent_discount: { number: "※半角数字を入力してください" },
-        // equipment_number_discount: { number: "※半角数字を入力してください" },
-        // equipment_percent_discount: { number: "※半角数字を入力してください" },
-        // layout_number_discount: { number: "※半角数字を入力してください" },
-        // layout_percent_discount: { number: "※半角数字を入力してください" },
-        // others_number_discount: { number: "※半角数字を入力してください" },
-        // others_percent_discount: { number: "※半角数字を入力してください" },
         master_subtotal: { required: "※金額を入力してください" },
         master_tax: { required: "※金額を入力してください" },
         master_total: { required: "※金額を入力してください" },

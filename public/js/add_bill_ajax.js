@@ -30,9 +30,6 @@ $(function () {
 
     var sub_total = 0;
 
-    // var tet = $('.extra-bill-table tbody tr').eq(3).find('td').eq(2).find('select').val();
-
-
     if (judge == 1) { //その他有料備品なら
       $('.result_table tbody').html('');
       for (let index = 0; index < count; index++) {

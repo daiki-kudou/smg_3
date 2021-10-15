@@ -244,7 +244,6 @@ $(function () {
     var total_target = $('input[name="others_price' + splitKey + '"]');
     total_target.val(total_val);
 
-    // var fix = $('input[name="master_subtotal' + splitKey + 'fixed"]').val();
     change_all_totals();
   });
 

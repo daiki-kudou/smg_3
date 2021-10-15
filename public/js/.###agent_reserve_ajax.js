@@ -234,7 +234,6 @@ function ajaxGetPriceStstem($venue_id) {
     })
     .fail(function ($prices) {
       $('#fullOverlay').css('display', 'none');
-      // $('.price_selector').html('');
       console.log('失敗したよ');
       $('#price_system_radio1').prop('checked', false).prop('disabled', true); //初期化
       $('#price_system_radio2').prop('checked', false).prop('disabled', true); //初期化
@@ -289,7 +288,6 @@ function ajaxGetLuggage($venue_id) {
       if ($luggage == 1) {
         $('.luggage table tbody').html('');
         $('.luggage table tbody').append("<tr> <td>事前に預かる荷物<br>（個数）</td> <td class=''><input type='text' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'></td> </tr> <tr> <td>事前荷物の到着日<br>午前指定のみ</td> <td class=''> <input id='datepicker3' type='text' class='form-control' placeholder='年-月-日' name='luggage_arrive'> </td> </tr> <tr> <td>事後返送する荷物</td> <td class=''><input type='text' class='form-control luggage_return' placeholder='個数入力' name='luggage_return'></td> </tr> <tr><td>荷物預かり　料金</td><td class=''><input type='text' class='form-control luggage_price' placeholder='金額入力' name='luggage_price'></td></tr><script>$('#datepicker3').datepicker({ dateFormat: 'yy-mm-dd', minDate: 0, });</script>");
-        // ***********マイナス、全角制御用
         function ExceptString($target) {
           $target.numeric({ negative: false, });
           $target.on('change', function () {
@@ -414,13 +412,7 @@ $(function () {
   $('#datepicker1').on('change', function () {
     var dates = $('#datepicker1').val();
     var venue_id = $('#venues_selector').val();
-    // ajaxGetItems(venue_id);
     ajaxGetSalesHours(venue_id, dates);
-
-    // if ($('.select2-hidden-accessible').val() != null) { //顧客が選択されていたら、支払い期日抽出
-    //   var user_id = $('.select2-hidden-accessible').val();
-    //   ajaxGetClients(user_id);
-    // }
   });
 });
 

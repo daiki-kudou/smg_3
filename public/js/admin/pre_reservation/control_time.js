@@ -16,13 +16,6 @@ $(function () {
     })
   })
 
-  // function preReservationControlTime(targetElement) {
-  //   var target = targetElement;
-  //   initializeTimeOption(target);
-  //   var date = $(this).parent().parent().find('td').eq(0).find('input').val();
-  //   var venue_id = $(this).parent().parent().find('td').eq(1).find('select option:selected').val();
-  //   resultGetTimeAjax(date, venue_id, target);
-  // }
 
   function resultGetTimeAjax(date, venue_id, target) {
     getTimeAjax(date, venue_id).done(function ($result) {

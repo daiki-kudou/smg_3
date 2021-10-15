@@ -10,11 +10,6 @@ $(function () {
         min: 1,
         maxlength: 6,
       },
-      // stock: {
-      //   required: true,
-      //   number: true,
-      //   min: 1
-      // },
     },
     messages: {
       item: {
@@ -27,11 +22,6 @@ $(function () {
         min: "※1以上を入力してください",
         maxlength: "※100,000円以内で入力してください"
       },
-      // stock: {
-      //   required: "※必須項目です",
-      //   number: "※半角英数字で入力してください",
-      //   min: "※1以上を入力してください"
-      // },
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');
@@ -52,9 +42,6 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 })
 
@@ -72,10 +59,6 @@ $(function () {
         min: 1,
         maxlength: 6
       },
-      // stock: {
-      //   required: true,
-      //   number: true
-      // },
     },
     messages: {
       item: {
@@ -88,9 +71,6 @@ $(function () {
         min: "※1以上を入力してください",
         maxlength: '100,000円以内で入力してください',
       },
-      // stock: {
-      //   required: "※必須項目です",
-      // },
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');
