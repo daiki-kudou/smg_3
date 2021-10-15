@@ -1608,6 +1608,8 @@
     <p><a class="btn more_btn_lg" href="{{url('admin/multiples/'.$multiple->id)}}">詳細にもどる</a></p>
   </li>
   <li>
+    {{dump(count($venue->frame_prices))}}
+    {{dump(count($venue->time_prices))}}
     @if (count($venue->frame_prices)!=0&&count($venue->time_prices)!=0)
     <button id="master_submit" class="btn more_btn_lg">保存する</button>
     @endif

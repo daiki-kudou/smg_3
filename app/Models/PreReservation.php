@@ -263,7 +263,8 @@ class PreReservation extends Model
         'master_tax' => floor($master * 0.1),
         'master_total' => floor(($master) + ($master * 0.1)),
         'reservation_status' => 0,
-        'category' => 1
+        'category' => 1,
+        'end_user_charge' => 0
       ]);
 
       if (!empty($result[0][1])) {
@@ -412,7 +413,8 @@ class PreReservation extends Model
         'master_tax' => floor($master * 0.1),
         'master_total' => floor(($master) + ($master * 0.1)),
         'reservation_status' => 0,
-        'category' => 1
+        'category' => 1,
+        'end_user_charge' => $request->end_user_charge_copied . $splitKey
       ]);
 
 
