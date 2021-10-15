@@ -253,21 +253,6 @@ class Cxl extends Model
 
   public function sendCxlEmail($user, $cxl, $venue)
   {
-    // $admin = explode(',', config('app.admin_email'));
-
-    // $company = $this->reservation->user->company;
-    // $date = $this->reservation->reserve_date;
-    // $enter_time = $this->reservation->enter_time;
-    // $leave_time = $this->reservation->leave_time;
-    // $venue = $this->reservation->venue->name_area . $this->reservation->venue->name_bldg . $this->reservation->venue->name_venue;
-    // $cxlPrice = $this->master_subtotal;
-
-    // Mail::to($admin)
-    //   ->send(new AdminCxlChck($company, $date, $enter_time, $leave_time, $venue, $cxlPrice));
-
-    // $user = $this->reservation->user->email;
-    // Mail::to($user)
-    //   ->send(new UserCxlChck($company, $date, $enter_time, $leave_time, $venue, $cxlPrice));
 
     $SendSMGEmail = new SendSMGEmail($user, $cxl, $venue);
     $SendSMGEmail->send("管理者ダブルチェック完了後、キャンセル承認メールをユーザーへ送付");

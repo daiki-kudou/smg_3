@@ -402,9 +402,6 @@ class CxlController extends Controller
   public function judgePaymentStatusAndSendEmail($status, $user, $cxl)
   {
     if ($status == 1) {
-      // $admin = explode(',', config('app.admin_email'));
-      // Mail::to($admin)->send(new AdminCxlPaid($user));
-      // Mail::to($user->email)->send(new UserCxlPaid($user));
       $reservation = $cxl;
       $venue = $cxl->reservation->venue;
       $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);

@@ -207,11 +207,6 @@ class HomeController extends Controller
     $bill = Bill::with('reservation.user')->find($request->bill_id);
     $bill->update(['reservation_status' => 3,]);
 
-    // $email = $bill->reservation->user->email;
-    // Mail::to($email)->send(new UserFinAddRes()); // ユーザーに予約完了メール送信
-
-    // $admin = explode(',', config('app.admin_email'));
-    // Mail::to($admin)->send(new AdminFinAddRes()); // 管理者に予約完了メール送信
     $user = User::find($bill->reservation->user->id);
     $reservation = $bill;
     $venue = $bill->reservation->venue;
@@ -310,7 +305,7 @@ class HomeController extends Controller
     $user_company = $user->company;
     $user->delete();
 
-    $admin = explode(',', config('app.admin_email'));
+    $admin =  config('app.admin_email');
     Mail::to($admin)->send(new AdminUnSub($user_company)); // 管理者に予約完了メール送信
     Mail::to($user_email)->send(new UserUnSub($user_company)); // ユーザーに予約完了メール送信
 

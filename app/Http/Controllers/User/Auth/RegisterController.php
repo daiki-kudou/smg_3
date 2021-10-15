@@ -125,7 +125,7 @@ class RegisterController extends Controller
     $this->validator($request->all())->validate();
     event(new Registered($user = $this->create($request->all())));
 
-    $admin = explode(',', config('app.admin_email'));
+    $admin = config('app.admin_email');
     $user_email = $user->email;
     Mail::to($admin)->send(new AdminFinLeg($user));
     Mail::to($user_email)->send(new UserFinLeg($user));

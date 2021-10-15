@@ -206,10 +206,6 @@ class ReservationsController extends Controller
         $result_bill = $bill->BillStore($result_reservation->id, $value[0], $reservation_status = 1, $double_check_status = 0, $category = 1, $admin_judge = 2);
         $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $value[0]);
         // メール送付
-        // $admin = explode(',', config('app.admin_email'));
-        // $user = $user->email;
-        // Mail::to($admin)->send(new AdminReqRes($result_reservation));
-        // Mail::to($user)->send(new UserReqRes($result_reservation));
         $reservation = $result_reservation;
         $venue = Venue::find($reservation->venue_id);
         $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);

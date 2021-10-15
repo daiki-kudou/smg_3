@@ -145,11 +145,6 @@ class BillsController extends Controller
       $bill->update([
         'reservation_status' => 2, 'approve_send_at' => date('Y-m-d H:i:s')
       ]);
-      // $admin = explode(',', config('app.admin_email'));
-      // Mail::to($admin) //管理者
-      //   ->send(new AdminReqAddRes());
-      // Mail::to($bill->reservation->user->email) //ユーザー
-      //   ->send(new UserReqAddRes());
       $user = User::find($bill->reservation->user->id);
       $reservation = $bill;
       $venue = Venue::find($bill->reservation->venue_id);

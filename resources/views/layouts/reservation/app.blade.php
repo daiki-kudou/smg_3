@@ -168,7 +168,8 @@
           <a class="cart_area" href="{{url('user/reservations/cart')}}">
             <p>
               <i class="fas fa-calendar-alt cart_btn"></i>
-              <span>カート</span></p>
+              <span>カート</span>
+            </p>
           </a>
         </div>
       </div>
@@ -252,7 +253,8 @@
       <a class="cart_area sp" href="{{url('user/reservations/cart')}}">
         <p>
           <i class="fas fa-calendar-alt cart_btn"></i>
-          <span>カート</span></p>
+          <span>カート</span>
+        </p>
       </a>
 
       @yield('content')
@@ -455,6 +457,11 @@
         });
         });
         var rootPath="{{url('/')}}";
+
+        // 自動補完無効
+            $(function(){
+            $('input').attr('autocomplete', 'address-line3');
+            })
   </script>
 
 

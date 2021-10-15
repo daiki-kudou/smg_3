@@ -139,25 +139,6 @@ class PreReservationsController extends Controller
     $SendSMGEmail->send("管理者主導仮押えから本予約切り替え（ユーザー承認）");
 
     return redirect(route('user.pre_reservations.show_cfm'));
-
-
-    // // 一旦、最新情報でpre reservation を保存。その後予約へ移動
-    // DB::transaction(function () use ($id, $request) {
-    //   $pre_reservation = PreReservation::find($id);
-    //   $pre_reservation->Updates($request);
-    //   $pre_bill = new PreBill;
-    //   $pre_bill->PreBillCreate($request, $pre_reservation);
-    //   $pre_breakdowns = new PreBreakdown;
-    //   $pre_breakdowns->PreBreakdownCreate($request, $pre_reservation);
-    //   $pre_reservation->MoveToReservation($request);
-
-    //   $admin = explode(',', config('app.admin_email'));
-    //   Mail::to($admin) //管理者
-    //     ->send(new AdminPreResToRes($pre_reservation));
-    //   Mail::to($pre_reservation->user->email) //ユーザー
-    //     ->send(new UserPreResToRes($pre_reservation));
-    // });
-    // return redirect(route('user.pre_reservations.show_cfm'));
   }
 
   public function showCfm()
