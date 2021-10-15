@@ -113,7 +113,7 @@
   </section>
 
   {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST',
-  'id'=>'multipleEditForm']) }}
+  'id'=>'multipleEditForm'])}}
   @csrf
   <section class="m-5 border-inwrap">
     <div class="mb-2">

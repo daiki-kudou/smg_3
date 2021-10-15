@@ -202,8 +202,6 @@ class MultiplesController extends Controller
     ]);
   }
 
-
-
   public function agent_calculate(PostRequest $request, $multiple_id, $venue_id)
   {
     $multiple = MultipleReserve::find($multiple_id);
@@ -484,33 +482,4 @@ class MultiplesController extends Controller
       return back()->withInput()->with('flash_message_error', '仮押えが選択されていません');
     }
   }
-
-  // public function destroy_from_agent($request)
-  // {
-  //   if ($request->destroy_from_agent == 1) {
-  //     $shapeRequest = $request->except(['_method', '_token', 'multi_id', 'destroy_from_agent']);
-  //     $multiple = MultipleReserve::with('pre_reservations')->find($request->multi_id);
-  //     if (empty($shapeRequest)) {
-  //       return redirect()->route('admin.multiples.agent_show', $multiple->id)->with('flash_message_error', '仮押さえが選択されていません');
-  //     }
-  //     DB::transaction(function () use ($shapeRequest) {
-  //       foreach ($shapeRequest as $value) {
-  //         $pre_reservation = PreReservation::find($value);
-  //         $pre_reservation->delete();
-  //       }
-  //     });
-
-  //     $multiple = MultipleReserve::with('pre_reservations')->find($request->multi_id);
-  //     if (!empty($multiple->pre_reservations->toArray())) {
-  //       //まだ仮押さえがあるなら
-  //       return redirect()->route('admin.multiples.agent_show', $multiple->id)->with('flash_message', '仮押さえの削除に成功しました。');
-  //     } else {
-  //       //仮押さえがない
-  //       DB::transaction(function () use ($multiple) {
-  //         $multiple->delete();
-  //       });
-  //       return redirect()->route('admin.multiples.index')->with('flash_message', '仮押さえの削除に成功しました。');
-  //     }
-  //   }
-  // }
 }
