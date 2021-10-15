@@ -47,9 +47,7 @@ class DataTableController extends Controller
     $totalRecords = $_reservatioin->ReservationSearchTarget();
 
     // 検索があった場合の検索結果の件数
-    // $totalRecordswithFilter = Reservation::select('count(*) as allcount')->where('id', 'like', '%' . $searchValue . '%')->count();
     $totalRecordswithFilter = $_reservatioin->SearchReservation($request->all())->get()->count();
-
 
     // orderリクエストがあれば、orderに沿い、なければ初期並び順指定
     $fix_order_col_name = !empty($request->get('order')) ? $columnName : "予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付";
@@ -60,12 +58,10 @@ class DataTableController extends Controller
       ->SearchReservation($request->all())
       ->offset($start)
       ->limit($rowperpage)
-      // ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc')
       ->orderByRaw("$fix_order_col_name $fix_order_sort_order")
       ->get();
 
     $data_arr = [];
-    $sno = $start + 1;
     foreach ($records as $record) {
       $data_arr[] =
         [

@@ -15,6 +15,7 @@ use App\Jobs\Reservation\MailForCxlAfterUserCheck;
 use App\Jobs\Reservation\MailForUserAfterCheckCxlPaid;
 use App\Jobs\Reservation\MailForConfirmReservation;
 use App\Jobs\Reservation\MailForDeletePreReservation;
+use App\Jobs\Reservation\MailForDeleteReservation;
 
 
 class SendSMGEmail
@@ -82,6 +83,10 @@ class SendSMGEmail
 
       case "管理者が仮抑え一覧よりチェックボックスを選択し削除":
         MailForDeletePreReservation::dispatch($this->user, $this->reservation, $this->venue);
+        break;
+
+      case "管理者が詳細画面にて予約を削除":
+        MailForDeleteReservation::dispatch($this->user, $this->reservation, $this->venue);
         break;
 
       default:

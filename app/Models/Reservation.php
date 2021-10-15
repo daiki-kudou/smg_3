@@ -78,7 +78,6 @@ class Reservation extends Model implements PresentableInterface
     'eat_in',
     'eat_in_prepare',
     'multiple_reserve_id',
-
   ];
   protected $dates = [
     'reserve_date',
@@ -145,6 +144,9 @@ class Reservation extends Model implements PresentableInterface
     static::deleting(function ($model) {
       foreach ($model->bills()->get() as $child) {
         $child->delete();
+      }
+      foreach ($model->endusers()->get() as $child2) {
+        $child2->delete();
       }
     });
   }
@@ -602,7 +604,8 @@ class Reservation extends Model implements PresentableInterface
       ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status4 from bills where reservation_status = 4  group by reservation_id) as check_status4'), 'reservations.id', '=', 'check_status4.reservation_id')
       ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status5 from bills where reservation_status = 5  group by reservation_id) as check_status5'), 'reservations.id', '=', 'check_status5.reservation_id')
       ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status6 from bills where reservation_status = 6  group by reservation_id) as check_status6'), 'reservations.id', '=', 'check_status6.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, sum(master_total) as sogaku from bills group by reservation_id) as sogaku_master'), 'reservations.id', '=', 'sogaku_master.reservation_id');
+      ->leftJoin(DB::raw('(select reservation_id, sum(master_total) as sogaku from bills group by reservation_id) as sogaku_master'), 'reservations.id', '=', 'sogaku_master.reservation_id')
+      ->whereRaw('reservations.deleted_at is null');
 
     return $searchTarget;
   }
