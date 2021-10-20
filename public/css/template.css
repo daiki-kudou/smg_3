@@ -1867,7 +1867,7 @@ table .master_total_subttl2 {
 }
 
 .company-info {
-    color: #fff;
+    color: #333;
     padding: 1em;
     border: 1px solid #c2c7d0;
     position: absolute;
@@ -1877,9 +1877,9 @@ table .master_total_subttl2 {
 }
 
 .company-info a {
-    color: #2d2d2d;
+    color: #fff;
     padding: 0.5em;
-    background: #f4f6f9;
+    background: #9d9d9d;
     border-radius: 0.25rem;
     margin-top: 1em;
     position: relative;
