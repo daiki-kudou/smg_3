@@ -16,6 +16,7 @@ use App\Jobs\Reservation\MailForUserAfterCheckCxlPaid;
 use App\Jobs\Reservation\MailForConfirmReservation;
 use App\Jobs\Reservation\MailForDeletePreReservation;
 use App\Jobs\Reservation\MailForDeleteReservation;
+use App\Jobs\Cron\CronForPayDayFiveDaysLeft;
 
 
 class SendSMGEmail
@@ -90,7 +91,23 @@ class SendSMGEmail
         break;
 
       default:
-        # code...
+        break;
+    }
+  }
+  /**
+   * クーロン用送信dispatch
+   *
+   * @param string $condition
+   * @return void
+   */
+  public function CronSend($condition)
+  {
+    switch ($condition) {
+      case "入金期日5営業日前(催促)":
+        CronForPayDayFiveDaysLeft::dispatch($this->user, $this->reservation, $this->venue);
+        break;
+
+      default:
         break;
     }
   }

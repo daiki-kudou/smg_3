@@ -16,8 +16,9 @@ class Kernel extends ConsoleKernel
    */
   protected $commands = [
     //
-    Commands\ReSendApproveEmail::Class,
-    Commands\SendCronTest::Class,
+    // Commands\ReSendApproveEmail::Class,
+    // Commands\SendCronTest::Class,
+    Commands\CommandCronPayDayFiveDaysLeft::Class,
   ];
 
   /**
@@ -28,10 +29,8 @@ class Kernel extends ConsoleKernel
    */
   protected function schedule(Schedule $schedule)
   {
-    // 以下に定期実行したい処理を記述
-    // 以下は動いているけど、一旦止めておく
-    // $schedule->command('command:re_send_approve_email')->everyMinute();
-    // $schedule->command('app:send_notification_mail')->everyMinute();
+    // クーロン実際の処理
+    $schedule->command('command:cron_pay_day_five_days_left')->everyMinute();
   }
 
   /**
