@@ -10,7 +10,7 @@
     <p>WEB予約には会員登録が必須となります。<br>下記フォームの入力をお願いします。<span class="txtRed">＊</span>は必須です。</p>
   </div>
 </div>
-<section class="contents">
+<section id="cartNone" class="contents">
   <style>
     .alert {
       padding: 15px;
