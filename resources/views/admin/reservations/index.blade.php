@@ -198,13 +198,19 @@
           <tr>
             <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
             <td colspan="3">
-              {{ Form::text('freeword', $request->freeword, ['class' => 'form-control', 'id'=>'']) }}
+              {{ Form::text('free_word', $request->free_word, ['class' => 'form-control', 'id'=>'']) }}
             </td>
           </tr>
         </tbody>
       </table>
-      <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
-      <p class="text-right">※担当者氏名の検索時は、フルネーム時はスペース禁止</p>
+      <p class="text-left">※フリーワード検索は本画面表記の項目のみ対象となります</p>
+      <p class="text-left">※フリーワード検索時、「0~9, カンマ」は数値として検索しそれ以外の入力は文字列として検索します。</p>
+      <p class="text-left">※フリーワード検索時、数値の検索対象は「予約一括ID・予約ID・携帯電話・固定電話」です。</p>
+      <p class="text-left">※フリーワード検索時、文字列の検索対象は「利用日・入室時間・退室時間・利用会場・会社名団体名・担当者氏名・仲介会社・エンドユーザー」です。</p>
+      <p class="text-left">※フリーワードにて日付検索時のフォーマットは「年(4桁)-月(2桁)-日(2桁)」です。（例: 2021-12-31）</p>
+      <p class="text-left">※フリーワードにて時間検索時のフォーマットは「時(2桁):分(2桁)」の30分刻みです。（例: 12:30）</p>
+      <p class="text-left">※入退室時間にて検索する際、入室時間・退室時間のいずれか一方のみに入力があった場合、入室時間以上・退室時間未満に該当するすべての予約が表示されます</p>
+      <p class="text-left">※担当者氏名の検索時は、フルネーム時はスペース禁止</p>
 
       <div class="btn_box d-flex justify-content-center">
         <a href="{{url('admin/reservations')}}" class="btn reset_btn">リセット</a>
@@ -235,6 +241,7 @@
           {{$counter}}</span>件
       </p>
       @endif
+
     </div>
     <div class="table-wrap">
       <table class="table table-bordered compact hover order-column" id="reservation_sort" style="height: 100%;">
@@ -375,6 +382,7 @@
             "day_before": $('input[name="day_before"]').val(),
             "today": $('input[name="today"]').val(),
             "day_after": $('input[name="day_after"]').val(),
+            "free_word": $('input[name="free_word"]').val(),
           } );
         }
       },

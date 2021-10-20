@@ -285,21 +285,21 @@ class Reservation extends Model implements PresentableInterface
     if (!empty($data['multiple_id']) && (int)$data['multiple_id'] > 0) {
       for ($i = 0; $i < strlen($data['multiple_id']); $i++) {
         if ((int)$data['multiple_id'][$i] !== 0) {
-          $id = strstr($data['multiple_id'], $data['multiple_id'][$i]);
+          $id = substr($data['multiple_id'], $i, strlen($data['multiple_id']));
           break;
         }
       }
-      $searchTarget->whereRaw('reservations.multiple_reserve_id = ? ', [$id]);
+      $searchTarget->whereRaw('reservations.multiple_reserve_id = ? ', ['%' . $id . '%']);
     }
 
     if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
-      // for ($i = 0; $i < strlen($data['search_id']); $i++) {
-      //   if ((int)$data['search_id'][$i] !== 0) {
-      //     $id = strstr($data['search_id'], $data['search_id'][$i]);
-      //     break;
-      //   }
-      // }
-      $searchTarget->whereRaw('reservations.id LIKE ? ',  ['%' . $data['search_id'] . '%']);
+      for ($i = 0; $i < strlen($data['search_id']); $i++) {
+        if ((int)$data['search_id'][$i] !== 0) {
+          $id = substr($data['search_id'], $i, strlen($data['search_id']));
+          break;
+        }
+      }
+      $searchTarget->whereRaw('reservations.id LIKE ? ',  ['%' . $id . '%']);
     }
 
     if (!empty($data['user_id']) && (int)$data['user_id'] > 0) {
@@ -479,70 +479,113 @@ class Reservation extends Model implements PresentableInterface
       }
     });
 
-    $searchTarget = $searchTarget->where(function ($query) use ($data) {
-      if (!empty($data['freeword'])) {
-        for ($i = 0; $i < strlen($data['freeword']); $i++) {
-          if ((int)$data['freeword'][$i] !== 0) {
-            $id = strstr($data['freeword'], $data['freeword'][$i]);
-            $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']);
-            $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']);
-            $query->orWhereRaw('users.mobile LIKE ? ', ['%' . $id . '%']);
-            $query->orWhereRaw('users.tel LIKE ? ', ['%' . $id . '%']);
-            $query->orWhereRaw('reservations.reserve_date LIKE ? ', ['%' . $id . '%']);
-            $query->orWhereRaw('reservations.enter_time LIKE ? ', ['%' . $id . '%']);
-            $query->orWhereRaw('reservations.leave_time LIKE ? ', ['%' . $id . '%']);
-            break;
-          }
-        }
-        // 利用会場
-        $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['freeword'] . '%']);
-        $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['freeword'] . '%']);
-        $query->orWhereRaw('users.company LIKE ? ',  ['%' . $data['freeword'] . '%']);
-        $query->orWhereRaw('concat(agents.person_firstname,agents.person_lastname) LIKE ? ',  ['%' . $data['freeword'] . '%']);
-        $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['freeword'] . '%']);
-        $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['freeword'] . '%']);
-      }
-    });
+    // $searchTarget = $searchTarget->where(function ($query) use ($data) {
+    //   if (!empty($data['freeword'])) {
+    //     for ($i = 0; $i < strlen($data['freeword']); $i++) {
+    //       if ((int)$data['freeword'][$i] !== 0) {
+    //         $id = strstr($data['freeword'], $data['freeword'][$i]);
+    //         $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']);
+    //         $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']);
+    //         $query->orWhereRaw('users.mobile LIKE ? ', ['%' . $id . '%']);
+    //         $query->orWhereRaw('users.tel LIKE ? ', ['%' . $id . '%']);
+    //         $query->orWhereRaw('reservations.reserve_date LIKE ? ', ['%' . $id . '%']);
+    //         $query->orWhereRaw('reservations.enter_time LIKE ? ', ['%' . $id . '%']);
+    //         $query->orWhereRaw('reservations.leave_time LIKE ? ', ['%' . $id . '%']);
+    //         break;
+    //       }
+    //     }
+    //     // 利用会場
+    //     $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['freeword'] . '%']);
+    //     $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['freeword'] . '%']);
+    //     $query->orWhereRaw('users.company LIKE ? ',  ['%' . $data['freeword'] . '%']);
+    //     $query->orWhereRaw('concat(agents.person_firstname,agents.person_lastname) LIKE ? ',  ['%' . $data['freeword'] . '%']);
+    //     $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['freeword'] . '%']);
+    //     $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['freeword'] . '%']);
+    //   }
+    // });
 
     // 売上請求一覧用のフリーワード検索
-    // if (!empty($data['sales_search_box'])) {
-    //   if (!empty($data['free_word'])) {
-    //     if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
-    //       //数字の場合検索
-    //       $searchTarget = $searchTarget->where(function ($query) use ($data) {
-    //         if (!empty($data['free_word'])) {
-    //           for ($i = 0; $i < strlen($data['free_word']); $i++) {
-    //             if ((int)$data['free_word'][$i] !== 0) {
-    //               $id = strstr($data['free_word'], $data['free_word'][$i]);
-    //               break;
-    //             }
-    //           }
-    //           $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']); //予約ID
-    //           $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']); //一括ID
-    //           $query->orWhereRaw('users.id LIKE ? ', ['%' . $id . '%']); //顧客ID
-    //         }
-    //       });
-    //     } else {
-    //       //文字列の場合
-    //       $searchTarget = $searchTarget->where(function ($query) use ($data) {
-    //         if (!empty($data['free_word'])) {
-    //           $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]); //利用日
-    //           $query->orWhereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']); //会社名・団体名
-    //           $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']); //担当者氏名
-    //           $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
-    //           $query->orWhereRaw('bills.payment_limit = ? ',  [$data['free_word']]); //支払い期日
-    //           $query->orWhereRaw('bills.pay_day = ? ',  [$data['free_word']]); //支払い日
-    //           $query->orWhereRaw('bills.pay_person = ? ',  [$data['free_word']]); //振込人名
-    //           $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['free_word'] . '%']);
-    //           $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
-    //         }
-    //       });
-    //     }
-    //   }
-    // }
-
-    // $searchTarget->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
-
+    if (!empty($data['sales_search_box'])) {
+      if (!empty($data['free_word'])) {
+        if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
+          //数字の場合検索
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            if (!empty($data['free_word'])) {
+              for ($i = 0; $i < strlen($data['free_word']); $i++) {
+                if ((int)$data['free_word'][$i] !== 0) {
+                  $id = strstr($data['free_word'], $data['free_word'][$i]);
+                  break;
+                }
+              }
+              $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']); //予約ID
+              $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']); //一括ID
+              $query->orWhereRaw('users.id LIKE ? ', ['%' . $id . '%']); //顧客ID
+            }
+          });
+        } else {
+          //文字列の場合
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            if (!empty($data['free_word'])) {
+              $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]); //利用日
+              $query->orWhereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']); //会社名・団体名
+              $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']); //担当者氏名
+              $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+              $query->orWhereRaw('bills.payment_limit = ? ',  [$data['free_word']]); //支払い期日
+              $query->orWhereRaw('bills.pay_day = ? ',  [$data['free_word']]); //支払い日
+              $query->orWhereRaw('bills.pay_person = ? ',  [$data['free_word']]); //振込人名
+              $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['free_word'] . '%']);
+              $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+            }
+          });
+        }
+      }
+    } else {
+      // 予約一覧用フリーワード検索
+      if (!empty($data['free_word'])) {
+        if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
+          //数字の場合検索
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            if (!empty($data['free_word'])) {
+              for ($i = 0; $i < strlen($data['free_word']); $i++) {
+                if ((int)$data['free_word'][$i] !== 0) {
+                  $id = substr($data['free_word'], $i, strlen($data['free_word']));
+                  break;
+                }
+              }
+              $query->whereRaw('reservations.id LIKE ? ', ['%' . $id . '%']) //予約ID
+                ->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']) //一括ID
+                ->orWhereRaw('users.mobile LIKE ? ', ['%' . $data['free_word'] . '%'])
+                ->orWhereRaw('users.tel LIKE ? ', ['%' . $data['free_word'] . '%']);
+            }
+          });
+        } elseif (preg_match('/^[0-9!-]+$/', $data['free_word'])) {
+          //○○○○-○○-○○の日付が来た際
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            if (!empty($data['free_word'])) {
+              $query->whereRaw('reservations.reserve_date = ? ', [$data['free_word']]);
+            }
+          });
+        } elseif (preg_match('/^[0-9!:]+$/', $data['free_word'])) {
+          // 時間がきた際
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            if (!empty($data['free_word'])) {
+              $query->whereRaw('reservations.enter_time = ? ', [$data['free_word'] . ':00'])
+                ->orWhereRaw('reservations.leave_time = ? ', [$data['free_word'] . ':00']);
+            }
+          });
+        } else {
+          //文字列の場合
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            if (!empty($data['free_word'])) {
+              $query->whereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']) //会社名・団体名
+                ->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']) //担当者氏名
+                ->orWhereRaw('agents.name LIKE ? ', ['%' . $data['free_word'] . '%']) //仲介会社名
+                ->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+            }
+          });
+        }
+      }
+    }
     return $searchTarget;
   }
 

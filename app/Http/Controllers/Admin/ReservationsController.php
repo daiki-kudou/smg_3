@@ -47,8 +47,6 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
-
-
     $counter = 0;
     $venues = Venue::all()->toArray();
     $agents = Agent::all()->toArray();
@@ -56,11 +54,6 @@ class ReservationsController extends Controller
 
     return view('admin.reservations.index', compact('venues', 'agents', 'request', 'counter'));
   }
-
-
-
-
-
 
   /** ajax 備品orサービス取得*/
   public function geteitems(Request $request)

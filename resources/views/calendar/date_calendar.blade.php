@@ -72,6 +72,9 @@
           </thead>
           <tbody>
             @foreach ($venues as $venue)
+            @if ($venue->id===10||$venue->id===11||$venue->id===12||$venue->id===13||$venue->id===16||$venue->id===17)
+            @continue
+            @else
             <tr class="calender-data">
               <td class="field-title">{{ReservationHelper::getVenue($venue->id)}}</td>
               <td class="{{($venue->id)}}cal0800 calhalf no_wrap"></td>
@@ -107,6 +110,7 @@
               <td class="{{($venue->id)}}cal2300 calhalf no_wrap"></td>
               <td class="{{($venue->id)}}cal2330 no_wrap"></td>
             </tr>
+            @endif
             @endforeach
           </tbody>
           <tfoot>
@@ -139,7 +143,7 @@
   @foreach ($reservations as $reservation)
   <input type="hidden" name="venue_id" value="{{($reservation->venue_id)}}">
   <input type="hidden" name="start" value="{{date('H:i',strtotime($reservation->enter_time))}}">
-  <input type="hidden" name="status" value="{{$reservation->bills->sortBy("id")->first()->reservation_status }}">
+  <input type="hidden" name="status" value="{{$reservation->bills->sortBy(" id")->first()->reservation_status }}">
   <input type="hidden" name="company"
     value="{{ ReservationHelper::checkAgentOrUserCompany($reservation->user_id,$reservation->agent_id)}}">
   <input type="hidden" name="reservation_id" value="{{$reservation->id }}">
