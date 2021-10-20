@@ -552,42 +552,40 @@ class Reservation extends Model implements PresentableInterface
                   break;
                 }
               }
-              $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']); //予約ID
-              $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']); //一括ID
-              $query->orWhereRaw('users.mobile LIKE ? ', ['%' . $data['free_word'] . '%']);
-              $query->orWhereRaw('users.tel LIKE ? ', ['%' . $data['free_word'] . '%']);
+              $query->whereRaw('reservations.id LIKE ? ', ['%' . $id . '%']) //予約ID
+                ->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']) //一括ID
+                ->orWhereRaw('users.mobile LIKE ? ', ['%' . $data['free_word'] . '%'])
+                ->orWhereRaw('users.tel LIKE ? ', ['%' . $data['free_word'] . '%']);
             }
           });
         } elseif (preg_match('/^[0-9!-]+$/', $data['free_word'])) {
           //○○○○-○○-○○の日付が来た際
           $searchTarget = $searchTarget->where(function ($query) use ($data) {
             if (!empty($data['free_word'])) {
-              $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]);
+              $query->whereRaw('reservations.reserve_date = ? ', [$data['free_word']]);
             }
           });
         } elseif (preg_match('/^[0-9!:]+$/', $data['free_word'])) {
           // 時間がきた際
           $searchTarget = $searchTarget->where(function ($query) use ($data) {
             if (!empty($data['free_word'])) {
-              $query->orWhereRaw('reservations.enter_time = ? ', [$data['free_word'] . ':00']);
-              $query->orWhereRaw('reservations.leave_time = ? ', [$data['free_word'] . ':00']);
+              $query->whereRaw('reservations.enter_time = ? ', [$data['free_word'] . ':00'])
+                ->orWhereRaw('reservations.leave_time = ? ', [$data['free_word'] . ':00']);
             }
           });
         } else {
           //文字列の場合
           $searchTarget = $searchTarget->where(function ($query) use ($data) {
             if (!empty($data['free_word'])) {
-              $query->orWhereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']); //会社名・団体名
-              $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']); //担当者氏名
-              $query->orWhereRaw('agents.name LIKE ? ', ['%' . $data['free_word'] . '%']); //仲介会社名
-              $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+              $query->whereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']) //会社名・団体名
+                ->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']) //担当者氏名
+                ->orWhereRaw('agents.name LIKE ? ', ['%' . $data['free_word'] . '%']) //仲介会社名
+                ->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
             }
           });
         }
       }
     }
-
-
     return $searchTarget;
   }
 
