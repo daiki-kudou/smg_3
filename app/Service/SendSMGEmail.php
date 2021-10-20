@@ -17,6 +17,7 @@ use App\Jobs\Reservation\MailForConfirmReservation;
 use App\Jobs\Reservation\MailForDeletePreReservation;
 use App\Jobs\Reservation\MailForDeleteReservation;
 use App\Jobs\Cron\CronForPayDayFiveDaysLeft;
+use App\Jobs\Cron\CronPayDayTwoDaysLeft;
 
 
 class SendSMGEmail
@@ -105,6 +106,10 @@ class SendSMGEmail
     switch ($condition) {
       case "入金期日5営業日前(催促)":
         CronForPayDayFiveDaysLeft::dispatch($this->user, $this->reservation, $this->venue);
+        break;
+
+      case "入金期日2営業日前(催促)":
+        CronPayDayTwoDaysLeft::dispatch($this->user, $this->reservation, $this->venue);
         break;
 
       default:

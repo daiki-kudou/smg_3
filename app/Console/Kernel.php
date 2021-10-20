@@ -15,10 +15,8 @@ class Kernel extends ConsoleKernel
    * @var array
    */
   protected $commands = [
-    //
-    // Commands\ReSendApproveEmail::Class,
-    // Commands\SendCronTest::Class,
     Commands\CommandCronPayDayFiveDaysLeft::Class,
+    Commands\CommandCronPayDayTwoDaysLeft::Class,
   ];
 
   /**
@@ -30,7 +28,8 @@ class Kernel extends ConsoleKernel
   protected function schedule(Schedule $schedule)
   {
     // クーロン実際の処理
-    $schedule->command('command:cron_pay_day_five_days_left')->everyMinute();
+    $schedule->command('command:cron_pay_day_five_days_left')->dailyAt('13:00'); //入金5営業日前　催促
+    $schedule->command('command:cron_pay_day_two_days_left')->dailyAt('13:00'); //入金2営業日前　催促
   }
 
   /**
