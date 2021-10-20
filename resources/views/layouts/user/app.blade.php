@@ -69,7 +69,7 @@
       </div>
     </nav>
 
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar elevation-4">
       <a href="/user/home" class="brand-link">
         <span class="brand-text font-weight-light">SMGアクセア貸し会議室</span>
       </a>
@@ -84,9 +84,22 @@
         <a href="{{url('https://osaka-conference.com/')}}" target="_blank" rel="noopener noreferrer" class="nav-link">
           WEBサイトを見る<span><i class="fas fa-chevron-right"></i></span></a>
       </div>
-
-
     </aside>
+    <style>
+      .main-sidebar {
+        background-color: #ffff99;
+      }
+
+      .main-sidebar a {
+        color: #6c757d;
+      }
+
+      .nav-pills .nav-link.active {
+        background-color: #9d9d9d;
+      }
+
+    </style>
+
     <div class="content-wrapper">
       <div class="content">
         <div class="container-fluid">
