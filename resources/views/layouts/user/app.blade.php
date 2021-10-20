@@ -98,6 +98,10 @@
         background-color: #9d9d9d;
       }
 
+      .nav-pills .nav-link:not(.active):hover {
+        color: #ababab;
+      }
+
     </style>
 
     <div class="content-wrapper">
