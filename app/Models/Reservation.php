@@ -558,19 +558,29 @@ class Reservation extends Model implements PresentableInterface
               $query->orWhereRaw('users.tel LIKE ? ', ['%' . $data['free_word'] . '%']);
             }
           });
+        } elseif (preg_match('/^[0-9!-]+$/', $data['free_word'])) {
+          //○○○○-○○-○○の日付が来た際
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            if (!empty($data['free_word'])) {
+              $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]);
+            }
+          });
+        } elseif (preg_match('/^[0-9!:]+$/', $data['free_word'])) {
+          // 時間がきた際
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            if (!empty($data['free_word'])) {
+              $query->orWhereRaw('reservations.enter_time = ? ', [$data['free_word'] . ':00']);
+              $query->orWhereRaw('reservations.leave_time = ? ', [$data['free_word'] . ':00']);
+            }
+          });
         } else {
           //文字列の場合
           $searchTarget = $searchTarget->where(function ($query) use ($data) {
             if (!empty($data['free_word'])) {
-              $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]); //利用日
               $query->orWhereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']); //会社名・団体名
               $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']); //担当者氏名
+              $query->orWhereRaw('agents.name LIKE ? ', ['%' . $data['free_word'] . '%']); //仲介会社名
               $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
-              $query->orWhereRaw('bills.payment_limit = ? ',  [$data['free_word']]); //支払い期日
-              $query->orWhereRaw('bills.pay_day = ? ',  [$data['free_word']]); //支払い日
-              $query->orWhereRaw('bills.pay_person = ? ',  [$data['free_word']]); //振込人名
-              $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['free_word'] . '%']);
-              $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
             }
           });
         }
