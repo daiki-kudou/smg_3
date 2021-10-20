@@ -316,12 +316,12 @@
         <th>粗利</th>
         <th>売上区分</th>
         <th>予約状況</th>
-        <th>支払日</th>
         <th>入金状況</th>
+        <th>支払期日</th>
+        <th>入金日</th>
         <th class="btn-cell">予約詳細</th>
         <th>振込名</th>
         <th>顧客属性</th>
-        <th>支払期日</th>
         <th>運営</th>
       </tr>
     </thead>
@@ -452,12 +452,12 @@ $(function(){
         { data: 'profit' },
         { data: 'category' },
         { data: 'reservation_status' },
-        { data: 'pay_day' },
         { data: 'paid' },
+        { data: 'payment_limit' },
+        { data: 'pay_day' },
         { data: 'details' },
         { data: 'pay_person' },
         { data: 'attr' },
-        { data: 'payment_limit' },
         { data: 'alliance_flag' },
       ],
       columnDefs: [
