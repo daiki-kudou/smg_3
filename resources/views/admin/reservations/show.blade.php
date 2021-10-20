@@ -115,7 +115,7 @@
               @if ($reservation->bills->sortBy("id")->first()->reservation_status<3) {{Form::open(['url'=>
                 '/admin/reservations/'.$reservation->id, 'method' => 'delete'])}}
                 @csrf
-                {{Form::submit('取り消し',['class'=>'bg-danger'])}}
+                {{Form::submit('取り消し',['class'=>'btn more_btn4 mb-3'])}}
                 {{ Form::close() }}
                 @endif
                 <div class="row">
