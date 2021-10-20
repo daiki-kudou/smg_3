@@ -244,8 +244,13 @@
       </tr>
     </tbody>
   </table>
-  <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
-  <p class="text-right">※担当者氏名の検索時は、フルネーム時はスペース禁止</p>
+  <p class="text-left">※フリーワード検索は本画面表記の項目のみ対象となります</p>
+  <p class="text-left">※フリーワード検索時、「0~9, カンマ」は数値として検索しそれ以外の入力は文字列として検索します。</p>
+  <p class="text-left">※フリーワード検索時、数値の検索対象は「予約一括ID・予約ID・顧客ID・総額」です。</p>
+  <p class="text-left">※フリーワード検索時、文字列の検索対象は「利用日・利用会場・会社名団体名・担当者氏名・仲介会社・エンドユーザー・支払い期日・支払い日・振込人名・顧客属性」です。</p>
+  <p class="text-left">※フリーワードにて日付検索時のフォーマットは「年(4桁)-月(2桁)-日(2桁)」です。（例: 2021-12-31）</p>
+  <p class="text-left">※担当者氏名の検索時は、フルネーム時はスペース禁止</p>
+
   <div class="btn_box d-flex justify-content-center">
     <a href="{{url('admin/sales')}}" class="btn reset_btn">リセット</a>
     {{Form::hidden('sales_search_box','sales_search_box', ['class'=>'form-control'])}}
@@ -311,12 +316,12 @@
         <th>粗利</th>
         <th>売上区分</th>
         <th>予約状況</th>
-        <th>支払日</th>
         <th>入金状況</th>
+        <th>支払期日</th>
+        <th>入金日</th>
         <th class="btn-cell">予約詳細</th>
         <th>振込名</th>
         <th>顧客属性</th>
-        <th>支払期日</th>
         <th>運営</th>
       </tr>
     </thead>
@@ -426,6 +431,8 @@ $(function(){
             "payment_status5": $('#payment_status5').prop('checked')?1:0,
             "alliance0": $('#alliance0').prop('checked')?1:0,
             "alliance1": $('#alliance1').prop('checked')?1:0,
+            "free_word": $('input[name="free_word"]').val(),
+            "sales_search_box": $('input[name="sales_search_box"]').val(),
           } );
         }
       },
@@ -445,12 +452,12 @@ $(function(){
         { data: 'profit' },
         { data: 'category' },
         { data: 'reservation_status' },
-        { data: 'pay_day' },
         { data: 'paid' },
+        { data: 'payment_limit' },
+        { data: 'pay_day' },
         { data: 'details' },
         { data: 'pay_person' },
         { data: 'attr' },
-        { data: 'payment_limit' },
         { data: 'alliance_flag' },
       ],
       columnDefs: [

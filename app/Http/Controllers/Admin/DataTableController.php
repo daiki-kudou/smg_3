@@ -232,12 +232,12 @@ class DataTableController extends Controller
           'profit' => $this->getProfit($record->reservation_id),
           'category' => $this->getSalesCategory($record->reservation_id),
           'reservation_status' => $this->getSalesStatus($record->reservation_id),
-          'pay_day' => $this->getPayDay($record->reservation_id),
           'paid' => $this->getPaid($record->reservation_id),
+          'payment_limit' => $this->getPaymentLimit($record->reservation_id),
+          'pay_day' => $this->getPayDay($record->reservation_id),
           'details' => "<a href=" . url('admin/reservations', $record->reservation_id) . " class='more_btn btn'>詳細</a>",
           'pay_person' => $this->getPayPerson($record->reservation_id),
           'attr' => ReservationHelper::getAttr($record->attr),
-          'payment_limit' => $this->getPaymentLimit($record->reservation_id),
           'alliance_flag' => (int)$record->alliance_flag === 0 ? '直' : '提',
         ];
     }
