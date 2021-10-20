@@ -161,7 +161,7 @@
           <a class="cart_area" href="{{url('user/reservations/cart')}}">
             <p>
               <i class="fas fa-calendar-alt cart_btn"></i>
-              <span>カート</span>
+              <span>予約カート</span>
             </p>
           </a>
         </div>
@@ -243,7 +243,7 @@
       <a class="cart_area sp" href="{{url('user/reservations/cart')}}">
         <p>
           <i class="fas fa-calendar-alt cart_btn"></i>
-          <span>カート</span>
+          <span>予約カート</span>
         </p>
       </a>
 
