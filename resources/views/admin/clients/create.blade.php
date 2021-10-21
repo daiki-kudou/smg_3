@@ -48,7 +48,10 @@
         </thead>
         <tbody>
           <tr>
-            <td class="table-active form_required">{{ Form::label('company', '会社・団体名') }}</td>
+            <td class="table-active form_required">
+              <p class="annotation">会社・団体名がない場合は担当者氏名を入力</p>
+              {{ Form::label('company', '会社・団体名') }}
+            </td>
             <td>{{ Form::text('company', old('company'), ['class' => 'form-control']) }}
               <p class="is-error-company" style="color: red"></p>
             </td>
