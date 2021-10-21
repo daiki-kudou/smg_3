@@ -103,7 +103,7 @@ $(function () {
         post_code: {
           maxlength: "※7桁で入力してください",
           minlength: "※7桁で入力してください",
-          number: "半角数字で入力してください",
+          number: "※半角数字、ハイフンなしで入力して下さい",
         },
         person_tel: {
           minlength: "最低桁数は10です",

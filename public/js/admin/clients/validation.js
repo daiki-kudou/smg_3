@@ -147,7 +147,7 @@ $(function () {
         },
         post_code: {
           required: "※必須項目です",
-          number: "※半角数字で入力してください",
+          number: "※半角数字、ハイフンなしで入力して下さい",
           minlength: "※7桁で入力してください",
           maxlength: "※7桁で入力してください",
         },
@@ -195,7 +195,7 @@ $(function () {
           email: "※メールアドレスの形式で入力してください",
         },
         pay_post_code: {
-          number: "※半角数字で入力してください",
+          number: "※半角数字、ハイフンなしで入力して下さい",
           minlength: "※7桁で入力してください",
           maxlength: "※7桁で入力してください",
         },

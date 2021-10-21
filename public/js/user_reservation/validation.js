@@ -125,7 +125,7 @@ $(function () {
         required: "※必須項目です",
         minlength: "７桁で入力してください",
         maxlength: "７桁で入力してください",
-        number: "※半角数字で入力してください",
+        number: "※半角数字、ハイフンなしで入力して下さい",
       },
       address1: {
         required: "※必須項目です",
@@ -534,7 +534,7 @@ $(function () {
       },
       post_code: {
         required: "※必須項目です",
-        number: "※半角数字で入力してください",
+        number: "※半角数字、ハイフンなしで入力して下さい",
         maxlength: "※7桁で入力してください",
         minlength: "※7桁で入力してください",
       },
