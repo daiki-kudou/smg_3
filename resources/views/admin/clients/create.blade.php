@@ -54,7 +54,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">{{ Form::label('post_code', '郵便番号') }}</td>
+            <td class="table-active form_required">{{ Form::label('post_code', '郵便番号') }}</td>
             <td>{{ Form::text('post_code', old('post_code'), [
                                 'class' => 'form-control',
                                 'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
@@ -66,12 +66,16 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">{{ Form::label('address1', '住所1（都道府県）') }}</td>
-            <td>{{ Form::text('address1', old('address1'), ['class' => 'form-control']) }}</td>
+            <td class="table-active form_required">{{ Form::label('address1', '住所1（都道府県）') }}</td>
+            <td>{{ Form::text('address1', old('address1'), ['class' => 'form-control']) }}
+            <p class="is-error-address1" style="color: red"></p>
+            </td>
           </tr>
           <tr>
-            <td class="table-active">{{ Form::label('address2', '住所2（市町村番地）') }}</td>
-            <td>{{ Form::text('address2', old('address2'), ['class' => 'form-control']) }}</td>
+            <td class="table-active form_required">{{ Form::label('address2', '住所2（市町村番地）') }}</td>
+            <td>{{ Form::text('address2', old('address2'), ['class' => 'form-control']) }}
+            <p class="is-error-address2" style="color: red"></p>
+            </td>
           </tr>
           <tr>
             <td class="table-active">{{ Form::label('address3', '住所3（建物名）') }}</td>

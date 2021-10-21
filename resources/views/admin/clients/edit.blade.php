@@ -47,7 +47,7 @@
             </td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('post_code', '郵便番号') }}</th>
+            <th class="table-active form_required">{{ Form::label('post_code', '郵便番号') }}</th>
             <td>{{ Form::text('post_code', $user->post_code, [
                             'class' => 'form-control',
                             'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
@@ -60,12 +60,16 @@
             </td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('address1', '住所1（都道府県）') }}</th>
-            <td>{{ Form::text('address1', $user->address1, ['class' => 'form-control']) }}</td>
+            <th class="table-active form_required">{{ Form::label('address1', '住所1（都道府県）') }}</th>
+            <td>{{ Form::text('address1', $user->address1, ['class' => 'form-control']) }}
+            <p class="is-error-address1" style="color: red"></p>
+            </td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('address2', '住所2（市町村番地）') }}</th>
-            <td>{{ Form::text('address2', $user->address2, ['class' => 'form-control']) }}</td>
+            <th class="table-active form_required">{{ Form::label('address2', '住所2（市町村番地）') }}</th>
+            <td>{{ Form::text('address2', $user->address2, ['class' => 'form-control']) }}
+            <p class="is-error-address2" style="color: red"></p>
+            </td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('address3', '住所3（建物名）') }}</th>
