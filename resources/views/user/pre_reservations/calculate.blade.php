@@ -687,16 +687,53 @@
   </div>
 </section>
 
+
+
+
+
 <div class="confirm-box mt-5">
-  <div class="confirm_inner">
-    <p class="mb-4">上記、内容で予約を申し込んでもよろしいでしょうか。よろしければ、予約の申し込みをお願いします。<br>
-      予約内容を変更したい場合は、仮押えお申込み内容を変更後、再計算するボタンをクリックしてください。
-    </p>
-    <p class="text-center mb-5 mt-3">
-      {{ Form::submit('予約を申し込む', ['class' => 'btn more_btn4_lg confirm','name'=>'cfm']) }}
-    </p>
+  <h5 class="mb-2 caution_color">【今後の流れ】</h5>
+  <p>・本ページの「予約申込をする」ボタンをクリック後に自動メールが送信されます。
+    メールが到着しない場合は再度お申し込みをいただくか、弊社までご連絡下さい。
+  </p>
+  <p>・ 弊社で受付が完了しましたら「予約完了連絡」をお送りします。<br>
+    <span class="caution_color">弊社からの予約完了連絡が到着した時点で「予約完了(予約確定)となります。」</span>
+  </p>
+  <p>・原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生います。申込前に「<a href="https://osaka-conference.com/cancelpolicy/">キャンセルポリシー</a>」
+    をご確認下さい。
+  </p>
+
+  <div class="caution py-3 mt-3">
+    <div class="d-flex justify-content-center">
+      <p class="checkbox-txt">
+        <input id="" name="" type="checkbox" value="">
+        <label for="">今後の流れを確認しました</label>
+      <p class="is-error-" style="color: red"></p>
+      </p>
+    </div>
+    <div class="d-flex justify-content-center">
+      <p class="checkbox-txt">
+        <input id="" name="" type="checkbox" value="">
+        <label for="">利用規約に同意します</label>
+      <p class="is-error-" style="color: red"></p>
+      </p>
+    </div>
   </div>
 </div>
+
+<div class="confirm-box mt-3">
+  <h5 class="mb-2 caution_color">【個人情報の取り扱いについて】</h5>
+  <p>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</p>
+</div>
+
+
+
+<p class="text-center mb-5 mt-5">
+  {{ Form::submit('予約申込をする', ['class' => 'btn more_btn4_lg confirm','name'=>'cfm']) }}
+</p>
+
+
+
 {{ Form::close() }}
 
 <script>

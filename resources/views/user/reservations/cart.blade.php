@@ -284,17 +284,18 @@
         原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生います。申込前に「<a href="https://osaka-conference.com/cancelpolicy/">キャンセルポリシー</a>」
         をご確認下さい。
       </dd>
+      <!-- 工藤さんこちら！！！！！ -->
       <dd class="caution-area">
         <div class="page-text">
           <p class="checkbox-txt">
-            {{ Form::checkbox('q1', '1', false, ['id' => 'last_checkbox']) }}
-            {{ Form::label('last_checkbox', '今後の流れを確認しました') }}
-          <p class="is-error-q1" style="color: red"></p>
+            <input id="" name="" type="checkbox" value="">
+            <label for="">今後の流れを確認しました</label>
+          <p class="is-error-" style="color: red"></p>
           </p>
           <p class="checkbox-txt">
-            {{ Form::checkbox('q1', '1', false, ['id' => 'last_checkbox']) }}
-            {{ Form::label('last_checkbox', '利用規約に同意します') }}
-          <p class="is-error-q1" style="color: red"></p>
+            <input id="" name="" type="checkbox" value="">
+            <label for="">利用規約に同意します</label>
+          <p class="is-error-" style="color: red"></p>
           </p>
         </div>
       </dd>
