@@ -894,6 +894,42 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
       $searchTarget->whereRaw('pre_reservations.status = ? and pre_reservations.updated_at < DATE_SUB(CURRENT_DATE(),INTERVAL ? DAY) ', [1, 3]);
     }
 
+    if (!empty($data['search_free'])) {
+      if (preg_match('/^[0-9!,]+$/', $data['search_free'])) {
+        //数字の場合検索
+        $searchTarget = $searchTarget->where(function ($query) use ($data) {
+          for ($i = 0; $i < strlen($data['search_free']); $i++) {
+            if ((int)$data['search_free'][$i] !== 0) {
+              $id = substr($data['search_free'], $i, strlen($data['search_free']));
+              break;
+            }
+          }
+          $query->whereRaw('multiple_reserves.id LIKE ? ', ['%' . $id . '%'])
+            ->orWhereRaw('users.mobile LIKE ? ', ['%' . $data['search_free'] . '%'])
+            ->orWhereRaw('users.tel LIKE ? ', ['%' . $data['search_free'] . '%']);
+        });
+      } elseif (preg_match('/^[0-9!-]+$/', $data['search_free'])) {
+        //○○○○-○○-○○の日付が来た際
+        $searchTarget = $searchTarget->where(function ($query) use ($data) {
+          if (!empty($data['search_free'])) {
+            $query->orWhereRaw('multiple_reserves.created_at between ? AND ?', [$data['search_free'] . ' 00:00:00', $data['search_free'] . ' 23:59:59']);
+          }
+        });
+      } else {
+        //文字列の場合
+        $searchTarget = $searchTarget->where(function ($query) use ($data) {
+          if (!empty($data['search_free'])) {
+            $query->whereRaw('users.company LIKE ?', ['%' . $data['search_free'] . '%'])
+              ->orWhereRaw('concat(users.first_name, users.last_name) LIKE ?', ['%' . $data['search_free'] . '%'])
+              ->orWhereRaw('agents.name LIKE ?', ['%' . $data['search_free'] . '%'])
+              ->orWhereRaw('unknown_users.unknown_user_company LIKE ?', ['%' . $data['search_free'] . '%'])
+              ->orWhereRaw('agents.name LIKE ?', ['%' . $data['search_free'] . '%'])
+              ->orWhereRaw('pre_endusers.company LIKE ?', ['%' . $data['search_free'] . '%']);
+          }
+        });
+      }
+    }
+
 
     return $searchTarget;
   }

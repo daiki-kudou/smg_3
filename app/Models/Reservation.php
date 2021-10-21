@@ -510,6 +510,36 @@ class Reservation extends Model implements PresentableInterface
                 ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('pay_day = ? ', $data['free_word'])->groupBy('reservation_id'));
             }
           });
+        } elseif (preg_match('/^[一般企業]+$/', $data['free_word'])) {
+          //○○○○-○○-○○の日付が来た際
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            $query->whereRaw('users.attr = ? ', [1]);
+          });
+        } elseif (preg_match('/^[上場企業]+$/', $data['free_word'])) {
+          //○○○○-○○-○○の日付が来た際
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            $query->whereRaw('users.attr = ? ', [2]);
+          });
+        } elseif (preg_match('/^[近隣利用]+$/', $data['free_word'])) {
+          //○○○○-○○-○○の日付が来た際
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            $query->whereRaw('users.attr = ? ', [3]);
+          });
+        } elseif (preg_match('/^[個人講師]+$/', $data['free_word'])) {
+          //○○○○-○○-○○の日付が来た際
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            $query->whereRaw('users.attr = ? ', [4]);
+          });
+        } elseif (preg_match('/^[MLM]+$/', $data['free_word'])) {
+          //○○○○-○○-○○の日付が来た際
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            $query->whereRaw('users.attr = ? ', [5]);
+          });
+        } elseif (preg_match('/^[その他]+$/', $data['free_word'])) {
+          //○○○○-○○-○○の日付が来た際
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            $query->whereRaw('users.attr = ? ', [6]);
+          });
         } else {
           //文字列の場合
           $searchTarget = $searchTarget->where(function ($query) use ($data) {
@@ -566,6 +596,7 @@ class Reservation extends Model implements PresentableInterface
               $query->whereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']) //会社名・団体名
                 ->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']) //担当者氏名
                 ->orWhereRaw('agents.name LIKE ? ', ['%' . $data['free_word'] . '%']) //仲介会社名
+                ->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ', ['%' . $data['free_word'] . '%'])
                 ->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
             }
           });
