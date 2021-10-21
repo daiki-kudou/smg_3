@@ -21,6 +21,10 @@ body {
     display: block;
 }
 
+.f-bold {
+    font-weight: bold;
+}
+
 /* ソート矢印上下表示 */
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting_asc:after,
@@ -159,6 +163,10 @@ table.dataTable thead .sorting_desc:after {
     width: 65%;
 }
 
+
+.equipemnts .form-control {
+    text-align: right;
+}
 
 
 .border-info {
@@ -2041,7 +2049,7 @@ table .master_total_subttl2 {
 }
 
 .notion_inner {
-    width: 50%;
+    width: 80%;
     margin: 2em auto;
 }
 

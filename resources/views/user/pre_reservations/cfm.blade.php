@@ -20,19 +20,22 @@
   <hr>
 
   <div class="notion_wrap mt-5">
-    <h3 class="text-md-center mt-3">
+    <h3 class="text-md-center mt-3 f-bold">
       本予約にお申込みいただき、ありがとうございました。
     </h3>
     <div class="notion_inner">
-      <p>弊社で内容を確認して、ご連絡致します。</p>
-      <p>※追加のお申込み内容をご希望の場合は、下記連絡先までご連絡ください。<br>
-        TEL：06-1234-5678<br>
-        mail：test@gmail.com
+      <p class="mb-2">
+        弊社で受付が完了しましたら「予約完了連絡」をお送りします。<br>
+        弊社からの予約完了連絡が到着した時点で「予約完了（予約確定）」となります。
       </p>
+      <p>※フォームからの送信後、弊社からの自動返信が届かない場合は、フォームに入力していただいたメールアドレスに誤りがある可能性がございます。
+        お手数ですが再度お問い合わせをいただきますようお願いいたします。</p>
+      <p>※弊社からの自動返信がお客様のメール利用環境により迷惑フォルダに受信される場合がございます。
+        お手数ですが迷惑フォルダもご確認いただけましたら幸いです。その場合は【@s-mg.co.jp】を受信設定していただきますようお願いいたします。</p>
     </div>
     <div class="confirm_inner">
-      <p class="text-center mb-5 mt-3">
-        <a href="{{url('user/home')}}" class="more_btn_lg">予約一覧</a>
+      <p class="text-center mb-5 mt-5">
+        <a href="{{url('user/home')}}" class="more_btn_lg">予約一覧へ</a>
       </p>
     </div>
   </div>

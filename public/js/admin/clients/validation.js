@@ -88,9 +88,16 @@ $(function () {
           required: true,
         },
         post_code: {
+          required: true,
           number: true,
           maxlength: 7,
           minlength: 7,
+        },
+        address1: {
+          required: true,
+        },
+        address2: {
+          required: true,
         },
         url: {
           url: true,
@@ -139,9 +146,16 @@ $(function () {
           required: "※必須項目です",
         },
         post_code: {
-          number: "※半角数字で入力してください",
+          required: "※必須項目です",
+          number: "※半角数字、ハイフンなしで入力して下さい",
           minlength: "※7桁で入力してください",
           maxlength: "※7桁で入力してください",
+        },
+        address1: {
+          required: "※必須項目です",
+        },
+        address2: {
+          required: "※必須項目です",
         },
         url: {
           url:
@@ -181,7 +195,7 @@ $(function () {
           email: "※メールアドレスの形式で入力してください",
         },
         pay_post_code: {
-          number: "※半角数字で入力してください",
+          number: "※半角数字、ハイフンなしで入力して下さい",
           minlength: "※7桁で入力してください",
           maxlength: "※7桁で入力してください",
         },

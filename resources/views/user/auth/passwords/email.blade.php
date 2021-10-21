@@ -3,7 +3,7 @@
       <!-- ログイン、会員登録 -->
       <div class="contents mt-5">
         <div class="pagetop-text">
-          <h1 class="page-title oddcolor"><span>ユーザIDの確認・パスワードの再設定 </span></h1>
+          <h1 class="page-title oddcolor"><span>パスワードの再設定 </span></h1>
         </div>
       </div>
 

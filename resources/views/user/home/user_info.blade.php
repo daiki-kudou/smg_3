@@ -25,7 +25,7 @@
 @endif
 
 <section class="section-bg mt-5">
-  <table class="table user-profile table-bordered">
+  <table class="table user-profile table-bordered table_fixed">
     <thead>
       <tr>
         <td colspan="2">
@@ -38,8 +38,9 @@
     </thead>
     <tbody>
       <tr>
-        <th><label for="company">会社・団体名</label></th>
-        <td colspan="2">{{$user->company}}</td>
+        <th><label for="company">会社・団体名</label><br>
+        <span class="annotation">※会社・団体名の変更を希望される際はSMGまでご連絡下さい。</span></th>
+        <td>{{$user->company}}</td>
       </tr>
       <tr>
         <th><label for="first_name">担当者氏名</label></th>
@@ -57,34 +58,34 @@
       </tr>
       <tr>
         <th><label for="address1">住所1（都道府県）</label></th>
-        <td colspan="2">{{$user->address1}}</td>
+        <td>{{$user->address1}}</td>
       </tr>
       <tr>
         <th><label for="address2">住所2（市町村番地）</label></th>
-        <td colspan="2">{{$user->address2}}</td>
+        <td>{{$user->address2}}</td>
       </tr>
       <tr>
         <th><label for="address3">住所3（建物名）</label></th>
-        <td colspan="2">{{$user->address3}}</td>
+        <td>{{$user->address3}}</td>
       </tr>
       <tr>
         <th><label for="tel">電話番号</label></th>
-        <td colspan="2">{{$user->tel}}
+        <td>{{$user->tel}}
         </td>
       </tr>
       <tr>
         <th><label for="mobile">携帯番号</label></th>
-        <td colspan="2">{{$user->mobile}}
+        <td>{{$user->mobile}}
         </td>
       </tr>
       <tr>
         <th><label for="fax">FAX</label></th>
-        <td colspan="2">{{$user->fax}}
+        <td>{{$user->fax}}
         </td>
       </tr>
       <tr>
         <th><label for="email">メールアドレス</label></th>
-        <td colspan="2">{{$user->email}}
+        <td>{{$user->email}}
           <p class="">
             <a href="{{url('user/home/email_reset')}}">メールアドレスを変更する</a>
           </p>
@@ -92,7 +93,7 @@
       </tr>
       <tr>
         <th><label for="password">パスワード</label></th>
-        <td colspan="2">
+        <td>
           <p class="">
             <a href="{{url('user/password/reset')}}">パスワードを変更する</a>
           </p>

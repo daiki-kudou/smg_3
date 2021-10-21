@@ -48,13 +48,16 @@
         </thead>
         <tbody>
           <tr>
-            <td class="table-active form_required">{{ Form::label('company', '会社・団体名') }}</td>
+            <td class="table-active form_required">
+              <p class="annotation">会社・団体名がない場合は担当者氏名を入力</p>
+              {{ Form::label('company', '会社・団体名') }}
+            </td>
             <td>{{ Form::text('company', old('company'), ['class' => 'form-control']) }}
               <p class="is-error-company" style="color: red"></p>
             </td>
           </tr>
           <tr>
-            <td class="table-active">{{ Form::label('post_code', '郵便番号') }}</td>
+            <td class="table-active form_required">{{ Form::label('post_code', '郵便番号') }}</td>
             <td>{{ Form::text('post_code', old('post_code'), [
                                 'class' => 'form-control',
                                 'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
@@ -66,12 +69,16 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">{{ Form::label('address1', '住所1（都道府県）') }}</td>
-            <td>{{ Form::text('address1', old('address1'), ['class' => 'form-control']) }}</td>
+            <td class="table-active form_required">{{ Form::label('address1', '住所1（都道府県）') }}</td>
+            <td>{{ Form::text('address1', old('address1'), ['class' => 'form-control']) }}
+            <p class="is-error-address1" style="color: red"></p>
+            </td>
           </tr>
           <tr>
-            <td class="table-active">{{ Form::label('address2', '住所2（市町村番地）') }}</td>
-            <td>{{ Form::text('address2', old('address2'), ['class' => 'form-control']) }}</td>
+            <td class="table-active form_required">{{ Form::label('address2', '住所2（市町村番地）') }}</td>
+            <td>{{ Form::text('address2', old('address2'), ['class' => 'form-control']) }}
+            <p class="is-error-address2" style="color: red"></p>
+            </td>
           </tr>
           <tr>
             <td class="table-active">{{ Form::label('address3', '住所3（建物名）') }}</td>

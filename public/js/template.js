@@ -397,7 +397,7 @@ $(function () {
 
 // アコーディオン
 $(function () {
-  $(".accordion-wrap").hide();
+  $(".accordion-wrap").show();
   $(".accordion-wrap2").show();
   $(".accordion-ttl").on("click", function () {
     $(this).next().slideToggle("fast");

@@ -179,7 +179,7 @@
         </td>
       </tr>
       <tr>
-        <th><label for="post_code">郵便番号</label></th>
+        <th><label for="post_code">郵便番号</label><span class="txtRed c-block">＊</span></th>
         <td>
           <p class="postal-p">〒</p>
           <input onKeyUp="AjaxZip3.zip2addr(this,&#039;&#039;,&#039;address1&#039;,&#039;address2&#039;);"
@@ -191,17 +191,18 @@
       </tr>
       <tr>
         <th>
-          <label for="address1">住所1（都道府県）</label>
+          <label for="address1">住所1（都道府県）</label><span class="txtRed c-block">＊</span>
         </th>
         <td>
           {{ Form::text('address1', $session['address1']??old('address1'), ['class' => 'text2', 'id' => 'address1', 'placeholder' => '入力してください']) }}
+          <p class="is-error-address1" style="color: red"></p>
         </td>
       </tr>
       <tr>
-        <th><label for="address2">住所2（市町村番地）</label></th>
+        <th><label for="address2">住所2（市町村番地）</label><span class="txtRed c-block">＊</span></th>
         <td>
           {{ Form::text('address2', $session['address2']??old('address2'), ['class' => 'text2', 'id' => 'address2', 'placeholder' => '入力してください']) }}
-
+          <p class="is-error-address2" style="color: red"></p>
         </td>
       </tr>
       <tr>

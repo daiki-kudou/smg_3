@@ -74,7 +74,7 @@
         </td>
       </tr>
       <tr>
-        <th>郵便番号</th>
+        <th class="form_required">郵便番号</th>
         <td>
           {{ Form::text('post_code', old('post_code'), [
             'class' => 'form-control',
@@ -88,15 +88,17 @@
         </td>
       </tr>
       <tr>
-        <th><label for="address1">住所1（都道府県）</label></th>
+        <th class="form_required"><label for="address1">住所1（都道府県）</label></th>
         <td colspan="2">
           {{Form::text('address1',$user->address1,['class'=>'form-control'])}}
+          <p class="is-error-address1" style="color: red"></p>
         </td>
       </tr>
       <tr>
-        <th><label for="address2">住所2（市町村番地）</label></th>
+        <th class="form_required"><label for="address2">住所2（市町村番地）</label></th>
         <td colspan="2">
           {{Form::text('address2',$user->address2,['class'=>'form-control'])}}
+          <p class="is-error-address2" style="color: red"></p>
         </td>
       </tr>
       <tr>

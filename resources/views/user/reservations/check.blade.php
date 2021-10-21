@@ -391,7 +391,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan="2" class="text-right checkbox-txt"><span>合計金額</span>
+          <td colspan="2" class="text-right"><span>合計金額</span>
             <span class="sumText">{{number_format(ReservationHelper::taxAndPrice($master))}}</span><span>円</span>
             <p class="txtRight">※上記「総額」は確定金額ではありません。<br>
             変更が生じる場合は弊社にて金額修正し、改めて確認のご連絡をさせて頂きます。<br>

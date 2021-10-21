@@ -470,6 +470,10 @@ form table td .text6 {
     margin: 0 5px;
 }
 
+.table-sum .checkbox-txt .sumText {
+    font-size: 2rem;
+}
+
 .form-input {
     padding: 5px 10px;
     background: #fff;
@@ -539,7 +543,7 @@ form table td .text6 {
     display: flex;
 }
 
-.cart-box {
+/* .cart-box {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 2em;
@@ -551,19 +555,19 @@ form table td .text6 {
 
 .cart-box a {
     color: #fff;
-}
+} */
 
 header div.contents {
     position: relative;
 }
 
-.cart-wrap {
-    width: 95%;
-}
-
 .caution-area {
     background-color: #ffe5e0;
     padding: 1em;
+}
+
+.caution-area::after {
+    display: none;
 }
 
 .cart-addbtn {
@@ -575,8 +579,14 @@ header div.contents {
 
 .cart-addbtn .link-btn3 {
     min-width: 150px;
-
 }
+
+.btn-center {
+    display: flex;
+    justify-content: center;
+}
+
+
 
 /* スピナー -------------------------------*/
 
