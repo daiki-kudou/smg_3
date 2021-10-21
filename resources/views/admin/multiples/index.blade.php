@@ -113,9 +113,11 @@
           </tr>
         </tbody>
       </table>
-      <p class="text-right">
-        ※フリーワード検索は本画面表記の項目のみ対象となります</p>
-      <p class="text-right">※担当者氏名の検索時は、フルネーム時はスペース禁止</p>
+      <div class="annotation text-left">
+        <p>
+          ※フリーワード検索は本画面表記の項目のみ対象となります</p>
+        <p>※担当者氏名の検索時は、フルネーム時はスペース禁止</p>
+      </div>
 
       <div class="btn_box d-flex justify-content-center">
         <a href="{{url('admin/multiples')}}" class="btn reset_btn">リセット</a>
