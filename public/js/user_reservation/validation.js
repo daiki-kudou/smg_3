@@ -67,9 +67,16 @@ $(function () {
         katakana: true,
       },
       post_code: {
+        required: true,
         minlength: 7,
         maxlength: 7,
         number: true,
+      },
+      address1: {
+        required: true,
+      },
+      address2: {
+        required: true,
       },
       tel: {
         number: true,
@@ -115,9 +122,16 @@ $(function () {
         katakana: "※全角カタカナで入力してください",
       },
       post_code: {
+        required: "※必須項目です",
         minlength: "７桁で入力してください",
         maxlength: "７桁で入力してください",
         number: "※半角数字で入力してください",
+      },
+      address1: {
+        required: "※必須項目です",
+      },
+      address2: {
+        required: "※必須項目です",
       },
       tel: {
         minlength: "※最低桁数は10桁です",
