@@ -32,12 +32,9 @@ class ReservationsController extends Controller
       return view('user.reservations.create', compact('request', 'venue'));
     } else {
       $venue = Venue::with(["frame_prices", "time_prices"])->find($request->venue_id);
-      // SMGから依頼があれば、以下で対応利用時間3時間以下は音響ハイグレードさせない
-      // $diffMinutes = (Carbon::parse($request->enter_time)->diffInMinutes(Carbon::parse($request->leave_time)));
       return view('user.reservations.create', compact(
         'request',
         'venue',
-        // 'diffMinutes'
       ));
     }
   }
@@ -106,8 +103,6 @@ class ReservationsController extends Controller
         ->withInput($arrays);
     } else {
       if ($request->select_id != "") {
-        // Session::forget('session_reservations.' . $request->select_id);
-        // Session::get('session_reservations');
         $data = $request->all();
         $user = auth()->user()->id;
         $all_data = [$data, $user];
@@ -118,6 +113,7 @@ class ReservationsController extends Controller
       $user = auth()->user()->id;
       $all_data = [$data, $user];
       $request->session()->push('session_reservations', $all_data);
+      $request->session()->regenerateToken();
       return redirect('user/reservations/cart');
     }
   }
@@ -161,7 +157,6 @@ class ReservationsController extends Controller
 
   public function storeReservation(Request $request)
   {
-
     $sessions = $request->session()->get('session_reservations');
     $user = Auth::user();
 
