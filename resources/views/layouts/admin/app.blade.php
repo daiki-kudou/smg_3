@@ -113,7 +113,14 @@
   <script>
     // 自動補完無効
     $(function(){
-      $('input').attr('autocomplete', 'address-line3');
+      $('input').each(function(index, element){
+        $('input').eq(index).on("mousedown", function(){
+        setTimeout(function(){
+        $('input').eq(index).focus();
+        }, 1);
+        return false;
+        });
+        })
     })
 
     // enterキー無効

@@ -35,6 +35,7 @@
 
     {{ Form::open(['url' => 'admin/reservations', 'method'=>'get', 'id'=>'reserve_search'])}}
     @csrf
+
     <div class="search-wrap">
       <table class="table table-bordered">
         <tbody>
@@ -49,7 +50,7 @@
               <label for="search_id">予約ID</label>
             </th>
             <td>
-              {{ Form::text('search_id', $request->search_id, ['class' => 'form-control', 'id'=>'']) }}
+              {{ Form::text('search_id', $request->search_id, ['class' => 'form-control', 'id'=>'search_id']) }}
               <p class="is-error-search_id" style="color: red"></p>
             </td>
           </tr>

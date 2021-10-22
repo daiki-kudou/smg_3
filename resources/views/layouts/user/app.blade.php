@@ -101,7 +101,6 @@
       .nav-pills .nav-link:not(.active):hover {
         color: #ababab;
       }
-
     </style>
 
     <div class="content-wrapper">
@@ -117,10 +116,17 @@
     <script>
       var rootPath="{{url('/')}}";
       
-      // 自動補完無効
-          $(function(){
-          $('input').attr('autocomplete', 'address-line3');
-          })
+// 自動補完無効
+    $(function(){
+    $('input').each(function(index, element){
+    $('input').eq(index).on("mousedown", function(){
+    setTimeout(function(){
+    $('input').eq(index).focus();
+    }, 1);
+    return false;
+    });
+    })
+    })    
     </script>
 
   </div>
