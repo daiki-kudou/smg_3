@@ -20,6 +20,11 @@
 @endif
 
 <!-- カート一覧 -->
+★★★★★★★★★★★★★★★★★★★★<br>
+★★★★★★★★★★★★★★★★★★★★<br>
+現在のカート件数： {{ count($sessions) }}<br>
+★★★★★★★★★★★★★★★★★★★★<br>
+★★★★★★★★★★★★★★★★★★★★<br>
 <div class="contents">
   <div class="pagetop-text">
     <h1 class="page-title oddcolor"><span>予約カート</span></h1>
@@ -37,8 +42,8 @@
     <h2>選択されている予約はありません</h2>
   </div>
   @else
-  @foreach ($sessions as $key=>$reservation)
 
+  @foreach (array_reverse($sessions,true) as $key=>$reservation)
   <div class="section-wrap">
     <div class="cart-wrap">
       <table class="table-sum">
@@ -189,7 +194,8 @@
               <span class="sumText">{{number_format(ReservationHelper::taxAndPrice($reservation[0]['master']))}}</span><span>円</span>
             </td> -->
             <td colspan="2" class="text-right checkbox-txt"><span>小計(税抜)</span>
-              <span class="sumText">{{number_format(ReservationHelper::taxAndPrice($reservation[0]['master']))}}</span><span>円</span>
+              <span
+                class="sumText">{{number_format(ReservationHelper::taxAndPrice($reservation[0]['master']))}}</span><span>円</span>
             </td>
           </tr>
         </tbody>
@@ -234,7 +240,8 @@
           <td>
             <ul class="sum-list">
               <li>
-                <p><span class="f-wb">{{ReservationHelper::formatDateJA($t_reservation[0]["date"])}}</span><br class="sp">
+                <p><span class="f-wb">{{ReservationHelper::formatDateJA($t_reservation[0]["date"])}}</span><br
+                    class="sp">
                   {{ReservationHelper::getVenueForUser($t_reservation[0]["venue_id"])}} 会場ご利用料
                 </p>
                 <p>{{number_format($t_reservation[0]['master'])}}<span>円</span></p>
@@ -259,7 +266,8 @@
           <td colspan="2">
             <span class="checkbox-txt">総額(税込)</span>
             <span class="sumText">
-              {{number_format(ReservationHelper::taxAndPrice(ReservationHelper::numTimesNumArrays($sessions, "master")))}}
+              {{number_format(ReservationHelper::taxAndPrice(ReservationHelper::numTimesNumArrays($sessions,
+              "master")))}}
             </span>
             <span>円</span>
             <p class="txtRight txtRed">
@@ -303,7 +311,8 @@
 
     <dl class="attention-txt">
       <dt>【個人情報の取り扱いについて】</dt>
-      <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
+      <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
+          href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
     </dl>
 
     <div class="btn-center">
