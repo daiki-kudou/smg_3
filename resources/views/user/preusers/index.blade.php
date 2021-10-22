@@ -1,6 +1,7 @@
 @extends('layouts.reservation.app')
 @section('content')
 
+
 <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
 
 <div class="contents mt-5">
@@ -9,6 +10,7 @@
     <p>メールアドレスを入力してください。会員登録フォームのご案内をします。</p>
   </div>
 </div>
+@include('layouts.admin.errors')
 <section class="contents">
   <form action="{{url("/user/preusers/create")}}" method="POST" id="preuser_index">
     @csrf

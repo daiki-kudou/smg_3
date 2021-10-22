@@ -124,7 +124,9 @@
       <tr>
         <th>会社・団体名 <span class="txtRed c-block">＊</span></th>
         <td>
-          {{ Form::text('company', $session['company']??old('company'), ['class' => 'text3', 'id' => 'company', 'placeholder' => '入力してください']) }}
+          {{ Form::text('company', !empty($session['company'])?$session['company']:"", ['class' => 'text3', 'id' =>
+          'company',
+          'placeholder' => '入力してください']) }}
           <p><span>法人・団体ではない方は、担当者氏名を入力下さい。</span></p>
           <p class="is-error-company" style="color: red"></p>
         </td>
@@ -138,7 +140,9 @@
             <li>
               <div>
                 <p>姓</p>
-                {{ Form::text('first_name', $session['first_name']??old('first_name'), ['class' => 'text1', 'id' => 'first_nam', 'placeholder' => '入力してください']) }}
+                {{ Form::text('first_name', !empty($session['first_name'])?$session['first_name']:"", ['class' =>
+                'text1', 'id' =>
+                'first_nam', 'placeholder' => '入力してください']) }}
                 <br class="spOnlyunder">
                 <p class="is-error-first_name" style="color: red"></p>
               </div>
@@ -146,7 +150,9 @@
             <li>
               <div>
                 <p>名</p>
-                {{ Form::text('last_name', $session['last_name']??old('last_name'), ['class' => 'text1', 'id' => 'last_nam', 'placeholder' => '入力してください']) }}
+                {{ Form::text('last_name', !empty($session['last_name'])?$session['last_name']:"", ['class' => 'text1',
+                'id' =>
+                'last_nam', 'placeholder' => '入力してください']) }}
                 <br class="spOnlyunder">
                 <p class="is-error-last_name" style="color: red"></p>
               </div>
@@ -161,7 +167,9 @@
             <li>
               <div>
                 <p>セイ</p>
-                {{ Form::text('first_name_kana', $session['first_name_kana']??old('first_name_kana'), ['class' => 'text1', 'id' => 'firstkana_nam', 'placeholder' => '入力してください']) }}
+                {{ Form::text('first_name_kana', !empty($session['first_name_kana'])?$session['first_name_kana']:"",
+                ['class' =>
+                'text1', 'id' => 'firstkana_nam', 'placeholder' => '入力してください']) }}
                 <br class="spOnlyunder">
                 <p class="is-error-first_name_kana" style="color: red"></p>
               </div>
@@ -169,7 +177,9 @@
             <li>
               <div>
                 <p>メイ</p>
-                {{ Form::text('last_name_kana', $session['last_name_kana']??old('last_name_kana'), ['class' => 'text1', 'id' => 'lastkana_nam', 'placeholder' => '入力してください']) }}
+                {{ Form::text('last_name_kana', !empty($session['last_name_kana'])?$session['last_name_kana']:"",
+                ['class' => 'text1',
+                'id' => 'lastkana_nam', 'placeholder' => '入力してください']) }}
                 <br class="spOnlyunder">
                 <p class="is-error-last_name_kana" style="color: red"></p>
               </div>
@@ -183,8 +193,9 @@
         <td>
           <p class="postal-p">〒</p>
           <input onKeyUp="AjaxZip3.zip2addr(this,&#039;&#039;,&#039;address1&#039;,&#039;address2&#039;);"
-            autocomplete="off" name="post_code" type="text" value="{{ $session['post_code']??old('post_code') }}"
-            id="post_code" onpaste="return false" oncontextmenu="return false">
+            autocomplete="off" name="post_code" type="text"
+            value="{{ !empty($session['post_code'])?$session['post_code']:"" }}" id="post_code" onpaste="return false"
+            oncontextmenu="return false">
           <p>※半角数字、ハイフンなしで入力下さい。</p>
           <p class="is-error-post_code" style="color: red"></p>
         </td>
@@ -194,21 +205,27 @@
           <label for="address1">住所1（都道府県）</label><span class="txtRed c-block">＊</span>
         </th>
         <td>
-          {{ Form::text('address1', $session['address1']??old('address1'), ['class' => 'text2', 'id' => 'address1', 'placeholder' => '入力してください']) }}
+          {{ Form::text('address1', !empty($session['address1'])?$session['address1']:"", ['class' => 'text2', 'id' =>
+          'address1',
+          'placeholder' => '入力してください']) }}
           <p class="is-error-address1" style="color: red"></p>
         </td>
       </tr>
       <tr>
         <th><label for="address2">住所2（市町村番地）</label><span class="txtRed c-block">＊</span></th>
         <td>
-          {{ Form::text('address2', $session['address2']??old('address2'), ['class' => 'text2', 'id' => 'address2', 'placeholder' => '入力してください']) }}
+          {{ Form::text('address2', !empty($session['address2'])?$session['address2']:"", ['class' => 'text2', 'id' =>
+          'address2',
+          'placeholder' => '入力してください']) }}
           <p class="is-error-address2" style="color: red"></p>
         </td>
       </tr>
       <tr>
         <th><label for="address3">住所3（建物名）</label></th>
         <td>
-          {{ Form::text('address3', $session['address3']??old('address3'), ['class' => 'text2', 'id' => 'address3', 'placeholder' => '入力してください']) }}
+          {{ Form::text('address3', !empty($session['address3'])?$session['address3']:"", ['class' => 'text2', 'id' =>
+          'address3',
+          'placeholder' => '入力してください']) }}
         </td>
       </tr>
       <tr class="tr-tel-0">
@@ -223,7 +240,9 @@
         </th>
         <td>
           <p class="checkbox-txt">固定電話</p>
-          {{ Form::text('tel', $session['tel']??old('tel'), ['class' => 'text2', 'id' => 'tel', 'placeholder' => '入力してください']) }}
+          {{ Form::text('tel', !empty($session['tel'])?$session['tel']:"", ['class' => 'text2', 'id' => 'tel',
+          'placeholder' =>
+          '入力してください']) }}
           <p style="display:inline-block">10文字</p>
           <p class="is-error-tel" style="color: red"></p>
           <p>※半角数字、ハイフンなしで入力下さい。</p>
@@ -234,7 +253,9 @@
         </th>
         <td>
           <p class="checkbox-txt">携帯電話</p>
-          {{ Form::text('mobile', $session['mobile']??old('mobile'), ['class' => 'text2', 'id' => 'mobile', 'placeholder' => '入力してください']) }}
+          {{ Form::text('mobile', !empty($session['mobile'])?$session['mobile']:"", ['class' => 'text2', 'id' =>
+          'mobile',
+          'placeholder' => '入力してください']) }}
           <p style="display:inline-block">11文字</p>
           <p>※半角数字、ハイフンなしで入力下さい。</p>
           <p class="is-error-mobile" style="color: red"></p>
@@ -244,7 +265,9 @@
       <tr>
         <th>FAX</th>
         <td>
-          {{ Form::text('fax', $session['fax']??old('fax'), ['class' => 'text2', 'id' => 'fax', 'placeholder' => '入力してください']) }}
+          {{ Form::text('fax', !empty($session['fax'])?$session['fax']:"", ['class' => 'text2', 'id' => 'fax',
+          'placeholder' =>
+          '入力してください','autocomplete'=>"address-line3"]) }}
           <p class="is-error-fax" style="color: red"></p>
           <p>※半角数字、ハイフンなしで入力下さい。</p>
         </td>
@@ -252,14 +275,14 @@
       <tr>
         <th>メールアドレス</th>
         <td>
-          {{ $request->email }}
-          {{ Form::hidden('email', $request->email, ['id' => 'email']) }}
+          {{ Form::text('email', !empty($session['email'])?$session['email']:$request->email, ['id' =>
+          'email','readonly','class' => 'text2']) }}
         </td>
       </tr>
       <tr>
         <th>パスワード<span class="txtRed">＊</span></th>
         <td>
-          {{ Form::password('password', null, ['class' => 'text2']) }}
+          {{ Form::password('password', ['class' => 'text2','autocomplete'=>"address-line3"]) }}
           <p class="is-error-password" style="color: red"></p>
           <p>※半角英数字6文字以上20文字以内にてご記入お願い致します。</p>
         </td>
@@ -278,35 +301,34 @@
           <ul class="radio-box">
             <li>PC検索：
               <div>
-                <input name="research" id="google" class="" type="radio" value="1">
-                <label for="google">Google</label>
-                <input name="research" id="yahoo" class="" type="radio" value="2">
-                <label for="yahoo">Yahoo</label>
-                <input name="research" id="others" class="" type="radio" value="3">
-                <label for="others">その他</label>
+                {{Form::radio('research',1,!empty($session['research'])?((int)$session['research']===1?true:false):false,['id'=>'google'])}}
+                {{ Form::label('google','Google') }}
+                {{Form::radio('research',2,!empty($session['research'])?((int)$session['research']===2?true:false):false,['id'=>'yahoo'])}}
+                {{ Form::label('yahoo','Yahoo') }}
+                {{Form::radio('research',3,!empty($session['research'])?((int)$session['research']===3?true:false):false,['id'=>'others'])}}
+                {{ Form::label('others','その他') }}
               </div>
             </li>
             <li>
-              <input name="research" id="phoneSearch" class="" type="radio" value="1"><label
-                for="phoneSearch">スマホ検索</label>
+              <input name="research" id="phoneSearch" type="radio" value="1"><label for="phoneSearch">スマホ検索</label>
             </li>
             <li>
               <label style="width: 90px;" for="intro">
                 <input type="radio" name="research" id="intro" value="2">ご紹介</label>
-              <input name="intro" type="text" class="" id="intro" placeholder="入力してください">
+              <input name="intro" type="text" id="intro" placeholder="入力してください">
             </li>
             <li>
-              <input name="research" id="mail" class="" type="radio" value="3">
+              <input name="research" id="mail" type="radio" value="3">
               <label for="mail">メルマガ</label>
             </li>
-            <li><input name="research" id="flyer" class="" type="radio" value="4">
+            <li><input name="research" id="flyer" type="radio" value="4">
               <label for="flyer">看板・チラシ</label>
             </li>
             <li><label style="width: 90px;">
                 <input type="radio" name="research" id="other" value="5">その他
               </label>
               <label for="other"></label>
-              <input name="othertext" type="text" class="" id="" placeholder="入力してください">
+              <input name="othertext" type="text" placeholder="入力してください">
             </li>
           </ul>
         </td>
@@ -323,14 +345,14 @@
     <p class="checkbox-txt ">
       {{ Form::checkbox('q1', '1', false, ['id' => 'last_checkbox']) }}
       {{ Form::label('last_checkbox', '【個人情報の取り扱いについて】に同意します。') }}
-      <p class="is-error-q1" style="color: red"></p>
+    <p class="is-error-q1" style="color: red"></p>
 
     </p>
   </div>
 
   <div class="btn-wrapper2">
     <p>
-      <button type="submit" id="" name="action" block="false">確認画面へ</button>
+      <button type="submit" name="action" block="false">確認画面へ</button>
     </p>
   </div>
   {{ Form::hidden('id', $request->id) }}

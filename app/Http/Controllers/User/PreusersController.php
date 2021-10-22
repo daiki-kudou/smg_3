@@ -9,11 +9,17 @@ use Illuminate\Http\Request;
 use App\Mail\AdminReqLeg;
 use App\Mail\UserReqLeg;
 use App\Models\Preuser;
+use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 // 日付
 use Illuminate\Database\Eloquent\Model;
 // Str
 use Illuminate\Support\Str;
+use App\Service\SendSMGEmail;
+use DB;
+use Session;
+
+
 
 
 
@@ -29,20 +35,6 @@ class PreusersController extends Controller
     return view('user.preusers.index', []);
   }
 
-  // メール送信
-  public function sendmail(Request $request)
-  {
-    // 管理者
-    $id = $request->id;
-    $token = $request->token;
-    $email = $request->email;
-    $link = url('/') . "/user/preusers/" . $id . "/" . $token . "/" . $email;
-    $admin = config('app.admin_email');
-    Mail::to($admin)->send(new AdminReqLeg($id, $token, $email, $link));
-    Mail::to($email)->send(new UserReqLeg($id, $token, $email, $link));
-
-    return redirect(route('user.preusers.complete', ['email' => $email]));
-  }
 
   public function complete(Request $request)
   {
@@ -59,33 +51,42 @@ class PreusersController extends Controller
    */
   public function create(Request $request)
   {
-    // ココにバリデーションつける必要あり
-    $preuser = new Preuser;
-    $preuser->email = $request->email;
-    $preuser->token = Str::random(250);
-    // 丸岡さん！！！！！！！　ここでメールの有効期限を60分にしてます
-    $preuser->expiration_datetime = now()->addMinutes(60);
 
-    $preuser->save();
+    $users = User::where('email', $request->email)->first();
+    $preusers = Preuser::where('email', $request->email)->where('expiration_datetime', ">", now())->first();
 
-    return redirect(route('user.preusers.sendmail', [
-      'id' => $preuser->id,
-      'email' => $preuser->email,
-      'token' => $preuser->token,
-      'expiration_datetime' => $preuser->expiration_datetime,
-    ]));
+    try {
+      if ($users) {
+        throw new \Exception("既に存在するメールアドレスです。お持ちのメールアドレスでログインを試みるか別のメールアドレスで再度お試しください");
+      } elseif ($preusers) {
+        throw new \Exception("既に認証用メールを送付しています。届いていない場合、迷惑メールフォルダをご確認いただくは別のメールアドレスをお試しください");
+      }
+    } catch (\Exception $e) {
+      return back()->withInput()->withErrors($e->getMessage());
+    }
+
+    DB::beginTransaction();
+    try {
+      $preuser = new Preuser;
+      $result = $preuser->create([
+        'email' => $request->email,
+        'token' => Str::random(250),
+        'expiration_datetime' => now()->addMinutes(60),
+      ]);
+      $link = url('/') . "/user/preusers/" . $result->id . "/" . $result->token . "/" . $result->email;
+
+      $SendSMGEmail = new SendSMGEmail(['result' => $result, 'link' => $link], "", "");
+      $SendSMGEmail->AuthSend("ユーザー会員登録用、認証メール送信");
+
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollback();
+      return back()->withInput()->withErrors($e->getMessage());
+    }
+    $request->session()->regenerate();
+    return redirect(route('user.preusers.complete', ['email' => $request->email]));
   }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(Request $request)
-  {
-    //
-  }
 
   /**
    * Display the specified resource.
@@ -95,6 +96,15 @@ class PreusersController extends Controller
    */
   public function show($id, $token, $email)
   {
+    try {
+      $preuser_check = Preuser::where('id', $id)->where('token', $token)->exists();
+      if (!$preuser_check) {
+        throw new \Exception("認証有効期限切れ");
+      }
+    } catch (\Exception $e) {
+      return abort(403);
+    }
+
     $preuser_check = Preuser::where('id', $id)->where('token', $token)->exists();
     $time_check = Preuser::find($id)->expiration_datetime;
     $preuser = Preuser::find($id);
@@ -102,50 +112,17 @@ class PreusersController extends Controller
       if ($preuser_check) {
         $preuser->status = 1;
         $preuser->save();
+        session()->regenerate();
         return redirect(route('user.register', ['id' => $id, 'token' => $token, 'status' => 1, 'email' => $email]));
       } else {
         // トークンなど合致しなければルートへ
-        // return redirect('/');
+        session()->regenerate();
         return redirect(url('user/preusers'));
       };
     } else {
       // 時間が経過していたらルートへ
-      // return redirect('/');
+      session()->regenerate();
       return redirect(url('user/preusers'));
     }
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function edit($id)
-  {
-    //
-  }
-
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request, $id)
-  {
-    //
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function destroy($id)
-  {
-    //
   }
 }

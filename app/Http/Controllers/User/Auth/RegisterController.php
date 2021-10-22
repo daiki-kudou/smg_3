@@ -11,10 +11,13 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminFinLeg;
 use App\Mail\UserFinLeg;
+use App\Service\SendSMGEmail;
+use App\Models\Preuser;
+use DB;
+
 
 
 class RegisterController extends Controller
@@ -41,15 +44,17 @@ class RegisterController extends Controller
   public function showRegistrationForm(Request $request)
   {
     $session = $request->session()->pull('request');
+    if (empty($session['back'])) {
+      $session = [];
+    }
     return view('user.auth.register', compact('request', 'session'));
   }
 
   public function checkRegistrationForm(Request $request)
   {
-
+    // dd($request->all());
     $validator = Validator::make($request->all(), [
       'email' => 'required|string|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
-      // 'email' => 'required|unique:users,email|max:255|string|email',
       'company' => 'required|max:255',
       'first_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
       'last_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
@@ -73,41 +78,6 @@ class RegisterController extends Controller
   }
 
 
-  protected function validator(array $data)
-  {
-    // ※注意
-    return Validator::make($data, [
-      // 'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
-      // 'password' => ['required', 'string', 'min:8', 'confirmed'],
-      // 'first_name'     => ['required', 'string', 'max:255'],
-      // 'last_name'     => ['required', 'string', 'max:255'],
-      // 'company'     => ['required', 'string', 'max:255'],
-    ]);
-  }
-
-  protected function create(array $data)
-  {
-    return User::create([
-      'first_name'     => $data['first_name'],
-      'last_name'     => $data['last_name'],
-      'email'    => $data['email'],
-      'password' => Hash::make($data['password']),
-      'company' =>  $data['company'],
-      'post_code' =>  $data['post_code'],
-      'address1' =>  $data['address1'],
-      'address2' =>  $data['address2'],
-      'address3' =>  $data['address3'],
-      'first_name_kana' =>  $data['first_name_kana'],
-      'last_name_kana' =>  $data['last_name_kana'],
-      'status' => 1,
-      'admin_or_user' => 2,
-      'mobile' => $data['mobile'],
-      'pay_method' => 1,
-      'pay_limit' => 1,
-      'admin_or_user' => 2,
-    ]);
-  }
-
   public function register(Request $request)
   {
     $request->session()->put('request', $request->all());
@@ -120,16 +90,41 @@ class RegisterController extends Controller
           'token' => $request->token,
           'email' => $request->email,
         ]
-      ));
+      ))->withInput();
     }
-    $this->validator($request->all())->validate();
-    event(new Registered($user = $this->create($request->all())));
 
-    $admin = config('app.admin_email');
-    $user_email = $user->email;
-    Mail::to($admin)->send(new AdminFinLeg($user));
-    Mail::to($user_email)->send(new UserFinLeg($user));
 
+    DB::beginTransaction();
+    try {
+      $data = $request->all();
+      $user = User::create([
+        'first_name'     => $data['first_name'],
+        'last_name'     => $data['last_name'],
+        'email'    => $data['email'],
+        'password' => Hash::make($data['password']),
+        'company' =>  $data['company'],
+        'post_code' =>  $data['post_code'],
+        'address1' =>  $data['address1'],
+        'address2' =>  $data['address2'],
+        'address3' =>  $data['address3'],
+        'first_name_kana' =>  $data['first_name_kana'],
+        'last_name_kana' =>  $data['last_name_kana'],
+        'status' => 1,
+        'admin_or_user' => 2,
+        'mobile' => $data['mobile'],
+        'pay_method' => 1,
+        'pay_limit' => 1,
+      ]);
+      $SendSMGEmail = new SendSMGEmail($user, "", "");
+      $SendSMGEmail->AuthSend("ユーザー会員登録用成功");
+      DB::table('preusers')->where('email', $user->email)->delete();
+
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollback();
+      return back()->withInput()->withErrors($e->getMessage());
+    }
+    $request->session()->regenerate();
     return redirect(url('user/login'))->with('flash_message', '会員登録が完了しました。下記より、ログインしてください。');
   }
 }

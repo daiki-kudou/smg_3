@@ -16,12 +16,9 @@ class AdminReqLeg extends Mailable
    *
    * @return void
    */
-  public function __construct($id, $token, $email, $link)
+  public function __construct($data)
   {
-    $this->id = $id;
-    $this->token = $token;
-    $this->email = $email;
-    $this->link = $link;
+    $this->data = $data;
   }
 
   /**
@@ -34,10 +31,7 @@ class AdminReqLeg extends Mailable
     return $this->view('maileclipse::templates.adminReqLeg')
       ->subject('管理者通知　会員登録について')
       ->with([
-        'id' => $this->id,
-        'token' => $this->token,
-        'email' => $this->email,
-        'link' => $this->link,
+        'data' => $this->data,
       ]);
   }
 }

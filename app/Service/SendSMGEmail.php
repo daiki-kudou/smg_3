@@ -18,6 +18,8 @@ use App\Jobs\Reservation\MailForDeletePreReservation;
 use App\Jobs\Reservation\MailForDeleteReservation;
 use App\Jobs\Cron\CronForPayDayFiveDaysLeft;
 use App\Jobs\Cron\CronPayDayTwoDaysLeft;
+use App\Jobs\Auth\MailForRegister;
+use App\Jobs\Auth\MailForRegisterComplete;
 
 
 class SendSMGEmail
@@ -95,6 +97,7 @@ class SendSMGEmail
         break;
     }
   }
+
   /**
    * クーロン用送信dispatch
    *
@@ -111,6 +114,29 @@ class SendSMGEmail
       case "入金期日2営業日前(催促)":
         CronPayDayTwoDaysLeft::dispatch($this->user, $this->reservation, $this->venue);
         break;
+
+      default:
+        break;
+    }
+  }
+
+  /**
+   * auth用送信dispatch
+   *
+   * @param string $condition
+   * @return void
+   */
+  public function AuthSend($condition)
+  {
+    switch ($condition) {
+      case "ユーザー会員登録用、認証メール送信":
+        MailForRegister::dispatch($this->user, $this->reservation, $this->venue);
+        break;
+
+      case "ユーザー会員登録用成功":
+        MailForRegisterComplete::dispatch($this->user, $this->reservation, $this->venue);
+        break;
+
 
       default:
         break;

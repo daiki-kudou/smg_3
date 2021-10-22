@@ -10,6 +10,7 @@
 </div>
 <section class="contents">
   {{ Form::open(['route' => 'user.preusers.store', 'method'=>'POST']) }}
+  @csrf
   <div class="bgColorGray first">
     <table class="table-box">
       <tr>
