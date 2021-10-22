@@ -480,7 +480,7 @@
       if ($("#cartNone").length) {
         $('.cart_area').css('display', 'none');
       } else {
-        ('.cart_area').css('display', 'block');
+       $('.cart_area').css('display', 'block');
       }
     });
   </script>

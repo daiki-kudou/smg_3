@@ -134,4 +134,9 @@ class HomeController extends Controller
   {
     return view('home.cxl_membership_done');
   }
+
+  public function timeout()
+  {
+    return view('errors.timeout');
+  }
 }

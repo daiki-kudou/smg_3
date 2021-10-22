@@ -1,6 +1,5 @@
 <?php
 Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
-  // Route::middleware('basic_auth')->group(function () {
   Route::get('/', 'HomeController@index')->name('home');
   Route::get('slct_date', 'HomeController@slct_date');
   Route::get('slct_venue', 'HomeController@slct_venue');
@@ -8,7 +7,7 @@ Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
   // 予約時の時間制御用ajax
   Route::post('control_time', 'HomeController@control_time');
   Route::get('cxl_member_ship_done', 'HomeController@cxl_member_ship_done');
-  // });
+  Route::get('timeout', 'HomeController@timeout')->name('timeout');
 });
 
 

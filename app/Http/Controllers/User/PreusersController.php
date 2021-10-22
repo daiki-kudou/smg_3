@@ -18,6 +18,8 @@ use Illuminate\Support\Str;
 use App\Service\SendSMGEmail;
 use DB;
 use Session;
+use Illuminate\Support\Facades\Auth;
+
 
 
 
@@ -99,7 +101,7 @@ class PreusersController extends Controller
     try {
       $preuser_check = Preuser::where('id', $id)->where('token', $token)->exists();
       if (!$preuser_check) {
-        throw new \Exception("認証有効期限切れ");
+        throw new \Exception("認証用ユーザー存在しない");
       }
     } catch (\Exception $e) {
       return abort(403);
@@ -112,17 +114,22 @@ class PreusersController extends Controller
       if ($preuser_check) {
         $preuser->status = 1;
         $preuser->save();
+        if (Auth::check()) {
+          Auth::logout();
+        }
         session()->regenerate();
         return redirect(route('user.register', ['id' => $id, 'token' => $token, 'status' => 1, 'email' => $email]));
       } else {
         // トークンなど合致しなければルートへ
         session()->regenerate();
-        return redirect(url('user/preusers'));
+        // return redirect(url('user/preusers'));
+        return redirect('/timeout');
       };
     } else {
       // 時間が経過していたらルートへ
       session()->regenerate();
-      return redirect(url('user/preusers'));
+      // return redirect(url('user/preusers'));
+      return redirect('/timeout');
     }
   }
 }
