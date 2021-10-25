@@ -283,7 +283,7 @@ class DataTableController extends Controller
       $result .=
         "<li>" .
         "<div class='multi-column__item'>" .
-        "<span class='payment-status'>" .
+        "<span class='payment-status' style='" . ((int)$reservation->cxls->first()->master_total < 0 ? "color:red;" : "") . "'>" .
         number_format((int)$reservation->cxls->first()->master_total) .
         "</span>" .
         "</div>" .
@@ -343,7 +343,7 @@ class DataTableController extends Controller
       $result .=
         "<li>" .
         "<div class='multi-column__item'>" .
-        "<span class='payment-status'>" .
+        "<span class='payment-status' style='" . ($reservation->venue->getProfitForPartner($reservation->venue, $b->master_total, $b->layout_price, $reservation) < 0 ? "color:red;" : "") . "'>" .
         number_format($reservation->venue->getProfitForPartner($reservation->venue, $b->master_total, $b->layout_price, $reservation)) .
         "</span>" .
         "</div>" .
@@ -366,7 +366,7 @@ class DataTableController extends Controller
       $result .=
         "<li>" .
         "<div class='multi-column__item'>" .
-        "<span class='payment-status'>" .
+        "<span class='payment-status' style='" . ((int)(((int)$reservation->cxls->first()->master_total) - ($reservation->venue->getCxlCostForPartner($reservation))) < 0 ? "color:red" : "") . "'>" .
         number_format(((int)$reservation->cxls->first()->master_total) - ($reservation->venue->getCxlCostForPartner($reservation))) .
         "</span>" .
         "</div>" .

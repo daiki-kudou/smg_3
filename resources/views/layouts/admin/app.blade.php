@@ -118,15 +118,17 @@
       var this_val=$('input').eq(index);
       if (Number(this_val.val())<0) {
           this_val.css('color','red');
-        } 
+        }else if(Number(this_val.val())>0){
+          this_val.css('color','black');
+        }
       })
     });
 
     $(function(){
       $('input').each(function(index, element){
-        var this_val=$('input').eq(index);
-        if (Number(this_val.val())<0) {
-          this_val.css('color','red');
+        var this_val=Number($('input').eq(index).val().replace(/,/g, '').replace(/合計：/g, '').replace(/円/g, '').replace(/小計：/g, '').replace(/消費税：/g, '').replace(/合計金額：/g, ''));
+        if (this_val<0) {
+          $('input').eq(index).css('color','red');
         }
       })
       $('td').each(function(index, element){
