@@ -81,7 +81,8 @@
                   <p><span>申込日：</span>{{ ReservationHelper::formatDate($reservation->created_at) }}
                   </p>
                   <p>
-                    <span>予約確定日：</span>{{ !empty($reservation->approve_send_at) ? ReservationHelper::formatDate($reservation->approve_send_at) : '' }}
+                    <span>予約確定日：</span>{{ !empty($reservation->approve_send_at) ?
+                    ReservationHelper::formatDate($reservation->approve_send_at) : '' }}
                   </p>
                 </li>
               </ul>
@@ -116,8 +117,7 @@
                 <p>
                   {{ ReservationHelper::getVenueForUser($reservation->venue_id) }}
                 </p>
-                <p>{{ ReservationHelper::priceSystem($reservation->price_system) }}</p>
-
+                <p>{{ (int)$reservation->price_system===2?"音響HG":"" }}</p>
               </td>
             </tr>
             <tr>
@@ -281,13 +281,15 @@
               <tr>
                 <td class="table-active"><label for="prelayout">準備</label></td>
                 <td>
-                  {{$reservation->bills->sortBy("id")->first()->breakdowns->where('unit_item', 'レイアウト準備料金')->contains('unit_item','レイアウト準備料金')?"有り":"無し"}}
+                  {{$reservation->bills->sortBy("id")->first()->breakdowns->where('unit_item',
+                  'レイアウト準備料金')->contains('unit_item','レイアウト準備料金')?"有り":"無し"}}
                 </td>
               </tr>
               <tr>
                 <td class="table-active"><label for="postlayout">片付</label></td>
                 <td>
-                  {{$reservation->bills->sortBy("id")->first()->breakdowns->where('unit_item', 'レイアウト片付料金')->contains('unit_item','レイアウト片付料金')?"有り":"無し"}}
+                  {{$reservation->bills->sortBy("id")->first()->breakdowns->where('unit_item',
+                  'レイアウト片付料金')->contains('unit_item','レイアウト片付料金')?"有り":"無し"}}
                 </td>
               </tr>
             </tbody>
@@ -408,7 +410,8 @@
                       </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      {{ Form::open(['url' => 'user/home/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                      {{ Form::open(['url' => 'user/home/invoice', 'method' => 'post', 'target' => '_blank', 'class' =>
+                      '']) }}
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id) }}
@@ -416,7 +419,8 @@
                         {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}</p>
                       {{ Form::close() }}
 
-                      {{ Form::open(['url' => 'user/home/receipt', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                      {{ Form::open(['url' => 'user/home/receipt', 'method' => 'post', 'target' => '_blank', 'class' =>
+                      '']) }}
                       @csrf
                       {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id) }}
                       @if ($reservation->bills->sortBy("id")->first()->paid == 1)
@@ -666,7 +670,8 @@
   <div class="confirm-box text-sm-center">
     <p>上記、予約内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
     <p class="text-center mt-3">
-      {{ Form::model($reservation, ['method' => 'PUT', 'route' => ['user.home.updatestatus', $reservation->id], 'class' => 'text-center']) }}
+      {{ Form::model($reservation, ['method' => 'PUT', 'route' => ['user.home.updatestatus', $reservation->id], 'class'
+      => 'text-center']) }}
       @csrf
       {{ Form::hidden('update_status', 3) }}
 
@@ -708,7 +713,8 @@
                       </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      {{ Form::open(['url' => 'user/home/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                      {{ Form::open(['url' => 'user/home/invoice', 'method' => 'post', 'target' => '_blank', 'class' =>
+                      '']) }}
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('bill_id', $other_bill->id) }}
@@ -716,7 +722,8 @@
                         {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}</p>
                       {{ Form::close() }}
 
-                      {{ Form::open(['url' => 'user/home/receipt', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                      {{ Form::open(['url' => 'user/home/receipt', 'method' => 'post', 'target' => '_blank', 'class' =>
+                      '']) }}
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('bill_id', $other_bill->id) }}
@@ -750,7 +757,8 @@
                       {{ ReservationHelper::formatDate($other_bill->created_at) }}
                     </p>
                     <p><span>予約確定日：</span>
-                      {{ !empty($other_bill->approve_send_at) ? ReservationHelper::formatDate($other_bill->approve_send_at) : '' }}
+                      {{ !empty($other_bill->approve_send_at) ?
+                      ReservationHelper::formatDate($other_bill->approve_send_at) : '' }}
                     </p>
                   </li>
                 </ul>
@@ -1035,7 +1043,8 @@
           <td>会場料</td>
           <td>
             <p>
-              {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->pluck('venue_price')->sum()) }}円
+              {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->pluck('venue_price')->sum())
+                }}円
             </p>
           </td>
         </tr>
@@ -1043,7 +1052,8 @@
           <td>有料備品　サービス</td>
           <td>
             <p>
-              {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->pluck('equipment_price')->sum(),) }}円
+              {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->
+                pluck('equipment_price')->sum(),) }}円
             </p>
           </td>
         </tr>
@@ -1051,7 +1061,8 @@
           <td>レイアウト変更料</td>
           <td>
             <p>
-              {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->pluck('layout_price')->sum()) }}円
+              {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->pluck('layout_price')->sum())
+                }}円
             </p>
           </td>
         </tr>
@@ -1059,7 +1070,8 @@
           <td>その他</td>
           <td>
             <p>
-              {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->pluck('others_price')->sum()) }}円
+              {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->pluck('others_price')->sum())
+                }}円
             </p>
           </td>
         </tr>
@@ -1070,7 +1082,8 @@
             <div class="d-flex justify-content-end">
               <p>小計：</p>
               <p>
-                {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->pluck('master_subtotal')->sum()) }}円
+                {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->
+                  pluck('master_subtotal')->sum()) }}円
               </p>
             </div>
           </td>
@@ -1080,7 +1093,8 @@
             <div class="d-flex justify-content-end">
               <p>消費税：</p>
               <p>
-                {{ number_format(ReservationHelper::getTax($reservation->bills->where('reservation_status', '<=', 3)->pluck('master_subtotal')->sum(),)) }}円
+                {{ number_format(ReservationHelper::getTax($reservation->bills->where('reservation_status', '<=', 3)->
+                  pluck('master_subtotal')->sum(),)) }}円
               </p>
             </div>
           </td>
@@ -1090,7 +1104,8 @@
             <div class="d-flex justify-content-end">
               <p>合計金額：</p>
               <p>
-                {{ number_format(ReservationHelper::taxAndPrice($reservation->bills->where('reservation_status', '<=', 3)->pluck('master_subtotal')->sum(),)) }}円
+                {{ number_format(ReservationHelper::taxAndPrice($reservation->bills->where('reservation_status', '<=',
+                  3)->pluck('master_subtotal')->sum(),)) }}円
               </p>
             </div>
           </td>
@@ -1129,7 +1144,8 @@
                       </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      {{ Form::open(['url' => 'user/home/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                      {{ Form::open(['url' => 'user/home/invoice', 'method' => 'post', 'target' => '_blank', 'class' =>
+                      '']) }}
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('cxl_id', $cxl->id) }}
@@ -1138,7 +1154,8 @@
                       </p>
                       {{ Form::close() }}
 
-                      {{ Form::open(['url' => 'user/home/receipt', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+                      {{ Form::open(['url' => 'user/home/receipt', 'method'=>'post', 'target'=>'_blank', 'class'=>''])
+                      }}
                       @csrf
                       {{ Form::hidden('cxl_id', $cxl->id ) }}
                       @if ($reservation->cxls->first()->paid==1)

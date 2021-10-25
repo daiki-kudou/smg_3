@@ -56,7 +56,8 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
       </ul>
-      <div class="user_info">会員ID：{{Auth::id()}}</div>
+      <div class="user_info">会員ID：{{ReservationHelper::fixId(Auth::id())}}</div>
+      <div class="user_info">会社・団体名：{{ReservationHelper::getCompany(Auth::id())}}</div>
       <div class="user_info">メール：{{(Auth::user()->email)}}</div>
       <div>
         <a class="dropdown-item" href="{{ route('user.logout') }}"
