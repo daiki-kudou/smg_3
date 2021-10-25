@@ -63,4 +63,19 @@ class ForgotPasswordController extends Controller
     return view('user.auth.passwords.reset_sent');
     // return back()->with('status', trans($response));
   }
+
+  /**
+   * Get the response for a failed password reset link.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  string  $response
+   * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+   */
+  protected function sendResetLinkFailedResponse(Request $request, $response)
+  {
+    return back()
+      ->withInput($request->only('email'))
+      ->withErrors(['email' => trans("既にパスワード再設定用のメールを送信しました。
+      届かない場合はメールアドレスを変更もしくは、迷惑メールの確認をお願いします")]);
+  }
 }
