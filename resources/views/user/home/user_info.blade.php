@@ -38,8 +38,13 @@
     </thead>
     <tbody>
       <tr>
+        <th><label for="company">顧客ID</label><br></th>
+        <td>{{ReservationHelper::fixId($user->id)}}</td>
+      </tr>
+      <tr>
         <th><label for="company">会社・団体名</label><br>
-        <span class="annotation">※会社・団体名の変更を希望される際はSMGまでご連絡下さい。</span></th>
+          <span class="annotation">※会社・団体名の変更を希望される際はSMGまでご連絡下さい。</span>
+        </th>
         <td>{{$user->company}}</td>
       </tr>
       <tr>

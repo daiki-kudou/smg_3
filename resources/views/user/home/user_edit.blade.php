@@ -76,14 +76,14 @@
       <tr>
         <th class="form_required">郵便番号</th>
         <td>
-          {{ Form::text('post_code', old('post_code'), [
-            'class' => 'form-control',
-            'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
-            'autocomplete'=>'off',
-            'placeholder' => '半角数字で入力してください',
-            'onpaste'=>"return false",
-            'oncontextmenu'=>"return false" 
-            ]) }}
+          {{ Form::text('post_code', $user->post_code, [
+          'class' => 'form-control',
+          'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
+          'autocomplete'=>'off',
+          'placeholder' => '半角数字で入力してください',
+          'onpaste'=>"return false",
+          'oncontextmenu'=>"return false"
+          ]) }}
           <p class="is-error-post_code" style="color: red"></p>
         </td>
       </tr>
