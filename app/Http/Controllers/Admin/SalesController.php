@@ -48,11 +48,6 @@ class SalesController extends Controller
       ->orderByRaw("予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc")
       ->get();
 
-
-
-
-
-
     // // ※参照
     // // https://blog.hrendoh.com/laravel-6-download-csv-with-streamdownload/
 

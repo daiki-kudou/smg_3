@@ -505,32 +505,40 @@
             <tbody class="venue_main">
               @for ($i = 0; $i < $v_cnt; $i++) <tr>
                 <td>
-                  {{ Form::text('venue_breakdown_item[]', $checkInfo['venue_breakdown_item'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_item[]',
+                  $checkInfo['venue_breakdown_item'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_cost[]', $checkInfo['venue_breakdown_cost'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_cost[]',
+                  $checkInfo['venue_breakdown_cost'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count[]', $checkInfo['venue_breakdown_count'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_count[]',
+                  $checkInfo['venue_breakdown_count'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_subtotal[]', $checkInfo['venue_breakdown_subtotal'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_subtotal[]',
+                  $checkInfo['venue_breakdown_subtotal'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
                 @endfor
                 @if (!empty($checkInfo['venue_breakdown_discount_item']))
                 <tr>
                   <td>
-                    {{ Form::text('venue_breakdown_item[]', $checkInfo['venue_breakdown_discount_item'],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('venue_breakdown_item[]',
+                    $checkInfo['venue_breakdown_discount_item'],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_cost[]', $checkInfo['venue_breakdown_discount_cost'],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('venue_breakdown_cost[]',
+                    $checkInfo['venue_breakdown_discount_cost'],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_count[]', $checkInfo['venue_breakdown_discount_count'],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('venue_breakdown_count[]',
+                    $checkInfo['venue_breakdown_discount_count'],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_subtotal[]', $checkInfo['venue_breakdown_discount_subtotal'],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('venue_breakdown_subtotal[]',
+                    $checkInfo['venue_breakdown_discount_subtotal'],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
                 @endif
@@ -540,7 +548,8 @@
                 <td colspan="3"></td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
-                  {{ Form::text('venue_price', $checkInfo['venue_price'],['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                  {{ Form::text('venue_price', $checkInfo['venue_price'],['class'=>'form-control col-xs-3', 'readonly']
+                  ) }}
                 </td>
               </tr>
             </tbody>
@@ -568,63 +577,78 @@
             <tbody class="equipment_main">
               @for ($e = 0; $e < $e_cnt; $e++) <tr>
                 <td>
-                  {{ Form::text('equipment_breakdown_item[]', $checkInfo['equipment_breakdown_item'.$e],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_item[]',
+                  $checkInfo['equipment_breakdown_item'.$e],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_cost[]', $checkInfo['equipment_breakdown_cost'.$e],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_cost[]',
+                  $checkInfo['equipment_breakdown_cost'.$e],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_count[]', $checkInfo['equipment_breakdown_count'.$e],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_count[]',
+                  $checkInfo['equipment_breakdown_count'.$e],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_subtotal[]', $checkInfo['equipment_breakdown_subtotal'.$e],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_subtotal[]',
+                  $checkInfo['equipment_breakdown_subtotal'.$e],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
                 @endfor
                 @for ($s = 0; $s < $s_cnt; $s++) <tr>
                   <td>
-                    {{ Form::text('service_breakdown_item[]', $checkInfo['services_breakdown_item'.$s],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_item[]',
+                    $checkInfo['services_breakdown_item'.$s],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('service_breakdown_cost[]', $checkInfo['services_breakdown_cost'.$s],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_cost[]',
+                    $checkInfo['services_breakdown_cost'.$s],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('service_breakdown_count[]', $checkInfo['services_breakdown_count'.$s],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_count[]',
+                    $checkInfo['services_breakdown_count'.$s],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('service_breakdown_subtotal[]', $checkInfo['services_breakdown_subtotal'.$s],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_subtotal[]',
+                    $checkInfo['services_breakdown_subtotal'.$s],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   </tr>
                   @endfor
                   @if (!empty($checkInfo['luggage_subtotal']))
                   <tr>
                     <td>
-                      {{ Form::text('service_breakdown_item[]', $checkInfo['luggage_item'],['class'=>'form-control', 'readonly'] ) }}
+                      {{ Form::text('service_breakdown_item[]', $checkInfo['luggage_item'],['class'=>'form-control',
+                      'readonly'] ) }}
                     </td>
                     <td>
-                      {{ Form::text('service_breakdown_cost[]', $checkInfo['luggage_cost'],['class'=>'form-control', 'readonly'] ) }}
+                      {{ Form::text('service_breakdown_cost[]', $checkInfo['luggage_cost'],['class'=>'form-control',
+                      'readonly'] ) }}
                     </td>
                     <td>
                       {{ Form::text('service_breakdown_count[]', 1,['class'=>'form-control', 'readonly'] ) }}
                     </td>
                     <td>
-                      {{ Form::text('service_breakdown_subtotal[]', $checkInfo['luggage_subtotal'],['class'=>'form-control', 'readonly'] ) }}
+                      {{ Form::text('service_breakdown_subtotal[]',
+                      $checkInfo['luggage_subtotal'],['class'=>'form-control', 'readonly'] ) }}
                     </td>
                   </tr>
                   @endif
                   @if (!empty($checkInfo['equipment_breakdown_discount_item']))
                   <tr>
                     <td>
-                      {{ Form::text('equipment_breakdown_item[]', $checkInfo['equipment_breakdown_discount_item'],['class'=>'form-control', 'readonly'] ) }}
+                      {{ Form::text('equipment_breakdown_item[]',
+                      $checkInfo['equipment_breakdown_discount_item'],['class'=>'form-control', 'readonly'] ) }}
                     </td>
                     <td>
-                      {{ Form::text('equipment_breakdown_cost[]', $checkInfo['equipment_breakdown_discount_cost'],['class'=>'form-control', 'readonly'] ) }}
+                      {{ Form::text('equipment_breakdown_cost[]',
+                      $checkInfo['equipment_breakdown_discount_cost'],['class'=>'form-control', 'readonly'] ) }}
                     </td>
                     <td>
-                      {{ Form::text('equipment_breakdown_count[]', $checkInfo['equipment_breakdown_discount_count'],['class'=>'form-control', 'readonly'] ) }}
+                      {{ Form::text('equipment_breakdown_count[]',
+                      $checkInfo['equipment_breakdown_discount_count'],['class'=>'form-control', 'readonly'] ) }}
                     </td>
                     <td>
-                      {{ Form::text('equipment_breakdown_subtotal[]', $checkInfo['equipment_breakdown_discount_subtotal'],['class'=>'form-control', 'readonly'] ) }}
+                      {{ Form::text('equipment_breakdown_subtotal[]',
+                      $checkInfo['equipment_breakdown_discount_subtotal'],['class'=>'form-control', 'readonly'] ) }}
                     </td>
                   </tr>
                   @endif
@@ -634,7 +658,8 @@
                 <td colspan="3"></td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
-                  {{ Form::text('equipment_price', $checkInfo['equipment_price'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_price', $checkInfo['equipment_price'],['class'=>'form-control', 'readonly'] )
+                  }}
                 </td>
               </tr>
             </tbody>
@@ -664,48 +689,60 @@
               @if (!empty($checkInfo['layout_prepare_subtotal']))
               <tr>
                 <td>
-                  {{ Form::text('layout_breakdown_item[]', $checkInfo['layout_prepare_item'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_item[]', $checkInfo['layout_prepare_item'],['class'=>'form-control',
+                  'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_cost[]', $checkInfo['layout_prepare_cost'],['class'=>'form-control', 'readonly'] )}}
+                  {{ Form::text('layout_breakdown_cost[]', $checkInfo['layout_prepare_cost'],['class'=>'form-control',
+                  'readonly'] )}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_count[]', $checkInfo['layout_prepare_count'],['class'=>'form-control', 'readonly'] )}}
+                  {{ Form::text('layout_breakdown_count[]', $checkInfo['layout_prepare_count'],['class'=>'form-control',
+                  'readonly'] )}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_subtotal[]', $checkInfo['layout_prepare_subtotal'],['class'=>'form-control', 'readonly'] )}}
+                  {{ Form::text('layout_breakdown_subtotal[]',
+                  $checkInfo['layout_prepare_subtotal'],['class'=>'form-control', 'readonly'] )}}
                 </td>
               </tr>
               @endif
               @if (!empty($checkInfo['layout_clean_subtotal']))
               <tr>
                 <td>
-                  {{ Form::text('layout_breakdown_item[]', $checkInfo['layout_clean_item'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_item[]', $checkInfo['layout_clean_item'],['class'=>'form-control',
+                  'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_cost[]', $checkInfo['layout_clean_cost'],['class'=>'form-control', 'readonly'] )}}
+                  {{ Form::text('layout_breakdown_cost[]', $checkInfo['layout_clean_cost'],['class'=>'form-control',
+                  'readonly'] )}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_count[]', $checkInfo['layout_clean_count'],['class'=>'form-control', 'readonly'] )}}
+                  {{ Form::text('layout_breakdown_count[]', $checkInfo['layout_clean_count'],['class'=>'form-control',
+                  'readonly'] )}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_subtotal[]', $checkInfo['layout_clean_subtotal'],['class'=>'form-control', 'readonly'] )}}
+                  {{ Form::text('layout_breakdown_subtotal[]',
+                  $checkInfo['layout_clean_subtotal'],['class'=>'form-control', 'readonly'] )}}
                 </td>
               </tr>
               @endif
               @if (!empty($checkInfo['layout_breakdown_discount_subtotal']))
               <tr>
                 <td>
-                  {{ Form::text('layout_breakdown_item[]', $checkInfo['layout_breakdown_discount_item'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_item[]',
+                  $checkInfo['layout_breakdown_discount_item'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_cost[]', $checkInfo['layout_breakdown_discount_cost'],['class'=>'form-control', 'readonly'] )}}
+                  {{ Form::text('layout_breakdown_cost[]',
+                  $checkInfo['layout_breakdown_discount_cost'],['class'=>'form-control', 'readonly'] )}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_count[]', $checkInfo['layout_breakdown_discount_count'],['class'=>'form-control', 'readonly'] )}}
+                  {{ Form::text('layout_breakdown_count[]',
+                  $checkInfo['layout_breakdown_discount_count'],['class'=>'form-control', 'readonly'] )}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_subtotal[]', $checkInfo['layout_breakdown_discount_subtotal'],['class'=>'form-control', 'readonly'] )}}
+                  {{ Form::text('layout_breakdown_subtotal[]',
+                  $checkInfo['layout_breakdown_discount_subtotal'],['class'=>'form-control', 'readonly'] )}}
                 </td>
               </tr>
               @endif
@@ -744,16 +781,20 @@
             <tbody class="others_main">
               @for ($o = 0; $o < $o_cnt; $o++) <tr>
                 <td>
-                  {{ Form::text('others_breakdown_item[]', $checkInfo['others_breakdown_item'.$o],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_item[]',
+                  $checkInfo['others_breakdown_item'.$o],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_cost[]', $checkInfo['others_breakdown_cost'.$o],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_cost[]',
+                  $checkInfo['others_breakdown_cost'.$o],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_count[]', $checkInfo['others_breakdown_count'.$o],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_count[]',
+                  $checkInfo['others_breakdown_count'.$o],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_subtotal[]', $checkInfo['others_breakdown_subtotal'.$o],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_subtotal[]',
+                  $checkInfo['others_breakdown_subtotal'.$o],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
                 @endfor
@@ -776,7 +817,8 @@
               <tr>
                 <td>小計：</td>
                 <td>
-                  {{ Form::text('master_subtotal', $checkInfo['master_subtotal'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('master_subtotal', $checkInfo['master_subtotal'],['class'=>'form-control', 'readonly'] )
+                  }}
                 </td>
               </tr>
               <tr>
@@ -817,7 +859,8 @@
             <tbody>
               <tr>
                 <td>請求日
-                  {{ Form::text('bill_created_at', $checkInfo['bill_created_at'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('bill_created_at', $checkInfo['bill_created_at'],['class'=>'form-control', 'readonly'] )
+                  }}
                 </td>
                 <td>支払期日
                   {{ Form::text('payment_limit', $checkInfo['pay_limit'],['class'=>'form-control', 'readonly'] ) }}

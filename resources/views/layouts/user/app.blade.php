@@ -120,14 +120,17 @@
 // 自動補完無効
     $(function(){
     $('input').each(function(index, element){
-    $('input').eq(index).on("mousedown", function(){
+    var this_val=$('input').eq(index);
+    this_val.on("mousedown", function(){
     setTimeout(function(){
-    $('input').eq(index).focus();
+    this_val.focus();
     }, 1);
     return false;
     });
     })
-    })    
+    })
+    
+    
     </script>
 
   </div>

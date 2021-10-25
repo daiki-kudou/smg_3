@@ -160,12 +160,12 @@ $(function () {
 })
 
 // マイナスは赤字に
-function toRed() {
-  $('input').each(function (index, element) {
-    var target = Number($(element).val());
-    target < 0 ? $(element).css('color', 'red') : $(element).css('color', '#495057');
-  });
-}
+// function toRed() {
+//   $('input').each(function (index, element) {
+//     var target = Number($(element).val());
+//     target < 0 ? $(element).css('color', 'red') : $(element).css('color', '#495057');
+//   });
+// }
 
 function change_all_totals() {
   var venue = Number($('input[name="venue_price"]').val());
@@ -237,7 +237,7 @@ $(function () {
         $('.' + venue_main).append(data1);
         var change = price - Number(number.val());
         $('input[name="' + venue_price + '"]').val(change);
-        toRed();
+        // toRed();
       }
       if (percent.val() != 0 && percent.val() != '') {
         // 割引料金に金額があったら
@@ -265,7 +265,7 @@ $(function () {
         $('.' + venue_main).append(data2);
         var change = price - Number(n_r);
         $('input[name="' + venue_price + '"]').val(change);
-        toRed();
+        // toRed();
       }
       change_all_totals();
     })
@@ -321,7 +321,7 @@ $(function () {
     }
     var total_target = $('input[name="others_price"]');
     total_target.val(total_val);
-    toRed();
+    // toRed();
     change_all_totals();
   });
   $(document).on('input', 'input[name^="venue_breakdown"]', function (e) {
@@ -336,7 +336,7 @@ $(function () {
     }
     var total_target = $('input[name="venue_price"]');
     total_target.val(total_val);
-    toRed();
+    // toRed();
     change_all_totals();
   });
 })
@@ -354,7 +354,7 @@ $(function () {
     }
     var total_target = $('input[name="others_price"]');
     total_target.val(total_val);
-    toRed();
+    // toRed();
     change_all_totals();
   });
   $(document).on('input', 'input[name^="venue_breakdown"]', function (e) {
@@ -369,7 +369,7 @@ $(function () {
     }
     var total_target = $('input[name="venue_price"]');
     total_target.val(total_val);
-    toRed();
+    // toRed();
     change_all_totals();
   });
 })

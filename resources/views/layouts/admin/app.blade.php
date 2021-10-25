@@ -111,12 +111,45 @@
   <script src="{{ asset('js/adminlte.min.js') }}"></script>
   <script src="{{ asset('js/confirm.js') }}"></script>
   <script>
+    // マイナスを赤字に
+    $('HTML').on('DOMSubtreeModified propertychange', function() {
+    // DOMが変更された時に動く処理
+    $('input').each(function(index, element){
+      var this_val=$('input').eq(index);
+      if (Number(this_val.val())<0) {
+          this_val.css('color','red');
+        } 
+      })
+    });
+
+    $(function(){
+      $('input').each(function(index, element){
+        var this_val=$('input').eq(index);
+        if (Number(this_val.val())<0) {
+          this_val.css('color','red');
+        }
+      })
+      $('td').each(function(index, element){
+        var target =Number($('td').eq(index).text().replace(/,/g, '').replace(/合計：/g, '').replace(/円/g, '').replace(/小計：/g, '').replace(/消費税：/g, '').replace(/合計金額：/g, ''));
+        if (target<0) {
+          $('td').eq(index).css('color','red');
+        } 
+      })
+      $('dd').each(function(index, element){
+        var target =Number($('dd').eq(index).text().replace(/,/g, '').replace(/合計：/g, '').replace(/円/g, '').replace(/小計：/g, '').replace(/消費税：/g, '').replace(/合計金額：/g, ''));
+        if (target<0) {
+          $('dd').eq(index).css('color','red');
+        } 
+      })
+    })
+
     // 自動補完無効
     $(function(){
       $('input').each(function(index, element){
-        $('input').eq(index).on("mousedown", function(){
+        var this_val=$('input').eq(index);
+        this_val.on("mousedown", function(){
         setTimeout(function(){
-        $('input').eq(index).focus();
+        this_val.focus();
         }, 1);
         return false;
         });

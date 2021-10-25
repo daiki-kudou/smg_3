@@ -161,12 +161,12 @@ $(function () {
 
 
 // マイナスは赤字に
-function toRed() {
-  $('input').each(function (index, element) {
-    var target = Number($(element).val());
-    target < 0 ? $(element).css('color', 'red') : $(element).css('color', '#495057');
-  });
-}
+// function toRed() {
+//   $('input').each(function (index, element) {
+//     var target = Number($(element).val());
+//     target < 0 ? $(element).css('color', 'red') : $(element).css('color', '#495057');
+//   });
+// }
 
 // アコーディオン
 $(function () {
