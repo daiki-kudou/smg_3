@@ -333,8 +333,15 @@
       ],
       order: [],
       columnDefs: [
-        {targets: 0, sortable: false, orderable: false},
-        {targets: 15, sortable: false, orderable: false},
+        {
+          targets: [0,15], 
+          sortable: false, 
+          orderable: false
+        },
+        {
+          "className": "text-center",
+          "targets": [0,1,2,3,4,5,7,9,10,11,12,13,14,15],
+        }
         ],
       });
   })

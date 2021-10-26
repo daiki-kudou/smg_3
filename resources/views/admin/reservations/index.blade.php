@@ -409,11 +409,15 @@
         { data: 'board' },
       ],
       columnDefs: [
-        {targets: 12, sortable: false, orderable: false},
-        {targets: 13, sortable: false, orderable: false},
-        {targets: 14, sortable: false, orderable: false},
-        {targets: 15, sortable: false, orderable: false},
-        {targets: 16, sortable: false, orderable: false},
+        {
+          targets: [12,13,14,15,16], 
+          sortable: false, 
+          orderable: false
+        },
+        {
+          "className": "text-center",
+          "targets": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],
+        }
       ],
      });
     });

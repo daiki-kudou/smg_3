@@ -73,7 +73,8 @@
                 {{Form::label("chk_atten","あり")}}
               </li>
               <li>
-                {{Form::radio('attention', 2, (int)$request->attention===2?true:($request->attention===1?false:true),['id'=>'chk_atten_no'])}}
+                {{Form::radio('attention', 2,
+                (int)$request->attention===2?true:($request->attention===1?false:true),['id'=>'chk_atten_no'])}}
                 {{Form::label("chk_atten_no","なし")}}
               </li>
             </ul>
@@ -217,7 +218,16 @@
       info: false,
       autowidth: false,
       "order": [[ 0, "desc" ]], //初期ソートソート条件
-      "columnDefs": [{ "orderable": false, "targets": [8] }],
+      "columnDefs": [
+        {
+          "orderable": false, 
+          "targets": [8] 
+        },
+        {
+          "className": "text-center",
+          "targets": [0,1,2,3,5,6,7,8],
+        }
+           ],
       "stripeClasses": [],
      });
     });

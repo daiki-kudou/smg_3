@@ -58,7 +58,16 @@
       info: false,
       autowidth: false,
       "order": [[ 0, "desc" ]], //初期ソートソート条件
-      "columnDefs": [{ "orderable": false, "targets": [2,6] }],
+      "columnDefs": [
+        {
+        "orderable": false, 
+        "targets": [2,6] 
+        },
+        {
+        "className": "text-center",
+        "targets": [0,1,2,3,4,5,6],
+        }
+        ],
       "stripeClasses": [],
      });
     });
