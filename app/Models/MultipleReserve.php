@@ -832,7 +832,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
         users.tel as tel,
         unknown_users.unknown_user_company as unknown_user_company,
         agents.name as agent_name,
-        pre_endusers.company as enduser
+        pre_endusers.company as enduser,
+        sum(pre_reservations.status) as pre_status
         "
       ))
       ->leftJoin('pre_reservations', 'multiple_reserves.id', '=', 'pre_reservations.multiple_reserve_id')
@@ -844,8 +845,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
       ->havingRaw('pre_reservation_count > 0');
     return $searchTarget;
   }
-
-
 
   public function SearchMultiple($data)
   {
@@ -892,6 +891,14 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
 
     if (!empty($data['time_over']) && (int)$data['time_over'] === 1) {
       $searchTarget->whereRaw('pre_reservations.status = ? and pre_reservations.updated_at < DATE_SUB(CURRENT_DATE(),INTERVAL ? DAY) ', [1, 3]);
+    }
+
+    if (isset($data['search_role'])) {
+      if ((int)$data['search_role'] === 0) {
+        $searchTarget->havingRaw('pre_status = ? ',  [0]);
+      } elseif ((int)$data['search_role'] === 1) {
+        $searchTarget->havingRaw('pre_status > ? ',  [0]);
+      }
     }
 
     if (!empty($data['search_free'])) {
