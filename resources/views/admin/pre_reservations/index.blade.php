@@ -127,6 +127,13 @@
               {{Form::text("search_free",optional($data)['search_free'], ['class'=>'form-control','id'=>''])}}
             </td>
           </tr>
+          <tr>
+            <th class="search_item_name"><label for="search_role">権限</label></th>
+            <td>
+              {{Form::select('search_role', ['0' => 'S', '1' => '顧'], optional($data)['search_role'],
+              ['class' =>'form-control','placeholder'=>''])}}
+            </td>
+          </tr>
         </tbody>
       </table>
       <div class="annotation text-left">
@@ -201,6 +208,7 @@
             <th>会社・団体名（仮）</th>
             <th>仲介会社</th>
             <th>エンドユーザー</th>
+            <th>権限</th>
             <th>仮押え詳細</th>
           </tr>
         </thead>
@@ -320,12 +328,13 @@
       { title: "会社・団体名（仮）" },
       { title: "仲介会社" },
       { title: "エンドユーザー" },
+      { title: "権限" },
       { title: "仮押え詳細" }
       ],
       order: [],
       columnDefs: [
         {targets: 0, sortable: false, orderable: false},
-        {targets: 14, sortable: false, orderable: false},
+        {targets: 15, sortable: false, orderable: false},
         ],
       });
   })

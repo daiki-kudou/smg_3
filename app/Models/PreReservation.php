@@ -601,6 +601,7 @@ class PreReservation extends Model
         users.tel as tel,
         unknown_users.unknown_user_company as unknownuser,
         agents.name as agent_name,
+        users.id as user_id,
         pre_endusers.company as enduser,
         pre_reservations.status as pre_reservation_status,
       case when pre_bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
@@ -680,6 +681,11 @@ class PreReservation extends Model
 
     if (!empty($data['search_end_user'])) {
       $searchTarget->whereRaw('pre_endusers.company LIKE ? ',  ['%' . $data['search_end_user'] . '%']);
+    }
+
+    if (isset($data['search_role'])) {
+      $role = (int)$data['search_role'];
+      $searchTarget->whereRaw('pre_reservations.status = ? ',  [$role]);
     }
 
     if (!empty($data['time_over']) && (int)$data['time_over'] === 1) {
