@@ -708,6 +708,11 @@ header div.contents {
     height: 800px;
 }
 
+.alert-danger {
+    text-align: center;
+    color: #EF6243;
+}
+
 @media screen and (max-width: 750px) {
 
     /* header {
