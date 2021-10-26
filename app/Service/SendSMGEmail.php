@@ -20,6 +20,7 @@ use App\Jobs\Cron\CronForPayDayFiveDaysLeft;
 use App\Jobs\Cron\CronPayDayTwoDaysLeft;
 use App\Jobs\Auth\MailForRegister;
 use App\Jobs\Auth\MailForRegisterComplete;
+use App\Jobs\Auth\MailForUnSub;
 
 
 class SendSMGEmail
@@ -135,6 +136,10 @@ class SendSMGEmail
 
       case "ユーザー会員登録用成功":
         MailForRegisterComplete::dispatch($this->user, $this->reservation, $this->venue);
+        break;
+
+      case "退会":
+        MailForUnSub::dispatch($this->user, $this->reservation, $this->venue);
         break;
 
 
