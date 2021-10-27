@@ -48,6 +48,7 @@ class CalendarsController extends Controller
       ->havingRaw('reservation_status <= ?', [3])
       ->get();
 
+
     $pre_reservations =
       DB::table('pre_reservations')
       ->select(DB::raw('

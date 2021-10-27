@@ -53,8 +53,8 @@ $(function () {
         } else if ($value === "0800") {
           // var data = "<a target='_blank' href='" + rootPath + "/admin/reservations/" + reservation_id + "'>" + company + "</a>";
           // $('.' + venue_id + 'cal' + $value).html(data);
-        } else if ($index + 1 === json[index].length) {
-          if (!$('.' + venue_id + 'cal' + $value).next().hasClass('bg-reserve')) {
+        } else if ($index + 1 === json[index]['time'].length) {
+          if (!$('.' + venue_id + 'cal' + $value).next().hasClass('bg-prereserve') && !$('.' + venue_id + 'cal' + $value).next().hasClass('bg-reserve')) {
             $('.' + venue_id + 'cal' + $value).next().addClass('gray');//前後30分灰色
           }
         }
