@@ -47,10 +47,15 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
-    $counter = 0;
     $venues = Venue::all()->toArray();
     $agents = Agent::all()->toArray();
     $data = $request->except('_token');
+
+    $_reservation = new Reservation;
+    $counter = $_reservation
+      ->SearchReservation($request->all())
+      ->get()->count();
+
 
     return view('admin.reservations.index', compact('venues', 'agents', 'request', 'counter'));
   }

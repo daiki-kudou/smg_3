@@ -33,20 +33,6 @@ class SalesController extends Controller
 
     $total_amount = $_reservation->SearchReservation($request->all())->get()->pluck('sogaku')->sum();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     if ((int)$request->csv === 1) {
       return $this->download_csv($request);
     }

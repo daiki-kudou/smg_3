@@ -238,7 +238,7 @@
       </ul>
       {{ Form::close() }}
 
-      @if ($counter!=0)
+      @if ($request->except('_token'))
       <p class="font-weight-bold">
         <span class="count-color">
           {{$counter}}</span>件
