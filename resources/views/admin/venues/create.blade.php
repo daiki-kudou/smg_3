@@ -45,7 +45,7 @@
               <td class="table-active w-25"><label for="smg_url" class="">会場SMG URL</label></td>
               <td>
                 {{ Form::text('smg_url', old('smg_url'), ['class' => 'form-control',
-                'placeholder'=>"https://osaka-conference.com/rental/t6-maronie/hall/"]) }}
+                'placeholder'=>"https://system.osaka-conference.com/rental/t6-maronie/hall/"]) }}
                 <p class="is-error-smg_url" style="color: red"></p>
               </td>
             </tr>

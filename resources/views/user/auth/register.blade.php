@@ -338,7 +338,7 @@
   <dl class="attention-txt">
     <dt>【個人情報の取り扱いについて】</dt>
     <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
-        href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
+        href="https://system.osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
   </dl>
 
   <div class="page-text">

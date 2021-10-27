@@ -116,15 +116,15 @@ $(function () {
         email: { email: "※Emailの形式で入力してください" },
         site_url: {
           url:
-            "正しいURLを記入してください(例:https://osaka-conference.com/)",
+            "正しいURLを記入してください(例:https://system.osaka-conference.com/)",
         },
         login: {
           url:
-            "正しいURLを記入してください(例:https://osaka-conference.com/)",
+            "正しいURLを記入してください(例:https://system.osaka-conference.com/)",
         },
         cxl_url: {
           url:
-            "正しいURLを記入してください(例:https://osaka-conference.com/)",
+            "正しいURLを記入してください(例:https://system.osaka-conference.com/)",
         },
         payment_limit: { required: "※必須項目です" },
         cost: {

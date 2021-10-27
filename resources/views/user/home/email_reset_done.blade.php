@@ -17,7 +17,7 @@
                     </div>
 
                 </section>
-                <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png"
+                <div class="top contents"><a href="#top"><img src="https://system.osaka-conference.com/img/pagetop.png"
                             alt="上に戻る"></a>
                 </div>
 @endsection

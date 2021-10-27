@@ -35,7 +35,7 @@
           </dl>
           <div class="btnOrange">
             <button type="submit" class="smit">会場検索
-              <img src="https://osaka-conference.com/img/icon_serch.png" alt="検索">
+              <img src="https://system.osaka-conference.com/img/icon_serch.png" alt="検索">
             </button>
           </div>
           {{Form::close()}}
@@ -78,7 +78,7 @@
             </dd>
           </dl>
           <p class="txtCenter"><button type="submit" class="smit search_btn">空室状況検索<img
-                src="https://osaka-conference.com/img/icon_serch.png" alt="検索"></button>
+                src="https://system.osaka-conference.com/img/icon_serch.png" alt="検索"></button>
           </p>
           {{Form::close()}}
         </div>
@@ -115,7 +115,7 @@
       }).remove();
       });
 </script>
-<div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
+<div class="top contents"><a href="#top"><img src="https://system.osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
 </div>
 
 @endsection

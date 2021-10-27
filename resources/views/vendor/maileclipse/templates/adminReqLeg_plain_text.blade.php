@@ -20,6 +20,6 @@
 =====================
 SMGアクセア貸し会議室
 Email：kaigi@s-mf.co.jp
-Web：https://osaka-conference.com/
+Web：https://system.osaka-conference.com/
 電話番号：06-6538-4315
 =====================

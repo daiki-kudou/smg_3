@@ -34,7 +34,7 @@
         <div class="card-header">
           {{-- <h3>管理者管理画面</h3>ログイン --}}
           <div class="d-flex justify-content-center">
-            <img src="https://osaka-conference.com/img/logo.jpg" alt="" width="40" height="40">
+            <img src="https://system.osaka-conference.com/img/logo.jpg" alt="" width="40" height="40">
             <h3>SMGアクセア貸し会議室 </h3>
           </div>
           <div class="d-flex justify-content-center">
