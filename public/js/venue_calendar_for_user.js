@@ -66,7 +66,7 @@ $(function () {
   var rootPath = "{{url('/')}}";
 
   var pre_json = JSON.parse($('input[name=pre_each_json]').val());
-  console.log(pre_json);
+
   for (let index = 0; index < pre_json.length; index++) {
     var pre_date = pre_json[index].reserve_date;
     var pre_reservation_id = pre_json[index].id;

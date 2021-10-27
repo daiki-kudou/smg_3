@@ -10,7 +10,7 @@ $(function () {
   var rootPath = "{{url('/')}}";
 
   var json = JSON.parse($('input[name=json]').val());
-  console.log(json);
+
   for (let index = 0; index < json.length; index++) {
     var status = json[index].status;
     var venue_id = json[index].venue_id;
