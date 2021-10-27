@@ -10,29 +10,9 @@
   <h2 class="mt-3 mb-3">予約状況カレンダー 会場別</h2>
   <hr>
 
-  @foreach ($reservations as $key=>$reservation)
-  {{Form::hidden('reservation_id', $reservation->id)}}
-  {{Form::hidden('start', date('Hi',strtotime($reservation->enter_time)))}}
-  {{Form::hidden('finish', date('Hi',strtotime($reservation->leave_time)))}}
-  {{Form::hidden('date', date('Y-m-d',strtotime($reservation->reserve_date)))}}
-  {{Form::hidden('status', $reservation->bills->sortBy("id")->first()->reservation_status)}}
-  {{Form::hidden('user_id', $reservation->user_id)}}
-  {{Form::hidden('agent_id', $reservation->agent_id)}}
-  {{Form::hidden('company', ReservationHelper::checkAgentOrUserCompany($reservation->user_id,$reservation->agent_id))}}
-  @endforeach
+
   {{Form::hidden('each_json', ($json_result))}}<br>
 
-  @foreach ($pre_reservations as $key=>$pre_reservation)
-  {{Form::hidden('pre_reservation_id', $pre_reservation->id)}}
-  {{Form::hidden('pre_start', date('Hi',strtotime($pre_reservation->enter_time)))}}
-  {{Form::hidden('pre_finish', date('Hi',strtotime($pre_reservation->leave_time)))}}
-  {{Form::hidden('pre_date', date('Y-m-d',strtotime($pre_reservation->reserve_date)))}}
-  {{Form::hidden('pre_user_id', $pre_reservation->user_id)}}
-  {{Form::hidden('pre_agent_id', $pre_reservation->agent_id)}}
-  {{Form::hidden('pre_status', $pre_reservation->status)}}
-  {{Form::hidden('pre_company', ReservationHelper::checkAgentOrUserCompany($pre_reservation->user_id,$pre_reservation->agent_id))}}
-  {{Form::hidden('multiple_id', $pre_reservation->multiple_reserve_id)}}
-  @endforeach
   {{Form::hidden('pre_each_json', ($pre_json_result))}}<br>
 
   <section class="mt-5 bg-white">
@@ -49,8 +29,9 @@
           @endforeach
         </select>
         <select name="selected_year" id="selected_year" class="form-control w-25 ml-2">
-          @for ($i = Carbon\Carbon::today()->year; $i < Carbon\Carbon::today()->addYears(3)->year; $i++) <option
-              value="{{$i}}" @if ($selected_year==$i) selected @endif>{{$i}}
+          @for ($i = Carbon\Carbon::today()->year; $i < Carbon\Carbon::today()->addYears(3)->year; $i++)
+            <option value="{{$i}}" @if ($selected_year==$i) selected @endif>
+              {{$i}}
             </option>
             @endfor
         </select>

@@ -29,10 +29,11 @@
 
 <section class="mt-5">
   <div class="calendar">
-    <iframe frameborder="0" src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
+    <iframe frameborder="0" src="{{url('admin/calendar/mini_calendar')}}" width="100%" height="500">Your browser isn't
       compatible</iframe>
   </div>
-  {{Form::open(['url' => 'admin/pre_agent_reservations/check', 'method' => 'POST', 'id'=>'pre_agent_reservationsCreateForm'])}}
+  {{Form::open(['url' => 'admin/pre_agent_reservations/check', 'method' => 'POST',
+  'id'=>'pre_agent_reservationsCreateForm'])}}
   @csrf
 
   <div class="date_selector mt-5">
@@ -136,7 +137,8 @@
           </td>
           <td class="table-active">当日連絡先</td>
           <td>
-            {{ Form::text('pre_enduser_mobile', '',['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
+            {{ Form::text('pre_enduser_mobile', '',['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] )
+            }}
             <p class="is-error-pre_enduser_mobile" style="color: red"></p>
           </td>
         </tr>

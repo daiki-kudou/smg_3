@@ -1,7 +1,36 @@
-@extends('layouts.admin.app')
-@section('content')
+<meta charset="utf-8">
+<meta name="viewport" content="width=1200, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<title>{{ config('app.name', 'Laravel') }}</title>
+<script src="{{ asset('js/app.js') }}"></script>
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<link href="{{ asset('css/reset.css')}}" rel="stylesheet">
+<link href="{{ asset('css/adminlte.min.css')}}" rel="stylesheet">
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/multi-select/0.9.12/js/jquery.multi-select.min.js"></script>
+<script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+<script src="https://kit.fontawesome.com/a98e58f6de.js" crossorigin="anonymous"></script>
+<script src="{{ asset('/js/jquery.validate.min.js') }}"></script>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/wickedpicker@0.4.3/dist/wickedpicker.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/wickedpicker@0.4.3/dist/wickedpicker.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{{ asset('/js/numeric.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script>
+  var rootPath="{{url('/')}}";
+</script>
 <script src="{{ asset('/js/date_calendar.js') }}"></script>
 
 <style>
@@ -20,7 +49,6 @@
 </style>
 
 <div class="container-field">
-  @include('layouts.admin.breadcrumbs')
   <h2 class="mt-3 mb-3">予約状況カレンダー 利用日別</h2>
   <hr>
 
@@ -33,13 +61,13 @@
               <a href="javascript:$('#yesterday').submit()" class="text-white">
                 <i class="fas fa-chevron-left fa-2x"></i>
               </a>
-              {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get','id'=>'yesterday']) }}
+              {{ Form::open(['url' => 'admin/calendar/mini_calendar', 'method' => 'get','id'=>'yesterday']) }}
               @csrf
               {{ Form::hidden('date', $yesterday) }}
               {{ Form::close() }}
             </div>
             <div class="col">
-              {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get','id'=>'s_calendar']) }}
+              {{ Form::open(['url' => 'admin/calendar/mini_calendar', 'method' => 'get','id'=>'s_calendar']) }}
               @csrf
               {{ Form::text('', date('Y-m-d',strtotime($today)) ,['class'=>'form-control', 'id'=>'datepicker8',
               'placeholder'=>'入力してください'] ) }}
@@ -49,7 +77,7 @@
             <div class="col">
               <a href="javascript:$('#tomorrow').submit()" class="text-white"><i
                   class="fas fa-chevron-right fa-2x"></i></a>
-              {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get','id'=>'tomorrow']) }}
+              {{ Form::open(['url' => 'admin/calendar/mini_calendar', 'method' => 'get','id'=>'tomorrow']) }}
               @csrf
               {{ Form::hidden('date', $tomorrow) }}
               {{ Form::close() }}
@@ -140,5 +168,3 @@
 
 
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-
-@endsection

@@ -211,7 +211,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('calendar/venue_calendar', 'CalendarsController@venue_calendar')->name('calendar.venue_calendar');
     // 日時別
     Route::get('calendar/date_calendar', 'CalendarsController@date_calendar')->name('calendar.date_calendar');
-
+    // ミニカレンダー
+    Route::get('calendar/mini_calendar', 'CalendarsController@mini_calendar')->name('calendar.mini_calendar');
     // 請求書追加
     // Route::post('reservations/{reservation}/add_bill', 'ReservationsController@add_bill')->name('reservations.add_bill');
 
