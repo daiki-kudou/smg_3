@@ -11,6 +11,7 @@ use App\Models\PreReservation;
 use Carbon\Carbon;
 
 use App\Traits\CalendarTrait;
+use DB;
 
 
 class CalendarsController extends Controller
@@ -25,8 +26,50 @@ class CalendarsController extends Controller
     $end_of_month = $request->all() ? (Carbon::parse($fix_input_dates)->endOfMonth()) : Carbon::now()->endOfMonth();
     $days = $this->venueCalendar($start_of_month, $end_of_month);
     $venues = Venue::all();
-    $reservations = Reservation::with('bills')->where('venue_id', $selected_venue)->get();
-    $pre_reservations = PreReservation::with('user')->where("venue_id", $selected_venue)->where('status', '<', 2)->get();
+    $reservations = DB::table('reservations')
+      ->select(DB::raw('
+      reservations.id,
+      reservations.venue_id,
+      reservations.enter_time,
+      reservations.leave_time,
+      reservations.reserve_date,
+      bills.reservation_status as reservation_status,
+      users.id as user_id,
+      case when users.id >0 then users.company when agents.id > 0 then agents.name end as company,
+      agents.id as agent_id
+    '))
+      ->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')
+      ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
+      ->leftJoin('agents', 'reservations.agent_id', '=', 'agents.id')
+      ->whereRaw('reservations.reserve_date between ? and ?', [date('Y-m-d', strtotime($start_of_month)), date('Y-m-d', strtotime($end_of_month))])
+      ->whereRaw('reservations.venue_id = ?', [$selected_venue])
+      ->whereRaw('reservations.deleted_at is NULL')
+      ->groupByRaw('reservations.id, bills.reservation_status')
+      ->havingRaw('reservation_status <= ?', [3])
+      ->get();
+
+    $pre_reservations =
+      DB::table('pre_reservations')
+      ->select(DB::raw('
+      pre_reservations.multiple_reserve_id as multiple_reserve_id,
+      pre_reservations.id,
+      pre_reservations.venue_id as venue_id,
+      pre_reservations.enter_time,
+      pre_reservations.leave_time,
+      pre_reservations.reserve_date,
+      pre_reservations.status as reservation_status,
+      users.id as user_id,
+      case when users.id >0 then users.company when agents.id > 0 then agents.name end as company,
+      agents.id as agent_id
+    '))
+      ->leftJoin('pre_bills', 'pre_reservations.id', '=', 'pre_bills.pre_reservation_id')
+      ->leftJoin('users', 'pre_reservations.user_id', '=', 'users.id')
+      ->leftJoin('agents', 'pre_reservations.agent_id', '=', 'agents.id')
+      ->whereRaw('pre_reservations.reserve_date between ? and ?', [date('Y-m-d', strtotime($start_of_month)), date('Y-m-d', strtotime($end_of_month))])
+      ->whereRaw('pre_reservations.status < ?', [2])
+      ->get();
+
+
     $json_result = $this->dateCalendar($reservations);
     $pre_json_result = $this->dateCalendar($pre_reservations);
 
@@ -49,8 +92,47 @@ class CalendarsController extends Controller
     $today = $request->all() ? Carbon::parse($request->date)->toDateString() : Carbon::now()->toDateString();
     $tomorrow = $request->all() ? Carbon::parse($request->date)->addDay()->toDateString() : Carbon::now()->addDay()->toDateString();
     $yesterday = $request->all() ? Carbon::parse($request->date)->addDays(-1)->toDateString() : Carbon::now()->addDays(-1)->toDateString();
-    $reservations = Reservation::with('bills')->where('reserve_date', $today)->get();
-    $pre_reservations = PreReservation::where('reserve_date', $today)->get();
+    $reservations = DB::table('reservations')
+      ->select(DB::raw('
+      reservations.id,
+      reservations.venue_id,
+      reservations.enter_time,
+      reservations.leave_time,
+      reservations.reserve_date,
+      bills.reservation_status as reservation_status,
+      users.id as user_id,
+      case when users.id >0 then users.company when agents.id > 0 then agents.name end as company,
+      agents.id as agent_id
+    '))
+      ->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')
+      ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
+      ->leftJoin('agents', 'reservations.agent_id', '=', 'agents.id')
+      ->whereRaw('reservations.reserve_date = ?', [$today])
+      ->whereRaw('reservations.deleted_at is NULL')
+      ->groupByRaw('reservations.id, bills.reservation_status')
+      ->havingRaw('reservation_status <= ?', [3])
+      ->get();
+    $pre_reservations =
+      DB::table('pre_reservations')
+      ->select(DB::raw('
+      pre_reservations.multiple_reserve_id as multiple_reserve_id,
+      pre_reservations.id,
+      pre_reservations.venue_id as venue_id,
+      pre_reservations.enter_time,
+      pre_reservations.leave_time,
+      pre_reservations.reserve_date,
+      pre_reservations.status as reservation_status,
+      users.id as user_id,
+      case when users.id >0 then users.company when agents.id > 0 then agents.name end as company,
+      agents.id as agent_id
+    '))
+      ->leftJoin('pre_bills', 'pre_reservations.id', '=', 'pre_bills.pre_reservation_id')
+      ->leftJoin('users', 'pre_reservations.user_id', '=', 'users.id')
+      ->leftJoin('agents', 'pre_reservations.agent_id', '=', 'agents.id')
+      ->whereRaw('pre_reservations.reserve_date = ?', [$today])
+      ->whereRaw('pre_reservations.status < ?', [2])
+      ->get();
+
     $venues = Venue::all();
     $json_result = $this->dateCalendar($reservations);
     $pre_json_result = $this->dateCalendar($pre_reservations);
