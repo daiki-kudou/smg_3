@@ -213,7 +213,6 @@ class DataTableController extends Controller
       ->get();
 
     $data_arr = [];
-    $sno = $start + 1;
     foreach ($records as $record) {
       $data_arr[] =
         [

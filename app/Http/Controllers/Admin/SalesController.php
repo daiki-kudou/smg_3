@@ -21,22 +21,39 @@ use App\Http\Helpers\ReservationHelper;
 
 class SalesController extends Controller
 {
-
   use PaginatorTrait;
   use SearchTrait;
-
   public function index(Request $request)
   {
+
+    $_reservation = new Reservation;
+    $counter = $_reservation
+      ->SearchReservation($request->all())
+      ->get()->count();
+
+    $total_amount = $_reservation->SearchReservation($request->all())->get()->pluck('sogaku')->sum();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if ((int)$request->csv === 1) {
       return $this->download_csv($request);
     }
-
     $agents = Agent::get()->sortByDesc('id')->pluck("name", "id")->toArray();
     $venues = Venue::get()->sortByDesc('id')->pluck("id")->toArray();
-    $counter = 0;
     $data = $request->all();
-
-    return view('admin.sales.index', compact('data', 'agents', 'venues', 'counter'));
+    return view('admin.sales.index', compact('data', 'agents', 'venues', 'counter', 'total_amount'));
   }
 
   public function download_csv(Request $request)
@@ -47,9 +64,7 @@ class SalesController extends Controller
       ->CSVSearch($request->all())
       ->orderByRaw("予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc")
       ->get();
-
-    // // ※参照
-    // // https://blog.hrendoh.com/laravel-6-download-csv-with-streamdownload/
+    // // ※参照　https://blog.hrendoh.com/laravel-6-download-csv-with-streamdownload/
 
     $header = [
       '予約一括ID',

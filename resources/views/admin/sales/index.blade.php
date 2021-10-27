@@ -272,25 +272,18 @@
   <dl class="count-sum d-flex align-items-center">
     <dt>売上総額</dt>
     <dd>
-      <span>円</span>
+      <span>{{ number_format($total_amount) }}円</span>
     </dd>
   </dl>
-
-
-  {{-- {{ Form::open(['url' => 'admin/csv', 'method'=>'post']) }}
-  @csrf
-  <p class="ml-1 text-right">{{Form::submit('表示結果ダウンロード(CSV)',['class'=>'btn more_btn4_lg'])}}</p>
-  {{Form::close()}} --}}
 
   <p class="ml-1 text-right">
     <button type="button" class="btn more_btn4_lg" id="get_csv_btn">表示結果ダウンロード(CSV)</button>
   </p>
 
-
 </div>
 <div class="mt-3">
   <p class="text-right font-weight-bold">
-    @if ($counter!=0)
+    @if ($data)
     <span class="count-color">
       {{$counter}}
     </span>件
@@ -331,14 +324,12 @@
 </div>
 <!-- 一覧　　終わり------------------------------------------------ -->
 
-
 <script>
   $(function(){
     $('#get_csv_btn').on('click',function(){
       $('input[name="csv"]').val(1);
       $('#sales_search').submit();
     })
-
     $('#m_submit').on('click',function(){
       $('input[name="csv"]').val("");
     })
@@ -403,7 +394,7 @@ $(function(){
       info: false,
       autowidth: false,
       ajax: { 
-        "url": "{{ url('admin/sales/datatable') }}", 
+        "url": "{{ url('/admin/sales/datatable') }}", 
         "type": "GET",
         "data": function ( d ) {
             return $.extend( {}, d, {
@@ -478,7 +469,6 @@ $(function(){
      });
     });
 </script>
-
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
