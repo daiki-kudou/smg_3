@@ -226,7 +226,6 @@ class DataTableController extends Controller
           'person_name' => $record->user_name,
           'agent_name' => $record->agent_name,
           'enduser_company' => $record->enduser_company,
-          // 'sogaku' => number_format($record->sogaku),
           'sogaku' => (int)$record->sogaku < 0 ? "<p style='color:red;'>" . number_format($record->sogaku) . "</p>" : number_format($record->sogaku),
           'sales' => $this->getSales($record->reservation_id, $record->sogaku),
           'cost' => $this->getCost($record->reservation_id),
