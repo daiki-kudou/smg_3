@@ -57,7 +57,6 @@
       </tr>
     </tbody>
   </table>
-
   <section class="mx-5 mt-5">
     <table class="table table-bordered customer-table mb-5" style="table-layout: fixed;">
       <tbody>
@@ -1045,7 +1044,7 @@
                     <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                     <td>
                       {{ Form::text('luggage_arrive_copied'.$key,
-                      date('Y-m-d',strtotime($pre_reservation->luggage_arrive)),['class'=>'form-control
+                      !empty($pre_reservation->luggage_arrive)?date('Y-m-d',strtotime($pre_reservation->luggage_arrive)):"",['class'=>'form-control
                       datepicker9','id'=>''] ) }}
                     </td>
                   </tr>
@@ -1089,7 +1088,7 @@
                     </td>
                     <td>
                       {{Form::radio('eat_in_prepare_copied'.$key, 1,
-                      $pre_reservation->eat_in_prepare?($pre_reservation->eat_in_prepare==1?true:false):false , ['id' =>
+                      $pre_reservation->eat_in_prepare?($pre_reservation->eat_in_prepare==1?true:false):true , ['id' =>
                       'eat_in_prepare_copied'.$key,$pre_reservation->eat_in!=1?'disabled':''])}}
                       {{Form::label('eat_in_prepare_copied'.$key,"手配済み")}}
                       {{Form::radio('eat_in_prepare_copied'.$key, 2,
