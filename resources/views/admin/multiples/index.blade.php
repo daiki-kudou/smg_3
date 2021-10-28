@@ -162,7 +162,6 @@
             <button type="button" id="time_over" class="btn more_btn">仮押え期間超過</button>
             @endif
             @endif
-
             <p class=" ml-3 font-weight-bold">
               @if ($data)
               <span class="count-color">{{$counter}}</span>件

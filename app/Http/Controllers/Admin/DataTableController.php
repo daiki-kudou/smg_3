@@ -135,7 +135,7 @@ class DataTableController extends Controller
         "<li>" .
         "<div class='multi-column__item'>" .
         "<span class='payment-status'>" .
-        ((int)$b->category === 1 ? "会場予約" : "追加" . $key) .
+        ((int)$b->category === 1 ? "会場予約" : "追加請求" . $key) .
         "</span>" .
         "</div>" .
         "</li>";
@@ -383,7 +383,7 @@ class DataTableController extends Controller
         "<li>" .
         "<div class='multi-column__item'>" .
         "<span class='payment-status'>" .
-        ((int)$b->category === 1 ? "会場予約" : "追加" . $key) .
+        ((int)$b->category === 1 ? "会場予約" : "追加請求" . $key) .
         "</span>" .
         "</div>" .
         "</li>";
