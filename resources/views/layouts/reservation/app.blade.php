@@ -16,11 +16,13 @@
 
   <link rel="stylesheet" media="all" type="text/css"
     href="https://system.osaka-conference.com/css/ress.min.css?ver=20201225" />
-  <link rel="stylesheet" media="all" type="text/css" href="https://system.osaka-conference.com/css/style.css?ver=20201225" />
+  <link rel="stylesheet" media="all" type="text/css"
+    href="https://system.osaka-conference.com/css/style.css?ver=20201225" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css?ver=20201225">
   <link rel="stylesheet" media="all" type="text/css"
     href="https://system.osaka-conference.com/css/contents.css?ver=20201225" />
-  <link rel="stylesheet" media="all" type="text/css" href="https://system.osaka-conference.com/css/sp.css?ver=20201225" />
+  <link rel="stylesheet" media="all" type="text/css"
+    href="https://system.osaka-conference.com/css/sp.css?ver=20201225" />
   <link rel="stylesheet" media="all" type="text/css"
     href="https://system.osaka-conference.com/css/lightcase.css?ver=20201225" />
 
@@ -98,7 +100,7 @@
         buttonImage: "https://system.osaka-conference.com/img/icon_calender.png",
         buttonImageOnly: true,
         minDate: "+3",
-        maxDate: "+3M -" + dd,
+        maxDate: "+6M -" + dd,
         beforeShow: function(input, inst) { // カレンダーを必ず下側へ表示させるための表示位置計算function
           var top = $(this).offset().top + $(this).outerHeight();
           var left = $(this).offset().left;
@@ -176,9 +178,9 @@
 
       <nav>
         <ul class="mainNav">
-          <li><a href="https://system.osaka-conference.com/"><img src="https://system.osaka-conference.com/img/icon_home.png"
-                alt="HOME" class="off"><img src="https://system.osaka-conference.com/img/icon_home_on.png" alt="HOME"
-                class="on"></a></li>
+          <li><a href="https://system.osaka-conference.com/"><img
+                src="https://system.osaka-conference.com/img/icon_home.png" alt="HOME" class="off"><img
+                src="https://system.osaka-conference.com/img/icon_home_on.png" alt="HOME" class="on"></a></li>
           <li><a href="https://system.osaka-conference.com/rental/">会場一覧</a></li>
           <li><a href="https://system.osaka-conference.com/price/">料金表</a></li>
           <li class="active"><a href="https://system.osaka-conference.com/calendar/">カレンダー</a></li>
@@ -239,11 +241,13 @@
       <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
           <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://system.osaka-conference.com/">
-            <span itemprop="name"><img src="https://system.osaka-conference.com/img/icon_bread.png" alt="HOME"></span></a>
+            <span itemprop="name"><img src="https://system.osaka-conference.com/img/icon_bread.png"
+                alt="HOME"></span></a>
           <meta itemprop="position" content="1">
         </li>
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-          <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://system.osaka-conference.com/calendar/">
+          <a itemscope itemtype="http://schema.org/Thing" itemprop="item"
+            href="https://system.osaka-conference.com/calendar/">
             <span itemprop="name"><span class="changeTtl">カレンダー（空室確認）</span></span></a>
           <meta itemprop="position" content="2">
         </li>
@@ -336,7 +340,8 @@
           <li><a href="https://system.osaka-conference.com/price/">料金表</a></li>
           <li><a href="https://system.osaka-conference.com/characteristic/">特徴</a></li>
           <li><a href="https://system.osaka-conference.com/flow/">利用の流れ</a></li>
-          <li><a href="https://system.osaka-conference.com/rental/about/TermsOfService.pdf" target="_blank">利用規約</a></li>
+          <li><a href="https://system.osaka-conference.com/rental/about/TermsOfService.pdf" target="_blank">利用規約</a>
+          </li>
           <li><a href="https://system.osaka-conference.com/cancelpolicy/">キャンセルポリシー</a></li>
           <li><a href="https://system.osaka-conference.com/faq/">よくある質問</a></li>
           <li><a href="https://system.osaka-conference.com/voice/">お客様の声</a></li>
@@ -356,7 +361,8 @@
           <li><a href="https://system.osaka-conference.com/column/">コラム</a></li>
           <li><a href="https://system.osaka-conference.com/seminar-manual/">セミナー主催者マニュアル</a></li>
           <li><a href="https://system.osaka-conference.com/company/">会社概要</a></li>
-          <li><em class="footerLink"><a href="https://system.osaka-conference.com/privacypolicy/">プライバシーポリシー</a></em></li>
+          <li><em class="footerLink"><a href="https://system.osaka-conference.com/privacypolicy/">プライバシーポリシー</a></em>
+          </li>
         </ul>
 
         <div class="sp">
@@ -369,7 +375,8 @@
             <li><a href="https://system.osaka-conference.com/price/">料金表</a></li>
             <li><a href="https://system.osaka-conference.com/characteristic/">特徴</a></li>
             <li><a href="https://system.osaka-conference.com/flow/">利用の流れ</a></li>
-            <li><a href="https://system.osaka-conference.com/rental/about/TermsOfService.pdf" target="_blank">利用規約</a></li>
+            <li><a href="https://system.osaka-conference.com/rental/about/TermsOfService.pdf" target="_blank">利用規約</a>
+            </li>
             <li><a href="https://system.osaka-conference.com/cancelpolicy/">キャンセルポリシー</a></li>
             <li><a href="https://system.osaka-conference.com/faq/">よくある質問</a></li>
             <li><a href="https://system.osaka-conference.com/voice/">お客様の声</a></li>
@@ -387,7 +394,8 @@
             <li><a href="https://system.osaka-conference.com/column/">コラム</a></li>
             <li><a href="https://system.osaka-conference.com/seminar-manual/">セミナー主催者マニュアル</a></li>
             <li><a href="https://system.osaka-conference.com/company/">会社概要</a></li>
-            <li><em class="footerLink"><a href="https://system.osaka-conference.com/privacypolicy/">プライバシーポリシー</a></em></li>
+            <li><em class="footerLink"><a href="https://system.osaka-conference.com/privacypolicy/">プライバシーポリシー</a></em>
+            </li>
           </ul>
 
           <ul class="footerpagelist FmenuT">

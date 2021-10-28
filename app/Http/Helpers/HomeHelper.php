@@ -13,21 +13,17 @@ class HomeHelper
 {
   public static function getMonths()
   {
-    $thisMonth = Carbon::today();
-    $thisMonthvalue = date('Ym', strtotime($thisMonth));
-    $thisMonthtext = date('Y年m月', strtotime($thisMonth));
-    $nextMonth = $thisMonth->addMonth();
-    $nextMonthvalue = date('Ym', strtotime($nextMonth));
-    $nextMonthtext = date('Y年m月', strtotime($nextMonth));
-    $twoMonthLater = $nextMonth->addMonth();
-    $twoMonthLatervalue = date('Ym', strtotime($twoMonthLater));
-    $twoMonthLatertext = date('Y年m月', strtotime($twoMonthLater));
+    $year = 6;
+    $result = [];
+    $mon = Carbon::now()->startOfMonth();
+    for ($i = 0; $i < $year; $i++) {
+      $key = date('Ym', strtotime($mon));
+      $val = date('Y年m月', strtotime($mon));
+      $result[$key] = $val;
+      $mon->addMonth();
+    }
 
-    return [
-      [$thisMonthvalue, $thisMonthtext],
-      [$nextMonthvalue, $nextMonthtext],
-      [$twoMonthLatervalue, $twoMonthLatertext]
-    ];
+    return $result;
   }
 
   public static function now()
