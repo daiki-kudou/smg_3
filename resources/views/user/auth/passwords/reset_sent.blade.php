@@ -8,8 +8,8 @@
 </div>
 
 <section class="contents">
-  <div class="">
-    <p class="text-center">パスワード変更依頼のメールを送信しました</p>
+  <div class="section-wrap">
+    <p class="txtCenter">パスワード変更依頼のメールを送信しました</p>
   </div>
 </section>
 @endsection
