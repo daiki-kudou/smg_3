@@ -21,10 +21,7 @@
 @endif
 
 <!-- カート一覧 -->
-<span>現在のカート数：</span>
-<div class="cart-number-box">
-  <p class="cart-number">{{ !empty($sessions)?count($sessions):0 }}</p>
-</div>
+
 <div class="contents">
   <div class="pagetop-text">
     <h1 class="page-title oddcolor"><span>予約カート</span></h1>
@@ -281,38 +278,38 @@
 
     {{ Form::open(['url' => 'user/reservations/store', 'method'=>'POST', 'id'=>'cartConfirm']) }}
 
-      <dl class="attention-txt">
-        <dt>【今後の流れ】</dt>
-        <dd>本ページの「予約申込をする」ボタンをクリック後に自動メールが送信されます。
-          メールが到着しない場合は再度お申し込みをいただくか、弊社までご連絡下さい。
-        </dd>
-        <dd>
-          弊社で受付が完了しましたら「予約完了連絡」をお送りします。<br>
-          <span class="txtRed">弊社からの予約完了連絡が到着した時点で「予約完了(予約確定)となります。」</span>
-        </dd>
-        <dd>
-          原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生います。申込前に「<a
-            href="https://system.osaka-conference.com/cancelpolicy/">キャンセルポリシー</a>」
-          をご確認下さい。
-        </dd>
-        <dd class="caution-area">
-          <div class="page-text">
-            <p class="checkbox-txt">
+    <dl class="attention-txt">
+      <dt>【今後の流れ】</dt>
+      <dd>本ページの「予約申込をする」ボタンをクリック後に自動メールが送信されます。
+        メールが到着しない場合は再度お申し込みをいただくか、弊社までご連絡下さい。
+      </dd>
+      <dd>
+        弊社で受付が完了しましたら「予約完了連絡」をお送りします。<br>
+        <span class="txtRed">弊社からの予約完了連絡が到着した時点で「予約完了(予約確定)となります。」</span>
+      </dd>
+      <dd>
+        原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生います。申込前に「<a
+          href="https://system.osaka-conference.com/cancelpolicy/">キャンセルポリシー</a>」
+        をご確認下さい。
+      </dd>
+      <dd class="caution-area">
+        <div class="page-text">
+          <p class="checkbox-txt">
             <label><input id="" name="flow" type="checkbox" value="">今後の流れを確認しました</label>
-            <p class="is-error-flow" style="color: red"></p>
-            </p>
-            <p class="checkbox-txt">
+          <p class="is-error-flow" style="color: red"></p>
+          </p>
+          <p class="checkbox-txt">
             <label><input id="" name="policy" type="checkbox" value="">利用規約に同意します</label>
-            <p class="is-error-policy" style="color: red"></p>
-            </p>
-          </div>
-        </dd>
-      </dl>
-      <dl class="attention-txt">
-        <dt>【個人情報の取り扱いについて】</dt>
-        <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
-            href="https://system.osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
-      </dl>
+          <p class="is-error-policy" style="color: red"></p>
+          </p>
+        </div>
+      </dd>
+    </dl>
+    <dl class="attention-txt">
+      <dt>【個人情報の取り扱いについて】</dt>
+      <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
+          href="https://system.osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
+    </dl>
 
     <div class="btn-center">
       <p>{{Form::submit('予約申込をする', ['class' => 'confirm-btn','id'=>'master_submit'])}}</p>

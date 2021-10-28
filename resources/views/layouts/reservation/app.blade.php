@@ -172,9 +172,10 @@
               <i class="fas fa-calendar-alt cart_btn"></i>
               <span>予約カート</span>
               <div class="cart-number-box">
-              <p class="cart-number">
-              <!-- 工藤さん！！こちらに件数 -->
-                1</p>
+                <p class="cart-number">
+                  <!-- 工藤さん！！こちらに件数 -->
+                  {{ !empty($sessions)?count($sessions):0 }}
+                </p>
               </div>
             </p>
           </a>
@@ -264,10 +265,11 @@
           <i class="fas fa-calendar-alt cart_btn"></i>
           <span>予約カート</span>
           <div class="cart-number-box">
-              <p class="cart-number">
+            <p class="cart-number">
               <!-- 工藤さん！！こちらに件数 -->
-                1</p>
-              </div>
+              {{ !empty($sessions)?count($sessions):0 }}
+            </p>
+          </div>
         </p>
       </a>
 
