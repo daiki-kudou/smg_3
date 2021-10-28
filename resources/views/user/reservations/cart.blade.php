@@ -1,6 +1,7 @@
 @extends('layouts.reservation.app')
 @section('content')
 
+<script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
 
 <div id="fullOverlay">
   <div class="spinner">
@@ -278,44 +279,42 @@
       </tbody>
     </table>
 
-    <dl class="attention-txt">
-      <dt>【今後の流れ】</dt>
-      <dd>本ページの「予約申込をする」ボタンをクリック後に自動メールが送信されます。
-        メールが到着しない場合は再度お申し込みをいただくか、弊社までご連絡下さい。
-      </dd>
-      <dd>
-        弊社で受付が完了しましたら「予約完了連絡」をお送りします。<br>
-        <span class="txtRed">弊社からの予約完了連絡が到着した時点で「予約完了(予約確定)となります。」</span>
-      </dd>
-      <dd>
-        原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生います。申込前に「<a
-          href="https://system.osaka-conference.com/cancelpolicy/">キャンセルポリシー</a>」
-        をご確認下さい。
-      </dd>
-      <dd class="caution-area">
-        <div class="page-text">
-          <p class="checkbox-txt">
-            <input id="" name="" type="checkbox" value="">
-            <label for="">今後の流れを確認しました</label>
-          <p class="is-error-" style="color: red"></p>
-          </p>
-          <p class="checkbox-txt">
-            <input id="" name="" type="checkbox" value="">
-            <label for="">利用規約に同意します</label>
-          <p class="is-error-" style="color: red"></p>
-          </p>
-        </div>
-      </dd>
-    </dl>
+    {{ Form::open(['url' => 'user/reservations/store', 'method'=>'POST', 'id'=>'cartConfirm']) }}
 
-    <dl class="attention-txt">
-      <dt>【個人情報の取り扱いについて】</dt>
-      <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
-          href="https://system.osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
-    </dl>
+      <dl class="attention-txt">
+        <dt>【今後の流れ】</dt>
+        <dd>本ページの「予約申込をする」ボタンをクリック後に自動メールが送信されます。
+          メールが到着しない場合は再度お申し込みをいただくか、弊社までご連絡下さい。
+        </dd>
+        <dd>
+          弊社で受付が完了しましたら「予約完了連絡」をお送りします。<br>
+          <span class="txtRed">弊社からの予約完了連絡が到着した時点で「予約完了(予約確定)となります。」</span>
+        </dd>
+        <dd>
+          原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生います。申込前に「<a
+            href="https://system.osaka-conference.com/cancelpolicy/">キャンセルポリシー</a>」
+          をご確認下さい。
+        </dd>
+        <dd class="caution-area">
+          <div class="page-text">
+            <p class="checkbox-txt">
+            <label><input id="" name="flow" type="checkbox" value="">今後の流れを確認しました</label>
+            <p class="is-error-flow" style="color: red"></p>
+            </p>
+            <p class="checkbox-txt">
+            <label><input id="" name="policy" type="checkbox" value="">利用規約に同意します</label>
+            <p class="is-error-policy" style="color: red"></p>
+            </p>
+          </div>
+        </dd>
+      </dl>
+      <dl class="attention-txt">
+        <dt>【個人情報の取り扱いについて】</dt>
+        <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
+            href="https://system.osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
+      </dl>
 
     <div class="btn-center">
-      {{ Form::open(['url' => 'user/reservations/store', 'method'=>'POST', 'id'=>'']) }}
       <p>{{Form::submit('予約申込をする', ['class' => 'confirm-btn','id'=>'master_submit'])}}</p>
       {{Form::close()}}
     </div>
@@ -339,7 +338,7 @@
 <div class="top contents"><a href="#top"><img src="https://system.osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
 </div>
 
-<script>
+<!-- <script>
   $(function() {
     $('#master_submit').on('click', function() {
       if (!confirm('予約を確定しますか？')) {
@@ -349,5 +348,5 @@
       }
     })
   })
-</script>
+</script> -->
 @endsection
