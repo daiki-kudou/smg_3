@@ -75,15 +75,6 @@
             <dd class="">
               <div class="selectWrap">
                 {{ Form::select('mon',HomeHelper::getMonths(),old('mon',$request->mon),['id'=>'changeSelectpoint']) }}
-                {{-- <select name="mon" id="changeSelectpoint">
-                  @foreach (HomeHelper::getMonths() as $month)
-                  @if ($request->mon==$month[0])
-                  <option value="{{$month[0]}}" selected>{{$month[1]}}</option>
-                  @else
-                  <option value="{{$month[0]}}">{{$month[1]}}</option>
-                  @endif
-                  @endforeach
-                </select> --}}
               </div>
             </dd>
           </dl>
@@ -235,7 +226,7 @@
               buttonImage: "https://system.osaka-conference.com/img/icon_calender.png",
               buttonImageOnly: true,
               minDate: "+3",
-              maxDate: "+3M -" + dd,
+              maxDate: "+6M -" + dd,
               beforeShow: function (input, inst) { // カレンダーを必ず下側へ表示させるための表示位置計算function
                   var top = $(this).offset().top + $(this).outerHeight();
                   var left = $(this).offset().left;

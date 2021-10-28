@@ -69,11 +69,6 @@
             <dd class="">
               <div class="selectWrap">
                 {{ Form::select('mon',HomeHelper::getMonths(),old('mon'),['id'=>'changeSelectpoint']) }}
-                {{-- <select name="mon" id="changeSelectpoint">
-                  @foreach (HomeHelper::getMonths() as $month)
-                  <option value="{{$month[0]}}">{{$month[1]}}</option>
-                  @endforeach
-                </select> --}}
               </div>
             </dd>
           </dl>
@@ -85,7 +80,6 @@
           </dl>
           <p class="txtCenter"><button type="submit" class="smit search_btn">空室状況検索<img
                 src="https://system.osaka-conference.com/img/icon_serch.png" alt="検索"></button>
-            {{-- <a href="https://system.osaka-conference.com/contact/" class="cContactBtn">問い合わせ</a> --}}
           </p>
           {{Form::close()}}
         </div>
