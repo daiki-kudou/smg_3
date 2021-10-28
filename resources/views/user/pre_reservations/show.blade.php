@@ -70,7 +70,7 @@
               <td class="table-active">会場</td>
               <td>
                 {{ReservationHelper::getVenueForUser($venue->id)}}
-                <div>料金体系：{{$pre_reservation->price_system==1?"通常（枠貸）":"アクセア（時間貸）"}}</div>
+                <div>料金体系：{{$pre_reservation->price_system==1?"通常（枠貸）":"音響HG"}}</div>
               </td>
             </tr>
             <tr>

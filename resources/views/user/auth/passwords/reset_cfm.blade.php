@@ -8,9 +8,9 @@
 </div>
 
 <section class="contents">
-  <div class="">
-    <p class="text-center">パスワードの変更が完了しました</p>
-    <a href="{{ url('/user/home') }}">新しいパスワードでログイン</a>
+  <div class="section-wrap">
+    <p class="txtCenter">パスワードの変更が完了しました</p>
+    <p class="txtCenter"><a class="link-btn3" href="{{ url('/user/home') }}">新しいパスワードでログイン</a></p>
   </div>
 </section>
 @endsection

@@ -708,6 +708,26 @@ header div.contents {
     height: 800px;
 }
 
+.alert-danger {
+    text-align: center;
+    color: #EF6243;
+}
+
+.cart-number-box {
+    position: absolute;
+    background-color: #EF6243;
+    color: #fff;
+    border-radius: 50%;
+    /* right: -20px; */
+    /* bottom: -13px; */
+}
+
+.cart-number {
+    text-align: center;
+    font-size: 15px;
+    padding: 5px 15px;
+}
+
 @media screen and (max-width: 750px) {
 
     /* header {
