@@ -718,8 +718,8 @@ header div.contents {
     background-color: #EF6243;
     color: #fff;
     border-radius: 50%;
-    /* right: -20px; */
-    /* bottom: -13px; */
+    right: -20px;
+    bottom: -13px;
 }
 
 .cart-number {

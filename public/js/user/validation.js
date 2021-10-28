@@ -94,6 +94,8 @@ $(function () {
         luggage_count: { number: true, range: [0, 49] },
         luggage_return: { number: true, range: [0, 49] },
         luggage_price: { number: true },
+        flow: { required: true },
+        policy: { required: true },
       },
       messages: {
         in_charge: { required: "※必須項目です" },
@@ -115,6 +117,12 @@ $(function () {
         },
         luggage_price: {
           number: "※半角数字で入力してください",
+        },
+        flow: {
+          required: "※チェックをしてください",
+        },
+        policy: {
+          required: "※チェックをしてください",
         },
       },
       errorPlacement: function (error, element) {
