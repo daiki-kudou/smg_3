@@ -164,9 +164,7 @@
             @endif
 
             <p class=" ml-3 font-weight-bold">
-              @if ($counter!=0)
-              <span class="count-color">{{$counter}}</span>件
-              @elseif($counter!=0)
+              @if ($data)
               <span class="count-color">{{$counter}}</span>件
               @endif
             </p>

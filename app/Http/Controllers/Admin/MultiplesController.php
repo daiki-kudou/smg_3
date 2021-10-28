@@ -37,6 +37,7 @@ class MultiplesController extends Controller
 
     $_multiples = new MultipleReserve;
     $_multiples = $_multiples->SearchMultiple($data)->orderByRaw('multiple_reserve_id desc')->get()->toArray();
+    $counter = count($_multiples);
     $multiples = [];
     foreach ($_multiples as $p) {
       if ((int)$p->user_id === 0 || empty($p->user_id)) {
@@ -62,7 +63,6 @@ class MultiplesController extends Controller
     }
     $multiples = json_encode($multiples);
 
-    $counter = 0;
     $agents = DB::table('agents')->select(DB::raw('id, name'))->orderByRaw('id desc')->pluck('name', 'id')->toArray();
 
     return view('admin.multiples.index', compact('multiples', "counter", "data", "agents"));

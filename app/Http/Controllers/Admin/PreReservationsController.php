@@ -46,9 +46,11 @@ class PreReservationsController extends Controller
    */
   public function index(Request $request)
   {
+
     $data = $request->all();
     $_pre_reservations = new PreReservation;
     $_pre_reservations = $_pre_reservations->SearchPreReservation($data)->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc')->get()->toArray();
+    $counter = count($_pre_reservations);
     $pre_reservations = [];
     foreach ($_pre_reservations as $p) {
       $pre_reservations[] = [
@@ -77,7 +79,7 @@ class PreReservationsController extends Controller
 
     return view(
       'admin.pre_reservations.index',
-      compact('venues', 'agents', 'data', 'pre_reservations')
+      compact('venues', 'agents', 'data', 'pre_reservations', 'counter')
     );
   }
 
