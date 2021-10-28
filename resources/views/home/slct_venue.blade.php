@@ -74,7 +74,8 @@
             <dt><label>利用月</label></dt>
             <dd class="">
               <div class="selectWrap">
-                <select name="mon" id="changeSelectpoint">
+                {{ Form::select('mon',HomeHelper::getMonths(),old('mon',$request->mon),['id'=>'changeSelectpoint']) }}
+                {{-- <select name="mon" id="changeSelectpoint">
                   @foreach (HomeHelper::getMonths() as $month)
                   @if ($request->mon==$month[0])
                   <option value="{{$month[0]}}" selected>{{$month[1]}}</option>
@@ -82,7 +83,7 @@
                   <option value="{{$month[0]}}">{{$month[1]}}</option>
                   @endif
                   @endforeach
-                </select>
+                </select> --}}
               </div>
             </dd>
           </dl>
