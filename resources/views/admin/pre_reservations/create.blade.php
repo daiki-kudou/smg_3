@@ -314,7 +314,6 @@
       var dt = new Date(base_date);
       dt.setDate(dt.getDate() + 1);
       var next_day=dt.getFullYear()+'-'+(( '00' + (dt.getMonth() + 1) ).slice( -2 ))+'-'+dt.getDate();
-      console.log(next_day);
 
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
       if (base_venue=="") {
@@ -328,6 +327,7 @@
       }else{
         $(this).parent().parent().next().find("td").eq(0).find('input').val(next_day);
       }
+
 
       var count = $(this).parent().parent().parent().find('tr').length;
       var target = $(this).parent().parent().parent().find('tr');

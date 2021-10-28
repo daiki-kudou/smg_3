@@ -173,7 +173,6 @@
               <span>予約カート</span>
               <div class="cart-number-box">
                 <p class="cart-number">
-                  <!-- 工藤さん！！こちらに件数 -->
                   {{ !empty($sessions)?count($sessions):0 }}
                 </p>
               </div>
@@ -266,7 +265,6 @@
           <span>予約カート</span>
           <div class="cart-number-box">
             <p class="cart-number">
-              <!-- 工藤さん！！こちらに件数 -->
               {{ !empty($sessions)?count($sessions):0 }}
             </p>
           </div>
