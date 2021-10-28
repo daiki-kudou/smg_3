@@ -451,6 +451,46 @@ $(function () {
 });
 
 
+$(function () {
+  $("#cartConfirm").validate({
+    rules: {
+      flow: { required: true },
+      policy: { required: true },
+    },
+    messages: {
+      flow: {
+        required: "※チェックをしてください",
+      },
+      policy: {
+        required: "※チェックをしてください",
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    submitHandler: function (form) {
+      // $("#fullOverlay").addClass("hide");
+      $("#fullOverlay").removeClass("hide");
+      form.submit();
+    },
+
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+  });
+});
+
+
+
+
+
 // 数字の入力制限
 $(function () {
   $("input[name*='equipment_breakdown']").on("input", function (e) {
