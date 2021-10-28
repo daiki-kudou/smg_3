@@ -475,6 +475,12 @@ $(function () {
     },
     errorElement: "span",
     errorClass: "is-error",
+    submitHandler: function (form) {
+      // $("#fullOverlay").addClass("hide");
+      $("#fullOverlay").removeClass("hide");
+      form.submit();
+    },
+
   });
   $('input').on('blur', function () {
     $(this).valid();
