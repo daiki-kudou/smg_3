@@ -20,11 +20,8 @@
 @endif
 
 <!-- カート一覧 -->
-★★★★★★★★★★★★★★★★★★★★<br>
-★★★★★★★★★★★★★★★★★★★★<br>
-現在のカート件数： {{ count($sessions) }}<br>
-★★★★★★★★★★★★★★★★★★★★<br>
-★★★★★★★★★★★★★★★★★★★★<br>
+<span>現在のカート数：</span>
+<div class="cart-number-box"><p class="cart-number">{{ count($sessions) }}</p></div>
 <div class="contents">
   <div class="pagetop-text">
     <h1 class="page-title oddcolor"><span>予約カート</span></h1>
@@ -292,7 +289,6 @@
         原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生います。申込前に「<a href="https://osaka-conference.com/cancelpolicy/">キャンセルポリシー</a>」
         をご確認下さい。
       </dd>
-      <!-- 工藤さんこちら！！！！！ -->
       <dd class="caution-area">
         <div class="page-text">
           <p class="checkbox-txt">
