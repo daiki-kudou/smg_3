@@ -19,7 +19,7 @@
   <tbody>
     @foreach ($admins as $admin)
     <tr>
-      <td>{{$admin['id']}}</td>
+      <td>{{ReservationHelper::fixId($admin['id'])}}</td>
       <td>{{$admin['name']}}</td>
       <td>{{$admin['email']}}</td>
       <td class="text-center">

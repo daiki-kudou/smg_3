@@ -47,7 +47,6 @@ class PreReservationsController extends Controller
   public function index(Request $request)
   {
     $data = $request->all();
-
     $_pre_reservations = new PreReservation;
     $_pre_reservations = $_pre_reservations->SearchPreReservation($data)->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc')->get()->toArray();
     $pre_reservations = [];
@@ -67,6 +66,7 @@ class PreReservationsController extends Controller
         $p->unknownuser,
         $p->agent_name,
         $p->enduser,
+        ((int)$p->pre_reservation_status === 1 ? "顧" : "S"),
         "<a href=" . url('admin/pre_reservations', $p->pre_reservation_id_original) . " class='more_btn btn'>詳細</a>",
       ];
     }

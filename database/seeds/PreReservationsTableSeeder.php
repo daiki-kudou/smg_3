@@ -15,6 +15,6 @@ class PreReservationsTableSeeder extends Seeder
   public function run()
   {
     DB::table('pre_reservations')->truncate();
-    factory(\App\Models\PreReservation::class, 20)->create();
+    factory(\App\Models\PreReservation::class, 20000)->create();
   }
 }

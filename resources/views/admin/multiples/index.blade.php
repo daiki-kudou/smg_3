@@ -9,7 +9,6 @@
 <script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
 <link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
 
-
 <style>
   .checkbox,
   #all_check {
@@ -111,6 +110,13 @@
               {{Form::text("search_free",optional($data)['search_free'], ['class'=>'form-control','id'=>''])}}
             </td>
           </tr>
+          <tr>
+            <th class="search_item_name"><label for="search_end_user">権限</label></th>
+            <td>
+              {{Form::select('search_role', ['0' => 'S', '1' => '顧'], optional($data)['search_role'],
+              ['class' =>'form-control','placeholder'=>''])}}
+            </td>
+          </tr>
         </tbody>
       </table>
       <div class="annotation text-left">
@@ -168,7 +174,6 @@
         </li>
       </ul>
 
-
       <div class="table-wrap" id="parent_multiple_table" data-multiples="{{$multiples}}">
         <table class="table table-bordered table-scroll sort_table compact hover order-column" id="multiple_sort">
           <thead>
@@ -187,72 +192,14 @@
               <th>会社・団体名</th>
               <th>仲介会社</th>
               <th>エンドユーザー</th>
+              <th>権限</th>
               <th>仮押え詳細</th>
             </tr>
           </thead>
-          {{-- <tbody>
-            @foreach ($multiples as $multiple)
-            @if (!empty($multiple->pre_reservations->toArray()))
-            <tr>
-              <td class="text-center">
-                <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
-                  class="checkbox">
-              </td>
-              <td>{{ReservationHelper::fixId($multiple->id)}}</td>
-              <td>{{ReservationHelper::formatDate($multiple->created_at)}}</td>
-              <td>{{$multiple->pre_reservations->count()}}</td>
-              <td>
-                @if (!empty($multiple->pre_reservations->first()->user))
-                {{(ReservationHelper::getCompany($multiple->pre_reservations->first()->user->id))}}
-                @endif
-              </td>
-              <td>
-                @if (!empty($multiple->pre_reservations->first()->user))
-                {{ReservationHelper::getPersonName($multiple->pre_reservations->first()->user->id)}}
-                @endif
-              </td>
-              <td>
-                @if (!empty($multiple->pre_reservations->first()->user))
-                {{ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user->id)}}
-                @endif
-              </td>
-              <td>
-                @if (!empty($multiple->pre_reservations->first()->user))
-                {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user->id)}}
-                @endif
-              </td>
-              <td>
-                @if (!empty($multiple->pre_reservations->first()->user))
-                {{(optional($multiple->pre_reservations->first()->unknown_user)->unknown_user_company)}}
-                @endif
-              </td>
-              <td>
-                @if (empty($multiple->pre_reservations->first()->user))
-                {{$multiple->pre_reservations->first()->agent->name}}
-                @endif
-              </td>
-              <td>
-                @if (empty($multiple->pre_reservations->first()->user))
-                {{$multiple->pre_reservations->first()->pre_enduser->company}}
-                @endif
-              </td>
-              <td class="text-center">
-                @if (!empty($multiple->pre_reservations->first()->user))
-                <a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn more_btn">詳細</a>
-                @else
-                <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn">詳細</a>
-                @endif
-              </td>
-            </tr>
-            @endif
-            @endforeach
-          </tbody> --}}
         </table>
       </div>
     </div>
   </div>
-
-  {{-- {{ $multiples->appends(request()->input())->links() }} --}}
 </div>
 
 
@@ -376,12 +323,16 @@
       { title: "会社・団体名（仮）" },
       { title: "仲介会社" },
       { title: "エンドユーザー" },
+      { title: "権限" },
       { title: "仮押え詳細" },
       ],
       order: [],
       columnDefs: [
-        {targets: 0, sortable: false, orderable: false},
-        {targets: 10, sortable: false, orderable: false},
+        {targets: [0,10], sortable: false, orderable: false},
+        {
+          "className": "text-center",
+          "targets": [0,1,2,3,4,6,7,8,9,10,11,12],
+        }
         ],
       });
   })

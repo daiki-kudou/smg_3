@@ -15,11 +15,11 @@
 <section class="mt-5">
   <div class="align-items-center d-flex justify-content-between mb-3">
     <div>
-      {{ Form::model($user, ['route' => ['admin.clients.destroy', $user->id], 'method' => 'delete']) }}
+      {{-- {{ Form::model($user, ['route' => ['admin.clients.destroy', $user->id], 'method' => 'delete']) }}
       @csrf
       {{Form::hidden("page",$request->page)}}
       {{ Form::submit('削除', ['class' => 'btn more_btn4',"id"=>"delete_btn"]) }}
-      {{ Form::close() }}
+      {{ Form::close() }} --}}
     </div>
     <div>
       {{ link_to_route('admin.clients.edit', '編集する', $parameters = $user->id, ['class' => 'btn more_btn']) }}

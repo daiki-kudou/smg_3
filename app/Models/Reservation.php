@@ -647,7 +647,8 @@ class Reservation extends Model implements PresentableInterface
       check_status4.status4 as reservation_status4,
       check_status5.status5 as reservation_status5,
       check_status6.status6 as reservation_status6,
-      sogaku_master.sogaku
+      case when cxls.id > 0 then cxls.master_total when cxls.id is null then sogaku_master.sogaku end as sogaku,
+      cxls.id
       '
       ))
       ->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')
@@ -655,6 +656,7 @@ class Reservation extends Model implements PresentableInterface
       ->leftJoin('agents', 'reservations.agent_id', '=', 'agents.id')
       ->leftJoin('endusers', 'reservations.id', '=', 'endusers.reservation_id')
       ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
+      ->leftJoin('cxls', 'reservations.id', '=', 'cxls.reservation_id')
       ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_2  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=2 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_2'), 'reservations.id', '=', 'check_unit_2.reservation_id')
       ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_3  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=3 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_3'), 'reservations.id', '=', 'check_unit_3.reservation_id')
       ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_4  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=4 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_4'), 'reservations.id', '=', 'check_unit_4.reservation_id')

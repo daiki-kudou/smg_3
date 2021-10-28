@@ -55,8 +55,6 @@ class AdminsController extends Controller
     return redirect(route('admin.administer.index'));
   }
 
-
-
   /**
    * Show the form for editing the specified resource.
    *

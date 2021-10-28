@@ -96,7 +96,7 @@
             </li>
             <li>
               <a target="_blank" rel="noopener noreferrer"
-                href="https://osaka-conference.com/characteristic/high-grade/">
+                href="https://system.osaka-conference.com/characteristic/high-grade/">
                 <i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a>
             </li>
           </ul>
@@ -128,7 +128,7 @@
                 {{Form::label('no_board_flag','しない')}}
               </div>
             </li>
-            <li><a target="_blank" rel="noopener noreferrer" href="https://osaka-conference.com/welcomboard/"><i
+            <li><a target="_blank" rel="noopener noreferrer" href="https://system.osaka-conference.com/welcomboard/"><i
                   class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
             <li class="{{$fix->board_flag==0?'cell-margin d-none':" cell-margin"}}">
               <div class="m-b10">
@@ -444,7 +444,7 @@
   {{Form::close()}}
 </section>
 
-<div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
+<div class="top contents"><a href="#top"><img src="https://system.osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
 </div>
 
 <script>
@@ -524,7 +524,7 @@
         $("#datepicker2").datepicker({
           dateFormat: 'yy-mm-dd',
             showOn: "both",
-            buttonImage: "https://osaka-conference.com/img/icon_calender.png",
+            buttonImage: "https://system.osaka-conference.com/img/icon_calender.png",
             buttonImageOnly: true,
             minDate: "+3",
             maxDate: target_day,

@@ -103,7 +103,15 @@
       info: false,
       autowidth: false,
       "order": [[ 0, "desc" ]], //初期ソートソート条件
-      "columnDefs": [{ "orderable": false, "targets": [10] }],
+      "columnDefs": [
+        { "orderable": false, 
+        "targets": [10] 
+        },
+        {
+        "className": "text-center",
+        "targets": [0,1,2,7,8,9,10],
+        }
+        ],
       "stripeClasses": [],
      });
     });

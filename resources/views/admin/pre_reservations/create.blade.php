@@ -31,9 +31,8 @@
 
 <section class="mt-5">
   <div class="calendar">
-    <iframe frameborder="0" src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500"></iframe>
+    <iframe frameborder="0" src="{{url('admin/calendar/mini_calendar')}}" width="100%" height="500"></iframe>
   </div>
-
 
   {{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'get', 'id'=>'pre_reservationCreateForm'])}}
   @csrf
@@ -348,7 +347,7 @@
         $(target).eq(index).find('td').eq(3).find('select').attr('class', "leave_control_pre_reservation" + index+" form-control ");
 
         // dapicker付与
-        $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
+        $('#pre_datepicker' + index).removeClass('hasDatepicker').removeData("datepicker").removeAttr("id").unbind().datepicker({
           dateFormat: 'yy-mm-dd',
           minDate: 0,
         });

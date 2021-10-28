@@ -301,13 +301,10 @@ class HomeController extends Controller
       return redirect(url('user/home'));
     }
     $user = User::with(["reservations.bills", "pre_reservations"])->find($id);
-    $user_email = $user->email;
-    $user_company = $user->company;
     $user->delete();
 
-    $admin =  config('app.admin_email');
-    Mail::to($admin)->send(new AdminUnSub($user_company)); // 管理者に予約完了メール送信
-    Mail::to($user_email)->send(new UserUnSub($user_company)); // ユーザーに予約完了メール送信
+    $SendSMGEmail = new SendSMGEmail($user, "", "");
+    $SendSMGEmail->AuthSend("退会");
 
     return redirect(url('/cxl_member_ship_done'));
   }

@@ -2,13 +2,13 @@
 $(function () {
   var json = JSON.parse($('input[name=each_json]').val());
   for (let index = 0; index < json.length; index++) {
-    var status = $('input[name="status"]').eq(index).val();
-    var date = $('input[name="date"]').eq(index).val();
-    var reservation_id = $('input[name="reservation_id"]').eq(index).val();
-    var company = $('input[name="company"]').eq(index).val();
+    var status = json[index].status;
+    var date = json[index].reserve_date;
+    var reservation_id = json[index].id;
+    var company = json[index].company;
     var data = "<a  target='_blank' href='" + rootPath + "/admin/reservations/" + reservation_id + "'>" + company + "</a>";
     if (status < 3) {
-      $.each(json[index], function ($index, $value) {
+      $.each(json[index]['time'], function ($index, $value) {
         $('.' + date + 'cal' + $value).addClass('bg-prereserve');
         if ($index == 0) { //会社名挿入 10時以上の予約
           $('.' + date + 'cal' + $value).html(data);//リンク挿入
@@ -19,20 +19,20 @@ $(function () {
           }
         } else if ($value == "0800") {
           $('.' + date + 'cal' + $value).html(data);//リンク挿入
-        } else if ($index + 1 === json[index].length) {
+        } else if ($index + 1 === json[index]['time'].length) {
           if (!$('.' + date + 'cal' + $value).next().hasClass('bg-reserve')) {
             $('.' + date + 'cal' + $value).next().css('background', 'gray'); //前後30分灰色
           }
         }
-        if (json[index].length === 1) { //30分利用の時のみ、次のマスをグレー
+        if (json[index]['time'].length === 1) { //30分利用の時のみ、次のマスをグレー
           $('.' + date + 'cal' + $value).next().addClass('gray');
         }
-        if (json[index].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
+        if (json[index]['time'].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
           $('.' + date + 'cal' + $value).next().addClass('gray');
         }
       })
     } else if (status == 3) {
-      $.each(json[index], function ($index, $value) {
+      $.each(json[index]['time'], function ($index, $value) {
         $('.' + date + 'cal' + $value).addClass('bg-reserve');
         if ($index == 0) { //会社名挿入 10時以上の予約
           $('.' + date + 'cal' + $value).html(data);
@@ -43,15 +43,15 @@ $(function () {
           }
         } else if ($value == "0800") {
           $('.' + date + 'cal' + $value).html(data);
-        } else if ($index + 1 === json[index].length) {
+        } else if ($index + 1 === json[index]['time'].length) {
           if (!$('.' + date + 'cal' + $value).next().hasClass('bg-reserve')) {
             $('.' + date + 'cal' + $value).next().css('background', 'gray'); //前後30分灰色
           }
         }
-        if (json[index].length === 1) { //30分利用の時のみ、次のマスをグレー
+        if (json[index]['time'].length === 1) { //30分利用の時のみ、次のマスをグレー
           $('.' + date + 'cal' + $value).next().addClass('gray');
         }
-        if (json[index].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
+        if (json[index]['time'].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
           $('.' + date + 'cal' + $value).next().addClass('gray');
         }
       })
@@ -62,20 +62,21 @@ $(function () {
 // 仮抑えカレンダー
 $(function () {
   var pre_json = JSON.parse($('input[name=pre_each_json]').val());
+  console.log(pre_json);
   for (let index = 0; index < pre_json.length; index++) {
-    var pre_date = $('input[name="pre_date"]').eq(index).val();
-    var pre_reservation_id = $('input[name="pre_reservation_id"]').eq(index).val();
-    var pre_company = $('input[name="pre_company"]').eq(index).val();
-    var pre_agent_id = $('input[name="pre_agent_id"]').eq(index).val();
-    var multiple_id = $('input[name="multiple_id"]').eq(index).val();
-    $.each(pre_json[index], function ($index, $value) {
-      if (pre_json[index].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
+    var pre_date = pre_json[index].reserve_date;
+    var pre_reservation_id = pre_json[index].id;
+    var pre_company = pre_json[index].company;
+    var pre_agent_id = pre_json[index].agent_id;
+    var multiple_id = pre_json[index].multiple_id;
+    $.each(pre_json[index]['time'], function ($index, $value) {
+      if (pre_json[index]['time'].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
         $('.' + pre_date + 'cal' + $value).next().addClass('gray');
       }
 
       $('.' + pre_date + 'cal' + $value).addClass('bg-prereserve');
 
-      if (pre_json[index].length === 1) {//30分利用の時のみ、次のマスをグレー
+      if (pre_json[index]['time'].length === 1) {//30分利用の時のみ、次のマスをグレー
         $('.' + pre_date + 'cal' + $value).next().addClass('gray');
       }
 
@@ -111,7 +112,7 @@ $(function () {
           var data = "<a target='_blank' href='" + rootPath + "/admin/pre_reservations/" + pre_reservation_id + "'>" + pre_company + "</a>";
           $('.' + pre_date + 'cal' + $value).html(data);
         }
-      } else if ($index + 1 === pre_json[index].length) {
+      } else if ($index + 1 === pre_json[index]['time'].length) {
         if (!$('.' + pre_date + 'cal' + $value).next().hasClass('bg-prereserve')) {
           $('.' + pre_date + 'cal' + $value).next().addClass('gray');//前後30分灰色
         }

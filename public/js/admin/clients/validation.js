@@ -159,7 +159,7 @@ $(function () {
         },
         url: {
           url:
-            "正しいURLを記入してください(例:https://osaka-conference.com/)",
+            "正しいURLを記入してください(例:https://system.osaka-conference.com/)",
         },
         first_name: {
           required: "※必須項目です",

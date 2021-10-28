@@ -56,6 +56,7 @@ class MultiplesController extends Controller
         $p->unknown_user_company,
         $p->agent_name,
         $p->enduser,
+        (int)$p->pre_status > 0 ? "顧" : "S",
         $detail_link,
       ];
     }

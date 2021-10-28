@@ -14,7 +14,7 @@ $(function () {
     messages: {
       item: {
         required: "※必須項目です",
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/rental/t6-maronie/hall/)'
+        url: '正しいURLを記入してください(例:https://system.osaka-conference.com/rental/t6-maronie/hall/)'
       },
       price: {
         required: "※必須項目です",
@@ -63,7 +63,7 @@ $(function () {
     messages: {
       item: {
         required: "※必須項目です",
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/rental/t6-maronie/hall/)'
+        url: '正しいURLを記入してください(例:https://system.osaka-conference.com/rental/t6-maronie/hall/)'
       },
       price: {
         required: "※必須項目です",
