@@ -168,7 +168,7 @@
                       <div class="d-flex justfy-content-start align-items-center">
                         {{ Form::radio('price_system', 2, $request->price_system==2?true:false, ['class'=>'mr-2',
                         'id'=>'price_system_radio2']) }}
-                        {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                        {{Form::label('price_system_radio2','音響HG')}}
                       </div>
                     </div>
                     @elseif($venue->getPriceSystem()[0]==1&&$venue->getPriceSystem()[1]==0)
@@ -182,7 +182,7 @@
                     <div class="price_radio_selector">
                       <div class="d-flex justfy-content-start align-items-center">
                         {{ Form::radio('price_system', 2, true, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
-                        {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                        {{Form::label('price_system_radio2','音響HG')}}
                       </div>
                     </div>
                     @elseif($venue->getPriceSystem()[0]==0&&$venue->getPriceSystem()[1]==0)

@@ -153,7 +153,7 @@
                         <td>
                           <p>{{ ReservationHelper::getVenue($reservation->venue_id) }}</p>
                           <p>
-                            {{ $reservation->price_system == 1 ? '通常（枠貸）' : 'アクセア（時間貸）' }}
+                            {{ $reservation->price_system == 1 ? '通常（枠貸）' : '音響HG' }}
                           </p>
                         </td>
                       </tr>

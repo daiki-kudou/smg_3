@@ -144,7 +144,7 @@
                             <p>
                               {{ Form::radio('cp_master_price_system', 2, false, ['class'=>'mr-2',
                               'id'=>'cp_master_price_system_radio2']) }}
-                              {{Form::label('cp_master_price_system_radio2','アクセア（時間貸）')}}
+                              {{Form::label('cp_master_price_system_radio2','音響HG')}}
                             </p>
                           </div>
                           @elseif($venue->frame_prices->count()!=0&&$venue->time_prices->count()==0)
@@ -157,7 +157,7 @@
                           <p>
                             {{ Form::radio('cp_master_price_system', 2, true, ['class'=>'mr-2',
                             'id'=>'cp_master_price_system_radio2']) }}
-                            {{Form::label('cp_master_price_system_radio2','アクセア（時間貸）')}}
+                            {{Form::label('cp_master_price_system_radio2','音響HG')}}
                           </p>
                           @endif
                         </div>
@@ -702,7 +702,7 @@
                                 {{ Form::radio('price_system_copied'.$key, 2,
                                 $request->cp_master_price_system==2?true:false, ['class'=>'mr-2',
                                 'id'=>'price_system_copied_off'.$key]) }}
-                                {{Form::label('price_system_copied_off'.$key,'アクセア（時間貸）')}}
+                                {{Form::label('price_system_copied_off'.$key,'音響HG')}}
                               </div>
                             </div>
                             @elseif($venue->frame_prices->count()!=0&&$venue->time_prices->count()==0)
@@ -715,7 +715,7 @@
                             <div>
                               {{ Form::radio('price_system_copied'.$key, 2, true, ['class'=>'mr-2',
                               'id'=>'price_system_copied_off'.$key]) }}
-                              {{Form::label('price_system_copied_off'.$key,'アクセア（時間貸）')}}
+                              {{Form::label('price_system_copied_off'.$key,'音響HG')}}
                             </div>
                             @endif
                           </div>

@@ -343,7 +343,7 @@ class ReservationHelper
 
   public static function priceSystem($num)
   {
-    return $num == 1 ? '通常（枠貸）' : 'アクセア（時間貸）';
+    return $num == 1 ? '通常（枠貸）' : '音響HG';
   }
 
   public static function getTax($num)

@@ -221,7 +221,7 @@
                     <p>
                       {{ Form::radio('price_system', 2, $PreReservation->price_system==2?true:false, ['class'=>'mr-2',
                       'id'=>'price_system_radio2']) }}
-                      {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                      {{Form::label('price_system_radio2','音響HG')}}
                     </p>
                   </div>
                   @elseif($SPVenue->getPriceSystem()[0]==1&&$SPVenue->getPriceSystem()[1]==0)
@@ -235,7 +235,7 @@
                   <div class="form-check">
                     <p>
                       {{ Form::radio('price_system', 2, true, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
-                      {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                      {{Form::label('price_system_radio2','音響HG')}}
                     </p>
                   </div>
                   @endif

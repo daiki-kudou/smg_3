@@ -85,7 +85,7 @@
           <tr>
             <td class="table-active">料金体系</td>
             <td>
-              {{ Form::text('', $value['price_system']==1?"通常（枠貸）":"アクセア（時間貸）" ,['class'=>'form-control','readonly'] ) }}
+              {{ Form::text('', $value['price_system']==1?"通常（枠貸）":"音響HG" ,['class'=>'form-control','readonly'] ) }}
               {{ Form::hidden('price_system', $value['price_system'] ,['class'=>'form-control','readonly'] ) }}
             </td>
           </tr>

@@ -79,7 +79,7 @@
 
   <!-- 時間貸し料金 -->
   <div class="pt-5 flex-fill">
-    <h4 class="">料金体系：アクセア仕様(時間貸し料金)</h4>
+    <h4 class="">料金体系：音響HG</h4>
     <div class="text-right mb-2">
       @if (!count($time_prices)==0)
       {{ link_to_route('admin.time_prices.edit', '時間貸し編集', $parameters=$venue->id,['class' => 'btn more_btn']) }}

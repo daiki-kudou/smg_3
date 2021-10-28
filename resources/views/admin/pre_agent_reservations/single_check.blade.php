@@ -177,7 +177,7 @@
                     <p>
                       {{Form::radio('price_system', 2, false, ['id' => 'price_system_off', 'class' =>
                       'form-check-input'])}}
-                      {{Form::label('price_system_off', "アクセア（時間貸）")}}
+                      {{Form::label('price_system_off', "音響HG")}}
                     </p>
                     @elseif($venue->getPriceSystem()[0]==1&&$venue->getPriceSystem()[1]==0)
                     <p>
@@ -188,7 +188,7 @@
                     <p>
                       {{Form::radio('price_system', 2, true, ['id' => 'price_system_off', 'class' =>
                       'form-check-input'])}}
-                      {{Form::label('price_system_off', "アクセア（時間貸）")}}
+                      {{Form::label('price_system_off', "音響HG")}}
                     </p>
                     @elseif($venue->getPriceSystem()[0]==0&&$venue->getPriceSystem()[1]==0)
                     <p>
