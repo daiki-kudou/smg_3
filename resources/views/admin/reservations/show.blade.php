@@ -449,7 +449,7 @@
                       <tr>
                         <td>
                           <h2 class="text-white">
-                            請求書No{{ $reservation->bills->sortBy("id")->first()->id }}
+                            請求書No. {{ $reservation->bills->sortBy("id")->first()->invoice_number }}
                           </h2>
                         </td>
                         <td style="width: 70%;">
@@ -832,7 +832,7 @@
                       <tr>
                         <td>
                           <h2 class="text-white">
-                            請求書No
+                            請求書No. {{ $other_bill->invoice_number }}
                           </h2>
                         </td>
                         <td style="width: 70%;">
@@ -1203,7 +1203,7 @@
                       <tr>
                         <td>
                           <h2 class="text-white">
-                            請求書No
+                            請求書No. {{ $cxl->invoice_number }}
                           </h2>
                         </td>
                         <td style="width: 70%;">

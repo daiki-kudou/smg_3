@@ -394,7 +394,7 @@
                 <ul class="bill_header">
                   <li>
                     <h2 class="text-white">
-                      請求書No
+                      請求書No. {{ $reservation->bills->sortBy("id")->first()->invoice_number }}
                     </h2>
                   </li>
                   <li>
@@ -697,7 +697,7 @@
                 <ul class="bill_header">
                   <li>
                     <h2 class="text-white">
-                      請求書No
+                      請求書No. {{ $other_bill->invoice_number }}
                     </h2>
                   </li>
                   <li>
@@ -1126,7 +1126,7 @@
                 <ul class="bill_header">
                   <li>
                     <h2 class="text-white">
-                      請求書No
+                      請求書No. {{ $cxl->invoice_number }}
                     </h2>
                   </li>
                   <li>
