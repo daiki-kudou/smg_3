@@ -183,7 +183,7 @@
                 {{-- 支払期日2<br> --}}
                 {{ReservationHelper::formatDate($reservation->bills->sortBy("id")->skip($i)->first()->payment_limit)}}
               </td>
-              <td>
+              <td class="paystatus">
                 {{-- 支払状況2<br> --}}
                 {{$reservation->bills->sortBy("id")->skip($i)->first()->paid==0?"未入金":"入金済"}}</td>
               {{-- <td>請求書2</td> --}}
@@ -222,7 +222,7 @@
                 {{-- 支払期日3<br> --}}
                 {{ReservationHelper::formatDate($reservation->bills->sortBy("id")->skip($i)->first()->cxl->payment_limit)}}
               </td>
-              <td>
+              <td class="paystatus">
                 {{-- 支払状況3<br> --}}
                 {{($reservation->bills->sortBy("id")->skip($i)->first()->cxl->paid==0?"未入金":"入金済")}}
               </td>
@@ -296,27 +296,14 @@
 {{$reservations->appends(request()->input())->render()}}
 
 </div>
+<script>
 
+// 文字列、未入金にcssを付与
+$(function () {
+$("td:contains('未入金')").css("font-weight","bold"); 
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</script>
 
 
 
