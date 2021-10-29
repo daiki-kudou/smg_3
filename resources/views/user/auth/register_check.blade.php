@@ -2,7 +2,7 @@
 @section('content')
 
 <!-- ログイン、会員登録 -->
-<div class="contents">
+<div class="contents" id="cartNone">
   <div class="pagetop-text">
     <h1 class="page-title oddcolor"><span>会員登録 確認</span></h1>
     <p>入力内容をご確認ください。</p>
