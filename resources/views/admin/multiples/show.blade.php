@@ -68,6 +68,7 @@
   </table>
 
 
+
   <div class="border-wrap2 p-4">
     <table class="table table-bordered customer-table mb-5" style="table-layout: fixed;">
       <tbody>
@@ -166,8 +167,11 @@
     </table>
     <hr class="my-5 border_color">
     <div class="mt-5">
-      <p class="text-right"><a href="{{url('admin/multiples/'.$multiple->id." /add_venue")}}"
-          class="more_btn3">日程を追加する</a></p>
+      @if ((int)$multiple->pre_reservations->first()->status===0)
+      <p class="text-right">
+        <a href="{{url('admin/multiples/'.$multiple->id." /add_venue")}}" class="more_btn3">日程を追加する</a>
+      </p>
+      @endif
       <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
     </div>
     <table class="table table-bordered table-scroll">
@@ -199,7 +203,9 @@
             {{$multiple->pre_reservations->where('venue_id',$v->venue_id)->count()}}
           </td>
           <td>
+            @if ((int)$multiple->pre_reservations->first()->status===0)
             <a class="more_btn" href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$v->venue_id)}}">編集</a>
+            @endif
           </td>
         </tr>
         @endforeach

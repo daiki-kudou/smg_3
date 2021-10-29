@@ -208,10 +208,6 @@
     $(document).on("click", ".add", function() {
       var valid=$("#pre_agent_reservationsCreateForm").validate();
       valid.destroy();
-      // すべてのselect2初期化
-      // for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
-      //   $('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy");
-      // }
       var base_venue = $(this).parent().parent().find('td').eq(1).find('select').val();
       var base_date = $(this).parent().parent().find('td').eq(0).find('input').val().split('-');
       var dt = new Date(base_date);
@@ -250,20 +246,10 @@
         $(target).eq(index).find('td').eq(3).find('select').attr('class', "leave_control_pre_reservation" + index+" form-control ");
 
         // dapicker付与
-        $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
+        $('#pre_datepicker' + index).removeClass('hasDatepicker').removeData("datepicker").removeAttr("id").unbind().datepicker({
           dateFormat: 'yy-mm-dd',
           minDate: 0,
-        });
-        // select2付与
-        // $(target).eq(index).find('td').eq(1).find('select').select2({
-        //   width: '100%'
-        // });
-        // 時間の入力を初期化
-        // 意図しない一番最後がクリアされるため一旦、コメントアウト
-        //if (index == count - 1) {
-        //  $(target).eq(index).find('td').eq(2).find('input, select').val('');
-        //  $(target).eq(index).find('td').eq(3).find('input, select').val('');
-        //}
+        });        
         $(target).eq(index).find('td').eq(0).find('p').remove();
         $(target).eq(index).find('td').eq(1).find('p').remove();
         $(target).eq(index).find('td').eq(2).find('p').remove();
