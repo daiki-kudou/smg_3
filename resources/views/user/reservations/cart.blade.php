@@ -178,18 +178,8 @@
             </td>
           </tr>
           @endif
-          <!-- <tr>
-            <td colspan="2" class="text-right">
-              <p class="checkbox-txt"><span>小計</span>{{number_format($reservation[0]['master'])}}<span>円</span></p>
-              <p class="checkbox-txt">
-                <span>消費税</span>{{number_format(ReservationHelper::getTax($reservation[0]['master']))}}円
-              </p>
-            </td>
-          </tr> -->
           <tr>
-            <!-- <td colspan="2" class="text-right checkbox-txt"><span>合計金額</span>
-              <span class="sumText">{{number_format(ReservationHelper::taxAndPrice($reservation[0]['master']))}}</span><span>円</span>
-            </td> -->
+
             <td colspan="2" class="text-right checkbox-txt"><span>小計(税抜)</span>
               <span
                 class="sumText">{{number_format(ReservationHelper::taxAndPrice($reservation[0]['master']))}}</span><span>円</span>
@@ -198,22 +188,6 @@
         </tbody>
       </table>
     </div>
-    <!-- <ul class="btn-wrapper">
-      <li>
-        {{ Form::open(['url' => 'user/reservations/destroy_check', 'method'=>'POST', 'id'=>'']) }}
-        {{ Form::hidden("session_reservation_id",$key )}}
-        <p>{{Form::submit('予約を取り消す', ['class' => 'confirm-btn'])}}</p>
-        {{Form::close()}}
-
-      </li>
-      <li>
-        {{ Form::open(['url' => 'user/reservations/re_create', 'method'=>'POST', 'id'=>'']) }}
-        {{ Form::hidden("session_reservation_id",$key )}}
-        <p>{{Form::submit('予約内容を変更する', ['class' => 'link-btn'])}}</p>
-        {{Form::close()}}
-
-      </li>
-    </ul> -->
   </div>
   @endforeach
   @endif
@@ -318,16 +292,6 @@
 
     <p class="cart-addbtn"><a class="link-btn3" href="/">日程を<br>追加する</a></p>
 
-    <!-- <ul class="btn-wrapper">
-      <li>
-        <p><a class="link-btn3" href="/">他の日程を予約する</a></p>
-      </li>
-      <li>
-        {{ Form::open(['url' => 'user/reservations/store', 'method'=>'POST', 'id'=>'']) }}
-        <p>{{Form::submit('予約申込をする', ['class' => 'confirm-btn','id'=>'master_submit'])}}</p>
-        {{Form::close()}}
-      </li>
-    </ul> -->
   </div>
   @endif
 
@@ -335,15 +299,5 @@
 <div class="top contents"><a href="#top"><img src="https://system.osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
 </div>
 
-<!-- <script>
-  $(function() {
-    $('#master_submit').on('click', function() {
-      if (!confirm('予約を確定しますか？')) {
-        return false;
-      } else {
-        $('#fullOverlay').css('display', 'block');
-      }
-    })
-  })
-</script> -->
+
 @endsection

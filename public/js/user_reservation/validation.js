@@ -476,8 +476,7 @@ $(function () {
     errorElement: "span",
     errorClass: "is-error",
     submitHandler: function (form) {
-      // $("#fullOverlay").addClass("hide");
-      $("#fullOverlay").removeClass("hide");
+      $("#fullOverlay").css("display", 'block');
       form.submit();
     },
 

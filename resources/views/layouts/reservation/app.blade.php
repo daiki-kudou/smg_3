@@ -173,7 +173,8 @@
               <span>予約カート</span>
               <div class="cart-number-box">
                 <p class="cart-number">
-                  {{ !empty($sessions)?count($sessions):0 }}
+                  {{ !empty(Session::get('session_reservations'))?(count(Session::get('session_reservations'))):0
+                  }}
                 </p>
               </div>
             </p>
@@ -265,7 +266,8 @@
           <span>予約カート</span>
           <div class="cart-number-box">
             <p class="cart-number">
-              {{ !empty($sessions)?count($sessions):0 }}
+              {{ !empty(Session::get('session_reservations'))?(count(Session::get('session_reservations'))):0
+              }}
             </p>
           </div>
         </p>
