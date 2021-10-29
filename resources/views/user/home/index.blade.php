@@ -298,6 +298,7 @@
 </div>
 <script>
 
+// 文字列、未入金にcssを付与
 $(function () {
 $("td:contains('未入金')").css("font-weight","bold"); 
 });
