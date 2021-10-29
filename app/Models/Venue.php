@@ -196,7 +196,7 @@ class Venue extends Model implements PresentableInterface
       // 時間外を除外
       $reject = $this->rejectFrame($start_time, $finish_time, $reserve_weekday);
       if ($reject) {
-        return 0;
+        return [0, 0, 0, 0, 0];
       }
 
       // 開始時間
@@ -254,7 +254,7 @@ class Venue extends Model implements PresentableInterface
       if (!empty($min_results)) {
         $min_result = min($min_results);
       } else {
-        return 0;
+        return [0, 0, 0, 0, 0];
       }
 
       // 延長料金抽出
@@ -303,7 +303,7 @@ class Venue extends Model implements PresentableInterface
     } elseif ($status_id == 2) {
       $reject = $this->rejectTime($start_time, $finish_time, $reserve_weekday);
       if ($reject) {
-        return 0;
+        return [0, 0, 0, 0, 0];
       }
 
       $times = $this->time_prices->toArray();
@@ -314,7 +314,7 @@ class Venue extends Model implements PresentableInterface
       $diff = Carbon::parse($start_time)->diffInMinutes(Carbon::parse($finish_time)) / 60;
       // dump($diff);
       if ($diff < 3) {
-        return 0;
+        return [0, 0, 0, 0, 0];
       }
 
       $diff_hour = 100;
@@ -329,8 +329,6 @@ class Venue extends Model implements PresentableInterface
           }
         }
       }
-      // dump($diff_hour);
-      // dump($base_price);
 
       // 抽出した料金と次の時間枠を比較
       $compare = [];
