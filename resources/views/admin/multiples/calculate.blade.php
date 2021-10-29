@@ -86,13 +86,13 @@
               </td>
               <td class="table-active" scope="row"><label for="">割引条件</label></td>
               <td>
-                {!!nl2br(e($multiple->pre_reservations->first()->user->condition))!!}
+                {!!nl2br(e(optional($multiple->pre_reservations->first()->user)->condition))!!}
               </td>
             </tr>
             <tr>
               <td class="table-active caution" scope="row"><label for="">注意事項</label></td>
               <td class="caution" colspan="3">
-                {!!nl2br(e($multiple->pre_reservations->first()->user->attention))!!}
+                {!!nl2br(e(optional($multiple->pre_reservations->first()->user)->attention))!!}
               </td>
             </tr>
           </tbody>
@@ -191,21 +191,6 @@
                       </div>
                     </td>
                   </tr>
-                  <!-- <tr>
-                      <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
-                      <td>
-                        <div class="radio-box">
-                          <p>
-                            {{ Form::radio('cp_master_event', 1, false, ['id'=>'cp_master_event1']) }}
-                            {{Form::label('cp_master_event1','あり')}}
-                          </p>
-                          <p>
-                            {{ Form::radio('cp_master_event', 0, true, ['id'=>'cp_master_event2']) }}
-                            {{Form::label('cp_master_event2','なし')}}
-                          </p>
-                        </div>
-                      </td>
-                    </tr> -->
                   <tr>
                     <td class="table-active"><label for="eventName1">イベント名称1</label></td>
                     <td>
@@ -423,7 +408,6 @@
                 </table>
                 @endif
 
-
                 @if ($venue->eat_in_flag==1)
                 <table class="table table-bordered eating-table">
                   <thead>
@@ -442,9 +426,9 @@
                         {{Form::label('eat_in',"あり")}}
                       </td>
                       <td>
-                        {{Form::radio('cp_master_eat_in_prepare', 1, "" , ['id' => 'eat_in_prepare' ])}}
+                        {{Form::radio('cp_master_eat_in_prepare', 1, true , ['id' => 'eat_in_prepare' ])}}
                         {{Form::label('eat_in_prepare',"手配済み")}}
-                        {{Form::radio('cp_master_eat_in_prepare', 2, "" , ['id' => 'eat_in_consider'])}}
+                        {{Form::radio('cp_master_eat_in_prepare', 2, false , ['id' => 'eat_in_consider'])}}
                         {{Form::label('eat_in_consider',"検討中")}}
                       </td>
                     </tr>
@@ -457,10 +441,6 @@
                     </tr>
                 </table>
                 @endif
-
-
-
-
                 </table>
               </div>
               <!-- 左側の項目 終わり-------------------------------------------------- -->

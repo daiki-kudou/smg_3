@@ -80,9 +80,8 @@ class PreReservationsController extends Controller
         return redirect(route('user.pre_reservations.index'));
       }
       $venue_price = $pre_reservation->pre_bill->venue_price;
-      $equ_details = $request->all()['equipment_breakdown'];
-      $ser_details = $request->all()['services_breakdown'];
-      // dd($equ_details, $ser_details);
+      $equ_details = !empty($request->all()['equipment_breakdown']) ? $request->all()['equipment_breakdown'] : [];
+      $ser_details = !empty($request->all()['services_breakdown']) ? $request->all()['services_breakdown'] : [];
       $item_details = $venue->calculate_items_price($equ_details, $ser_details);
       $layout_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean)[2];
       $master = $venue_price + $item_details[0] + $layout_details;

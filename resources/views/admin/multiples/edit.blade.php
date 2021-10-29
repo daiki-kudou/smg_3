@@ -98,13 +98,13 @@
           </td>
           <td class="table-active" scope="row"><label for="">割引条件</label></td>
           <td>
-            {!!nl2br(e($multiple->pre_reservations->first()->user->condition))!!}
+            {!!nl2br(e(optional($multiple->pre_reservations->first()->user)->condition))!!}
           </td>
         </tr>
         <tr>
           <td class="table-active caution" scope="row"><label for="">注意事項</label></td>
           <td class="caution" colspan="3">
-            {!!nl2br(e($multiple->pre_reservations->first()->user->attention))!!}
+            {!!nl2br(e(optional($multiple->pre_reservations->first()->user)->attention))!!}
           </td>
         </tr>
       </tbody>
@@ -433,9 +433,9 @@
                     {{Form::label('eat_in',"あり")}}
                   </td>
                   <td>
-                    {{Form::radio('cp_master_eat_in_prepare', 1, "" , ['id' => 'eat_in_prepare','disabled'])}}
+                    {{Form::radio('cp_master_eat_in_prepare', 1, true , ['id' => 'eat_in_prepare','disabled'])}}
                     {{Form::label('eat_in_prepare',"手配済み")}}
-                    {{Form::radio('cp_master_eat_in_prepare', 2, "" , ['id' => 'eat_in_consider','disabled'])}}
+                    {{Form::radio('cp_master_eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
                     {{Form::label('eat_in_consider',"検討中")}}
                   </td>
                 </tr>
