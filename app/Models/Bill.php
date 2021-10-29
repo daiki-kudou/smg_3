@@ -46,6 +46,7 @@ class Bill extends Model
     'admin_judge',
     'end_user_charge',
     'invoice_number',
+    'cfm_at',
   ];
   protected $dates = [
     'pay_day',
@@ -122,6 +123,7 @@ class Bill extends Model
       'admin_judge' => $admin_judge,
       'end_user_charge' => !empty($data['end_user_charge']) ? $data['end_user_charge'] : NULL,
       'invoice_number' => $this->generateInvoiceNum(),
+      'cfm_at' => !empty($data['cfm_at']) ? $data['cfm_at'] : NULL,
     ]);
     return $result;
   }

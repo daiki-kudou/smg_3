@@ -484,7 +484,13 @@ class ReservationsController extends Controller
         $SendSMGEmail->send("予約完了");
       }
       // 上のメール送信も問題なければ予約確定にする
-      $reservation->bills()->first()->update(['reservation_status' => 3, 'approve_send_at' => date('Y-m-d H:i:s')]); //固定で3
+      $reservation->bills()->first()->update(
+        [
+          'reservation_status' => 3,
+          'approve_send_at' => date('Y-m-d H:i:s'),
+          'cfm_at' => date('Y-m-d H:i:s'),
+        ]
+      ); //固定で3
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();

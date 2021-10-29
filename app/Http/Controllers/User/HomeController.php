@@ -88,14 +88,14 @@ class HomeController extends Controller
     return DB::transaction(function () use ($request, $id) {
       $reservation = Reservation::with(['user', 'venue'])->find($id);
       $reservation->bills()->first()->update([
-        'reservation_status' => $request->update_status
+        'reservation_status' => $request->update_status,
+        'cfm_at' => date('Y-m-d H:i:s'),
       ]);
       // // ユーザーに予約完了メール送信
       $user = $reservation->user;
       $venue = $reservation->venue;
       $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
       $SendSMGEmail->send("予約完了");
-
 
       $request->session()->regenerate();
       return redirect()->route('user.home.index');
@@ -205,7 +205,10 @@ class HomeController extends Controller
   public function approve_user_additional_cfm(Request $request)
   {
     $bill = Bill::with('reservation.user')->find($request->bill_id);
-    $bill->update(['reservation_status' => 3,]);
+    $bill->update([
+      'reservation_status' => 3,
+      'cfm_at' => date('Y-m-d H:i:s'),
+    ]);
 
     $user = User::find($bill->reservation->user->id);
     $reservation = $bill;

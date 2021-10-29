@@ -237,6 +237,7 @@ class PreAgentReservationsController extends Controller
     $bill_data['pay_day'] = NULL;
     $bill_data['pay_person'] = NULL;
     $bill_data['payment'] = NULL;
+    $bill_data['cfm_at'] = date('Y-m-d H:i:s');
 
     $breakdowns = new Breakdown;
     $breakdown_data = [];

@@ -550,7 +550,7 @@
                           </div>
                           <div>
                             <span>予約確定日：</span>{{
-                            ReservationHelper::formatDate($reservation->bills->sortBy("id")->first()->approve_send_at)
+                            ReservationHelper::formatDate($reservation->bills->sortBy("id")->first()->cfm_at)
                             }}
                           </div>
                         </td>
@@ -918,7 +918,7 @@
                           <div><span>申込日：</span>{{ ReservationHelper::formatDate($other_bill->created_at) }}
                           </div>
                           <div>
-                            <span>予約確定日：</span>{{ ReservationHelper::formatDate($other_bill->approve_send_at) }}
+                            <span>予約確定日：</span>{{ ReservationHelper::formatDate($other_bill->cfm_at) }}
                           </div>
                         </td>
                       </tr>

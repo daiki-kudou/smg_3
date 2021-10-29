@@ -81,8 +81,8 @@
                   <p><span>申込日：</span>{{ ReservationHelper::formatDate($reservation->created_at) }}
                   </p>
                   <p>
-                    <span>予約確定日：</span>{{ !empty($reservation->approve_send_at) ?
-                    ReservationHelper::formatDate($reservation->approve_send_at) : '' }}
+                    <span>予約確定日：</span>{{ !empty($reservation->bills()->first()->cfm_at) ?
+                    ReservationHelper::formatDate($reservation->bills()->first()->cfm_at) : '' }}
                   </p>
                 </li>
               </ul>
@@ -757,8 +757,8 @@
                       {{ ReservationHelper::formatDate($other_bill->created_at) }}
                     </p>
                     <p><span>予約確定日：</span>
-                      {{ !empty($other_bill->approve_send_at) ?
-                      ReservationHelper::formatDate($other_bill->approve_send_at) : '' }}
+                      {{ !empty($other_bill->cfm_at) ?
+                      ReservationHelper::formatDate($other_bill->cfm_at) : '' }}
                     </p>
                   </li>
                 </ul>
@@ -1185,7 +1185,6 @@
                   <li>
                     <p><span>申込日：</span>{{ ReservationHelper::formatDate($reservation->created_at) }}
                     </p>
-                    {{-- <p><span>予約確定日：</span></p> --}}
                   </li>
                 </ul>
               </td>
