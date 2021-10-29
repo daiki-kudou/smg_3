@@ -727,7 +727,7 @@
 
 
 <p class="text-center mb-5 mt-5">
-  {{ Form::submit('予約申込をする', ['class' => 'btn more_btn4_lg confirm','name'=>'cfm']) }}
+  {{ Form::submit('予約申込をする', ['class' => 'btn more_btn4_lg confirm','name'=>'cfm', 'id'=>'confirmBtn']) }}
 </p>
 
 
