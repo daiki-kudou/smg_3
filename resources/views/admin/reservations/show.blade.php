@@ -7,7 +7,7 @@
 <script src="{{ asset('/js/admin/reservation/validation.js') }}"></script>
 
 
-<div class="">
+<div>
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -1671,16 +1671,16 @@
 
             <script>
               $(function() {
-$('#remark_checkbox').on('click', function() {
-if ($('.remark_textarea').prop('readonly')) {
-$('.remark_textarea').prop('readonly', false);
-$('.remark_textarea_submit').prop('disabled', false);
-} else {
-$('.remark_textarea').prop('readonly', true);
-$('.remark_textarea_submit').prop('disabled', true);
-}
-})
-})
+                $('#remark_checkbox').on('click', function() {
+                if ($('.remark_textarea').prop('readonly')) {
+                $('.remark_textarea').prop('readonly', false);
+                $('.remark_textarea_submit').prop('disabled', false);
+                } else {
+                $('.remark_textarea').prop('readonly', true);
+                $('.remark_textarea_submit').prop('disabled', true);
+                }
+                })
+              })
 
 $(function() {
 $('.bill_edit_m').on('click', function() {
