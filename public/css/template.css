@@ -984,7 +984,7 @@ table td.table_column p:last-child {
 
 
 .btn-cell {
-    min-width: 89px;
+    min-width: 50px;
     text-align: center;
 }
 
@@ -1828,6 +1828,11 @@ table .master_total_subttl2 {
 
 .user_wrapper .ttl_box {
     margin-right: 0;
+}
+
+.user_wrapper .table th, .table td {
+    padding: 0.3em;
+    font-size: 0.8rem;
 }
 
 .user_wrapper .bill_header {
