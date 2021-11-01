@@ -130,12 +130,12 @@
             <td>{{$user->first_name_kana}}{{$user->last_name_kana}}</td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('mobile', '携帯電話') }}</th>
-            <td>{{$user->mobile}}</td>
-          </tr>
-          <tr>
             <th class="table-active">{{ Form::label('tel', '固定電話') }}</th>
             <td>{{$user->tel}}</td>
+          </tr>
+          <tr>
+            <th class="table-active">{{ Form::label('mobile', '携帯電話') }}</th>
+            <td>{{$user->mobile}}</td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('email', '担当者メールアドレス') }}</th>

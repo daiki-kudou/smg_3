@@ -74,7 +74,7 @@
         <td>{{$user->address3}}</td>
       </tr>
       <tr>
-        <th><label for="tel">電話番号</label></th>
+        <th><label for="tel">固定電話</label></th>
         <td>{{$user->tel}}
         </td>
       </tr>

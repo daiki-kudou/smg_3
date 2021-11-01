@@ -108,8 +108,8 @@
         </td>
       </tr>
       <tr>
-        <th><label for="tel">電話番号</label>
-          <p class="annotation">※携帯番号、電話番号のどちらか一方は必須</p>
+        <th><label for="tel">固定電話</label>
+          <p class="annotation">※携帯番号、固定電話のどちらか一方は必須</p>
         </th>
         <td colspan="2">
           {{Form::text('tel',$user->tel,['class'=>'form-control phone_number'])}}
@@ -118,7 +118,7 @@
       </tr>
       <tr>
         <th><label for="mobile">携帯番号</label>
-          <p class="annotation">※携帯番号、電話番号のどちらか一方は必須</p>
+          <p class="annotation">※携帯番号、固定電話のどちらか一方は必須</p>
         </th>
         <td colspan="2">
           {{Form::text('mobile',$user->mobile,['class'=>'form-control phone_number'])}}

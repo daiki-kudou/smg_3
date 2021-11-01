@@ -139,22 +139,22 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">
-              {{ Form::label('mobile', '携帯番号') }}
-              <p class="annotation">※携帯番号、電話番号のどちらか一方は必須</p>
-            </td>
-            <td colspan="2">
-              {{ Form::text('mobile', old('mobile'), ['class' => 'form-control phone_number', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
-              <p class="is-error-mobile" style="color: red"></p>
-            </td>
-          </tr>
-          <tr>
             <td class="table-active">{{ Form::label('tel', '固定電話') }}
-              <p class="annotation">※携帯番号、電話番号のどちらか一方は必須</p>
+              <p class="annotation">※携帯番号、固定電話のどちらか一方は必須</p>
             </td>
             <td colspan="2">
               {{ Form::text('tel', old('tel'), ['class' => 'form-control phone_number', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-tel" style="color: red"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">
+              {{ Form::label('mobile', '携帯番号') }}
+              <p class="annotation">※携帯番号、固定電話のどちらか一方は必須</p>
+            </td>
+            <td colspan="2">
+              {{ Form::text('mobile', old('mobile'), ['class' => 'form-control phone_number', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              <p class="is-error-mobile" style="color: red"></p>
             </td>
           </tr>
           <tr>
