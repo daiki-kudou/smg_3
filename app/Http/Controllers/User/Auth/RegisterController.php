@@ -93,7 +93,6 @@ class RegisterController extends Controller
       ))->withInput();
     }
 
-
     DB::beginTransaction();
     try {
       $data = $request->all();

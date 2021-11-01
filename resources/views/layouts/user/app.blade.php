@@ -82,7 +82,8 @@
         <p>06-6556-6462</p>
         <p>平日10時～18時</p>
         <p>kaigi@s-mg.co.jp</p>
-        <a href="{{url('https://system.osaka-conference.com/')}}" target="_blank" rel="noopener noreferrer" class="nav-link">
+        <a href="{{url('https://system.osaka-conference.com/')}}" target="_blank" rel="noopener noreferrer"
+          class="nav-link">
           WEBサイトを見る<span><i class="fas fa-chevron-right"></i></span></a>
       </div>
     </aside>
@@ -116,6 +117,44 @@
     <script src="{{ asset('js/adminlte.min.js') }}"></script>
     <script>
       var rootPath="{{url('/')}}";
+
+
+      // マイナスを赤字に
+          $('HTML').on('DOMSubtreeModified propertychange', function() {
+          // DOMが変更された時に動く処理
+          $('input').each(function(index, element){
+          var this_val=$('input').eq(index);
+          if (Number(this_val.val())<0) { this_val.css('color','red'); }else if(Number(this_val.val())>0){
+            this_val.css('color','black');
+            }
+            })
+            });
+          
+            $(function(){
+            $('input').each(function(index, element){
+            var this_val=Number($('input').eq(index).val().replace(/,/g, '').replace(/合計：/g, '').replace(/円/g, '').replace(/小計：/g,
+            '').replace(/消費税：/g, '').replace(/合計金額：/g, ''));
+            
+            if (this_val<0) { 
+              $('input').eq(index).css('color','red'); 
+            } 
+          }) 
+          
+          $('td').each(function(index, element){ 
+            var target=Number($('td').eq(index).text().replace(/,/g, '' ).replace(/合計：/g, '' ).replace(/円/g, '' ).replace(/小計：/g, ''
+              ).replace(/消費税：/g, '' ).replace(/合計金額：/g, '' )); 
+              
+              if (target<0) {
+                 $('td').eq(index).css('color','red'); 
+                } })
+
+              $('dd').each(function(index, element){ 
+                var target=Number($('dd').eq(index).text().replace(/,/g, '').replace(/合計：/g, '' ).replace(/円/g, '' ).replace(/小計：/g, '' ).replace(/消費税：/g, '' ).replace(/合計金額：/g, '' )
+                ); 
+                if(target<0) { 
+                  $('dd').eq(index).css('color','red'); } }) 
+                }
+                )
       
 // 自動補完無効
     $(function(){
