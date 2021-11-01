@@ -233,6 +233,11 @@ a:hover {
     color: #333;
 }
 
+.brand-link:hover {
+    color: #333;
+    text-decoration: none;
+}
+
 p {
     margin: 0;
 }
@@ -1888,6 +1893,10 @@ table .master_total_subttl2 {
     bottom: 1%;
     left: 2.5%;
     width: 95%;
+}
+
+.sidebar-collapse .company-info {
+    display: none;
 }
 
 .company-info a {

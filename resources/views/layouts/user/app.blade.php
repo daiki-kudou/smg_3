@@ -72,7 +72,7 @@
 
     <aside class="main-sidebar elevation-4">
       <a href="/user/home" class="brand-link">
-        <span class="brand-text font-weight-light">SMGアクセア貸し会議室</span>
+        <span class="brand-text font-weight-light">SMGアクセア貸し会議室<br>マイページ</span>
       </a>
 
       @include('layouts.user.side')

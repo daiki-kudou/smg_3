@@ -124,8 +124,8 @@
               <td>{{ReservationHelper::formatDate($reservation->bills->sortBy("id")->first()->payment_limit)}}</td>
               <td> {{ReservationHelper::paidStatus($reservation->bills->sortBy("id")->first()->paid)}}</td>
               <td class="text-center" rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
-                <a class="more_btn" href="{{route('user.home.show',$reservation->id)}}">
-                  予約詳細
+                <a class="more_btn d-block" href="{{route('user.home.show',$reservation->id)}}">
+                  予約<br>詳細
                 </a>
               </td>
               <td>
