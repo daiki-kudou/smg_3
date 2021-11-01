@@ -136,7 +136,7 @@
                 @csrf
                 {{ Form::hidden('reservation_id', $reservation->id ) }}
                 {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id ) }}
-                <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
+                <p class="mr-2">{{ Form::submit('請求書',['class' => 'btn more_btn']) }}</p>
                 {{ Form::close() }}
               </td>
               <td>
@@ -145,7 +145,7 @@
                 @csrf
                 {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id ) }}
                 @if ($reservation->bills->sortBy("id")->first()->paid==1)
-                <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn btn']) }}</p>
+                <p class="mr-2">{{ Form::submit('領収書',['class' => 'more_btn btn']) }}</p>
                 @endif
                 {{ Form::close() }}
               </td>
@@ -194,7 +194,7 @@
                 @csrf
                 {{ Form::hidden('reservation_id', $reservation->id ) }}
                 {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->skip($i)->first()->id ) }}
-                <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
+                <p class="mr-2">{{ Form::submit('請求書',['class' => 'btn more_btn']) }}</p>
                 {{ Form::close() }}
               </td>
               <td>
@@ -203,7 +203,7 @@
                 @csrf
                 {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->skip($i)->first()->id)}}
                 @if ($reservation->bills->sortBy("id")->skip($i)->first()->paid==1)
-                <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn btn']) }}</p>
+                <p class="mr-2">{{ Form::submit('領収書',['class' => 'more_btn btn']) }}</p>
                 @endif
                 {{ Form::close() }}
               </td>
