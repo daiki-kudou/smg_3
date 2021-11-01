@@ -606,12 +606,12 @@ option:disabled {
 
 .accordion-ttl .title-icon::after {
     background: #35a7a7;
-    transform: translateY(-50%) rotate(90deg);
+    transform: translateY(-50%) rotate(0deg);
     transition: 0.5s;
 }
 
 .accordion-ttl .title-icon.active::after {
-    transform: translateY(-50%) rotate(0deg);
+    transform: translateY(-50%) rotate(90deg);
     transition: 0.5s;
 }
 
