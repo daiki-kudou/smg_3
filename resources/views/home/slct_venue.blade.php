@@ -130,21 +130,25 @@
           <th>入室時間
             <span class="txtRed">＊</span>
           </th>
-          <td>
-            <div class="selectWrap">
-              <select name="enter_time" class="timeScale" id="enter_time">
-              </select>
+          <td class="form-cell3">
+            <div class="m-r10">
+              <div class="selectWrap">
+                <select name="enter_time" class="timeScale" id="enter_time">
+                </select>
+              </div>
+              <p class="is-error-enter_time" style="color: red"></p>
             </div>
-            <p class="is-error-enter_time" style="color: red"></p>
-            <p class="txtRed">
-              <span>入室時間より以前に入室はできません。</span>
-            </p>
-            <p class="checkbox-txt txtRed">
-              <span class="txtRed">＊</span>
-              {{Form::checkbox('q1', 1, false, ['class'=>'','id'=>'checkbox'])}}
-              <label for="checkbox">確認しました</label>
-            </p>
-            <p class="is-error-q1" style="color: red"></p>
+            <div>
+              <p class="txtRed">
+                <span>入室時間より以前に入室はできません。</span>
+              </p>
+              <p class="checkbox-txt txtRed">
+                <span class="txtRed">＊</span>
+                {{Form::checkbox('q1', 1, false, ['class'=>'','id'=>'checkbox'])}}
+                <label for="checkbox">確認しました</label>
+              </p>
+              <p class="is-error-q1" style="color: red"></p>
+            </div>
           </td>
         </tr>
         <tr>

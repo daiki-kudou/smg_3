@@ -376,10 +376,6 @@ form table td .text6 {
     font-size: 0.5rem;
 }
 
-/* .calender label {
-    font-weight: normal;
-} */
-
 
 .btn-wrapper {
     display: flex;
@@ -410,9 +406,10 @@ form table td .text6 {
     margin-right: 0.2em;
 }
 
-.btn-wrapper li {
-    /* width: 45%; */
+.form-cell3 {
+    display: flex;
 }
+
 
 
 /* 合計金額 */
@@ -883,6 +880,16 @@ header div.contents {
     .contents.news {
         margin-top: 175px;
     }
+
+    .form-cell3 {
+        display: block;
+    }
+
+    .form-cell3 .m-r10 {
+        margin-right: 0;
+    }
+
+
 
     
 }
