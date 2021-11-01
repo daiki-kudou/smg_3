@@ -3,12 +3,12 @@
 
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>カレンダー一覧|[大阪格安貸し会議室]SMGアクセア貸し会議室</title>
+  <title>[大阪格安貸し会議室]SMGアクセア貸し会議室</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=yes">
   <meta name="keywords" content="" />
   <meta name="description"
-    content="SMGアクセア貸し会議室のカレンダー一覧（空室確認）ページです。会場は大阪市内の各主要駅から徒歩0～2分。JR大阪/新大阪/地下鉄梅田駅からアクセス抜群。知名度が高いエリアの視認性の良いビル内に5～200名収容の豊富なバリエーション会場を多数ご用意しています。格安料金体系＆プロジェクター・スクリーンなどの備品無料多数。説明会・セミナー・研修・勉強会・懇親会などに最適です。また音響設備・プロジェクターがグレードアップした講演や説明会等に最適な臨場感溢れる「音響グレードアップ会場」もございます。" />
+    content="SMGアクセア貸し会議室。会場は大阪市内の各主要駅から徒歩0～2分。JR大阪/新大阪/地下鉄梅田駅からアクセス抜群。知名度が高いエリアの視認性の良いビル内に5～200名収容の豊富なバリエーション会場を多数ご用意しています。格安料金体系＆プロジェクター・スクリーンなどの備品無料多数。説明会・セミナー・研修・勉強会・懇親会などに最適です。また音響設備・プロジェクターがグレードアップした講演や説明会等に最適な臨場感溢れる「音響グレードアップ会場」もございます。" />
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <link rel="canonical" href="https://system.osaka-conference.com/calendar/">
