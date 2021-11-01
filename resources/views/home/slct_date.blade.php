@@ -91,7 +91,7 @@
 
     {{Form::open(['url' => 'user/reservations/create', 'method' => 'get', 'class'=>'search','id'=>'slct_date_form'])}}
     @csrf
-    <h2 class="sub-ttl">日程を選択</h2>
+    <h2 class="sub-ttl">申込み内容</h2>
     <div class="bgColorGray first">
       <table>
         <tr>
@@ -153,7 +153,7 @@
       </table>
     </div>
 
-    <p class="txtCenter">{{ Form::submit('次画面で詳細を入力', ['class' => 'btn confirm-btn margin-auto']) }}</p>
+    <p class="txtCenter">{{ Form::submit('詳細情報の入力', ['class' => 'btn confirm-btn margin-auto']) }}</p>
     {{Form::close()}}
   </div>
 </section>
