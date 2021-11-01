@@ -310,25 +310,30 @@
               </div>
             </li>
             <li>
-              <input name="research" id="phoneSearch" type="radio" value="1"><label for="phoneSearch">スマホ検索</label>
+              {{Form::radio('research',4,!empty($session['research'])?((int)$session['research']===4?true:false):false,['id'=>'smart_phone'])}}
+              {{ Form::label('smart_phone','スマホ検索') }}
             </li>
             <li>
-              <label style="width: 90px;" for="intro">
-                <input type="radio" name="research" id="intro" value="2">ご紹介</label>
-              <input name="intro" type="text" id="intro" placeholder="入力してください">
+              {{Form::radio('research',5,!empty($session['research'])?((int)$session['research']===5?true:false):false,['id'=>'suggest'])}}
+              {{ Form::label('suggest','ご紹介') }}
+              {{
+              Form::text('suggest_input',!empty($session['suggest_input'])?$session['suggest_input']:"",['placeholder'=>'入力してください','id'=>'intro'])
+              }}
             </li>
             <li>
-              <input name="research" id="mail" type="radio" value="3">
-              <label for="mail">メルマガ</label>
+              {{Form::radio('research',6,!empty($session['research'])?((int)$session['research']===6?true:false):false,['id'=>'mail'])}}
+              {{ Form::label('mail','メルマガ') }}
             </li>
-            <li><input name="research" id="flyer" type="radio" value="4">
-              <label for="flyer">看板・チラシ</label>
+            <li>
+              {{Form::radio('research',7,!empty($session['research'])?((int)$session['research']===7?true:false):false,['id'=>'kanban'])}}
+              {{ Form::label('kanban','看板・チラシ') }}
             </li>
-            <li><label style="width: 90px;">
-                <input type="radio" name="research" id="other" value="5">その他
-              </label>
-              <label for="other"></label>
-              <input name="othertext" type="text" placeholder="入力してください">
+            <li>
+              {{Form::radio('research',8,!empty($session['research'])?((int)$session['research']===8?true:false):false,['id'=>'oth'])}}
+              {{ Form::label('oth','その他') }}
+              {{
+              Form::text('oth_input',!empty($session['oth_input'])?$session['oth_input']:"",['placeholder'=>'入力してください','id'=>'other'])
+              }}
             </li>
           </ul>
         </td>

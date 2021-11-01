@@ -173,8 +173,7 @@
               <span>予約カート</span>
               <div class="cart-number-box">
                 <p class="cart-number">
-                  {{ !empty(Session::get('session_reservations'))?(count(Session::get('session_reservations'))):0
-                  }}
+                  {{Auth::check()?(!empty(Session::get('session_reservations'))?(count(Session::get('session_reservations'))):0):0}}
                 </p>
               </div>
             </p>
@@ -266,8 +265,7 @@
           <span>予約カート</span>
           <div class="cart-number-box">
             <p class="cart-number">
-              {{ !empty(Session::get('session_reservations'))?(count(Session::get('session_reservations'))):0
-              }}
+              {{Auth::check()?(!empty(Session::get('session_reservations'))?(count(Session::get('session_reservations'))):0):0}}
             </p>
           </div>
         </p>
