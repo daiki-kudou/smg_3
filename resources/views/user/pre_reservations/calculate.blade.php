@@ -121,7 +121,7 @@
             </tr>
             <tr>
               <td class="table-active">
-                <label for="ondayName" class=" form_required">氏名</label>
+                <label for="ondayName" class="form_required">氏名</label>
               </td>
               <td>
                 {{Form::text('in_charge',$request->in_charge,['class'=>'form-control'])}}
@@ -149,7 +149,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">案内板</td>
+              <td class="table-active form_required">案内板</td>
               <td>
                 <div class="radio-box">
                   <p>
@@ -335,7 +335,7 @@
             </thead>
             <tbody>
               <tr>
-                <td class="table-active">お荷物預り 工藤さん！！こちら</td>
+                <td class="table-active form_required">お荷物預り</td>
                 <td>
                   <div class="radio-box">
                     <p>
@@ -378,7 +378,7 @@
             <thead>
               <tr>
                 <th colspan='2'>
-                  <p class="title-icon">
+                  <p class="title-icon form_required">
                     <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
                   </p>
                 </th>
