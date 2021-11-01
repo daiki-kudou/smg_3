@@ -26,6 +26,7 @@
 
   #sales_sort tbody td {
     text-align: center;
+    padding: 0 10px;
   }
 </style>
 
@@ -322,7 +323,7 @@
     </thead>
   </table>
 </div>
-<!-- 一覧　　終わり------------------------------------------------ -->
+<!-- 一覧 終わり------------------------------------------------ -->
 
 <script>
   $(function(){
@@ -465,6 +466,11 @@ $(function(){
         {targets: 18, sortable: false, orderable: false},
         {targets: 19, sortable: false, orderable: false},
         {targets: 20, sortable: false, orderable: false},
+        {
+          targets: [9,10,11,12],
+          className: "text-right",
+        }
+
       ],
      });
     });
@@ -475,3 +481,4 @@ $(function(){
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 @endsection
+
