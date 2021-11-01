@@ -1835,6 +1835,13 @@ table .master_total_subttl2 {
     font-size: 0.8rem;
 }
 
+.user-table-list tbody:nth-last-child(2n) td {
+    background-color: #efefef;
+}
+.user-table-list tr:nth-last-child(2n) td {
+    background-color: #efefef;
+}
+
 .user_wrapper .bill_header {
     display: flex;
     justify-content: space-between;
