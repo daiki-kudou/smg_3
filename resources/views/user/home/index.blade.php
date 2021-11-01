@@ -52,6 +52,8 @@
   </li>
 </ul>
 
+<p class="text-right my-1">※予約確認中⇒弊社でご予約内容の確認中です。お客様にご対応頂くことはありません</p>
+
 {{Form::open(['url' => 'user/home', 'method' => 'get', 'id'=>'future'])}}
 @csrf
 {{Form::close()}}
