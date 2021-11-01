@@ -1257,10 +1257,16 @@ h3 {
     min-width: 800px;
     table-layout: fixed;
     border: 2px solid #c5c5c5;
+    position: relative;
 }
 
 .calender-flame td {
     border-bottom: 2px solid #c5c5c5;
+}
+
+.calender-flame thead {
+    position: sticky;
+    top: 0;
 }
 
 .calender-head {
