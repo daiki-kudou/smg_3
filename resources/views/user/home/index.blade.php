@@ -76,7 +76,7 @@
 
 <div class="tab-content">
   <div id="reserve-list" class="tab-pane active">
-    <div class="table-wrap">
+    <div class="table-wrap user-table-list">
       <table class="table table-bordered table-box table-scroll">
         <thead>
           <tr>

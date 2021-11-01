@@ -20,7 +20,7 @@
 <div class="mt-5">
   <p class="text-right font-weight-bold"><span class="count-color">{{$counter}}</span>件</p>
 </div>
-<div class="table-wrap">
+<div class="table-wrap user-table-list">
   <table class="table table-bordered table-box table-scroll">
     <thead>
       <tr>

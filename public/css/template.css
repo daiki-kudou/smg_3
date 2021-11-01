@@ -1830,7 +1830,7 @@ table .master_total_subttl2 {
     margin-right: 0;
 }
 
-.user_wrapper .table th, .user_wrapper .table td {
+.user-table-list .table th, .user-table-list .table td {
     padding: 0.3em;
     font-size: 0.8rem;
 }

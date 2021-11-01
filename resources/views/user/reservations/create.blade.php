@@ -266,7 +266,7 @@
             <div class="selectTime m-b10">
               <input class="radio-input" id="luggage_flag" name="luggage_flag" type="radio" value="1">
               <label for="luggage_flag">あり</label>
-              <input class="radio-input" id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
+              <input class="radio-input" id="no_luggage_flag" name="luggage_flag" type="radio" value="0" checked>
               <label for="no_luggage_flag">なし</label>
             </div>
             <ul class="luggage_info">
