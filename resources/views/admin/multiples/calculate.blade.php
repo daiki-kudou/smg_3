@@ -380,20 +380,20 @@
                     <tr>
                       <td class="table-active">事前に預かる荷物<br>（個数）</td>
                       <td>
-                        {{ Form::number('cp_master_luggage_count', '',['class'=>'form-control'] ) }}
+                        {{ Form::number('cp_master_luggage_count', '',['class'=>'form-control','id'=>'cp_master_luggage_count'] ) }}
                         <p class="is-error-cp_master_luggage_count" style="color: red"></p>
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                       <td>
-                        {{ Form::text('cp_master_luggage_arrive', '',['class'=>'form-control datepicker9'] ) }}
+                        {{ Form::text('cp_master_luggage_arrive', '',['class'=>'form-control datepicker9','id'=>'cp_master_luggage_arrive'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active">事後返送する荷物</td>
                       <td>
-                        {{ Form::number('cp_master_luggage_return', '',['class'=>'form-control'] ) }}
+                        {{ Form::number('cp_master_luggage_return', '',['class'=>'form-control','id'=>'cp_master_luggage_return'] ) }}
                         <p class="is-error-cp_master_luggage_return" style="color: red"></p>
                       </td>
                     </tr>
