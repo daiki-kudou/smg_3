@@ -370,11 +370,11 @@
                   <td>
                     <div class="radio-box">
                       <p>
-                        {{Form::radio('luggage_flag',1,false,['id'=>'cp_master_luggage_flag'])}}
+                        {{Form::radio('cp_master_luggage_flag',1,false,['id'=>'cp_master_luggage_flag'])}}
                         {{Form::label('cp_master_luggage_flag','有り')}}
                       </p>
                       <p>
-                        {{Form::radio('luggage_flag',0,true,['id'=>'cp_master_no_luggage_flag'])}}
+                        {{Form::radio('cp_master_luggage_flag',0,true,['id'=>'cp_master_no_luggage_flag'])}}
                         {{Form::label('cp_master_no_luggage_flag','無し')}}
                       </p>
                     </div>
@@ -1669,8 +1669,6 @@
       }
     })
     
-
-
 
   $(function() {
     $(document).on("click", "#master_submit", function() {

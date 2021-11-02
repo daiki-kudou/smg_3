@@ -96,6 +96,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'status' => 0,
           'eat_in' => $requests->cp_master_eat_in,
           'eat_in_prepare' => $requests->cp_master_eat_in_prepare,
+          'luggage_flag' => !empty($requests->cp_master_luggage_flag) ? $requests->cp_master_luggage_flag : 0,
+
         ]);
 
         $venue_price = empty($result[0][$key][2]) ? 0 : $result[0][$key][2];
@@ -632,7 +634,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'eat_in_prepare' => $requests->cp_master_eat_in_prepare,
           'cost' => $requests->cp_master_cost,
           'luggage_return' => $requests->cp_master_luggage_return,
-          'luggage_flag' => $requests->luggage_flag,
+          'luggage_flag' => !empty($requests->luggage_flag) ? $requests->luggage_flag : 0,
         ]);
 
         if ($pre_reservation->pre_enduser()->count() == 1) {
