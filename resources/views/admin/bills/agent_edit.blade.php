@@ -25,7 +25,8 @@
   </div>
   @endif
 
-  {{ Form::open(['url' => 'admin/bills/'.$bill->id.'/agent_edit_update', 'method'=>'psot', 'id'=>'agentsbillsEditForm']) }}
+  {{ Form::open(['url' => 'admin/bills/'.$bill->id.'/agent_edit_update', 'method'=>'psot', 'id'=>'agentsbillsEditForm'])
+  }}
   @csrf
   <section class="mt-5">
     <div class="bill">
@@ -55,7 +56,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody class="venue_head {{empty($bill->breakdowns->where('unit_type',1)->first())?"hide":""}}">
+              <tbody class="venue_head {{empty($bill->breakdowns->where('unit_type',1)->first())?" hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -64,7 +65,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="venue_main {{empty($bill->breakdowns->where('unit_type',1)->first())?"hide":""}}">
+              <tbody class="venue_main {{empty($bill->breakdowns->where('unit_type',1)->first())?" hide":""}}">
                 @if (count($bill->breakdowns->where('unit_type',1))!=0)
                 @foreach ($bill->breakdowns->where('unit_type',1) as $key=>$value)
                 <tr>
@@ -123,7 +124,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody class="equipment_head {{empty($bill->breakdowns->where('unit_type',2)->first())?"hide":""}}">
+              <tbody class="equipment_head {{empty($bill->breakdowns->where('unit_type',2)->first())?" hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -132,7 +133,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="equipment_main {{empty($bill->breakdowns->where('unit_type',2)->first())?"hide":""}}">
+              <tbody class="equipment_main {{empty($bill->breakdowns->where('unit_type',2)->first())?" hide":""}}">
                 @if (count($bill->breakdowns->where('unit_type',2))!=0)
                 @foreach ($bill->breakdowns->where('unit_type',2) as $key=>$equ)
                 <tr>
@@ -191,7 +192,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody class="layout_head {{empty($bill->breakdowns->where('unit_type',4)->first())?"hide":""}}">
+              <tbody class="layout_head {{empty($bill->breakdowns->where('unit_type',4)->first())?" hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -200,7 +201,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="layout_main {{empty($bill->breakdowns->where('unit_type',4)->first())?"hide":""}}">
+              <tbody class="layout_main {{empty($bill->breakdowns->where('unit_type',4)->first())?" hide":""}}">
                 @if (count($bill->breakdowns->where('unit_type',4))!=0)
                 @foreach ($bill->breakdowns->where('unit_type',4) as $key=>$lay)
                 <tr>
@@ -243,7 +244,7 @@
                 </tr>
                 @endif
               </tbody>
-              <tbody class="layout_result {{empty($bill->breakdowns->where('unit_type',4)->first())?"hide":""}}">
+              <tbody class="layout_result {{empty($bill->breakdowns->where('unit_type',4)->first())?" hide":""}}">
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
@@ -269,7 +270,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody class="others_head {{empty($bill->breakdowns->where('unit_type',5)->first())?"hide":""}}">
+              <tbody class="others_head {{empty($bill->breakdowns->where('unit_type',5)->first())?" hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -278,7 +279,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="others_main {{empty($bill->breakdowns->where('unit_type',5)->first())?"hide":""}}">
+              <tbody class="others_main {{empty($bill->breakdowns->where('unit_type',5)->first())?" hide":""}}">
                 @if (count($bill->breakdowns->where('unit_type',5))!=0)
                 @foreach ($bill->breakdowns->where('unit_type',5) as $key=>$other)
                 <tr>
@@ -335,8 +336,10 @@
                     %）
                   </td>
                   <td>
-                    {{ Form::text('end_user_charge', $bill->end_user_charge, ['class' => 'form-control','placeholder'=>"入力してください" ])}}
-                    {{ Form::hidden('end_user_charge_result', '', ['class' => 'form-control','placeholder'=>"入力してください" ])}}
+                    {{ Form::text('end_user_charge', $bill->end_user_charge, ['class' =>
+                    'form-control','placeholder'=>"入力してください" ])}}
+                    {{ Form::hidden('end_user_charge_result', '', ['class' => 'form-control','placeholder'=>"入力してください"
+                    ])}}
                     <p class="is-error-end_user_charge" style="color: red"></p>
                   </td>
                 </tr>
@@ -388,7 +391,8 @@
 
                   </td>
                   <td>支払期日
-                    {{Form::text('payment_limit', date('Y-m-d',strtotime($bill->payment_limit)),['class'=>'form-control datepicker'])}}
+                    {{Form::text('payment_limit', date('Y-m-d',strtotime($bill->payment_limit)),['class'=>'form-control
+                    datepicker'])}}
                   </td>
                 </tr>
                 <tr>
@@ -458,28 +462,14 @@
     // プラス・マイナス押下アクション
     $(document).on("click", ".add", function() {
       var target = $(this).parent().parent();
-      target.clone(true).insertAfter(target);
-      // AddTr(target, 'venue_main', 'venue_breakdown');
-      // AddTr(target, 'equipment_main', 'equipment_breakdown');
-      // AddTr(target, 'layout_main', 'layout_breakdown');
-      // AddTr(target, 'others_main', 'others_breakdown');
+      target.clone().insertAfter(target);
       target.parent().find('tr').last().find('td').eq(0).find('input').val('');
       target.parent().find('tr').last().find('td').eq(1).find('input').val(0);
       target.parent().find('tr').last().find('td').eq(2).find('input').val('');
       target.parent().find('tr').last().find('td').eq(3).find('input').val(0);
     })
 
-    // function AddTr($target, $targetClass, $targetName) {
-    //   if ($target.parent().hasClass($targetClass)) {
-    //     var target_length = $target.parent().find('tr').length;
-    //     for (let index = 0; index < target_length; index++) {
-    //       $target.parent().find('tr').eq(index).find('td').eq(0).find('input').attr('name', $targetName + '_item' + index)
-    //       $target.parent().find('tr').eq(index).find('td').eq(1).find('input').attr('name', $targetName + '_cost' + index)
-    //       $target.parent().find('tr').eq(index).find('td').eq(2).find('input').attr('name', $targetName + '_count' + index)
-    //       $target.parent().find('tr').eq(index).find('td').eq(3).find('input').attr('name', $targetName + '_subtotal' + index)
-    //     }
-    //   }
-    // }
+
     // マイナス押下
     $(document).on("click", ".del", function() {
       var master = $(this).parent().parent().parent().find('tr').length;
@@ -542,18 +532,19 @@
     calc('.layout input', '.layout_main tr', 'input[name="layout_price"]');
 
     function calc($targetClass, $targetTr, $targetSum) {
-      $($targetClass).on('input', function() {
-        var trTarget = $($targetTr).length;
-        var result_add = 0;
-        for (let calc = 0; calc < trTarget; calc++) {
+        $(document).on('input',$targetClass,function(){
+          $($targetSum).val(0);
+          var trTarget = $($targetTr).length;
+          var result_add = 0;
+          for (let calc = 0; calc < trTarget; calc++) {
           var multiple1 = Number($($targetTr).eq(calc).find('td').eq(1).find('input').val());
           var multiple2 = Number($($targetTr).eq(calc).find('td').eq(2).find('input').val());
-          var result = $($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1 * multiple2);
-          result_add = result_add + (multiple1 * multiple2);
-        }
-        $($targetSum).val(result_add);
-      })
-    };
+          $($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1 * multiple2);
+          result_add += (multiple1 * multiple2);
+          }
+          $($targetSum).val(result_add);
+        });
+          };
 
     $('input[name="end_user_charge"]').on('input', function() {
       var val = Number($(this).val());
@@ -563,9 +554,9 @@
     })
 
     // 総合計額抽出
-    $('input').on('input', function() {
+    $(document).on('input','input',function(){
       MaterCalc();
-    })
+    });
 
     function MaterCalc() {
       var tar3 = $('input[name="layout_price"]');
