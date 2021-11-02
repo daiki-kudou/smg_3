@@ -300,7 +300,7 @@
         $(target).eq(index).find('td').eq(3).find('select').attr('class', "leave_control_pre_reservation" + index+" form-control ");
 
         // dapicker付与
-        $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
+        $('#pre_datepicker' + index).removeClass('hasDatepicker').removeData("datepicker").removeAttr("id").unbind().datepicker({
           dateFormat: 'yy-mm-dd',
           minDate: 0,
         });
