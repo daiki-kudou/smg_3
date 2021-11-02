@@ -241,7 +241,7 @@ class PreReservation extends Model
         'cost' => $request->{'cost_copied' . $splitKey},
         "eat_in" => $request->{'eat_in_copied' . $splitKey},
         "eat_in_prepare" => $request->{'eat_in_prepare_copied' . $splitKey},
-
+        'luggage_flag' => $request->{'luggage_flag_copied' . $splitKey} ?? NULL,
       ]);
 
       $venue_price = empty($result[0][2]) ? 0 : $result[0][2];
@@ -390,6 +390,8 @@ class PreReservation extends Model
         "eat_in" => $request->{'eat_in_copied' . $splitKey},
         "eat_in_prepare" => $request->{'eat_in_prepare_copied' . $splitKey},
         "cost" => $request->{'cost_copied' . $splitKey},
+        'luggage_flag' => $request->{'luggage_flag_copied' . $splitKey} ?? NULL,
+
       ]);
 
       $this->pre_enduser()->update([

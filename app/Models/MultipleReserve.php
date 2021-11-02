@@ -624,8 +624,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'luggage_arrive' => $requests->cp_master_luggage_arrive,
           'luggage_return' => $requests->cp_master_luggage_return,
           'email_flag' => $requests->cp_master_email_flag,
-          // 'in_charge' => $requests->cp_master_in_charge,
-          // 'tel' => $requests->cp_master_tel,
           'discount_condition' => $requests->cp_master_discount_condition,
           'attention' => $requests->cp_master_attention,
           'admin_details' => $requests->cp_master_admin_details,
@@ -633,6 +631,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'eat_in' => $requests->cp_master_eat_in,
           'eat_in_prepare' => $requests->cp_master_eat_in_prepare,
           'cost' => $requests->cp_master_cost,
+          'luggage_return' => $requests->cp_master_luggage_return,
+          'luggage_flag' => $requests->luggage_flag,
         ]);
 
         if ($pre_reservation->pre_enduser()->count() == 1) {
@@ -644,7 +644,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             "charge" => $requests->cp_master_end_user_charge,
           ]);
         }
-
 
         $venue_price = 0;
         $equipment_price = 0;
@@ -729,10 +728,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
         if ($requests->cp_master_luggage_price) {
           $pre_bill->pre_breakdowns()->create([
             'unit_item' => '荷物預かり',
-            // 'unit_cost' => $requests->cp_master_luggage_price,
             'unit_cost' => 0,
             'unit_count' => 1,
-            // 'unit_subtotal' => $requests->cp_master_luggage_price,
             'unit_subtotal' => 0,
             'unit_type' => 3,
           ]);

@@ -1,5 +1,6 @@
 @extends('layouts.admin.app')
 @section('content')
+
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
@@ -23,7 +24,8 @@
     </div>
 
     <div class="alert-box d-flex align-items-center">
-      <span class="mr-3"><i class="fas alert-icon fa-exclamation-triangle" aria-hidden="true"></i></span>
+      {{-- <span class="mr-3"><i class="fas alert-icon fa-exclamation-triangle" aria-hidden="true"></i> --}}
+      </span>
       <p>
         変更がある場合は、必ず保存するボタンを押してください。<br>
         保存しないまま画面遷移をすると、データが反映されません。
@@ -65,7 +67,8 @@
               <td colspan="4">
                 <div class="d-flex align-items-center justify-content-between">
                   <p class="title-icon">
-                    <i class="far fa-address-card icon-size" aria-hidden="true"></i>
+                    {{-- <i class="far fa-address-card icon-size" aria-hidden="true"></i> --}}
+
                     仲介会社情報
                   </p>
                 </div>
@@ -125,7 +128,8 @@
                     <tr>
                       <td colspan="2">
                         <p class="title-icon">
-                          <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
+                          {{-- <i class="fas fa-info-circle icon-size" aria-hidden="true"></i> --}}
+
                           仮押え情報
                         </p>
                       </td>
@@ -172,7 +176,8 @@
                     <td colspan="2">
                       <div class="d-flex align-items-center justify-content-between">
                         <p class="title-icon">
-                          <i class="fas fa-clipboard icon-size"></i>案内版
+                          {{-- <i class="fas fa-clipboard icon-size"></i> --}}
+                          案内版
                         </p>
                       </div>
                     </td>
@@ -249,7 +254,8 @@
                     <tr>
                       <th colspan="2">
                         <p class="title-icon fw-bolder py-1">
-                          <i class="fas fa-wrench icon-size"></i>有料備品
+                          {{-- <i class="fas fa-wrench icon-size"></i> --}}
+                          有料備品
                         </p>
                       </th>
                     </tr>
@@ -272,7 +278,8 @@
                     <tr>
                       <th colspan="2">
                         <p class="title-icon fw-bolder py-1">
-                          <i class="fas fa-hand-holding-heart icon-size"></i>有料サービス
+                          {{-- <i class="fas fa-hand-holding-heart icon-size"></i> --}}
+                          有料サービス
                         </p>
                       </th>
                     </tr>
@@ -306,7 +313,8 @@
                     <tr>
                       <th colspan='2'>
                         <p class="title-icon py-1">
-                          <i class="fas fa-th icon-size"></i>レイアウト
+                          {{-- <i class="fas fa-th icon-size"></i> --}}
+                          レイアウト
                         </p>
                       </th>
                     </tr>
@@ -357,7 +365,8 @@
                     <tr>
                       <th colspan='2'>
                         <p class="title-icon">
-                          <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
+                          {{-- <i class="fas fa-suitcase-rolling icon-size"></i> --}}
+                          荷物預り
                         </p>
                       </th>
                     </tr>
@@ -369,12 +378,12 @@
                       <td>
                         <div class="radio-box">
                           <p>
-                            <input id="cp_master_luggage_flag" name="luggage_flag" type="radio" value="1">
-                            <label for="" class="form-check-label">有り</label>
+                            {{Form::radio('luggage_flag', 1, true, ['id' => 'cp_master_luggage_flag'])}}
+                            {{Form::label('cp_master_luggage_flag','有り')}}
                           </p>
                           <p>
-                            <input id="cp_master_no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                            <label for="" class="form-check-label">無し</label>
+                            {{Form::radio('luggage_flag',0,true,['id'=>'cp_master_no_luggage_flag'])}}
+                            {{Form::label('cp_master_no_luggage_flag','無し')}}
                           </p>
                         </div>
                       </td>
@@ -414,7 +423,8 @@
                     <tr>
                       <th colspan='2'>
                         <p class="title-icon">
-                          <i class="fas fa-utensils icon-size"></i>室内飲食
+                          {{-- <i class="fas fa-utensils icon-size"></i> --}}
+                          室内飲食
                         </p>
                       </th>
                     </tr>
@@ -454,7 +464,8 @@
                       <tr>
                         <td colspan="2">
                           <p class="title-icon">
-                            <i class="fas fa-user icon-size" aria-hidden="true"></i>
+                            {{-- <i class="fas fa-user icon-size" aria-hidden="true"></i> --}}
+
                             エンドユーザーからの入金額
                           </p>
                         </td>
@@ -478,7 +489,8 @@
                     <tr>
                       <td colspan="2">
                         <p class="title-icon">
-                          <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>
+                          {{-- <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i> --}}
+
                           売上原価
                         </p>
                       </td>
@@ -502,7 +514,8 @@
                     <tr>
                       <td colspan="2">
                         <p class="title-icon">
-                          <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>
+                          {{-- <i class="fas fa-file-alt icon-size" aria-hidden="true"></i> --}}
+
                           備考
                         </p>
                       </td>
@@ -648,7 +661,8 @@
                       <tr>
                         <td colspan="2">
                           <p class="title-icon">
-                            <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
+                            {{-- <i class="fas fa-info-circle icon-size" aria-hidden="true"></i> --}}
+
                             仮押え情報
                           </p>
                         </td>
@@ -696,7 +710,8 @@
                       <td colspan="2">
                         <div class="d-flex align-items-center justify-content-between">
                           <p class="title-icon">
-                            <i class="fas fa-clipboard icon-size"></i>案内版
+                            {{-- <i class="fas fa-clipboard icon-size"></i> --}}
+                            案内版
                           </p>
                         </div>
                       </td>
@@ -779,7 +794,8 @@
                       <tr>
                         <th colspan="2">
                           <p class="title-icon fw-bolder py-1">
-                            <i class="fas fa-wrench icon-size"></i>有料備品
+                            {{-- <i class="fas fa-wrench icon-size"></i> --}}
+                            有料備品
                           </p>
                         </th>
                       </tr>
@@ -815,7 +831,8 @@
                       <tr>
                         <th colspan="2">
                           <p class="title-icon fw-bolder py-1">
-                            <i class="fas fa-hand-holding-heart icon-size"></i>有料サービス
+                            {{-- <i class="fas fa-hand-holding-heart icon-size"></i> --}}
+                            有料サービス
                           </p>
                         </th>
                       </tr>
@@ -882,7 +899,8 @@
                       <tr>
                         <th colspan="2">
                           <p class="title-icon py-1">
-                            <i class="fas fa-th icon-size"></i>レイアウト
+                            {{-- <i class="fas fa-th icon-size"></i> --}}
+                            レイアウト
                           </p>
                         </th>
                       </tr>
@@ -963,7 +981,8 @@
                       <tr>
                         <th colspan="2">
                           <p class="title-icon">
-                            <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
+                            {{-- <i class="fas fa-suitcase-rolling icon-size"></i> --}}
+                            荷物預り
                           </p>
                         </th>
                       </tr>
@@ -973,13 +992,13 @@
                         <td class="table-active">荷物預かり 工藤さん！！こちら</td>
                         <td>
                           <div class="radio-box">
-                          <p>
-                              <input id="luggage_flag0" name="luggage_flag_copied0" type="radio" value="1">
-                              <label for="luggage_flag0">有り</label>
+                            <p>
+                              {{Form::radio('luggage_flag_copied'.$key,1,(int)$pre_reservation->luggage_flag===1?true:false,['id'=>'luggage_flag'.$key])}}
+                              {{Form::label('luggage_flag'.$key,'有り')}}
                             </p>
                             <p>
-                              <input id="no_luggage_flag0" checked="checked" name="luggage_flag_copied0" type="radio" value="0">
-                              <label for="no_luggage_flag0">無し</label>
+                              {{Form::radio('luggage_flag_copied'.$key,0,(int)$pre_reservation->luggage_flag===0?true:false,['id'=>'no_luggage_flag'.$key])}}
+                              {{Form::label('no_luggage_flag'.$key,'無し')}}
                             </p>
                           </div>
                         </td>
@@ -1020,7 +1039,8 @@
                       <tr>
                         <th colspan='2'>
                           <p class="title-icon">
-                            <i class="fas fa-utensils icon-size"></i>室内飲食
+                            {{-- <i class="fas fa-utensils icon-size"></i> --}}
+                            室内飲食
                           </p>
                         </th>
                       </tr>
@@ -1068,7 +1088,8 @@
                         <tr>
                           <td colspan="2">
                             <p class="title-icon">
-                              <i class="fas fa-user icon-size" aria-hidden="true"></i>
+                              {{-- <i class="fas fa-user icon-size" aria-hidden="true"></i> --}}
+
                               エンドユーザーからの入金額
                             </p>
                           </td>
@@ -1092,7 +1113,8 @@
                       <tr>
                         <td colspan="2">
                           <p class="title-icon">
-                            <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>
+                            {{-- <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i> --}}
+
                             売上原価
                           </p>
                         </td>
@@ -1117,7 +1139,8 @@
                       <tr>
                         <td colspan="2">
                           <p class="title-icon">
-                            <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>
+                            {{-- <i class="fas fa-file-alt icon-size" aria-hidden="true"></i> --}}
+
                             備考
                           </p>
                         </td>
@@ -1180,8 +1203,10 @@
                   <div class="bill_details">
                     <div class="head d-flex">
                       <div class="accordion_btn">
-                        <i class="fas fa-plus bill_icon_size hide"></i>
-                        <i class="fas fa-minus bill_icon_size"></i>
+                        {{-- <i class="fas fa-plus bill_icon_size hide"></i> --}}
+
+                        {{-- <i class="fas fa-minus bill_icon_size"></i> --}}
+
                       </div>
                       <div class="billdetails_ttl">
                         <h3>

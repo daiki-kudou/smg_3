@@ -56,7 +56,6 @@
   {{-- data tables --}}
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -111,18 +110,20 @@
   <script src="{{ asset('js/adminlte.min.js') }}"></script>
   <script src="{{ asset('js/confirm.js') }}"></script>
   <script>
-    // マイナスを赤字に
-    $('HTML').on('DOMSubtreeModified propertychange', function() {
-    // DOMが変更された時に動く処理
-    $('input').each(function(index, element){
-      var this_val=$('input').eq(index);
-      if (Number(this_val.val())<0) {
-          this_val.css('color','red');
-        }else if(Number(this_val.val())>0){
-          this_val.css('color','black');
-        }
-      })
-    });
+    // // マイナスを赤字にこれ遅いので、別の
+    // $('HTML').on('DOMSubtreeModified propertychange', function() {
+    // // DOMが変更された時に動く処理
+    // $('input').each(function(index, element){
+    //   var this_val=$('input').eq(index);
+    //   if (Number(this_val.val())<0) {
+    //       this_val.css('color','red');
+    //     }else if(Number(this_val.val())>0){
+    //       this_val.css('color','black');
+    //     }
+    //   })
+    // });
+
+    
 
     $(function(){
       $('input').each(function(index, element){
@@ -145,7 +146,7 @@
       })
     })
 
-    // 自動補完無効
+    // // 自動補完無効
     $(function(){
       $('input').each(function(index, element){
         var this_val=$('input').eq(index);
@@ -158,7 +159,7 @@
         })
     })
 
-    // enterキー無効
+    // // enterキー無効
     $(function(){
         $("input").on("keydown", function(e) {
             if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
