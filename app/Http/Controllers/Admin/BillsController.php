@@ -98,6 +98,7 @@ class BillsController extends Controller
   public function store(Request $request)
   {
     $data = $request->all();
+    // dd($data);
     if ($request->back) {
       return redirect(route('admin.bills.create', $data));
     }
@@ -110,8 +111,6 @@ class BillsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      // dump($e->getMessage());
-      // return $this->createSession($request)->withErrors($e->getMessage());
       return redirect(route('admin.bills.create', $data))->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
