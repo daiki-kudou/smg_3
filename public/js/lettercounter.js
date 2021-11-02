@@ -179,8 +179,7 @@ $(function () {
 });
 
 // ロード時の、荷物預かり入力制御
-$(document).ready(function () {
-
+$(function () {
   $("#no_luggage_flag:checked").each(function () {
     var flag = $(this);
     console.log(this);
@@ -191,32 +190,49 @@ $(document).ready(function () {
       $("#luggage_price").prop("readonly", true);
     }
   });
-});
+})
 
 // ラジオボタンクリック時の荷物預かり入力制御
-$(function () {
-  $('input[name="luggage_flag"]').change(function () {
-    var prop = $("#no_luggage_flag").prop("checked");
-    if (prop) {
-      $("#luggage_arrive").removeClass("readonly-no-gray");
-      $("#luggage_count").prop("readonly", true);
-      $("#luggage_arrive").prop("readonly", true);
-      $("#luggage_return").prop("readonly", true);
-      $("#luggage_price").prop("readonly", true);
-    } else {
-      $("#luggage_count").prop("readonly", false);
-      $("#luggage_arrive").prop("readonly", true);
-      $("#luggage_return").prop("readonly", false);
-      $("#luggage_price").prop("readonly", false);
-      $("#luggage_arrive").addClass("readonly-no-gray");
-    }
-  });
+$(document).on('change', 'input[name="luggage_flag"]', function () {
+  var prop = $("#no_luggage_flag").prop("checked");
+  console.log(prop);
+  if (prop) {
+    $("#luggage_arrive").removeClass("readonly-no-gray");
+    $("#luggage_count").prop("readonly", true);
+    $("#luggage_arrive").prop("readonly", true);
+    $("#luggage_return").prop("readonly", true);
+    $("#luggage_price").prop("readonly", true);
+  } else {
+    $("#luggage_count").prop("readonly", false);
+    $("#luggage_arrive").prop("readonly", true);
+    $("#luggage_return").prop("readonly", false);
+    $("#luggage_price").prop("readonly", false);
+    $("#luggage_arrive").addClass("readonly-no-gray");
+  }
 });
+
+// $(function () {
+//   $('input[name="luggage_flag"]').change(function () {
+//     var prop = $("#no_luggage_flag").prop("checked");
+//     if (prop) {
+//       $("#luggage_arrive").removeClass("readonly-no-gray");
+//       $("#luggage_count").prop("readonly", true);
+//       $("#luggage_arrive").prop("readonly", true);
+//       $("#luggage_return").prop("readonly", true);
+//       $("#luggage_price").prop("readonly", true);
+//     } else {
+//       $("#luggage_count").prop("readonly", false);
+//       $("#luggage_arrive").prop("readonly", true);
+//       $("#luggage_return").prop("readonly", false);
+//       $("#luggage_price").prop("readonly", false);
+//       $("#luggage_arrive").addClass("readonly-no-gray");
+//     }
+//   });
+// });
 
 
 // ロード時の、一括荷物預かり入力制御
-$(document).ready(function () {
-
+$(function () {
   $("#cp_master_no_luggage_flag:checked").each(function () {
     var flag = $(this);
     console.log(this);
@@ -226,20 +242,34 @@ $(document).ready(function () {
       $("#cp_master_luggage_return").addClass("readonly");
     }
   });
-});
+})
 
 // ラジオボタンクリック時の荷物預かり入力制御
-$(function () {
-  $('input[name="luggage_flag"]').change(function () {
-    var prop = $("#cp_master_no_luggage_flag").prop("checked");
-    if (prop) {
-      $("#cp_master_luggage_count").addClass("readonly");
-      $("#cp_master_luggage_arrive").addClass("readonly");
-      $("#cp_master_luggage_return").addClass("readonly");
-    } else {
-      $("#cp_master_luggage_count").removeClass("readonly");
-      $("#cp_master_luggage_arrive").removeClass("readonly");
-      $("#cp_master_luggage_return").removeClass("readonly");
-    }
-  });
+$(document).on('change', 'input[name="luggage_flag"]', function () {
+  var prop = $("#cp_master_no_luggage_flag").prop("checked");
+  if (prop) {
+    $("#cp_master_luggage_count").addClass("readonly");
+    $("#cp_master_luggage_arrive").addClass("readonly");
+    $("#cp_master_luggage_return").addClass("readonly");
+  } else {
+    $("#cp_master_luggage_count").removeClass("readonly");
+    $("#cp_master_luggage_arrive").removeClass("readonly");
+    $("#cp_master_luggage_return").removeClass("readonly");
+  }
 });
+
+
+// $(function () {
+//   $('input[name="luggage_flag"]').change(function () {
+//     var prop = $("#cp_master_no_luggage_flag").prop("checked");
+//     if (prop) {
+//       $("#cp_master_luggage_count").addClass("readonly");
+//       $("#cp_master_luggage_arrive").addClass("readonly");
+//       $("#cp_master_luggage_return").addClass("readonly");
+//     } else {
+//       $("#cp_master_luggage_count").removeClass("readonly");
+//       $("#cp_master_luggage_arrive").removeClass("readonly");
+//       $("#cp_master_luggage_return").removeClass("readonly");
+//     }
+//   });
+// });
