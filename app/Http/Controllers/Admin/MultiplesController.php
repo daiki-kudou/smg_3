@@ -281,7 +281,7 @@ class MultiplesController extends Controller
     $multiple = MultipleReserve::with('pre_reservations')->find($multiple_id);
     $venues = $multiple->pre_reservations->unique('venue_id');
     $venue_count = $venues->count('venue_id');
-    $_venues = Venue::all();
+    $_venues = Venue::all()->sortByDesc('id');
     $pre_reservations = $multiple->pre_reservations->unique('venue_id');
     return view('admin.multiples.add_venue', compact('multiple', 'venues', 'venue_count', '_venues', 'pre_reservations'));
   }
@@ -306,7 +306,7 @@ class MultiplesController extends Controller
     $multiple = MultipleReserve::find($multiple_id);
     $venues = $multiple->pre_reservations()->distinct()->select('venue_id')->get();
     $venue_count = $venues->count('venue_id');
-    $_venues = Venue::all();
+    $_venues = Venue::all()->sortByDesc('id');
     return view('admin.multiples.agent_add_venue', compact('multiple', 'venues', 'venue_count', '_venues'));
   }
 

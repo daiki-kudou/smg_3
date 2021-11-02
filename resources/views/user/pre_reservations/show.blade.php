@@ -286,6 +286,7 @@
             </tbody>
           </table>
         </div>
+        @if ($pre_reservation->venue->layout==1)
         <div class="layouts">
           <table class="table table-bordered">
             <thead>
@@ -298,7 +299,7 @@
               </tr>
             </thead>
             <tbody>
-              @if ($pre_reservation->venue->layout==1)
+
               <tr>
                 <td class="table-active">レイアウト準備</td>
                 <td>
@@ -361,10 +362,12 @@
                   @endforeach
                 </td>
               </tr>
-              @endif
             </tbody>
           </table>
         </div>
+        @endif
+
+        @if ((int)$venue->luggage_flag===1)
         <div class="luggage">
           <table class="table table-bordered">
             <thead>
@@ -376,7 +379,7 @@
                 </th>
               </tr>
             </thead>
-            @if ((int)$venue->luggage_flag===1)
+
             <tbody>
               <tr>
                 <td class="table-active form_required">お荷物預り</td>
@@ -420,9 +423,9 @@
                 </td>
               </tr>
             </tbody>
-            @endif
           </table>
         </div>
+        @endif
 
         @if ((int)$venue->eat_in_flag===1)
         <div class="eat_in">
