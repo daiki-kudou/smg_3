@@ -370,11 +370,11 @@
                   <td>
                     <div class="radio-box">
                       <p>
-                        {{Form::radio('luggage_flag',1,false,['id'=>'cp_master_luggage_flag'])}}
+                        {{Form::radio('cp_master_luggage_flag',1,false,['id'=>'cp_master_luggage_flag'])}}
                         {{Form::label('cp_master_luggage_flag','有り')}}
                       </p>
                       <p>
-                        {{Form::radio('luggage_flag',0,true,['id'=>'cp_master_no_luggage_flag'])}}
+                        {{Form::radio('cp_master_luggage_flag',0,true,['id'=>'cp_master_no_luggage_flag'])}}
                         {{Form::label('cp_master_no_luggage_flag','無し')}}
                       </p>
                     </div>
@@ -1022,11 +1022,11 @@
                     <td>
                       <div class="radio-box">
                         <p>
-                          {{Form::radio('luggage_flag_copied'.$key,1,$pre_reservation->luggage_flag===1?true:false,['id'=>'luggage_flag'.$key])}}
+                          {{Form::radio('luggage_flag_copied'.$key,1,(int)$pre_reservation->luggage_flag===1?true:false,['id'=>'luggage_flag'.$key])}}
                           {{Form::label('luggage_flag'.$key,'有り')}}
                         </p>
                         <p>
-                          {{Form::radio('luggage_flag_copied'.$key,0,$pre_reservation->luggage_flag===0?true:false,['id'=>'no_luggage_flag'.$key])}}
+                          {{Form::radio('luggage_flag_copied'.$key,0,(int)$pre_reservation->luggage_flag===0?true:false,['id'=>'no_luggage_flag'.$key])}}
                           {{Form::label('no_luggage_flag'.$key,'無し')}}
                         </p>
                       </div>
@@ -1106,6 +1106,7 @@
                     </td>
                     <td></td>
                   </tr>
+                </tbody>
               </table>
               @endif
 
@@ -1668,8 +1669,6 @@
       }
     })
     
-
-
 
   $(function() {
     $(document).on("click", "#master_submit", function() {

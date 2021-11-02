@@ -402,14 +402,16 @@
                       <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                       <td>
                         {{ Form::text('cp_master_luggage_arrive',
-                        $request->cp_master_luggage_arrive?:"",['class'=>'form-control datepicker9','id'=>'cp_master_luggage_arrive'] ) }}
+                        $request->cp_master_luggage_arrive?:"",['class'=>'form-control
+                        datepicker9','id'=>'cp_master_luggage_arrive'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active">事後返送する荷物</td>
                       <td>
                         {{ Form::number('cp_master_luggage_return',
-                        $request->cp_master_luggage_return,['class'=>'form-control','id'=>'cp_master_luggage_return'] ) }}
+                        $request->cp_master_luggage_return,['class'=>'form-control','id'=>'cp_master_luggage_return'] )
+                        }}
                         <p class="is-error-cp_master_luggage_return" style="color: red"></p>
                       </td>
                     </tr>
@@ -439,18 +441,18 @@
                     <tr>
                       <td>
                         {{Form::radio('cp_master_eat_in', 1, (int)$request->cp_master_eat_in===1?true:false , ['id' =>
-                        'eat_in'])}}
-                        {{Form::label('eat_in',"あり")}}
+                        'cp_master_eat_in'])}}
+                        {{Form::label('cp_master_eat_in',"あり")}}
                       </td>
                       <td>
                         {{Form::radio('cp_master_eat_in_prepare', 1,
                         (int)$request->cp_master_eat_in===1?((int)$request->cp_master_eat_in_prepare===1?true:false):true,
-                        ['id' => 'eat_in_prepare', (int)$request->cp_master_eat_in===0?"disabled":""])}}
-                        {{Form::label('eat_in_prepare',"手配済み")}}
+                        ['id' => 'cp_master_eat_in_prepare', (int)$request->cp_master_eat_in===0?"disabled":""])}}
+                        {{Form::label('cp_master_eat_in_prepare',"手配済み")}}
                         {{Form::radio('cp_master_eat_in_prepare',
                         2,(int)$request->cp_master_eat_in===1?((int)$request->cp_master_eat_in_prepare===2?true:false):false
-                        , ['id' => 'eat_in_consider',(int)$request->cp_master_eat_in===0?"disabled":""])}}
-                        {{Form::label('eat_in_consider',"検討中")}}
+                        , ['id' => 'cp_master_eat_in_consider',(int)$request->cp_master_eat_in===0?"disabled":""])}}
+                        {{Form::label('cp_master_eat_in_consider',"検討中")}}
                       </td>
                     </tr>
                     <tr>
@@ -923,11 +925,11 @@
                         <td>
                           <div class="radio-box">
                             <p>
-                              {{Form::radio('luggage_flag_copied'.$key,1,(int)$request->luggage_flag===1?true:false,['id'=>'luggage_flag'.$key])}}
+                              {{Form::radio('luggage_flag_copied'.$key,1,(int)$request->cp_master_luggage_flag===1?true:false,['id'=>'luggage_flag'.$key])}}
                               {{Form::label('luggage_flag'.$key,'有り')}}
                             </p>
                             <p>
-                              {{Form::radio('luggage_flag_copied'.$key,0,(int)$request->luggage_flag===0?true:false,['id'=>'no_luggage_flag'.$key])}}
+                              {{Form::radio('luggage_flag_copied'.$key,0,(int)$request->cp_master_luggage_flag===0?true:false,['id'=>'no_luggage_flag'.$key])}}
                               {{Form::label('no_luggage_flag'.$key,'無し')}}
                             </p>
                           </div>
@@ -984,29 +986,31 @@
                     <tbody>
                       <tr>
                         <td>
-                          {{Form::radio('eat_in', 1, $request->cp_master_eat_in==1?true:false , ['id' => 'eat_in'])}}
-                          {{Form::label('eat_in',"あり")}}
+                          {{Form::radio('eat_in_copied'.$key, 1,
+                          $request->cp_master_eat_in?($request->cp_master_eat_in==1?true:false):false , ['id' =>
+                          'eat_in_copied'.$key])}}
+                          {{Form::label('eat_in_copied'.$key,"あり")}}
                         </td>
                         <td>
-                          @if (empty($request->cp_master_eat_in_prepare))
-                          {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
-                          {{Form::label('eat_in_prepare',"手配済み")}}
-                          {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
-                          {{Form::label('eat_in_consider',"検討中")}}
-                          @else
-                          {{Form::radio('eat_in_prepare', 1, $request->cp_master_eat_in_prepare==1?true:false , ['id' =>
-                          'eat_in_prepare' ])}}
-                          {{Form::label('eat_in_prepare',"手配済み")}}
-                          {{Form::radio('eat_in_prepare', 2, $request->cp_master_eat_in_prepare==2?true:false , ['id' =>
-                          'eat_in_consider'])}}
-                          {{Form::label('eat_in_consider',"検討中")}}
-                          @endif
+                          {{Form::radio('eat_in_prepare_copied'.$key, 1,
+                          $request->cp_master_eat_in_prepare?($request->cp_master_eat_in_prepare==1?true:false):true ,
+                          ['id'
+                          =>
+                          'eat_in_prepare_copied'.$key,$request->cp_master_eat_in!=1?'disabled':''])}}
+                          {{Form::label('eat_in_prepare_copied'.$key,"手配済み")}}
+                          {{Form::radio('eat_in_prepare_copied'.$key, 2,
+                          $request->cp_master_eat_in_prepare?($request->cp_master_eat_in_prepare==2?true:false):false ,
+                          ['id' =>
+                          'eat_in_concider_copied'.$key,$request->cp_master_eat_in!=1?'disabled':''])}}
+                          {{Form::label('eat_in_concider_copied'.$key,"検討中")}}
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          {{Form::radio('eat_in', 0, $request->cp_master_eat_in==0?true:false , ['id' => 'no_eat_in'])}}
-                          {{Form::label('no_eat_in',"なし")}}
+                          {{Form::radio('eat_in_copied'.$key, 0,
+                          $request->cp_master_eat_in?($request->cp_master_eat_in==0?true:false):true , ['id' =>
+                          'no_eat_in'.$key])}}
+                          {{Form::label('no_eat_in'.$key,"なし")}}
                         </td>
                         <td></td>
                       </tr>
@@ -1551,6 +1555,7 @@
     }
     })
     })
+    
     // 室内飲食個別
     $(function(){
     var target = $('input[name^="eat_in_copied"]').length/2;
