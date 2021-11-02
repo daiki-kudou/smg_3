@@ -103,7 +103,6 @@
       {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST',
       'id'=>'multipleCalculateForm']) }}
       @csrf
-      <pre>{{ var_dump($request->all()) }}</pre>
       <section class="m-5 border-inwrap">
         <div class="mb-2">
         </div>
