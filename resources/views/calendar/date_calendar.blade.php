@@ -72,6 +72,7 @@
           </thead>
           <tbody>
             @foreach ($venues as $venue)
+            <!--以下、表示しない会場をベタ打ち-->
             @if ($venue->id===10||$venue->id===11||$venue->id===12||$venue->id===13||$venue->id===16||$venue->id===17)
             @continue
             @else
@@ -139,13 +140,7 @@
     </div>
   </section>
 
-
   <input type="hidden" name="json" value="{{$json_result}}">
-
-
   <input type="hidden" name="pre_json" value="{{$pre_json_result}}">
-
-
-
 
 </div>

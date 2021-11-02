@@ -5,6 +5,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/add_bill_ajax.js') }}"></script>
+<script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/bills/validation.js') }}"></script>
 
 <style>
@@ -32,8 +33,6 @@
   }
 </style>
 
-@include('layouts.admin.breadcrumbs',['id'=>$reservation['id']])
-@include('layouts.admin.errors')
 
 
 <div id="fullOverlay">
@@ -47,7 +46,7 @@
 <div class="container-fluid">
   <h2 class="mt-3 mb-3">追加請求書</h2>
   <hr>
-  {{ Form::open(['url' => 'admin/bills/check', 'method'=>'get','id'=>'billsCreateForm']) }}
+  {{ Form::open(['url' => 'admin/bills/create_session', 'method'=>'POST','id'=>'billsCreateForm']) }}
   @csrf
   {{ Form::hidden('reservation_id', $reservation['id'], ['class' => 'form-control'])}}
   <section class="mt-5">
@@ -72,15 +71,15 @@
                 <tr>
                   <td colspan="5">
                     <div class="venue_chkbox">
-                      <input type="checkbox" id="venue" name="venue" value="1"
-                        {{!empty($data['venue_price'])?"checked":""}}>
+                      <input type="checkbox" id="venue" name="venue" value="1" {{-- {{
+                        !empty(session('add_bill')['venue_price'])?"checked":"" }} --}}>
                       <label for="venue">会場料</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
               <tbody class="venue_head 
-              {{empty($data['venue_price'])?" hide":""}} ">
+              {{-- {{empty(session('add_bill')['venue_price'])?" hide":"" }} --}} ">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -89,8 +88,8 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class=" venue_main {{empty($data['venue_price'])?"hide":""}} ">
-                @if (empty($data['venue_price']))
+              <tbody class=" venue_main {{-- {{ empty(session('add_bill')['venue_price'])?"hide":"" }} --}} ">
+                @if (empty(session('add_bill')['venue_price']))
                 <tr>
                   <td>{{ Form::text('venue_breakdown_item[]', '', ['class' => 'form-control'])}}</td>
                   <td>{{ Form::text('venue_breakdown_cost[]', '', ['class' => 'form-control'])}}</td>
@@ -102,40 +101,40 @@
                 </td>
                 </tr>
                 @else
-                @foreach ($data['venue_breakdown_item'] as $key=>$v)
-                <tr>
+                @for ($i = 0; $i < $venues; $i++) <tr>
                   <td>
-                    {{ Form::text('venue_breakdown_item[]', $data['venue_breakdown_item'][$key], ['class' =>
+                    {{ Form::text('venue_breakdown_item[]', $data['venue_breakdown_item'.$i], ['class' =>
                     'form-control'])}}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_cost[]', $data['venue_breakdown_cost'][$key], ['class' =>
+                    {{ Form::text('venue_breakdown_item[]', $data['venue_breakdown_cost'.$i], ['class' =>
                     'form-control'])}}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_count[]', $data['venue_breakdown_count'][$key], ['class' =>
+                    {{ Form::text('venue_breakdown_count[]', $data['venue_breakdown_count'.$i], ['class' =>
                     'form-control number_validation'])}}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_subtotal[]', $data['venue_breakdown_subtotal'][$key], ['class' =>
+                    {{ Form::text('venue_breakdown_subtotal[]', $data['venue_breakdown_subtotal'.$i], ['class' =>
                     'form-control', 'readonly'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
                   </td>
-                </tr>
-                @endforeach
-                @endif
+                  </tr>
+                  @endfor
+                  @endif
               </tbody>
               <tbody class="venue_result 
-              {{empty($data['venue_price'])?" hide":""}} ">
+              {{-- {{ empty(session('add_bill')['venue_price'])?" hide":"" }} --}} ">
                 <tr>
                   <td colspan=" 4">
                 </td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
-                  {{ Form::text('venue_price', !empty($data['venue_price'])?$data['venue_price']:"", ['class' =>
+                  {{ Form::text('venue_price',
+                  !empty(session('add_bill')['venue_price'])?session('add_bill')['venue_price']:"", ['class' =>
                   'form-control' , 'readonly'])}}
                 </td>
                 </tr>
@@ -148,15 +147,15 @@
                 <tr>
                   <td colspan="5">
                     <div class="equipment_chkbox">
-                      <input type="checkbox" id="equipment" name="equipment" value="1"
-                        {{!empty($data['equipment_price'])?"checked":""}}>
+                      <input type="checkbox" id="equipment" name="equipment" value="1" {{-- {{
+                        !empty(session('add_bill')['equipment_price'])?"checked":"" }} --}}>
                       <label for="equipment">有料備品・サービス料</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
               <tbody class="equipment_head 
-              {{empty($data['equipment_price'])?" hide":""}} ">
+              {{-- {{ empty(session('add_bill')['equipment_price'])?" hide":"" }} --}} ">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -165,8 +164,8 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class=" equipment_main {{empty($data['equipment_price'])?"hide":""}} ">
-                @if (empty($data['equipment_price']))
+              <tbody class=" equipment_main {{-- {{ empty(session('add_bill')['equipment_price'])?"hide":"" }} --}} ">
+                @if (empty(session('add_bill')['equipment_price']))
                 <tr>
                   <td>{{ Form::text('equipment_breakdown_item[]', '', ['class' => 'form-control'])}}</td>
                   <td>{{ Form::text('equipment_breakdown_cost[]', '', ['class' => 'form-control'])}}</td>
@@ -180,41 +179,41 @@
                 </td>
                 </tr>
                 @else
-                @foreach ($data['equipment_breakdown_item'] as $key=>$e)
-                <tr>
+                @for ($i = 0; $i < $equipments; $i++) <tr>
                   <td>
-                    {{ Form::text('equipment_breakdown_item[]', $data['equipment_breakdown_item'][$key], ['class' =>
+                    {{ Form::text('equipment_breakdown_item[]', $data['equipment_breakdown_item'.$i], ['class' =>
                     'form-control'])}}
                   </td>
                   <td>
-                    {{ Form::text('equipment_breakdown_cost[]', $data['equipment_breakdown_cost'][$key], ['class' =>
+                    {{ Form::text('equipment_breakdown_cost[]', $data['equipment_breakdown_cost'.$i], ['class' =>
                     'form-control'])}}
                   </td>
                   <td>
-                    {{ Form::text('equipment_breakdown_count[]', $data['equipment_breakdown_count'][$key], ['class' =>
+                    {{ Form::text('equipment_breakdown_count[]', $data['equipment_breakdown_count'.$i], ['class' =>
                     'form-control number_validation'])}}
                   </td>
                   <td>
-                    {{ Form::text('equipment_breakdown_subtotal[]', $data['equipment_breakdown_subtotal'][$key],
-                    ['class' => 'form-control', 'readonly'])}}
+                    {{ Form::text('equipment_breakdown_subtotal[]', $data['equipment_breakdown_subtotal'.$i], ['class'
+                    => 'form-control', 'readonly'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
                   </td>
-                </tr>
-                @endforeach
-                @endif
+                  </tr>
+                  @endfor
+                  @endif
               </tbody>
               <tbody class="equipment_result 
-              {{empty($data['equipment_price'])?" hide":""}} ">
+              {{-- {{ empty(session('add_bill')['equipment_price'])?" hide":"" }} --}} ">
                 <tr>
                   <td colspan=" 4">
                 </td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
-                  {{ Form::text('equipment_price', !empty($data['equipment_price'])?$data['equipment_price']:"",
-                  ['class' => 'form-control' , 'readonly'])}}
+                  {{ Form::text('equipment_price',
+                  !empty(session('add_bill')['equipment_price'])?session('add_bill')['equipment_price']:"", ['class' =>
+                  'form-control' , 'readonly'])}}
                 </td>
                 </tr>
               </tbody>
@@ -227,15 +226,15 @@
                 <tr>
                   <td colspan="5">
                     <div class="layout_chkbox">
-                      <input type="checkbox" id="layout" name="layout" value="1"
-                        {{!empty($data['layout_price'])?"checked":""}}>
+                      <input type="checkbox" id="layout" name="layout" value="1" {{-- {{
+                        !empty(session('add_bill')['layout_price'])?"checked":"" }} --}}>
                       <label for="layout">レイアウト変更料</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
               <tbody class="layout_head 
-              {{empty($data['layout_price'])?" hide":""}} ">
+              {{-- {{ empty(session('add_bill')['layout_price'])?" hide":"" }} --}} ">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -244,8 +243,8 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class=" layout_main {{empty($data['layout_price'])?"hide":""}} ">
-                @if (empty($data['layout_price']))
+              <tbody class=" layout_main {{-- {{ empty(session('add_bill')['layout_price'])?"hide":"" }} --}} ">
+                @if (empty(session('add_bill')['layout_price']))
                 <tr>
                   <td>{{ Form::text('layout_breakdown_item[]', '', ['class' => 'form-control'])}}</td>
                   <td>{{ Form::text('layout_breakdown_cost[]', '', ['class' => 'form-control'])}}</td>
@@ -258,40 +257,40 @@
                 </td>
                 </tr>
                 @else
-                @foreach ($data['layout_breakdown_item'] as $key=>$l)
-                <tr>
+                @for ($i = 0; $i < $layouts; $i++) <tr>
                   <td>
-                    {{ Form::text('layout_breakdown_item[]', $data['layout_breakdown_item'][$key], ['class' =>
+                    {{ Form::text('layout_breakdown_item[]', $data['layout_breakdown_item'.$i], ['class' =>
                     'form-control'])}}
                   </td>
                   <td>
-                    {{ Form::text('layout_breakdown_cost[]', $data['layout_breakdown_cost'][$key], ['class' =>
+                    {{ Form::text('layout_breakdown_cost[]', $data['layout_breakdown_cost'.$i], ['class' =>
                     'form-control'])}}
                   </td>
                   <td>
-                    {{ Form::text('layout_breakdown_count[]', $data['layout_breakdown_count'][$key], ['class' =>
+                    {{ Form::text('layout_breakdown_count[]', $data['layout_breakdown_count'.$i], ['class' =>
                     'form-control number_validation'])}}
                   </td>
                   <td>
-                    {{ Form::text('layout_breakdown_subtotal[]', $data['layout_breakdown_subtotal'][$key], ['class' =>
+                    {{ Form::text('layout_breakdown_subtotal[]', $data['layout_breakdown_subtotal'.$i], ['class' =>
                     'form-control', 'readonly'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
                   </td>
-                </tr>
-                @endforeach
-                @endif
+                  </tr>
+                  @endfor
+                  @endif
               </tbody>
               <tbody class="layout_result 
-              {{empty($data['layout_price'])?" hide":""}} ">
+              {{-- {{empty(session('add_bill')['layout_price'])?" hide":"" }} --}} ">
                 <tr>
                   <td colspan=" 4">
                 </td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
-                  {{ Form::text('layout_price', !empty($data['layout_price'])?$data['layout_price']:"", ['class' =>
+                  {{ Form::text('layout_price',
+                  !empty(session('add_bill')['layout_price'])?session('add_bill')['layout_price']:"", ['class' =>
                   'form-control' , 'readonly'])}}
                 </td>
                 </tr>
@@ -305,15 +304,15 @@
                 <tr>
                   <td colspan="5">
                     <div class="others_chkbox">
-                      <input type="checkbox" id="others" name="others" value="1"
-                        {{!empty($data['others_price'])?"checked":""}}>
+                      <input type="checkbox" id="others" name="others" value="1" {{-- {{
+                        !empty(session('add_bill')['others_price'])?"checked":"" }} --}}>
                       <label for="others">その他</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
               <tbody class="others_head 
-              {{empty($data['others_price'])?" hide":""}} ">
+              {{-- {{empty(session('add_bill')['others_price'])?" hide":"" }} --}} ">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -322,8 +321,8 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class=" others_main {{empty($data['others_price'])?"hide":""}} ">
-                @if (empty($data['others_price']))
+              <tbody class=" others_main {{-- {{empty(session('add_bill')['others_price'])?"hide":"" }} --}} ">
+                @if (empty(session('add_bill')['others_price']))
                 <tr>
                   <td>{{ Form::text('others_breakdown_item[]', '', ['class' => 'form-control'])}}</td>
                   <td>{{ Form::text('others_breakdown_cost[]', '', ['class' => 'form-control'])}}</td>
@@ -336,41 +335,40 @@
                 </td>
                 </tr>
                 @else
-
-                @foreach ($data['others_breakdown_item'] as $key=>$o)
-                <tr>
+                @for ($i = 0; $i < $others; $i++) <tr>
                   <td>
-                    {{ Form::text('others_breakdown_item[]', $data['others_breakdown_item'][$key], ['class' =>
+                    {{ Form::text('others_breakdown_item[]', $data['others_breakdown_item'.$i], ['class' =>
                     'form-control'])}}
                   </td>
                   <td>
-                    {{ Form::text('others_breakdown_cost[]', $data['others_breakdown_cost'][$key], ['class' =>
+                    {{ Form::text('others_breakdown_cost[]', $data['others_breakdown_cost'.$i], ['class' =>
                     'form-control'])}}
                   </td>
                   <td>
-                    {{ Form::text('others_breakdown_count[]', $data['others_breakdown_count'][$key], ['class' =>
+                    {{ Form::text('others_breakdown_count[]', $data['others_breakdown_count'.$i], ['class' =>
                     'form-control number_validation'])}}
                   </td>
                   <td>
-                    {{ Form::text('others_breakdown_subtotal[]', $data['others_breakdown_subtotal'][$key], ['class' =>
+                    {{ Form::text('others_breakdown_subtotal[]', $data['others_breakdown_subtotal'.$i], ['class' =>
                     'form-control', 'readonly'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
                   </td>
-                </tr>
-                @endforeach
-                @endif
+                  </tr>
+                  @endfor
+                  @endif
               </tbody>
               <tbody class="others_result 
-              {{empty($data['others_price'])?" hide":""}} ">
+              {{-- {{empty(session('add_bill')['others_price'])?" hide":"" }} --}} ">
                 <tr>
                   <td colspan=" 4">
                 </td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
-                  {{ Form::text('others_price', !empty($data['others_price'])?$data['others_price']:"", ['class' =>
+                  {{ Form::text('others_price',
+                  !empty(session('add_bill')['others_price'])?session('add_bill')['others_price']:"", ['class' =>
                   'form-control' , 'readonly'])}}
                 </td>
                 </tr>
@@ -384,8 +382,9 @@
                 <tr>
                   <td>小計：</td>
                   <td>
-                    {{ Form::text('master_subtotal', !empty($data['master_subtotal'])?$data['master_subtotal']:"",
-                    ['class' => 'form-control master_subtotal' , 'readonly'])}}
+                    {{ Form::text('master_subtotal',
+                    !empty(session('add_bill')['master_subtotal'])?session('add_bill')['master_subtotal']:"", ['class'
+                    => 'form-control master_subtotal' , 'readonly'])}}
                     <p class="is-error-master_subtotal" style="color: red"></p>
                   </td>
                 </tr>
@@ -393,7 +392,7 @@
                   <td>消費税：</td>
                   <td>
                     {{ Form::text('master_tax',
-                    !empty($data['master_tax'])?$data['master_tax']:(!empty($data['master_tax'])?0:""), ['class' =>
+                    !empty(session('add_bill')['master_tax'])?session('add_bill')['master_tax']:"", ['class' =>
                     'form-control' , 'readonly'])}}
                     <p class="is-error-master_tax" style="color: red"></p>
                   </td>
@@ -401,7 +400,8 @@
                 <tr>
                   <td class="font-weight-bold">合計金額</td>
                   <td>
-                    {{ Form::text('master_total', !empty($data['master_total'])?$data['master_total']:"", ['class' =>
+                    {{ Form::text('master_total',
+                    !empty(session('add_bill')['master_total'])?session('add_bill')['master_total']:"", ['class' =>
                     'form-control' , 'readonly'])}}
                     <p class="is-error-master_total" style="color: red"></p>
                   </td>
@@ -431,27 +431,28 @@
               <tbody>
                 <tr>
                   <td>請求日：
-                    {{ Form::text('bill_created_at', date('Y-m-d',strtotime(Carbon\Carbon::now())), ['class' =>
-                    'form-control datepicker_no_min_date'])}}
+                    {{-- {{ Form::text('bill_created_at', date('Y-m-d',strtotime(Carbon\Carbon::now())), ['class' =>
+                    'form-control' ,'id'=>'datepicker6'])}}
+                    --}}
                   </td>
                   <td>支払期日
-                    {{ Form::text('payment_limit', $payment_limit, ['class' => 'form-control datepicker
-                    datepicker_no_min_date'])}}
+                    {{-- {{ Form::text('pay_limit', $pay_limit, ['class' => 'form-control datepicker' ,'id'=>''])}} --}}
                   </td>
                 </tr>
                 <tr>
                   <td>請求書宛名
-                    {{ Form::text('bill_company', $reservation['user']['id'], ['class' => 'form-control'])}}
+                    {{-- {{ Form::text('pay_company', $reservation->user->company, ['class' => 'form-control'])}} --}}
                   </td>
                   <td>
                     担当者
-                    {{ Form::text('bill_person', ReservationHelper::getPersonName($reservation['user']['id']), ['class'
+                    {{-- {{ Form::text('bill_person', ReservationHelper::getPersonName($reservation->user->id), ['class'
                     => 'form-control' ])}}
+                    --}}
                   </td>
                 </tr>
                 <tr>
                   <td colspan="2">請求書備考
-                    {{ Form::textarea('bill_remark', '', ['class' => 'form-control'])}}
+                    {{-- {{ Form::textarea('bill_remark', '', ['class' => 'form-control'])}} --}}
                   </td>
                 </tr>
               </tbody>
@@ -476,18 +477,17 @@
                 <tr>
                   <td>
                     入金状況{{Form::select('paid', ['未入金',
-                    '入金済み','遅延','入金不足','入金過多','次回繰越'],$data['paid']??NULL,['class'=>'form-control'])}}
+                    '入金済み','遅延','入金不足','入金過多','次回繰越'],null,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    入金日{{ Form::text('pay_day', $data['pay_day']??NULL,['class'=>'form-control', 'id'=>'datepicker7'] )
-                    }}
+                    入金日{{ Form::text('pay_day', null,['class'=>'form-control', 'id'=>'datepicker7'] ) }}
                   </td>
                 </tr>
                 <tr>
-                  <td>振込人名{{ Form::text('pay_person', $data['pay_person']??NULL,['class'=>'form-control'] ) }}
+                  <td>振込人名{{ Form::text('pay_person', null,['class'=>'form-control'] ) }}
                     <p class="is-error-pay_person" style="color: red"></p>
                   </td>
-                  <td>入金額{{ Form::text('payment', $data['payment']??NULL,['class'=>'form-control'] ) }}
+                  <td>入金額{{ Form::text('payment', null,['class'=>'form-control'] ) }}
                     <p class="is-error-payment" style="color: red"></p>
                   </td>
                 </tr>
@@ -499,27 +499,36 @@
     </div>
   </section>
   {{ Form::submit('確認する',
-  ['class' => 'btn more_btn_lg mx-auto d-block mt-5 submit_btn', empty($data['master_total'])?"disabled":""]) }}
+  ['class' => 'btn more_btn_lg mx-auto d-block mt-5 submit_btn', empty(session('add_bill'))?"disabled":""]) }}
   {{ Form::close() }}
 
 
   <script>
-    $('.datepicker_no_min_date').datepicker({
-    dateFormat: 'yy-mm-dd',
-    autoclose: true
-  });
-
     $(function() {
       // プラス・マイナス押下アクション
       $(document).on("click", ".add", function() {
         var target = $(this).parent().parent();
         target.clone(true).insertAfter(target);
+        // AddTr(target, 'venue_main', 'venue_breakdown');
+        // AddTr(target, 'equipment_main', 'equipment_breakdown');
+        // AddTr(target, 'layout_main', 'layout_breakdown');
+        // AddTr(target, 'others_main', 'others_breakdown');
         target.parent().find('tr').last().find('td').eq(0).find('input').val('');
         target.parent().find('tr').last().find('td').eq(1).find('input').val('');
         target.parent().find('tr').last().find('td').eq(2).find('input').val('');
         target.parent().find('tr').last().find('td').eq(3).find('input').val('');
       })
-
+      // function AddTr($target, $targetClass, $targetName) {
+      //   if ($target.parent().hasClass($targetClass)) {
+      //     var target_length = $target.parent().find('tr').length;
+      //     for (let index = 0; index < target_length; index++) {
+      //       $target.parent().find('tr').eq(index).find('td').eq(0).find('input').attr('name', $targetName + '_item' + index)
+      //       $target.parent().find('tr').eq(index).find('td').eq(1).find('input').attr('name', $targetName + '_cost' + index)
+      //       $target.parent().find('tr').eq(index).find('td').eq(2).find('input').attr('name', $targetName + '_count' + index)
+      //       $target.parent().find('tr').eq(index).find('td').eq(3).find('input').attr('name', $targetName + '_subtotal' + index)
+      //     }
+      //   }
+      // }
       // マイナス押下
       $(document).on("click", ".del", function() {
         var master = $(this).parent().parent().parent().find('tr').length;
@@ -532,13 +541,26 @@
             target.find('input').eq(index).val('');
           }
         }
+        // DelTr(re_target, 'venue_main', 'venue_breakdown');
+        // DelTr(re_target, 'equipment_main', 'equipment_breakdown');
+        // DelTr(re_target, 'layout_main', 'layout_breakdown');
+        // DelTr(re_target, 'others_main', 'others_breakdown');
         DelCalc('.venues input', '.venue_main tr', 'input[name="venue_price"]');
         DelCalc('.equipment input', '.equipment_main tr', 'input[name="equipment_price"]');
         DelCalc('.layout input', '.layout_main tr', 'input[name="layout_price"]');
         DelCalc('.others input', '.others_main tr', 'input[name="others_price"]');
         MaterCalc();
       })
-
+      // function DelTr($target, $targetClass, $targetName) {
+      //   if ($target.hasClass($targetClass)) {
+      //     for (let num = 0; num < $target.find('tr').length; num++) {
+      //       $target.find('tr').eq(num).find('td').eq(0).find('input').attr('name', $targetName + '_item' + num)
+      //       $target.find('tr').eq(num).find('td').eq(1).find('input').attr('name', $targetName + '_cost' + num)
+      //       $target.find('tr').eq(num).find('td').eq(2).find('input').attr('name', $targetName + '_count' + num)
+      //       $target.find('tr').eq(num).find('td').eq(3).find('input').attr('name', $targetName + '_subtotal' + num)
+      //     }
+      //   }
+      // }
       function DelCalc($targetClass, $targetTr, $targetSum) {
         var trTarget = $($targetTr).length;
         var result_add = 0;
@@ -554,15 +576,11 @@
           $($targetSum).val("");
         }
       };
-
-
-
       // チェックボックス開閉
       checkToggle('.venue_chkbox #venue', ['.venue_head', '.venue_main', '.venue_result']);
       checkToggle('.equipment_chkbox #equipment', ['.equipment_head', '.equipment_main', '.equipment_result']);
       checkToggle('.layout_chkbox #layout', ['.layout_head', '.layout_main', '.layout_result']);
       checkToggle('.others_chkbox #others', ['.others_head', '.others_main', '.others_result']);
-
       function checkToggle($target, $items) {
         $($target).on('click', function() {
           $.each($items, function(index, value) {
@@ -570,52 +588,47 @@
           });
         });
       }
-
       // 各input からの計算
       calc('.venues input', '.venue_main tr', 'input[name="venue_price"]');
       calc('.equipment input', '.equipment_main tr', 'input[name="equipment_price"]');
       calc('.layout input', '.layout_main tr', 'input[name="layout_price"]');
       calc('.others input', '.others_main tr', 'input[name="others_price"]');
-
       function calc($targetClass, $targetTr, $targetSum) {
         $($targetClass).on('input', function() {
-          $($targetSum).val(0);
           var trTarget = $($targetTr).length;
           var result_add = 0;
           for (let calc = 0; calc < trTarget; calc++) {
             var multiple1 = Number($($targetTr).eq(calc).find('td').eq(1).find('input').val());
             var multiple2 = Number($($targetTr).eq(calc).find('td').eq(2).find('input').val());
-            $($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1 * multiple2);
-            result_add += (multiple1 * multiple2);
+            var result = $($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1 * multiple2);
+            result_add = result_add + (multiple1 * multiple2);
           }
-          $($targetSum).val(result_add);
+          if (result_add != 0) {
+            $($targetSum).val(result_add);
+          } else {
+            $($targetSum).val("");
+          }
         })
       };
-
       // 総合計額抽出
       $('input').on('input', function() {
         MaterCalc();
       })
-
       function MaterCalc() {
         var tar1 = ($('input[name="venue_price"]'));
         var tar2 = ($('input[name="equipment_price"]'));
         var tar3 = ($('input[name="layout_price"]'));
         var tar4 = ($('input[name="others_price"]'));
-
         var tar1_val = tar1.prop('disabled')?0:Number(tar1.val());
         var tar2_val = tar2.prop('disabled')?0:Number(tar2.val());
         var tar3_val = tar3.prop('disabled')?0:Number(tar3.val());
         var tar4_val = tar4.prop('disabled')?0:Number(tar4.val());
-
         var master_sub = tar1_val + tar2_val + tar3_val + tar4_val;
         var master_tax = Math.floor(master_sub * 0.1);
-
         $('input[name="master_subtotal"]').val(master_sub);
         $('input[name="master_tax"]').val(master_tax);
         $('input[name="master_total"]').val(master_sub + master_tax);
       }
-
       $('input[type="checkbox"]').on("change",function(){
         $('input[type="checkbox"]').each(function(index, element){
           if ($(element).prop('checked')) {
