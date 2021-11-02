@@ -184,6 +184,7 @@ $(function () {
     if ($(flag).is(":checked") != null) {
       $("#luggage_count").prop("readonly", true);
       $("#luggage_arrive").prop("readonly", true);
+      $('input[name="luggage_arrive"]').prop("readonly", true);
       $("#luggage_return").prop("readonly", true);
       $("#luggage_price").prop("readonly", true);
     }
@@ -198,11 +199,13 @@ $(document).on('change', 'input[name="luggage_flag"]', function () {
     $("#luggage_arrive").removeClass("readonly-no-gray");
     $("#luggage_count").prop("readonly", true);
     $("#luggage_arrive").prop("readonly", true);
+    $('input[name="luggage_arrive"]').prop("readonly", true);
     $("#luggage_return").prop("readonly", true);
     $("#luggage_price").prop("readonly", true);
   } else {
     $("#luggage_count").prop("readonly", false);
     $("#luggage_arrive").prop("readonly", true);
+    $('input[name="luggage_arrive"]').prop("readonly", false);
     $("#luggage_return").prop("readonly", false);
     $("#luggage_price").prop("readonly", false);
     $("#luggage_arrive").addClass("readonly-no-gray");
