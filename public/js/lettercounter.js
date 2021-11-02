@@ -180,7 +180,7 @@ $(function () {
 $(function () {
   $("#no_luggage_flag:checked").each(function () {
     var flag = $(this);
-    console.log(this);
+    // console.log(this);
     if ($(flag).is(":checked") != null) {
       $("#luggage_count").prop("readonly", true);
       $("#luggage_arrive").prop("readonly", true);
@@ -193,7 +193,7 @@ $(function () {
 // ラジオボタンクリック時の荷物預かり入力制御
 $(document).on('change', 'input[name="luggage_flag"]', function () {
   var prop = $("#no_luggage_flag").prop("checked");
-  console.log(prop);
+  // console.log(prop);
   if (prop) {
     $("#luggage_arrive").removeClass("readonly-no-gray");
     $("#luggage_count").prop("readonly", true);
