@@ -214,7 +214,7 @@
       <tr>
         <th><label for="address2">住所2（市町村番地）</label><span class="txtRed c-block">＊</span></th>
         <td>
-          {{ Form::text('address2', !empty($session['address2'])?$session['address2']:"", ['class' => 'text2', 'id' =>
+          {{ Form::text('address2', !empty($session['address2'])?$session['address2']:"", ['class' => 'text3', 'id' =>
           'address2',
           'placeholder' => '入力してください']) }}
           <p class="is-error-address2" style="color: red"></p>
@@ -223,7 +223,7 @@
       <tr>
         <th><label for="address3">住所3（建物名）</label></th>
         <td>
-          {{ Form::text('address3', !empty($session['address3'])?$session['address3']:"", ['class' => 'text2', 'id' =>
+          {{ Form::text('address3', !empty($session['address3'])?$session['address3']:"", ['class' => 'text3', 'id' =>
           'address3',
           'placeholder' => '入力してください']) }}
         </td>
