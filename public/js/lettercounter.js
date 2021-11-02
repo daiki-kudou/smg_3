@@ -100,8 +100,6 @@ function textLength(text) {
 }
 
 
-
-
 // ロード時の、案内板入力制御
 $(document).ready(function () {
   $("#no_board_flag:checked").each(function () {
@@ -235,7 +233,7 @@ $(document).on('change', 'input[name="luggage_flag"]', function () {
 $(function () {
   $("#cp_master_no_luggage_flag:checked").each(function () {
     var flag = $(this);
-    console.log(this);
+    // console.log(this);
     if ($(flag).is(":checked") != null) {
       $("#cp_master_luggage_count").addClass("readonly");
       $("#cp_master_luggage_arrive").addClass("readonly");
@@ -258,7 +256,6 @@ $(document).on('change', 'input[name="luggage_flag"]', function () {
   }
 });
 
-
 // $(function () {
 //   $('input[name="luggage_flag"]').change(function () {
 //     var prop = $("#cp_master_no_luggage_flag").prop("checked");
@@ -272,4 +269,68 @@ $(document).on('change', 'input[name="luggage_flag"]', function () {
 //       $("#cp_master_luggage_return").removeClass("readonly");
 //     }
 //   });
+// });
+
+
+// 一括の個別の荷物の制御
+$(function () {
+  var flagCheck = function () {
+    var target = $('input[name*="luggage_flag_copied"]');
+    for(let i=0 ; i< target.length; i++){
+      var flag = '#no_luggage_flag' + i;
+      var luggage_count = $('input[name="luggage_count_copied' + i + '"]');
+      var luggage_arrive = $('input[name="luggage_arrive_copied' + i + '"]');
+      var luggage_return = $('input[name="luggage_return_copied' + i + '"]');
+  
+      var prop = $(flag).prop("checked");
+
+      if (prop) {
+        luggage_arrive.removeClass("readonly-no-gray");
+        luggage_count.prop("readonly", true);
+        luggage_arrive.prop("readonly", true);
+        luggage_return.prop("readonly", true);
+      } else {
+        luggage_count.prop("readonly", false);
+        luggage_arrive.prop("readonly", true);
+        luggage_return.prop("readonly", false);
+        luggage_arrive.addClass("readonly-no-gray");
+      }
+    }
+  }
+  flagCheck();
+  var flagItem= $('input[name*="luggage_flag_copied"]');
+  flagItem.on('click', flagCheck);
+});
+
+// 一括の個別の案内板の制御
+// $(function () {
+//   var boardCheck = function () {
+//     var target = $('input[name*="board_flag_copied"]');
+//     for(let i=0 ; i< target.length; i++){
+//       var flag = '#board_flag_copied_off' + i;
+//       var event_name1 = $('input[name="event_name1_copied' + i + '"]');
+//       var event_name2 = $('input[name="event_name2_copied' + i + '"]');
+//       var event_owner = $('input[name="event_owner' + i + '"]');
+//       var event_start = $('input[name="event_start_copied' + i + '"]');
+//       var event_finish = $('input[name="event_finish_copied' + i + '"]');
+  
+//       var prop = $(flag).prop("checked");
+//       if (prop) {
+//         event_name1.addClass("readonly");
+//         event_name2.addClass("readonly");
+//         event_owner.addClass("readonly");
+//         event_start.addClass("readonly");
+//         event_finish.addClass("readonly");
+//       } else {
+//         event_name1.removeClass("readonly");
+//         event_name2.removeClass("readonly");
+//         event_owner.removeClass("readonly");
+//         event_start.removeClass("readonly");
+//         event_finish.removeClass("readonly");
+//       }
+//     }
+//   }
+//   boardCheck();
+//   var flagItem= $('input[name*="board_flag_copied"]');
+//   flagItem.on('click', flagCheck);
 // });

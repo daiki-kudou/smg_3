@@ -973,13 +973,13 @@
                         <td class="table-active">荷物預かり 工藤さん！！こちら</td>
                         <td>
                           <div class="radio-box">
-                            <p>
-                              <input id="cp_master_luggage_flag" name="luggage_flag" type="radio" value="1">
-                              <label for="" class="form-check-label">有り</label>
+                          <p>
+                              <input id="luggage_flag0" name="luggage_flag_copied0" type="radio" value="1">
+                              <label for="luggage_flag0">有り</label>
                             </p>
                             <p>
-                              <input id="cp_master_no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                              <label for="" class="form-check-label">無し</label>
+                              <input id="no_luggage_flag0" checked="checked" name="luggage_flag_copied0" type="radio" value="0">
+                              <label for="no_luggage_flag0">無し</label>
                             </p>
                           </div>
                         </td>
