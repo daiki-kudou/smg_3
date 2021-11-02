@@ -52,7 +52,8 @@
   <hr>
 </div>
 
-{{Form::open(['url' => 'admin/agents_reservations/store_session', 'method' => 'POST', 'id'=>'agentReservationCreateForm'])}}
+{{Form::open(['url' => 'admin/agents_reservations/store_session', 'method' => 'POST',
+'id'=>'agentReservationCreateForm'])}}
 @csrf
 <section class="mt-5">
   <div class="row">
@@ -69,7 +70,8 @@
           <tr>
             <td class="table-active form_required">利用日</td>
             <td>
-              {{ Form::text('reserve_date', '' ,['class'=>'form-control', 'id'=>'datepicker', 'placeholder'=>'入力してください'] ) }}
+              {{ Form::text('reserve_date', '' ,['class'=>'form-control', 'id'=>'datepicker', 'placeholder'=>'入力してください']
+              ) }}
               <p class="is-error-reserve_date" style="color: red"></p>
             </td>
           </tr>
@@ -91,11 +93,15 @@
                 </div>
                 <div class="price_radio_selector">
                   <div class="d-flex justfy-content-start align-items-center" id="price_system1">
-                    {{ Form::radio('price_system', 1, isset($request->price_system)?$request->price_system==1?true:false:'', ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                    {{ Form::radio('price_system', 1,
+                    isset($request->price_system)?$request->price_system==1?true:false:'', ['class'=>'mr-2',
+                    'id'=>'price_system_radio1']) }}
                     {{Form::label('price_system_radio1','通常（枠貸）')}}
                   </div>
                   <div class="d-flex justfy-content-start align-items-center" id="price_system2">
-                    {{ Form::radio('price_system', 2, isset($request->price_system)?$request->price_system==2?true:false:'', ['class'=>'mr-2','id'=>'price_system_radio2']) }}
+                    {{ Form::radio('price_system', 2,
+                    isset($request->price_system)?$request->price_system==2?true:false:'',
+                    ['class'=>'mr-2','id'=>'price_system_radio2']) }}
                     {{Form::label('price_system_radio2','音響HG')}}
                   </div>
                 </div>
@@ -159,7 +165,8 @@
             <td class="table-active">イベント名称1</td>
             <td>
               <div class="align-items-end d-flex">
-                {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
+                {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください',
+                'id'=>'eventname1Count'] ) }}
                 <span class="ml-1 annotation count_num1"></span>
               </div>
               <p class="is-error-event_name1" style="color: red"></p>
@@ -169,7 +176,8 @@
             <td class="table-active">イベント名称2</td>
             <td>
               <div class="align-items-end d-flex">
-                {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください',
+                'id'=>'eventname2Count'] ) }}
                 <span class="ml-1 annotation count_num2"></span>
               </div>
               <p class="is-error-event_name2" style="color: red"></p>
@@ -179,7 +187,8 @@
             <td class="table-active">主催者名</td>
             <td>
               <div class="align-items-end d-flex">
-                {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください',
+                'id'=>'eventownerCount'] ) }}
                 <span class="ml-1 annotation count_num3"></span>
               </div>
               <p class="is-error-event_owner" style="color: red"></p>
@@ -360,7 +369,8 @@
               <label for="enduser_company" class="">エンドユーザー</label>
             </td>
             <td>
-              {{ Form::text('enduser_company', old('enduser_company'),['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
+              {{ Form::text('enduser_company', old('enduser_company'),['class'=>'form-control',
+              'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
             </td>
           </tr>
           <tr>
@@ -368,7 +378,8 @@
               <label for="enduser_address" class=" ">住所</label>
             </td>
             <td>
-              {{ Form::text('enduser_address', old('enduser_address'),['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_address'] ) }}
+              {{ Form::text('enduser_address', old('enduser_address'),['class'=>'form-control',
+              'placeholder'=>'入力してください','id'=>'enduser_address'] ) }}
             </td>
           </tr>
           <tr>
@@ -376,7 +387,8 @@
               <label for="enduser_tel" class="">連絡先</label>
             </td>
             <td>
-              {{ Form::text('enduser_tel', old('enduser_tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
+              {{ Form::text('enduser_tel', old('enduser_tel'),['class'=>'form-control', 'placeholder'=>'入力してください',
+              'id'=>'enduser_tel'] ) }}
               <p class="is-error-enduser_tel" style="color: red"></p>
             </td>
           </tr>
@@ -385,7 +397,8 @@
               <label for="enduser_mail" class=" ">メールアドレス</label>
             </td>
             <td>
-              {{ Form::text('enduser_mail', old('enduser_mail'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail'] ) }}
+              {{ Form::text('enduser_mail', old('enduser_mail'),['class'=>'form-control', 'placeholder'=>'入力してください',
+              'id'=>'enduser_mail'] ) }}
               <p class="is-error-enduser_mail" style="color: red"></p>
             </td>
           </tr>
@@ -394,7 +407,8 @@
               <label for="enduser_incharge" class="">当日担当者</label>
             </td>
             <td>
-              {{ Form::text('enduser_incharge', old('enduser_incharge'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_incharge'] ) }}
+              {{ Form::text('enduser_incharge', old('enduser_incharge'),['class'=>'form-control',
+              'placeholder'=>'入力してください', 'id'=>'enduser_incharge'] ) }}
             </td>
           </tr>
           <tr>
@@ -402,7 +416,8 @@
               <label for="enduser_mobile" class="">当日連絡先</label>
             </td>
             <td>
-              {{ Form::text('enduser_mobile', old('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile'] ) }}
+              {{ Form::text('enduser_mobile', old('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください',
+              'id'=>'enduser_mobile'] ) }}
               <p class="is-error-enduser_mobile" style="color: red"></p>
             </td>
           </tr>
@@ -438,7 +453,8 @@
             </td>
             <td>
               <div class="d-flex align-items-end">
-                {{ Form::text('end_user_charge', old('end_user_charge'),['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::text('end_user_charge', old('end_user_charge'),['class'=>'form-control ',
+                'placeholder'=>'入力してください'] ) }}
                 <span class="ml-1">円</span>
               </div>
               <p class="is-error-end_user_charge" style="color: red"></p>
@@ -480,7 +496,8 @@
           <tr>
             <td>
               <label for="adminNote">管理者備考</label>
-              {{ Form::textarea('admin_details', old('admin_details'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              {{ Form::textarea('admin_details', old('admin_details'),['class'=>'form-control',
+              'placeholder'=>'入力してください'] ) }}
             </td>
           </tr>
         </tbody>
@@ -501,8 +518,6 @@
           }
           $this.value = str;
         }
-
-        
   $(document).on(' click', '.holidays', function () {
   getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
 });
@@ -511,7 +526,6 @@
 $(document).on('change', 'input[name="reserve_date"]', function () {
   getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'), 0);
 });
-
 
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
