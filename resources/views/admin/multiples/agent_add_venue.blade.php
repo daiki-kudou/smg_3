@@ -300,11 +300,12 @@
         $(target).eq(index).find('td').eq(2).find('select').attr('class', "enter_control_pre_reservation" + index+" form-control");
         $(target).eq(index).find('td').eq(3).find('select').attr('class', "leave_control_pre_reservation" + index+" form-control ");
 
-        // dapicker付与
-        $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
+       // dapicker付与
+        $('#pre_datepicker' + index).removeClass('hasDatepicker').removeData("datepicker").removeAttr("id").unbind().datepicker({
           dateFormat: 'yy-mm-dd',
           minDate: 0,
         });
+        
         $(target).eq(index).find('td').eq(0).find('p').remove();
         $(target).eq(index).find('td').eq(1).find('p').remove();
         $(target).eq(index).find('td').eq(2).find('p').remove();

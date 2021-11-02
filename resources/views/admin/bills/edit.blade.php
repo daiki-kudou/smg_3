@@ -58,7 +58,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody class="venue_head {{empty($bill->venue_price)?"hide":""}}">
+              <tbody class="venue_head {{empty($bill->venue_price)?" hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -67,7 +67,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="venue_main {{empty($bill->venue_price)?"hide":""}}">
+              <tbody class="venue_main {{empty($bill->venue_price)?" hide":""}}">
                 @if (count($bill->breakdowns()->where('unit_type',1)->get())!=0)
                 @foreach ($bill->breakdowns()->where('unit_type',1)->get() as $key=>$venue)
                 <tr>
@@ -78,7 +78,8 @@
                     {{Form::text('venue_breakdown_cost[]',$venue->unit_cost,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('venue_breakdown_count[]',$venue->unit_count,['class'=>'form-control number_validation'])}}
+                    {{Form::text('venue_breakdown_count[]',$venue->unit_count,['class'=>'form-control
+                    number_validation'])}}
                   </td>
                   <td>
                     {{Form::text('venue_breakdown_subtotal[]',$venue->unit_subtotal,['class'=>'form-control','readonly'])}}
@@ -110,7 +111,7 @@
                 </tr>
                 @endif
               </tbody>
-              <tbody class="venue_result {{empty($bill->venue_price)?"hide":""}}">
+              <tbody class="venue_result {{empty($bill->venue_price)?" hide":""}}">
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
@@ -135,7 +136,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody class="equipment_head {{empty($bill->equipment_price)?"hide":""}}">
+              <tbody class="equipment_head {{empty($bill->equipment_price)?" hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -144,7 +145,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="equipment_main {{empty($bill->equipment_price)?"hide":""}}">
+              <tbody class="equipment_main {{empty($bill->equipment_price)?" hide":""}}">
                 @if (count($bill->breakdowns()->where('unit_type',2)->get())!=0)
                 @foreach ($bill->breakdowns()->where('unit_type',2)->get() as $key=>$equ)
                 <tr>
@@ -155,7 +156,8 @@
                     {{Form::text('equipment_breakdown_cost[]',$equ->unit_cost,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('equipment_breakdown_count[]',$equ->unit_count,['class'=>'form-control number_validation'])}}
+                    {{Form::text('equipment_breakdown_count[]',$equ->unit_count,['class'=>'form-control
+                    number_validation'])}}
                   </td>
                   <td>
                     {{Form::text('equipment_breakdown_subtotal[]',$equ->unit_subtotal,['class'=>'form-control','readonly'])}}
@@ -175,7 +177,8 @@
                     {{Form::text('equipment_breakdown_cost[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('equipment_breakdown_count[]','',['class'=>'form-control number_validation','disabled'])}}
+                    {{Form::text('equipment_breakdown_count[]','',['class'=>'form-control
+                    number_validation','disabled'])}}
                   </td>
                   <td>
                     {{Form::text('equipment_breakdown_subtotal[]','',['class'=>'form-control','readonly','disabled'])}}
@@ -188,7 +191,7 @@
                 @endif
 
               </tbody>
-              <tbody class="equipment_result {{empty($bill->equipment_price)?"hide":""}}">
+              <tbody class="equipment_result {{empty($bill->equipment_price)?" hide":""}}">
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
@@ -213,7 +216,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody class="layout_head {{empty($bill->layout_price)?"hide":""}}">
+              <tbody class="layout_head {{empty($bill->layout_price)?" hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -222,7 +225,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="layout_main {{empty($bill->layout_price)?"hide":""}}">
+              <tbody class="layout_main {{empty($bill->layout_price)?" hide":""}}">
                 @if (count($bill->breakdowns()->where('unit_type',4)->get())!=0)
                 @foreach ($bill->breakdowns()->where('unit_type',4)->get() as $key=>$lay)
                 <tr>
@@ -233,7 +236,8 @@
                     {{Form::text('layout_breakdown_cost[]',$lay->unit_cost,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('layout_breakdown_count[]',$lay->unit_count,['class'=>'form-control number_validation'])}}
+                    {{Form::text('layout_breakdown_count[]',$lay->unit_count,['class'=>'form-control
+                    number_validation'])}}
                   </td>
                   <td>
                     {{Form::text('layout_breakdown_subtotal[]',$lay->unit_subtotal,['class'=>'form-control','readonly'])}}
@@ -265,7 +269,7 @@
                 </tr>
                 @endif
               </tbody>
-              <tbody class="layout_result {{empty($bill->layout_price)?"hide":""}}">
+              <tbody class="layout_result {{empty($bill->layout_price)?" hide":""}}">
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
@@ -291,7 +295,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody class="others_head {{empty($bill->others_price)?"hide":""}}">
+              <tbody class="others_head {{empty($bill->others_price)?" hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -300,7 +304,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="others_main {{empty($bill->others_price)?"hide":""}}">
+              <tbody class="others_main {{empty($bill->others_price)?" hide":""}}">
                 @if (count($bill->breakdowns()->where('unit_type',5)->get())!=0)
                 @foreach ($bill->breakdowns()->where('unit_type',5)->get() as $key=>$other)
                 <tr>
@@ -311,7 +315,8 @@
                     {{Form::text('others_breakdown_cost[]',$other->unit_cost,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('others_breakdown_count[]',$other->unit_count,['class'=>'form-control number_validation'])}}
+                    {{Form::text('others_breakdown_count[]',$other->unit_count,['class'=>'form-control
+                    number_validation'])}}
                   </td>
                   <td>
                     {{Form::text('others_breakdown_subtotal[]',$other->unit_subtotal,['class'=>'form-control','readonly'])}}
@@ -331,7 +336,8 @@
                     {{Form::text('others_breakdown_cost[]', '',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('others_breakdown_count[]', '',['class'=>'form-control number_validation','disabled'])}}
+                    {{Form::text('others_breakdown_count[]', '',['class'=>'form-control
+                    number_validation','disabled'])}}
                   </td>
                   <td>
                     {{Form::text('others_breakdown_subtotal[]', '',['class'=>'form-control','readonly','disabled'])}}
@@ -343,7 +349,7 @@
                 </tr>
                 @endif
               </tbody>
-              <tbody class="others_result {{empty($bill->others_price)?"hide":""}}">
+              <tbody class="others_result {{empty($bill->others_price)?" hide":""}}">
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
@@ -405,7 +411,8 @@
                     {{Form::text('bill_created_at', $bill->bill_created_at,['class'=>'form-control datepicker'])}}
                   </td>
                   <td>支払期日
-                    {{Form::text('payment_limit', date('Y-m-d',strtotime($bill->payment_limit)),['class'=>'form-control datepicker'])}}
+                    {{Form::text('payment_limit', date('Y-m-d',strtotime($bill->payment_limit)),['class'=>'form-control
+                    datepicker'])}}
                   </td>
                 </tr>
                 <tr>
@@ -443,7 +450,8 @@
               <tbody>
                 <tr>
                   <td>入金状況
-                    {{Form::select('paid', ['未入金', '入金済み','遅延','入金不足','入金過多','次回繰越'],$bill->paid,['class'=>'form-control'])}}
+                    {{Form::select('paid', ['未入金',
+                    '入金済み','遅延','入金不足','入金過多','次回繰越'],$bill->paid,['class'=>'form-control'])}}
                   </td>
                   <td>
                     入金日
@@ -481,7 +489,7 @@
  // プラス・マイナス押下アクション
  $(document).on("click", ".add", function() {
  var target = $(this).parent().parent();
- target.clone(true).insertAfter(target);
+ target.clone().insertAfter(target);
  target.parent().find('tr').last().find('td').eq(0).find('input').val('');
  target.parent().find('tr').last().find('td').eq(1).find('input').val('');
  target.parent().find('tr').last().find('td').eq(2).find('input').val('');
@@ -540,7 +548,6 @@
       }
     };
 
-
     // チェックボックス開閉
     checkToggle('.venue_chkbox #venue', ['.venue_head', '.venue_main', '.venue_result']);
     checkToggle('.equipment_chkbox #equipment', ['.equipment_head', '.equipment_main', '.equipment_result']);
@@ -562,27 +569,24 @@
     calc('.others input', '.others_main tr', 'input[name="others_price"]');
 
     function calc($targetClass, $targetTr, $targetSum) {
-      $($targetClass).on('input', function() {
-        var trTarget = $($targetTr).length;
-        var result_add = 0;
-        for (let calc = 0; calc < trTarget; calc++) {
+        $(document).on('input',$targetClass,function(){
+          $($targetSum).val(0);
+          var trTarget = $($targetTr).length;
+          var result_add = 0;
+          for (let calc = 0; calc < trTarget; calc++) {
           var multiple1 = Number($($targetTr).eq(calc).find('td').eq(1).find('input').val());
           var multiple2 = Number($($targetTr).eq(calc).find('td').eq(2).find('input').val());
-          var result = $($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1 * multiple2);
-          result_add = result_add + (multiple1 * multiple2);
-        }
-        if (result_add != 0) {
+          $($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1 * multiple2);
+          result_add += (multiple1 * multiple2);
+          }
           $($targetSum).val(result_add);
-        } else {
-          $($targetSum).val("");
-        }
-      })
-    };
+        });
+      };
 
     // 総合計額抽出
-    $('input').on('input', function() {
+    $(document).on('input','input',function(){
       MaterCalc();
-    })
+    });
 
     function MaterCalc() {
       var tar1 = $('input[name="venue_price"]');

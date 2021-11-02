@@ -582,10 +582,11 @@
         });
       };
       // 総合計額抽出
-      $('input').on('input', function() {
-        MaterCalc();
-      })
-      function MaterCalc() {
+      $(document).on('input','input',function(){
+       MaterCalc();
+      });
+    
+    function MaterCalc() {
         var tar1 = ($('input[name="venue_price"]'));
         var tar2 = ($('input[name="equipment_price"]'));
         var tar3 = ($('input[name="layout_price"]'));
