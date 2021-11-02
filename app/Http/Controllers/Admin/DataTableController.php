@@ -81,7 +81,7 @@ class DataTableController extends Controller
           'category' => "<div>" . $this->getReservationCategory($record->reservation_id) . "</div>",
           'reservation_status' => "<div>" . $this->getReservationStatus($record->reservation_id) . "</div>",
           'details' => "<div>" . "<a href=" . url('admin/reservations', $record->reservation_id) . " class='more_btn btn'>詳細</a>" . "</div>",
-          'board' => "<div>" . $record->board_flag === 1 ? "<a href=" . url('admin/board', $record->reservation_id) . " class='more_btn btn' target='_blank'>詳細</a>" : "" . "</div>",
+          'board' => "<div>" . ((int)$record->board_flag === 1 ? ("<a href=" . url('admin/board', $record->reservation_id) . " class='more_btn btn' target='_blank'>詳細</a>") : "") . "</div>",
         ];
     }
 

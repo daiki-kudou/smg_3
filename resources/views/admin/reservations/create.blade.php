@@ -163,14 +163,12 @@
               <td>
                 <div class="radio-box">
                   <p>
-                    <input type="radio" name="board_flag" value="1" id="board_flag"
-                      {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>
-                    <span class="ml-1">有り</span>
+                    {{Form::radio('board_flag', 1, false , ['id' => 'board_flag'])}}
+                    {{Form::label('board_flag',"有り")}}
                   </p>
                   <p>
-                    <input type="radio" name="board_flag" value="0" id="no_board_flag"
-                      {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
-                    <span class="ml-1">無し</span>
+                    {{Form::radio('board_flag', 0, true , ['id' => 'no_board_flag'])}}
+                    {{Form::label('no_board_flag',"無し")}}
                   </p>
                 </div>
               </td>
