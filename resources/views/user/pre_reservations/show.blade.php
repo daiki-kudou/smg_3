@@ -20,7 +20,6 @@
 </div>
 <hr>
 
-
 @if ($pre_reservation->status==1)
 <div class="confirm-box text-md-center mt-5">
   <p>
@@ -43,7 +42,8 @@
       </tr>
     </tbody>
   </table>
-  {{ Form::open(['url' => 'user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST', 'id'=>'mypageForm']) }}
+  {{ Form::open(['url' => 'user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST',
+  'id'=>'mypageForm']) }}
   @csrf
   <div class="border-wrap2 p-4">
     <div class="row">
@@ -109,7 +109,8 @@
             <tr>
               <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
               <td>
-                {{Form::text('tel',$pre_reservation->tel,['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'])}}
+                {{Form::text('tel',$pre_reservation->tel,['class'=>'form-control', 'placeholder' =>
+                '半角数字、ハイフンなしで入力してください'])}}
                 <p class="is-error-tel" style="color: red"></p>
               </td>
             </tr>
@@ -163,7 +164,8 @@
               <td class="table-active">イベント名称1</td>
               <td>
                 <div class="align-items-end d-flex">
-                  {{Form::text('event_name1',$pre_reservation->event_name1,['class'=>'form-control', 'id'=>'eventname1Count'])}}
+                  {{Form::text('event_name1',$pre_reservation->event_name1,['class'=>'form-control',
+                  'id'=>'eventname1Count'])}}
                   <span class="ml-1 annotation count_num1"></span>
                 </div>
                 <p class="is-error-event_name1" style="color: red"></p>
@@ -173,7 +175,8 @@
               <td class="table-active">イベント名称2</td>
               <td>
                 <div class="align-items-end d-flex">
-                  {{Form::text('event_name2',$pre_reservation->event_name2,['class'=>'form-control', 'id'=>'eventname2Count'])}}
+                  {{Form::text('event_name2',$pre_reservation->event_name2,['class'=>'form-control',
+                  'id'=>'eventname2Count'])}}
                   <span class="ml-1 annotation count_num2"></span>
                 </div>
                 <p class="is-error-event_name2" style="color: red"></p>
@@ -183,7 +186,8 @@
               <td class="table-active">主催者名</td>
               <td>
                 <div class="align-items-end d-flex">
-                  {{Form::text('event_owner',$pre_reservation->event_owner,['class'=>'form-control', 'id'=>'eventownerCount'])}}
+                  {{Form::text('event_owner',$pre_reservation->event_owner,['class'=>'form-control',
+                  'id'=>'eventownerCount'])}}
                   <span class="ml-1 annotation count_num3"></span>
                 </div>
                 <p class="is-error-event_owner" style="color: red"></p>
@@ -214,10 +218,12 @@
                 <td>
                   @foreach ($pre_reservation->pre_breakdowns()->get() as $s_equ)
                   @if ($s_equ->unit_item==$equ->item)
-                  {{Form::number('equipment_breakdown[]',$s_equ->unit_count,['class'=>'form-control equipment_validation', 'autocomplete="off"'])}}
+                  {{Form::number('equipment_breakdown[]',$s_equ->unit_count,['class'=>'form-control
+                  equipment_validation', 'autocomplete="off"'])}}
                   @break
                   @elseif($loop->last)
-                  {{Form::number('equipment_breakdown[]','',['class'=>'form-control equipment_validation', 'autocomplete="off"'])}}
+                  {{Form::number('equipment_breakdown[]','',['class'=>'form-control equipment_validation',
+                  'autocomplete="off"'])}}
                   @endif
                   @endforeach
                 </td>
@@ -248,11 +254,13 @@
                   @if ($s_ser->unit_item==$ser->item)
                   <div class="radio-box">
                     <p>
-                      {{Form::radio("services_breakdown[$key]", 1, true , ['id' => 'service'.$key.'on', 'class' => ''])}}
+                      {{Form::radio("services_breakdown[$key]", 1, true , ['id' => 'service'.$key.'on', 'class' =>
+                      ''])}}
                       {{Form::label('service'.$key.'on','あり')}}
                     </p>
                     <p>
-                      {{Form::radio("services_breakdown[$key]", 0, false, ['id' => 'services_breakdown'.$key.'off', 'class' => ''])}}
+                      {{Form::radio("services_breakdown[$key]", 0, false, ['id' => 'services_breakdown'.$key.'off',
+                      'class' => ''])}}
                       {{Form::label('services_breakdown'.$key.'off','なし')}}
                     </p>
                   </div>
@@ -260,11 +268,13 @@
                   @elseif($loop->last)
                   <div class="radio-box">
                     <p>
-                      {{Form::radio("services_breakdown[$key]", 1, false , ['id' => 'service'.$key.'on', 'class' => ''])}}
+                      {{Form::radio("services_breakdown[$key]", 1, false , ['id' => 'service'.$key.'on', 'class' =>
+                      ''])}}
                       {{Form::label('service'.$key.'on','あり')}}
                     </p>
                     <p>
-                      {{Form::radio("services_breakdown[$key]", 0, true, ['id' => 'services_breakdown'.$key.'off', 'class' => ''])}}
+                      {{Form::radio("services_breakdown[$key]", 0, true, ['id' => 'services_breakdown'.$key.'off',
+                      'class' => ''])}}
                       {{Form::label('services_breakdown'.$key.'off','なし')}}
                     </p>
                   </div>
@@ -366,18 +376,21 @@
                 </th>
               </tr>
             </thead>
+            @if ((int)$venue->luggage_flag===1)
             <tbody>
               <tr>
                 <td class="table-active form_required">お荷物預り</td>
                 <td>
                   <div class="radio-box">
                     <p>
-                      <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
-                      <label for="" class="form-check-label">あり</label>
+                      {{Form::radio('luggage_flag', 1, (int)$pre_reservation['luggage_flag']===1?true:false,
+                      ['id'=>'luggage_flag'])}}
+                      {{Form::label('luggage_flag','有り')}}
                     </p>
                     <p>
-                      <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                      <label for="" class="form-check-label">なし</label>
+                      {{Form::radio('luggage_flag', 0, (int)$pre_reservation['luggage_flag']===0?true:false,
+                      ['id'=>'no_luggage_flag'])}}
+                      {{Form::label('no_luggage_flag','無し')}}
                     </p>
                   </div>
                   <p class="is-error-luggage_flag" style="color: red"></p>
@@ -386,62 +399,76 @@
               <tr>
                 <td class="table-active">事前にお預りする荷物</td>
                 <td>
-                  {{Form::number('luggage_count',$pre_reservation->luggage_count,['class'=>'form-control','id' => 'luggage_count', 'autocomplete="off"'])}}
+                  {{Form::number('luggage_count',$pre_reservation->luggage_count,['class'=>'form-control','id' =>
+                  'luggage_count', 'autocomplete="off"'])}}
                   <p class="is-error-luggage_count" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{Form::text('luggage_arrive',date('Y-m-d',strtotime($pre_reservation->luggage_arrive)),['class'=>'form-control luggage_arrive','id'=>'datepicker9'])}}
+                  {{Form::text('luggage_arrive',$pre_reservation->luggage_arrive?date('Y-m-d',strtotime($pre_reservation->luggage_arrive)):"",['class'=>'form-control
+                  luggage_arrive','id'=>'datepicker9'])}}
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事後返送するお荷物</td>
                 <td>
-                  {{Form::number('luggage_return',$pre_reservation->luggage_return,['class'=>'form-control luggage_return','id' => 'luggage_return', 'autocomplete="off"'])}}
+                  {{Form::number('luggage_return',$pre_reservation->luggage_return,['class'=>'form-control
+                  luggage_return','id' => 'luggage_return', 'autocomplete="off"'])}}
                   <p class="is-error-luggage_return" style="color: red"></p>
                 </td>
               </tr>
             </tbody>
+            @endif
           </table>
         </div>
 
+        @if ((int)$venue->eat_in_flag===1)
         <div class="eat_in">
           <table class="table table-bordered">
             <thead>
               <tr>
                 <th colspan='2'>
-                  <p class="title-icon form_required">
-                    <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
+                  <p class="title-icon {{ (int)$venue->eat_in_flag===1 ?" form_required":""}} ">
+                    <i class=" fas fa-utensils icon-size fa-fw"></i>室内飲食
                   </p>
                 </th>
               </tr>
             </thead>
+            @if ((int)$venue->eat_in_flag===1)
             <tbody>
               <tr>
                 <td>
-                  <input id="eat_in" name="eat_in" type="radio" value="1">
-                  <label for="eat_in">あり</label>
+                  {{Form::radio('eat_in', 1, (int)$pre_reservation->eat_in===1?true:false , ['id' => 'eat_in'])}}
+                  {{Form::label('eat_in',"あり")}}
                 </td>
                 <td>
-                  <input id="eat_in_prepare" disabled name="eat_in_prepare" type="radio" value="1">
-                  <label for="eat_in_prepare">手配済み</label>
-                  <input id="eat_in_consider" disabled name="eat_in_prepare" type="radio" value="2">
-                  <label for="eat_in_consider">検討中</label>
+                  {{Form::radio('eat_in_prepare', 1,
+                  (int)$pre_reservation->eat_in===1?((int)$pre_reservation->eat_in_prepare===1?true:false):true , ['id'
+                  =>
+                  'eat_in_prepare',
+                  (int)$pre_reservation->eat_in===1?'':'disabled'])}}
+                  {{Form::label('eat_in_prepare',"手配済み")}}
+                  {{Form::radio('eat_in_prepare', 2,
+                  (int)$pre_reservation->eat_in===1?((int)$pre_reservation->eat_in_prepare===2?true:false):false , ['id'
+                  =>
+                  'eat_in_consider',(int)$pre_reservation->eat_in===1?'':'disabled'])}}
+                  {{Form::label('eat_in_consider',"検討中")}}
                 </td>
               </tr>
               <tr>
                 <td>
-                  <input id="no_eat_in" checked="checked" name="eat_in" type="radio" value="0">
-                  <label for="no_eat_in">なし</label>
+                  {{Form::radio('eat_in', 0, (int)$pre_reservation->eat_in===0?true:false , ['id' => 'no_eat_in'])}}
+                  {{Form::label('no_eat_in',"なし")}}
                 </td>
                 <td></td>
               </tr>
             </tbody>
+            @endif
           </table>
         </div>
-
+        @endif
 
         <table class="table table-bordered note-table">
           <tbody>
@@ -540,5 +567,16 @@
          }
       });
     });
+
+      $(document).on("click", "input:radio[name='eat_in']", function() {
+      var radioTarget = $('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget == 1) {
+      $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+      $('input[name=eat_in_prepare]:eq(0)').prop('checked', true);
+      } else {
+      $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
+      $('input:radio[name="eat_in_prepare"]').val("");
+      }
+      })
 </script>
 @endsection

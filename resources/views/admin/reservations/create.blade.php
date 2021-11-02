@@ -549,6 +549,7 @@
       return false;
     })
   })
+  
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();
