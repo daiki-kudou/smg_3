@@ -1830,15 +1830,10 @@ table .master_total_subttl2 {
     margin-right: 0;
 }
 
-.user-table-list .table th, .user-table-list .table td {
-    padding: 0.3em;
-    font-size: 0.8rem;
+.no-user-table-list{
+    background-color: white;
 }
-
-.user-table-list tbody:nth-last-child(2n) td {
-    background-color: #efefef;
-}
-.user-table-list tr:nth-last-child(2n) td {
+.user-table-list{
     background-color: #efefef;
 }
 

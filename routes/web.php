@@ -97,6 +97,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
   Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
   Route::get('datatable', 'ReservationsController@datatable');
+  Route::get('pre_datatable', 'PreReservationsController@datatable');
 });
 
 
