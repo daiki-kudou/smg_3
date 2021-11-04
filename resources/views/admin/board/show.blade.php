@@ -42,7 +42,8 @@
 
       <tr class="venue">
         <td>
-          <p>{{ReservationHelper::getVenueForUser($reservation->venue_id)}}</p>
+          <!-- <p>{{ReservationHelper::getVenueForUser($reservation->venue_id)}}</p> -->
+          <p>{{ $reservation->venue->name_area }}<span class="venue_buildname">{{ $reservation->venue->name_bldg }}</span>{{ $reservation->venue->name_venue }}</p>
         </td>
       </tr>
     </table>
