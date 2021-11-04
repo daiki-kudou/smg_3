@@ -19,7 +19,6 @@ use App\Mail\UserReqRes;
 use Carbon\Carbon;
 use App\Service\SendSMGEmail;
 use App\Http\Helpers\ReservationHelper;
-use App\Http\Helpers\ImageHelper;
 
 
 
@@ -259,7 +258,8 @@ class ReservationsController extends Controller
     if ($future_past === 0) {
       $judge_reserve_date = " reservations.reserve_date >= CURRENT_DATE()";
     } elseif ($future_past === 1) {
-      $judge_reserve_date = " reservations.reserve_date < CURRENT_DATE()";
+      // 最大2年前
+      $judge_reserve_date = " reservations.reserve_date between DATE_SUB(CURRENT_DATE(),INTERVAL 2 MONTH) and CURRENT_DATE()";
     } else {
       $judge_reserve_date = " reservations.reserve_date >= CURRENT_DATE()";
     }
@@ -286,7 +286,6 @@ class ReservationsController extends Controller
           break;
 
         default:
-          # code...
           break;
       }
     }

@@ -18,48 +18,75 @@
 </div>
 
 <div class="mt-5">
-  <p class="text-right font-weight-bold"><span class="count-color">{{$counter}}</span>件</p>
+  <p class="text-right font-weight-bold">
+    <span class="count-color" id="counter"></span>件
+  </p>
 </div>
 <div class="table-wrap user-table-list">
-  <table class="table table-bordered table-box table-scroll">
+  <table class="table table-bordered table-box table-scroll compact hover order-column stripe"
+    id="pre_reservations_sort" style="height: 100%;">
     <thead>
       <tr>
         <th>一括仮押えID</th>
         <th>仮押えID</th>
         <th>受付日</th>
         <th>利用日</th>
-        <th>入室時間</th>
-        <th>退室時間</th>
+        <th>入室</th>
+        <th>退室</th>
         <th>利用会場</th>
-        <th></th>
+        <th>詳細</th>
       </tr>
     </thead>
-    <tbody>
-      @foreach ($pre_reservations as $pre_reservation)
-      <tr>
-        <td>{{$pre_reservation->multiple_reserve_id==0?"":$pre_reservation->multiple_reserve_id}}</td>
-        <td>{{ReservationHelper::fixId($pre_reservation->id)}}</td>
-        <td>{{ReservationHelper::formatDate($pre_reservation->created_at)}}</td>
-        <td>{{ReservationHelper::formatDate($pre_reservation->reserve_date)}}</td>
-        <td>{{ReservationHelper::formatTime($pre_reservation->enter_time)}}</td>
-        <td>{{ReservationHelper::formatTime($pre_reservation->leave_time)}}</td>
-        <td>{{ReservationHelper::getVenueForUser($pre_reservation->venue_id)}}</td>
-        <td>
-          <a href="{{url('user/pre_reservations/'.$pre_reservation->id)}}" class="more_btn">詳細</a>
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
   </table>
 </div>
 
 <!-- 一覧　　終わり------------------------------------------------ -->
 
-{{$pre_reservations->appends(request()->input())->render()}}
 
-
-
-
+<script>
+  $(document).ready(function(){
+    $.extend($.fn.dataTable.defaults, {
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+        }
+    });
+    var test = $('#pre_reservations_sort').DataTable({
+      order:[],
+      processing: true,
+      serverSide: true,
+      searching: false,
+      info: false,
+      autowidth: false,
+      ajax: { 
+        "url": "{{ url('/user/pre_datatable') }}", 
+        "type": "GET",
+        "data": function ( d ) {
+            return $.extend( {}, d, {
+            "future_past": $('input[name="past"]').val(),
+            'paid':$('select[name="paid"]').val(),
+          } );
+        }
+      },
+      columns: [
+        { data: 'multiple_reservation_id' },
+        { data: 'pre_reservation_id' },
+        { data: 'created_at' },
+        { data: 'reserve_date' },
+        { data: 'enter_time' },
+        { data: 'leave_time' },
+        { data: 'venue_name' },
+        { data: 'details' },
+      ],
+      "fnDrawCallback": function() {
+        //datatableの情報取得が完了したら
+          $('#counter').text('').text(test.page.info().recordsDisplay);
+      },
+      columnDefs: [
+        {targets: [7], sortable: false, orderable: false},
+      ],
+     });
+});
+</script>
 
 
 @endsection

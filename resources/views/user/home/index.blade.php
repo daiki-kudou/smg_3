@@ -71,42 +71,27 @@
 <div class="tab-content mt-2">
   <div id="reserve-list" class="tab-pane active">
     <div class="table-wrap user-table-list">
-      {{-- <table class="table table-bordered table-box table-scroll" 　id="sales_sort"> --}}
-        <table class="mt-2 table table-bordered table-box table-scroll compact hover order-column" id="sales_sort"
-          style="height: 100%;">
-          <thead>
-            <tr>
-              {{-- <th>予約ID</th>
-              <th>利用日</th>
-              <th>入室</th>
-              <th>退室</th>
-              <th>利用会場</th>
-
-              <th width="120">予約状況</th>
-              <th width="120">カテゴリー</th>
-              <th>利用料金（税込）</th>
-              <th>支払期日</th>
-              <th>支払状況</th>
-              <th class="btn-cell">詳細</th>
-              <th class="btn-cell">請求書</th>
-              <th class="btn-cell">領収書</th> --}}
-              <th>予約ID</th>
-              <th>利用日</th>
-              <th>入室</th>
-              <th>退室</th>
-              <th>利用会場</th>
-              <th>予約状況</th>
-              <th>カテゴリー</th>
-              <th>総額</th>
-              <th>利用料金</th>
-              <th>支払期日</th>
-              <th>入金状況</th>
-              <th>予約詳細</th>
-              <th>請求書</th>
-              <th>領収書</th>
-            </tr>
-          </thead>
-        </table>
+      <table class="table table-bordered table-box table-scroll compact hover order-column stripe" id="sales_sort"
+        style="height: 100%;">
+        <thead>
+          <tr>
+            <th>予約ID</th>
+            <th>利用日</th>
+            <th>入室</th>
+            <th>退室</th>
+            <th>利用会場</th>
+            <th>予約状況</th>
+            <th>カテゴリー</th>
+            <th>総額</th>
+            <th>利用料金</th>
+            <th>支払期日</th>
+            <th>入金状況</th>
+            <th>予約詳細</th>
+            <th>請求書</th>
+            <th>領収書</th>
+          </tr>
+        </thead>
+      </table>
     </div>
   </div>
 </div>
