@@ -63,14 +63,14 @@
   });
 </script>
 
-<p class="text-right my-1">※予約確認中⇒弊社でご予約内容の確認中です。お客様にご対応頂くことはありません</p>
+<p class="text-left my-1">※予約確認中⇒弊社でご予約内容の確認中です。お客様にご対応頂くことはありません</p>
 
 
 
 
-<div class="tab-content">
+<div class="tab-content mt-2">
   <div id="reserve-list" class="tab-pane active">
-    <div class="table-wrap">
+    <div class="table-wrap user-table-list">
       <table class="table table-bordered table-box table-scroll compact hover order-column stripe" id="sales_sort"
         style="height: 100%;">
         <thead>

@@ -1834,7 +1834,12 @@ table .master_total_subttl2 {
     background-color: white;
 }
 .user-table-list{
-    background-color: #efefef;
+    /* background-color: #efefef; */
+}
+
+.user-table-list .table th, .user-table-list .table td {
+    padding: 0.3em;
+    font-size: 0.8rem;
 }
 
 .user_wrapper .bill_header {
@@ -1918,6 +1923,14 @@ table .master_total_subttl2 {
 .company-info a span {
     position: absolute;
     right: 0.5em;
+}
+
+.dataTables_wrapper .dataTables_length {
+    float: right;
+}
+
+.dataTables_length {
+    margin-bottom: 15px;
 }
 
 @media screen and (max-width: 767px) {

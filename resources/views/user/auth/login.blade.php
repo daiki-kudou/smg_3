@@ -13,7 +13,7 @@
   </div>
 </div>
 @else
-<div class="contents mt-5">
+<div class="contents mt-5" id="cartNone">
   <div class="pagetop-text">
     <h1 class="page-title oddcolor"><span>ログイン/会員登録</span></h1>
   </div>

@@ -374,7 +374,7 @@
                   <tbody>
                     @if ($venue->getLuggage()===1)
                     <tr>
-                      <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+                      <td class="table-active">荷物預かり</td>
                       <td>
                         <div class="radio-box">
                           <p>
@@ -989,7 +989,7 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+                        <td class="table-active">荷物預かり</td>
                         <td>
                           <div class="radio-box">
                             <p>

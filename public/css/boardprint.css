@@ -156,7 +156,7 @@
   
   
   .board-box .date td{
-    font-size: 30pt;
+    font-size: 45pt;
     height: 30pt;
     font-weight: bold;
     padding-top: 20mm;
@@ -188,12 +188,17 @@
   
   .board-box .venue td {
     /* width: 100%; */
-    font-size: 30pt;
+    font-size: 35pt;
     height: 30pt;
     font-weight: bold;
     text-align: right;
     /* padding-top: 20mm; */
     padding-bottom: 15mm;
+  }
+
+  .board-box .venue .venue_buildname {
+    font-size: 55pt;
+    margin: 10px;
   }
   
   .button-wrap {

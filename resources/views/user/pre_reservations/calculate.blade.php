@@ -281,6 +281,7 @@
             </tbody>
           </table>
         </div>
+        @if ($pre_reservation->venue->layout==1)
         <div class="layouts">
           <table class="table table-bordered">
             <thead>
@@ -293,7 +294,6 @@
               </tr>
             </thead>
             <tbody>
-              @if ($pre_reservation->venue->layout==1)
               <tr>
                 <td class="table-active">レイアウト準備</td>
                 <td>
@@ -328,10 +328,11 @@
                   </div>
                 </td>
               </tr>
-              @endif
             </tbody>
           </table>
         </div>
+        @endif
+        @if ((int)$venue->luggage_flag===1)
         <div class="luggage">
           <table class="table table-bordered">
             <thead>
@@ -343,7 +344,6 @@
                 </th>
               </tr>
             </thead>
-            @if ((int)$venue->luggage_flag===1)
             <tbody>
               <tr>
                 <td class="table-active form_required">お荷物預り</td>
@@ -386,9 +386,9 @@
                 </td>
               </tr>
             </tbody>
-            @endif
           </table>
         </div>
+        @endif
 
         @if ((int)$venue->eat_in_flag===1)
         <div class="eat_in">
@@ -735,7 +735,7 @@
   <p>・ 弊社で受付が完了しましたら「予約完了連絡」をお送りします。<br>
     <span class="caution_color">弊社からの予約完了連絡が到着した時点で「予約完了(予約確定)となります。」</span>
   </p>
-  <p>・原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生います。申込前に「<a
+  <p>・原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生います。申込前に「<a target="_blank" rel="noopener noreferrer"
       href="https://system.osaka-conference.com/cancelpolicy/">キャンセルポリシー</a>」
     をご確認下さい。
   </p>
@@ -759,7 +759,7 @@
 <div class="confirm-box mt-3">
   <h5 class="mb-2 caution_color">【個人情報の取り扱いについて】</h5>
   <p>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
-      href="https://system.osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</p>
+      href="https://system.osaka-conference.com/privacypolicy/" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>をご確認下さい。</p>
 </div>
 
 

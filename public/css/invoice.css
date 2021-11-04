@@ -458,7 +458,7 @@ caption, th, td {
 
 .board-box .date td {
   /* font-size: 2rem; */
-  font-size: 35px;
+  font-size: 45px;
   font-weight: bold;
   /* display: flex; */
   padding-top: 100px;
@@ -496,5 +496,10 @@ caption, th, td {
   padding-bottom: 40px;
   padding-right: 70px;
   /* border-top: 2px solid #ddd; */
+}
+
+.board-box .venue .venue_buildname {
+  font-size: 1.5em;
+  margin: 10px;
 }
 
