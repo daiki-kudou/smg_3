@@ -34,7 +34,10 @@
         お手数ですが迷惑フォルダもご確認いただけましたら幸いです。その場合は【@s-mg.co.jp】を受信設定していただきますようお願いいたします。</p>
     </div>
     <div class="confirm_inner">
-      <p class="text-center mb-5 mt-5">
+      <p class="text-center mb-5">
+        <a href="{{url('user/pre_reservations')}}" class="more_btn_lg">仮押さえ一覧へ</a>
+      </p>
+      <p class="text-center">
         <a href="{{url('user/home')}}" class="more_btn_lg">予約一覧へ</a>
       </p>
     </div>
