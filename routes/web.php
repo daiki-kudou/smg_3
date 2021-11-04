@@ -95,6 +95,8 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
   Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
   Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
   Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+  Route::get('datatable', 'ReservationsController@datatable');
 });
 
 
@@ -418,7 +420,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('change_log', 'ChangeLogsController@update');
 
     // FAKE TEST
-    Route::get('fake_test', 'FakeTestController@index');
+    // Route::get('fake_test', 'FakeTestController@index');
 
     Route::resource('administer', 'AdminsController');
 
@@ -426,6 +428,5 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('reservations/datatable', 'DataTableController@reservation');
     Route::get('sales/datatable', 'DataTableController@sales');
-    // Route::get('pre_reservation/datatable', 'DataTableController@pre_reservations');
   });
 });
