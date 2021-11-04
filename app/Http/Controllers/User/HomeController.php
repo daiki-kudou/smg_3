@@ -441,23 +441,27 @@ class HomeController extends Controller
     return TRUE;
   }
 
-  public function  invoice(Request $request)
+  public function  invoice($reservation_id, $bill_id, $cxl_id)
   {
-    $reservation = Reservation::with(['user', 'bills.breakdowns', 'agent', 'cxls'])->find($request->reservation_id);
-    $bill = $reservation->bills->find($request->bill_id);
-    $cxl = $reservation->cxls->find($request->cxl_id);
+    $reservation = Reservation::with(['user', 'bills.breakdowns', 'agent', 'cxls'])->find($reservation_id);
+    $bill = $reservation->bills->find($bill_id);
+    if ((int)$cxl_id === 0) {
+      $cxl = "";
+    } else {
+      $cxl = $reservation->cxls->find($cxl_id);
+    }
     return view('admin.invoice.show', compact('reservation', 'bill', 'cxl'));
   }
 
-  public function receipt(Request $request)
+  public function receipt($bill_id, $cxl_id)
   {
-    if ($request->bill_id) {
-      $bill = Bill::with(['reservation.user', 'reservation.agent', 'breakdowns'])->find($request->bill_id);
+    if ((int)$cxl_id === 0) {
+      $bill = Bill::with(['reservation.user', 'reservation.agent', 'breakdowns'])->find($bill_id);
       $cxl = "";
       return view('admin.receipts.show', compact('bill', 'cxl'));
     } else {
       $bill = "";
-      $cxl = Cxl::with('cxl_breakdowns')->find($request->cxl_id);
+      $cxl = Cxl::with('cxl_breakdowns')->find($cxl_id);
       return view('admin.receipts.show', compact('cxl', 'bill'));
     }
   }

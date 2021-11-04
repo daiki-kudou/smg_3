@@ -17,13 +17,15 @@ class HomeController extends Controller
 {
   public function index()
   {
-    $venues = Venue::all();
+    $venues = Venue::orderBy("id", "desc")->get();
+
     return view('home.index', compact('venues'));
   }
 
   public function slct_date(Request $request)
   {
-    $venues = Venue::all();
+    $venues = Venue::orderBy("id", "desc")->get();
+
     $today = date("Y/m/d", strtotime(Carbon::now()));
 
     return view('home.slct_date', compact('request', 'venues', 'today'));
@@ -32,7 +34,8 @@ class HomeController extends Controller
 
   public function slct_venue(Request $request)
   {
-    $venues = Venue::all();
+    $venues = Venue::orderBy("id", "desc")->get();
+
     $selected_venue = $request->room04 ? $request->room04 : 1;
     return view('home.slct_venue', compact('request', 'venues', 'selected_venue'));
   }
