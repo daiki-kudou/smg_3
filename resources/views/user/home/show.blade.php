@@ -410,24 +410,20 @@
                       </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      {{ Form::open(['url' => 'user/home/invoice', 'method' => 'post', 'target' => '_blank', 'class' =>
-                      '']) }}
-                      @csrf
-                      {{ Form::hidden('reservation_id', $reservation->id) }}
-                      {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id) }}
-                      <p class="mb-1 ml-2">
-                        {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}</p>
-                      {{ Form::close() }}
+                      <p class="ml-2 mb-1">
+                        <a target="_blank"
+                          href="{{ url('/user/home/invoice/'.$reservation->id.'/'.$reservation->bills->sortBy("
+                          id")->first()->id.'/0') }}"　
+                          class="more_btn btn">請求書をみる</a>
+                      </p>
 
-                      {{ Form::open(['url' => 'user/home/receipt', 'method' => 'post', 'target' => '_blank', 'class' =>
-                      '']) }}
-                      @csrf
-                      {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id) }}
-                      @if ($reservation->bills->sortBy("id")->first()->paid == 1)
                       <p class="ml-2">
-                        {{ Form::submit('領収書をみる', ['class' => 'more_btn4 btn']) }}</p>
-                      @endif
-                      {{ Form::close() }}
+                        <a target="_blank" href="{{ url('/user/home/receipt/'.$reservation->bills->sortBy("
+                          id")->first()->id.'/0') }}" 　
+                          class="more_btn4 btn">領収書をみる
+                        </a>
+                      </p>
+
                     </div>
                   </li>
                 </ul>
@@ -713,25 +709,18 @@
                       </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      {{ Form::open(['url' => 'user/home/invoice', 'method' => 'post', 'target' => '_blank', 'class' =>
-                      '']) }}
-                      @csrf
-                      {{ Form::hidden('reservation_id', $reservation->id) }}
-                      {{ Form::hidden('bill_id', $other_bill->id) }}
                       <p class="ml-2 mb-1">
-                        {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}</p>
-                      {{ Form::close() }}
+                        <a target="_blank"
+                          href="{{ url('/user/home/invoice/'.$reservation->id.'/'.$other_bill->id.'/0') }}" 　
+                          class="more_btn btn">請求書をみる</a>
+                      </p>
 
-                      {{ Form::open(['url' => 'user/home/receipt', 'method' => 'post', 'target' => '_blank', 'class' =>
-                      '']) }}
-                      @csrf
-                      {{ Form::hidden('reservation_id', $reservation->id) }}
-                      {{ Form::hidden('bill_id', $other_bill->id) }}
-                      @if ($other_bill->paid == 1)
                       <p class="ml-2">
-                        {{ Form::submit('領収書をみる', ['class' => 'more_btn4 btn']) }}</p>
-                      @endif
-                      {{ Form::close() }}
+                        <a target="_blank" href="{{ url('/user/home/receipt/'.$other_bill->id.'/0') }}" 　
+                          class="more_btn4 btn">領収書をみる
+                        </a>
+                      </p>
+
                     </div>
                   </li>
                 </ul>
@@ -1144,24 +1133,20 @@
                       </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      {{ Form::open(['url' => 'user/home/invoice', 'method' => 'post', 'target' => '_blank', 'class' =>
-                      '']) }}
-                      @csrf
-                      {{ Form::hidden('reservation_id', $reservation->id) }}
-                      {{ Form::hidden('cxl_id', $cxl->id) }}
                       <p class="ml-2 mb-1">
-                        {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}
+                        <a target="_blank"
+                          href="{{ url('/user/home/invoice/'.$reservation->id.'/'.$other_bill->id.'/'.$cxl->id) }}" 　
+                          class="more_btn btn">
+                          請求書をみる
+                        </a>
                       </p>
-                      {{ Form::close() }}
 
-                      {{ Form::open(['url' => 'user/home/receipt', 'method'=>'post', 'target'=>'_blank', 'class'=>''])
-                      }}
-                      @csrf
-                      {{ Form::hidden('cxl_id', $cxl->id ) }}
-                      @if ($reservation->cxls->first()->paid==1)
-                      <p class="ml-2">{{ Form::submit('領収書をみる',['class' => 'more_btn4 btn']) }}</p>
-                      @endif
-                      {{ Form::close() }}
+                      <p class="ml-2">
+                        <a target="_blank" href="{{ url('/user/home/receipt/'.$other_bill->id.'/'.$cxl->id) }}" 　
+                          class="more_btn4 btn">領収書をみる
+                        </a>
+                      </p>
+
                     </div>
                   </li>
                 </ul>
