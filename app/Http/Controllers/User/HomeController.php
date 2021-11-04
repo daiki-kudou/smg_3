@@ -48,26 +48,8 @@ class HomeController extends Controller
     $user_id = auth()->user()->id;
     $user = User::with(["reservations.bills.cxl", "reservations.cxls"])->find($user_id);
 
-    $reservations = $user->reservations;
-    if ($request->past == 1) { //過去履歴
-      if ($request->paid != "") {
-        $bill = Bill::where("paid", $request->paid)->pluck("reservation_id")->toArray();
-        $reservations = $user->reservations->whereIn("id", $bill)->where("reserve_date", "<", $today)->sortByDesc("reserve_date");
-      } else {
-        $reservations = $user->reservations->where("reserve_date", "<", $today)->sortByDesc("reserve_date");
-      }
-    } else { //予約一覧（現在＆未来）
-      if ($request->paid != "") {
-        $bill = Bill::where("paid", $request->paid)->pluck("reservation_id")->toArray();
-        $reservations = $user->reservations->whereIn("id", $bill)->where("reserve_date", ">=", $today)->sortByDesc("reserve_date");
-      } else {
-        $reservations = $user->reservations->where("reserve_date", ">=", $today)->sortBy("reserve_date");
-      }
-    }
 
-    $counter = count($reservations);
-    $reservations = $this->customPaginate($reservations, 30, $request);
-    return view('user.home.index', compact('user', 'reservations', 'request', 'counter'));
+    return view('user.home.index', compact('user', 'request'));
   }
 
   public function show($id)

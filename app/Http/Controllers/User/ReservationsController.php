@@ -227,6 +227,7 @@ class ReservationsController extends Controller
 
   public function datatable(Request $request)
   {
+    $data = $request->all();
     $user = auth()->user()->id;
 
     $draw = $request->get('draw');
@@ -263,13 +264,41 @@ class ReservationsController extends Controller
       $judge_reserve_date = " reservations.reserve_date >= CURRENT_DATE()";
     }
 
+    if (!empty($data['paid'])) {
+      switch ((int)$data['paid']) {
+        case 1:
+          $data['payment_status0'] = 1;
+          break;
+        case 2:
+          $data['payment_status1'] = 1;
+          break;
+        case 3:
+          $data['payment_status2'] = 1;
+          break;
+        case 4:
+          $data['payment_status3'] = 1;
+          break;
+        case 5:
+          $data['payment_status4'] = 1;
+          break;
+        case 6:
+          $data['payment_status5'] = 1;
+          break;
+
+        default:
+          # code...
+          break;
+      }
+    }
+
+
     // Total records 
     $_reservatioin = new Reservation;
     // 全データの総数
     $totalRecords = $_reservatioin->ReservationSearchTarget()->where('user_id', $user)->whereRaw($judge_reserve_date);
 
     // 検索があった場合の検索結果の件数
-    $totalRecordswithFilter = $_reservatioin->SearchReservation($request->all())->where('user_id', $user)->whereRaw($judge_reserve_date)->get()->count();
+    $totalRecordswithFilter = $_reservatioin->SearchReservation($data)->where('user_id', $user)->whereRaw($judge_reserve_date)->get()->count();
 
     // orderリクエストがあれば、orderに沿い、なければ初期並び順指定
     $fix_order_col_name = !empty($request->get('order')) ? $columnName : "予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付";
@@ -277,7 +306,7 @@ class ReservationsController extends Controller
 
     // 検索があった場合の検索結果のcollection
     $records = $_reservatioin
-      ->SearchReservation($request->all())->where('user_id', $user)->whereRaw($judge_reserve_date)
+      ->SearchReservation($data)->where('user_id', $user)->whereRaw($judge_reserve_date)
       ->offset($start)
       ->limit($rowperpage)
       ->orderByRaw("$fix_order_col_name $fix_order_sort_order")
@@ -354,88 +383,8 @@ class ReservationsController extends Controller
     return "<ul class='multi-column__list'>" . $result . "</ul>";
   }
 
-  public function getCost($id)
-  {
-    $reservation = Reservation::with('venue')->find($id);
-    $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
-    $result = "";
-    foreach ($r as $key => $b) {
-      $result .=
-        "<li>" .
-        "<div class='multi-column__item'>" .
-        "<span class='payment-status'>" .
-        number_format($reservation->venue->getCostForPartner($reservation->venue, $b->master_total, $b->layout_price, $reservation)) .
-        "</span>" .
-        "</div>" .
-        "</li>";
-    }
-    $reservation = Reservation::with('cxls')->find($id);
-    if ($reservation->cxls->count() > 0) {
-      // 打ち消し表示
-      $result .=
-        "<li>" .
-        "<div class='multi-column__item'>" .
-        "<span class='payment-status text-danger'>" .
-        number_format(- ($reservation->venue->sumCostForPartner($reservation))) .
-        "</span>" .
-        "</div>" .
-        "</li>";
-      // キャンセル料表示
-      $result .=
-        "<li>" .
-        "<div class='multi-column__item'>" .
-        "<span class='payment-status'>" .
-        number_format($reservation->venue->getCxlCostForPartner($reservation)) .
-        "</span>" .
-        "</div>" .
-        "</li>";
-    }
 
-    return "<ul class='multi-column__list'>" . $result . "</ul>";
-  }
 
-  public function getProfit($id, $sogaku = 0)
-  {
-    $reservation = Reservation::with('venue')->find($id);
-    $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
-    $result = "";
-    $sumProfit = 0;
-    foreach ($r as $key => $b) {
-      $result .=
-        "<li>" .
-        "<div class='multi-column__item'>" .
-        "<span class='payment-status' style='" . ($reservation->venue->getProfitForPartner($reservation->venue, $b->master_total, $b->layout_price, $reservation) < 0 ? "color:red;" : "") . "'>" .
-        number_format($reservation->venue->getProfitForPartner($reservation->venue, $b->master_total, $b->layout_price, $reservation)) .
-        "</span>" .
-        "</div>" .
-        "</li>";
-      $sumProfit += (int)($reservation->venue->getProfitForPartner($reservation->venue, $b->master_total, $b->layout_price, $reservation));
-    }
-    $reservation = Reservation::with('cxls')->find($id);
-    if ($reservation->cxls->count() > 0) {
-      // 打ち消し表示
-      $result .=
-        "<li>" .
-        "<div class='multi-column__item'>" .
-        "<span class='payment-status text-danger'>" .
-        number_format(-$sumProfit) .
-        "</span>" .
-        "</div>" .
-        "</li>";
-
-      // キャンセル料表示
-      $result .=
-        "<li>" .
-        "<div class='multi-column__item'>" .
-        "<span class='payment-status' style='" . ((int)(((int)$reservation->cxls->first()->master_total) - ($reservation->venue->getCxlCostForPartner($reservation))) < 0 ? "color:red" : "") . "'>" .
-        number_format(((int)$reservation->cxls->first()->master_total) - ($reservation->venue->getCxlCostForPartner($reservation))) .
-        "</span>" .
-        "</div>" .
-        "</li>";
-    }
-
-    return "<ul class='multi-column__list'>" . $result . "</ul>";
-  }
 
   public function getSalesCategory($id)
   {
@@ -513,43 +462,6 @@ class ReservationsController extends Controller
     }
     return "<ul class='multi-column__list'>" . $result . "</ul>";
   }
-  public function getPayDay($id)
-  {
-    $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
-    $result = "";
-    foreach ($r as $key => $b) {
-      $result .=
-        "<li>" .
-        "<div class='multi-column__item'>" .
-        "<span class='payment-status'>" .
-        ReservationHelper::formatDate($b->pay_day) .
-        "</span>" .
-        "</div>" .
-        "</li>";
-    }
-    $reservation = Reservation::with('cxls')->find($id);
-    if ($reservation->cxls->count() > 0) {
-      // 打ち消し表示
-      $result .=
-        "<li>" .
-        "<div class='multi-column__item'>" .
-        "<span class='payment-status text-danger'>" .
-        "-" .
-        "</span>" .
-        "</div>" .
-        "</li>";
-      // キャンセル料表示
-      $result .=
-        "<li>" .
-        "<div class='multi-column__item'>" .
-        "<span class='payment-status'>" .
-        (ReservationHelper::formatDate($reservation->cxls->first()->pay_day)) .
-        "</span>" .
-        "</div>" .
-        "</li>";
-    }
-    return "<ul class='multi-column__list'>" . $result . "</ul>";
-  }
 
   public function getPaid($id)
   {
@@ -589,43 +501,7 @@ class ReservationsController extends Controller
     return "<ul class='multi-column__list'>" . $result . "</ul>";
   }
 
-  public function getPayPerson($id)
-  {
-    $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
-    $result = "";
-    foreach ($r as $key => $b) {
-      $result .=
-        "<li>" .
-        "<div class='multi-column__item'>" .
-        "<p class='text-limit'>" .
-        ($b->pay_person) .
-        "</p>" .
-        "</div>" .
-        "</li>";
-    }
-    $reservation = Reservation::with('cxls')->find($id);
-    if ($reservation->cxls->count() > 0) {
-      // 打ち消し表示
-      $result .=
-        "<li>" .
-        "<div class='multi-column__item'>" .
-        "<p class='text-limit'>" .
-        "-" .
-        "</p>" .
-        "</div>" .
-        "</li>";
-      // キャンセル料表示
-      $result .=
-        "<li>" .
-        "<div class='multi-column__item'>" .
-        "<p class='text-limit'>" .
-        ($reservation->cxls->first()->pay_person) .
-        "</p>" .
-        "</div>" .
-        "</li>";
-    }
-    return "<ul class='multi-column__list'>" . $result . "</ul>";
-  }
+
   public function getPaymentLimit($id)
   {
     $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
@@ -723,6 +599,7 @@ class ReservationsController extends Controller
     }
     return "<ul class='multi-column__list'>" . $result . "</ul>";
   }
+
   public function getReceipt($id)
   {
     $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();

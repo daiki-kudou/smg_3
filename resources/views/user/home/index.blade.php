@@ -23,8 +23,8 @@
   <dl class="d-flex col-12 justify-content-end align-items-center statuscheck">
     <dt><label for="">支払状況</label></dt>
     <dd class="mr-1">
-      {{Form::select('paid', [""=>"",0=>'未入金',
-      1=>'入金済み',2=>'遅延',3=>'入金不足',4=>'入金過多',5=>'次回繰越'],$request->paid,['class'=>'form-control'])}}
+      {{Form::select('paid', [1=>'未入金',
+      2=>'入金済み',3=>'遅延',4=>'入金不足',5=>'入金過多',6=>'次回繰越'],$request->paid,['class'=>'form-control','placeholder'=>''])}}
       {{Form::hidden('past',(int)$request->past===1?1:0)}}
     </dd>
     <dd>
@@ -36,7 +36,10 @@
 
 </div>
 <div class="col-12">
-  <p class="text-right font-weight-bold"><span class="count-color">{{$counter}}</span>件</p>
+  <p class="text-right font-weight-bold">
+    <span class="count-color" id="counter">
+    </span>件
+  </p>
 </div>
 <!-- 一覧　　------------------------------------------------ -->
 <ul class="nav nav-tabs">
@@ -127,7 +130,7 @@ $("td:contains('未入金')").css("font-weight","bold");
             url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
         }
     });
-    $('#sales_sort').DataTable({
+    var test = $('#sales_sort').DataTable({
       order:[],
       processing: true,
       serverSide: true,
@@ -140,33 +143,7 @@ $("td:contains('未入金')").css("font-weight","bold");
         "data": function ( d ) {
             return $.extend( {}, d, {
             "future_past": $('input[name="past"]').val(),
-            // "reserve_date": $('input[name="reserve_date"]').val(),
-            // "venue_id": $('select[name="venue_id"]').val(),
-            // "user_id": $('input[name="user_id"]').val(),
-            // "company": $('input[name="company"]').val(),
-            // "person_name": $('input[name="person_name"]').val(),
-            // "agent": $('select[name="agent"]').val(),
-            // "enduser_person": $('input[name="enduser_person"]').val(),
-            // "sogaku": $('input[name="sogaku"]').val(),
-            // "payment_limit": $('input[name="payment_limit"]').val(),
-            // "pay_day": $('input[name="pay_day"]').val(),
-            // "pay_person": $('input[name="pay_person"]').val(),
-            // "attr": $('select[name="attr"]').val(),
-            // "sales1": $('#sales1').prop('checked')?1:0,
-            // "sales2": $('#sales2').prop('checked')?1:0,
-            // "sales3": $('#sales3').prop('checked')?1:0,
-            // "check_status3": $('#check_status3').prop('checked')?1:0,
-            // "check_status6": $('#check_status6').prop('checked')?1:0,
-            // "payment_status0": $('#payment_status0').prop('checked')?1:0,
-            // "payment_status1": $('#payment_status1').prop('checked')?1:0,
-            // "payment_status2": $('#payment_status2').prop('checked')?1:0,
-            // "payment_status3": $('#payment_status3').prop('checked')?1:0,
-            // "payment_status4": $('#payment_status4').prop('checked')?1:0,
-            // "payment_status5": $('#payment_status5').prop('checked')?1:0,
-            // "alliance0": $('#alliance0').prop('checked')?1:0,
-            // "alliance1": $('#alliance1').prop('checked')?1:0,
-            // "free_word": $('input[name="free_word"]').val(),
-            // "sales_search_box": $('input[name="sales_search_box"]').val(),
+            'paid':$('select[name="paid"]').val(),
           } );
         }
       },
@@ -186,26 +163,16 @@ $("td:contains('未入金')").css("font-weight","bold");
         { data: 'invoice' },
         { data: 'receipt' },
       ],
-      // columnDefs: [
-      //   {targets: 10, sortable: false, orderable: false},
-      //   {targets: 11, sortable: false, orderable: false},
-      //   {targets: 12, sortable: false, orderable: false},
-      //   {targets: 13, sortable: false, orderable: false},
-      //   {targets: 14, sortable: false, orderable: false},
-      //   {targets: 15, sortable: false, orderable: false},
-      //   {targets: 16, sortable: false, orderable: false},
-      //   {targets: 17, sortable: false, orderable: false},
-      //   {targets: 18, sortable: false, orderable: false},
-      //   {targets: 19, sortable: false, orderable: false},
-      //   {targets: 20, sortable: false, orderable: false},
-      //   {
-      //     targets: [9,10,11,12],
-      //     className: "text-right",
-      //   }
-
-      // ],
+      "fnDrawCallback": function() {
+        //datatableの情報取得が完了したら
+          $('#counter').text('').text(test.page.info().recordsDisplay);
+      },
+      columnDefs: [
+        {targets: [5,6,8,9,10,11,12,13], sortable: false, orderable: false},
+        {targets: [7,8],className: "text-right",}
+      ],
      });
-    });
+});
 </script>
 
 
