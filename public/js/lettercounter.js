@@ -217,7 +217,7 @@ $(function () {
 })
 
 // ラジオボタンクリック時の荷物預かり入力制御
-$(document).on('change', 'input[name="cp_master_luggage_flag"]', function () {
+$(document).on('change', 'input[name*="luggage_flag"]', function () {
   var prop = $("#cp_master_no_luggage_flag").prop("checked");
   if (prop) {
     $("#cp_master_luggage_arrive").removeClass("readonly-no-gray");
