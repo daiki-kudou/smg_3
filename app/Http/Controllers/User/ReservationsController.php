@@ -259,7 +259,7 @@ class ReservationsController extends Controller
       $judge_reserve_date = " reservations.reserve_date >= CURRENT_DATE()";
     } elseif ($future_past === 1) {
       // 最大2年前
-      $judge_reserve_date = " reservations.reserve_date between DATE_SUB(CURRENT_DATE(),INTERVAL 2 MONTH) and CURRENT_DATE()";
+      $judge_reserve_date = " reservations.reserve_date between DATE_SUB(CURRENT_DATE(),INTERVAL 2 YEAR) and CURRENT_DATE()";
     } else {
       $judge_reserve_date = " reservations.reserve_date >= CURRENT_DATE()";
     }
