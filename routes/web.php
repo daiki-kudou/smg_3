@@ -26,8 +26,8 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
   Auth::routes(['register' => true, 'confirm' => true, 'reset' => true,]);
 
   Route::middleware('auth')->group(function () {
-    Route::post('home/invoice', 'HomeController@invoice');
-    Route::post('home/receipt', 'HomeController@receipt');
+    Route::get('home/invoice/{reservation_id}/{bill_id}/{cxl_id}', 'HomeController@invoice');
+    Route::get('home/receipt/{bill_id}/{cxl_id}', 'HomeController@receipt');
     Route::get('home/user_info', 'HomeController@user_info')->name('home.user_info');
     Route::post('home/user_edit', 'HomeController@user_edit');
     Route::post('home/user_update', 'HomeController@user_update');

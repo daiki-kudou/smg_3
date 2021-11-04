@@ -78,6 +78,7 @@
               <th>入室</th>
               <th>退室</th>
               <th>利用会場</th>
+
               <th width="120">予約状況</th>
               <th width="120">カテゴリー</th>
               <th>利用料金（税込）</th>
@@ -86,28 +87,20 @@
               <th class="btn-cell">詳細</th>
               <th class="btn-cell">請求書</th>
               <th class="btn-cell">領収書</th> --}}
-              <th>予約一括ID</th>
               <th>予約ID</th>
               <th>利用日</th>
+              <th>入室</th>
+              <th>退室</th>
               <th>利用会場</th>
-              <th>顧客ID</th>
-              <th>会社名団体名</th>
-              <th>担当者氏名</th>
-              <th>仲介会社</th>
-              <th>エンドユーザー</th>
-              <th>総額</th>
-              <th>売上</th>
-              <th>売上原価</th>
-              <th>粗利</th>
-              <th>売上区分</th>
               <th>予約状況</th>
-              <th>入金状況</th>
+              <th>カテゴリー</th>
+              <th>総額</th>
+              <th>利用料金</th>
               <th>支払期日</th>
-              <th>入金日</th>
-              <th class="btn-cell">予約詳細</th>
-              <th>振込名</th>
-              <th>顧客属性</th>
-              <th>運営</th>
+              <th>入金状況</th>
+              <th>予約詳細</th>
+              <th>請求書</th>
+              <th>領収書</th>
             </tr>
           </thead>
         </table>
@@ -178,47 +171,39 @@ $("td:contains('未入金')").css("font-weight","bold");
         }
       },
       columns: [
-        { data: 'multiple_reserve_id' },
         { data: 'reservation_id' },
         { data: 'reserve_date' },
+        { data: 'enter_time' },
+        { data: 'leave_time' },
         { data: 'venue_name' },
-        { data: 'user_id'},
-        { data: 'company_name' },
-        { data: 'person_name' },
-        { data: 'agent_name' },
-        { data: 'enduser_company' },
+        { data: 'reservation_status' },
+        { data: 'category' },
         { data: 'sogaku' },
         { data: 'sales' },
-        { data: 'cost' },
-        { data: 'profit' },
-        { data: 'category' },
-        { data: 'reservation_status' },
-        { data: 'paid' },
         { data: 'payment_limit' },
-        { data: 'pay_day' },
+        { data: 'paid' },
         { data: 'details' },
-        { data: 'pay_person' },
-        { data: 'attr' },
-        { data: 'alliance_flag' },
+        { data: 'invoice' },
+        { data: 'receipt' },
       ],
-      columnDefs: [
-        {targets: 10, sortable: false, orderable: false},
-        {targets: 11, sortable: false, orderable: false},
-        {targets: 12, sortable: false, orderable: false},
-        {targets: 13, sortable: false, orderable: false},
-        {targets: 14, sortable: false, orderable: false},
-        {targets: 15, sortable: false, orderable: false},
-        {targets: 16, sortable: false, orderable: false},
-        {targets: 17, sortable: false, orderable: false},
-        {targets: 18, sortable: false, orderable: false},
-        {targets: 19, sortable: false, orderable: false},
-        {targets: 20, sortable: false, orderable: false},
-        {
-          targets: [9,10,11,12],
-          className: "text-right",
-        }
+      // columnDefs: [
+      //   {targets: 10, sortable: false, orderable: false},
+      //   {targets: 11, sortable: false, orderable: false},
+      //   {targets: 12, sortable: false, orderable: false},
+      //   {targets: 13, sortable: false, orderable: false},
+      //   {targets: 14, sortable: false, orderable: false},
+      //   {targets: 15, sortable: false, orderable: false},
+      //   {targets: 16, sortable: false, orderable: false},
+      //   {targets: 17, sortable: false, orderable: false},
+      //   {targets: 18, sortable: false, orderable: false},
+      //   {targets: 19, sortable: false, orderable: false},
+      //   {targets: 20, sortable: false, orderable: false},
+      //   {
+      //     targets: [9,10,11,12],
+      //     className: "text-right",
+      //   }
 
-      ],
+      // ],
      });
     });
 </script>
