@@ -334,33 +334,33 @@ $(function () {
 
 
 // 一括の個別の案内板の文字数制御
-$(function () {
-  var target = $('input[name*="event_name1_copied"]');
-  for(let i=0 ; i< target.length; i++){
-    var event_name1 = $('input[name="event_name1_copied' + i + '"]');
-    var copiedeventname1Count = '#copiedeventname1Count' + i;
-    var error_message = '.eventname1_error' + i;
-    var count_num1 = '.count_num1_copied' + i;
+// $(function () {
+//   var target = $('input[name*="event_name1_copied"]');
+//   for(let i=0 ; i< target.length; i++){
+//     var event_name1 = $('input[name="event_name1_copied' + i + '"]');
+//     var copiedeventname1Count = '#copiedeventname1Count' + i;
+//     var error_message = '.eventname1_error' + i;
+//     var count_num1 = '.count_num1_copied' + i;
 
 
-    var len = textLength($(event_name1).val());
-    $(count_num1).html(len + "/28");
+//     var len = textLength($(event_name1).val());
+//     $(count_num1).html(len + "/28");
 
-        if (len > 28) {
-      $(count_num1).css('color', 'red');
-      $(error_message).text('※文字数がオーバーしています');
-      $(error_message).show();
-      $(copiedeventname1Count).addClass('is-error');
-      $(':submit').prop("disabled", true);
-    } else {
-      $(count_num1).css('color', 'black');
-      $(error_message).hide();
-      $(copiedeventname1Count).removeClass('is-error');
-      $(':submit').prop("disabled", false);
-    }
-  }
+//         if (len > 28) {
+//       $(count_num1).css('color', 'red');
+//       $(error_message).text('※文字数がオーバーしています');
+//       $(error_message).show();
+//       $(copiedeventname1Count).addClass('is-error');
+//       $(':submit').prop("disabled", true);
+//     } else {
+//       $(count_num1).css('color', 'black');
+//       $(error_message).hide();
+//       $(copiedeventname1Count).removeClass('is-error');
+//       $(':submit').prop("disabled", false);
+//     }
+//   }
 
-});
+// });
 
 
 // $(function () {
