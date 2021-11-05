@@ -63,7 +63,7 @@
         <td>
           <p class="checkbox-txt">携帯電話</p>
           <p>
-            {{$request->tel}}
+            {{$request->mobile}}
           </p>
         </td>
       </tr>
@@ -73,7 +73,7 @@
         <td>
           <p class="checkbox-txt">固定電話</p>
           <p>
-            {{$request->mobile}}
+            {{$request->tel}}
           </p>
         </td>
       </tr>
