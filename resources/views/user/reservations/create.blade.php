@@ -40,12 +40,13 @@
             </ul>
             <div class="borderAttention">
               <p>
-                <span>入室時間より以前に入室はできません。</span></p>
+                <span>入室時間より以前に入室はできません。</span>
+              </p>
               <p class="checkbox-txt">
                 {{Form::checkbox('q1', 1, true, ['class'=>'custom-control-input','id'=>'checkbox', 'disabled'])}}
                 <input type="hidden" name="q1" value="1" />
                 <label for="checkbox">確認しました</label>
-                <p class="is-error-q1" style="color: red"></p>
+              <p class="is-error-q1" style="color: red"></p>
               </p>
             </div>
           </td>
@@ -115,13 +116,15 @@
                   {{Form::label('no_board_flag','しない')}}
                 </div>
               </li>
-              <li><a target="_blank" rel="noopener noreferrer" href="https://system.osaka-conference.com/welcomboard/"><i
+              <li><a target="_blank" rel="noopener noreferrer"
+                  href="https://system.osaka-conference.com/welcomboard/"><i
                     class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
               <li class="cell-margin board_info">
                 <div class="m-b10">
                   <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
                   <div class="form-counter">
-                    {{ Form::text('event_name1','',['class'=>'form-input text2', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
+                    {{ Form::text('event_name1','',['class'=>'form-input text2', 'placeholder'=>'入力してください',
+                    'id'=>'eventname1Count'] ) }}
                     <span class="count_num1"></span>
                   </div>
                   <p class="is-error-event_name1" style="color: red"></p>
@@ -129,7 +132,8 @@
                 <div class="m-b10">
                   <p>イベント名称2行目</p>
                   <div class="form-counter">
-                    {{ Form::text('event_name2','',['class'=>'form-input text2', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                    {{ Form::text('event_name2','',['class'=>'form-input text2', 'placeholder'=>'入力してください',
+                    'id'=>'eventname2Count'] ) }}
                     <span class="count_num2"></span>
                   </div>
                   <p class="is-error-event_name2" style="color: red"></p>
@@ -137,7 +141,8 @@
                 <div class="m-b10">
                   <p>主催者名</p>
                   <div class="form-counter">
-                    {{ Form::text('event_owner','',['class'=>'form-input text2', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                    {{ Form::text('event_owner','',['class'=>'form-input text2', 'placeholder'=>'入力してください',
+                    'id'=>'eventownerCount'] ) }}
                     <span class="count_num3"></span>
                   </div>
                   <p class="is-error-event_owner" style="color: red"></p>
@@ -176,17 +181,20 @@
             {{Form::radio('eat_in', 1, old('eat_in')==1?true:false , ['id' => 'eat_in','class'=>'radio-input'])}}
             {{Form::label('eat_in',"あり")}}
             (
-            {{Form::radio('eat_in_prepare', 1, false , ['class'=>'radio-input','id' => 'eat_in_prepare',old('eat_in')==0?'disabled':''])}}
+            {{Form::radio('eat_in_prepare', 1, true
+            ,['class'=>old('eat_in')?((int)old('eat_in')===1?'radio-input':''):'',
+            'id'=>'eat_in_prepare',old('eat_in')?('test'):'disabled'])}}
             {{Form::label('eat_in_prepare',"手配済み",['style'=>'margin-right: 20px;'])}}
             /
-            {{Form::radio('eat_in_prepare', 2, false , ['class'=>'radio-input','id' => 'eat_in_consider', old('eat_in')==0?'disabled':''])}}
+            {{Form::radio('eat_in_prepare', 2, false
+            ,['class'=>old('eat_in')?((int)old('eat_in')===1?'radio-input':''):'',
+            'id'=>'eat_in_consider',old('eat_in')?('test'):'disabled'])}}
             {{Form::label('eat_in_consider',"検討中",['style'=>'margin-right: 20px;'])}}
             )
             <br>
             {{Form::radio('eat_in', 0, old('eat_in')==0?true:false , ['id' => 'no_eat_in','class'=>'radio-input'])}}
             {{Form::label('no_eat_in',"なし")}}
             <a name="a-cataring01" class="error-r"></a>
-            <!-- <p><span class="txt-indent">※ケータリングは弊社にてご予算に合ったものをご提供可能です。 お気軽に問い合わせ下さい。</span></p> -->
           </td>
         </tr>
         @endif
@@ -200,7 +208,8 @@
                 <p class="text6"><span class="f-wb m-r10">{{$eqpt->item}}</span>{{$eqpt->price}}円<span
                     class="annotation">(税抜)</span></p>
                 <p class="m-l20">
-                  {{ Form::number('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0 number_validation','autocomplete="off"'] ) }}個
+                  {{ Form::number('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0
+                  number_validation','autocomplete="off"'] ) }}個
                 </p>
               </li>
               @endforeach
@@ -217,9 +226,11 @@
               <li>
                 <p>{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></p>
                 <div class="selectTime">
-                  {{Form::radio('services_breakdown'.$s_key, 1, old('services_breakdown'.$s_key)==1?true:false, ['id' => 'services_breakdown_on'.$s_key, 'class' => 'radio-input'])}}
+                  {{Form::radio('services_breakdown'.$s_key, 1, old('services_breakdown'.$s_key)==1?true:false, ['id' =>
+                  'services_breakdown_on'.$s_key, 'class' => 'radio-input'])}}
                   {{Form::label('services_breakdown_on'.$s_key,'あり')}}
-                  {{Form::radio('services_breakdown'.$s_key, 0, old('services_breakdown'.$s_key)==0?true:false, ['id' => 'services_breakdown_off'.$s_key, 'class' => 'radio-input'])}}
+                  {{Form::radio('services_breakdown'.$s_key, 0, old('services_breakdown'.$s_key)==0?true:false, ['id' =>
+                  'services_breakdown_off'.$s_key, 'class' => 'radio-input'])}}
                   {{Form::label('services_breakdown_off'.$s_key, 'なし')}}
                 </div>
               </li>
@@ -281,7 +292,8 @@
               <li class="m-b10">
                 <div class="luggage-cell">
                   <p>事前に預かる荷物<br>(目安)</p>
-                  {{ Form::number('luggage_count', '',['class'=>'text6 ', 'style'=>'width:20%;','autocomplete="off"'] ) }}
+                  {{ Form::number('luggage_count', '',['class'=>'text6 ', 'style'=>'width:20%;','autocomplete="off"'] )
+                  }}
                   <p class="">個</p>
                 </div>
                 <p class="is-error-luggage_count" style="color: red"></p>
@@ -298,12 +310,14 @@
                     PDF」をご確認下さい。</span>
                   <span class="txt-indent">※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。</span>
                   <span class="txt-indent">※貴重品等のお預りはできかねます。</span>
-                  <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span></p>
+                  <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span>
+                </p>
               </li>
               <li class="m-b10 luggage-border">
                 <div class="luggage-cell">
                   <p>事後返送する荷物</p>
-                  {{ Form::number('luggage_return', '',['class'=>'text6 ', 'style'=>'width: 20%;','autocomplete="off"'] ) }}
+                  {{ Form::number('luggage_return', '',['class'=>'text6 ', 'style'=>'width: 20%;','autocomplete="off"']
+                  ) }}
                   <p class="">個</p>
                 </div>
               </li>
