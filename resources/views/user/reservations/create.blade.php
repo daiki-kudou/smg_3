@@ -116,12 +116,17 @@
                   {{Form::label('no_board_flag','しない')}}
                 </div>
               </li>
-              <li><a target="_blank" rel="noopener noreferrer"
-                  href="https://system.osaka-conference.com/welcomboard/"><i
-                    class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
+              <li>
+                <a target="_blank" rel="noopener noreferrer" href="https://system.osaka-conference.com/welcomboard/">
+                  <i class="fas fa-external-link-alt form-icon"></i>
+                  案内板サンプルはこちら
+                </a>
+              </li>
               <li class="cell-margin board_info">
                 <div class="m-b10">
-                  <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
+                  <p>
+                    <span class="txtRed c-block">＊</span>イベント名称1行目
+                  </p>
                   <div class="form-counter">
                     {{ Form::text('event_name1','',['class'=>'form-input text2', 'placeholder'=>'入力してください',
                     'id'=>'eventname1Count'] ) }}
@@ -349,9 +354,6 @@
       </table>
     </div>
     <div class="btn-center">
-      <!-- <li>
-        <a class="link-btn" href="{{url('/')}}">会場・日程選択に戻る</a>
-      </li> -->
       <p>
         {{Form::hidden('venue_id',$request->venue_id)}}
         {{Form::hidden('date',$request->date)}}
@@ -389,8 +391,9 @@
 
   // 案内板のラジオボタン選択の表示、非表示
   $(function() {
-    var no_board_flag = $('#no_board_flag').val();
-    if (no_board_flag == 0) {
+    
+    var s_board_flag = Number($('input[name=board_flag]:checked').val());
+    if (s_board_flag === 0) {
           $(".board_info").addClass("d-none");
         } else {
           $(".board_info").removeClass("d-none");
