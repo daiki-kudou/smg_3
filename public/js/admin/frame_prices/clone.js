@@ -8,7 +8,7 @@ $(function () {
     validator.destroy();
 
     var tr = $(this).parent().parent();
-    tr.clone(true).insertAfter(tr);
+    tr.clone().insertAfter(tr);
     tr.parent().find('tr').each(function (index, element) {
       tr.parent().find('tr').eq(index).find('td').eq(0).find('input').attr('name', "frame[" + index + "]").attr('aria-describedby', "");
       tr.parent().find('tr').eq(index).find('td').eq(1).find('select').attr('name', "start[" + index + "]").attr('aria-describedby', "");

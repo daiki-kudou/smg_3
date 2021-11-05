@@ -86,7 +86,7 @@
       validator.resetForm();
       validator.destroy();
 
-      $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      $(this).parent().parent().clone().insertAfter($(this).parent().parent());
       var count = $('.new_price tbody tr').length;
 
       // プラス選択時にクローンtrの文字クリア

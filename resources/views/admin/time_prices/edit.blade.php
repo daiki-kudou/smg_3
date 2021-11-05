@@ -40,7 +40,8 @@
     @endif
 
     <div>
-      {{ Form::model($venue, ['route' => ['admin.time_prices.update', $venue->id], 'method' => 'put', 'id'=>'timeEditForm']) }}
+      {{ Form::model($venue, ['route' => ['admin.time_prices.update', $venue->id], 'method' => 'put',
+      'id'=>'timeEditForm']) }}
       @csrf
       <table class="table table-bordered">
         <thead>
@@ -84,11 +85,12 @@
         </tbody>
       </table>
       {{Form::hidden('venue_id', $venue->id)}}
-<div class="d-flex">
-  <button type="button" class="btn more_btn4_lg d-block btn-lg mx-auto my-5"
-    onclick="$('#delete').submit()">すべて削除する</button>
-  {{ Form::submit('保存する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5 price_confirm', 'id'=>'submit']) }}
-</div>
+      <div class="d-flex">
+        <button type="button" class="btn more_btn4_lg d-block btn-lg mx-auto my-5"
+          onclick="$('#delete').submit()">すべて削除する</button>
+        {{ Form::submit('保存する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5 price_confirm',
+        'id'=>'submit']) }}
+      </div>
 
 
       {{ Form::close() }}
@@ -105,7 +107,7 @@
   $(function() {
     // プラスボタンクリック
     $(document).on("click", ".add", function() {
-      $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      $(this).parent().parent().clone().insertAfter($(this).parent().parent());
       var count = $('.table tbody tr').length;
       // プラス選択時にクローンtrの文字クリア
       $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
