@@ -181,7 +181,6 @@ class PreReservationsController extends Controller
   {
     if ($request->judge_count == 1) { //単発仮押えの計算
       $users = User::orderBy("id", "desc")->get();
-
       $SPVenue = Venue::with(['equipments', 'services', 'frame_prices'])->find($request->venue_id);
       $price_details = $SPVenue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
         $request->price_system,
@@ -359,7 +358,7 @@ class PreReservationsController extends Controller
         'luggage_count' => $request->luggage_count,
         'luggage_arrive' => $request->luggage_arrive,
         'luggage_return' => $request->luggage_return,
-        'luggage_flag' => $request->luggage_flag,
+        'luggage_flag' => !empty($request->luggage_flag) ? $request->luggage_flag : 0,
         'email_flag' => $request->email_flag,
         'in_charge' => $request->in_charge,
         'tel' => $request->tel,
