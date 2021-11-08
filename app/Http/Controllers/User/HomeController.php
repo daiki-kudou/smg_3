@@ -280,7 +280,6 @@ class HomeController extends Controller
 
   public function destroy($id)
   {
-    dd($id);
     $user_id = auth()->user()->id;
     if ($id != $user_id) {
       return redirect(url('/user/home'));
