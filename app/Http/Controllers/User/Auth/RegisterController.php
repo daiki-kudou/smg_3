@@ -111,6 +111,8 @@ class RegisterController extends Controller
         'status' => 1,
         'admin_or_user' => 2,
         'mobile' => $data['mobile'],
+        'tel' => $data['tel'],
+        'fax' => $data['fax'],
         'pay_method' => 1,
         'pay_limit' => 1,
       ]);
