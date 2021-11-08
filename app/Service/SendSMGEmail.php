@@ -139,7 +139,7 @@ class SendSMGEmail
         break;
 
       case "退会":
-        MailForUnSub::dispatch($this->user, $this->reservation, $this->venue);
+        MailForUnSub::dispatch($this->user, "", "");
         break;
 
 

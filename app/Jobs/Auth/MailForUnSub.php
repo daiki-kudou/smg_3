@@ -42,7 +42,7 @@ class MailForUnSub implements ShouldQueue
       ->send(new AdminUnSub(
         $this->user,
       ));
-    Mail::to($this->user['result']->email)
+    Mail::to($this->user->email)
       ->send(new UserUnSub(
         $this->user,
       ));
