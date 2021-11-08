@@ -222,7 +222,7 @@ class DataTableController extends Controller
           'venue_name' => ($record->venue_name),
           'user_id' => ReservationHelper::fixId($record->user_id),
           'company_name' => $record->company_name,
-          'person_name' => $record->user_name,
+          'user_name' => $record->user_name,
           'agent_name' => $record->agent_name,
           'enduser_company' => $record->enduser_company,
           'sogaku' => (int)$record->sogaku < 0 ? "<p style='color:red;'>" . number_format($record->sogaku) . "</p>" : number_format($record->sogaku),

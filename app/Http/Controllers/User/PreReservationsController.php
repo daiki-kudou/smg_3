@@ -230,7 +230,7 @@ class PreReservationsController extends Controller
     foreach ($records as $record) {
       $data_arr[] =
         [
-          'multiple_reservation_id' => $record->multiple_reserve_id,
+          'multiple_reserve_id' => $record->multiple_reserve_id,
           'pre_reservation_id' => $record->pre_reservation_id,
           'created_at' => $record->created_at,
           'reserve_date' => $record->reserve_date,

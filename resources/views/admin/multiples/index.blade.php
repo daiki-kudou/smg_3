@@ -325,7 +325,7 @@
       ],
       order: [],
       columnDefs: [
-        {targets: [0,10], sortable: false, orderable: false},
+        {targets: [0,12], sortable: false, orderable: false},
         {
           "className": "text-center",
           "targets": [0,1,2,3,4,6,7,8,9,10,11,12],
