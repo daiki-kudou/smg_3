@@ -159,18 +159,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 予約　（確認）
     Route::get('reservations/check', 'ReservationsController@check')->name('reservations.check');
 
-    // // calculate前のセッション保存
-    // Route::post('reservations/session_for_edit_calculate', 'ReservationsController@sessionForEditCalculate');
-    // // 予約　編集
-    // Route::get('reservations/edit_calculate/{reservation}', 'ReservationsController@edit_calculate')->name('reservations.edit_calculate');
-    // // check前のセッション保存
-    // Route::post('reservations/session_for_edit_check', 'ReservationsController@sessionForEditCheck');
     // 予約　編集確認
     Route::post('reservations/edit_check', 'ReservationsController@edit_check')->name('reservations.edit_check');
-    // Route::post('reservations/edit_calc', 'ReservationsController@edit_calc')->name('reservations.edit_calc');
-
-    // Route::post('reservations/edit_without_calc', 'ReservationsController@editWithoutCalc');
-
 
     // 予約　show
     Route::get('reservations/{reservation}', 'ReservationsController@show')->name('reservations.show');
@@ -370,7 +360,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 仲介会社ajax
     Route::post('pre_agent_reservations/get_agent', 'PreAgentReservationsController@get_agent');
     // 仲介会社　編集　計算
-    Route::post('pre_agent_reservations/{pre_reservation}/edit_calculate', 'PreAgentReservationsController@edit_calculate');
+    Route::post('pre_agent_reservations/{pre_reservation}/edit_calculate', 'PreAgentReservationsController@edit_calculate')->name('pre_agent_reservations.edit_calculate');
 
     Route::put('pre_agent_reservations/{pre_reservation}/update', 'PreAgentReservationsController@update');
 
@@ -394,8 +384,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
 
     // メールてんぷれ
-    Route::get('mail_templates', 'MailTemplatesController@index');
-    Route::get('cron_templates', 'MailTemplatesController@cron');
+    Route::get('mail_templates', 'MailTemplatesController@index')->name('mail_templates.mail_templates');
+    Route::get('cron_templates', 'MailTemplatesController@cron')->name('mail_templates.cron_templates');
 
     Route::post('invoice', 'InvoiceController@show');
     Route::get('board/{reservation_id}', 'BoardController@show');
@@ -410,7 +400,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::post('csv', 'SalesController@download_csv');
 
-    Route::get('sales', 'SalesController@index');
+    Route::get('sales', 'SalesController@index')->name('sales.sales');
 
     Route::post('receipts', 'ReceiptsController@show');
 

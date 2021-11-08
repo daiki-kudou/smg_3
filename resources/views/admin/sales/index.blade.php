@@ -437,7 +437,7 @@ $(function(){
         { data: 'venue_name' },
         { data: 'user_id'},
         { data: 'company_name' },
-        { data: 'person_name' },
+        { data: 'user_name' },
         { data: 'agent_name' },
         { data: 'enduser_company' },
         { data: 'sogaku' },
@@ -481,4 +481,3 @@ $(function(){
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 @endsection
-

@@ -68,7 +68,7 @@
         }
       },
       columns: [
-        { data: 'multiple_reservation_id' },
+        { data: 'multiple_reserve_id' },
         { data: 'pre_reservation_id' },
         { data: 'created_at' },
         { data: 'reserve_date' },
