@@ -2057,9 +2057,6 @@ table .master_total_subttl2 {
 }
 
 
-
-
-
 .table-box th,
 .table-box td {
     text-align: center;
@@ -2161,3 +2158,7 @@ table.dataTable.no-footer {
 .readonly{
     background-color: #ccc!important;
 }
+
+
+
+
