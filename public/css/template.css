@@ -1925,10 +1925,6 @@ table .master_total_subttl2 {
     right: 0.5em;
 }
 
-.dataTables_wrapper .dataTables_length {
-    float: right;
-}
-
 .dataTables_length {
     margin-bottom: 15px;
 }
@@ -2061,9 +2057,6 @@ table .master_total_subttl2 {
 }
 
 
-
-
-
 .table-box th,
 .table-box td {
     text-align: center;
@@ -2165,3 +2158,7 @@ table.dataTable.no-footer {
 .readonly{
     background-color: #ccc!important;
 }
+
+
+
+

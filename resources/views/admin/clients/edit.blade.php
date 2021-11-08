@@ -49,8 +49,11 @@
           <tr>
             <th class="table-active form_required">{{ Form::label('post_code', '郵便番号') }}</th>
             <td>
-              {{ Form::text('post_code',$user->post_code,['class'=>'form-control']) }}
-              <button type="button" id="post_code_search">住所検索</button>
+              <div class="d-flex">
+                <p>{{ Form::text('post_code',$user->post_code,['class'=>'form-control']) }}</p>
+                <button class="btn more_btn ml-1" type="button" id="post_code_search">住所検索</button>
+              </div>
+
               <p class="is-error-post_code" style="color: red"></p>
             </td>
           </tr>
