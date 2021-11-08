@@ -28,8 +28,8 @@
     </nav>
   </div>
   <h2 class="mt-3 mb-3">会場　詳細情報(編集)</h2>
-  <p>ID:{{ ReservationHelper::fixId($venue->id) }}<span
-      class="ml-2">{{ $venue->name_bldg }}{{ $venue->name_venue }}</span></p>
+  <p>ID:{{ ReservationHelper::fixId($venue->id) }}<span class="ml-2">{{ $venue->name_bldg }}{{ $venue->name_venue
+      }}</span></p>
   <hr>
 </div>
 
@@ -136,56 +136,60 @@
           <tr>
             <td class="table-active"><label for="capacity" class="form_required">収容人数</label></td>
             <td>
-              {{ Form::textarea('capacity', $venue->capacity, ['placeholder' => '15','class' => 'form-control','rows'=>"2"]) }}
+              {{ Form::textarea('capacity', $venue->capacity, ['placeholder' => '15','class' =>
+              'form-control','rows'=>"2"]) }}
               <p class="is-error-capacity" style="color: red"></p>
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="post_code" class="form_required">郵便番号</label></td>
+            <td class="table-active">
+              <label for="post_code" class="form_required">
+                郵便番号
+              </label>
+            </td>
             <td>
-              {{ Form::text('post_code', $venue->post_code, [
-                      'class' => 'form-control',
-                      'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
-                      'autocomplete'=>'off',
-                      'onpaste'=>"return false",
-                  'oncontextmenu'=>"return false" 
-
-                      ]) }}
+              {{ Form::text('post_code',$venue->post_code,['class'=>'form-control']) }}
+              <button type="button" id="post_code_search">住所検索</button>
               <p class="is-error-post_code" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="address1" class="form_required">住所（都道府県）</label></td>
             <td>
-              {{ Form::text('address1', $venue->address1, ['placeholder' => '大阪府','class' => 'form-control search_address2']) }}
+              {{ Form::text('address1', $venue->address1, ['placeholder' => '大阪府','class' => 'form-control
+              search_address2']) }}
               <p class="is-error-address1" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="address2" class="form_required">住所（市町村番地）</label></td>
             <td>
-              {{ Form::text('address2', $venue->address2, ['placeholder' => '大阪市北堀江1-23-1','class' => 'form-control search_address3']) }}
+              {{ Form::text('address2', $venue->address2, ['placeholder' => '大阪市北堀江1-23-1','class' => 'form-control
+              search_address3']) }}
               <p class="is-error-address2" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="address3" class="form_required">住所（建物名）</label></td>
             <td>
-              {{ Form::text('address3', $venue->address3, ['placeholder' => '四ツ橋サンワールドビル1号室','class' => 'form-control']) }}
+              {{ Form::text('address3', $venue->address3, ['placeholder' => '四ツ橋サンワールドビル1号室','class' => 'form-control'])
+              }}
               <p class="is-error-address3" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="entrance_open_time">正面入口の開閉時間</label></td>
             <td>
-              {{ Form::textarea('entrance_open_time', $venue->entrance_open_time, ['class' => 'form-control','rows'=>"2"]) }}
+              {{ Form::textarea('entrance_open_time', $venue->entrance_open_time, ['class' =>
+              'form-control','rows'=>"2"]) }}
               <p class="is-error-backyard_open_time" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="backyard_open_time">通用口の開閉時間</label></td>
             <td>
-              {{ Form::textarea('backyard_open_time', $venue->backyard_open_time, ['class' => 'form-control','rows'=>"2"]) }}
+              {{ Form::textarea('backyard_open_time', $venue->backyard_open_time, ['class' =>
+              'form-control','rows'=>"2"]) }}
               <p class="is-error-entrance_open_time" style="color: red"></p>
             </td>
           </tr>
@@ -214,7 +218,8 @@
           <tr>
             <td class="table-active"><label for="luggage_flag" class="form_required">荷物預り</label></td>
             <td>
-              {{Form::select('luggage_flag', ['不可', '可'],$venue->luggage_flag,['placeholder' => '選択してください','class'=>'custom-select mr-sm-2'])}}
+              {{Form::select('luggage_flag', ['不可', '可'],$venue->luggage_flag,['placeholder' =>
+              '選択してください','class'=>'custom-select mr-sm-2'])}}
               <p class="is-error-luggage_flag" style="color: red"></p>
             </td>
           </tr>
@@ -222,10 +227,10 @@
             <td class="table-active"><label for="luggage_post_code">送付先郵便番号</label></td>
             <td>
               {{ Form::text('luggage_post_code', $venue->luggage_post_code, [
-                      'class' => 'form-control',
-                      'onKeyUp'=>"AjaxZip3.zip2addr(this,'','luggage_address1','luggage_address2');",
-                      'autocomplete'=>'off',
-                      ]) }}
+              'class' => 'form-control',
+              'onKeyUp'=>"AjaxZip3.zip2addr(this,'','luggage_address1','luggage_address2');",
+              'autocomplete'=>'off',
+              ]) }}
               <p class="is-error-luggage_post_code" style="color: red"></p>
             </td>
           </tr>
@@ -329,7 +334,8 @@
           <tr>
             <td class="table-active"><label for="person_tel">担当者電話番号</label></td>
             <td colspan="2">
-              {{ Form::text('person_tel', $venue->person_tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              {{ Form::text('person_tel', $venue->person_tel, ['class' => 'form-control','placeholder' =>
+              '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-person_tel" style="color: red"></p>
             </td>
           </tr>
@@ -370,14 +376,16 @@
           <tr>
             <td class="table-active"><label for="mgmt_tel">電話番号</label></td>
             <td colspan="2">
-              {{ Form::text('mgmt_tel', $venue->mgmt_tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              {{ Form::text('mgmt_tel', $venue->mgmt_tel, ['class' => 'form-control','placeholder' =>
+              '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-mgmt_tel" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="mgmt_emer_tel">夜間緊急連絡先</label></td>
             <td colspan="2">
-              {{ Form::text('mgmt_emer_tel', $venue->mgmt_emer_tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              {{ Form::text('mgmt_emer_tel', $venue->mgmt_emer_tel, ['class' => 'form-control','placeholder' =>
+              '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-mgmt_emer_tel" style="color: red"></p>
             </td>
           </tr>
@@ -413,7 +421,8 @@
           <tr>
             <td class="table-active"><label for="mgmt_sec_tel">警備会社電話番号</label></td>
             <td colspan="2">
-              {{ Form::text('mgmt_sec_tel', $venue->mgmt_sec_tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              {{ Form::text('mgmt_sec_tel', $venue->mgmt_sec_tel, ['class' => 'form-control','placeholder' =>
+              '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-mgmt_sec_tel" style="color: red"></p>
             </td>
           </tr>
@@ -441,7 +450,8 @@
           <tr>
             <td class="table-active"><label for="eat_in_flag" class="form_required">室内飲食</label></td>
             <td>
-              {{{Form::select('eat_in_flag', ['不可', '可'],$venue->eat_in_flag,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+              {{{Form::select('eat_in_flag', ['不可', '可'],$venue->eat_in_flag,['placeholder' => '選択してください',
+              'class'=>'custom-select mr-sm-2'])}}}
 
             </td>
           </tr>
@@ -463,7 +473,8 @@
           <tr>
             <td class="table-active"><label for="layout" class="form_required">レイアウト変更</label></td>
             <td>
-              {{{Form::select('layout', ['不可', '可'],null,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2',"id"=>"layout"])}}}
+              {{{Form::select('layout', ['不可', '可'],null,['placeholder' => '選択してください', 'class'=>'custom-select
+              mr-sm-2',"id"=>"layout"])}}}
             </td>
           </tr>
           <tr>
@@ -471,7 +482,8 @@
                 class="ml-1 annotation">※税抜</span></td>
             <td>
               <div class="d-flex align-items-center">
-                {{ Form::text('layout_prepare', $venue->layout_prepare, ['class' => 'form-control',$venue->layout_prepare==""?"readonly":""]) }}
+                {{ Form::text('layout_prepare', $venue->layout_prepare, ['class' =>
+                'form-control',$venue->layout_prepare==""?"readonly":""]) }}
                 <span class="ml-1">円</span>
               </div>
               <p class="is-error-layout_prepare" style="color: red"></p>
@@ -482,7 +494,8 @@
                 class="ml-1 annotation">※税抜</span></td>
             <td>
               <div class="d-flex align-items-center">
-                {{ Form::text('layout_clean', $venue->layout_clean, ['class' => 'form-control',$venue->layout_clean==""?"readonly":""]) }}
+                {{ Form::text('layout_clean', $venue->layout_clean, ['class' =>
+                'form-control',$venue->layout_clean==""?"readonly":""]) }}
                 <span class="ml-1">円</span>
               </div>
               <p class="is-error-layout_clean" style="color: red"></p>
@@ -492,7 +505,7 @@
       </table>
 
       <!-- 支払データ ------------------------------------------------------------------------>
-      <table class="table table-bordered cost_data {{$venue->alliance_flag==0?"hide":""}}">
+      <table class="table table-bordered cost_data {{$venue->alliance_flag==0?" hide":""}}">
         <thead>
           <tr>
             <td colspan="2">
@@ -585,5 +598,26 @@
 </div>
 
 {{ Form::close() }}
+
+<script>
+  $('#post_code_search').on('click', function(){
+    AjaxZip3.zip2addr('post_code','','address1','address2');
+    
+    //成功時に実行する処理
+    AjaxZip3.onSuccess = function() {
+      $('input[name="address1"]').click();
+      $('input[name="address2"]').click();
+    };
+    
+    //失敗時に実行する処理
+    AjaxZip3.onFailure = function() {
+    $('input[name="address1"]').val('');
+    $('input[name="address2"]').val('');
+    alert('郵便番号に該当する住所が見つかりません');
+    };
+    
+    return false;
+    });
+</script>
 
 @endsection

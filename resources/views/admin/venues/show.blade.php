@@ -180,7 +180,8 @@
           </tr>
           <tr>
             <th class="table-active"><label for="luggage_tel">電話番号</label></th>
-            <td> {{ $venue->luggage_tel }}
+            <td>
+              {!!nl2br(e($venue->luggage_tel))!!}
             </td>
           </tr>
         </tbody>
@@ -349,14 +350,16 @@
           </tr>
           <tr>
             <th class="table-active"><label for="layout">レイアウト準備料金</label>
-              <span class="ml-1 annotation">※税抜</span></th>
+              <span class="ml-1 annotation">※税抜</span>
+            </th>
             <td>
               {{ number_format($venue->layout_prepare)}}円
             </td>
           </tr>
           <tr>
             <th class="table-active"><label for="layout">レイアウト片付料金</label>
-              <span class="ml-1 annotation">※税抜</span></th>
+              <span class="ml-1 annotation">※税抜</span>
+            </th>
             <td>
               {{ number_format($venue->layout_clean)}}円
             </td>
@@ -365,7 +368,7 @@
       </table>
 
       <!-- 支払データ ------------------------------------------------------------------------>
-      <table class="table table-bordered venue_table {{$venue->alliance_flag==0?"hide":""}}">
+      <table class="table table-bordered venue_table {{$venue->alliance_flag==0?" hide":""}}">
         <thead>
           <tr>
             <td colspan="2">

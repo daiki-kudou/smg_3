@@ -192,10 +192,9 @@
         <th><label for="post_code">郵便番号</label><span class="txtRed c-block">＊</span></th>
         <td>
           <p class="postal-p">〒</p>
-          <input onKeyUp="AjaxZip3.zip2addr(this,&#039;&#039;,&#039;address1&#039;,&#039;address2&#039;);"
-            autocomplete="off" name="post_code" type="text"
-            value="{{ !empty($session['post_code'])?$session['post_code']:"" }}" id="post_code" onpaste="return false"
-            oncontextmenu="return false">
+          {{ Form::text('post_code',(!empty($session['post_code'])?$session['post_code']:"")) }}
+          丸岡さん！こちらbuttonに勝手にcss入るようなので修正お願い致します。
+          <button type="button" id="post_code_search">住所検索</button>
           <p>※半角数字、ハイフンなしで入力下さい。</p>
           <p class="is-error-post_code" style="color: red"></p>
         </td>
@@ -365,7 +364,26 @@
   {{ Form::hidden('status', $request->status) }}
   {{ Form::close() }}
 
-
+  <script>
+    $('#post_code_search').on('click', function(){
+    AjaxZip3.zip2addr('post_code','','address1','address2');
+    
+    //成功時に実行する処理
+    AjaxZip3.onSuccess = function() {
+      $('input[name="address1"]').click();
+      $('input[name="address2"]').click();
+    };
+    
+    //失敗時に実行する処理
+    AjaxZip3.onFailure = function() {
+    $('input[name="address1"]').val('');
+    $('input[name="address2"]').val('');
+    alert('郵便番号に該当する住所が見つかりません');
+    };
+    
+    return false;
+    });
+  </script>
 
 </section>
 @endsection

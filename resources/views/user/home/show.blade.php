@@ -411,19 +411,23 @@
                     </dl>
                     <div class="bill_btn_wrap">
                       <p class="ml-2 mb-1">
+                        @if ((int)$reservation->bills->sortBy("id")->first()->reservation_status===3)
                         <a target="_blank"
                           href="{{ url('/user/home/invoice/'.$reservation->id.'/'.$reservation->bills->sortBy("
-                          id")->first()->id.'/0') }}"　
-                          class="more_btn btn">請求書をみる</a>
+                          id")->first()->id.'/0') }}" class="more_btn btn">
+                          請求書をみる
+                        </a>
+                        @endif
                       </p>
 
                       <p class="ml-2">
+                        @if ((int)$reservation->bills->sortBy("id")->first()->paid===1)
                         <a target="_blank" href="{{ url('/user/home/receipt/'.$reservation->bills->sortBy("
                           id")->first()->id.'/0') }}" 　
                           class="more_btn4 btn">領収書をみる
                         </a>
+                        @endif
                       </p>
-
                     </div>
                   </li>
                 </ul>
@@ -710,15 +714,22 @@
                     </dl>
                     <div class="bill_btn_wrap">
                       <p class="ml-2 mb-1">
+                        @if ((int)$other_bill->reservation_status===3)
                         <a target="_blank"
                           href="{{ url('/user/home/invoice/'.$reservation->id.'/'.$other_bill->id.'/0') }}" 　
-                          class="more_btn btn">請求書をみる</a>
+                          class="more_btn btn">
+                          請求書をみる
+                        </a>
+                        @endif
                       </p>
 
                       <p class="ml-2">
+                        @if ((int)$other_bill->paid===1)
                         <a target="_blank" href="{{ url('/user/home/receipt/'.$other_bill->id.'/0') }}" 　
-                          class="more_btn4 btn">領収書をみる
+                          class="more_btn4 btn">
+                          領収書をみる
                         </a>
+                        @endif
                       </p>
 
                     </div>
@@ -1134,17 +1145,21 @@
                     </dl>
                     <div class="bill_btn_wrap">
                       <p class="ml-2 mb-1">
+                        @if ((int)$cxl->cxl_status===2)
                         <a target="_blank"
                           href="{{ url('/user/home/invoice/'.$reservation->id.'/'.$other_bill->id.'/'.$cxl->id) }}" 　
                           class="more_btn btn">
                           請求書をみる
                         </a>
+                        @endif
                       </p>
 
                       <p class="ml-2">
+                        @if ((int)$cxl->paid===1)
                         <a target="_blank" href="{{ url('/user/home/receipt/'.$other_bill->id.'/'.$cxl->id) }}" 　
                           class="more_btn4 btn">領収書をみる
                         </a>
+                        @endif
                       </p>
 
                     </div>

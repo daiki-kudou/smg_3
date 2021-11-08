@@ -64,9 +64,10 @@
               <tr>
                 <td class="table-active"><label for="post_code">郵便番号</label></td>
                 <td colspan="2">
-                  <input class="search_address1 form-control" type="text" name="post_code" maxlength="8"
-                    onKeyUp="AjaxZip3.zip2addr(this,'','address1','address2');" onpaste="return false"
-                    oncontextmenu="return false">
+
+                  {{ Form::text('post_code',"",['class'=>'search_address1 form-control']) }}
+                  <button type="button" id="post_code_search">住所検索</button>
+
                   <p class="is-error-post_code" style="color: red"></p>
                 </td>
               </tr>
@@ -90,14 +91,16 @@
               <tr>
                 <td class="table-active"><label for="tel">電話番号</label></td>
                 <td colspan="2">
-                  {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                  {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control','placeholder' =>
+                  '半角数字、ハイフンなしで入力してください']) }}
                   <p class="is-error-person_tel" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active"><label for="fax">FAX</label></td>
                 <td colspan="2">
-                  {{ Form::text('fax', old('fax'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                  {{ Form::text('fax', old('fax'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください'])
+                  }}
                   <p class="is-error-fax" style="color: red"></p>
                 </td>
               </tr>
@@ -128,7 +131,8 @@
               <tr>
                 <th class="table-active"><label for="person_mobile">担当者TEL</label></th>
                 <td colspan="2">
-                  {{ Form::text('person_mobile', old('person_mobile'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                  {{ Form::text('person_mobile', old('person_mobile'), ['class' => 'form-control','placeholder' =>
+                  '半角数字、ハイフンなしで入力してください']) }}
                   <p class="is-error-person_mobile" style="color: red"></p>
                 </td>
               </tr>
@@ -251,7 +255,7 @@
                   <p class="mt-2">
                     <label for="cxl_url">キャンセルポリシーURL</label>
                     {{ Form::text('cxl_url', old('cxl_url'), ['class' => 'form-control']) }}
-                    <p class="is-error-cxl_url" style="color: red"></p>
+                  <p class="is-error-cxl_url" style="color: red"></p>
                   </p>
                 </td>
               </tr>
@@ -281,11 +285,11 @@
                 <th class="table-active form_required"><label for="close_date">決済条件</label></th>
                 <td>
                   {{{Form::select('payment_limit', [
-                    1=>'当月末締め／当月末支払い', 
-                    2=>'当月末締め／翌月末支払い', 
-                    3=>'当月末締め／翌々月末支払い', 
-                    4=>'当月末締め／翌々々月末支払い'
-                    ],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+                  1=>'当月末締め／当月末支払い',
+                  2=>'当月末締め／翌月末支払い',
+                  3=>'当月末締め／翌々月末支払い',
+                  4=>'当月末締め／翌々々月末支払い'
+                  ],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
                   <p class="is-error-payment_limit" style="color: red"></p>
                 </td>
               </tr>
@@ -305,24 +309,26 @@
     {{ Form::close() }}
   </div>
 </div>
+
 <script>
-  $(function() {
-    $('.search_address1').on('change', function() {
-      var post_code = $('.search_address1').val();
-      var adr1 = $('.search_address2').val();
-      var adr2 = $('.search_address3').val();
-      $('.search_address1').parent().next().find('input').val(post_code);
-      $('.search_address2').parent().next().find('input').val(adr1);
-      $('.search_address3').parent().next().find('input').val(adr2);
-    })
-    $('.search_address2').on('change', function() {
-      var adr1 = $('.search_address2').val();
-      $('.search_address2').parent().next().find('input').val(adr1);
-    })
-    $('.search_address3').on('change', function() {
-      var adr2 = $('.search_address3').val();
-      $('.search_address3').parent().next().find('input').val(adr2);
-    })
-  })
+  $('#post_code_search').on('click', function(){
+    AjaxZip3.zip2addr('post_code','','address1','address2');
+    
+    //成功時に実行する処理
+    AjaxZip3.onSuccess = function() {
+      $('input[name="address1"]').click();
+      $('input[name="address2"]').click();
+    };
+    
+    //失敗時に実行する処理
+    AjaxZip3.onFailure = function() {
+    $('input[name="address1"]').val('');
+    $('input[name="address2"]').val('');
+    alert('郵便番号に該当する住所が見つかりません');
+    };
+    
+    return false;
+    });
 </script>
+
 @endsection

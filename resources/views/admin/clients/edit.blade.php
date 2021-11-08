@@ -48,27 +48,22 @@
           </tr>
           <tr>
             <th class="table-active form_required">{{ Form::label('post_code', '郵便番号') }}</th>
-            <td>{{ Form::text('post_code', $user->post_code, [
-                            'class' => 'form-control',
-                            'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
-                            'autocomplete'=>'off',
-                            'onpaste'=>"return false",
-                  'oncontextmenu'=>"return false" 
-
-                            ]) }}
+            <td>
+              {{ Form::text('post_code',$user->post_code,['class'=>'form-control']) }}
+              <button type="button" id="post_code_search">住所検索</button>
               <p class="is-error-post_code" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <th class="table-active form_required">{{ Form::label('address1', '住所1（都道府県）') }}</th>
             <td>{{ Form::text('address1', $user->address1, ['class' => 'form-control']) }}
-            <p class="is-error-address1" style="color: red"></p>
+              <p class="is-error-address1" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <th class="table-active form_required">{{ Form::label('address2', '住所2（市町村番地）') }}</th>
             <td>{{ Form::text('address2', $user->address2, ['class' => 'form-control']) }}
-            <p class="is-error-address2" style="color: red"></p>
+              <p class="is-error-address2" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -89,13 +84,15 @@
               </div>
             </td>
             <td>
-              {{ Form::textarea('condition', $user->condition?$user->condition:"平日 %\n土日 %\n3週間前 %\n", $user->condition?['class' => 'form-control ']:['class' => 'form-control checkon']) }}
+              {{ Form::textarea('condition', $user->condition?$user->condition:"平日 %\n土日 %\n3週間前 %\n",
+              $user->condition?['class' => 'form-control ']:['class' => 'form-control checkon']) }}
             </td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('attr', '顧客属性') }}</th>
             <td>
-              {{Form::select('attr', [0=>'',1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'仲介会社', 7=>'その他'],$user->attr)}}
+              {{Form::select('attr', [0=>'',1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'仲介会社',
+              7=>'その他'],$user->attr)}}
             </td>
           </tr>
         </tbody>
@@ -142,7 +139,8 @@
               <p class="annotation">※携帯番号、固定電話のどちらか一方は必須</p>
             </th>
             <td colspan="2">
-              {{ Form::text('tel', $user->tel, ['class' => 'form-control phone_number','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              {{ Form::text('tel', $user->tel, ['class' => 'form-control phone_number','placeholder' =>
+              '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-tel" style="color: red"></p>
             </td>
           </tr>
@@ -151,7 +149,8 @@
               <p class="annotation">※携帯番号、固定電話のどちらか一方は必須</p>
             </th>
             <td colspan="2">
-              {{ Form::text('mobile', $user->mobile, ['class' => 'form-control phone_number','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              {{ Form::text('mobile', $user->mobile, ['class' => 'form-control phone_number','placeholder' =>
+              '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-mobile" style="color: red"></p>
             </td>
           </tr>
@@ -192,17 +191,18 @@
           <tr>
             <th class="table-active form_required">{{ Form::label('pay_limit', '支払期日') }}</th>
             <td>
-              {{Form::select('pay_limit', [1=>'当日',2=>'3営業日前', 3=>'当月末締め／当月末支払い',4=>'当月末締め／翌月末支払い',5=>'当月末締め／翌々月末支払い'],$user->pay_limit)}}
+              {{Form::select('pay_limit', [1=>'当日',2=>'3営業日前',
+              3=>'当月末締め／当月末支払い',4=>'当月末締め／翌月末支払い',5=>'当月末締め／翌々月末支払い'],$user->pay_limit)}}
               <p class="is-error-pay_limit" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('pay_post_code', '請求書送付先郵便番号') }}</th>
             <td>{{ Form::text('pay_post_code', $user->pay_post_code, [
-                                'class' => 'form-control pay_post_code',
-                                'onKeyUp'=>"AjaxZip3.zip2addr(this,'','pay_address1','pay_address2');",
-                                'autocomplete'=>'off',
-                                ]) }}
+              'class' => 'form-control pay_post_code',
+              'onKeyUp'=>"AjaxZip3.zip2addr(this,'','pay_address1','pay_address2');",
+              'autocomplete'=>'off',
+              ]) }}
               <p class="is-error-pay_post_code" style="color: red"></p>
             </td>
           </tr>
@@ -278,6 +278,25 @@
 
   })
 </script>
-
+<script>
+  $('#post_code_search').on('click', function(){
+    AjaxZip3.zip2addr('post_code','','address1','address2');
+    
+    //成功時に実行する処理
+    AjaxZip3.onSuccess = function() {
+      $('input[name="address1"]').click();
+      $('input[name="address2"]').click();
+    };
+    
+    //失敗時に実行する処理
+    AjaxZip3.onFailure = function() {
+    $('input[name="address1"]').val('');
+    $('input[name="address2"]').val('');
+    alert('郵便番号に該当する住所が見つかりません');
+    };
+    
+    return false;
+    });
+</script>
 
 @endsection

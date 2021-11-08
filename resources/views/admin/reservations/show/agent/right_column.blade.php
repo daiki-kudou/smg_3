@@ -141,7 +141,9 @@
     <tr>
       <td>
         <label for="adminNote">管理者備考</label>
-        <div>{{$reservation->admin_details}}</div>
+        <div>
+          {!! nl2br(e($reservation->admin_details??"なし")) !!}
+        </div>
       </td>
     </tr>
   </table>
