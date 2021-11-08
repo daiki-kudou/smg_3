@@ -140,7 +140,7 @@ class AgentsReservationsController extends Controller
       return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
-    return redirect()->route('admin.reservations.index');
+    return redirect()->route('admin.reservations.show', $result_reservation->id);
   }
 
   public function add_bills(Request $request)

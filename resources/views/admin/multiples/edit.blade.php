@@ -1670,7 +1670,6 @@
       }
     })
     
-
   // $(function() {
   //   $(document).on("click", "#master_submit", function() {
   //     var data = {};

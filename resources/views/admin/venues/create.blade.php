@@ -128,16 +128,14 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="post_code" class="form_required">郵便番号</label><br>※コピー＆ペースト不可</td>
+              <td class="table-active">
+                <label for="post_code" class="form_required">
+                  郵便番号
+                </label>
+              </td>
               <td>
-                {{ Form::text('post_code', old('post_code'), [
-                'class' => 'form-control',
-                'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
-                'autocomplete'=>'off',
-                'placeholder' => '半角英数字で入力してください',
-                'onpaste'=>"return false",
-                'oncontextmenu'=>"return false"
-                ]) }}
+                {{ Form::text('post_code',old('post_code'),['class'=>'form-control']) }}
+                <button type="button" id="post_code_search">住所検索</button>
                 <p class="is-error-post_code" style="color: red"></p>
               </td>
             </tr>
@@ -146,7 +144,6 @@
               <td>
                 {{ Form::text('address1', old('address1'), ['placeholder' => '大阪府','class' => 'form-control
                 search_address2']) }}
-
                 <p class="is-error-address1" style="color: red"></p>
               </td>
             </tr>
@@ -593,6 +590,28 @@
     @include('layouts.admin.loading')
   </div>
   {{ Form::close() }}
+
+
+  <script>
+    $('#post_code_search').on('click', function(){
+    AjaxZip3.zip2addr('post_code','','address1','address2');
+    
+    //成功時に実行する処理
+    AjaxZip3.onSuccess = function() {
+      $('input[name="address1"]').click();
+      $('input[name="address2"]').click();
+    };
+    
+    //失敗時に実行する処理
+    AjaxZip3.onFailure = function() {
+    $('input[name="address1"]').val('');
+    $('input[name="address2"]').val('');
+    alert('郵便番号に該当する住所が見つかりません');
+    };
+    
+    return false;
+    });
+  </script>
 
 
   @endsection

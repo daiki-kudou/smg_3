@@ -61,9 +61,8 @@
               <label for="post_code">郵便番号</label>
             </td>
             <td colspan="2">
-              <input class="form-control" onkeyup="AjaxZip3.zip2addr(this,'','address1','address2');" autocomplete="off"
-                name="post_code" type="text" value="{{$agent->post_code}}" id="post_code" onpaste="return false"
-                oncontextmenu="return false">
+              {{ Form::text('post_code',$agent->post_code,['class'=>'search_address1 form-control']) }}
+              <button type="button" id="post_code_search">住所検索</button>
               <p class="is-error-post_code" style="color: red"></p>
             </td>
           </tr>
@@ -96,7 +95,8 @@
               <label for="tel">電話番号</label>
             </td>
             <td colspan="2">
-              {{ Form::text('person_tel', $agent->person_tel, ['class' => 'form-control', 'id'=>'company','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              {{ Form::text('person_tel', $agent->person_tel, ['class' => 'form-control', 'id'=>'company','placeholder'
+              => '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-person_tel" style="color: red"></p>
             </td>
           </tr>
@@ -105,7 +105,8 @@
               <label for="fax">FAX</label>
             </td>
             <td colspan="2">
-              {{ Form::text('fax', $agent->fax, ['class' => 'form-control', 'id'=>'company','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              {{ Form::text('fax', $agent->fax, ['class' => 'form-control', 'id'=>'company','placeholder' =>
+              '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-fax" style="color: red"></p>
             </td>
           </tr>
@@ -114,7 +115,8 @@
               <label for="person_firstname">担当者氏名</label>
             </td>
             <td>姓：
-              {{ Form::text('person_firstname', $agent->person_firstname, ['class' => 'form-control', 'id'=>'company']) }}
+              {{ Form::text('person_firstname', $agent->person_firstname, ['class' => 'form-control', 'id'=>'company'])
+              }}
               <p class="is-error-person_firstname" style="color: red"></p>
             </td>
             <td>名：
@@ -140,7 +142,8 @@
               <label for="person_tel">担当者TEL</label>
             </th>
             <td colspan="2">
-              {{ Form::text('person_mobile', $agent->person_mobile, ['class' => 'form-control', 'id'=>'company','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              {{ Form::text('person_mobile', $agent->person_mobile, ['class' => 'form-control',
+              'id'=>'company','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-person_mobile" style="color: red"></p>
             </td>
           </tr>
@@ -278,7 +281,7 @@
               <p class="mt-2">
                 <label for="cancel">キャンセルポリシーURL</label>
                 {{ Form::text('cxl_url', $agent->cxl_url, ['class' => 'form-control']) }}
-                <p class="is-error-cxl_url" style="color: red"></p>
+              <p class="is-error-cxl_url" style="color: red"></p>
               </p>
             </td>
           </tr>
@@ -337,7 +340,26 @@
   </div>
 </section>
 
-
+<script>
+  $('#post_code_search').on('click', function(){
+    AjaxZip3.zip2addr('post_code','','address1','address2');
+    
+    //成功時に実行する処理
+    AjaxZip3.onSuccess = function() {
+      $('input[name="address1"]').click();
+      $('input[name="address2"]').click();
+    };
+    
+    //失敗時に実行する処理
+    AjaxZip3.onFailure = function() {
+    $('input[name="address1"]').val('');
+    $('input[name="address2"]').val('');
+    alert('郵便番号に該当する住所が見つかりません');
+    };
+    
+    return false;
+    });
+</script>
 
 
 @endsection
