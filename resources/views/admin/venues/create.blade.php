@@ -299,6 +299,7 @@
               <td colspan="2">
                 {{ Form::text('reserver_fax', old('reserver_fax'), ['class' => 'form-control','placeholder' =>
                 '半角数字、ハイフンなしで入力してください']) }}
+                <p class="is-error-reserver_fax" style="color: red"></p>
               </td>
             </tr>
             <tr>

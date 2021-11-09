@@ -99,7 +99,7 @@ $(function () {
       address3: { required: true },
       luggage_flag: { required: true },
       luggage_post_code: { maxlength: 7, minlength: 7, number: true },
-      person_tel: { number: true },
+      person_tel: { number: true, minlength: 10 },
       eat_in_flag: { required: true },
       layout_prepare: {
         required: $("#layout").val() == 1,
@@ -113,12 +113,13 @@ $(function () {
       first_name_kana: { katakana: true },
       last_name_kana: { katakana: true },
       mgmt_email: { email: true },
-      mgmt_tel: { number: true },
-      mgmt_emer_tel: { number: true },
-      mgmt_person_tel: { number: true },
-      mgmt_sec_tel: { number: true },
+      mgmt_tel: { number: true, minlength: 10 },
+      mgmt_emer_tel: { number: true, minlength: 10 },
+      mgmt_person_tel: { number: true, minlength: 10 },
+      mgmt_sec_tel: { number: true, minlength: 10 },
       cost: { required: true, range: [1, 100], maxlength: 3 },
-      reserver_tel: { number: true },
+      reserver_tel: { number: true, minlength: 10},
+      reserver_fax: { number: true, minlength: 10},
     },
     messages: {
       alliance_flag: { required: "※必須項目です" },
@@ -153,7 +154,10 @@ $(function () {
         maxlength: "※7桁で入力してください",
         number: "※半角数字で入力してください",
       },
-      person_tel: { number: "※半角数字、ハイフンなしで入力して下さい" },
+      person_tel: { 
+      number: "※半角数字、ハイフンなしで入力して下さい",
+      minlength: "※10桁以上で入力してください"
+    },
       eat_in_flag: { required: "※必須項目です" },
       layout_prepare: {
         required: "レイアウト変更が【可】の場合、必須項目です",
@@ -167,16 +171,35 @@ $(function () {
       first_name_kana: { katakana: "※カタカナで入力してください" },
       last_name_kana: { katakana: "※カタカナで入力してください" },
       mgmt_email: { email: "※Emailの形式で入力してください" },
-      mgmt_tel: { number: "※半角英数字で入力してください" },
-      mgmt_emer_tel: { number: "※半角英数字で入力してください" },
-      mgmt_person_tel: { number: "※半角英数字で入力してください" },
-      mgmt_sec_tel: { number: "※半角英数字で入力してください" },
+      mgmt_tel: { 
+        number: "※半角英数字で入力してください",
+        minlength: "※10桁以上で入力してください"
+     },
+      mgmt_emer_tel: { 
+        number: "※半角英数字で入力してください",
+        minlength: "※10桁以上で入力してください"
+       },
+      mgmt_person_tel: { 
+        number: "※半角英数字で入力してください",
+        minlength: "※10桁以上で入力してください"
+       },
+      mgmt_sec_tel: { 
+        number: "※半角英数字で入力してください",
+        minlength: "※10桁以上で入力してください"
+       },
       cost: {
         required: "※必須項目です",
         range: "※1から100までの数値を入力してください",
         maxlength: "※最大桁数は3です",
       },
-      reserver_tel: { number: "※半角英数字で入力してください" },
+      reserver_tel: { 
+        number: "※半角英数字で入力してください",
+        minlength: "※10桁以上で入力してください"
+    },
+      reserver_fax: { 
+        number: "※半角英数字で入力してください",
+        minlength: "※10桁以上で入力してください"
+    },
     },
     errorPlacement: function (error, element) {
       var name = element.attr("name");
@@ -303,6 +326,7 @@ $(function () {
       },
       person_tel: {
         number: true,
+        minlength: 10
       },
       person_email: {
         email: true,
@@ -315,6 +339,7 @@ $(function () {
       },
       mgmt_tel: {
         number: true,
+        minlength: 10
       },
       mgmt_email: {
         email: true,
@@ -330,18 +355,23 @@ $(function () {
       },
       reserver_tel: {
         number: true,
+        minlength: 10
       },
       reserver_fax: {
         number: true,
+        minlength: 10
       },
       mgmt_person_tel: {
         number: true,
+        minlength: 10
       },
       mgmt_emer_tel: {
         number: true,
+        minlength: 10
       },
       mgmt_sec_tel: {
         number: true,
+        minlength: 10
       },
       luggage_post_code: {
         number: true,
@@ -405,6 +435,7 @@ $(function () {
       },
       person_tel: {
         number: "※半角数字で入力してください",
+        minlength: "※10桁以上で入力してください"
       },
       person_email: {
         email: "※メールアドレスの形式で入力してください",
@@ -430,21 +461,27 @@ $(function () {
       },
       reserver_tel: {
         number: "※半角数字で入力してください",
+        minlength: "※10桁以上で入力してください"
       },
       reserver_fax: {
         number: "※半角数字で入力してください",
+        minlength: "※10桁以上で入力してください"
       },
       mgmt_person_tel: {
         number: "※半角数字で入力してください",
+        minlength: "※10桁以上で入力してください"
       },
       mgmt_tel: {
         number: "※半角数字で入力してください",
+        minlength: "※10桁以上で入力してください"
       },
       mgmt_emer_tel: {
         number: "※半角数字で入力してください",
+        minlength: "※10桁以上で入力してください"
       },
       mgmt_sec_tel: {
         number: "※半角数字で入力してください",
+        minlength: "※10桁以上で入力してください"
       },
       luggage_post_code: {
         number: "※半角数字、ハイフンなしで入力して下さい",
