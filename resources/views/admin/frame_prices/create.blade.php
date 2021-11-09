@@ -74,8 +74,10 @@
               </select>
             </td>
             <td>
-              {{ Form::text('price[0]', "", ['class' => 'form-control']) }}
-              <small class="ml-1">円</small>
+              <div class="d-flex align-items-end">
+                <p>{{ Form::text('price[0]', "", ['class' => 'form-control']) }}</p>
+                <small class="ml-1">円</small>
+              </div>
             </td>
             <td>
               <input type="button" value="＋" class="add pluralBtn">
