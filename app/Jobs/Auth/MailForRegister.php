@@ -15,9 +15,7 @@ class MailForRegister implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  public $user;
-  public $reservation;
-  public $venue;
+  public $params;
 
   /**
    * Create a new job instance.
@@ -37,12 +35,12 @@ class MailForRegister implements ShouldQueue
    */
   public function handle()
   {
-    $admin = config('app.admin_email');
-    Mail::to($admin)
-      ->send(new AdminReqLeg(
-        $this->params,
-      ));
-    Mail::to($this->params['email'])
+    // $admin = config('app.admin_email');
+    // Mail::to($admin)
+    //   ->send(new AdminReqLeg(
+    //     $this->user,
+    //   ));
+    Mail::to($this->params['result']->email)
       ->send(new UserReqLeg(
         $this->params,
       ));

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\AdminFinLeg;
+// use App\Mail\AdminFinLeg;
 use App\Mail\UserFinLeg;
 use Mail;
 
@@ -15,9 +15,7 @@ class MailForRegisterComplete implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  public $user;
-  public $reservation;
-  public $venue;
+  public $params;
 
   /**
    * Create a new job instance.
@@ -25,9 +23,9 @@ class MailForRegisterComplete implements ShouldQueue
    *
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($params)
   {
-    $this->user = $user;
+    $this->params = $params;
   }
 
   /**
@@ -37,14 +35,14 @@ class MailForRegisterComplete implements ShouldQueue
    */
   public function handle()
   {
-    $admin = config('app.admin_email');
-    Mail::to($admin)
-      ->send(new AdminFinLeg(
-        $this->user,
-      ));
-    Mail::to($this->user->email)
+    // $admin = config('app.admin_email');
+    // Mail::to($admin)
+    //   ->send(new AdminFinLeg(
+    //     $this->user,
+    //   ));
+    Mail::to($this->params['user']->email)
       ->send(new UserFinLeg(
-        $this->user,
+        $this->params,
       ));
   }
 

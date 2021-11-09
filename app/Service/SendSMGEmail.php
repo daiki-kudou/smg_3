@@ -25,20 +25,21 @@ use App\Jobs\Auth\MailForUnSub;
 
 class SendSMGEmail
 {
-  // /**  
-  //  * 入金ステータスが1なら入金完了メールを送る    
-  //  * @param object $user ユーザーの配列データ   
-  //  * @param object $reservation 予約のオブジェクト   
-  //  * @param object $venue 会場オブジェクト   
-  //  */
+  /**  
+   *     
+   * @param array $params メールテンプレ内に記載するパラメーター郡
+   */
+  public function __construct($params = [])
+  {
+    $this->params = $params;
+  }
 
-  // public function __construct($user, $reservation, $venue)
-  // {
-  //   $this->user = $user;
-  //   $this->reservation = $reservation;
-  //   $this->venue = $venue;
-  // }
-
+  /**
+   * 特定のトリガーで、特定のキューへdispatch
+   *
+   * @param string $condition
+   * @return void
+   */
   public function send($condition)
   {
     switch ($condition) {
@@ -127,15 +128,15 @@ class SendSMGEmail
    * @param string $condition
    * @return void
    */
-  public function AuthSend($condition, $params = [])
+  public function AuthSend($condition)
   {
     switch ($condition) {
       case "ユーザー会員登録用、認証メール送信":
-        MailForRegister::dispatch($params);
+        MailForRegister::dispatch($this->params);
         break;
 
       case "ユーザー会員登録用成功":
-        MailForRegisterComplete::dispatch($this->user, $this->reservation, $this->venue);
+        MailForRegisterComplete::dispatch($this->params);
         break;
 
       case "退会":
