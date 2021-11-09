@@ -77,14 +77,8 @@ class PreusersController extends Controller
       ]);
       $link = url('/') . "/user/preusers/" . $result->id . "/" . $result->token . "/" . $result->email;
 
-      $SendSMGEmail = new SendSMGEmail();
-      $SendSMGEmail->AuthSend(
-        "ユーザー会員登録用、認証メール送信",
-        [
-          'result' => $result,
-          'link' => $link
-        ]
-      );
+      $SendSMGEmail = new SendSMGEmail(['result' => $result, 'link' => $link]);
+      $SendSMGEmail->AuthSend("ユーザー会員登録用、認証メール送信");
 
       DB::commit();
     } catch (\Exception $e) {

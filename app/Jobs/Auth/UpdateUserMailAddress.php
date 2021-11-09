@@ -7,11 +7,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\AdminReqLeg;
-use App\Mail\UserReqLeg;
+use App\Mail\ResetEmail;
 use Mail;
 
-class MailForRegister implements ShouldQueue
+class UpdateUserMailAddress implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -37,11 +36,11 @@ class MailForRegister implements ShouldQueue
   {
     // $admin = config('app.admin_email');
     // Mail::to($admin)
-    //   ->send(new AdminReqLeg(
+    //   ->send(new AdminUnSub(
     //     $this->user,
     //   ));
-    Mail::to($this->params['result']->email)
-      ->send(new UserReqLeg(
+    Mail::to($this->params['result']->new_email)
+      ->send(new ResetEmail(
         $this->params,
       ));
   }

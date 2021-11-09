@@ -116,7 +116,7 @@ class RegisterController extends Controller
         'pay_method' => 1,
         'pay_limit' => 1,
       ]);
-      $SendSMGEmail = new SendSMGEmail($user, "", "");
+      $SendSMGEmail = new SendSMGEmail(['user' => $user]);
       $SendSMGEmail->AuthSend("ユーザー会員登録用成功");
       DB::table('preusers')->where('email', $user->email)->delete();
 

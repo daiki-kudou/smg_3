@@ -16,9 +16,9 @@ class UserReqLeg extends Mailable
    *
    * @return void
    */
-  public function __construct($data)
+  public function __construct($params)
   {
-    $this->data = $data;
+    $this->params = $params;
   }
 
 
@@ -32,7 +32,7 @@ class UserReqLeg extends Mailable
     return $this->view('maileclipse::templates.userReqLeg')
       ->subject('SMGアクセア貸し会議室　会員登録について')
       ->with([
-        'data' => $this->data,
+        'params' => $this->params,
       ]);
   }
 }

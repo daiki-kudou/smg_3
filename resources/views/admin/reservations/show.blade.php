@@ -185,12 +185,8 @@
                         <td class="table-active"><label for="direction">案内板</label></td>
                         <td class="d-flex justify-content-between">
                           <p>{{ $reservation->board_flag == 0 ? '無し' : '要作成' }}</p>
-                          {{ Form::open(['url' => 'admin/board', 'method' => 'post', 'id' => '', 'target' => '_blank'])
-                          }}
-                          @csrf
-                          {{ Form::hidden('reservation_id', $reservation->id) }}
-                          <p>{{ Form::submit('案内板を表示', ['class' => 'btn more_btn']) }}</p>
-                          {{ Form::close() }}
+                          <a href="{{ url("/admin/board/".$reservation->id) }}" class="more_btn btn"
+                            target="_blank">案内板を表示</a>
                         </td>
                       </tr>
                       <tr>
