@@ -39,7 +39,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item active">
-              {{-- {{ Breadcrumbs::render(Route::currentRouteName(),$data['id']) }} --}}
+              {{ Breadcrumbs::render(Route::currentRouteName()) }}
             </li>
           </ol>
         </nav>
