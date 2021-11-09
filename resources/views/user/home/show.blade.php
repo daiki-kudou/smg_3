@@ -311,8 +311,8 @@
             </thead>
             <tbody>
               <tr>
-                <td class="table-active"><label for="preDelivery">荷物預かり　工藤さん！！！</label></td>
-                <td>工藤さん！なしかありを表示でお願いします</td>
+                <td class="table-active"><label for="preDelivery">荷物預かり　</label></td>
+                <td>{{ (int)$reservation->luggage_flag===1?"有り":"無し" }}</td>
               </tr>
               <tr>
                 <td class="table-active"><label for="preDelivery">事前にお預りする荷物(目安)</label></td>
