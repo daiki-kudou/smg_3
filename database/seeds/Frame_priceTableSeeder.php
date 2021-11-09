@@ -153,9 +153,6 @@ class Frame_priceTableSeeder extends Seeder
     FramePrice::create(['venue_id' => '13', 'frame' => '午前', 'start' => '10:00:00', 'finish' => '12:00:00', 'price' => '8000', 'extend' => '3000',]);
     FramePrice::create(['venue_id' => '13', 'frame' => '午後', 'start' => '13:00:00', 'finish' => '17:00:00', 'price' => '15000', 'extend' => '3000',]);
     FramePrice::create(['venue_id' => '13', 'frame' => '午前＆午後', 'start' => '10:00:00', 'finish' => '17:00:00', 'price' => '21000', 'extend' => '3000',]);
-    #N/A
-    #N/A
-    #N/A
 
 
 
