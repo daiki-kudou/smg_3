@@ -25,9 +25,9 @@ class MailForRegister implements ShouldQueue
    *
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($params)
   {
-    $this->user = $user;
+    $this->params = $params;
   }
 
   /**
@@ -40,11 +40,11 @@ class MailForRegister implements ShouldQueue
     $admin = config('app.admin_email');
     Mail::to($admin)
       ->send(new AdminReqLeg(
-        $this->user,
+        $this->params,
       ));
-    Mail::to($this->user['result']->email)
+    Mail::to($this->params['email'])
       ->send(new UserReqLeg(
-        $this->user,
+        $this->params,
       ));
   }
 

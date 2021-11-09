@@ -6,10 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-// キャンセル
-use App\Mail\AdminCxlChck;
-use App\Mail\UserCxlChck;
-
 use Illuminate\Support\Facades\Mail;
 
 use App\Traits\InvoiceTrait;
