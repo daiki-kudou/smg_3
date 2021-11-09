@@ -9,6 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\AdminFinDblChk;
 use App\Mail\UserFinDblChk;
+use App\Mail\FailedMail;
 use Mail;
 
 class MailForReservationAfterDblCheck implements ShouldQueue
@@ -65,5 +66,8 @@ class MailForReservationAfterDblCheck implements ShouldQueue
     // 失敗用の文面を用意する必要あり
     // $admin = config('app.admin_email');
     // Mail::to($admin)->send(new AdminFinDblChk([(string)$exception]));
+    $admin = config('app.admin_email');
+    Mail::to($admin)
+      ->send(new FailedMail($exception));
   }
 }
