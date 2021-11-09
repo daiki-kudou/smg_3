@@ -89,9 +89,13 @@ $(function () {
         required: true,
         // number: true, 
         min: 0,
-        max: 1000
+        max: 999.9
       },
-      size2: { required: true, number: true, min: 0, max: 1000 },
+      size2: { 
+        required: true, 
+        // number: true, 
+        min: 0, 
+        max: 999.9 },
       capacity: { required: true },
       post_code: { required: true, maxlength: 7, minlength: 7, number: true },
       address1: { required: true },
@@ -130,13 +134,13 @@ $(function () {
         required: "※必須項目です",
         // number: "※半角英数字を入力してください",
         min: "0以上を入力してください",
-        max: "上限値は1000です",
+        max: "上限値は999.9です",
       },
       size2: {
         required: "※必須項目です",
-        number: "※半角英数字を入力してください",
+        // number: "※半角英数字を入力してください",
         min: "0以上を入力してください",
-        max: "上限値は1000です",
+        max: "上限値は999.9です",
       },
       capacity: { required: "※必須項目です" },
       post_code: {
@@ -287,13 +291,13 @@ $(function () {
         required: true,
         // number: true,
         min: 0,
-        max: 1000,
+        max: 999.9,
       },
       size2: {
         required: true,
-        number: true,
+        // number: true,
         min: 0,
-        max: 1000,
+        max: 999.9,
       },
       capacity: {
         required: true,
@@ -396,13 +400,13 @@ $(function () {
         required: "※必須項目です",
         // number: "※半角数字を入力してください",
         min: "0以上を入力してください",
-        max: "上限値は1000です",
+        max: "上限値は999.9です",
       },
       size2: {
         required: "※必須項目です",
-        number: "※半角数字を入力してください",
+        // number: "※半角数字を入力してください",
         min: "0以上を入力してください",
-        max: "上限値は1000です",
+        max: "上限値は999.9です",
       },
       capacity: {
         required: "※必須項目です",
