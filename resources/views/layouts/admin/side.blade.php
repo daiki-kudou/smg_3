@@ -211,7 +211,7 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{ url('admin/mail_templates') }}" class="nav-link mail_templates">
+            <a href="{{ url('admin/mail_templates') }}" class="nav-link mail_templates" id="mails_side_bar_child">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>一覧</p>
             </a>
@@ -219,7 +219,7 @@
         </ul>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{ url('admin/cron_templates') }}" class="nav-link mail_templates">
+            <a href="{{ url('admin/cron_templates') }}" class="nav-link mail_templates" id="mails_side_bar_child2">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>一覧（定期実行）</p>
             </a>
