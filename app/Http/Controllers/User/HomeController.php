@@ -215,14 +215,18 @@ class HomeController extends Controller
       'new_email' => 'required|unique:users,email|email',
     ]);
     $token = hash_hmac('sha256', Str::random(40) . $request->new_email, config('app.key'));
-    DB::transaction(function () use ($request, $token) {
+    $result = DB::transaction(function () use ($request, $token) {
       $param = [];
       $param['user_id'] = Auth::id();
       $param['new_email'] = $request->new_email;
       $param['token'] = $token;
       $email_reset = EmailReset::create($param);
-      Mail::to($request->new_email)->send(new ResetEmail($token));
+      return $email_reset;
     });
+    $old_user_info = User::find($result->user_id);
+    $SendSMGEmail = new SendSMGEmail(['result' => $result, 'user' => $old_user_info]);
+    $SendSMGEmail->AuthSend("ユーザーメール更新");
+
     return redirect(url('user/home/email_reset_send'));
   }
 
@@ -242,7 +246,6 @@ class HomeController extends Controller
       $user->save();
       // レコードを削除
       EmailReset::where('token', $token)->delete();
-      // return redirect('/user/login')->with('flash_message', 'メールアドレスを更新しました！');
       Auth::logout();
       return redirect(url('email_reset_done'));
     } else {
@@ -261,7 +264,7 @@ class HomeController extends Controller
 
   protected function tokenExpired($createdAt)
   {
-    $expires = 1 * 60;    // トークンの有効期限は60分に設定
+    $expires = 2 * 60;    // トークンの有効期限は120分に設定
     return Carbon::parse($createdAt)->addSeconds($expires)->isPast(); //isPastは過去かどうか
   }
 

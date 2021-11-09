@@ -21,6 +21,7 @@ use App\Jobs\Cron\CronPayDayTwoDaysLeft;
 use App\Jobs\Auth\MailForRegister;
 use App\Jobs\Auth\MailForRegisterComplete;
 use App\Jobs\Auth\MailForUnSub;
+use App\Jobs\Auth\UpdateUserMailAddress;
 
 
 class SendSMGEmail
@@ -137,6 +138,10 @@ class SendSMGEmail
 
       case "ユーザー会員登録用成功":
         MailForRegisterComplete::dispatch($this->params);
+        break;
+
+      case "ユーザーメール更新":
+        UpdateUserMailAddress::dispatch($this->params);
         break;
 
       case "退会":
