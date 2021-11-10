@@ -21,26 +21,24 @@ use App\Jobs\Cron\CronPayDayTwoDaysLeft;
 use App\Jobs\Auth\MailForRegister;
 use App\Jobs\Auth\MailForRegisterComplete;
 use App\Jobs\Auth\MailForUnSub;
-use App\Jobs\Auth\UpdateUserMailAddress;
 
 
 class SendSMGEmail
 {
   /**  
-   *     
-   * @param array $params メールテンプレ内に記載するパラメーター郡
+   * 入金ステータスが1なら入金完了メールを送る    
+   * @param object $user ユーザーの配列データ   
+   * @param object $reservation 予約のオブジェクト   
+   * @param object $venue 会場オブジェクト   
    */
-  public function __construct($params = [])
+
+  public function __construct($user, $reservation, $venue)
   {
-    $this->params = $params;
+    $this->user = $user;
+    $this->reservation = $reservation;
+    $this->venue = $venue;
   }
 
-  /**
-   * 特定のトリガーで、特定のキューへdispatch
-   *
-   * @param string $condition
-   * @return void
-   */
   public function send($condition)
   {
     switch ($condition) {
@@ -133,15 +131,11 @@ class SendSMGEmail
   {
     switch ($condition) {
       case "ユーザー会員登録用、認証メール送信":
-        MailForRegister::dispatch($this->params);
+        MailForRegister::dispatch($this->user, $this->reservation, $this->venue);
         break;
 
       case "ユーザー会員登録用成功":
-        MailForRegisterComplete::dispatch($this->params);
-        break;
-
-      case "ユーザーメール更新":
-        UpdateUserMailAddress::dispatch($this->params);
+        MailForRegisterComplete::dispatch($this->user, $this->reservation, $this->venue);
         break;
 
       case "退会":
