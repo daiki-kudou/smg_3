@@ -21,7 +21,6 @@ use App\Models\MultipleReserve;
 use App\Models\UnknownUser;
 
 use Illuminate\Support\Facades\Mail;
-use App\Mail\AdminFinPreRes;
 use App\Mail\UserFinPreRes;
 // キャンセル
 use App\Mail\AdminPreResCxl;
@@ -490,10 +489,9 @@ class PreReservationsController extends Controller
       });
 
       $user = User::find($PreReservation->user->id);
-      $reservation = $PreReservation;
       $venue = Venue::find($PreReservation->venue_id);
-      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
-      $SendSMGEmail->send("管理者仮押え完了及びユーザーへ編集権限譲渡");
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->send("管理者仮押え完了及びユーザーへ編集権限譲渡", $PreReservation->id);
 
       $flash_message = "顧客に承認権限メールを送りました";
       $request->session()->regenerate();

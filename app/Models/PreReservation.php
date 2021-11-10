@@ -732,8 +732,47 @@ class PreReservation extends Model
         });
       }
     }
-
-
     return $searchTarget;
+  }
+
+  /**
+   * メールテンプレ掲載用のクエリ
+   *
+   * @param int $id
+   * @return object
+   */
+  public function PreReservationEmailTemplate($id)
+  {
+    $result = DB::table('pre_reservations')
+      ->select(DB::raw(
+        "
+        LPAD(pre_reservations.id,6,0) as pre_reservation_id,
+        users.company as company,
+        users.email as user_email,
+        pre_reservations.id as pre_reservation_id_original,
+        concat(date_format(pre_reservations.reserve_date, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(pre_reservations.reserve_date) = 1 then '(日)' 
+        when DAYOFWEEK(pre_reservations.reserve_date) = 2 then '(月)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 3 then '(火)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 4 then '(水)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 5 then '(木)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 6 then '(金)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 7 then '(土)'
+        end
+        ) as reserve_date,
+        time_format(pre_reservations.enter_time, '%H:%i') as enter_time,
+        time_format(pre_reservations.leave_time, '%H:%i') as leave_time,
+        concat(venues.name_area, venues.name_bldg, venues.name_venue) as venue_name,
+        concat(users.first_name, users.last_name) as person_name,
+        pre_reservations.status as pre_reservation_status,
+        venues.smg_url as smg_url
+        "
+      ))
+      ->leftJoin('venues', 'pre_reservations.venue_id', '=', 'venues.id')
+      ->leftJoin('users', 'pre_reservations.user_id', '=', 'users.id')
+      ->whereRaw('pre_reservations.id = ?', [$id]);
+
+    return $result->first();
   }
 }

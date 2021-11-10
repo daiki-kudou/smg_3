@@ -32,21 +32,17 @@ class SendSMGEmail
   //  * @param object $venue 会場オブジェクト   
   //  */
 
-  // public function __construct($user, $reservation, $venue)
+  // public function __construct($data)
   // {
-  //   $this->user = $user;
-  //   $this->reservation = $reservation;
-  //   $this->venue = $venue;
+  //   $this->data = $data;
   // }
 
-  public function send($condition)
+  public function send($condition, $data)
   {
-
     switch ($condition) {
-
         // 【2】-1｜仮押え・承認依頼
       case "管理者仮押え完了及びユーザーへ編集権限譲渡":
-        MailForPreReservationAfterAdminEdit::dispatch($this->user, $this->reservation, $this->venue);
+        MailForPreReservationAfterAdminEdit::dispatch($data);
         break;
         // 【2】-2｜仮押え・取消し
       case "管理者が仮抑え一覧よりチェックボックスを選択し削除":
