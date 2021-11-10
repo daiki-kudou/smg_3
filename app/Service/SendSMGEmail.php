@@ -55,11 +55,11 @@ class SendSMGEmail
         break;
         // 【3】-1｜予約受付完了
       case "ユーザーからの予約依頼受付":
-        MailForReservationRequestFromUser::dispatch($data);
+        MailForReservationRequestFromUser::dispatch($data); //引数 配列
         break;
         // 【3】-2｜予約・承認依頼（追加請求含）
       case "管理者ダブルチェック完了後、ユーザーへ承認依頼を送付":
-        MailForReservationAfterDblCheck::dispatch($this->user, $this->reservation, $this->venue);
+        MailForReservationAfterDblCheck::dispatch($data); //引数 配列
         break;
         // 【3】-2｜予約・承認依頼（追加請求含）
       case "予約内容追加。管理者からユーザーへ承認依頼を送付":

@@ -450,12 +450,10 @@ class ReservationsController extends Controller
   {
     DB::transaction(function () use ($request) { //トランザクションさせる
       $reservation_id = $request->reservation_id;
-      $reservation = Reservation::find($reservation_id);
-      $reservation->bills()->first()->update(['reservation_status' => 2, 'approve_send_at' => date('Y-m-d H:i:s')]);
-      $user = User::find($request->user_id);
-      $venue = Venue::find($reservation->venue_id);
-      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
-      $SendSMGEmail->send("管理者ダブルチェック完了後、ユーザーへ承認依頼を送付");
+      $reservation = Reservation::with('bills')->find($reservation_id);
+      $reservation->bills->first()->update(['reservation_status' => 2, 'approve_send_at' => date('Y-m-d H:i:s')]);
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->send("管理者ダブルチェック完了後、ユーザーへ承認依頼を送付", ['reservation_id' => $reservation_id, 'bill_id' => $reservation->bills->first()->id]);
     });
     return redirect()->route('admin.reservations.index')->with('flash_message', 'ユーザーに承認メールを送信しました');
   }
