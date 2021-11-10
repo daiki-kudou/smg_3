@@ -46,7 +46,7 @@ class SendSMGEmail
         break;
         // 【2】-2｜仮押え・取消し
       case "管理者が仮抑え一覧よりチェックボックスを選択し削除":
-        MailForDeletePreReservation::dispatch($this->user, $this->reservation, $this->venue);
+        MailForDeletePreReservation::dispatch($data);
         break;
 
         // 【3】-1｜予約受付完了

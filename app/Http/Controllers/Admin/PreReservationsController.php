@@ -23,7 +23,6 @@ use App\Models\UnknownUser;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserFinPreRes;
 // キャンセル
-use App\Mail\AdminPreResCxl;
 use App\Mail\UserPreResCxl;
 use App\Traits\SearchTrait;
 use App\Traits\PaginatorTrait;
@@ -566,23 +565,20 @@ class PreReservationsController extends Controller
         foreach ($delete_target_array as $v) {
           $preReservation = PreReservation::with(['user', 'venue'])->find($v);
           if ($preReservation->user_id > 0) {
-            $user = $preReservation->user;
-            $venue = $preReservation->venue;
-            $SendSMGEmail = new SendSMGEmail($user, "test", $preReservation->venue);
-            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除");
+            $SendSMGEmail = new SendSMGEmail();
+            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除", $preReservation->id);
+          } else {
+            $preReservation = PreReservation::with(['user', 'venue'])->find($v);
+            $preReservation->delete();
           }
         }
         // 上のメール送信も問題なければ削除
-        foreach ($delete_target_array as $v) {
-          $preReservation = PreReservation::with(['user', 'venue'])->find($v);
-          $preReservation->delete();
-        }
         DB::commit();
       } catch (\Exception $e) {
         DB::rollback();
         return back()->withInput()->withErrors($e->getMessage());
       }
-      return redirect()->route('admin.pre_reservations.index')->with('flash_message', '削除したよ');
+      return redirect()->route('admin.pre_reservations.index')->with('flash_message', 'ユーザーへ削除メールを送付後、自動的に仮押さえを削除します。送付先が複数ある場合、削除までに時差が生じる場合があります');
     } else {
       return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '仮押えが選択されていません');
     }
