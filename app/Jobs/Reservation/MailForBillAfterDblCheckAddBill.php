@@ -9,7 +9,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Reservation;
 use App\Models\Bill;
-use App\Mail\AdminReqAddRes;
 use App\Mail\UserReqAddRes;
 use Mail;
 
@@ -36,19 +35,6 @@ class MailForBillAfterDblCheckAddBill implements ShouldQueue
    */
   public function handle()
   {
-    // $admin = config('app.admin_email');
-    // Mail::to($admin)
-    //   ->send(new AdminReqAddRes(
-    //     $this->user,
-    //     $this->reservation,
-    //     $this->venue
-    //   ));
-    // Mail::to($this->user->email)
-    //   ->send(new UserReqAddRes(
-    //     $this->user,
-    //     $this->reservation,
-    //     $this->venue
-    //   ));
     $admin = config('app.admin_email');
     $data = $this->adjustReservationData();
     $subject = "【会議室｜[予約情報：追加請求]：" . $data->reservation_id . "】承認手続きのお願い（SMG貸し会議室）";
