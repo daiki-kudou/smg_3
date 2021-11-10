@@ -213,8 +213,6 @@
   </head>
 
   <body>
-<p>メールの送信に失敗しました。</p>
-<p>&nbsp;</p>
-<p>{{$exception}}</p>
+<pre>メールの送信に失敗しました。<br /><br /><br /><br /><br />{{$exception}}</pre>
 </body>
 </html>
