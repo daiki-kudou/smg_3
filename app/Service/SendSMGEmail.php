@@ -63,7 +63,7 @@ class SendSMGEmail
         break;
         // 【3】-2｜予約・承認依頼（追加請求含）
       case "予約内容追加。管理者からユーザーへ承認依頼を送付":
-        MailForBillAfterDblCheckAddBill::dispatch($this->user, $this->reservation, $this->venue);
+        MailForBillAfterDblCheckAddBill::dispatch($data); //引数 ID
         break;
         // 【3】-3｜予約・予約完了
       case "予約完了":

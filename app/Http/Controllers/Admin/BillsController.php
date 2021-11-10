@@ -144,11 +144,8 @@ class BillsController extends Controller
       $bill->update([
         'reservation_status' => 2, 'approve_send_at' => date('Y-m-d H:i:s')
       ]);
-      $user = User::find($bill->reservation->user->id);
-      $reservation = $bill;
-      $venue = Venue::find($bill->reservation->venue_id);
-      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
-      $SendSMGEmail->send("予約内容追加。管理者からユーザーへ承認依頼を送付");
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->send("予約内容追加。管理者からユーザーへ承認依頼を送付", ['reservation_id' => $bill->reservation->id, 'bill_id' => $bill->id]);
     });
     return redirect()->route('admin.reservations.index');
   }

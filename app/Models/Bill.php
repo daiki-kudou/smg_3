@@ -643,45 +643,43 @@ class Bill extends Model
       }
     });
 
-    // 売上請求一覧用のフリーワード検索
-    // if (!empty($data['sales_search_box'])) {
-    //   if (!empty($data['free_word'])) {
-    //     if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
-    //       //数字の場合検索
-    //       $searchTarget = $searchTarget->where(function ($query) use ($data) {
-    //         if (!empty($data['free_word'])) {
-    //           for ($i = 0; $i < strlen($data['free_word']); $i++) {
-    //             if ((int)$data['free_word'][$i] !== 0) {
-    //               $id = strstr($data['free_word'], $data['free_word'][$i]);
-    //               break;
-    //             }
-    //           }
-    //           $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']); //予約ID
-    //           $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']); //一括ID
-    //           $query->orWhereRaw('users.id LIKE ? ', ['%' . $id . '%']); //顧客ID
-    //         }
-    //       });
-    //     } else {
-    //       //文字列の場合
-    //       $searchTarget = $searchTarget->where(function ($query) use ($data) {
-    //         if (!empty($data['free_word'])) {
-    //           $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]); //利用日
-    //           $query->orWhereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']); //会社名・団体名
-    //           $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']); //担当者氏名
-    //           $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
-    //           $query->orWhereRaw('bills.payment_limit = ? ',  [$data['free_word']]); //支払い期日
-    //           $query->orWhereRaw('bills.pay_day = ? ',  [$data['free_word']]); //支払い日
-    //           $query->orWhereRaw('bills.pay_person = ? ',  [$data['free_word']]); //振込人名
-    //           $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['free_word'] . '%']);
-    //           $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
-    //         }
-    //       });
-    //     }
-    //   }
-    // }
-
-    // $searchTarget->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
 
     return $searchTarget;
+  }
+
+  public function BillEmailTemplate($id)
+  {
+    $result = DB::table('bills')
+      ->select(DB::raw(
+        "
+        LPAD(reservations.id,6,0) as reservation_id,
+        users.company as company,
+        users.email as user_email,
+        LPAD(users.id,6,0) as user_id,
+        reservations.id as reservation_id_original,
+        concat(date_format(reservations.reserve_date, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(reservations.reserve_date) = 1 then '(日)' 
+        when DAYOFWEEK(reservations.reserve_date) = 2 then '(月)'
+        when DAYOFWEEK(reservations.reserve_date) = 3 then '(火)'
+        when DAYOFWEEK(reservations.reserve_date) = 4 then '(水)'
+        when DAYOFWEEK(reservations.reserve_date) = 5 then '(木)'
+        when DAYOFWEEK(reservations.reserve_date) = 6 then '(金)'
+        when DAYOFWEEK(reservations.reserve_date) = 7 then '(土)'
+        end
+        ) as reserve_date,
+        time_format(reservations.enter_time, '%H:%i') as enter_time,
+        time_format(reservations.leave_time, '%H:%i') as leave_time,
+        concat(venues.name_area, venues.name_bldg, venues.name_venue) as venue_name,
+        concat(users.first_name, users.last_name) as person_name,
+        venues.smg_url as smg_url
+        "
+      ))
+      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
+      ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
+      ->leftJoin('reservations', 'reservations.id', '=', 'bills.reservation_id')
+      ->whereRaw('bills.id = ?', [$id]);
+
+    return $result->first();
   }
 }

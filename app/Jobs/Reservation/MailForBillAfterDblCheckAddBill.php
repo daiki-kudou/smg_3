@@ -7,6 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Reservation;
+use App\Models\Bill;
 use App\Mail\AdminReqAddRes;
 use App\Mail\UserReqAddRes;
 use Mail;
@@ -15,20 +17,16 @@ class MailForBillAfterDblCheckAddBill implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  public $user;
-  public $reservation;
-  public $venue;
+  public $data;
 
   /**
    * Create a new job instance.
    *
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($data)
   {
-    $this->user = $user;
-    $this->reservation = $reservation;
-    $this->venue = $venue;
+    $this->data = $data;
   }
 
   /**
@@ -38,19 +36,43 @@ class MailForBillAfterDblCheckAddBill implements ShouldQueue
    */
   public function handle()
   {
+    // $admin = config('app.admin_email');
+    // Mail::to($admin)
+    //   ->send(new AdminReqAddRes(
+    //     $this->user,
+    //     $this->reservation,
+    //     $this->venue
+    //   ));
+    // Mail::to($this->user->email)
+    //   ->send(new UserReqAddRes(
+    //     $this->user,
+    //     $this->reservation,
+    //     $this->venue
+    //   ));
     $admin = config('app.admin_email');
-    Mail::to($admin)
-      ->send(new AdminReqAddRes(
-        $this->user,
-        $this->reservation,
-        $this->venue
-      ));
-    Mail::to($this->user->email)
+    $data = $this->adjustReservationData();
+    $subject = "【会議室｜[予約情報：追加請求]：" . $data->reservation_id . "】承認手続きのお願い（SMG貸し会議室）";
+    $master_total = $this->adjustBillData();
+    $bill_id = $this->data['bill_id'];
+    Mail::to($data->user_email)
       ->send(new UserReqAddRes(
-        $this->user,
-        $this->reservation,
-        $this->venue
+        $data,
+        $subject,
+        $master_total,
+        $bill_id
       ));
+  }
+
+  public function adjustReservationData()
+  {
+    $reservation = new Reservation();
+    return $reservation->ReservationEmailTemplate($this->data['reservation_id']);
+  }
+
+  public function adjustBillData()
+  {
+    $bill = Bill::find($this->data['bill_id']);
+    return number_format($bill->master_total);
   }
 
   /**
