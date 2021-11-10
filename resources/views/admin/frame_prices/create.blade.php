@@ -76,7 +76,7 @@
             <td>
               <div class="d-flex align-items-end">
                 <p>{{ Form::text('price[0]', "", ['class' => 'form-control']) }}</p>
-                <small class="ml-1">円</small>
+                <p class="ml-1">円</p>
               </div>
             </td>
             <td>

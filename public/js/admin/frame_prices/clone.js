@@ -54,8 +54,10 @@ $(function () {
       });
       $("input[name='price[" + index + "]']").rules("add", {
         required: true,
+        digits: true,
         messages: {
-          required: "※必須項目です"
+          required: "※必須項目です",
+          digits: "※数値を入力してください"
         }
       });
     })

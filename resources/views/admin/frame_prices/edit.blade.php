@@ -213,6 +213,7 @@
         rules["price"+i] = {
             required: true,
             number:true,
+            digits:true,
             min:1,
         };
         messages["frame"+i] = {
@@ -222,6 +223,7 @@
           required: "※必須項目です",
           number:"※半角英数字で入力してください",
           min:"1以上を入力してください",
+          digits: "※整数で入力してください",
         };
     }
       $("#EditFramePrice").validate({
@@ -259,7 +261,8 @@
         required: true,
         number:true,
         min:1,
-        messages: { required: "※必須項目です", number:"※半角英数字で入力してください",min:'※1以上を入力してください' },
+        digits:true,
+        messages: { required: "※必須項目です", number:"※半角英数字で入力してください",min:'※1以上を入力してください',digits: "※整数で入力してください"},
         });
       }
     }

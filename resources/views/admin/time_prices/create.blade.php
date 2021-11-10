@@ -149,11 +149,13 @@
             price0: {
               required: true,
               number: true,
+              digits: true,
               min:1,
             },
             extend0: {
               required: true,
               number: true,
+              digits: true,
               min:1,
             },
           },
@@ -166,11 +168,13 @@
             price0: {
               required: "※必須項目です",
               number: "※半角英数字で入力してください",
+              digits: "※整数で入力してください",
               min:'※1以上を入力してください'
             },
             extend0: {
               required: "※必須項目です",
               number: "※半角英数字で入力してください",
+              digits: "※整数で入力してください",
               min:'※1以上を入力してください'
             },
           },
@@ -201,11 +205,13 @@
         });
         $("input[name='price"+index2+"']").rules("add", {
         required: true,
-        messages: { required: "※必須項目です" },
+        digits: true,
+        messages: { required: "※必須項目です", digits: "※整数で入力してください"},
         });
         $("input[name='extend"+index2+"']").rules("add", {
         required: true,
-        messages: { required: "※必須項目です" },
+        digits: true,
+        messages: { required: "※必須項目です", digits: "※整数で入力してください"},
         });
       }
     }
