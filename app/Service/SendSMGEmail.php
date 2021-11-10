@@ -55,7 +55,7 @@ class SendSMGEmail
         break;
         // 【3】-1｜予約受付完了
       case "ユーザーからの予約依頼受付":
-        MailForReservationRequestFromUser::dispatch($this->user, $this->reservation, $this->venue);
+        MailForReservationRequestFromUser::dispatch($data);
         break;
         // 【3】-2｜予約・承認依頼（追加請求含）
       case "管理者ダブルチェック完了後、ユーザーへ承認依頼を送付":
