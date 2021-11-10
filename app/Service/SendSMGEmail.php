@@ -42,16 +42,16 @@ class SendSMGEmail
     switch ($condition) {
         // 【2】-1｜仮押え・承認依頼
       case "管理者仮押え完了及びユーザーへ編集権限譲渡":
-        MailForPreReservationAfterAdminEdit::dispatch($data);
+        MailForPreReservationAfterAdminEdit::dispatch($data); //引数 ID
         break;
         // 【2】-2｜仮押え・取消し
       case "管理者が仮抑え一覧よりチェックボックスを選択し削除":
-        MailForDeletePreReservation::dispatch($data);
+        MailForDeletePreReservation::dispatch($data); //引数 ID
         break;
 
         // 【3】-1｜予約受付完了
       case "管理者主導仮押えから本予約切り替え（ユーザー承認）":
-        MailForReservationAfterSwitchedByUser::dispatch($this->user, $this->reservation, $this->venue);
+        MailForReservationAfterSwitchedByUser::dispatch($data); //引数 配列
         break;
         // 【3】-1｜予約受付完了
       case "ユーザーからの予約依頼受付":

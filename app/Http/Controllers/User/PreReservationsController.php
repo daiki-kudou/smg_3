@@ -19,7 +19,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Traits\PaginatorTrait;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\AdminPreResToRes;
 use App\Mail\UserPreResToRes;
 use App\Service\SendSMGEmail;
 use App\Http\Helpers\ReservationHelper;
@@ -126,8 +125,8 @@ class PreReservationsController extends Controller
     }
 
     $venue = Venue::find($result_reservation->venue_id);
-    $SendSMGEmail = new SendSMGEmail($user, $result_reservation, $venue);
-    $SendSMGEmail->send("管理者主導仮押えから本予約切り替え（ユーザー承認）");
+    $SendSMGEmail = new SendSMGEmail();
+    $SendSMGEmail->send("管理者主導仮押えから本予約切り替え（ユーザー承認）", ['reservation_id' => $result_reservation->id, 'bill_id' => $result_bill->id]);
 
     return redirect(route('user.pre_reservations.show_cfm'));
   }

@@ -23,7 +23,6 @@ use App\Models\UnknownUser;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserFinPreRes;
 // キャンセル
-use App\Mail\UserPreResCxl;
 use App\Traits\SearchTrait;
 use App\Traits\PaginatorTrait;
 
