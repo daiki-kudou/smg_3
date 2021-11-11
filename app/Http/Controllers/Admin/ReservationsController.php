@@ -616,7 +616,7 @@ class ReservationsController extends Controller
    */
   public function destroy($id)
   {
-    $reservation = Reservation::with(['user', 'venue'])->find($id);
+    $reservation = Reservation::with(['user', 'venue', 'bills'])->find($id);
 
     DB::beginTransaction();
     try {
@@ -633,14 +633,13 @@ class ReservationsController extends Controller
 
       // 上が全て通ったら再度foreachでメール送信処理
       if ($reservation->user_id > 0) {
-        $user = $reservation->user;
-        $venue = $reservation->venue;
-        $SendSMGEmail = new SendSMGEmail($user, "test", $venue);
-        $SendSMGEmail->send("管理者が詳細画面にて予約を削除");
+        $SendSMGEmail = new SendSMGEmail();
+        $SendSMGEmail->send("管理者が詳細画面にて予約を削除", ['reservation_id' => $reservation->id, 'bill_id' => $reservation->bills->first()->id]);
       }
 
       // 上のメール送信も問題なければ削除
-      $reservation->delete();
+      // ただしdispatch先で削除
+      // $reservation->delete();
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();

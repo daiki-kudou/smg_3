@@ -75,7 +75,7 @@ class SendSMGEmail
         break;
         // 【3】-4｜予約・予約取消
       case "管理者が詳細画面にて予約を削除":
-        MailForDeleteReservation::dispatch($this->user, $this->reservation, $this->venue);
+        MailForDeleteReservation::dispatch($data); //引数 配列
         break;
 
         // 【4】-1｜キャンセル・承認依頼
