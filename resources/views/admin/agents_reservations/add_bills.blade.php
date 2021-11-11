@@ -466,10 +466,12 @@
                   振込人名
                   {{ Form::text('pay_person',
                   !empty($data['pay_person'])?$data['pay_person']:"",['class'=>'form-control'] ) }}
+                  <p class="is-error-pay_person" style="color: red"></p>
                 </td>
                 <td>
                   入金額
                   {{ Form::text('payment', !empty($data['payment'])?$data['payment']:"",['class'=>'form-control'] ) }}
+                  <p class="is-error-payment" style="color: red"></p>
                 </td>
               </tr>
             </tbody>
