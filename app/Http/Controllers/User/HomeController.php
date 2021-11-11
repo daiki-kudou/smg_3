@@ -168,12 +168,8 @@ class HomeController extends Controller
       $cxl->reservation->bills->map(function ($item, $key) {
         $item->update(["reservation_status" => 6]);
       });
-
-      $user = $cxl->reservation->user;
-      $reservation = $cxl;
-      $venue = $cxl->reservation->venue;
-      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
-      $SendSMGEmail->send("ユーザーがキャンセルを承認");
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->send("ユーザーがキャンセルを承認", $cxl->id);
     } else {
       $bill = Bill::find($cxl->bill_id);
       $bill->update(["reservation_status" => 6]);

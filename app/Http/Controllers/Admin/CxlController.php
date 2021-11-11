@@ -193,6 +193,9 @@ class CxlController extends Controller
     } catch (\Exception $e) {
       report($e);
     }
+    $SendSMGEmail = new SendSMGEmail();
+    $SendSMGEmail->send("ユーザーがキャンセルを承認", $cxl->id);
+
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $reservation_id);
   }

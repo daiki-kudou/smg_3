@@ -1146,22 +1146,19 @@
                     <div class="bill_btn_wrap">
                       <p class="ml-2 mb-1">
                         @if ((int)$cxl->cxl_status===2)
-                        <a target="_blank"
-                          href="{{ url('/user/home/invoice/'.$reservation->id.'/'.$other_bill->id.'/'.$cxl->id) }}" 　
-                          class="more_btn btn">
+                        <a target="_blank" href="{{ url('/user/home/invoice/'.$reservation->id.'/'.'0'.'/'.$cxl->id) }}"
+                          　 class="more_btn btn">
                           請求書をみる
                         </a>
                         @endif
                       </p>
-
                       <p class="ml-2">
                         @if ((int)$cxl->paid===1)
-                        <a target="_blank" href="{{ url('/user/home/receipt/'.$other_bill->id.'/'.$cxl->id) }}" 　
+                        <a target="_blank" href="{{ url('/user/home/receipt/'.'0'.'/'.$cxl->id) }}" 　
                           class="more_btn4 btn">領収書をみる
                         </a>
                         @endif
                       </p>
-
                     </div>
                   </li>
                 </ul>

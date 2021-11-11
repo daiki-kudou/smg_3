@@ -84,7 +84,7 @@ class SendSMGEmail
         break;
         // 【4】-2｜キャンセル・キャンセル完了
       case "ユーザーがキャンセルを承認":
-        MailForCxlAfterUserCheck::dispatch($this->user, $this->reservation, $this->venue);
+        MailForCxlAfterUserCheck::dispatch($data); //引数 キャンセルID
         break;
 
         // 【5】-3｜入金完了

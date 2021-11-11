@@ -308,7 +308,19 @@ class Cxl extends Model
           time_format(reservations.leave_time, '%H:%i') as leave_time,
           concat(name_area, name_bldg, name_venue) as venue_name,
           format(cxls.master_total,0) as master_total,
-          venues.smg_url
+          venues.smg_url,
+          concat(date_format(cxls.payment_limit, '%Y/%m/%d'),
+          case 
+          when DAYOFWEEK(cxls.payment_limit) = 1 then '(日)' 
+          when DAYOFWEEK(cxls.payment_limit) = 2 then '(月)'
+          when DAYOFWEEK(cxls.payment_limit) = 3 then '(火)'
+          when DAYOFWEEK(cxls.payment_limit) = 4 then '(水)'
+          when DAYOFWEEK(cxls.payment_limit) = 5 then '(木)'
+          when DAYOFWEEK(cxls.payment_limit) = 6 then '(金)'
+          when DAYOFWEEK(cxls.payment_limit) = 7 then '(土)'
+          end
+          ) as payment_limit
+
         "
       ))
       ->leftJoin('reservations', 'reservations.id', '=', 'cxls.reservation_id')
