@@ -16,11 +16,10 @@ class UserCxlChck extends Mailable
    *
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($cxl_data, $subject)
   {
-    $this->user = $user;
-    $this->reservation = $reservation;
-    $this->venue = $venue;
+    $this->cxl_data = $cxl_data;
+    $this->subject = $subject;
   }
 
 
@@ -32,11 +31,18 @@ class UserCxlChck extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userCxlChck')
-      ->subject('SMGアクセア貸し会議室　キャンセル承認のお願い')
+      ->subject($this->subject)
       ->with([
-        'user' => $this->user,
-        'reservation' => $this->reservation,
-        'venue' => $this->venue,
+        'company' => $this->cxl_data->company,
+        'user_id' => $this->cxl_data->user_id,
+        'reservation_id' => $this->cxl_data->reservation_id,
+        'reserve_date' => $this->cxl_data->reserve_date,
+        'enter_time' => $this->cxl_data->enter_time,
+        'leave_time' => $this->cxl_data->leave_time,
+        'venue_name' => $this->cxl_data->venue_name,
+        'smg_url' => $this->cxl_data->smg_url,
+        'invoice_number' => $this->cxl_data->invoice_number,
+        'master_total' => $this->cxl_data->master_total,
       ]);
   }
 }

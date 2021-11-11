@@ -80,7 +80,7 @@ class SendSMGEmail
 
         // 【4】-1｜キャンセル・承認依頼
       case "管理者ダブルチェック完了後、キャンセル承認メールをユーザーへ送付":
-        MailForUserCxlAfterDblCheck::dispatch($this->user, $this->reservation, $this->venue);
+        MailForUserCxlAfterDblCheck::dispatch($data); //引数 キャンセルID
         break;
         // 【4】-2｜キャンセル・キャンセル完了
       case "ユーザーがキャンセルを承認":

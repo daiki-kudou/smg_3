@@ -173,7 +173,7 @@ class CxlController extends Controller
     $cxl = Cxl::with(['reservation.bills', 'reservation.user', 'reservation.venue'])->find($request->cxl_id);
     $reservation_id = $cxl->reservation->id;
     try {
-      $cxl->sendCxlEmail($cxl->reservation->user, $cxl, $cxl->reservation->venue);
+      $cxl->sendCxlEmail($cxl->id);
       $cxl->updateCxlStatusByEmail(1);
       $cxl->updateReservationStatusByCxl(5);
     } catch (\Exception $e) {

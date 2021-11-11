@@ -247,11 +247,10 @@ class Cxl extends Model
     }
   }
 
-  public function sendCxlEmail($user, $cxl, $venue)
+  public function sendCxlEmail($cxl_id)
   {
-
-    $SendSMGEmail = new SendSMGEmail($user, $cxl, $venue);
-    $SendSMGEmail->send("管理者ダブルチェック完了後、キャンセル承認メールをユーザーへ送付");
+    $SendSMGEmail = new SendSMGEmail();
+    $SendSMGEmail->send("管理者ダブルチェック完了後、キャンセル承認メールをユーザーへ送付", $cxl_id);
   }
 
   public function updateCxlStatusByEmail($status)
@@ -282,5 +281,41 @@ class Cxl extends Model
         'reservation_status' => $status
       ]);
     }
+  }
+
+  public function CxlEmailTemplate($cxl_id)
+  {
+    $result = DB::table('cxls')
+      ->select(DB::raw(
+        "
+          users.company as company,
+          LPAD(reservations.id,6,0) as reservation_id,
+          LPAD(users.id,6,0) as user_id,
+          users.email as user_email,
+          cxls.invoice_number as invoice_number,
+          concat(date_format(reservations.reserve_date, '%Y/%m/%d'),
+          case 
+          when DAYOFWEEK(reservations.reserve_date) = 1 then '(日)' 
+          when DAYOFWEEK(reservations.reserve_date) = 2 then '(月)'
+          when DAYOFWEEK(reservations.reserve_date) = 3 then '(火)'
+          when DAYOFWEEK(reservations.reserve_date) = 4 then '(水)'
+          when DAYOFWEEK(reservations.reserve_date) = 5 then '(木)'
+          when DAYOFWEEK(reservations.reserve_date) = 6 then '(金)'
+          when DAYOFWEEK(reservations.reserve_date) = 7 then '(土)'
+          end
+          ) as reserve_date,
+          time_format(reservations.enter_time, '%H:%i') as enter_time,
+          time_format(reservations.leave_time, '%H:%i') as leave_time,
+          concat(name_area, name_bldg, name_venue) as venue_name,
+          format(cxls.master_total,0) as master_total,
+          venues.smg_url
+        "
+      ))
+      ->leftJoin('reservations', 'reservations.id', '=', 'cxls.reservation_id')
+      ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
+      ->leftJoin('venues', 'venues.id', '=', 'reservations.venue_id')
+      ->whereRaw('cxls.id = ?', [$cxl_id]);
+
+    return $result->first();
   }
 }
