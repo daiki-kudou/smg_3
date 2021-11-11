@@ -352,7 +352,8 @@ caption, th, td {
   font-weight: bold;
 }
 .bill-note p:last-child {
-  white-space: pre-wrap;
+  /* white-space: pre-wrap; */
+  white-space: pre-line;
 }
 
 .stamp-area {

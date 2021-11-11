@@ -240,7 +240,7 @@
           <td class="bill-note">
             <p>備考</p>
             <p>
-              @if ($cxl)
+              @if($cxl)
               {{ $cxl->bill_remark }}
               @else
               {{ $bill->bill_remark }}
@@ -250,8 +250,6 @@
         </tr>
       </table>
     </section>
-    <p></p>
-
 
 </body>
 

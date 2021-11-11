@@ -352,7 +352,8 @@
   }
 
   .bill-note p:last-child {
-    white-space: pre-wrap;
+    /* white-space: pre-wrap; */
+    white-space: pre-line;
   }
   
   .button-wrap {
