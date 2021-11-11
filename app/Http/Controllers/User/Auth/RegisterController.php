@@ -12,7 +12,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\AdminFinLeg;
 use App\Mail\UserFinLeg;
 use App\Service\SendSMGEmail;
 use App\Models\Preuser;

@@ -89,7 +89,7 @@ class SendSMGEmail
 
         // 【5】-3｜入金完了
       case "入金ステータスを入金済みに更新":
-        MailForUserAfterCheckPaid::dispatch($this->user, $this->reservation, $this->venue);
+        MailForUserAfterCheckPaid::dispatch($data); //引数配列[reservation_id, bill_id, 会場予約or追加請求（文字列としてくる）]
         break;
         // 【5】-3｜入金完了
       case "キャンセル料入金確認完了":

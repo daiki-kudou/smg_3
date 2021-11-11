@@ -18,7 +18,6 @@ use App\Mail\SendUserOtherBillsApprove;
 use Illuminate\Support\Facades\Mail;
 // メール
 use App\Mail\UserReqAddRes;
-use App\Mail\AdminPaid;
 use App\Mail\UserPaid;
 
 use Carbon\Carbon;
@@ -289,7 +288,7 @@ class BillsController extends Controller
       ]
     );
     if ($bill->reservation->agent_id == 0) {
-      $this->judgePaymentStatusAndSendEmail($request->paid, $bill->reservation->user, $bill);
+      $this->judgePaymentStatusAndSendEmail($request->paid, $bill->reservation->id, $bill->id, $request->bill_or_add_bill);
     }
     return redirect(url('admin/reservations/' . $bill->reservation->id));
   }
@@ -298,17 +297,24 @@ class BillsController extends Controller
    * 入金ステータスが1なら入金完了メールを送る
    *
    * @param int $status
+   * @param int $reservation_id
+   * @param int $bill_id
+   * @param string $bill_or_add_bill 会場予約か？追加請求か判別
    * @param object $user
    */
 
-  public function judgePaymentStatusAndSendEmail($status, $user, $bill)
+  public function judgePaymentStatusAndSendEmail($status, $reservation_id, $bill_id, $bill_or_add_bill)
   {
     if ((int)$status === 1) {
-      $user = $user;
-      $reservation = $bill;
-      $venue = $bill->reservation->venue;
-      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
-      $SendSMGEmail->send("入金ステータスを入金済みに更新");
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->send(
+        "入金ステータスを入金済みに更新",
+        [
+          'reservation_id' => $reservation_id,
+          'bill_id' => $bill_id,
+          'bill_or_add_bill' => $bill_or_add_bill,
+        ]
+      );
     }
   }
 }

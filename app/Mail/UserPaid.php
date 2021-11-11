@@ -16,11 +16,12 @@ class UserPaid extends Mailable
    *
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($reservation_data, $bill_data, $subject, $bill_or_add_bill)
   {
-    $this->user = $user;
-    $this->reservation = $reservation;
-    $this->venue = $venue;
+    $this->reservation_data = $reservation_data;
+    $this->bill_data = $bill_data;
+    $this->subject = $subject;
+    $this->bill_or_add_bill = $bill_or_add_bill;
   }
 
   /**
@@ -31,10 +32,20 @@ class UserPaid extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userPaid')
-      ->subject('SMGアクセア貸し会議室　ご入金完了のお知らせ')->with([
-        'user' => $this->user,
-        'reservation' => $this->reservation,
-        'venue' => $this->venue,
+      ->subject($this->subject)
+      ->with([
+        'company' => $this->reservation_data->company,
+        'user_id' => $this->reservation_data->user_id,
+        'reservation_id' => $this->reservation_data->reservation_id,
+        'reserve_date' => $this->reservation_data->reserve_date,
+        'enter_time' => $this->reservation_data->enter_time,
+        'leave_time' => $this->reservation_data->leave_time,
+        'venue_name' => $this->reservation_data->venue_name,
+        'smg_url' => $this->reservation_data->smg_url,
+        'invoice_number' => $this->bill_data->invoice_number,
+        'master_total' => $this->bill_data->master_total,
+        'payment_limit' => $this->bill_data->payment_limit,
+        "bill_or_add_bill" => $this->bill_or_add_bill
       ]);
   }
 }
