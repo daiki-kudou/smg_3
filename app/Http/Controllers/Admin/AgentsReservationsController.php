@@ -13,14 +13,11 @@ use App\Models\Agent;
 use App\Models\Enduser;
 use App\Models\Equipment;
 use App\Models\Service;
-
 use Carbon\Carbon;
-
 use Illuminate\Support\Facades\DB; //トランザクション用
-
-
 use App\Traits\PregTrait;
 use App\Traits\InvoiceTrait;
+use App\Service\SendSMGEmail;
 
 
 class AgentsReservationsController extends Controller
@@ -195,8 +192,8 @@ class AgentsReservationsController extends Controller
 
   public function add_confirm(Request $request)
   {
-    DB::transaction(function () use ($request) {
-      $bill = Bill::find($request->bill_id);
+    $bill = Bill::with('reservation')->find($request->bill_id);
+    DB::transaction(function () use ($request, $bill) {
       $bill->update(
         [
           'reservation_status' => 3,
@@ -205,6 +202,9 @@ class AgentsReservationsController extends Controller
         ]
       );
     });
+
+    $SendSMGEmail = new SendSMGEmail();
+    $SendSMGEmail->send("ユーザーが追加予約の承認完了後、メール送信", ['reservation_id' => $bill->reservation->id, 'bill_id' => $bill->id]);
 
     $request->session()->regenerate();
     $bill = Bill::find($request->bill_id);

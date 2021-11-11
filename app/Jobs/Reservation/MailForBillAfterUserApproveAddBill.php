@@ -90,7 +90,6 @@ class MailForBillAfterUserApproveAddBill implements ShouldQueue
     return $ary;
   }
 
-
   /**
    * 失敗したジョブの処理
    *
