@@ -425,7 +425,7 @@
                 </td>
               </tr>
               <tr>
-                <td>請求書備考
+                <td colspan="2">請求書備考
                   {{ Form::textarea('bill_remark', !empty($data['bill_remark'])?$data['bill_remark']:"", ['class' =>
                   'form-control'])}}
                 </td>
