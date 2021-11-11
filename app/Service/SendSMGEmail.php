@@ -93,13 +93,8 @@ class SendSMGEmail
         break;
         // 【5】-3｜入金完了
       case "キャンセル料入金確認完了":
-        MailForUserAfterCheckCxlPaid::dispatch($this->user, $this->reservation, $this->venue);
+        MailForUserAfterCheckCxlPaid::dispatch($data); //引数配列[reservation_id, cxl_id
         break;
-
-
-
-
-
 
       default:
         break;

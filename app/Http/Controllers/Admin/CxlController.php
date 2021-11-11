@@ -397,19 +397,17 @@ class CxlController extends Controller
       ]
     );
     if ($cxl->reservation->agent_id == 0) {
-      $this->judgePaymentStatusAndSendEmail($request->paid, $cxl->reservation->user, $cxl);
+      $this->judgePaymentStatusAndSendEmail($request->paid, $cxl->reservation->id, $cxl->id);
     }
 
     return redirect(url('admin/reservations/' . $cxl->reservation->id));
   }
 
-  public function judgePaymentStatusAndSendEmail($status, $user, $cxl)
+  public function judgePaymentStatusAndSendEmail($status, $reservation, $cxl_id)
   {
     if ($status == 1) {
-      $reservation = $cxl;
-      $venue = $cxl->reservation->venue;
-      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
-      $SendSMGEmail->send("キャンセル料入金確認完了");
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->send("キャンセル料入金確認完了", ['reservation_id' => $reservation, 'cxl_id' => $cxl_id]);
     }
   }
 }

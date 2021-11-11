@@ -16,11 +16,11 @@ class UserCxlPaid extends Mailable
    *
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($reservation_data, $cxl_data, $subject)
   {
-    $this->user = $user;
-    $this->reservation = $reservation;
-    $this->venue = $venue;
+    $this->reservation_data = $reservation_data;
+    $this->cxl_data = $cxl_data;
+    $this->subject = $subject;
   }
 
   /**
@@ -31,10 +31,19 @@ class UserCxlPaid extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userCxlPaid')
-      ->subject('【管理者通知】SMGアクセア貸し会議室　キャンセル料ご入金完了のお知らせ')->with([
-        'user' => $this->user,
-        'reservation' => $this->reservation,
-        'venue' => $this->venue,
+      ->subject($this->subject)
+      ->with([
+        'company' => $this->reservation_data->company,
+        'user_id' => $this->reservation_data->user_id,
+        'reservation_id' => $this->reservation_data->reservation_id,
+        'reserve_date' => $this->reservation_data->reserve_date,
+        'enter_time' => $this->reservation_data->enter_time,
+        'leave_time' => $this->reservation_data->leave_time,
+        'venue_name' => $this->reservation_data->venue_name,
+        'smg_url' => $this->reservation_data->smg_url,
+        'invoice_number' => $this->cxl_data->invoice_number,
+        'master_total' => $this->cxl_data->master_total,
+        'payment_limit' => $this->cxl_data->payment_limit,
       ]);
   }
 }
