@@ -1272,6 +1272,7 @@ h3 {
 .calender-flame thead {
     position: sticky;
     top: 0;
+    z-index: 99;
 }
 
 .calender-head {
@@ -1291,7 +1292,6 @@ h3 {
     position: absolute;
     left: -16px;
     top: 11px;
-
 }
 
 .calender-head .field-title {
@@ -1299,12 +1299,45 @@ h3 {
     background: #fff;
     text-align: left;
     padding-left: 1em;
+    position: relative;
 }
 
 .calender-flame .field-title {
-    border-right: 2px solid #c5c5c5;
+    /* border-right: 2px solid #c5c5c5; */
     width: 20%;
     white-space: normal;
+    position: relative;
+    padding-right: 23px;
+    background-color: #fff;
+    /* z-index: 0; */
+}
+
+.calender-data .field-title::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 25px;
+    height: 100%;
+    background-color: #eee;
+    /* border-left: 2px solid #c5c5c5; */
+    top: 0;
+    right: 0;
+    /* z-index: 0; */
+}
+
+.calender-flame .calender-head {
+    /* z-index: 1; */
+}
+
+.calender-flame .calender-head .field-title::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 26px;
+    height: 100%;
+    background-color: #eee;
+    top: 0;
+    right: 0;
 }
 
 .calender-flame .calender-data .calhalf {
