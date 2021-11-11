@@ -643,42 +643,31 @@ class Bill extends Model
       }
     });
 
-
     return $searchTarget;
   }
 
-  public function BillEmailTemplate($id)
+  public function BillEmailTemplate($bill_id)
   {
     $result = DB::table('bills')
       ->select(DB::raw(
         "
-        LPAD(reservations.id,6,0) as reservation_id,
-        users.company as company,
-        users.email as user_email,
-        LPAD(users.id,6,0) as user_id,
-        reservations.id as reservation_id_original,
-        concat(date_format(reservations.reserve_date, '%Y/%m/%d'),
+        FORMAT(bills.master_total,0) as master_total,
+        bills.payment_limit,
+        concat(date_format(bills.payment_limit, '%Y/%m/%d'),
         case 
-        when DAYOFWEEK(reservations.reserve_date) = 1 then '(日)' 
-        when DAYOFWEEK(reservations.reserve_date) = 2 then '(月)'
-        when DAYOFWEEK(reservations.reserve_date) = 3 then '(火)'
-        when DAYOFWEEK(reservations.reserve_date) = 4 then '(水)'
-        when DAYOFWEEK(reservations.reserve_date) = 5 then '(木)'
-        when DAYOFWEEK(reservations.reserve_date) = 6 then '(金)'
-        when DAYOFWEEK(reservations.reserve_date) = 7 then '(土)'
-        end
-        ) as reserve_date,
-        time_format(reservations.enter_time, '%H:%i') as enter_time,
-        time_format(reservations.leave_time, '%H:%i') as leave_time,
-        concat(venues.name_area, venues.name_bldg, venues.name_venue) as venue_name,
-        concat(users.first_name, users.last_name) as person_name,
-        venues.smg_url as smg_url
+        when DAYOFWEEK(bills.payment_limit) = 1 then '(日)' 
+        when DAYOFWEEK(bills.payment_limit) = 2 then '(月)'
+        when DAYOFWEEK(bills.payment_limit) = 3 then '(火)'
+        when DAYOFWEEK(bills.payment_limit) = 4 then '(水)'
+        when DAYOFWEEK(bills.payment_limit) = 5 then '(木)'
+        when DAYOFWEEK(bills.payment_limit) = 6 then '(金)'
+        when DAYOFWEEK(bills.payment_limit) = 7 then '(土)'
+        end)as payment_limit,
+        bills.invoice_number
         "
       ))
-      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
-      ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
-      ->leftJoin('reservations', 'reservations.id', '=', 'bills.reservation_id')
-      ->whereRaw('bills.id = ?', [$id]);
+      ->whereRaw('bills.deleted_at is NULL')
+      ->whereRaw('bills.id = ?', [$bill_id]);
 
     return $result->first();
   }

@@ -210,8 +210,7 @@
               <td class="table-active">イベント開始時間</td>
               <td>
                 <div>
-                  <select name="event_start" id="event_start" class="form-control">
-                    <option disabled>選択してください</option>
+                  <select name="event_start" id="event_start" class="form-control" placeholder="">
                     {!!ReservationHelper::timeOptions()!!}
                   </select>
                 </div>

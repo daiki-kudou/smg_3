@@ -67,11 +67,11 @@ class SendSMGEmail
         break;
         // 【3】-3｜予約・予約完了
       case "予約完了":
-        MailForConfirmReservation::dispatch($this->user, $this->reservation, $this->venue);
+        MailForConfirmReservation::dispatch($data); //引数 配列
         break;
         // 【3】-3｜予約・予約完了
       case "ユーザーが追加予約の承認完了後、メール送信":
-        MailForBillAfterUserApproveAddBill::dispatch($this->user, $this->reservation, $this->venue);
+        MailForBillAfterUserApproveAddBill::dispatch($data); //引数 配列
         break;
         // 【3】-4｜予約・予約取消
       case "管理者が詳細画面にて予約を削除":
@@ -148,7 +148,6 @@ class SendSMGEmail
       case "退会":
         MailForUnSub::dispatch($this->user, "", "");
         break;
-
 
       default:
         break;

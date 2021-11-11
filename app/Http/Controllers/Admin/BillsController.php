@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 use App\Mail\SendUserOtherBillsApprove;
 use Illuminate\Support\Facades\Mail;
 // メール
-use App\Mail\AdminReqAddRes;
 use App\Mail\UserReqAddRes;
 use App\Mail\AdminPaid;
 use App\Mail\UserPaid;

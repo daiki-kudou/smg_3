@@ -462,30 +462,28 @@ class ReservationsController extends Controller
   {
     $data = $request->all();
 
-    $reservation = Reservation::with(['user', 'venue'])->find($data['reservation_id']);
+    $reservation = Reservation::with(['user', 'venue', 'bills'])->find($data['reservation_id']);
 
     DB::beginTransaction();
     try {
-      if (is_null($reservation)) { //削除対象がなければ
-        throw new \Exception("予約対象がないため削除に失敗しました。システム管理者にお問い合わせください");
+      if (is_null($reservation)) { //対象がなければ
+        throw new \Exception("予約対象がありません。システム管理者にお問い合わせください");
       }
       if (($reservation->user_id > 0)) { //対象がメールアドレスでなければ
         if (!filter_var($reservation->user->email, FILTER_VALIDATE_EMAIL)) {
           throw new \Exception("当該ユーザーのアドレス"  . $reservation->user->email . "は正しくありません");
         }
       }
-      // 上が全て通ったら再度foreachでメール送信処理
+      // 上が全て通ったらメール送信処理
       if ($reservation->user_id > 0) {
-        $user = $reservation->user;
-        $venue = $reservation->venue;
-        $SendSMGEmail = new SendSMGEmail($user, "test", $venue);
-        $SendSMGEmail->send("予約完了");
+        $SendSMGEmail = new SendSMGEmail();
+        $SendSMGEmail->send("予約完了", ['reservation_id' => $reservation->id, 'bill_id' => $reservation->bills->first()->id]);
       }
       // 上のメール送信も問題なければ予約確定にする
-      $reservation->bills()->first()->update(
+      $reservation->bills->first()->update(
         [
           'reservation_status' => 3,
-          'approve_send_at' => date('Y-m-d H:i:s'),
+          // 'approve_send_at' => date('Y-m-d H:i:s'),
           'cfm_at' => date('Y-m-d H:i:s'),
         ]
       ); //固定で3

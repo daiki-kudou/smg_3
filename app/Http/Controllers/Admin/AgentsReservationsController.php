@@ -200,7 +200,7 @@ class AgentsReservationsController extends Controller
       $bill->update(
         [
           'reservation_status' => 3,
-          'approve_send_at' => date('Y-m-d H:i:s'),
+          // 'approve_send_at' => date('Y-m-d H:i:s'),
           'cfm_at' => date('Y-m-d H:i:s')
         ]
       );
