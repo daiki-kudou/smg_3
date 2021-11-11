@@ -173,7 +173,7 @@ class CxlController extends Controller
     $cxl = Cxl::with(['reservation.bills', 'reservation.user', 'reservation.venue'])->find($request->cxl_id);
     $reservation_id = $cxl->reservation->id;
     try {
-      $cxl->sendCxlEmail($cxl->reservation->user, $cxl, $cxl->reservation->venue);
+      $cxl->sendCxlEmail($cxl->id);
       $cxl->updateCxlStatusByEmail(1);
       $cxl->updateReservationStatusByCxl(5);
     } catch (\Exception $e) {
@@ -193,6 +193,9 @@ class CxlController extends Controller
     } catch (\Exception $e) {
       report($e);
     }
+    $SendSMGEmail = new SendSMGEmail();
+    $SendSMGEmail->send("ユーザーがキャンセルを承認", $cxl->id);
+
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $reservation_id);
   }
@@ -394,19 +397,17 @@ class CxlController extends Controller
       ]
     );
     if ($cxl->reservation->agent_id == 0) {
-      $this->judgePaymentStatusAndSendEmail($request->paid, $cxl->reservation->user, $cxl);
+      $this->judgePaymentStatusAndSendEmail($request->paid, $cxl->reservation->id, $cxl->id);
     }
 
     return redirect(url('admin/reservations/' . $cxl->reservation->id));
   }
 
-  public function judgePaymentStatusAndSendEmail($status, $user, $cxl)
+  public function judgePaymentStatusAndSendEmail($status, $reservation, $cxl_id)
   {
     if ($status == 1) {
-      $reservation = $cxl;
-      $venue = $cxl->reservation->venue;
-      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
-      $SendSMGEmail->send("キャンセル料入金確認完了");
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->send("キャンセル料入金確認完了", ['reservation_id' => $reservation, 'cxl_id' => $cxl_id]);
     }
   }
 }

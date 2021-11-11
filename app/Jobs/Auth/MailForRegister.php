@@ -7,7 +7,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\AdminReqLeg;
 use App\Mail\UserReqLeg;
 use Mail;
 
@@ -35,11 +34,6 @@ class MailForRegister implements ShouldQueue
    */
   public function handle()
   {
-    // $admin = config('app.admin_email');
-    // Mail::to($admin)
-    //   ->send(new AdminReqLeg(
-    //     $this->user,
-    //   ));
     Mail::to($this->params['result']->email)
       ->send(new UserReqLeg(
         $this->params,
@@ -54,9 +48,5 @@ class MailForRegister implements ShouldQueue
    */
   public function failed($exception)
   {
-    // メール自体は送信できる
-    // 失敗用の文面を用意する必要あり
-    // $admin = config('app.admin_email');
-    // Mail::to($admin)->send(new AdminFinDblChk([(string)$exception]));
   }
 }

@@ -7,7 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\AdminCxlPaid;
+use App\Models\Reservation;
+use App\Models\Cxl;
 use App\Mail\UserCxlPaid;
 use Mail;
 
@@ -15,20 +16,16 @@ class MailForUserAfterCheckCxlPaid implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  public $user;
-  public $reservation;
-  public $venue;
+  public $data;
 
   /**
    * Create a new job instance.
    *
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($data)
   {
-    $this->user = $user;
-    $this->reservation = $reservation;
-    $this->venue = $venue;
+    $this->data = $data;
   }
 
   /**
@@ -39,18 +36,27 @@ class MailForUserAfterCheckCxlPaid implements ShouldQueue
   public function handle()
   {
     $admin = config('app.admin_email');
-    Mail::to($admin)
-      ->send(new AdminCxlPaid(
-        $this->user,
-        $this->reservation,
-        $this->venue
-      ));
-    Mail::to($this->user->email)
+    $reservation_data = $this->adjustReservationData();
+    $cxl_data = $this->adjustCxlData();
+    $subject = "【会議室お支払｜[売上請求情報：キャンセル]：" . $reservation_data->reservation_id . "】入金完了のお知らせ（SMG貸し会議室）";
+    Mail::to($reservation_data->user_email)
       ->send(new UserCxlPaid(
-        $this->user,
-        $this->reservation,
-        $this->venue
+        $reservation_data,
+        $cxl_data,
+        $subject
       ));
+  }
+
+  public function adjustReservationData()
+  {
+    $reservation = new Reservation();
+    return $reservation->ReservationEmailTemplate($this->data['reservation_id']);
+  }
+
+  public function adjustCxlData()
+  {
+    $cxl = new Cxl;
+    return $cxl->CxlEmailTemplate($this->data['cxl_id']);
   }
 
   /**
@@ -61,9 +67,5 @@ class MailForUserAfterCheckCxlPaid implements ShouldQueue
    */
   public function failed($exception)
   {
-    // メール自体は送信できる
-    // 失敗用の文面を用意する必要あり
-    // $admin = config('app.admin_email');
-    // Mail::to($admin)->send(new AdminFinDblChk([(string)$exception]));
   }
 }

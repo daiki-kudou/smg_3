@@ -1,7 +1,6 @@
 @extends('layouts.admin.app')
 @section('content')
 
-
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/reservation/validation.js') }}"></script>
@@ -727,6 +726,7 @@
                     }}
                     @csrf
                     {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id) }}
+                    {{ Form::hidden('bill_or_add_bill', "会場予約") }}
                     <div class="text-right billdetails_content pb-0">
                       <input type="checkbox" class="paid_edit_m" id="{{ 'paid_edit_m' . $reservation->bills->sortBy("
                         id")->first()->id }}">
@@ -1092,6 +1092,7 @@
                     'payment_info2']) }}
                     @csrf
                     {{ Form::hidden('bill_id', $other_bill->id) }}
+                    {{ Form::hidden('bill_or_add_bill', "追加請求") }}
                     <div class="text-right billdetails_content pb-0">
                       <input type="checkbox" class="paid_edit_m" id="{{ 'paid_edit_m' . $other_bill->id }}">
                       <label for="{{ 'paid_edit_m' . $other_bill->id }}">編集する</label>
@@ -1501,7 +1502,6 @@
                     'payment_info3']) }}
                     @csrf
                     {{ Form::hidden('cxl_id', $cxl->id) }}
-
                     <div class="text-right billdetails_content pb-0">
                       <input type="checkbox" class="cxl_paid_edit_m" id="{{ 'cxl_paid_edit_m' . $cxl->id }}">
                       <label for="{{ 'cxl_paid_edit_m' . $cxl->id }}">編集する</label>

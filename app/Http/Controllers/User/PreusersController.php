@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 // メール送信用
-use App\Mail\AdminReqLeg;
 use App\Mail\UserReqLeg;
 use App\Models\Preuser;
 use App\Models\User;

@@ -1,6 +1,7 @@
 @extends('layouts.admin.app')
 @section('content')
 
+
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
@@ -190,7 +191,7 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @if ($value['board_flag']==1)
+                @if ($value['board_flag']==1&&!empty($value['event_start']))
                 <option value="" disabled>選択してください</option>
                 {!!ReservationHelper::timeOptionsWithRequestAndLimit($value['event_start'],$value['enter_time'],$value['leave_time'])!!}
                 @else
@@ -206,7 +207,7 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @if ($value['board_flag']==1)
+                @if ($value['board_flag']==1&&!empty($value['event_finish']))
                 <option value="" disabled>選択してください</option>
                 {!!ReservationHelper::timeOptionsWithRequestAndLimit($value['event_finish'],$value['enter_time'],$value['leave_time'])!!}
                 @else

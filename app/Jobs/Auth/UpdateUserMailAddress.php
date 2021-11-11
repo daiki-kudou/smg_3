@@ -53,9 +53,5 @@ class UpdateUserMailAddress implements ShouldQueue
    */
   public function failed($exception)
   {
-    // メール自体は送信できる
-    // 失敗用の文面を用意する必要あり
-    // $admin = config('app.admin_email');
-    // Mail::to($admin)->send(new AdminFinDblChk([(string)$exception]));
   }
 }

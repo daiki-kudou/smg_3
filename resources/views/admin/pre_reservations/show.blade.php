@@ -30,7 +30,7 @@
     <div class="col-12 mb-2">
       {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>''])}}
       @csrf
-      {{Form::hidden("destroy".$pre_reservation->id, $pre_reservation->id)}}
+      {{Form::hidden("delete_target", json_encode([$pre_reservation->id]))}}
       {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
       {{ Form::close() }}
     </div>

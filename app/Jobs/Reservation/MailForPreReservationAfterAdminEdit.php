@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\AdminFinPreRes;
+use App\Models\PreReservation;
 use App\Mail\UserFinPreRes;
 use Mail;
 
@@ -15,20 +15,16 @@ class MailForPreReservationAfterAdminEdit implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  public $user;
-  public $reservation;
-  public $venue;
+  public $id;
 
   /**
    * Create a new job instance.
-   *
+   * @param int $id id番号
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($id)
   {
-    $this->user = $user;
-    $this->reservation = $reservation;
-    $this->venue = $venue;
+    $this->id = $id;
   }
 
   /**
@@ -39,18 +35,20 @@ class MailForPreReservationAfterAdminEdit implements ShouldQueue
   public function handle()
   {
     $admin = config('app.admin_email');
-    Mail::to($admin)
-      ->send(new AdminFinPreRes(
-        $this->user,
-        $this->reservation,
-        $this->venue
-      ));
-    Mail::to($this->user->email)
+    $data = $this->adjustData();
+    $subject = "【仮押え：" . $data->pre_reservation_id . "】予約申込み手続きのお願い（SMG貸し会議室）";
+    Mail::to($data->user_email)
+      ->cc($admin)
       ->send(new UserFinPreRes(
-        $this->user,
-        $this->reservation,
-        $this->venue
+        $data,
+        $subject
       ));
+  }
+
+  public function adjustData()
+  {
+    $pre_reservation = new PreReservation();
+    return $pre_reservation->PreReservationEmailTemplate($this->id);
   }
 
   /**
@@ -61,9 +59,5 @@ class MailForPreReservationAfterAdminEdit implements ShouldQueue
    */
   public function failed($exception)
   {
-    // メール自体は送信できる
-    // 失敗用の文面を用意する必要あり
-    // $admin = config('app.admin_email');
-    // Mail::to($admin)->send(new AdminFinDblChk([(string)$exception]));
   }
 }

@@ -14,14 +14,10 @@ use Illuminate\Support\Facades\Auth;
 use Session;
 
 use Illuminate\Support\Facades\Mail;
-use App\Mail\AdminReqRes;
 use App\Mail\UserReqRes;
 use Carbon\Carbon;
 use App\Service\SendSMGEmail;
 use App\Http\Helpers\ReservationHelper;
-
-
-
 
 
 class ReservationsController extends Controller
@@ -203,10 +199,9 @@ class ReservationsController extends Controller
         $result_bill = $bill->BillStore($result_reservation->id, $value[0], $reservation_status = 1, $double_check_status = 0, $category = 1, $admin_judge = 2);
         $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $value[0]);
         // メール送付
-        $reservation = $result_reservation;
         $venue = Venue::find($reservation->venue_id);
-        $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
-        $SendSMGEmail->send("ユーザーからの予約依頼受付");
+        $SendSMGEmail = new SendSMGEmail();
+        $SendSMGEmail->send("ユーザーからの予約依頼受付", ['reservation_id' => $result_reservation->id, 'bill_id' => $result_bill->id]);
       }
       DB::commit();
     } catch (\Exception $e) {

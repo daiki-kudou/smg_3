@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\AdminCxlChck;
+use App\Models\Cxl;
 use App\Mail\UserCxlChck;
 use Mail;
 
@@ -15,20 +15,16 @@ class MailForUserCxlAfterDblCheck implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  public $user;
-  public $reservation;
-  public $venue;
+  public $cxl_id;
 
   /**
    * Create a new job instance.
    *
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($cxl_id)
   {
-    $this->user = $user;
-    $this->reservation = $reservation;
-    $this->venue = $venue;
+    $this->cxl_id = $cxl_id;
   }
 
   /**
@@ -39,18 +35,19 @@ class MailForUserCxlAfterDblCheck implements ShouldQueue
   public function handle()
   {
     $admin = config('app.admin_email');
-    Mail::to($admin)
-      ->send(new AdminCxlChck(
-        $this->user,
-        $this->reservation,
-        $this->venue
-      ));
-    Mail::to($this->user->email)
+    $cxl_data = $this->adjustCxlData();
+    $subject = "【会議室｜キャンセル：" . $cxl_data->reservation_id . "】承認手続きのお願い（SMG貸し会議室）";
+    Mail::to($cxl_data->user_email)
       ->send(new UserCxlChck(
-        $this->user,
-        $this->reservation,
-        $this->venue
+        $cxl_data,
+        $subject,
       ));
+  }
+
+  public function adjustCxlData()
+  {
+    $cxl = new Cxl();
+    return $cxl->CxlEmailTemplate($this->cxl_id);
   }
 
   /**
@@ -61,9 +58,5 @@ class MailForUserCxlAfterDblCheck implements ShouldQueue
    */
   public function failed($exception)
   {
-    // メール自体は送信できる
-    // 失敗用の文面を用意する必要あり
-    // $admin = config('app.admin_email');
-    // Mail::to($admin)->send(new AdminFinDblChk([(string)$exception]));
   }
 }

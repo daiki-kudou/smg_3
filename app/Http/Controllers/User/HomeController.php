@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 
 use App\Mail\ConfirmReservationByUser;
 use App\Mail\ConfirmToAdmin;
-use App\Mail\AdminFinAddRes;
 use App\Mail\UserFinAddRes;
 use App\Mail\ResetEmail;
 use App\Mail\AdminUnSub;
@@ -68,16 +67,14 @@ class HomeController extends Controller
   public function updateStatus(Request $request, $id)
   {
     return DB::transaction(function () use ($request, $id) {
-      $reservation = Reservation::with(['user', 'venue'])->find($id);
-      $reservation->bills()->first()->update([
+      $reservation = Reservation::with(['user', 'venue', 'bills'])->find($id);
+      $reservation->bills->first()->update([
         'reservation_status' => $request->update_status,
         'cfm_at' => date('Y-m-d H:i:s'),
       ]);
       // // ユーザーに予約完了メール送信
-      $user = $reservation->user;
-      $venue = $reservation->venue;
-      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
-      $SendSMGEmail->send("予約完了");
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->send("予約完了", ['reservation_id' => $reservation->id, 'bill_id' => $reservation->bills->first()->id]);
 
       $request->session()->regenerate();
       return redirect()->route('user.home.index');
@@ -171,12 +168,8 @@ class HomeController extends Controller
       $cxl->reservation->bills->map(function ($item, $key) {
         $item->update(["reservation_status" => 6]);
       });
-
-      $user = $cxl->reservation->user;
-      $reservation = $cxl;
-      $venue = $cxl->reservation->venue;
-      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
-      $SendSMGEmail->send("ユーザーがキャンセルを承認");
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->send("ユーザーがキャンセルを承認", $cxl->id);
     } else {
       $bill = Bill::find($cxl->bill_id);
       $bill->update(["reservation_status" => 6]);
@@ -192,11 +185,8 @@ class HomeController extends Controller
       'cfm_at' => date('Y-m-d H:i:s'),
     ]);
 
-    $user = User::find($bill->reservation->user->id);
-    $reservation = $bill;
-    $venue = $bill->reservation->venue;
-    $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
-    $SendSMGEmail->send("ユーザーが追加予約の承認完了後、メール送信");
+    $SendSMGEmail = new SendSMGEmail();
+    $SendSMGEmail->send("ユーザーが追加予約の承認完了後、メール送信", ['reservation_id' => $bill->reservation->id, 'bill_id' => $bill->id]);
 
     $flash_message = "追加予約を受け付けました";
     $request->session()->regenerate();

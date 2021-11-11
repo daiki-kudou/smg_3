@@ -16,11 +16,11 @@ class UserReqRes extends Mailable
    *
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($data, $subject, $master_total)
   {
-    $this->user = $user;
-    $this->reservation = $reservation;
-    $this->venue = $venue;
+    $this->data = $data;
+    $this->subject = $subject;
+    $this->master_total = $master_total;
   }
 
   /**
@@ -31,12 +31,17 @@ class UserReqRes extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userReqRes')
-      ->subject('【SMGアクセア貸し会議室】　予約申込受付のお知らせ')->with(
-        [
-          'user' => $this->user,
-          'reservation' => $this->reservation,
-          'venue' => $this->venue,
-        ]
-      );
+      ->subject($this->subject)
+      ->with([
+        'company' => $this->data->company,
+        'reservation_id' => $this->data->reservation_id,
+        'reserve_date' => $this->data->reserve_date,
+        'user_id' => $this->data->user_id,
+        'enter_time' => $this->data->enter_time,
+        'leave_time' => $this->data->leave_time,
+        'venue_name' => $this->data->venue_name,
+        'smg_url' => $this->data->smg_url,
+        'master_total' => $this->master_total,
+      ]);
   }
 }

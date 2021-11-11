@@ -779,4 +779,67 @@ class Reservation extends Model implements PresentableInterface
     $cxl = $this->cxls->pluck('master_total')->sum();
     return $subtotal + $cxl;
   }
+
+  public function ReservationEmailTemplate($id)
+  {
+    $result = DB::table('reservations')
+      ->select(DB::raw(
+        "
+        LPAD(reservations.id,6,0) as reservation_id,
+        users.company as company,
+        users.email as user_email,
+        LPAD(reservations.user_id,6,0) as user_id,
+        reservations.id as reservation_id_original,
+        concat(date_format(reservations.reserve_date, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(reservations.reserve_date) = 1 then '(日)' 
+        when DAYOFWEEK(reservations.reserve_date) = 2 then '(月)'
+        when DAYOFWEEK(reservations.reserve_date) = 3 then '(火)'
+        when DAYOFWEEK(reservations.reserve_date) = 4 then '(水)'
+        when DAYOFWEEK(reservations.reserve_date) = 5 then '(木)'
+        when DAYOFWEEK(reservations.reserve_date) = 6 then '(金)'
+        when DAYOFWEEK(reservations.reserve_date) = 7 then '(土)'
+        end
+        ) as reserve_date,
+        time_format(reservations.enter_time, '%H:%i') as enter_time,
+        time_format(reservations.leave_time, '%H:%i') as leave_time,
+        concat(venues.name_area, venues.name_bldg, venues.name_venue) as venue_name,
+        concat(users.first_name, users.last_name) as person_name,
+        venues.smg_url as smg_url,
+        reservations.in_charge as in_charge,
+        reservations.tel as tel,
+        reservations.price_system as price_system,
+        reservations.board_flag as board_flag,
+        time_format(reservations.event_start, '%H:%i') as event_start,
+        time_format(reservations.event_finish, '%H:%i') as event_finish,
+        reservations.event_name1 as event_name1,
+        reservations.event_name2 as event_name2,
+        reservations.event_owner as event_owner,
+        reservations.eat_in as eat_in,
+        reservations.eat_in_prepare as eat_in_prepare,
+        reservations.luggage_flag as luggage_flag,
+        reservations.luggage_price as luggage_price,
+        reservations.luggage_count as luggage_count,
+        concat(date_format(reservations.luggage_arrive, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(reservations.luggage_arrive) = 1 then '(日)' 
+        when DAYOFWEEK(reservations.luggage_arrive) = 2 then '(月)'
+        when DAYOFWEEK(reservations.luggage_arrive) = 3 then '(火)'
+        when DAYOFWEEK(reservations.luggage_arrive) = 4 then '(水)'
+        when DAYOFWEEK(reservations.luggage_arrive) = 5 then '(木)'
+        when DAYOFWEEK(reservations.luggage_arrive) = 6 then '(金)'
+        when DAYOFWEEK(reservations.luggage_arrive) = 7 then '(土)'
+        end
+        ) as luggage_arrive,
+        reservations.luggage_return as luggage_return,
+        reservations.admin_details as admin_details
+        "
+      ))
+      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
+      ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
+      ->whereRaw('reservations.deleted_at is NULL')
+      ->whereRaw('reservations.id = ?', [$id]);
+
+    return $result->first();
+  }
 }

@@ -16,11 +16,10 @@ class UserFinPreRes extends Mailable
    *
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($data, $subject)
   {
-    $this->user = $user;
-    $this->reservation = $reservation;
-    $this->venue = $venue;
+    $this->data = $data;
+    $this->subject = $subject;
   }
 
   /**
@@ -31,11 +30,15 @@ class UserFinPreRes extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userFinPreRes')
-      ->subject('SMGアクセア貸し会議室 仮押えについて')
+      ->subject($this->subject)
       ->with([
-        'user' => $this->user,
-        'reservation' => $this->reservation,
-        'venue' => $this->venue,
+        'company' => $this->data->company,
+        'pre_reservation_id' => $this->data->pre_reservation_id,
+        'reserve_date' => $this->data->reserve_date,
+        'enter_time' => $this->data->enter_time,
+        'leave_time' => $this->data->leave_time,
+        'venue_name' => $this->data->venue_name,
+        'smg_url' => $this->data->smg_url
       ]);
   }
 }

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\AdminPreResCxl;
+use App\Models\PreReservation;
 use App\Mail\UserPreResCxl;
 use Mail;
 
@@ -15,20 +15,16 @@ class MailForDeletePreReservation implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  public $user;
-  public $reservation;
-  public $venue;
+  public $id;
 
   /**
    * Create a new job instance.
    *
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($id)
   {
-    $this->user = $user;
-    $this->reservation = $reservation;
-    $this->venue = $venue;
+    $this->id = $id;
   }
 
   /**
@@ -39,19 +35,30 @@ class MailForDeletePreReservation implements ShouldQueue
   public function handle()
   {
     $admin = config('app.admin_email');
-    Mail::to($admin)
-      ->send(new AdminPreResCxl(
-        $this->user,
-        $this->reservation,
-        $this->venue
-      ));
-    Mail::to($this->user->email)
+    $data = $this->adjustData();
+    $subject = "【仮押え：" . $data->pre_reservation_id . "】取消しのお知らせ（SMG貸し会議室）";
+    Mail::to($data->user_email)
+      ->cc($admin)
       ->send(new UserPreResCxl(
-        $this->user,
-        $this->reservation,
-        $this->venue
+        $data,
+        $subject
       ));
+
+    $this->deleteData();
   }
+
+  public function adjustData()
+  {
+    $pre_reservation = new PreReservation();
+    return $pre_reservation->PreReservationEmailTemplate($this->id);
+  }
+
+  public function deleteData()
+  {
+    $preReservation = PreReservation::find($this->id);
+    $preReservation->delete();
+  }
+
 
   /**
    * 失敗したジョブの処理
@@ -61,9 +68,5 @@ class MailForDeletePreReservation implements ShouldQueue
    */
   public function failed($exception)
   {
-    // メール自体は送信できる
-    // 失敗用の文面を用意する必要あり
-    // $admin = config('app.admin_email');
-    // Mail::to($admin)->send(new AdminFinDblChk([(string)$exception]));
   }
 }
