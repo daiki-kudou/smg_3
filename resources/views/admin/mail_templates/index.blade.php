@@ -16,249 +16,262 @@
         <th class="btn-cell">詳細</th>
       </tr>
     </thead>
-
     <tbody>
       <tr>
-        <td rowspan="2">会員登録申込</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　会員登録について</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminReqLeg')}}" class="more_btn" target="_blank">編集</a>
-        </td>
+        <th>【1】-1｜★顧客新規登録（ﾒｰﾙｱﾄﾞﾚｽ仮登録）</th>
+        <td>会員仮登録のお知らせ（SMG貸し会議室）</td>
+        <td>ユーザー</td>
+        <td></td>
       </tr>
       <tr>
-        <td>SMGアクセア貸し会議室　会員登録について</td>
+        <th>【1】-2｜★顧客新規登録（登録完了）</th>
+        <td>会員登録完了のお知らせ（SMG貸し会議室）</td>
         <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userReqLeg')}}" class="more_btn" target="_blank">編集</a>
-        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>【1】-3｜■顧客情報・ﾒｰﾙｱﾄﾞﾚｽ変更</th>
+        <td>メールアドレス変更のご確認（SMG貸し会議室）</td>
+        <td>ユーザー</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>【1】-4｜■顧客情報・ﾒｰﾙｱﾄﾞﾚｽ変更完了</th>
+        <td>メールアドレス変更完了のお知らせ（SMG貸し会議室）</td>
+        <td>ユーザー</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>【1】-5｜■顧客情報・ﾊﾟｽﾜｰﾄﾞ変更</th>
+        <td>パスワード変更のご確認（SMG貸し会議室）</td>
+        <td>ユーザー</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>【1】-6｜■顧客情報・ﾊﾟｽﾜｰﾄﾞ変更完了</th>
+        <td>パスワード変更完了のお知らせ（SMG貸し会議室）</td>
+        <td>ユーザー</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>【1】-7｜▼顧客情報・退会完了</th>
+        <td>会員退会完了のお知らせ（SMG貸し会議室）</td>
+        <td>ユーザー</td>
+        <td></td>
       </tr>
     </tbody>
+  </table>
 
-
+  <table class="table table-bordered mt-5 mail_template">
+    <thead>
+      <tr class="table_row">
+        <th width="30%">配信タイミング</th>
+        <th>件名</th>
+        <th>送付先</th>
+        <th class="btn-cell">詳細</th>
+      </tr>
+    </thead>
     <tbody>
       <tr>
-        <td rowspan="2">会員登録完了</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　会員登録完了について</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminFinLeg')}}" class="more_btn" target="_blank">編集</a>
-        </td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　会員登録完了について</td>
-        <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userFinLeg')}}" class="more_btn" target="_blank">編集</a>
-        </td>
-      </tr>
-    </tbody>
-
-
-    <tbody>
-      <tr>
-        <td rowspan="2">管理者仮押え完了及びユーザーへ編集権限譲渡</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　仮押えについて</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminFinPreRes')}}" class="more_btn"
-            target="_blank">編集</a>
-        </td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　仮押えについて</td>
-        <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userFinPreRes')}}" class="more_btn" target="_blank">編集</a>
-        </td>
-      </tr>
-    </tbody>
-
-
-    <tbody>
-      <tr>
-        <td rowspan="2">管理者主導仮押えから本予約切り替え（ユーザー承認）</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　予約完了のお知らせ</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminPreResToRes')}}" class="more_btn"
-            target="_blank">編集</a>
-        </td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　予約完了のお知らせ</td>
-        <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userPreResToRes')}}" class="more_btn"
-            target="_blank">編集</a>
-        </td>
-      </tr>
-    </tbody>
-
-
-    <tbody>
-      <tr>
-        <td rowspan="2">管理者ダブルチェック完了、ユーザーへ予約承認依頼送付</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　予約承認のお願い</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminFinDblChk')}}" class="more_btn"
-            target="_blank">編集</a>
-        </td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　予約承認のお願い</td>
-        <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userFinDblChk')}}" class="more_btn" target="_blank">編集</a>
-        </td>
-      </tr>
-    </tbody>
-
-    <tbody>
-      <tr>
-        <td rowspan="2">予約内容追加</td>
-        <td>【管理者通知】追加の備品・サービス（その他）を受け付けました</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminReqAddRes')}}" class="more_btn"
-            target="_blank">編集</a></td>
-      </tr>
-      <tr>
-        <td>追加の備品・サービス（その他）を受け付けました</td>
-        <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userReqAddRes')}}" class="more_btn" target="_blank">編集</a>
-        </td>
-      </tr>
-    </tbody>
-
-    <tbody>
-      <tr>
-        <td rowspan="2">追加予約受付完了</td>
-        <td>【管理者通知】追加の備品・サービス（その他）予約完了のお知らせ</td>
-        <td>管理者</td>
+        <th>【2】-1｜仮押え・承認依頼</th>
+        <td>【仮押え：［仮押ID］】予約申込み手続きのお願い（SMG貸し会議室）</td>
+        <td>ユーザー・管理者</td>
         <td>
-          <a href="{{url('/admin/maileclipse/templates/edit/adminFinAddRes')}}" class="more_btn">
-            編集
+          <a target="_blank" class="btn more_btn" href="{{ url('/admin/maileclipse/mailables/view/UserFinPreRes') }}">
+            詳細
           </a>
         </td>
       </tr>
       <tr>
-        <td>追加の備品・サービス（その他）予約完了のお知らせ</td>
-        <td>ユーザー</td>
+        <th>【2】-2｜仮押え・取消し</th>
+        <td>【仮押え：［仮押ID］】取消しのお知らせ（SMG貸し会議室）</td>
+        <td>ユーザー・管理者</td>
         <td>
-          <a href="{{url('/admin/maileclipse/templates/edit/userFinAddRes')}}" class="more_btn">
-            編集
+          <a target="_blank" class="btn more_btn" href="{{ url('/admin/maileclipse/mailables/view/UserPreResCxl') }}">
+            詳細
           </a>
         </td>
       </tr>
     </tbody>
+  </table>
 
+  <table class="table table-bordered mt-5 mail_template">
+    <thead>
+      <tr class="table_row">
+        <th width="30%">配信タイミング</th>
+        <th>件名</th>
+        <th>送付先</th>
+        <th class="btn-cell">詳細</th>
+      </tr>
+    </thead>
     <tbody>
       <tr>
-        <td rowspan="2">Web予約</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　予約申込受付のお知らせ</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminReqRes')}}" class="more_btn" target="_blank">編集</a>
+        <th>【3】-1｜予約受付完了</th>
+        <td>【会議室｜[予約情報：カテゴリ]：[予約ID]】予約申込みを受付しました（SMG貸し会議室）</td>
+        <td>ユーザー・管理者</td>
+        <td>
+          <div class="mb-3">
+            <a target="_blank" class="btn more_btn"
+              href="{{ url('/admin/maileclipse/mailables/view/UserPreResToRes') }}">
+              詳細（仮押え）
+            </a>
+          </div>
+          <div>
+            <a target="_blank" class="btn more_btn" href="{{ url('/admin/maileclipse/mailables/view/UserReqAddRes') }}">
+              詳細（予約）
+            </a>
+          </div>
         </td>
       </tr>
       <tr>
-        <td>SMGアクセア貸し会議室　予約申込受付のお知らせ</td>
+        <th>【3】-2｜予約・承認依頼（追加請求含）</th>
+        <td>【会議室｜[予約情報：カテゴリ]：[予約ID]】承認手続きのお願い（SMG貸し会議室）</td>
         <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userReqRes')}}" class="more_btn" target="_blank">編集</a>
+        <td>
+          <div class="mb-3">
+            <a target="_blank" class="btn more_btn" href="{{ url('/admin/maileclipse/mailables/view/UserFinDblChk') }}">
+              詳細（会場予約）
+            </a>
+          </div>
+          <div>
+            <a target="_blank" class="btn more_btn" href="{{ url('/admin/maileclipse/mailables/view/UserFinDblChk') }}">
+              詳細（追加請求）
+            </a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>【3】-3｜予約・予約完了</th>
+        <td>【会議室｜[予約情報：カテゴリ]：[予約ID]】予約完了/お支払のお知らせ（SMG貸し会議室）</td>
+        <td>ユーザー・管理者</td>
+        <td>
+          <div class="mb-3">
+            <a target="_blank" class="btn more_btn" href="{{ url('/admin/maileclipse/mailables/view/UserFinRes') }}">
+              詳細（会場予約）
+            </a>
+          </div>
+          <div>
+            <a target="_blank" class="btn more_btn" href="{{ url('/admin/maileclipse/mailables/view/UserFinAddRes') }}">
+              詳細（追加請求）
+            </a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>【3】-4｜予約・予約取消</th>
+        <td>【会議室｜[予約情報：カテゴリ]：[予約ID]】予約申込み取消しのお知らせ（SMG貸し会議室）</td>
+        <td>ユーザー・管理者</td>
+        <td>
+          <a target="_blank" class="btn more_btn" href="{{ url('/admin/maileclipse/mailables/view/UserDelRes') }}">
+            詳細
+          </a>
         </td>
       </tr>
     </tbody>
+  </table>
 
-
+  <table class="table table-bordered mt-5 mail_template">
+    <thead>
+      <tr class="table_row">
+        <th width="30%">配信タイミング</th>
+        <th>件名</th>
+        <th>送付先</th>
+        <th class="btn-cell">詳細</th>
+      </tr>
+    </thead>
     <tbody>
       <tr>
-        <td rowspan="2">Web予約完了</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　予約完了のお知らせ</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminFinRes')}}" class="more_btn" target="_blank">編集</a>
+        <th>【4】-1｜キャンセル・承認依頼</th>
+        <td>【会議室｜キャンセル：[予約ID]】承認手続きのお願い（SMG貸し会議室）</td>
+        <td>ユーザー</td>
+        <td>
+          <a target="_blank" class="btn more_btn" href="{{ url('/admin/maileclipse/mailables/view/UserCxlChck') }}">
+            詳細
+          </a>
         </td>
       </tr>
       <tr>
-        <td>SMGアクセア貸し会議室　予約完了のお知らせ</td>
-        <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userFinRes')}}" class="more_btn" target="_blank">編集</a>
+        <th>【4】-2｜キャンセル・キャンセル完了</th>
+        <td>【会議室｜キャンセル：[予約ID]】手続き完了/お支払のお知らせ（SMG貸し会議室）</td>
+        <td>ユーザー・管理者</td>
+        <td>
+          <a target="_blank" class="btn more_btn" href="{{ url('/admin/maileclipse/mailables/view/UserFinCxl') }}">
+            詳細
+          </a>
         </td>
       </tr>
     </tbody>
+  </table>
 
-
+  <table class="table table-bordered mt-5 mail_template">
+    <thead>
+      <tr class="table_row">
+        <th width="30%">配信タイミング</th>
+        <th>件名</th>
+        <th>送付先</th>
+        <th class="btn-cell">詳細</th>
+      </tr>
+    </thead>
     <tbody>
       <tr>
-        <td rowspan="2">入金完了</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　ご入金完了のお知らせ</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminPaid')}}" class="more_btn" target="_blank">編集</a>
-        </td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　ご入金完了のお知らせ</td>
+        <th>【5】-1｜入金催促（支払期日の2営業日前）</th>
+        <td>【会議室お支払｜[売上請求情報：カテゴリ]：[予約ID]】期日のお知らせ（SMG貸し会議室）</td>
         <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userPaid')}}" class="more_btn" target="_blank">編集</a></td>
-      </tr>
-    </tbody>
-
-
-
-    <tbody>
-      <tr>
-        <td rowspan="2">管理者ダブルチェック完了、ユーザーキャンセル承認送付</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　キャンセル承認のお願い</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminCxlChck')}}" class="more_btn" target="_blank">編集</a>
+        <td>
+          <a target="_blank" class="btn more_btn"
+            href="{{ url('/admin/maileclipse/mailables/view/PayDayTwoDaysLeft') }}">
+            詳細
+          </a>
         </td>
       </tr>
       <tr>
-        <td>SMGアクセア貸し会議室　キャンセル承認のお願い</td>
+        <th>【5】-2｜入金督促（支払期日の１営業日後）</th>
+        <td>【会議室お支払｜[売上請求情報：カテゴリ]：[予約ID]】期日超過のお知らせ（SMG貸し会議室）</td>
+        <td>ユーザー・管理者</td>
+        <td>
+          <a target="_blank" class="btn more_btn"
+            href="{{ url('/admin/maileclipse/mailables/view/PayDayTwoDaysLeft') }}">
+            詳細
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <th>【5】-3｜入金完了</th>
+        <td>【会議室お支払｜[売上請求情報：カテゴリ]：[予約ID]】入金完了のお知らせ（SMG貸し会議室）</td>
         <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userCxlChck')}}" class="more_btn" target="_blank">編集</a>
-        </td>
-      </tr>
-    </tbody>
-
-    <tbody>
-      <tr>
-        <td rowspan="2">キャンセル完了</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　キャンセル完了のお知らせ</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminFinCxl')}}" class="more_btn" target="_blank">編集</a>
-        </td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　キャンセル完了のお知らせ</td>
-        <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userFinCxl')}}" class="more_btn" target="_blank">編集</a>
-        </td>
-      </tr>
-    </tbody>
-
-
-    <tbody>
-      <tr>
-        <td rowspan="2">キャンセル料入金確認完了</td>
-        <td>【管理者通知】SMGアクセア貸し会議室　ご入金完了のお知らせ</td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/adminCxlPaid')}}" class="more_btn" target="_blank">編集</a>
-        </td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　ご入金完了のお知らせ</td>
-        <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userCxlPaid')}}" class="more_btn" target="_blank">編集</a>
+        <td>
+          <div class="mb-3">
+            <a target="_blank" class="btn more_btn" href="{{ url('/admin/maileclipse/mailables/view/UserPaid') }}">
+              詳細（会場・追加）
+            </a>
+          </div>
+          <div>
+            <a target="_blank" class="btn more_btn" href="{{ url('/admin/maileclipse/mailables/view/UserCxlPaid') }}">
+              詳細（キャンセル）
+            </a>
+          </div>
         </td>
       </tr>
     </tbody>
+  </table>
 
+  <table class="table table-bordered mt-5 mail_template">
+    <thead>
+      <tr class="table_row">
+        <th width="30%">配信タイミング</th>
+        <th>件名</th>
+        <th>送付先</th>
+        <th class="btn-cell">詳細</th>
+      </tr>
+    </thead>
     <tbody>
       <tr>
-        <td rowspan="2">退会</td>
-        <td>SMGアクセア貸し会議室　退会完了について </td>
-        <td>管理者</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/admiUnSub')}}" class="more_btn" target="_blank">編集</a>
-        </td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　退会完了について </td>
+        <th>【6】｜利用後のお礼</th>
+        <td>会議室ご利用の御礼（SMG貸し会議室）</td>
         <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userUnSub')}}" class="more_btn" target="_blank">編集</a>
-        </td>
+        <td></td>
       </tr>
     </tbody>
-
   </table>
 </div>
 @endsection

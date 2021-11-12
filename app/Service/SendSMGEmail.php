@@ -25,17 +25,6 @@ use App\Jobs\Auth\MailForUnSub;
 
 class SendSMGEmail
 {
-  // /**  
-  //  * 入金ステータスが1なら入金完了メールを送る    
-  //  * @param object $user ユーザーの配列データ   
-  //  * @param object $reservation 予約のオブジェクト   
-  //  * @param object $venue 会場オブジェクト   
-  //  */
-
-  // public function __construct($data)
-  // {
-  //   $this->data = $data;
-  // }
 
   public function send($condition, $data)
   {
