@@ -92,9 +92,11 @@ class RegisterController extends Controller
       ))->withInput();
     }
 
+
     DB::beginTransaction();
     try {
       $data = $request->all();
+
       $user = User::create([
         'first_name'     => $data['first_name'],
         'last_name'     => $data['last_name'],
@@ -115,8 +117,13 @@ class RegisterController extends Controller
         'pay_method' => 1,
         'pay_limit' => 1,
       ]);
-      $SendSMGEmail = new SendSMGEmail(['user' => $user]);
-      $SendSMGEmail->AuthSend("ユーザー会員登録用成功");
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->AuthSend("ユーザー会員登録用成功", [
+        'user' => $user,
+        'research' => $data['research'],
+        'suggest_input' => $data['suggest_input'],
+        'oth_input' => $data['oth_input']
+      ]);
       DB::table('preusers')->where('email', $user->email)->delete();
 
       DB::commit();

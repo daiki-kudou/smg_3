@@ -118,12 +118,13 @@ class SendSMGEmail
   public function AuthSend($condition, $data)
   {
     switch ($condition) {
+        // 【1】-1｜★顧客新規登録（ﾒｰﾙｱﾄﾞﾚｽ仮登録）
       case "ユーザー会員登録用、認証メール送信":
         MailForRegister::dispatch($data);
         break;
 
       case "ユーザー会員登録用成功":
-        MailForRegisterComplete::dispatch($this->user, $this->reservation, $this->venue);
+        MailForRegisterComplete::dispatch($data);
         break;
 
       case "退会":

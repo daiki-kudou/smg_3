@@ -14,7 +14,7 @@ class MailForRegisterComplete implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  public $params;
+  public $data;
 
   /**
    * Create a new job instance.
@@ -22,9 +22,9 @@ class MailForRegisterComplete implements ShouldQueue
    *
    * @return void
    */
-  public function __construct($params)
+  public function __construct($data)
   {
-    $this->params = $params;
+    $this->data = $data;
   }
 
   /**
@@ -34,9 +34,9 @@ class MailForRegisterComplete implements ShouldQueue
    */
   public function handle()
   {
-    Mail::to($this->params['user']->email)
+    Mail::to($this->data['user']->email)
       ->send(new UserFinLeg(
-        $this->params,
+        $this->data,
       ));
   }
 

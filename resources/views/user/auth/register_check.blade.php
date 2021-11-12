@@ -96,40 +96,9 @@
         <td>
           <ul class="radio-box">
             <li>
-              @if (!empty($request->research))
-              @switch((int)$request->research)
-              @case(1)
-              Google<br>
-              @break
-              @case(2)
-              Yahoo<br>
-              @break
-              @case(3)
-              その他<br>
-              @break
-              @case(4)
-              スマホ検索<br>
-              @break
-              @case(5)
-              ご紹介<br>
-              @break
-              @case(6)
-              メルマガ<br>
-              @break
-              @case(7)
-              看板・チラシ<br>
-              @break
-              @case(8)
-              その他<br>
-              @break
-              @default
-              @endswitch
-              @if ((int)$request->research===5)
-              {{ $request->suggest_input }}
-              @elseif((int)$request->research===8)
-              {{ $request->oth_input }}
-              @endif
-              @endif
+              {{ !empty($request->research)?$request->research:"" }}
+              {{ !empty($request->suggest_input)?$request->suggest_input:"" }}
+              {{ !empty($request->oth_input)?$request->oth_input:"" }}
             </li>
           </ul>
         </td>
