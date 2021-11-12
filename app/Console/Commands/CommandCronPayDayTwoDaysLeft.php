@@ -144,6 +144,7 @@ class CommandCronPayDayTwoDaysLeft extends Command
       ->leftJoin('cxls', 'cxls.reservation_id', '=', 'reservations.id')
       ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
       ->leftJoin('venues', 'venues.id', '=', 'reservations.venue_id')
+      ->whereRaw('reservations.deleted_at is null and bills.deleted_at is null')
       ->whereRaw($include_cxl_or_not)
       ->havingRaw('payment_limit =?', [$target_payment_limit])
       ->get();
