@@ -43,7 +43,6 @@ class CommandCronPayDayTwoDaysLeft extends Command
    */
   public function handle()
   {
-
     //キャンセルしていない予約の２営業日前抽出
     $targetPaymentLimit = $this->getSalesDate('ADD'); //addDays
     $bills = $this->masterQuery('cxls.id is null', $targetPaymentLimit);
