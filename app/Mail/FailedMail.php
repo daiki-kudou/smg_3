@@ -35,7 +35,7 @@ class FailedMail extends Mailable
         [
           'exception' => $this->exception,
           'class_name' => $this->class_name,
-          'time' => $this->user_email,
+          'time' => $this->time,
         ]
       );
   }
