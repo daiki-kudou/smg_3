@@ -288,6 +288,7 @@ class Cxl extends Model
     $result = DB::table('cxls')
       ->select(DB::raw(
         "
+          case when bills.category = 1 then '会場予約' when bills.category = 2 then '追加請求' end as category,
           users.company as company,
           LPAD(reservations.id,6,0) as reservation_id,
           LPAD(users.id,6,0) as user_id,
@@ -320,7 +321,6 @@ class Cxl extends Model
           when DAYOFWEEK(cxls.payment_limit) = 7 then '(土)'
           end
           ) as payment_limit
-
         "
       ))
       ->leftJoin('reservations', 'reservations.id', '=', 'cxls.reservation_id')

@@ -14,20 +14,16 @@ class CronPayDayTwoDaysLeft implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  public $user;
-  public $reservation;
-  public $venue;
+  public $data;
 
   /**
    * Create a new job instance.
    *
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($data)
   {
-    $this->user = $user;
-    $this->reservation = $reservation;
-    $this->venue = $venue;
+    $this->data = $data;
   }
 
   /**
@@ -37,18 +33,20 @@ class CronPayDayTwoDaysLeft implements ShouldQueue
    */
   public function handle()
   {
+    // $admin = config('app.admin_email');
+    // Mail::to($this->user->email)
+    //   ->send(new PayDayTwoDaysLeft(
+    //     $this->user,
+    //     $this->reservation,
+    //     $this->venue
+    //   ));
     $admin = config('app.admin_email');
-    Mail::to($admin)
+    $subject = "【会議室お支払｜[売上請求情報：" . $this->data['data']->category . "]：" . $this->data['data']->reservation_id . "】" . $this->data['title'] . "のお知らせ（SMG貸し会議室）";
+    Mail::to($this->data['data']->user_email)
+      ->cc($admin)
       ->send(new PayDayTwoDaysLeft(
-        $this->user,
-        $this->reservation,
-        $this->venue
-      ));
-    Mail::to($this->user->email)
-      ->send(new PayDayTwoDaysLeft(
-        $this->user,
-        $this->reservation,
-        $this->venue
+        $this->data['data'],
+        $subject
       ));
   }
 

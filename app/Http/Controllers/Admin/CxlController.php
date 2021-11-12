@@ -14,7 +14,6 @@ use App\Models\User;
 use App\Models\Reservation;
 
 use Illuminate\Support\Facades\Mail;
-use App\Mail\AdminCxlPaid;
 use App\Mail\UserCxlPaid;
 
 use Illuminate\Support\Facades\DB;

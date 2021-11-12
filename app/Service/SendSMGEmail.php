@@ -105,17 +105,14 @@ class SendSMGEmail
    * クーロン用送信dispatch
    *
    * @param string $condition
+   * @param array $data
    * @return void
    */
-  public function CronSend($condition)
+  public function CronSend($condition, $data)
   {
     switch ($condition) {
-      case "入金期日5営業日前(催促)":
-        CronForPayDayFiveDaysLeft::dispatch($this->user, $this->reservation, $this->venue);
-        break;
-
       case "入金期日2営業日前(催促)":
-        CronPayDayTwoDaysLeft::dispatch($this->user, $this->reservation, $this->venue);
+        CronPayDayTwoDaysLeft::dispatch($data);
         break;
 
       default:
