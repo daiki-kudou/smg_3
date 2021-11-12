@@ -223,10 +223,11 @@
     font-size: 25pt;
     text-align: center;
     border-bottom: 2pt solid #35A7A7;
+    /* padding-bottom: 20px; */
   }
   
   .invoice-box .information td {
-    /* padding-bottom: 10mm; */
+    padding-top: 10mm;
   }
   
   .invoice-box table tr.heading td {
@@ -352,7 +353,8 @@
   }
 
   .bill-note p:last-child {
-    white-space: pre-wrap;
+    /* white-space: pre-wrap; */
+    white-space: pre-line;
   }
   
   .button-wrap {

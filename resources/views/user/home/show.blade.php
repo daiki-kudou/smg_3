@@ -679,8 +679,8 @@
       {{ Form::close() }}
     </p>
     <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
-      TEL：06-1234-5678<br>
-      mail：test@gmail.com</p>
+      TEL：06-6556-6462<br>
+      mail：kaigi@s-mg.co.jp</p>
   </div>
   @endif
 
@@ -1010,8 +1010,8 @@
     {{ Form::close() }}
 
     <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
-      TEL：06-1234-5678<br>
-      mail：test@gmail.com</p>
+      TEL：06-6556-6462<br>
+      mail：kaigi@s-mg.co.jp</p>
   </div>
   @endif
 
@@ -1307,8 +1307,8 @@
     {{ Form::close() }}
     @endforeach
     <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
-      TEL：06-1234-5678<br>
-      mail：test@gmail.com</p>
+      TEL：06-6556-6462<br>
+      mail：kaigi@s-mg.co.jp</p>
   </div>
   @endif
 
