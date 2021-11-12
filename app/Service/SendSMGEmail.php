@@ -126,11 +126,11 @@ class SendSMGEmail
    * @param string $condition
    * @return void
    */
-  public function AuthSend($condition)
+  public function AuthSend($condition, $data)
   {
     switch ($condition) {
       case "ユーザー会員登録用、認証メール送信":
-        MailForRegister::dispatch($this->user, $this->reservation, $this->venue);
+        MailForRegister::dispatch($data);
         break;
 
       case "ユーザー会員登録用成功":
