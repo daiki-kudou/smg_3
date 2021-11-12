@@ -12,6 +12,7 @@ use App\Models\Bill;
 use App\Mail\UserFinDblChk;
 use App\Mail\FailedMail;
 use Mail;
+use Carbon\Carbon;
 
 class MailForReservationAfterDblCheck implements ShouldQueue
 {
@@ -60,8 +61,6 @@ class MailForReservationAfterDblCheck implements ShouldQueue
     return number_format($bill->master_total);
   }
 
-
-
   /**
    * 失敗したジョブの処理
    *
@@ -71,7 +70,9 @@ class MailForReservationAfterDblCheck implements ShouldQueue
   public function failed($exception)
   {
     $admin = config('app.admin_email');
+    $class_name = get_class($this);
+    $time = Carbon::now();
     Mail::to($admin)
-      ->send(new FailedMail($exception));
+      ->send(new FailedMail($exception, $class_name, $time));
   }
 }

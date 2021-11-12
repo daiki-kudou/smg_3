@@ -101,5 +101,10 @@ class MailForDeleteReservation implements ShouldQueue
    */
   public function failed($exception)
   {
+    $admin = config('app.admin_email');
+    $class_name = get_class($this);
+    $time = Carbon::now();
+    Mail::to($admin)
+      ->send(new FailedMail($exception, $class_name, $time));
   }
 }
