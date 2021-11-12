@@ -16,9 +16,11 @@ class FailedMail extends Mailable
    *
    * @return void
    */
-  public function __construct($exception)
+  public function __construct($exception, $class_name, $time)
   {
     $this->exception = $exception;
+    $this->class_name = $class_name;
+    $this->time = $time;
   }
 
   /**
@@ -32,6 +34,8 @@ class FailedMail extends Mailable
       ->subject('【管理者通知：メール送信失敗】')->with(
         [
           'exception' => $this->exception,
+          'class_name' => $this->class_name,
+          'time' => $this->user_email,
         ]
       );
   }

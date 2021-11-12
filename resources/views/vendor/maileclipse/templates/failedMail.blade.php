@@ -213,6 +213,6 @@
   </head>
 
   <body>
-<pre>メールの送信に失敗しました。<br /><br /><br /><br /><br />{{$exception}}</pre>
+<pre>以下の内容でメールの送信に失敗しました。<br />システム管理者にお問い合わせください。<br /><br />エラー対象クラス▼<br />{{$class_name}}<br /><br />エラー日時▼<br />{{$time}}<br /><br />エラー内容▼<br />{{$exception}}</pre>
 </body>
 </html>
