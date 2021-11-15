@@ -299,6 +299,7 @@ $(function () {
         },
         tel: {
           required: true,
+          number: true,
           minlength: 10,
         },
         price_system: {
@@ -328,6 +329,7 @@ $(function () {
         },
         tel: {
           required: "※必須項目です",
+          number: "※半角数字を入力してください",
           minlength: '※最低桁数は10桁です',
         },
         price_system: {
@@ -379,6 +381,7 @@ $(function () {
       tel: {
         required: true,
         minlength: 9,
+        number: true
       },
       price_system: {
         required: true,
@@ -409,6 +412,7 @@ $(function () {
       tel: {
         required: "※必須項目です",
         minlength: '※最低桁数は10桁です',
+        number: "※半角数字、ハイフンなしで入力して下さい"
       },
       price_system: {
         required: "※必須項目です",
