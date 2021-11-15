@@ -22,7 +22,6 @@ class User extends Authenticatable
   use Notifiable;
   use SoftDeletes;
 
-
   // 自作パスワードリセット
   public function sendPasswordResetNotification($token)
   {

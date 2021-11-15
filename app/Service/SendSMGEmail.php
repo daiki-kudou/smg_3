@@ -23,6 +23,7 @@ use App\Jobs\Auth\MailForRegisterComplete;
 use App\Jobs\Auth\MailForUnSub;
 use App\Jobs\Auth\UpdateUserMailAddress;
 use App\Jobs\Auth\UpdateUserMailAddressDone;
+use App\Jobs\Auth\MailForResetPasswordEmail;
 
 
 class SendSMGEmail
@@ -135,6 +136,10 @@ class SendSMGEmail
 
       case "ユーザーメール更新完了":
         UpdateUserMailAddressDone::dispatch($data);
+        break;
+
+      case "リセットパスワード":
+        MailForResetPasswordEmail::dispatch($data);
         break;
 
       case "退会":
