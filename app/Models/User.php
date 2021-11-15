@@ -8,7 +8,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use App\Notifications\CustomResetPassword; //自作
 
-
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\DB; //トランザクション用
@@ -27,8 +26,8 @@ class User extends Authenticatable
   {
     $this->notify(new CustomResetPassword($token));
   }
-  protected $dates = ['deleted_at']; //追記
 
+  protected $dates = ['deleted_at']; //追記
 
   /**
    * The attributes that are mass assignable.

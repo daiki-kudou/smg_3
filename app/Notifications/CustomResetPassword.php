@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Service\SendSMGEmail;
 
 
-
-
 class CustomResetPassword extends ResetPassword
 {
 
