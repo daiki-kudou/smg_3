@@ -156,7 +156,7 @@ ul.tagBtn li:nth-child(3) a {
 }
 
 .wrapper {
-    overflow: inherit;
+    /* overflow: inherit; */
 }
 
 .contents {
@@ -571,7 +571,7 @@ header div.contents {
     position: fixed;
     bottom: 190px;
     right: 0;
-
+    z-index: 99;
 }
 
 .cart-addbtn .link-btn3 {
@@ -744,8 +744,8 @@ header div.contents {
     } */
 
     .cart_area {
-        top: 120px;
-        right: 10px;
+        top: 310px;
+        right: 30px;
     }
     .cart-header {
         display: block;
@@ -762,7 +762,8 @@ header div.contents {
 
     .wrapper {
         position: relative;
-        overflow: inherit;
+        /* overflow: inherit; */
+        overflow: hidden;
     }
 
     .page-text {
@@ -902,5 +903,13 @@ header div.contents {
     }
     .cart-wrap {
         width: 100%;
+    }
+
+    .table-sum .checkbox-txt {
+        font-size: 1.5rem;
+    }
+
+    .sumText {
+        font-size: 1.8rem;
     }
 }
