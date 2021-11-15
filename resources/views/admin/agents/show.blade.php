@@ -206,7 +206,7 @@
   <div class="text-right">
     {{ Form::model($agent, ['route' => ['admin.agents.destroy', $agent->id], 'method' => 'delete']) }}
     @csrf
-    {{ Form::submit('削除する', ['class' => 'btn more_btn4 del_btn']) }}
+    {{ Form::submit('削除する', ['class' => 'btn more_btn4 del_btn confirm_delete']) }}
     {{ Form::close() }}
   </div>
 

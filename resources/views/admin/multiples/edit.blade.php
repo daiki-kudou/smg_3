@@ -609,7 +609,7 @@
       'id'=>''])}}
       @csrf
       {{ Form::hidden('delete_target', "") }}
-      {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
+      {{ Form::submit('削除', ['class' => 'btn more_btn4 confirm_delete','id'=>'confirm_destroy']) }}
       {{ Form::close() }}
     </li>
   </ul>

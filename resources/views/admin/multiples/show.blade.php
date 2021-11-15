@@ -36,7 +36,7 @@
     {{Form::open(['url' => '/admin/multiples/destroy', 'method' => 'delete'])}}
     @csrf
     {{Form::hidden('delete_target', "[".$multiple->id."]")}}
-    {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
+    {{ Form::submit('削除', ['class' => 'btn more_btn4 confirm_delete']) }}
     {{ Form::close() }}
   </div>
 
