@@ -316,11 +316,11 @@ $(function () {
         },
         luggage_count: {
           number: true,
-          range: [1, 49],
+          range: [0, 49],
         },
         luggage_return: {
           number: true,
-          range: [1, 49],
+          range: [0, 49],
         },
       },
       messages: {

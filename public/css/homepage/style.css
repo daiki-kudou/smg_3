@@ -525,7 +525,7 @@ form table td .text6 {
 
 .cart-header .confirm-btn,
 .cart-header .link-btn3 {
-    min-width: 170px;
+    min-width: 160px;
 }
 
 .cart-header .link-btn3 {
@@ -897,7 +897,10 @@ header div.contents {
         margin-right: 0;
     }
 
-
-
-    
+    .cart-wrap .table-sum {
+        table-layout: fixed;
+    }
+    .cart-wrap {
+        width: 100%;
+    }
 }
