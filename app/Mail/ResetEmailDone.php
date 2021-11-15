@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ResetEmail extends Mailable
+class ResetEmailDone extends Mailable
 {
   use Queueable, SerializesModels;
 
@@ -28,10 +28,10 @@ class ResetEmail extends Mailable
    */
   public function build()
   {
-    return $this->view('maileclipse::templates.resetEmail')
-      ->subject('メールアドレス変更のご確認（SMG貸し会議室）')
+    return $this->view('maileclipse::templates.resetEmailDone')
+      ->subject('メールアドレス変更完了のお知らせ（SMG貸し会議室）')
       ->with([
-        'data' => $this->data,
+        'company' => $this->data->company,
       ]);
   }
 }

@@ -7,10 +7,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\ResetEmail;
+use App\Mail\ResetEmailDone;
 use Mail;
 
-class UpdateUserMailAddress implements ShouldQueue
+class UpdateUserMailAddressDone implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -18,7 +18,7 @@ class UpdateUserMailAddress implements ShouldQueue
 
   /**
    * Create a new job instance.
-   * 形のために引数が3つあるが、実際は$userしか使っていない
+   * 
    *
    * @return void
    */
@@ -34,13 +34,8 @@ class UpdateUserMailAddress implements ShouldQueue
    */
   public function handle()
   {
-    // $admin = config('app.admin_email');
-    // Mail::to($admin)
-    //   ->send(new AdminUnSub(
-    //     $this->user,
-    //   ));
-    Mail::to($this->data['result']->new_email)
-      ->send(new ResetEmail(
+    Mail::to($this->data->email)
+      ->send(new ResetEmailDone(
         $this->data,
       ));
   }
