@@ -281,8 +281,8 @@ class HomeController extends Controller
     $user = User::with(["reservations.bills", "pre_reservations"])->find($id);
     $user->delete();
 
-    $SendSMGEmail = new SendSMGEmail($user, "", "");
-    $SendSMGEmail->AuthSend("退会");
+    $SendSMGEmail = new SendSMGEmail();
+    $SendSMGEmail->AuthSend("退会",$user);
 
     return redirect(url('/cxl_member_ship_done'));
   }

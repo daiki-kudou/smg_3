@@ -148,7 +148,7 @@ class SendSMGEmail
         break;
 
       case "退会":
-        MailForUnSub::dispatch($this->user, "", "");
+        MailForUnSub::dispatch($data);
         break;
 
       default:

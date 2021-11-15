@@ -213,6 +213,36 @@
   </head>
 
   <body>
-<pre><span data-sheets-value="{&quot;1&quot;:2,&quot;2&quot;:&quot;\&quot;件名：SMGアクセア貸し会議室　退会完了について\n\n株式会社テスト様\n\nお世話になります。\n\nSMGアクセア貸し会議室の退会が完了致しました。\n\n再度弊社サービスをご利用の場合は下記URLより、会員登録の上ご利用お願い致します。\nhttp://staging-smg2.herokuapp.com/user/login\n\n\n＊本メールはサーバーからの自動返信メールとなっております。\n本メールにご返信いただいてもご連絡致しかねますのでご了承お願い致します。\n\n何卒よろしくお願い致します。\n\n=====================\nSMGアクセア貸し会議室\nEmail：kaigi@s-mf.co.jp\nWeb：https://system.osaka-conference.com/\n電話番号：06-6538-4315\n=====================\&quot;&quot;}" data-sheets-userformat="{&quot;2&quot;:701,&quot;3&quot;:{&quot;1&quot;:0},&quot;5&quot;:{&quot;1&quot;:[{&quot;1&quot;:2,&quot;2&quot;:0,&quot;5&quot;:[null,2,0]},{&quot;1&quot;:0,&quot;2&quot;:0,&quot;3&quot;:3},{&quot;1&quot;:1,&quot;2&quot;:0,&quot;4&quot;:1}]},&quot;6&quot;:{&quot;1&quot;:[{&quot;1&quot;:2,&quot;2&quot;:0,&quot;5&quot;:[null,2,0]},{&quot;1&quot;:0,&quot;2&quot;:0,&quot;3&quot;:3},{&quot;1&quot;:1,&quot;2&quot;:0,&quot;4&quot;:1}]},&quot;7&quot;:{&quot;1&quot;:[{&quot;1&quot;:2,&quot;2&quot;:0,&quot;5&quot;:[null,2,0]},{&quot;1&quot;:0,&quot;2&quot;:0,&quot;3&quot;:3},{&quot;1&quot;:1,&quot;2&quot;:0,&quot;4&quot;:1}]},&quot;8&quot;:{&quot;1&quot;:[{&quot;1&quot;:2,&quot;2&quot;:0,&quot;5&quot;:[null,2,0]},{&quot;1&quot;:0,&quot;2&quot;:0,&quot;3&quot;:3},{&quot;1&quot;:1,&quot;2&quot;:0,&quot;4&quot;:1}]},&quot;10&quot;:1,&quot;12&quot;:0}">"件名：SMGアクセア貸し会議室　退会完了について<br /><br />株式会社テスト様<br /><br />お世話になります。<br /><br />SMGアクセア貸し会議室の退会が完了致しました。<br /><br />再度弊社サービスをご利用の場合は下記URLより、会員登録の上ご利用お願い致します。<br />http://staging-smg2.herokuapp.com/user/login<br /><br /><br />＊本メールはサーバーからの自動返信メールとなっております。<br />本メールにご返信いただいてもご連絡致しかねますのでご了承お願い致します。<br /><br />何卒よろしくお願い致します。<br /><br />=====================<br />SMGアクセア貸し会議室<br />Email：kaigi@s-mf.co.jp<br />Web：https://system.osaka-conference.com/<br />電話番号：06-6538-4315<br />====================="</span></pre>
+<pre>----------------------------------------------------------------------------------
+当メールは自動送信メールです。
+----------------------------------------------------------------------------------
+
+{{$user->company}} 様
+
+株式会社SMGです。
+
+「SMG貸し会議室」の
+会員退会手続きが完了致しました。
+
+これまでのご利用に改めて弊社一同、
+心より御礼を申し上げます。
+また機会がございましたら、
+是非ご利用をお待ちしております。
+
+ご不明な点がございましたら気軽にお問合せ下さい。
+どうぞよろしくお願い致します。
+
+----------------------------------------------------------------------------------
+※万一、本メールにお心当たりがない場合は、
+　大変お手数ですが下記署名欄の連絡先までお知らせ下さい。
+----------------------------------------------------------------------------------
+SMG貸し会議室（株式会社SMG）
+〒550-0014 
+大阪市西区北堀江1-6-2 サンワールドビル11F
+TEL: 0665566462　FAX: 0665384315
+（受付時間：平日10時～18時）
+E-mail: kaigi@s-mg.co.jp
+HP: {{url('/')}}
+----------------------------------------------------------------------------------</pre>
 </body>
 </html>
