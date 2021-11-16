@@ -16,9 +16,9 @@ class UserFinLeg extends Mailable
    *
    * @return void
    */
-  public function __construct($params)
+  public function __construct($data)
   {
-    $this->params = $params;
+    $this->data = $data;
   }
 
   /**
@@ -29,8 +29,11 @@ class UserFinLeg extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userFinLeg')
-      ->subject('【SMGアクセア貸し会議室】会員登録完了')->with(
-        ['params' => $this->params]
+      ->subject('【SMGアクセア貸し会議室】会員登録完了')
+      ->with(
+        [
+          'data' => $this->data
+        ]
       );
   }
 }

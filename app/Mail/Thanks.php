@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class AdminRemindCxl extends Mailable
+class Thanks extends Mailable
 {
   use Queueable, SerializesModels;
 
@@ -16,9 +16,10 @@ class AdminRemindCxl extends Mailable
    *
    * @return void
    */
-  public function __construct()
+  public function __construct($company, $subject)
   {
-    //
+    $this->company = $company;
+    $this->subject = $subject;
   }
 
   /**
@@ -28,6 +29,10 @@ class AdminRemindCxl extends Mailable
    */
   public function build()
   {
-    return $this->view('view.name');
+    return $this->view('maileclipse::templates.thanks')
+      ->subject($this->subject)
+      ->with([
+        'company' => $this->company,
+      ]);
   }
 }

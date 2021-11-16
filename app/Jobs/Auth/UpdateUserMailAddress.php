@@ -14,7 +14,7 @@ class UpdateUserMailAddress implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  public $params;
+  public $data;
 
   /**
    * Create a new job instance.
@@ -22,9 +22,9 @@ class UpdateUserMailAddress implements ShouldQueue
    *
    * @return void
    */
-  public function __construct($params)
+  public function __construct($data)
   {
-    $this->params = $params;
+    $this->data = $data;
   }
 
   /**
@@ -39,9 +39,9 @@ class UpdateUserMailAddress implements ShouldQueue
     //   ->send(new AdminUnSub(
     //     $this->user,
     //   ));
-    Mail::to($this->params['result']->new_email)
+    Mail::to($this->data['result']->new_email)
       ->send(new ResetEmail(
-        $this->params,
+        $this->data,
       ));
   }
 

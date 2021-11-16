@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class AdminUnSub extends Mailable
+class ResetPasswordEmailDone extends Mailable
 {
   use Queueable, SerializesModels;
 
@@ -16,9 +16,10 @@ class AdminUnSub extends Mailable
    *
    * @return void
    */
-  public function __construct($user_company)
+  public function __construct($data, $subject)
   {
-    $this->user_company = $user_company;
+    $this->data = $data;
+    $this->subject = $subject;
   }
 
   /**
@@ -28,7 +29,10 @@ class AdminUnSub extends Mailable
    */
   public function build()
   {
-    return $this->view('maileclipse::templates.admiUnSub')
-      ->subject('【管理者通知】SMGアクセア貸し会議室　退会完了について')->with(['user_company' => $this->user_company]);
+    return $this->view('maileclipse::templates.resetPasswordEmailDone')
+      ->subject($this->subject)
+      ->with([
+        'data' => $this->data,
+      ]);
   }
 }

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ConfirmToAdmin extends Mailable
+class ResetPasswordEmail extends Mailable
 {
   use Queueable, SerializesModels;
 
@@ -16,9 +16,10 @@ class ConfirmToAdmin extends Mailable
    *
    * @return void
    */
-  public function __construct($reservation)
+  public function __construct($user, $url)
   {
-    $this->reservation = $reservation;
+    $this->user = $user;
+    $this->url = $url;
   }
 
   /**
@@ -28,8 +29,11 @@ class ConfirmToAdmin extends Mailable
    */
   public function build()
   {
-    return $this->view('admin.mails.confirm_reservation')
-      ->subject('予約の承認がされました')
-      ->with(['reservation' => $this->reservation]);
+    return $this->view('maileclipse::templates.resetPasswordEmail')
+      ->subject("パスワード変更のご確認（SMG貸し会議室）")
+      ->with([
+        'company' => $this->user->company,
+        'url' => $this->url
+      ]);
   }
 }

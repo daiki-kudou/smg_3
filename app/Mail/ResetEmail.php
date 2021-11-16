@@ -16,9 +16,9 @@ class ResetEmail extends Mailable
    *
    * @return void
    */
-  public function __construct($params)
+  public function __construct($data)
   {
-    $this->params = $params;
+    $this->data = $data;
   }
 
   /**
@@ -29,9 +29,9 @@ class ResetEmail extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.resetEmail')
-      ->subject('【SMG貸し会議室】 メールアドレス変更')
+      ->subject('メールアドレス変更のご確認（SMG貸し会議室）')
       ->with([
-        'params' => $this->params,
+        'data' => $this->data,
       ]);
   }
 }

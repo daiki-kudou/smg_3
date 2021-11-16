@@ -201,6 +201,7 @@ class HomeController extends Controller
 
   public function email_reset_create(Request $request)
   {
+
     $request->validate([
       'new_email' => 'required|unique:users,email|email',
     ]);
@@ -214,8 +215,8 @@ class HomeController extends Controller
       return $email_reset;
     });
     $old_user_info = User::find($result->user_id);
-    $SendSMGEmail = new SendSMGEmail(['result' => $result, 'user' => $old_user_info]);
-    $SendSMGEmail->AuthSend("ユーザーメール更新");
+    $SendSMGEmail = new SendSMGEmail();
+    $SendSMGEmail->AuthSend("ユーザーメール更新", ['result' => $result, 'user' => $old_user_info]);
 
     return redirect(url('user/home/email_reset_send'));
   }
@@ -234,15 +235,16 @@ class HomeController extends Controller
       $user = User::find($new_email->user_id);
       $user->email = $new_email->new_email;
       $user->save();
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->AuthSend("ユーザーメール更新完了",  $user);
       // レコードを削除
       EmailReset::where('token', $token)->delete();
       Auth::logout();
       return redirect(url('email_reset_done'));
     } else {
       // レコードが存在していた場合削除
-      if ($new_email) {
-        EmailReset::where('token', $token)->delete();
-      }
+      EmailReset::where('token', $token)->delete();
+
       return redirect(url('user/email_reset_failed'));
     }
   }
@@ -280,8 +282,8 @@ class HomeController extends Controller
     $user = User::with(["reservations.bills", "pre_reservations"])->find($id);
     $user->delete();
 
-    $SendSMGEmail = new SendSMGEmail($user, "", "");
-    $SendSMGEmail->AuthSend("退会");
+    $SendSMGEmail = new SendSMGEmail();
+    $SendSMGEmail->AuthSend("退会", $user);
 
     return redirect(url('/cxl_member_ship_done'));
   }

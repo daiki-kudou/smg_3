@@ -193,9 +193,9 @@
         <td>
           <div class="form-cell">
             <p>
-                <span class="postal-p">〒</span>
-                {{ Form::text('post_code',(!empty($session['post_code'])?$session['post_code']:"")) }}
-              </p>
+              <span class="postal-p">〒</span>
+              {{ Form::text('post_code',(!empty($session['post_code'])?$session['post_code']:"")) }}
+            </p>
             <button type="button" id="post_code_search">住所検索</button>
           </div>
           <p>※半角数字、ハイフンなしで入力下さい。</p>
@@ -303,35 +303,35 @@
           <ul class="radio-box">
             <li>PC検索：
               <div>
-                {{Form::radio('research',1,!empty($session['research'])?((int)$session['research']===1?true:false):false,['id'=>'google'])}}
+                {{Form::radio('research','Google',!empty($session['research'])?((int)$session['research']===1?true:false):false,['id'=>'google'])}}
                 {{ Form::label('google','Google') }}
-                {{Form::radio('research',2,!empty($session['research'])?((int)$session['research']===2?true:false):false,['id'=>'yahoo'])}}
+                {{Form::radio('research','Yahoo',!empty($session['research'])?((int)$session['research']===2?true:false):false,['id'=>'yahoo'])}}
                 {{ Form::label('yahoo','Yahoo') }}
-                {{Form::radio('research',3,!empty($session['research'])?((int)$session['research']===3?true:false):false,['id'=>'others'])}}
+                {{Form::radio('research','その他',!empty($session['research'])?((int)$session['research']===3?true:false):false,['id'=>'others'])}}
                 {{ Form::label('others','その他') }}
               </div>
             </li>
             <li>
-              {{Form::radio('research',4,!empty($session['research'])?((int)$session['research']===4?true:false):false,['id'=>'smart_phone'])}}
+              {{Form::radio('research','スマホ検索',!empty($session['research'])?((int)$session['research']===4?true:false):false,['id'=>'smart_phone'])}}
               {{ Form::label('smart_phone','スマホ検索') }}
             </li>
             <li>
-              {{Form::radio('research',5,!empty($session['research'])?((int)$session['research']===5?true:false):false,['id'=>'suggest'])}}
+              {{Form::radio('research','ご紹介',!empty($session['research'])?((int)$session['research']===5?true:false):false,['id'=>'suggest'])}}
               {{ Form::label('suggest','ご紹介') }}
               {{
               Form::text('suggest_input',!empty($session['suggest_input'])?$session['suggest_input']:"",['placeholder'=>'入力してください','id'=>'intro'])
               }}
             </li>
             <li>
-              {{Form::radio('research',6,!empty($session['research'])?((int)$session['research']===6?true:false):false,['id'=>'mail'])}}
+              {{Form::radio('research','メルマガ',!empty($session['research'])?((int)$session['research']===6?true:false):false,['id'=>'mail'])}}
               {{ Form::label('mail','メルマガ') }}
             </li>
             <li>
-              {{Form::radio('research',7,!empty($session['research'])?((int)$session['research']===7?true:false):false,['id'=>'kanban'])}}
+              {{Form::radio('research','看板・チラシ',!empty($session['research'])?((int)$session['research']===7?true:false):false,['id'=>'kanban'])}}
               {{ Form::label('kanban','看板・チラシ') }}
             </li>
             <li>
-              {{Form::radio('research',8,!empty($session['research'])?((int)$session['research']===8?true:false):false,['id'=>'oth'])}}
+              {{Form::radio('research','その他',!empty($session['research'])?((int)$session['research']===8?true:false):false,['id'=>'oth'])}}
               {{ Form::label('oth','その他') }}
               {{
               Form::text('oth_input',!empty($session['oth_input'])?$session['oth_input']:"",['placeholder'=>'入力してください','id'=>'other'])

@@ -7,10 +7,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\UserFinLeg;
+use App\Mail\ResetEmailDone;
 use Mail;
 
-class MailForRegisterComplete implements ShouldQueue
+class UpdateUserMailAddressDone implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -18,7 +18,7 @@ class MailForRegisterComplete implements ShouldQueue
 
   /**
    * Create a new job instance.
-   * 形のために引数が3つあるが、実際は$userしか使っていない
+   * 
    *
    * @return void
    */
@@ -34,8 +34,8 @@ class MailForRegisterComplete implements ShouldQueue
    */
   public function handle()
   {
-    Mail::to($this->data['user']->email)
-      ->send(new UserFinLeg(
+    Mail::to($this->data->email)
+      ->send(new ResetEmailDone(
         $this->data,
       ));
   }

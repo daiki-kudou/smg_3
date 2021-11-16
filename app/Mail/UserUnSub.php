@@ -16,9 +16,10 @@ class UserUnSub extends Mailable
    *
    * @return void
    */
-  public function __construct($user_company)
+  public function __construct($user, $subject)
   {
-    $this->user_company = $user_company;
+    $this->user = $user;
+    $this->subject = $subject;
   }
 
   /**
@@ -29,6 +30,7 @@ class UserUnSub extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userUnSub')
-      ->subject('SMGアクセア貸し会議室　退会完了について')->with(['user_company' => $this->user_company]);
+      ->subject($this->subject)
+      ->with(['user' => $this->user]);
   }
 }

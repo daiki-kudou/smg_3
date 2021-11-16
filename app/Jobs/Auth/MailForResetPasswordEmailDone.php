@@ -7,10 +7,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\UserFinLeg;
+use App\Mail\ResetPasswordEmailDone;
 use Mail;
 
-class MailForRegisterComplete implements ShouldQueue
+class MailForResetPasswordEmailDone implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -18,7 +18,7 @@ class MailForRegisterComplete implements ShouldQueue
 
   /**
    * Create a new job instance.
-   * 形のために引数が3つあるが、実際は$userしか使っていない
+   * 
    *
    * @return void
    */
@@ -34,9 +34,11 @@ class MailForRegisterComplete implements ShouldQueue
    */
   public function handle()
   {
+    $subject = "パスワード変更完了のお知らせ（SMG貸し会議室）";
     Mail::to($this->data['user']->email)
-      ->send(new UserFinLeg(
+      ->send(new ResetPasswordEmailDone(
         $this->data,
+        $subject,
       ));
   }
 

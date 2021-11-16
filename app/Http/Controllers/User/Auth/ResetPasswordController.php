@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Auth;
+use App\Service\SendSMGEmail;
+use App\Models\User;
 
 
 class ResetPasswordController extends Controller
@@ -54,7 +56,6 @@ class ResetPasswordController extends Controller
         $this->resetPassword($user, $password);
       }
     );
-
     // If the password was successfully reset, we will redirect the user back to
     // the application's home authenticated view. If there is an error we can
     // redirect them back to where they came from with their error message.
@@ -74,8 +75,10 @@ class ResetPasswordController extends Controller
    */
   protected function sendResetResponse(Request $request, $response)
   {
+    $user = User::where('email', $request->email)->first();
+    $SendSMGEmail = new SendSMGEmail();
+    $SendSMGEmail->AuthSend("リセットパスワード完了", ['user' => $user]);
+
     return view('user.auth.passwords.reset_cfm');
-    // return redirect($this->redirectPath())
-    //   ->with('status', trans($response));
   }
 }

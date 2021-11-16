@@ -61,7 +61,6 @@
       </tr>
     </tbody>
   </table>
-
   <table class="table table-bordered mt-5 mail_template">
     <thead>
       <tr class="table_row">
@@ -94,7 +93,6 @@
       </tr>
     </tbody>
   </table>
-
   <table class="table table-bordered mt-5 mail_template">
     <thead>
       <tr class="table_row">
@@ -202,7 +200,6 @@
       </tr>
     </tbody>
   </table>
-
   <table class="table table-bordered mt-5 mail_template">
     <thead>
       <tr class="table_row">

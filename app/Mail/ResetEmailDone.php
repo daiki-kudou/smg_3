@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class CronTest extends Mailable
+class ResetEmailDone extends Mailable
 {
   use Queueable, SerializesModels;
 
@@ -16,9 +16,9 @@ class CronTest extends Mailable
    *
    * @return void
    */
-  public function __construct()
+  public function __construct($data)
   {
-    //
+    $this->data = $data;
   }
 
   /**
@@ -28,8 +28,10 @@ class CronTest extends Mailable
    */
   public function build()
   {
-
-    return $this->view('maileclipse::templates.cronTest')
-      ->subject('クーロンテスト');
+    return $this->view('maileclipse::templates.resetEmailDone')
+      ->subject('メールアドレス変更完了のお知らせ（SMG貸し会議室）')
+      ->with([
+        'company' => $this->data->company,
+      ]);
   }
 }

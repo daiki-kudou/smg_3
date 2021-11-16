@@ -16,11 +16,15 @@ use App\Jobs\Reservation\MailForUserAfterCheckCxlPaid;
 use App\Jobs\Reservation\MailForConfirmReservation;
 use App\Jobs\Reservation\MailForDeletePreReservation;
 use App\Jobs\Reservation\MailForDeleteReservation;
-use App\Jobs\Cron\CronForPayDayFiveDaysLeft;
 use App\Jobs\Cron\CronPayDayTwoDaysLeft;
+use App\Jobs\Cron\CronThanks;
 use App\Jobs\Auth\MailForRegister;
 use App\Jobs\Auth\MailForRegisterComplete;
 use App\Jobs\Auth\MailForUnSub;
+use App\Jobs\Auth\UpdateUserMailAddress;
+use App\Jobs\Auth\UpdateUserMailAddressDone;
+use App\Jobs\Auth\MailForResetPasswordEmail;
+use App\Jobs\Auth\MailForResetPasswordEmailDone;
 
 
 class SendSMGEmail
@@ -104,6 +108,10 @@ class SendSMGEmail
         CronPayDayTwoDaysLeft::dispatch($data);
         break;
 
+      case "お礼メール":
+        CronThanks::dispatch($data);
+        break;
+
       default:
         break;
     }
@@ -118,16 +126,34 @@ class SendSMGEmail
   public function AuthSend($condition, $data)
   {
     switch ($condition) {
+        // 【1】-1｜★顧客新規登録（ﾒｰﾙｱﾄﾞﾚｽ仮登録）
       case "ユーザー会員登録用、認証メール送信":
         MailForRegister::dispatch($data);
         break;
 
+        // 【1】-2｜★顧客新規登録（登録完了）
       case "ユーザー会員登録用成功":
-        MailForRegisterComplete::dispatch($this->user, $this->reservation, $this->venue);
+        MailForRegisterComplete::dispatch($data);
+        break;
+
+      case "ユーザーメール更新":
+        UpdateUserMailAddress::dispatch($data);
+        break;
+
+      case "ユーザーメール更新完了":
+        UpdateUserMailAddressDone::dispatch($data);
+        break;
+
+      case "リセットパスワード":
+        MailForResetPasswordEmail::dispatch($data);
+        break;
+
+      case "リセットパスワード完了":
+        MailForResetPasswordEmailDone::dispatch($data);
         break;
 
       case "退会":
-        MailForUnSub::dispatch($this->user, "", "");
+        MailForUnSub::dispatch($data);
         break;
 
       default:

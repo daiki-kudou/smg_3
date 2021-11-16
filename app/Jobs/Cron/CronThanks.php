@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Jobs\Auth;
+namespace App\Jobs\Cron;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\UserFinLeg;
+use App\Mail\Thanks;
 use Mail;
 
-class MailForRegisterComplete implements ShouldQueue
+class CronThanks implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -18,7 +18,6 @@ class MailForRegisterComplete implements ShouldQueue
 
   /**
    * Create a new job instance.
-   * 形のために引数が3つあるが、実際は$userしか使っていない
    *
    * @return void
    */
@@ -34,10 +33,9 @@ class MailForRegisterComplete implements ShouldQueue
    */
   public function handle()
   {
-    Mail::to($this->data['user']->email)
-      ->send(new UserFinLeg(
-        $this->data,
-      ));
+    $subject = "会議室ご利用の御礼（SMG貸し会議室）";
+    Mail::to($this->data['email'])
+      ->send(new Thanks($this->data['company'], $subject));
   }
 
   /**

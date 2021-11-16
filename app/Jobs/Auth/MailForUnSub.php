@@ -7,7 +7,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\AdminUnSub;
 use App\Mail\UserUnSub;
 use Mail;
 
@@ -16,8 +15,7 @@ class MailForUnSub implements ShouldQueue
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
   public $user;
-  public $reservation;
-  public $venue;
+
 
   /**
    * Create a new job instance.
@@ -25,7 +23,7 @@ class MailForUnSub implements ShouldQueue
    *
    * @return void
    */
-  public function __construct($user, $reservation, $venue)
+  public function __construct($user)
   {
     $this->user = $user;
   }
@@ -38,13 +36,11 @@ class MailForUnSub implements ShouldQueue
   public function handle()
   {
     $admin = config('app.admin_email');
-    Mail::to($admin)
-      ->send(new AdminUnSub(
-        $this->user,
-      ));
+    $subject = "会員退会完了のお知らせ（SMG貸し会議室）";
     Mail::to($this->user->email)
       ->send(new UserUnSub(
         $this->user,
+        $subject,
       ));
   }
 

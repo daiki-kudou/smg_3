@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
   {
     // クーロン実際の処理
     $schedule->command('command:cron_pay_day_two_days_left')->dailyAt('13:00'); //入金2営業日前　催促
+    $schedule->command('command:thanks')->dailyAt('16:00'); //入金2営業日前　催促
   }
 
   /**
