@@ -287,7 +287,7 @@
   {{ $user_id }}<br />
   <br />
   ・カテゴリ：<br />
-  [予約情報：カテゴリ]　※会場予約or 追加請求<br />
+  会場予約<br />
   <br />
   ・予約ID：<br />
   {{ $reservation_id }}<br />
@@ -340,13 +340,6 @@
   @endif
   <br /><br />
   @endif
-
-  {{-- {{ var_dump($equipment_data) }}
-  <br><br><br><br>
-  {{ var_dump($service_data) }}
-  <br><br><br><br>
-  {{ var_dump($layout_data) }}
-  <br><br><br><br> --}}
 
   @if (count($equipment_data)!==0)
   ・有料備品：<br />
