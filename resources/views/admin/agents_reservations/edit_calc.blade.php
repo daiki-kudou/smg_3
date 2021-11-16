@@ -794,7 +794,7 @@
         @endif
 
         {{-- 以下、レイアウト --}}
-        @if ((int)$layouts_details[0]!==0)
+        @if ((int)$layouts_details[2]!==0)
         <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tr>

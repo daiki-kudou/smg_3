@@ -70,22 +70,6 @@ class CxlController extends Controller
     return view('admin.cxl.multi_calculate', compact('data', 'user', 'agent', 'pay_limit'));
   }
 
-  // public function multiCalcShow(Request $request)
-  // {
-  //   $info = session()->get('cxlMaster');
-  //   $data = session()->get('cxlCalcInfo');
-  //   $result = session()->get('cxlResult');
-  //   $reservation = Reservation::with(['user', 'agent'])->find($data['reservation_id']);
-  //   $user = $reservation->user;
-  //   $agent = $reservation->agent;
-  //   if ($reservation->user_id > 0) {
-  //     $pay_limit = $user->getUserPayLimit($reservation->reserve_date);
-  //   } else {
-  //     $pay_limit = $agent->getPayDetails($reservation->reserve_date);
-  //   }
-  //   return view('admin.cxl.multi_calculate', compact('info', 'data', 'result', 'user', 'agent', 'pay_limit'));
-  // }
-
   public function multiCheck(Request $request)
   {
     // if ($request->back) {

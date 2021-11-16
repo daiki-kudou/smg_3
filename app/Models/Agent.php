@@ -165,13 +165,13 @@ class Agent extends Model implements PresentableInterface
     $date = Carbon::parse($date);
     $limit = "";
     // 1:当月末　2:翌月末　3:翌々月末
-    if ($this->payment_limit == 1) {
+    if ($this['payment_limit'] == 1) {
       $limit = $date->endOfMonth();
-    } elseif ($this->payment_limit == 2) {
+    } elseif ($this['payment_limit'] == 2) {
       $limit = $date->addMonthsNoOverflow(1);
-    } elseif ($this->payment_limit == 3) {
+    } elseif ($this['payment_limit'] == 3) {
       $limit = $date->addMonthsNoOverflow(2);
-    } elseif ($this->payment_limit == 4) {
+    } elseif ($this['payment_limit'] == 4) {
       $limit = $date->addMonthsNoOverflow(3);
     }
     $result = new Carbon($limit);
