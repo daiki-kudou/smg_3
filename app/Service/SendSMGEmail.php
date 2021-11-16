@@ -16,7 +16,6 @@ use App\Jobs\Reservation\MailForUserAfterCheckCxlPaid;
 use App\Jobs\Reservation\MailForConfirmReservation;
 use App\Jobs\Reservation\MailForDeletePreReservation;
 use App\Jobs\Reservation\MailForDeleteReservation;
-use App\Jobs\Cron\CronForPayDayFiveDaysLeft;
 use App\Jobs\Cron\CronPayDayTwoDaysLeft;
 use App\Jobs\Auth\MailForRegister;
 use App\Jobs\Auth\MailForRegisterComplete;
@@ -127,6 +126,7 @@ class SendSMGEmail
         MailForRegister::dispatch($data);
         break;
 
+        // 【1】-2｜★顧客新規登録（登録完了）
       case "ユーザー会員登録用成功":
         MailForRegisterComplete::dispatch($data);
         break;

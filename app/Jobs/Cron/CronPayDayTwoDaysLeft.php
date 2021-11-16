@@ -33,13 +33,6 @@ class CronPayDayTwoDaysLeft implements ShouldQueue
    */
   public function handle()
   {
-    // $admin = config('app.admin_email');
-    // Mail::to($this->user->email)
-    //   ->send(new PayDayTwoDaysLeft(
-    //     $this->user,
-    //     $this->reservation,
-    //     $this->venue
-    //   ));
     $admin = config('app.admin_email');
     $subject = "【会議室お支払｜[売上請求情報：" . $this->data['data']->category . "]：" . $this->data['data']->reservation_id . "】" . $this->data['title'] . "のお知らせ（SMG貸し会議室）";
     Mail::to($this->data['data']->user_email)

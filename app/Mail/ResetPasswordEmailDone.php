@@ -32,7 +32,7 @@ class ResetPasswordEmailDone extends Mailable
     return $this->view('maileclipse::templates.resetPasswordEmailDone')
       ->subject($this->subject)
       ->with([
-        'user' => $this->data['user'],
+        'data' => $this->data,
       ]);
   }
 }

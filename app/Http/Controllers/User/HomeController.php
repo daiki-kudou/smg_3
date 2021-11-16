@@ -201,6 +201,7 @@ class HomeController extends Controller
 
   public function email_reset_create(Request $request)
   {
+
     $request->validate([
       'new_email' => 'required|unique:users,email|email',
     ]);
@@ -282,7 +283,7 @@ class HomeController extends Controller
     $user->delete();
 
     $SendSMGEmail = new SendSMGEmail();
-    $SendSMGEmail->AuthSend("退会",$user);
+    $SendSMGEmail->AuthSend("退会", $user);
 
     return redirect(url('/cxl_member_ship_done'));
   }
