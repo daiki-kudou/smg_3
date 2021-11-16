@@ -524,6 +524,7 @@ class ReservationsController extends Controller
     if ($request->edit_calc) { //再計算ボタン押下
       return $this->edit_calc($data);
     }
+    // dd($data);
 
     $venue = Venue::find($data['venue_id']);
 

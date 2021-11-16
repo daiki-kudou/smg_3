@@ -156,8 +156,9 @@
             <li class="form-cell2">
               <p class="text5">{{$eqpt->item}} {{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
               <p>
-                <p class="text4" style="margin-left: 20px;">{{($request->{'equipment_breakdown'.$e_key})}}個</p>
-                {{ Form::hidden('equipment_breakdown'.$e_key, ($request->{'equipment_breakdown'.$e_key}),['class'=>'text4 mL0'] ) }}
+              <p class="text4" style="margin-left: 20px;">{{($request->{'equipment_breakdown'.$e_key})}}個</p>
+              {{ Form::hidden('equipment_breakdown'.$e_key, ($request->{'equipment_breakdown'.$e_key}),['class'=>'text4
+              mL0'] ) }}
               </p>
             </li>
             @endif
@@ -213,6 +214,8 @@
         <th>荷物預かり</th>
         <td class="spec-space">
           <div class="m-b10">
+            {{-- 荷物フラグ --}}
+            {{ Form::hidden('luggage_flag', $request->luggage_flag ) }}
             <p>【事前に預かる荷物】</p>
             <div class="">
               <p class="luggage_space">目安：{{$request->luggage_count}}個</p>
@@ -316,7 +319,8 @@
                 {{ Form::hidden('equipment_breakdown_item[]',$item_result[0])}}
                 {{ Form::hidden('equipment_breakdown_cost[]',$item_result[1])}}
                 {{ Form::hidden('equipment_breakdown_count[]', $item_result[2])}}
-                {{ Form::hidden('equipment_breakdown_subtotal[]', ReservationHelper::numTimesNum($item_result[1], $item_result[2])) }}
+                {{ Form::hidden('equipment_breakdown_subtotal[]', ReservationHelper::numTimesNum($item_result[1],
+                $item_result[2])) }}
               </li>
               @endforeach
             </ul>
@@ -337,7 +341,8 @@
               {{ Form::hidden('service_breakdown_item[]',$service_result[0])}}
               {{ Form::hidden('service_breakdown_cost[]',$service_result[1])}}
               {{ Form::hidden('service_breakdown_count[]', $service_result[2])}}
-              {{ Form::hidden('service_breakdown_subtotal[]', ReservationHelper::numTimesNum($service_result[1], $service_result[2])) }}
+              {{ Form::hidden('service_breakdown_subtotal[]', ReservationHelper::numTimesNum($service_result[1],
+              $service_result[2])) }}
               @endforeach
               @if ($request->luggage_count||$request->luggage_arrive||$request->luggage_return)
               <li>
@@ -396,9 +401,9 @@
             <p class="txtRight">
               <!-- ※上記「総額」は確定金額ではありません。<br>
             変更が生じる場合は弊社にて金額修正し、改めて確認のご連絡をさせて頂きます。<br> -->
-            ※お申込み内容によっては、弊社からご連絡の上で、合計金額が変更となる場合がございます<br>
-            ※荷物預かりサービスをご利用の場合、上記「総額」に規定のサービス料金が加算されます。<br>
-          </p>
+              ※お申込み内容によっては、弊社からご連絡の上で、合計金額が変更となる場合がございます<br>
+              ※荷物預かりサービスをご利用の場合、上記「総額」に規定のサービス料金が加算されます。<br>
+            </p>
           </td>
         </tr>
       </tbody>
