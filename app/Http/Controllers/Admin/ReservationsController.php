@@ -47,6 +47,7 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
+
     $venues = Venue::all()->toArray();
     $agents = Agent::all()->toArray();
     $data = $request->except('_token');
