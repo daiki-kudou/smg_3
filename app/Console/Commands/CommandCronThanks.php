@@ -78,7 +78,7 @@ class CommandCronThanks extends Command
       ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
       ->whereRaw('email_flag = 1')
       ->whereRaw('users.id > 0')
-      ->whereRaw("reservations.reserve_date = (DATE_FORMAT(DATE_SUB('2021-09-22', INTERVAL 1 DAY), '%Y-%m-%d'))")
+      ->whereRaw("reservations.reserve_date = (DATE_FORMAT(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), '%Y-%m-%d'))")
       ->whereRaw('reservations.deleted_at is null')
       ->groupByRaw('reservations.id')
       ->get();

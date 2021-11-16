@@ -694,7 +694,7 @@ class PreReservation extends Model
       $searchTarget->whereRaw('pre_reservations.status = ? and pre_reservations.updated_at < DATE_SUB(CURRENT_DATE(),INTERVAL ? DAY) ', [1, 3]);
     }
 
-    if (!empty($data['search_free'])) {
+    if (!empty($data['search_free']) && (int)$data['search_free'] !== 0) {
       if (preg_match('/^[0-9!,]+$/', $data['search_free'])) {
         //数字の場合検索
         $searchTarget = $searchTarget->where(function ($query) use ($data) {
