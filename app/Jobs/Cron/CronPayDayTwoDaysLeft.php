@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\PayDayTwoDaysLeft;
+use Carbon\Carbon;
 use Mail;
 
 class CronPayDayTwoDaysLeft implements ShouldQueue
@@ -51,10 +52,10 @@ class CronPayDayTwoDaysLeft implements ShouldQueue
    */
   public function failed($exception)
   {
-    $admin = config('app.admin_email');
-    $class_name = get_class($this);
-    $time = Carbon::now();
-    Mail::to($admin)
-      ->send(new FailedMail($exception, $class_name, $time));
+    // $admin = config('app.admin_email');
+    // $class_name = get_class($this);
+    // $time = Carbon::now();
+    // Mail::to($admin)
+    //   ->send(new FailedMail($exception, $class_name, $time));
   }
 }
