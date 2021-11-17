@@ -236,7 +236,6 @@ class AgentsReservationsController extends Controller
   public function editCheck(Request $request)
   {
     $data = $request->all();
-    // dd($data);
     if ($request->edit_calc) { //再計算ボタン押下
       return $this->edit_calc($data);
     }
@@ -253,6 +252,7 @@ class AgentsReservationsController extends Controller
   public function edit_calc($array)
   {
     $data = $array;
+    dump($data);
     // dd($data);
     $venue = Venue::find($data['venue_id']);
     $agents = Agent::all();
@@ -262,6 +262,8 @@ class AgentsReservationsController extends Controller
     } else {
       $layout_price = [0, 0, 0];
     }
+    dump($layout_price);
+
     $master_subtotal = $agent->agentPriceCalculate($data['end_user_charge']) + $layout_price[2];
     $payment_limit = $agent->getAgentPayLimit($data['reserve_date']);
 

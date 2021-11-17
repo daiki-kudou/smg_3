@@ -487,7 +487,7 @@ class Reservation extends Model implements PresentableInterface
 
     // 売上請求一覧用のフリーワード検索
     if (!empty($data['sales_search_box'])) {
-      if (!empty($data['free_word'])) {
+      if (!empty($data['free_word']) && (int)$data['free_word'] !== 0) {
         if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
           //数字の場合検索
           $searchTarget = $searchTarget->where(function ($query) use ($data) {
@@ -563,7 +563,7 @@ class Reservation extends Model implements PresentableInterface
       }
     } else {
       // 予約一覧用フリーワード検索
-      if (!empty($data['free_word'])) {
+      if (!empty($data['free_word']) && (int)$data['free_word'] !== 0) {
         if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
           //数字の場合検索
           $searchTarget = $searchTarget->where(function ($query) use ($data) {

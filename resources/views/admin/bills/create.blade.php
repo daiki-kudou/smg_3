@@ -443,7 +443,8 @@
                 </tr>
                 <tr>
                   <td>請求書宛名
-                    {{ Form::text('bill_company', $reservation['user']['id'], ['class' => 'form-control'])}}
+                    {{ Form::text('bill_company', ReservationHelper::getCompany($reservation['user']['id']), ['class'
+                    => 'form-control'])}}
                   </td>
                   <td>
                     担当者

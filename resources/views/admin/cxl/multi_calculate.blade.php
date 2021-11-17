@@ -334,7 +334,8 @@
             <tbody>
               <tr>
                 <td>請求日：
-                  {{Form::text('bill_created_at', date('Y-m-d',strtotime(\Carbon\Carbon::now())) ,['class'=>'form-control', 'id'=>'datepicker1'])}}
+                  {{Form::text('bill_created_at', date('Y-m-d',strtotime(\Carbon\Carbon::now()))
+                  ,['class'=>'form-control', 'id'=>'datepicker1'])}}
                 </td>
                 <td>支払期日
                   {{Form::text('payment_limit',$pay_limit,['class'=>'form-control datepicker', 'id'=>''])}}
@@ -346,7 +347,7 @@
                   @if (!empty($user))
                   {{Form::text('bill_company',$user->company,['class'=>'form-control'])}}
                   @else
-                  {{Form::text('bill_company',$agent->company,['class'=>'form-control'])}}
+                  {{Form::text('bill_company',$agent->name,['class'=>'form-control'])}}
                   @endif
                 </td>
                 <td>
