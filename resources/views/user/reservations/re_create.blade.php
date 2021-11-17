@@ -344,14 +344,17 @@
       @endif
 
       @if ($venue->getLuggage()!=0)
+      {{ $fix->luggage_flag }}
       <tr>
         <th>荷物預かり</th>
         <td class="spec-space">
           <div class="selectTime m-b10">
-            <input class="radio-input" id="luggage_flag" name="luggage_flag" type="radio" value="1">
-            <label for="luggage_flag">あり</label>
-            <input class="radio-input" id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
-            <label for="no_luggage_flag">なし</label>
+            {{Form::radio('luggage_flag', 1,
+            (int)$fix->luggage_flag===1?true:false,['id'=>'luggage_flag','class'=>'radio-input'])}}
+            {{Form::label('luggage_flag','有り')}}
+            {{Form::radio('luggage_flag', 0,
+            (int)$fix->luggage_flag===0?true:false,['id'=>'no_luggage_flag','class'=>'radio-input'])}}
+            {{Form::label('no_luggage_flag','無し')}}
           </div>
           <ul class="luggage_info">
             <li class="m-b10">
@@ -463,26 +466,6 @@
   })
 
     // 案内板のラジオボタン選択の表示、非表示
-    // $(function() {
-    // var no_board_flag = $('#no_board_flag').val();
-    // if (no_board_flag == 0) {
-    //       $(".board_info").addClass("d-none");
-    //     } else {
-    //       $(".board_info").removeClass("d-none");
-    //      }
-    // });
-
-    // $(function() {
-    //  $("input[name='board_flag']").change(function() {
-    //    var no_board_flag = $('#no_board_flag').prop('checked');
-    //     if (no_board_flag) {
-    //       $(".board_info").addClass("d-none");
-    //     } else {
-    //       $(".board_info").removeClass("d-none");
-    //      }
-    //   });
-    // });
-    
   $(function(){
     $('input[name="board_flag"]').on('click',function(){
       if ($(this).val()==1) {
@@ -496,8 +479,8 @@
 
     // 荷物預かりのラジオボタン選択の表示、非表示
     $(function() {
-    var no_luggage_flag = $('#no_luggage_flag').val();
-    if (no_luggage_flag == 0) {
+    var no_luggage_flag = Number($('input[name="luggage_flag"]:checked').val());
+    if (no_luggage_flag === 0) {
           $(".luggage_info").addClass("d-none");
         } else {
           $(".luggage_info").removeClass("d-none");
