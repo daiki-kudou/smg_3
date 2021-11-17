@@ -119,8 +119,6 @@ class HomeController extends Controller
       $result[] = $temporary;
     }
 
-    // return count($result);
-
     if (count($result) === 1) {
       return $result[0];
     } elseif (count($result) > 1) {
@@ -141,5 +139,22 @@ class HomeController extends Controller
   public function timeout()
   {
     return view('errors.timeout');
+  }
+
+  /** ajax */
+  public function getpricesystem(Request $request)
+  {
+    $id = $request->venue_id; //会場ID
+    $dates = Carbon::parse($request->dates); //日付取得
+    $week_day = $dates->dayOfWeekIso; //曜日取得
+
+    $venue = Venue::find($id);
+
+    $date = $venue->dates()->where('week_day', $week_day)->get();
+
+    $frame_price = $venue->frame_prices()->get();
+    $time_price = $venue->time_prices()->get();
+
+    return [$frame_price, $time_price, $date];
   }
 }

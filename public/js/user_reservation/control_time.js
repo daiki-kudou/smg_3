@@ -154,7 +154,7 @@ function ajaxCheckPriceSystem($venue_id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: rootPath + '/admin/reservations/getpricesystem',
+    url: rootPath + '/getpricesystem',
     type: 'POST',
     data: { 'venue_id': $venue_id },
     dataType: 'json',
