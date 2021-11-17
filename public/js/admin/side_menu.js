@@ -3,7 +3,6 @@ $(function () {
   fix_current_route.pop();
   fix_current_route_parent = fix_current_route.join('.');
   side_bar_parent(fix_current_route_parent);
-  console.log(currentRouteName);
   side_bar_child(currentRouteName);
 
   function side_bar_parent(fix_current_route_parent) {
@@ -103,37 +102,37 @@ $(function () {
       case "admin.pre_agent_reservations.check":
         $('#pre_agent_reservation_create_side_bar_child').addClass('active');
         break;
-        // 一括仮押さえ
-        case "admin.multiples.index":
-          $('#multiple_side_bar_child').addClass('active');
-          break;
-        case "admin.multiples.show":
-          $('#multiple_side_bar_child').addClass('active');
-          break;
-        case "admin.multiples.switch":
-          $('#multiple_side_bar_child').addClass('active');
-          break;
-        case "admin.multiples.edit":
-          $('#multiple_side_bar_child').addClass('active');
-          break;
-        case "admin.multiples.edit_calculate":
-          $('#multiple_side_bar_child').addClass('active');
-          break;
-        case "admin.multiples.add_venue":
-          $('#multiple_side_bar_child').addClass('active');
-          break;
-        case "admin.multiples.agent_show":
-          $('#multiple_side_bar_child').addClass('active');
-          break;
-        case "admin.multiples.agent_switch":
-          $('#multiple_side_bar_child').addClass('active');
-          break;
-        case "admin.multiples.agent_add_venues":
-          $('#multiple_side_bar_child').addClass('active');
-          break;
-        case "admin.multiples.agent_edit":
-          $('#multiple_side_bar_child').addClass('active');
-          break;
+      // 一括仮押さえ
+      case "admin.multiples.index":
+        $('#multiple_side_bar_child').addClass('active');
+        break;
+      case "admin.multiples.show":
+        $('#multiple_side_bar_child').addClass('active');
+        break;
+      case "admin.multiples.switch":
+        $('#multiple_side_bar_child').addClass('active');
+        break;
+      case "admin.multiples.edit":
+        $('#multiple_side_bar_child').addClass('active');
+        break;
+      case "admin.multiples.edit_calculate":
+        $('#multiple_side_bar_child').addClass('active');
+        break;
+      case "admin.multiples.add_venue":
+        $('#multiple_side_bar_child').addClass('active');
+        break;
+      case "admin.multiples.agent_show":
+        $('#multiple_side_bar_child').addClass('active');
+        break;
+      case "admin.multiples.agent_switch":
+        $('#multiple_side_bar_child').addClass('active');
+        break;
+      case "admin.multiples.agent_add_venues":
+        $('#multiple_side_bar_child').addClass('active');
+        break;
+      case "admin.multiples.agent_edit":
+        $('#multiple_side_bar_child').addClass('active');
+        break;
       // 予約
       case "admin.reservations.index":
         $('#reservation_side_bar_child').addClass('active');
@@ -250,7 +249,7 @@ $(function () {
       case "admin.dates.create":
         $('#dates_side_bar_child').addClass('active');
         break;
-        // 有料備品
+      // 有料備品
       case "admin.equipments.index":
         $('#equipment_side_bar_child').addClass('active');
         break;
@@ -260,7 +259,7 @@ $(function () {
       case "admin.equipments.edit":
         $('#equipment_side_bar_child').addClass('active');
         break;
-        // 有料サービス
+      // 有料サービス
       case "admin.services.index":
         $('#service_side_bar_child').addClass('active');
         break;
@@ -270,14 +269,14 @@ $(function () {
       case "admin.services.edit":
         $('#service_side_bar_child').addClass('active');
         break;
-        // メールテンプレート
+      // メールテンプレート
       case "admin.mail_templates.mail_templates":
         $('#mails_side_bar_child').addClass('active');
         break;
       case "admin.mail_templates.cron_templates":
         $('#mails_side_bar_child2').addClass('active');
         break;
-       // 管理者
+      // 管理者
       case "admin.administer.index":
         $('#admin_side_bar_child').addClass('active');
         break;

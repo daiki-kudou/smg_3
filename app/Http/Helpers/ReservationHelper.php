@@ -110,7 +110,7 @@ class ReservationHelper
   public static function getVenueForUser($venue_id)
   {
     $venue = Venue::find($venue_id);
-    return $venue->name_area . $venue->name_bldg . $venue->name_venue;
+    return $venue->full_name;
   }
 
   public static function getVenueAddreess($venue_id)

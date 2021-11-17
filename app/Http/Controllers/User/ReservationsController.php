@@ -194,6 +194,7 @@ class ReservationsController extends Controller
         $value[0]['pay_day'] = NULL;
         $value[0]['pay_person'] = "";
         $value[0]['payment'] = 0;
+        $value[0]['user_details'] = $value[0]['remark'];
         // データ加工▲
         $result_reservation = $reservation->ReservationStore($value[0]);
         $result_bill = $bill->BillStore($result_reservation->id, $value[0], $reservation_status = 1, $double_check_status = 0, $category = 1, $admin_judge = 2);

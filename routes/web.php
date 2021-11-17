@@ -6,6 +6,7 @@ Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
   Route::get('email_reset_done', 'HomeController@email_reset_done');
   // 予約時の時間制御用ajax
   Route::post('control_time', 'HomeController@control_time');
+  Route::post('getpricesystem', 'HomeController@getpricesystem');
   Route::get('cxl_member_ship_done', 'HomeController@cxl_member_ship_done');
   Route::get('timeout', 'HomeController@timeout')->name('timeout');
 });

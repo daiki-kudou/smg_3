@@ -29,7 +29,8 @@ class SalesController extends Controller
     $_reservation = new Reservation;
     $counter = $_reservation
       ->SearchReservation($request->all())
-      ->get()->count();
+      ->get()
+      ->count();
 
     $total_amount = $_reservation->SearchReservation($request->all())->get()->pluck('sogaku')->sum();
 

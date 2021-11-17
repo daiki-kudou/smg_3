@@ -26,7 +26,7 @@ class CalendarsController extends Controller
     $start_of_month = $request->all() ? (Carbon::parse($fix_input_dates)->firstOfMonth()) : Carbon::now()->firstOfMonth();
     $end_of_month = $request->all() ? (Carbon::parse($fix_input_dates)->endOfMonth()) : Carbon::now()->endOfMonth();
     $days = $this->venueCalendar($start_of_month, $end_of_month);
-    $venues = Venue::all();
+    $venues = Venue::all()->sortByDesc('id')->pluck('full_name', 'id');
     $reservations = DB::table('reservations')
       ->select(DB::raw('
       reservations.id,
@@ -66,6 +66,7 @@ class CalendarsController extends Controller
       ->leftJoin('users', 'pre_reservations.user_id', '=', 'users.id')
       ->leftJoin('agents', 'pre_reservations.agent_id', '=', 'agents.id')
       ->whereRaw('pre_reservations.reserve_date between ? and ?', [date('Y-m-d', strtotime($start_of_month)), date('Y-m-d', strtotime($end_of_month))])
+      ->whereRaw('pre_reservations.venue_id = ?', [$selected_venue])
       ->whereRaw('pre_reservations.status < ?', [2])
       ->get();
     $json_result = $this->dateCalendar($reservations);

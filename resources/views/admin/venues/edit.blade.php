@@ -229,11 +229,10 @@
           <tr>
             <td class="table-active"><label for="luggage_post_code">送付先郵便番号</label></td>
             <td>
-              {{ Form::text('luggage_post_code', $venue->luggage_post_code, [
-              'class' => 'form-control',
-              'onKeyUp'=>"AjaxZip3.zip2addr(this,'','luggage_address1','luggage_address2');",
-              'autocomplete'=>'off',
-              ]) }}
+              <p>{{
+                Form::text('luggage_post_code',$venue->luggage_post_code,['class'=>'form-control'])
+                }}</p>
+              <button class="btn more_btn ml-1" type="button" id="luggage_post_code">住所検索</button>
               <p class="is-error-luggage_post_code" style="color: red"></p>
             </td>
           </tr>
@@ -621,6 +620,27 @@
     
     return false;
     });
+</script>
+
+<script>
+  $('#luggage_post_code').on('click', function(){
+      AjaxZip3.zip2addr('luggage_post_code','','luggage_address1','luggage_address2');
+      
+      //成功時に実行する処理
+      AjaxZip3.onSuccess = function() {
+        $('input[name="luggage_address1"]').click();
+        $('input[name="luggage_address2"]').click();
+      };
+      
+      //失敗時に実行する処理
+      AjaxZip3.onFailure = function() {
+      $('input[name="luggage_address1"]').val('');
+      $('input[name="luggage_address2"]').val('');
+      alert('郵便番号に該当する住所が見つかりません');
+      };
+      
+      return false;
+      });
 </script>
 
 @endsection

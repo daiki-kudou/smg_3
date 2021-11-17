@@ -219,7 +219,8 @@ class CxlController extends Controller
   public function editCalc(Request $request)
   {
     $data = $request->all();
-    $reservation = Reservation::with(['user', 'agent'])->find($data['reservation_id']);
+    $reservation = Reservation::with(['user', 'agent', 'cxls'])->find($data['reservation_id']);
+    $cxl = $reservation->cxls->first();
     $user = $reservation->user;
     $agent = $reservation->agent;
     if ($reservation->user_id > 0) {
@@ -228,7 +229,7 @@ class CxlController extends Controller
       $pay_limit = $agent->getPayDetails($reservation->reserve_date);
     }
 
-    return view('admin.cxl.edit_calc', compact('data', 'reservation', 'pay_limit', 'agent', 'user'));
+    return view('admin.cxl.edit_calc', compact('data', 'reservation', 'pay_limit', 'agent', 'user', 'cxl'));
   }
 
   // public function editCalcShow(Request $request)
@@ -281,24 +282,6 @@ class CxlController extends Controller
     if ($request->back) {
       return redirect()->route('admin.cxl.edit', $cxl->id)->withInput();
     }
-
-    // $reservation_id = $data['reservation_id'];
-    // $bill_id = $data['bill_id'];
-    // try {
-    //   $cxl = Cxl::with('cxl_breakdowns')->find($data['cxl_id']);
-    //   $cxl->updateCxl($data, $invoice);
-    //   foreach ($cxl->cxl_breakdowns as $key => $value) {
-    //     $value->delete();
-    //   }
-    //   $cxl->updateCxlBreakdowns($data, $invoice);
-    // } catch (\Exception $e) {
-    //   report($e);
-    //   session()->flash('flash_message', '作成に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
-    //   return redirect(route('admin.cxl.edit_calc'));
-    // }
-    // $request->session()->regenerate();
-    // return redirect()->route('admin.reservations.show', $reservation_id);
-
     $cxl_breakdown = new CxlBreakdown;
     $bill = new Bill;
     DB::beginTransaction();

@@ -184,6 +184,12 @@ class Venue extends Model implements PresentableInterface
     return $this->hasMany(PreReservation::class);
   }
 
+  // アクセサ
+  public function getFullNameAttribute($value)
+  {
+    return $this->name_area . $this->name_bldg . $this->name_venue;
+  }
+
 
   /*
 |--------------------------------------------------------------------------
