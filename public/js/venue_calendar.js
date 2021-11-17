@@ -7,7 +7,7 @@ $(function () {
     var reservation_id = json[index].id;
     var company = json[index].company;
     var text_limit = json[index]['time'].length;　//折返し文字数
-    console.log(text_limit);
+    console.log(line_break(company, text_limit));
     var data = "<a target='_blank' href='" + rootPath + "/admin/reservations/" + reservation_id + "'>" + line_break(company, text_limit) + "</a>";
     if (status < 3) {
       $.each(json[index]['time'], function ($index, $value) {
@@ -132,7 +132,7 @@ $(function () {
           for (var key2 in oneSplit) {
             //key2 1文字目でなく、さらに textLimit の倍数の数値なら改行コードを挿入
             if (key2 != 0 && key2 % textLimit == 0) {
-              oneBody.push("\n");
+              oneBody.push("<br>");
             }
             oneBody.push(oneSplit[key2]);
           }
@@ -142,7 +142,8 @@ $(function () {
         }
       }
     }
-    var result = kaigyouBody.join("\n");
+    // var result = kaigyouBody.join("\n");
+    var result = kaigyouBody.join();
     return result;
   }
 })
