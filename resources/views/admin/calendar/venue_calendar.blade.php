@@ -20,14 +20,7 @@
       {{ Form::open(['url' => '/admin/calendar/venue_calendar', 'method' => 'get']) }}
       @csrf
       <div class="d-flex align-items-center">
-        <select name="venue_id" id="venue_id" class="form-control">
-          @foreach ($venues as $venue)
-          <option value="{{$venue->id}}" @if ($venue->id==$selected_venue)
-            selected
-            @endif
-            >{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</option>
-          @endforeach
-        </select>
+        {{ Form::select('venue_id',$venues,$selected_venue,['class'=>'form-control'] ) }}
         <select name="selected_year" id="selected_year" class="form-control w-25 ml-2">
           @for ($i = Carbon\Carbon::today()->year; $i < Carbon\Carbon::today()->addYears(3)->year; $i++)
             <option value="{{$i}}" @if ($selected_year==$i) selected @endif>

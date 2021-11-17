@@ -26,7 +26,7 @@ class CalendarsController extends Controller
     $start_of_month = $request->all() ? (Carbon::parse($fix_input_dates)->firstOfMonth()) : Carbon::now()->firstOfMonth();
     $end_of_month = $request->all() ? (Carbon::parse($fix_input_dates)->endOfMonth()) : Carbon::now()->endOfMonth();
     $days = $this->venueCalendar($start_of_month, $end_of_month);
-    $venues = Venue::all();
+    $venues = Venue::all()->sortByDesc('id')->pluck('full_name', 'id');
     $reservations = DB::table('reservations')
       ->select(DB::raw('
       reservations.id,
