@@ -6,10 +6,11 @@ $(function () {
     var date = json[index].reserve_date;
     var reservation_id = json[index].id;
     var company = json[index].company;
-    var data = "<a  target='_blank' href='" + rootPath + "/admin/reservations/" + reservation_id + "'>" + company + "</a>";
+    var text_limit = json[index]['time'].length;　//折返し文字数
+    console.log(text_limit);
+    var data = "<a target='_blank' href='" + rootPath + "/admin/reservations/" + reservation_id + "'>" + line_break(company, text_limit) + "</a>";
     if (status < 3) {
       $.each(json[index]['time'], function ($index, $value) {
-        console.log(json[index]['time']);
         $('.' + date + 'cal' + $value).addClass('bg-prereserve');
         if ($index == 0) { //会社名挿入 10時以上の予約
           $('.' + date + 'cal' + $value).html(data);//リンク挿入
@@ -58,12 +59,9 @@ $(function () {
       })
     }
   }
-})
 
-// 仮抑えカレンダー
-$(function () {
+  // 仮抑えカレンダー
   var pre_json = JSON.parse($('input[name=pre_each_json]').val());
-  console.log(pre_json);
   for (let index = 0; index < pre_json.length; index++) {
     var pre_date = pre_json[index].reserve_date;
     var pre_reservation_id = pre_json[index].id;
@@ -119,16 +117,35 @@ $(function () {
         }
       }
     })
+  }
 
+  function line_break($targetText, $textLimit) {
+    var textLimit = Number($textLimit);
+    var target = String($targetText);
+    var tmp = target.split("\n");
+    var kaigyouBody = [];
+    for (var key in tmp) {
+      if (tmp[key] != "") {
+        if (tmp[key].length >= textLimit) {
+          let oneSplit = tmp[key].split('');
+          let oneBody = [];
+          for (var key2 in oneSplit) {
+            //key2 1文字目でなく、さらに textLimit の倍数の数値なら改行コードを挿入
+            if (key2 != 0 && key2 % textLimit == 0) {
+              oneBody.push("\n");
+            }
+            oneBody.push(oneSplit[key2]);
+          }
+          kaigyouBody.push(oneBody.join(""));
+        } else {
+          kaigyouBody.push(tmp[key]);
+        }
+      }
+    }
+    var result = kaigyouBody.join("\n");
+    return result;
   }
 })
-
-
-
-
-
-
-
 
 
 
