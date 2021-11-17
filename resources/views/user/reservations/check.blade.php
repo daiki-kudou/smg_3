@@ -188,7 +188,7 @@
 
 
       <tr>
-        @if ($request->layout_prepare==1)
+        @if ((int)$request->layout_prepare===1||(int)$request->layout_clean===1)
         <th>レイアウト変更</th>
         <td class="spec-space">
           <div class="m-b10">
@@ -243,7 +243,7 @@
       <tr>
         <th>備考</th>
         <td>
-          <p col='30' rows='10'>{{$request->remark}}</p>
+          <p col='30' rows='10'>{!!nl2br(e($request->remark))!!}</p>
           {{ Form::hidden('remark', $request->remark ) }}
           <a name="a-nam" class="error-r"></a>
         </td>
@@ -359,7 +359,7 @@
         </tr>
         @endif
 
-        @if ($request->layout_prepare!=0||$request->layout_clean!=0)
+        @if ((int)$request->layout_prepare!==0||(int)$request->layout_clean!==0)
         <tr>
           <th class=""><label for="service">レイアウト変更</label></th>
           <td>
@@ -378,11 +378,11 @@
               <li>
                 <p>レイアウト片付料金</p>
                 <p>{{number_format($venue->layout_clean)}}<span>円</span></p>
+                {{ Form::hidden('layout_breakdown_item[]',"レイアウト片付料金")}}
+                {{ Form::hidden('layout_breakdown_cost[]',$venue->layout_clean)}}
+                {{ Form::hidden('layout_breakdown_count[]', 1)}}
+                {{ Form::hidden('layout_breakdown_subtotal[]', $venue->layout_clean) }}
               </li>
-              {{ Form::hidden('layout_breakdown_item[]',"レイアウト片付料金")}}
-              {{ Form::hidden('layout_breakdown_cost[]',$venue->layout_clean)}}
-              {{ Form::hidden('layout_breakdown_count[]', 1)}}
-              {{ Form::hidden('layout_breakdown_subtotal[]', $venue->layout_clean) }}
               @endif
             </ul>
           </td>
