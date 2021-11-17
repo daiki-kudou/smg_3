@@ -1272,7 +1272,7 @@ h3 {
 .calender-flame thead {
     position: sticky;
     top: 0;
-    z-index: 99;
+    z-index: 1;
 }
 
 .calender-head {
@@ -1326,7 +1326,7 @@ h3 {
 }
 
 .calender-flame .calender-head {
-    /* z-index: 1; */
+    z-index: 1;
 }
 
 .calender-flame .calender-head .field-title::after {
@@ -1365,6 +1365,7 @@ h3 {
     border: none;
     border-bottom: 2px solid #c5c5c5;
 }
+
 
 
 
