@@ -404,12 +404,12 @@
               <tr>
                 <td>請求日
                   {{ Form::text('bill_created_at',
-                  !empty($data['bill_created_at'])?$data['bill_created_at']:date('Y-m-d'), ['class' => 'form-control'
-                  ,'id'=>'datepicker6'])}}
+                  !empty($data['bill_created_at'])?$data['bill_created_at']:date('Y-m-d'), ['class' => 'form-control
+                  datepicker'])}}
                 </td>
                 <td>支払期日
                   {{ Form::text('payment_limit', !empty($data['payment_limit'])?$data['payment_limit']:$payment_limit,
-                  ['class' => 'form-control datepicker' ,'id'=>''])}}
+                  ['class' => 'form-control datepicker'])}}
                 </td>
               </tr>
               <tr>
@@ -457,8 +457,8 @@
                 </td>
                 <td>
                   入金日
-                  {{ Form::text('pay_day', !empty($data['pay_day'])?$data['pay_day']:"",['class'=>'form-control',
-                  'id'=>'datepicker7'] ) }}
+                  {{ Form::text('pay_day', !empty($data['pay_day'])?$data['pay_day']:"",['class'=>'form-control
+                  datepicker'] ) }}
                 </td>
               </tr>
               <tr>
@@ -493,27 +493,12 @@
     $(document).on("click", ".add", function() {
       var target = $(this).parent().parent();
       target.clone().insertAfter(target);
-      // AddTr(target, 'venue_main', 'venue_breakdown');
-      // AddTr(target, 'equipment_main', 'equipment_breakdown');
-      // AddTr(target, 'layout_main', 'layout_breakdown');
-      // AddTr(target, 'others_main', 'others_breakdown');
       target.parent().find('tr').last().find('td').eq(0).find('input').val('');
       target.parent().find('tr').last().find('td').eq(1).find('input').val(0);
       target.parent().find('tr').last().find('td').eq(2).find('input').val('');
       target.parent().find('tr').last().find('td').eq(3).find('input').val(0);
     })
 
-    // function AddTr($target, $targetClass, $targetName) {
-    //   if ($target.parent().hasClass($targetClass)) {
-    //     var target_length = $target.parent().find('tr').length;
-    //     for (let index = 0; index < target_length; index++) {
-    //       $target.parent().find('tr').eq(index).find('td').eq(0).find('input').attr('name', $targetName + '_item' + index)
-    //       $target.parent().find('tr').eq(index).find('td').eq(1).find('input').attr('name', $targetName + '_cost' + index)
-    //       $target.parent().find('tr').eq(index).find('td').eq(2).find('input').attr('name', $targetName + '_count' + index)
-    //       $target.parent().find('tr').eq(index).find('td').eq(3).find('input').attr('name', $targetName + '_subtotal' + index)
-    //     }
-    //   }
-    // }
     // マイナス押下
     $(document).on("click", ".del", function() {
       var master = $(this).parent().parent().parent().find('tr').length;
@@ -522,29 +507,12 @@
       if (master > 1) {
         target.remove();
       }
-      // DelTr(re_target, 'venue_main', 'venue_breakdown');
-      // DelTr(re_target, 'equipment_main', 'equipment_breakdown');
-      // DelTr(re_target, 'layout_main', 'layout_breakdown');
-      // DelTr(re_target, 'others_main', 'others_breakdown');
       DelCalc('.venues input', '.venue_main tr', 'input[name="venue_price"]');
       DelCalc('.equipment input', '.equipment_main tr', 'input[name="equipment_price"]');
       DelCalc('.layout input', '.layout_main tr', 'input[name="layout_price"]');
       DelCalc('.others input', '.others_main tr', 'input[name="others_price"]');
-
       MaterCalc();
-
     })
-
-    // function DelTr($target, $targetClass, $targetName) {
-    //   if ($target.hasClass($targetClass)) {
-    //     for (let num = 0; num < $target.find('tr').length; num++) {
-    //       $target.find('tr').eq(num).find('td').eq(0).find('input').attr('name', $targetName + '_item' + num)
-    //       $target.find('tr').eq(num).find('td').eq(1).find('input').attr('name', $targetName + '_cost' + num)
-    //       $target.find('tr').eq(num).find('td').eq(2).find('input').attr('name', $targetName + '_count' + num)
-    //       $target.find('tr').eq(num).find('td').eq(3).find('input').attr('name', $targetName + '_subtotal' + num)
-    //     }
-    //   }
-    // }
 
     function DelCalc($targetClass, $targetTr, $targetSum) {
       var trTarget = $($targetTr).length;
@@ -563,7 +531,6 @@
     checkToggle('.equipment_chkbox #equipment', ['.equipment_head', '.equipment_main', '.equipment_result']);
     checkToggle('.layout_chkbox #layout', ['.layout_head', '.layout_main', '.layout_result']);
     checkToggle('.others_chkbox #others', ['.others_head', '.others_main', '.others_result']);
-
     function checkToggle($target, $items) {
       $($target).on('click', function() {
         $.each($items, function(index, value) {
@@ -641,6 +608,12 @@
   $(window).on('load',function(){
     $('input[name="layout_breakdown_count0"]').change();
     $('input[name="end_user_charge"]').change();
+  });
+
+  $('.datepicker').datepicker({
+    dateFormat: 'yy-mm-dd',
+    minDate: 0,
+    autoclose: true
   });
 
 </script>

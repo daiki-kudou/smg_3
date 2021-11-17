@@ -9,6 +9,7 @@ $(function () {
     var data = "<a  target='_blank' href='" + rootPath + "/admin/reservations/" + reservation_id + "'>" + company + "</a>";
     if (status < 3) {
       $.each(json[index]['time'], function ($index, $value) {
+        console.log(json[index]['time']);
         $('.' + date + 'cal' + $value).addClass('bg-prereserve');
         if ($index == 0) { //会社名挿入 10時以上の予約
           $('.' + date + 'cal' + $value).html(data);//リンク挿入
