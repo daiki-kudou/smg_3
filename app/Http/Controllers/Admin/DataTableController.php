@@ -266,14 +266,14 @@ class DataTableController extends Controller
         "</div>" .
         "</li>";
     }
-    $reservation = Reservation::with('cxls')->find($id);
+    $reservation = Reservation::with(['cxls', 'bills'])->find($id);
     if ($reservation->cxls->count() > 0) {
       // 打ち消し表示
       $result .=
         "<li>" .
         "<div class='multi-column__item'>" .
         "<span class='payment-status text-danger'>" .
-        number_format(-$sogaku) .
+        number_format($reservation->bills->pluck('master_total')->sum()) .
         "</span>" .
         "</div>" .
         "</li>";
