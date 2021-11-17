@@ -480,7 +480,7 @@ class Reservation extends Model implements PresentableInterface
           ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [4])->groupBy('reservation_id'));
       }
       if (!empty($data['payment_status5'])) {
-        orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?',  [5])->groupBy('reservation_id'))
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?',  [5])->groupBy('reservation_id'))
           ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [5])->groupBy('reservation_id'));
       }
     });

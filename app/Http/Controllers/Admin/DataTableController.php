@@ -273,7 +273,7 @@ class DataTableController extends Controller
         "<li>" .
         "<div class='multi-column__item'>" .
         "<span class='payment-status text-danger'>" .
-        number_format($reservation->bills->pluck('master_total')->sum()) .
+        number_format(- ($reservation->bills->pluck('master_total')->sum())) .
         "</span>" .
         "</div>" .
         "</li>";
