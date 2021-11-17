@@ -1273,8 +1273,12 @@
                         </td>
                         @endif
                         <td>
-                          <div><span>申込日：</span>{{ $cxl->created_at }}</div>
-                          <div><span>予約確定日：</span>{{ $cxl->approve_send_at }}</div>
+                          <div><span>申込日：</span>
+                          {{ ReservationHelper::formatDate($cxl->created_at) }}
+                        </div>
+                          <div><span>予約確定日：</span>
+                          {{ ReservationHelper::formatDate($cxl->approve_send_at) }}
+                        </div>
                         </td>
                       </tr>
                     </tbody>
