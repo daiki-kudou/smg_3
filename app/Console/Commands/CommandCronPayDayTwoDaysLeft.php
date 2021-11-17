@@ -60,7 +60,7 @@ class CommandCronPayDayTwoDaysLeft extends Command
     }
 
     //キャンセルの２営業日前抽出
-    $targetPaymentLimit = $this->getSalesDate('SUB'); //addDays
+    $targetPaymentLimit = $this->getSalesDate('ADD'); //addDays
     $bills = $this->masterQuery('cxls.id is not null', $targetPaymentLimit);
     foreach ($bills as $b) {
       $SendSMGEmail = new SendSMGEmail();
