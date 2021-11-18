@@ -67,6 +67,7 @@ class CalendarsController extends Controller
       ->leftJoin('users', 'pre_reservations.user_id', '=', 'users.id')
       ->leftJoin('agents', 'pre_reservations.agent_id', '=', 'agents.id')
       ->whereRaw('pre_reservations.reserve_date between ? and ?', [date('Y-m-d', strtotime($start_of_month)), date('Y-m-d', strtotime($end_of_month))])
+      ->whereRaw('pre_reservations.venue_id = ?', [$selected_venue])
       ->whereRaw('pre_reservations.status < ?', [2])
       ->get();
 
