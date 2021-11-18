@@ -10,6 +10,8 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\Reservation;
 use App\Models\Bill;
 use App\Mail\UserReqAddRes;
+use App\Mail\FailedMail;
+
 use Mail;
 
 class MailForBillAfterDblCheckAddBill implements ShouldQueue

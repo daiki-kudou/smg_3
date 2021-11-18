@@ -6,9 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Http\Helpers\ReservationHelper;
 
-class PayDayTwoDaysLeft extends Mailable
+
+class PayDayOverLimit extends Mailable
 {
   use Queueable, SerializesModels;
 
@@ -30,7 +30,7 @@ class PayDayTwoDaysLeft extends Mailable
    */
   public function build()
   {
-    return $this->view('maileclipse::templates.payDayTwoDaysLeft')
+    return $this->view('maileclipse::templates.payDayOverLimit')
       ->subject($this->subject)
       ->with([
         'company' => $this->data->company,

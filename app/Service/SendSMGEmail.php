@@ -17,6 +17,7 @@ use App\Jobs\Reservation\MailForConfirmReservation;
 use App\Jobs\Reservation\MailForDeletePreReservation;
 use App\Jobs\Reservation\MailForDeleteReservation;
 use App\Jobs\Cron\CronPayDayTwoDaysLeft;
+use App\Jobs\Cron\CronPayDayOverLimit;
 use App\Jobs\Cron\CronThanks;
 use App\Jobs\Auth\MailForRegister;
 use App\Jobs\Auth\MailForRegisterComplete;
@@ -106,6 +107,10 @@ class SendSMGEmail
     switch ($condition) {
       case "入金期日2営業日前(催促)":
         CronPayDayTwoDaysLeft::dispatch($data);
+        break;
+
+      case "入金期日超過(督促)":
+        CronPayDayOverLimit::dispatch($data);
         break;
 
       case "お礼メール":

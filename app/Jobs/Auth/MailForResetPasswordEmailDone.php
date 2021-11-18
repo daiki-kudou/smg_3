@@ -8,6 +8,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\ResetPasswordEmailDone;
+use App\Mail\FailedMail;
+
 use Mail;
 
 class MailForResetPasswordEmailDone implements ShouldQueue

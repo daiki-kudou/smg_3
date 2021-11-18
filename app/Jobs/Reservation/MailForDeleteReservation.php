@@ -11,6 +11,8 @@ use App\Models\Reservation;
 use App\Models\Bill;
 use App\Models\Breakdown;
 use App\Mail\UserDelRes;
+use App\Mail\FailedMail;
+
 use Mail;
 
 class MailForDeleteReservation implements ShouldQueue

@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Jobs\Reservation;
+namespace App\Jobs\Cron;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Reservation;
-use App\Models\Bill;
-use App\Mail\UserPreResToRes;
+use App\Mail\PayDayOverLimit;
 use App\Mail\FailedMail;
 use Mail;
 
-class MailForReservationAfterSwitchedByUser implements ShouldQueue
+class CronPayDayOverLimit implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -37,30 +35,14 @@ class MailForReservationAfterSwitchedByUser implements ShouldQueue
   public function handle()
   {
     $admin = config('app.admin_email');
-    $data = $this->adjustReservationData();
-    $subject = "【会議室｜[予約情報：会場予約]：" . $data->reservation_id . "】予約申込みを受付しました（SMG貸し会議室）";
-    $master_total = $this->adjustBillData();
-    Mail::to($data->user_email)
+    $subject = "【会議室お支払｜" . $this->data->category . "：" . $this->data->reservation_id . "】期日超過のお知らせ（SMG貸し会議室）";
+    Mail::to($this->data->user_email)
       ->cc($admin)
-      ->send(new UserPreResToRes(
-        $data,
-        $subject,
-        $master_total
+      ->send(new PayDayOverLimit(
+        $this->data,
+        $subject
       ));
   }
-
-  public function adjustReservationData()
-  {
-    $reservation = new Reservation();
-    return $reservation->ReservationEmailTemplate($this->data['reservation_id']);
-  }
-
-  public function adjustBillData()
-  {
-    $bill = Bill::find($this->data['bill_id']);
-    return number_format($bill->master_total);
-  }
-
 
   /**
    * 失敗したジョブの処理

@@ -9,31 +9,30 @@ use Carbon\Carbon;
 use DB;
 
 
-class CommandCronPayDayTwoDaysLeft extends Command
+class CommandPayDayOverLimit extends Command
 {
   /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'command:cron_pay_day_two_days_left';
+  protected $signature = 'command:cron_pay_day_over_limit';
 
   /**
    * The console command description.
    *
    * @var string
    */
-  protected $description = '送信用コマンド：入金期日2営業日前(催促)';
+  protected $description = '送信用コマンド：支払い期日超過';
 
   /**
    * Create a new command instance.
    *
    * @return void
    */
-  public function __construct(Reservation $reservation)
+  public function __construct()
   {
     parent::__construct();
-    $this->reservation = $reservation;
   }
 
   /**
@@ -43,41 +42,24 @@ class CommandCronPayDayTwoDaysLeft extends Command
    */
   public function handle()
   {
-    //キャンセルしていない予約の２営業日前抽出
-    $targetPaymentLimit = $this->getSalesDate('ADD'); //addDays
+
+    // //キャンセルしていない予約の1営業日後抽出
+    $targetPaymentLimit = $this->getSalesDate('SUB'); //subDays
     $bills = $this->BillQuey($targetPaymentLimit);
     foreach ($bills as $b) {
       $SendSMGEmail = new SendSMGEmail();
-      $SendSMGEmail->CronSend("入金期日2営業日前(催促)", $b);
-    }
-
-    // //キャンセルしていない予約の1営業日後抽出
-    // $targetPaymentLimit = $this->getSalesDate('SUB'); //subDays
-    // $bills = $this->BillQuey();
-    // $target = $bills->where('bill_payment_limit', $targetPaymentLimit);
-    // foreach ($target as $t) {
-    //   // $SendSMGEmail = new SendSMGEmail();
-    //   // $SendSMGEmail->CronSend("入金期日2営業日前(催促)", ['data' => $b, 'title' => "期日超過のお知らせ"]);
-    //   dump('キャンセルしていない予約の1営業日後抽出', $t);
-    // }
-
-    //キャンセルの２営業日前抽出
-    $targetPaymentLimit = $this->getSalesDate('ADD'); //addDays
-    $cxls = $this->CxlQuey($targetPaymentLimit);
-    foreach ($cxls as $c) {
-      $SendSMGEmail = new SendSMGEmail();
-      $SendSMGEmail->CronSend("入金期日2営業日前(催促)", $c);
+      $SendSMGEmail->CronSend("入金期日超過(督促)", $b);
+      // dump('キャンセルしていない予約の1営業日後抽出', $b);
     }
 
     // // //キャンセルの1営業日後抽出
-    // $targetPaymentLimit = $this->getSalesDate('SUB'); //subDays
-    // $cxls = $this->CxlQuey();
-    // $target = $cxls->where('payment_limit', $targetPaymentLimit);
-    // foreach ($target as $c) {
-    //   // $SendSMGEmail = new SendSMGEmail();
-    //   // $SendSMGEmail->CronSend("入金期日2営業日前(催促)", ['data' => $b, 'title' => "期日超過のお知らせ"]);
-    //   dump('キャンセルの1営業日後抽出', $c);
-    // }
+    $targetPaymentLimit = $this->getSalesDate('SUB'); //subDays
+    $cxls = $this->CxlQuey($targetPaymentLimit);
+    foreach ($cxls as $c) {
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->CronSend("入金期日超過(督促)", $c);
+      // dump('キャンセルの1営業日後抽出', $c);
+    }
   }
 
   /**
@@ -104,27 +86,20 @@ class CommandCronPayDayTwoDaysLeft extends Command
     return $targetPaymentLimit;
   }
 
-  /**
-   * Undocumented function
-   *
-   * @param string $include_cxl_or_not (cxls.id is null もしくは　cxls.id is not null がくる)
-   * @param string $target_payment_limit 特定の支払い期日の日付が ○○○-○○-○○で来る
-   * @return object HITした collection が返る
-   */
   public function BillQuey($targetPaymentLimit)
   {
     $bills = DB::table('bills')
       ->select(DB::raw(
         "
-      lpad(bills.reservation_id,6,0) as reservation_id,
-      bills.id as bill_id,
-      bills.reservation_status as status,
-      format(bills.master_total,0) as master_total,
-      case when bills.category = 1 then '会場予約' else '追加請求' end as category,
-      cxls_list.cxl_reservation_id as cxl_reservation_id,
-      lpad(users.id,6,0) as user_id,
-      users.email as user_email,
-      users.company as company,
+        lpad(bills.reservation_id,6,0) as reservation_id,
+        bills.id as bill_id,
+        bills.reservation_status as status,
+        format(bills.master_total,0) as master_total,
+        case when bills.category = 1 then '会場予約' else '追加請求' end as category,
+        cxls_list.cxl_reservation_id as cxl_reservation_id,
+        lpad(users.id,6,0) as user_id,
+        users.email as user_email,
+        users.company as company,
         concat(date_format(reservations.reserve_date, '%Y/%m/%d'),
         case 
         when DAYOFWEEK(reservations.reserve_date) = 1 then '(日)' 
@@ -136,10 +111,10 @@ class CommandCronPayDayTwoDaysLeft extends Command
         when DAYOFWEEK(reservations.reserve_date) = 7 then '(土)'
         end
         ) as reserve_date,
-              time_format(reservations.enter_time, '%H:%i') as enter_time,
-              time_format(reservations.leave_time, '%H:%i') as leave_time,
-      concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name,
-      case when cxls_list.cxl_reservation_id is null then bills.invoice_number else null end as invoice_number,
+        time_format(reservations.enter_time, '%H:%i') as enter_time,
+        time_format(reservations.leave_time, '%H:%i') as leave_time,
+        concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name,
+        case when cxls_list.cxl_reservation_id is null then bills.invoice_number else null end as invoice_number,
         concat(date_format(bills.payment_limit, '%Y/%m/%d'),
         case 
         when DAYOFWEEK(bills.payment_limit) = 1 then '(日)' 
@@ -151,7 +126,7 @@ class CommandCronPayDayTwoDaysLeft extends Command
         when DAYOFWEEK(bills.payment_limit) = 7 then '(土)'
         end
         ) as payment_limit,
-      venues.smg_url as smg_url
+        venues.smg_url as smg_url
         "
       ))
       ->leftJoin(DB::raw('(select cxls.reservation_id as cxl_reservation_id, cxls.master_total as master_total, cxls.invoice_number as invoice_number, cxls.payment_limit as payment_limit from cxls ) as cxls_list'), 'bills.reservation_id', '=', 'cxls_list.cxl_reservation_id')
@@ -168,14 +143,14 @@ class CommandCronPayDayTwoDaysLeft extends Command
     $cxls = DB::table('cxls')
       ->select(DB::raw(
         "
-lpad(cxls.reservation_id,6,0) as reservation_id,
-cxls.id,
-cxls.cxl_status,
-format(cxls.master_total,0) as master_total,
-'キャンセル' as category,
-lpad(users.id,6,0) as user_id,
-users.email as user_email,
-users.company as company,
+        lpad(cxls.reservation_id,6,0) as reservation_id,
+        cxls.id,
+        cxls.cxl_status,
+        format(cxls.master_total,0) as master_total,
+        'キャンセル' as category,
+        lpad(users.id,6,0) as user_id,
+        users.email as user_email,
+        users.company as company,
         concat(date_format(reservations.reserve_date, '%Y/%m/%d'),
         case 
         when DAYOFWEEK(reservations.reserve_date) = 1 then '(日)' 
@@ -187,10 +162,10 @@ users.company as company,
         when DAYOFWEEK(reservations.reserve_date) = 7 then '(土)'
         end
         ) as reserve_date,
-time_format(reservations.enter_time, '%H:%i') as enter_time,
-time_format(reservations.leave_time, '%H:%i') as leave_time,
-concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name,
-cxls.invoice_number as invoice_number,
+        time_format(reservations.enter_time, '%H:%i') as enter_time,
+        time_format(reservations.leave_time, '%H:%i') as leave_time,
+        concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name,
+        cxls.invoice_number as invoice_number,
         concat(date_format(cxls.payment_limit, '%Y/%m/%d'),
         case 
         when DAYOFWEEK(cxls.payment_limit) = 1 then '(日)' 
@@ -202,7 +177,7 @@ cxls.invoice_number as invoice_number,
         when DAYOFWEEK(cxls.payment_limit) = 7 then '(土)'
         end
         ) as payment_limit,
-venues.smg_url as smg_url
+        venues.smg_url as smg_url
         "
       ))
       ->leftJoin('reservations', 'reservations.id', '=', 'cxls.reservation_id')

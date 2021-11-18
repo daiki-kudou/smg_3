@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\UserReqLeg;
+use App\Mail\FailedMail;
 use Mail;
 
 class MailForRegister implements ShouldQueue

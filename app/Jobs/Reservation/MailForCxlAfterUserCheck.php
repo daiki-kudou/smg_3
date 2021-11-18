@@ -9,6 +9,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Cxl;
 use App\Mail\UserFinCxl;
+use App\Mail\FailedMail;
+
 use Mail;
 
 class MailForCxlAfterUserCheck implements ShouldQueue

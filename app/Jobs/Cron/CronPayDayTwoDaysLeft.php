@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\PayDayTwoDaysLeft;
+use App\Mail\FailedMail;
 use Mail;
 
 class CronPayDayTwoDaysLeft implements ShouldQueue
@@ -33,12 +34,11 @@ class CronPayDayTwoDaysLeft implements ShouldQueue
    */
   public function handle()
   {
-    $admin = config('app.admin_email');
-    $subject = "【会議室お支払｜[売上請求情報：" . $this->data['data']->category . "]：" . $this->data['data']->reservation_id . "】" . $this->data['title'] . "のお知らせ（SMG貸し会議室）";
-    Mail::to($this->data['data']->user_email)
-      ->cc($admin)
+    // $admin = config('app.admin_email');
+    $subject = "【会議室お支払｜" . $this->data->category . "：" . $this->data->reservation_id . "】期日のお知らせ（SMG貸し会議室）";
+    Mail::to($this->data->user_email)
       ->send(new PayDayTwoDaysLeft(
-        $this->data['data'],
+        $this->data,
         $subject
       ));
   }
