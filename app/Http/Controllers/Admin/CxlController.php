@@ -148,7 +148,7 @@ class CxlController extends Controller
 
   public function confirm_cxl(Request $request)
   {
-    $cxl = Cxl::with('reservations')->find($request->cxl_id);
+    $cxl = Cxl::with('reservation')->find($request->cxl_id);
     $reservation_id = $cxl->reservation->id;
     try {
       $cxl->updateCxlStatusByEmail(2);
