@@ -203,8 +203,10 @@ class AgentsReservationsController extends Controller
       );
     });
 
-    $SendSMGEmail = new SendSMGEmail();
-    $SendSMGEmail->send("ユーザーが追加予約の承認完了後、メール送信", ['reservation_id' => $bill->reservation->id, 'bill_id' => $bill->id]);
+    if ($bill->reservation->user_id > 0) {
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->send("ユーザーが追加予約の承認完了後、メール送信", ['reservation_id' => $bill->reservation->id, 'bill_id' => $bill->id]);
+    }
 
     $request->session()->regenerate();
     $bill = Bill::find($request->bill_id);
