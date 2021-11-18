@@ -170,6 +170,7 @@
     </p>
     {{Form::close()}}
   </div>
+  
 </section>
 
 <article class="contents">
