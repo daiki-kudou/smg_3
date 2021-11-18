@@ -647,6 +647,6 @@ class ReservationsController extends Controller
       DB::rollback();
       return back()->withInput()->withErrors($e->getMessage());
     }
-    return redirect()->route('admin.reservations.index')->with('flash_message', '削除したよ');
+    return redirect()->route('admin.reservations.index')->with('flash_message', '削除しました');
   }
 }
