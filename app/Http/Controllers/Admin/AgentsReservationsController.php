@@ -203,8 +203,10 @@ class AgentsReservationsController extends Controller
       );
     });
 
-    $SendSMGEmail = new SendSMGEmail();
-    $SendSMGEmail->send("ユーザーが追加予約の承認完了後、メール送信", ['reservation_id' => $bill->reservation->id, 'bill_id' => $bill->id]);
+    if ($bill->reservation->user_id > 0) {
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->send("ユーザーが追加予約の承認完了後、メール送信", ['reservation_id' => $bill->reservation->id, 'bill_id' => $bill->id]);
+    }
 
     $request->session()->regenerate();
     $bill = Bill::find($request->bill_id);
@@ -252,8 +254,6 @@ class AgentsReservationsController extends Controller
   public function edit_calc($array)
   {
     $data = $array;
-    dump($data);
-    // dd($data);
     $venue = Venue::find($data['venue_id']);
     $agents = Agent::all();
     $agent = $agents->find($data['agent_id']);
@@ -262,7 +262,6 @@ class AgentsReservationsController extends Controller
     } else {
       $layout_price = [0, 0, 0];
     }
-    dump($layout_price);
 
     $master_subtotal = $agent->agentPriceCalculate($data['end_user_charge']) + $layout_price[2];
     $payment_limit = $agent->getAgentPayLimit($data['reserve_date']);
@@ -298,7 +297,6 @@ class AgentsReservationsController extends Controller
     if (!empty($data['back'])) {
       return redirect(route('admin.agents_reservations.edit', $data['reservation_id']));
     }
-    // dd($data);
 
     $reservation = Reservation::find($data['reservation_id']);
     $bill = Bill::with('breakdowns')->find($data['bill_id']);
@@ -319,9 +317,7 @@ class AgentsReservationsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      // dd($e->getMessage());
       return $this->edit($reservation->id)->withErrors($e->getMessage());
-      // return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $reservation->id);

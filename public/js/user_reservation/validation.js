@@ -25,8 +25,9 @@ $(function () {
         email: "※Emailの形式で入力してください",
       },
       email2: {
+        equalTo: "一致しません",
         required: "※必須項目です",
-        equalTo: "一致しません"
+        email: "※Emailの形式で入力してください",
       },
     },
     errorPlacement: function (error, element) {
@@ -39,6 +40,11 @@ $(function () {
     },
     errorElement: "span",
     errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('#userFullOverlay').css('display', 'block');
+      form.submit();
+    }
   });
   $('input').on('blur', function () {
     $(this).valid();
@@ -168,6 +174,11 @@ $(function () {
     },
     errorElement: "span",
     errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('#userFullOverlay').css('display', 'block');
+      form.submit();
+    }
   });
   $('input').on('blur', function () {
     $(this).valid();
@@ -227,8 +238,7 @@ $(function () {
       errorClass: "is-error",
       //送信前にLoadingを表示
       submitHandler: function (form) {
-        $(".approval").addClass("hide");
-        $(".loading").removeClass("hide");
+        $('#userFullOverlay').css('display', 'block');
         form.submit();
       },
     });
@@ -364,6 +374,10 @@ $(function () {
       },
       errorElement: "span",
       errorClass: "is-error",
+      submitHandler: function (form) {
+        $('#userFullOverlay').css('display', 'block');
+        form.submit();
+      }
     });
     $('input').on('blur', function () {
       $(this).valid();
@@ -448,6 +462,11 @@ $(function () {
     },
     errorElement: "span",
     errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('#userFullOverlay').css('display', 'block');
+      form.submit();
+    }
   });
   $('input').on('blur', function () {
     $(this).valid();

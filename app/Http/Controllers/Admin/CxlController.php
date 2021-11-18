@@ -72,26 +72,6 @@ class CxlController extends Controller
 
   public function multiCheck(Request $request)
   {
-    // if ($request->back) {
-    //   return redirect(route(
-    //     'admin.cxl.multi_create',
-    //     [
-    //       'reservation_id' => $data['reservation_id'],
-    //       'bill_id' => $data['bill_id'],
-    //       $judge => $judge,
-    //     ]
-    //   ));
-    // }
-
-    // $data = $request->all();
-    // echo "<pre>";
-    // var_dump($data);
-    // echo "</pre>";
-
-    // return view(
-    //   'admin.cxl.multi_check',
-    //   compact('data')
-    // );
   }
 
   /**
@@ -168,7 +148,7 @@ class CxlController extends Controller
 
   public function confirm_cxl(Request $request)
   {
-    $cxl = Cxl::find($request->cxl_id);
+    $cxl = Cxl::with('reservation')->find($request->cxl_id);
     $reservation_id = $cxl->reservation->id;
     try {
       $cxl->updateCxlStatusByEmail(2);
@@ -176,8 +156,10 @@ class CxlController extends Controller
     } catch (\Exception $e) {
       report($e);
     }
-    $SendSMGEmail = new SendSMGEmail();
-    $SendSMGEmail->send("ユーザーがキャンセルを承認", $cxl->id);
+    if ($cxl->reservation->user_id > 0) {
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->send("ユーザーがキャンセルを承認", $cxl->id);
+    }
 
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $reservation_id);
@@ -193,26 +175,6 @@ class CxlController extends Controller
   {
     $cxl = Cxl::with(['bill', 'reservation.bills', 'cxl_breakdowns'])->find($id);
     $reservation = Reservation::find($cxl->reservation_id);
-    // dd($cxl);
-    // if (empty($cxl->bill)) {
-    //   //一括キャンセル押下時
-    //   if ($cxl->reservation->user_id > 0) {
-    //     $price_result = $cxl->reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price'], 4);
-    //   } else { //仲介会社の場合、会場料としてsubtotalを表示
-    //     $master_subtotal = $cxl->reservation->bills->where('reservation_status', '>', 3)->where('reservation_status', '<', 6)->pluck('master_subtotal')->sum();
-    //     $layout = $cxl->reservation->bills->where('reservation_status', '>', 3)->where('reservation_status', '<', 6)->pluck('layout_price')->sum();
-    //     $price_result = [($master_subtotal - $layout), 0, $layout, 0];
-    //   }
-    // } else {
-    //   //個別キャンセル押下時
-    //   if ($cxl->reservation->user_id > 0) {
-    //     $price_result = [$cxl->bill->venue_price, $cxl->bill->equipment_price, $cxl->bill->layout_price, $cxl->bill->others_price];
-    //   } else { //仲介会社の場合、会場料としてsubtotalを表示
-    //     $master_subtotal = $cxl->bill->master_subtotal;
-    //     $layout = $cxl->bill->layout_price;
-    //     $price_result = [($master_subtotal - $layout), 0, $layout, 0];
-    //   }
-    // }
     return view('admin.cxl.edit', compact('cxl', 'reservation'));
   }
 

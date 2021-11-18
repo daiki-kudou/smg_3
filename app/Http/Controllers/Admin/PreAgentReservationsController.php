@@ -111,7 +111,6 @@ class PreAgentReservationsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      // dd($e);
       return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
@@ -282,7 +281,6 @@ class PreAgentReservationsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      dd($e);
       return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();

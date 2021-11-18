@@ -10,7 +10,10 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\Reservation;
 use App\Models\Bill;
 use App\Mail\UserPreResToRes;
+use App\Mail\FailedMail;
 use Mail;
+use Carbon\Carbon;
+
 
 class MailForReservationAfterSwitchedByUser implements ShouldQueue
 {

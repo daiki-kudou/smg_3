@@ -524,7 +524,6 @@ class ReservationsController extends Controller
     if ($request->edit_calc) { //再計算ボタン押下
       return $this->edit_calc($data);
     }
-    // dd($data);
 
     $venue = Venue::find($data['venue_id']);
 
@@ -622,21 +621,22 @@ class ReservationsController extends Controller
 
     DB::beginTransaction();
     try {
-
       if (is_null($reservation)) { //削除対象がなければ
         throw new \Exception("削除対象がないため削除に失敗しました。");
       }
-
       if (($reservation->user_id > 0)) { //対象がメールアドレスでなければ
         if (!filter_var($reservation->user->email, FILTER_VALIDATE_EMAIL)) {
           throw new \Exception("当該ユーザーのアドレス"  . $reservation->user->email . "は正しくありません");
         }
       }
 
-      // 上が全て通ったら再度foreachでメール送信処理
+      // 上が全て通ったらメール送信処理
       if ($reservation->user_id > 0) {
         $SendSMGEmail = new SendSMGEmail();
         $SendSMGEmail->send("管理者が詳細画面にて予約を削除", ['reservation_id' => $reservation->id, 'bill_id' => $reservation->bills->first()->id]);
+      } else {
+        // 仲介会社はメール送信せずに削除のみ
+        $reservation->delete();
       }
 
       // 上のメール送信も問題なければ削除

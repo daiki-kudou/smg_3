@@ -11,6 +11,8 @@ use App\Mail\UserFinAddRes;
 use App\Models\Reservation;
 use App\Models\Bill;
 use App\Models\Breakdown;
+use App\Mail\FailedMail;
+use Carbon\Carbon;
 use Mail;
 
 class MailForBillAfterUserApproveAddBill implements ShouldQueue

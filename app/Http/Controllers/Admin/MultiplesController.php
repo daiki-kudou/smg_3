@@ -445,6 +445,7 @@ class MultiplesController extends Controller
     $data = $request->all();
     if (!empty($data['delete_target']) && $data['delete_target'] !== "[]") { //空配列は弾く
       $delete_target_array = json_decode($data['delete_target']); //配列
+      dd($delete_target_array);
       DB::beginTransaction();
       try {
         foreach ($delete_target_array as $value) {
@@ -462,10 +463,8 @@ class MultiplesController extends Controller
         foreach ($delete_target_array as $v) {
           $preReservation = PreReservation::with(['user', 'venue'])->find($v);
           if ($preReservation->user_id > 0) {
-            $user = $preReservation->user;
-            $venue = $preReservation->venue;
-            $SendSMGEmail = new SendSMGEmail($user, "test", $preReservation->venue);
-            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除");
+            $SendSMGEmail = new SendSMGEmail();
+            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除", $preReservation);
           }
         }
         // 上のメール送信も問題なければ削除
@@ -478,7 +477,7 @@ class MultiplesController extends Controller
         DB::rollback();
         return back()->withInput()->withErrors($e->getMessage());
       }
-      return redirect()->route('admin.multiples.index')->with('flash_message', '削除しました');
+      return redirect()->route('admin.multiples.index')->with('flash_message', '対象仮押さえを削除しました');
     } else {
       return back()->withInput()->with('flash_message_error', '仮押えが選択されていません');
     }

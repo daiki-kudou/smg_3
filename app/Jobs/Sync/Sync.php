@@ -8,6 +8,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use SSH;
+use Carbon\Carbon;
+
 
 
 class Sync implements ShouldQueue

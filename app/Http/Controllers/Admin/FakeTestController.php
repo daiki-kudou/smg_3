@@ -25,7 +25,6 @@ class FakeTestController extends Controller
       echo "";
       echo "会場ID: " . $venueId . ' / ' . '料金体系' . $priceSystem . ' / ' . '入室: ' . $enter . ' / ' . '退室 :' . $leave . ' / ' . '期待する結果: ' . $expectValue . '<br>';
       echo "↓　システム算出結果<br><div style='background:black; color:#56DB3A;font-weight:bold;'>";
-      dump(0);
       echo "</div><br>";
     } elseif ($result[0] == $expectValue) {
       echo "";
@@ -44,7 +43,4 @@ class FakeTestController extends Controller
       echo "</div><br>";
     }
   }
-
-
-
 }

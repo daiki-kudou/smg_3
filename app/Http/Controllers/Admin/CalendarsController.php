@@ -71,7 +71,6 @@ class CalendarsController extends Controller
       ->get();
     $json_result = $this->dateCalendar($reservations);
     $pre_json_result = $this->dateCalendar($pre_reservations);
-    // dump($pre_json_result);
 
     return view('admin.calendar.venue_calendar', [
       'days' => $days,

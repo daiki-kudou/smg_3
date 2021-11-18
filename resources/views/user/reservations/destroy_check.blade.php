@@ -1,6 +1,8 @@
 @extends('layouts.reservation.app')
 @section('content')
-<!-- ログイン、会員登録 -->
+
+@include('layouts.user.overlay')
+
 <div class="contents">
   <div class="pagetop-text">
     <h1 class="page-title oddcolor"><span>下記内容を取り消してもよろしいでしょうか。</span></h1>
@@ -373,4 +375,11 @@
 </section>
 <div class="top contents"><a href="#top"><img src="https://system.osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
 </div>
+
+<script>
+  $('input[type="submit"]').on('click',function(){
+    $('#userFullOverlay').css('display', 'block');
+  })
+</script>
+
 @endsection

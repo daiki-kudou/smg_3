@@ -6,8 +6,7 @@ $(function () {
     var date = json[index].reserve_date;
     var reservation_id = json[index].id;
     var company = json[index].company;
-    var text_limit = json[index]['time'].length;　//折返し文字数
-    console.log(line_break(company, text_limit));
+    var text_limit = json[index]['time'].length + 1;　//折返し文字数
     var data = "<a target='_blank' href='" + rootPath + "/admin/reservations/" + reservation_id + "'>" + line_break(company, text_limit) + "</a>";
     if (status < 3) {
       $.each(json[index]['time'], function ($index, $value) {
@@ -68,13 +67,13 @@ $(function () {
     var pre_company = pre_json[index].company;
     var pre_agent_id = pre_json[index].agent_id;
     var multiple_id = pre_json[index].multiple_id;
+    var pre_text_limit = pre_json[index]['time'].length + 1;　//折返し文字数
+
     $.each(pre_json[index]['time'], function ($index, $value) {
       if (pre_json[index]['time'].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
         $('.' + pre_date + 'cal' + $value).next().addClass('gray');
       }
-
       $('.' + pre_date + 'cal' + $value).addClass('bg-prereserve');
-
       if (pre_json[index]['time'].length === 1) {//30分利用の時のみ、次のマスをグレー
         $('.' + pre_date + 'cal' + $value).next().addClass('gray');
       }
@@ -82,14 +81,14 @@ $(function () {
       if ($index == 0) {
         if (multiple_id != 0) {
           if (pre_agent_id > 0) { //仲介会社の場合の一括詳細
-            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/agent/" + multiple_id + "'>" + pre_company + "</a>";
+            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/agent/" + multiple_id + "'>" + line_break(pre_company, pre_text_limit) + "</a>";
             $('.' + pre_date + 'cal' + $value).html(data);
           } else {　//ユーザーの場合の一括詳細
-            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/" + multiple_id + "'>" + pre_company + "</a>";
+            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/" + multiple_id + "'>" + line_break(pre_company, pre_text_limit) + "</a>";
             $('.' + pre_date + 'cal' + $value).html(data);
           }
         } else {　//ユーザー||仲介会社の仮押さえ詳細
-          var data = "<a target='_blank' href='" + rootPath + "/admin/pre_reservations/" + pre_reservation_id + "'>" + pre_company + "</a>";
+          var data = "<a target='_blank' href='" + rootPath + "/admin/pre_reservations/" + pre_reservation_id + "'>" + line_break(pre_company, pre_text_limit) + "</a>";
           $('.' + pre_date + 'cal' + $value).html(data);
         }
         if ($value !== "0800") {
@@ -101,14 +100,14 @@ $(function () {
       else if ($value == "0800") {
         if (multiple_id != 0) {
           if (pre_agent_id > 0) { //仲介会社の場合の一括詳細
-            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/agent/" + multiple_id + "'>" + pre_company + "</a>";
+            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/agent/" + multiple_id + "'>" + line_break(pre_company, pre_text_limit) + "</a>";
             $('.' + pre_date + 'cal' + $value).html(data);
           } else {　//ユーザーの場合の一括詳細
-            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/" + multiple_id + "'>" + pre_company + "</a>";
+            var data = "<a target='_blank' href='" + rootPath + "/admin/multiples/" + multiple_id + "'>" + line_break(pre_company, pre_text_limit) + "</a>";
             $('.' + pre_date + 'cal' + $value).html(data);
           }
         } else {　//ユーザー||仲介会社の仮押さえ詳細
-          var data = "<a target='_blank' href='" + rootPath + "/admin/pre_reservations/" + pre_reservation_id + "'>" + pre_company + "</a>";
+          var data = "<a target='_blank' href='" + rootPath + "/admin/pre_reservations/" + pre_reservation_id + "'>" + line_break(pre_company, pre_text_limit) + "</a>";
           $('.' + pre_date + 'cal' + $value).html(data);
         }
       } else if ($index + 1 === pre_json[index]['time'].length) {

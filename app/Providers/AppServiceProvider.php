@@ -32,14 +32,5 @@ class AppServiceProvider extends ServiceProvider
     if (request()->isSecure()) {
       \URL::forceScheme('https');
     }
-
-    // \DB::listen(function ($q) {
-    //   // SQL文
-    //   var_dump($q->sql);
-    //   // パラメータ
-    //   var_dump($q->bindings);
-    //   // 実行にかかった時間
-    //   var_dump($q->time);
-    // });
   }
 }

@@ -1,6 +1,8 @@
 @extends('layouts.reservation.app')
 @section('content')
 
+@include('layouts.user.overlay')
+
 <!-- ログイン、会員登録 -->
 <div class="contents" id="cartNone">
   <div class="pagetop-text">
@@ -135,17 +137,16 @@
   {{ Form::hidden('suggest_input', !empty($request->suggest_input)?$request->suggest_input:"") }}
   {{ Form::hidden('oth_input', !empty($request->oth_input)?$request->oth_input:"") }}
   {{ Form::hidden('password', $request->password) }}
-
   {{ Form::hidden('id', $request->id) }}
   {{ Form::hidden('token', $request->token) }}
   {{ Form::hidden('email', $request->email) }}
   {{ Form::hidden('status', $request->status) }}
-
-
   {{ Form::close() }}
-
-
-
-
 </section>
+
+<script>
+  $('input[name="register"]').on('click',function(){
+  $('#userFullOverlay').css('display', 'block');
+  })
+</script>
 @endsection

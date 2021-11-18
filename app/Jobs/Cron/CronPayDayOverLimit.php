@@ -1,32 +1,32 @@
 <?php
 
-namespace App\Jobs\Reservation;
+namespace App\Jobs\Cron;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Cxl;
-use App\Mail\UserFinCxl;
+use App\Mail\PayDayOverLimit;
 use App\Mail\FailedMail;
-use Carbon\Carbon;
 use Mail;
+use Carbon\Carbon;
 
-class MailForCxlAfterUserCheck implements ShouldQueue
+
+class CronPayDayOverLimit implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  public $cxl_id;
+  public $data;
 
   /**
    * Create a new job instance.
    *
    * @return void
    */
-  public function __construct($cxl_id)
+  public function __construct($data)
   {
-    $this->cxl_id = $cxl_id;
+    $this->data = $data;
   }
 
   /**
@@ -37,20 +37,13 @@ class MailForCxlAfterUserCheck implements ShouldQueue
   public function handle()
   {
     $admin = config('app.admin_email');
-    $cxl_data = $this->adjustCxlData();
-    $subject = "【会議室｜キャンセル：" . $cxl_data->reservation_id . "】手続き完了/お支払のお知らせ（SMG貸し会議室）";
-    Mail::to($cxl_data->user_email)
+    $subject = "【会議室お支払｜" . $this->data->category . "：" . $this->data->reservation_id . "】期日超過のお知らせ（SMG貸し会議室）";
+    Mail::to($this->data->user_email)
       ->cc($admin)
-      ->send(new UserFinCxl(
-        $cxl_data,
-        $subject,
+      ->send(new PayDayOverLimit(
+        $this->data,
+        $subject
       ));
-  }
-
-  public function adjustCxlData()
-  {
-    $cxl = new Cxl();
-    return $cxl->CxlEmailTemplate($this->cxl_id);
   }
 
   /**
