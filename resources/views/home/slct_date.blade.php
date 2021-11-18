@@ -1,6 +1,8 @@
 @extends('layouts.reservation.app')
 @section('content')
 
+@include('layouts.user.overlay')
+
 <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
 <script src="{{ asset('/js/user_reservation/control_time.js') }}"></script>
 
@@ -194,9 +196,12 @@
       iframe.find('#datepicker8').val(target);
       iframe.find('#s_calendar').submit();
       });
-
-
 </script>
 <div class="top contents"><a href="#top"><img src="https://system.osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
 </div>
+<script>
+  $('button[type="submit"]').on('click',function(){
+    $('#userFullOverlay').css('display','block');
+  })
+</script>
 @endsection

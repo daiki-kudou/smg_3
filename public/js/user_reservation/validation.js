@@ -227,8 +227,7 @@ $(function () {
       errorClass: "is-error",
       //送信前にLoadingを表示
       submitHandler: function (form) {
-        $(".approval").addClass("hide");
-        $(".loading").removeClass("hide");
+        $('#userFullOverlay').css('display', 'block');
         form.submit();
       },
     });

@@ -1,6 +1,8 @@
 @extends('layouts.reservation.app')
 @section('content')
 
+@include('layouts.user.overlay')
+
 
 <!-- 会場予約 -->
 <div class="contents">
@@ -114,4 +116,9 @@
 <div class="top contents"><a href="#top"><img src="https://system.osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
 </div>
 
+<script>
+  $('button[type="submit"]').on('click',function(){
+    $('#userFullOverlay').css('display','block');
+  })
+</script>
 @endsection
