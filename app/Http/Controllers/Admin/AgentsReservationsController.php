@@ -295,7 +295,6 @@ class AgentsReservationsController extends Controller
     if (!empty($data['back'])) {
       return redirect(route('admin.agents_reservations.edit', $data['reservation_id']));
     }
-    // dd($data);
 
     $reservation = Reservation::find($data['reservation_id']);
     $bill = Bill::with('breakdowns')->find($data['bill_id']);
@@ -316,9 +315,7 @@ class AgentsReservationsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      // dd($e->getMessage());
       return $this->edit($reservation->id)->withErrors($e->getMessage());
-      // return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $reservation->id);

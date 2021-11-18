@@ -73,6 +73,9 @@ class MultiplesController extends Controller
     $multiple = MultipleReserve::with("pre_reservations.pre_bill")->find($id);
     $checkVenuePrice = $multiple->checkVenuePrice();
     $checkEachStatus = $multiple->checkEachStatus();
+
+    // dd($pre_reservations->pluck('formatdate'));
+
     return view(
       'admin.multiples.show',
       compact('multiple', 'checkVenuePrice', 'checkEachStatus')
@@ -398,6 +401,7 @@ class MultiplesController extends Controller
         DB::commit();
       } catch (\Exception $e) {
         DB::rollback();
+        dd($e);
         return back()->withInput()->withErrors($e->getMessage());
       }
     }
@@ -460,8 +464,8 @@ class MultiplesController extends Controller
           if ($preReservation->user_id > 0) {
             $user = $preReservation->user;
             $venue = $preReservation->venue;
-            $SendSMGEmail = new SendSMGEmail($user, "test", $preReservation->venue);
-            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除");
+            // $SendSMGEmail = new SendSMGEmail($user, "test", $preReservation->venue);
+            // $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除");
           }
         }
         // 上のメール送信も問題なければ削除

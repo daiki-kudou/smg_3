@@ -96,7 +96,6 @@ class BillsController extends Controller
   public function store(Request $request)
   {
     $data = $request->all();
-    // dd($data);
     if ($request->back) {
       return redirect(route('admin.bills.create', $data));
     }
