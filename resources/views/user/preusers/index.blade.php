@@ -1,7 +1,7 @@
 @extends('layouts.reservation.app')
 @section('content')
 
-
+@include('layouts.user.overlay')
 <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
 
 <div class="contents mt-5">
@@ -19,16 +19,18 @@
         <tr>
           <th>メールアドレス<span class="txtRed c-block">＊</span></th>
           <td>
-            <input type="email" class="form-control text1 " id="email" aria-describedby="emailHelp" placeholder=""
-              name="email">
+            {{ Form::email('email',"",['class'=>'form-control text1','id'=>'email']) }}
+            {{-- <input type="email" class="form-control text1 " id="email" aria-describedby="emailHelp" placeholder=""
+              name="email"> --}}
             <p class="is-error-email" style="color: red"></p>
           </td>
         </tr>
         <tr>
           <th>メールアドレス（確認）<span class="txtRed c-block">＊</span></th>
           <td>
-            <input type="email2" class="form-control text1" id="email2" aria-describedby="emailHelp" placeholder=""
-              name="email2">
+            {{ Form::email('email2','',['class'=>'form-control text1','id'=>'email2']) }}
+            {{-- <input type="email2" class="form-control text1" id="email2" aria-describedby="emailHelp" placeholder=""
+              name="email2"> --}}
             <p class="is-error-email2" style="color: red"></p>
           </td>
         </tr>

@@ -1,6 +1,8 @@
 @extends('layouts.reservation.app')
 @section('content')
 
+@include('layouts.user.overlay')
+
 <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 

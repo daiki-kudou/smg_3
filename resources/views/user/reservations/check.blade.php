@@ -1,6 +1,8 @@
 @extends('layouts.reservation.app')
 @section('content')
 
+@include('layouts.user.overlay')
+
 <div class="contents">
   <div class="pagetop-text">
     <h1 class="page-title oddcolor"><span>入力内容</span></h1>
@@ -430,4 +432,10 @@
 
 <div class="top contents"><a href="#top"><img src="https://system.osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
 </div>
+
+<script>
+  $('input[name="store"]').on('click',function(){
+  $('#userFullOverlay').css('display', 'block');
+  })
+</script>
 @endsection

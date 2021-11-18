@@ -1,6 +1,8 @@
 @extends('layouts.reservation.app')
 @section('content')
 
+@include('layouts.user.overlay')
+
 <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
 
 <!-- ログイン、会員登録 -->
