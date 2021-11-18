@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Carbon\Carbon;
 
 class FailedMail extends Mailable
 {
@@ -31,7 +32,7 @@ class FailedMail extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.failedMail')
-      ->subject('管理者通知:メール送信失敗')
+      ->subject('管理者通知:メール送信失敗' . Carbon::now()->toDateTimeString())
       ->with([
         'exception' => $this->exception,
         'class_name' => $this->class_name,

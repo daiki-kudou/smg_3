@@ -148,7 +148,7 @@ class CxlController extends Controller
 
   public function confirm_cxl(Request $request)
   {
-    $cxl = Cxl::find($request->cxl_id);
+    $cxl = Cxl::with('reservations')->find($request->cxl_id);
     $reservation_id = $cxl->reservation->id;
     try {
       $cxl->updateCxlStatusByEmail(2);
@@ -156,8 +156,10 @@ class CxlController extends Controller
     } catch (\Exception $e) {
       report($e);
     }
-    $SendSMGEmail = new SendSMGEmail();
-    $SendSMGEmail->send("ユーザーがキャンセルを承認", $cxl->id);
+    if ($cxl->reservation->user_id > 0) {
+      $SendSMGEmail = new SendSMGEmail();
+      $SendSMGEmail->send("ユーザーがキャンセルを承認", $cxl->id);
+    }
 
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $reservation_id);
