@@ -570,7 +570,7 @@ header div.contents {
 .cart-addbtn {
     position: fixed;
     bottom: 190px;
-    right: 0;
+    right: 70px;
     z-index: 99;
 }
 
@@ -911,5 +911,9 @@ header div.contents {
 
     .sumText {
         font-size: 1.8rem;
+    }
+
+    .cart-addbtn {
+        right: 0;
     }
 }
