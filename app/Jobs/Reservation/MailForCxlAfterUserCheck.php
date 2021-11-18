@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\Cxl;
 use App\Mail\UserFinCxl;
 use App\Mail\FailedMail;
-
+use Carbon\Carbon;
 use Mail;
 
 class MailForCxlAfterUserCheck implements ShouldQueue

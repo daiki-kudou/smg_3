@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\UserUnSub;
 use App\Mail\FailedMail;
-
+use Carbon\Carbon;
 use Mail;
 
 class MailForUnSub implements ShouldQueue

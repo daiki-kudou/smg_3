@@ -12,6 +12,8 @@ use App\Models\Bill;
 use App\Mail\UserPreResToRes;
 use App\Mail\FailedMail;
 use Mail;
+use Carbon\Carbon;
+
 
 class MailForReservationAfterSwitchedByUser implements ShouldQueue
 {

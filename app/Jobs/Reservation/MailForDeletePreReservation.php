@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\PreReservation;
 use App\Mail\UserPreResCxl;
 use App\Mail\FailedMail;
-
+use Carbon\Carbon;
 use Mail;
 
 class MailForDeletePreReservation implements ShouldQueue

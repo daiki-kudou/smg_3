@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\Thanks;
 use App\Mail\FailedMail;
-
+use Carbon\Carbon;
 use Mail;
 
 class CronThanks implements ShouldQueue

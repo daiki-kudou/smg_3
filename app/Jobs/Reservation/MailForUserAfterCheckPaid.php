@@ -12,6 +12,8 @@ use App\Models\Bill;
 use App\Mail\UserPaid;
 use App\Mail\FailedMail;
 use Mail;
+use Carbon\Carbon;
+
 
 class MailForUserAfterCheckPaid implements ShouldQueue
 {

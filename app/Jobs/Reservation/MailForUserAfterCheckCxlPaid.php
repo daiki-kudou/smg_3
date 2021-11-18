@@ -12,6 +12,8 @@ use App\Models\Cxl;
 use App\Mail\UserCxlPaid;
 use App\Mail\FailedMail;
 use Mail;
+use Carbon\Carbon;
+
 
 class MailForUserAfterCheckCxlPaid implements ShouldQueue
 {

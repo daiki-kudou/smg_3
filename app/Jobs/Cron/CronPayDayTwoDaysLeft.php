@@ -10,6 +10,8 @@ use Illuminate\Queue\SerializesModels;
 use App\Mail\PayDayTwoDaysLeft;
 use App\Mail\FailedMail;
 use Mail;
+use Carbon\Carbon;
+
 
 class CronPayDayTwoDaysLeft implements ShouldQueue
 {

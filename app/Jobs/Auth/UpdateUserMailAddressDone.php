@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\ResetEmailDone;
 use App\Mail\FailedMail;
-
+use Carbon\Carbon;
 use Mail;
 
 class UpdateUserMailAddressDone implements ShouldQueue

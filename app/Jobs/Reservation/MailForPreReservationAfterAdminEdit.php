@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\PreReservation;
 use App\Mail\UserFinPreRes;
 use App\Mail\FailedMail;
-
+use Carbon\Carbon;
 use Mail;
 
 class MailForPreReservationAfterAdminEdit implements ShouldQueue

@@ -12,7 +12,7 @@ use App\Models\Bill;
 use App\Models\Breakdown;
 use App\Mail\UserDelRes;
 use App\Mail\FailedMail;
-
+use Carbon\Carbon;
 use Mail;
 
 class MailForDeleteReservation implements ShouldQueue

@@ -10,6 +10,8 @@ use Illuminate\Queue\SerializesModels;
 use App\Mail\PayDayOverLimit;
 use App\Mail\FailedMail;
 use Mail;
+use Carbon\Carbon;
+
 
 class CronPayDayOverLimit implements ShouldQueue
 {
