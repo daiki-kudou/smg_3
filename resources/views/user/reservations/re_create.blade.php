@@ -351,10 +351,10 @@
           <div class="selectTime m-b10">
             {{Form::radio('luggage_flag', 1,
             (int)$fix->luggage_flag===1?true:false,['id'=>'luggage_flag','class'=>'radio-input'])}}
-            {{Form::label('luggage_flag','有り')}}
+            {{Form::label('luggage_flag','あり')}}
             {{Form::radio('luggage_flag', 0,
             (int)$fix->luggage_flag===0?true:false,['id'=>'no_luggage_flag','class'=>'radio-input'])}}
-            {{Form::label('no_luggage_flag','無し')}}
+            {{Form::label('no_luggage_flag','なし')}}
           </div>
           <ul class="luggage_info">
             <li class="m-b10">

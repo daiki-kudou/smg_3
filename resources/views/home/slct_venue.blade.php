@@ -94,7 +94,7 @@
     </article>
     @if((int)$request->room04===10||(int)$request->room04===11||(int)$request->room04===12||(int)$request->room04===13||(int)$request->room04===16||(int)$request->room04===17)
     <div class="caution-area m-t20">
-      <p class="txtCenter caution-text">提携会場のため、一度弊社にお問い合わせください</p>
+      <p class="txtCenter caution-text">提携会場のため、一度弊社にお問い合わせください。</p>
     </div>
     @else
     <div class="calenderframe">
@@ -119,7 +119,7 @@
           <td>
             <p>
             <div class="riyoubi">
-              <input type="text" name="" id="datepicker2" class="form-input date_input" autocomplete="off">
+              <input type="text" name="" id="datepicker2" class="form-input date_input" autocomplete="off" readonly>
               {{Form::hidden('date',"")}}
             </div>
             <p class="is-error-date" style="color: red"></p>
