@@ -318,7 +318,6 @@ class Venue extends Model implements PresentableInterface
         $fix_times[] = ['time' => $value['time'], 'price' => $value['price'], 'extend' => $value['extend'],];
       }
       $diff = Carbon::parse($start_time)->diffInMinutes(Carbon::parse($finish_time)) / 60;
-      // dump($diff);
       if ($diff < 3) {
         return [0, 0, 0, 0, 0];
       }

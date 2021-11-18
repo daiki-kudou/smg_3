@@ -73,9 +73,6 @@ class MultiplesController extends Controller
     $multiple = MultipleReserve::with("pre_reservations.pre_bill")->find($id);
     $checkVenuePrice = $multiple->checkVenuePrice();
     $checkEachStatus = $multiple->checkEachStatus();
-
-    // dd($pre_reservations->pluck('formatdate'));
-
     return view(
       'admin.multiples.show',
       compact('multiple', 'checkVenuePrice', 'checkEachStatus')
@@ -401,7 +398,6 @@ class MultiplesController extends Controller
         DB::commit();
       } catch (\Exception $e) {
         DB::rollback();
-        dd($e);
         return back()->withInput()->withErrors($e->getMessage());
       }
     }

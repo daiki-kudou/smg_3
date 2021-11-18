@@ -51,16 +51,6 @@ class CommandCronPayDayTwoDaysLeft extends Command
       $SendSMGEmail->CronSend("入金期日2営業日前(催促)", $b);
     }
 
-    // //キャンセルしていない予約の1営業日後抽出
-    // $targetPaymentLimit = $this->getSalesDate('SUB'); //subDays
-    // $bills = $this->BillQuey();
-    // $target = $bills->where('bill_payment_limit', $targetPaymentLimit);
-    // foreach ($target as $t) {
-    //   // $SendSMGEmail = new SendSMGEmail();
-    //   // $SendSMGEmail->CronSend("入金期日2営業日前(催促)", ['data' => $b, 'title' => "期日超過のお知らせ"]);
-    //   dump('キャンセルしていない予約の1営業日後抽出', $t);
-    // }
-
     //キャンセルの２営業日前抽出
     $targetPaymentLimit = $this->getSalesDate('ADD'); //addDays
     $cxls = $this->CxlQuey($targetPaymentLimit);
@@ -68,16 +58,6 @@ class CommandCronPayDayTwoDaysLeft extends Command
       $SendSMGEmail = new SendSMGEmail();
       $SendSMGEmail->CronSend("入金期日2営業日前(催促)", $c);
     }
-
-    // // //キャンセルの1営業日後抽出
-    // $targetPaymentLimit = $this->getSalesDate('SUB'); //subDays
-    // $cxls = $this->CxlQuey();
-    // $target = $cxls->where('payment_limit', $targetPaymentLimit);
-    // foreach ($target as $c) {
-    //   // $SendSMGEmail = new SendSMGEmail();
-    //   // $SendSMGEmail->CronSend("入金期日2営業日前(催促)", ['data' => $b, 'title' => "期日超過のお知らせ"]);
-    //   dump('キャンセルの1営業日後抽出', $c);
-    // }
   }
 
   /**

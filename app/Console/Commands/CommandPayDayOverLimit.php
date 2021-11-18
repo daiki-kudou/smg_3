@@ -49,7 +49,6 @@ class CommandPayDayOverLimit extends Command
     foreach ($bills as $b) {
       $SendSMGEmail = new SendSMGEmail();
       $SendSMGEmail->CronSend("入金期日超過(督促)", $b);
-      // dump('キャンセルしていない予約の1営業日後抽出', $b);
     }
 
     // // //キャンセルの1営業日後抽出
@@ -58,7 +57,6 @@ class CommandPayDayOverLimit extends Command
     foreach ($cxls as $c) {
       $SendSMGEmail = new SendSMGEmail();
       $SendSMGEmail->CronSend("入金期日超過(督促)", $c);
-      // dump('キャンセルの1営業日後抽出', $c);
     }
   }
 

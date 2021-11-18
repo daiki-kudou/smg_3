@@ -51,7 +51,6 @@ class RegisterController extends Controller
 
   public function checkRegistrationForm(Request $request)
   {
-    // dd($request->all());
     $validator = Validator::make($request->all(), [
       'email' => 'required|string|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
       'company' => 'required|max:255',

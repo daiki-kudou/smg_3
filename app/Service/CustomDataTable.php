@@ -18,7 +18,6 @@ class CustomDataTable
    */
   public function ReservationFormat($data)
   {
-    // dd($this->ReservationStatus(20004));
     $c_reservations = [];
     foreach ($data as $key => $r) {
       if ($key === 100) {
