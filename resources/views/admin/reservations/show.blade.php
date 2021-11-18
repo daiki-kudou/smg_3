@@ -1272,7 +1272,7 @@
                           </div>
                         </td>
                         @endif
-                        <td>
+                        <td class="text-right">
                           <div><span>申込日：</span>
                           {{ ReservationHelper::formatDate($cxl->created_at) }}
                         </div>
