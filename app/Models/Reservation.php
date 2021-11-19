@@ -509,24 +509,26 @@ class Reservation extends Model implements PresentableInterface
 
     // 売上請求一覧用のフリーワード検索
     if (!empty($data['sales_search_box'])) {
-      if (!empty($data['free_word']) && (int)$data['free_word'] !== 0) {
+      if (!empty($data['free_word'])) {
         if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
           //数字の場合検索
-          $searchTarget = $searchTarget->where(function ($query) use ($data) {
-            if (!empty($data['free_word'])) {
-              for ($i = 0; $i < strlen($data['free_word']); $i++) {
-                if ((int)$data['free_word'][$i] !== 0) {
-                  $id = substr($data['free_word'], $i, strlen($data['free_word']));
-                  break;
+          if ((int)$data['free_word'] !== 0) {
+            $searchTarget = $searchTarget->where(function ($query) use ($data) {
+              if (!empty($data['free_word'])) {
+                for ($i = 0; $i < strlen($data['free_word']); $i++) {
+                  if ((int)$data['free_word'][$i] !== 0) {
+                    $id = substr($data['free_word'], $i, strlen($data['free_word']));
+                    break;
+                  }
                 }
+                $sogaku = str_replace(',', '', $data['free_word']);
+                $query->whereRaw('reservations.id LIKE ? ', ['%' . $id . '%']) //予約ID
+                  ->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']) //一括ID
+                  ->orWhereRaw('users.id LIKE ? ', ['%' . $id . '%'])
+                  ->orWhereRaw('sogaku_master.sogaku = ? ', $sogaku);
               }
-              $sogaku = str_replace(',', '', $data['free_word']);
-              $query->whereRaw('reservations.id LIKE ? ', ['%' . $id . '%']) //予約ID
-                ->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']) //一括ID
-                ->orWhereRaw('users.id LIKE ? ', ['%' . $id . '%'])
-                ->orWhereRaw('sogaku_master.sogaku = ? ', $sogaku);
-            }
-          });
+            });
+          }
         } elseif (preg_match('/^[0-9!-]+$/', $data['free_word'])) {
           //○○○○-○○-○○の日付が来た際
           $searchTarget = $searchTarget->where(function ($query) use ($data) {
@@ -585,23 +587,25 @@ class Reservation extends Model implements PresentableInterface
       }
     } else {
       // 予約一覧用フリーワード検索
-      if (!empty($data['free_word']) && (int)$data['free_word'] !== 0) {
+      if (!empty($data['free_word'])) {
         if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
           //数字の場合検索
-          $searchTarget = $searchTarget->where(function ($query) use ($data) {
-            if (!empty($data['free_word'])) {
-              for ($i = 0; $i < strlen($data['free_word']); $i++) {
-                if ((int)$data['free_word'][$i] !== 0) {
-                  $id = substr($data['free_word'], $i, strlen($data['free_word']));
-                  break;
+          if ((int)$data['free_word'] !== 0) {
+            $searchTarget = $searchTarget->where(function ($query) use ($data) {
+              if (!empty($data['free_word'])) {
+                for ($i = 0; $i < strlen($data['free_word']); $i++) {
+                  if ((int)$data['free_word'][$i] !== 0) {
+                    $id = substr($data['free_word'], $i, strlen($data['free_word']));
+                    break;
+                  }
                 }
+                $query->whereRaw('reservations.id LIKE ? ', ['%' . $id . '%']) //予約ID
+                  ->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']) //一括ID
+                  ->orWhereRaw('users.mobile LIKE ? ', ['%' . $data['free_word'] . '%'])
+                  ->orWhereRaw('users.tel LIKE ? ', ['%' . $data['free_word'] . '%']);
               }
-              $query->whereRaw('reservations.id LIKE ? ', ['%' . $id . '%']) //予約ID
-                ->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']) //一括ID
-                ->orWhereRaw('users.mobile LIKE ? ', ['%' . $data['free_word'] . '%'])
-                ->orWhereRaw('users.tel LIKE ? ', ['%' . $data['free_word'] . '%']);
-            }
-          });
+            });
+          }
         } elseif (preg_match('/^[0-9!-]+$/', $data['free_word'])) {
           //○○○○-○○-○○の日付が来た際
           $searchTarget = $searchTarget->where(function ($query) use ($data) {

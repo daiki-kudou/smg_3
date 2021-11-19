@@ -700,6 +700,7 @@
           </table>
         </div>
 
+
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tbody>
