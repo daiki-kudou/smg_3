@@ -548,11 +548,13 @@
                   {{Form::label('eat_in',"あり")}}
                 </td>
                 <td>
-                  {{Form::radio('eat_in_prepare', 1, $request->eat_in_prepare==1?true:false , ['id' => 'eat_in_prepare',
-                  ''])}}
+                  {{Form::radio('eat_in_prepare', 1,
+                  (int)$request->eat_in===1?((int)$request->eat_in_prepare===1?true:false):true , ['id' =>
+                  'eat_in_prepare',(int)$request->eat_in===0?"disabled":""])}}
                   {{Form::label('eat_in_prepare',"手配済み")}}
-                  {{Form::radio('eat_in_prepare', 2, $request->eat_in_prepare==2?true:false , ['id' =>
-                  'eat_in_consider',''])}}
+                  {{Form::radio('eat_in_prepare',
+                  2,(int)$request->eat_in===1?((int)$request->eat_in_prepare===2?true:false):false, ['id' =>
+                  'eat_in_consider',(int)$request->eat_in===0?"disabled":""])}}
                   {{Form::label('eat_in_consider',"検討中")}}
                 </td>
               </tr>
@@ -1046,6 +1048,8 @@
 {{Form::hidden('email_flag', $request->email_flag)}}
 {{Form::hidden('in_charge', $request->in_charge)}}
 {{Form::hidden('tel', $request->tel)}}
+{{Form::hidden('eat_in', $request->eat_in)}}
+{{Form::hidden('eat_in_prepare', $request->eat_in_prepare)}}
 
 {{Form::hidden('event_start', $request->event_start)}}
 {{Form::hidden('event_finish', $request->event_finish)}}
@@ -1195,7 +1199,6 @@
         $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
       } else {
         $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
-        $('input:radio[name="eat_in_prepare"]').prop('checked', false);
       }
     })
   })

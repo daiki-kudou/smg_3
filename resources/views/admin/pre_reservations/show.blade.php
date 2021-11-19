@@ -523,7 +523,7 @@
             </div>
             @endif
 
-            @if ($pre_reservation->venue->layout==1)
+            @if ($pre_reservation->venue->luggage_flag==1)
             <div class='luggage'>
               <table class='table table-bordered' style="table-layout:fixed;">
                 <thead>
@@ -586,7 +586,9 @@
                 </tr>
                 <tr>
                   <td>
-                    {{$pre_reservation->eat_in_prepare==1?"手配済み":"検討中"}}
+                    {{
+                    !empty($pre_reservation->eat_in_prepare)?((int)$pre_reservation->eat_in_prepare===1?"手配済み":"検討中"):""
+                    }}
                   </td>
                 </tr>
               </tbody>

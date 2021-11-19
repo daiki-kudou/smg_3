@@ -236,21 +236,6 @@ class PreReservationsController extends Controller
           'leave_time' => $record->leave_time,
           'venue_name' => $record->venue_name,
           'details' => "<a href=" . url('/user/pre_reservations/' . $record->pre_reservation_id)  . " class='more_btn btn'>詳細</a>"
-
-
-          // 'reserve_date' => ReservationHelper::formatDate($record->reserve_date),
-          // 'enter_time' => ReservationHelper::formatTime($record->enter_time),
-          // 'leave_time' => ReservationHelper::formatTime($record->leave_time),
-          // 'venue_name' => ($record->venue_name),
-          // 'reservation_status' => $this->getSalesStatus($record->reservation_id),
-          // 'category' => $this->getSalesCategory($record->reservation_id),
-          // 'sogaku' => (int)$record->sogaku < 0 ? "<p style='color:red;'>" . number_format($record->sogaku) . "</p>" : number_format($record->sogaku),
-          // 'sales' => $this->getSales($record->reservation_id, $record->sogaku),
-          // 'payment_limit' => $this->getPaymentLimit($record->reservation_id),
-          // 'paid' => $this->getPaid($record->reservation_id),
-          // 'details' => "<a href=" . route('user.home.show', $record->reservation_id) . " class='more_btn btn'>予約<br>詳細</a>",
-          // 'invoice' => $this->getInvoice($record->reservation_id),
-          // 'receipt' => $this->getReceipt($record->reservation_id),
         ];
     }
 

@@ -362,6 +362,8 @@ class PreReservationsController extends Controller
         'attention' => $request->attention,
         'user_details' => $request->user_details,
         'admin_details' => $request->admin_details,
+        'eat_in' => $request->eat_in,
+        'eat_in_prepare' => $request->eat_in_prepare,
         'cost' => $request->cost,
       ]);
 

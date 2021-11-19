@@ -531,15 +531,16 @@
                 </td>
                 <td>
                   @if (empty($request->eat_in_prepare))
-                  {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                  {{Form::radio('eat_in_prepare', 1, true , ['id' => 'eat_in_prepare', 'disabled'])}}
                   {{Form::label('eat_in_prepare',"手配済み")}}
                   {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
                   {{Form::label('eat_in_consider',"検討中")}}
                   @else
-                  {{Form::radio('eat_in_prepare', 1, $request->eat_in_prepare==1?true:false , ['id' => 'eat_in_prepare'
+                  {{Form::radio('eat_in_prepare', 1, (int)$request->eat_in_prepare===1?true:false , ['id' =>
+                  'eat_in_prepare'
                   ])}}
                   {{Form::label('eat_in_prepare',"手配済み")}}
-                  {{Form::radio('eat_in_prepare', 2, $request->eat_in_prepare==2?true:false , ['id' =>
+                  {{Form::radio('eat_in_prepare', 2, (int)$request->eat_in_prepare===2?true:false , ['id' =>
                   'eat_in_consider'])}}
                   {{Form::label('eat_in_consider',"検討中")}}
                   @endif
