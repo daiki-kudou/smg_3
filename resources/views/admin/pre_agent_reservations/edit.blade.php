@@ -646,6 +646,7 @@
           </tbody>
         </table>
 
+        @if ($PreReservation->venue->alliance_flag===1)
         <table class="table table-bordered sale-table">
           <tbody>
             <tr>
@@ -668,6 +669,7 @@
             </tr>
           </tbody>
         </table>
+        @endif
 
         <table class="table table-bordered note-table">
           <tbody>

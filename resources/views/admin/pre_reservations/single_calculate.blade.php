@@ -760,7 +760,7 @@
                   <td>金額</td>
                 </tr>
               </tbody>
-              @if ($price_details!=0)
+              @if (array_sum($price_details)!=0)
               <tbody class="venue_main">
                 @if ($price_details[1])
                 <tr>

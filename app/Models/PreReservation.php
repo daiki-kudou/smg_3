@@ -691,24 +691,26 @@ class PreReservation extends Model
     }
 
     if (!empty($data['time_over']) && (int)$data['time_over'] === 1) {
-      $searchTarget->whereRaw('pre_reservations.status = ? and pre_reservations.updated_at < DATE_SUB(CURRENT_DATE(),INTERVAL ? DAY) ', [1, 3]);
+      $searchTarget->whereRaw('pre_reservations.status = ? and pre_reservations.created_at < DATE_SUB(CURRENT_DATE(),INTERVAL ? DAY) ', [1, 3]);
     }
 
-    if (!empty($data['search_free']) && (int)$data['search_free'] !== 0) {
+    if (!empty($data['search_free'])) {
       if (preg_match('/^[0-9!,]+$/', $data['search_free'])) {
         //数字の場合検索
-        $searchTarget = $searchTarget->where(function ($query) use ($data) {
-          for ($i = 0; $i < strlen($data['search_free']); $i++) {
-            if ((int)$data['search_free'][$i] !== 0) {
-              $id = substr($data['search_free'], $i, strlen($data['search_free']));
-              break;
+        if ((int)$data['search_free'] !== 0) {
+          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+            for ($i = 0; $i < strlen($data['search_free']); $i++) {
+              if ((int)$data['search_free'][$i] !== 0) {
+                $id = substr($data['search_free'], $i, strlen($data['search_free']));
+                break;
+              }
             }
-          }
-          $sogaku = str_replace(',', '', $data['search_free']);
-          $query->whereRaw('pre_reservations.id LIKE ? ', ['%' . $id . '%'])
-            ->orWhereRaw('users.mobile LIKE ? ', ['%' . $data['search_free'] . '%'])
-            ->orWhereRaw('users.tel LIKE ? ', ['%' . $data['search_free'] . '%']);
-        });
+            $sogaku = str_replace(',', '', $data['search_free']);
+            $query->whereRaw('pre_reservations.id LIKE ? ', ['%' . $id . '%'])
+              ->orWhereRaw('users.mobile LIKE ? ', ['%' . $data['search_free'] . '%'])
+              ->orWhereRaw('users.tel LIKE ? ', ['%' . $data['search_free'] . '%']);
+          });
+        }
       } elseif (preg_match('/^[0-9!-]+$/', $data['search_free'])) {
         //○○○○-○○-○○の日付が来た際
         $searchTarget = $searchTarget->where(function ($query) use ($data) {
@@ -771,7 +773,7 @@ class PreReservation extends Model
       ))
       ->leftJoin('venues', 'pre_reservations.venue_id', '=', 'venues.id')
       ->leftJoin('users', 'pre_reservations.user_id', '=', 'users.id')
-      ->whereRaw('pre_reservations.id = ?', [$id]);
+      ->whereRaw('pre_reservations.id = ?', [$id])->get();
 
     return $result->first();
   }

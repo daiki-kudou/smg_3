@@ -700,6 +700,7 @@
           </table>
         </div>
 
+        @if ($request_equipments!==0||$request_services!==0)
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tbody>
@@ -759,7 +760,7 @@
               </tr>
               @endif
               @endforeach
-              @if ($request->luggage_price)
+              {{-- @if ((int)$request->luggage_flag!==0)
               <tr>
                 <td>
                   {{ Form::text('service_breakdown_item[]', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
@@ -775,12 +776,14 @@
                   {{ Form::text('service_breakdown_subtotal[]', 0,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
-              @endif
+              @endif --}}
             </tbody>
           </table>
         </div>
+        @endif
 
         @if ($venue->layout!=0)
+        @if ((int)$request->layout_prepare===1||(int)$request->layout_clean===1)
         <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tbody>
@@ -843,6 +846,7 @@
             @endif
           </table>
         </div>
+        @endif
         @endif
 
 

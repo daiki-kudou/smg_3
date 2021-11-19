@@ -16,6 +16,7 @@ use App\Models\PreEndUser;
 use App\Models\Reservation;
 use App\Models\Bill;
 use App\Models\Breakdown;
+use App\Models\Enduser;
 use Carbon\Carbon;
 
 
@@ -79,6 +80,16 @@ class PreAgentReservationsController extends Controller
 
     $layout_total = $layout_prepare + $layout_clean;
 
+    $request_equipments = 0;
+    $request_services = 0;
+    foreach ($request->all() as $key => $value) {
+      if (preg_match("/equipment_breakdown/", $key)) {
+        $request_equipments += (int)$value;
+      } elseif (preg_match("/services_breakdown/", $key)) {
+        $request_services += (int)$value;
+      }
+    }
+
     return view('admin.pre_agent_reservations.single_calculate', [
       'agent' => $agent,
       'request' => $request,
@@ -87,6 +98,8 @@ class PreAgentReservationsController extends Controller
       'layout_prepare' => $layout_prepare,
       'layout_clean' => $layout_clean,
       'layout_total' => $layout_total,
+      'request_equipments' => $request_equipments,
+      'request_services' => $request_services,
     ]);
   }
 
@@ -111,6 +124,7 @@ class PreAgentReservationsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
+      dd($e);
       return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
@@ -214,9 +228,9 @@ class PreAgentReservationsController extends Controller
 
   public function switch_status(Request $request)
   {
+
     $data = $request->all();
     $pre_reservation = PreReservation::with(['pre_bill.pre_breakdowns', 'pre_enduser'])->find($data['pre_reservation_id']);
-
     $data = $pre_reservation->toArray();
 
     $data['luggage_price'] = ""; // ※lugage_priceは手動で追加
@@ -269,6 +283,17 @@ class PreAgentReservationsController extends Controller
       }
     }
 
+    $enduser = new Enduser;
+    $enduser_data = [];
+    $enduser_data['enduser_company'] = $pre_reservation->pre_enduser->first()->company;
+    $enduser_data['enduser_incharge'] = $pre_reservation->pre_enduser->first()->person;
+    $enduser_data['enduser_mail'] = $pre_reservation->pre_enduser->first()->email;
+    $enduser_data['enduser_mobile'] = $pre_reservation->pre_enduser->first()->mobile;
+    $enduser_data['enduser_tel'] = $pre_reservation->pre_enduser->first()->tel;
+    $enduser_data['enduser_address'] = $pre_reservation->pre_enduser->first()->address;
+    $enduser_data['enduser_attr'] = $pre_reservation->pre_enduser->first()->attr;
+    $enduser_data['end_user_charge'] = $pre_reservation->pre_enduser->first()->charge;
+
     DB::beginTransaction();
     try {
       $pre_reservation->delete();
@@ -278,10 +303,12 @@ class PreAgentReservationsController extends Controller
       }
       $result_bill = $bill->BillStore($result_reservation->id, $bill_data);
       $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $breakdown_data);
+      $enduser->endUserStore($result_reservation->id, $enduser_data);
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      return back()->withInput()->withErrors($e->getMessage());
+      // return back()->withInput()->withErrors($e->getMessage());
+      return redirect()->route('admin.pre_reservations.show', $pre_reservation->id)->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.index');
