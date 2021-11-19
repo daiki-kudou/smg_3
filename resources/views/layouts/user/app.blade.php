@@ -161,8 +161,8 @@
       
 // 自動補完無効
     $(function(){
-    $('input').each(function(index, element){
-    var this_val=$('input').eq(index);
+    $('input[=type"text"]').each(function(index, element){
+    var this_val=$('input[=type"text"]').eq(index);
     this_val.on("mousedown", function(){
     setTimeout(function(){
     this_val.focus();
