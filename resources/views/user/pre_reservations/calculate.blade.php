@@ -45,6 +45,7 @@
 {{Form::hidden('discount_condition',$pre_reservation->discount_condition)}}
 {{Form::hidden('attention',$pre_reservation->attention)}}
 {{Form::hidden('multiple_reserve_id',$pre_reservation->multiple_reserve_id)}}
+{{Form::hidden('admin_details',$pre_reservation->admin_details)}}
 
 {{Form::hidden('bill_company',$user->company)}}
 {{Form::hidden('bill_person',ReservationHelper::getPersonName($user->id))}}
@@ -759,7 +760,8 @@
 <div class="confirm-box mt-3">
   <h5 class="mb-2 caution_color">【個人情報の取り扱いについて】</h5>
   <p>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
-      href="https://system.osaka-conference.com/privacypolicy/" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>をご確認下さい。</p>
+      href="https://system.osaka-conference.com/privacypolicy/" target="_blank"
+      rel="noopener noreferrer">プライバシーポリシー</a>をご確認下さい。</p>
 </div>
 
 
