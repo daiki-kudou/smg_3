@@ -79,6 +79,16 @@ class PreAgentReservationsController extends Controller
 
     $layout_total = $layout_prepare + $layout_clean;
 
+    $request_equipments = 0;
+    $request_services = 0;
+    foreach ($request->all() as $key => $value) {
+      if (preg_match("/equipment_breakdown/", $key)) {
+        $request_equipments += (int)$value;
+      } elseif (preg_match("/services_breakdown/", $key)) {
+        $request_services += (int)$value;
+      }
+    }
+
     return view('admin.pre_agent_reservations.single_calculate', [
       'agent' => $agent,
       'request' => $request,
@@ -87,6 +97,8 @@ class PreAgentReservationsController extends Controller
       'layout_prepare' => $layout_prepare,
       'layout_clean' => $layout_clean,
       'layout_total' => $layout_total,
+      'request_equipments' => $request_equipments,
+      'request_services' => $request_services,
     ]);
   }
 
@@ -111,6 +123,7 @@ class PreAgentReservationsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
+      dd($e);
       return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
