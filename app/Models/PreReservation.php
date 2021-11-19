@@ -691,7 +691,7 @@ class PreReservation extends Model
     }
 
     if (!empty($data['time_over']) && (int)$data['time_over'] === 1) {
-      $searchTarget->whereRaw('pre_reservations.status = ? and pre_reservations.updated_at < DATE_SUB(CURRENT_DATE(),INTERVAL ? DAY) ', [1, 3]);
+      $searchTarget->whereRaw('pre_reservations.status = ? and pre_reservations.created_at < DATE_SUB(CURRENT_DATE(),INTERVAL ? DAY) ', [1, 3]);
     }
 
     if (!empty($data['search_free'])) {
