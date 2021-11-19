@@ -240,11 +240,11 @@
             <td>
               <div class="radio-box">
                 <p>
-                  {{Form::radio('board_flag', 1, true , ['id' => 'board_flag'])}}
+                  {{Form::radio('board_flag', 1, false , ['id' => 'board_flag'])}}
                   {{Form::label('board_flag','有り')}}
                 </p>
                 <p>
-                  {{Form::radio('board_flag', 0, false , ['id' => 'no_board_flag'])}}
+                  {{Form::radio('board_flag', 0, true , ['id' => 'no_board_flag'])}}
                   {{Form::label('no_board_flag','無し')}}
                 </p>
               </div>
@@ -496,7 +496,7 @@
                   {{Form::label('eat_in',"あり")}}
                 </td>
                 <td>
-                  {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                  {{Form::radio('eat_in_prepare', 1, true , ['id' => 'eat_in_prepare', 'disabled'])}}
                   {{Form::label('eat_in_prepare',"手配済み")}}
                   {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
                   {{Form::label('eat_in_consider',"検討中")}}
