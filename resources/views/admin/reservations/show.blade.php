@@ -114,7 +114,7 @@
               @if ($reservation->bills->sortBy("id")->first()->reservation_status<3) {{Form::open(['url'=>
                 '/admin/reservations/'.$reservation->id, 'method' => 'delete'])}}
                 @csrf
-                {{Form::submit('取り消し',['class'=>'btn more_btn4 mb-3'])}}
+                {{Form::submit('取り消し',['class'=>'btn more_btn4 mb-3 confirm_delete'])}}
                 {{ Form::close() }}
                 @endif
                 <div class="row">
@@ -1272,9 +1272,13 @@
                           </div>
                         </td>
                         @endif
-                        <td>
-                          <div><span>申込日：</span>{{ $cxl->created_at }}</div>
-                          <div><span>予約確定日：</span>{{ $cxl->approve_send_at }}</div>
+                        <td class="text-right">
+                          <div><span>申込日：</span>
+                          {{ ReservationHelper::formatDate($cxl->created_at) }}
+                        </div>
+                          <div><span>予約確定日：</span>
+                          {{ ReservationHelper::formatDate($cxl->approve_send_at) }}
+                        </div>
                         </td>
                       </tr>
                     </tbody>

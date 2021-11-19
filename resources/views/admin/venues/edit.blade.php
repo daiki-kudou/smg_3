@@ -229,10 +229,12 @@
           <tr>
             <td class="table-active"><label for="luggage_post_code">送付先郵便番号</label></td>
             <td>
-              <p>{{
-                Form::text('luggage_post_code',$venue->luggage_post_code,['class'=>'form-control'])
-                }}</p>
-              <button class="btn more_btn ml-1" type="button" id="luggage_post_code">住所検索</button>
+              <div class="d-flex">
+                <p>{{
+                  Form::text('luggage_post_code',$venue->luggage_post_code,['class'=>'form-control'])
+                  }}</p>
+                <button class="btn more_btn ml-1" type="button" id="luggage_post_code">住所検索</button>
+              </div>
               <p class="is-error-luggage_post_code" style="color: red"></p>
             </td>
           </tr>

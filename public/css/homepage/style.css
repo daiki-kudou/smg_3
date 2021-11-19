@@ -156,7 +156,7 @@ ul.tagBtn li:nth-child(3) a {
 }
 
 .wrapper {
-    overflow: inherit;
+    /* overflow: inherit; */
 }
 
 .contents {
@@ -525,7 +525,7 @@ form table td .text6 {
 
 .cart-header .confirm-btn,
 .cart-header .link-btn3 {
-    min-width: 170px;
+    min-width: 160px;
 }
 
 .cart-header .link-btn3 {
@@ -570,8 +570,8 @@ header div.contents {
 .cart-addbtn {
     position: fixed;
     bottom: 190px;
-    right: 0;
-
+    right: 70px;
+    z-index: 99;
 }
 
 .cart-addbtn .link-btn3 {
@@ -744,8 +744,8 @@ header div.contents {
     } */
 
     .cart_area {
-        top: 120px;
-        right: 10px;
+        top: 310px;
+        right: 30px;
     }
     .cart-header {
         display: block;
@@ -762,7 +762,8 @@ header div.contents {
 
     .wrapper {
         position: relative;
-        overflow: inherit;
+        /* overflow: inherit; */
+        overflow: hidden;
     }
 
     .page-text {
@@ -897,7 +898,22 @@ header div.contents {
         margin-right: 0;
     }
 
+    .cart-wrap .table-sum {
+        table-layout: fixed;
+    }
+    .cart-wrap {
+        width: 100%;
+    }
 
+    .table-sum .checkbox-txt {
+        font-size: 1.5rem;
+    }
 
-    
+    .sumText {
+        font-size: 1.8rem;
+    }
+
+    .cart-addbtn {
+        right: 0;
+    }
 }

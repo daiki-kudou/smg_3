@@ -93,7 +93,9 @@
       </div>
     </article>
     @if((int)$request->room04===10||(int)$request->room04===11||(int)$request->room04===12||(int)$request->room04===13||(int)$request->room04===16||(int)$request->room04===17)
-    <p>提携会場のため、一度弊社にお問い合わせください</p>
+    <div class="caution-area m-t20">
+      <p class="txtCenter caution-text">提携会場のため、一度弊社にお問い合わせください。</p>
+    </div>
     @else
     <div class="calenderframe">
       <iframe src="{{url('/calendar/venue_calendar')}}" width="100%"></iframe>
@@ -117,7 +119,7 @@
           <td>
             <p>
             <div class="riyoubi">
-              <input type="text" name="" id="datepicker2" class="form-input date_input" autocomplete="off">
+              <input type="text" name="" id="datepicker2" class="form-input date_input" autocomplete="off" readonly>
               {{Form::hidden('date',"")}}
             </div>
             <p class="is-error-date" style="color: red"></p>
@@ -168,6 +170,7 @@
     </p>
     {{Form::close()}}
   </div>
+  
 </section>
 
 <article class="contents">

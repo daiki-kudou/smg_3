@@ -36,7 +36,7 @@
     @csrf
     {{Form::hidden('delete_target', "[".$multiple->id."]")}}
     {{ Form::submit('削除', ['class' => 'btn
-    more_btn4','id'=>'confirm_destroy']) }}
+    more_btn4 confirm_delete','id'=>'confirm_destroy']) }}
     {{ Form::close() }}
   </div>
   <table class="table ttl_head mb-0">

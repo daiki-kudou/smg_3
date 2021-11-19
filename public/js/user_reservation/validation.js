@@ -309,6 +309,7 @@ $(function () {
         },
         tel: {
           required: true,
+          number: true,
           minlength: 10,
         },
         price_system: {
@@ -325,11 +326,11 @@ $(function () {
         },
         luggage_count: {
           number: true,
-          range: [1, 49],
+          range: [0, 49],
         },
         luggage_return: {
           number: true,
-          range: [1, 49],
+          range: [0, 49],
         },
       },
       messages: {
@@ -338,6 +339,7 @@ $(function () {
         },
         tel: {
           required: "※必須項目です",
+          number: "※半角数字を入力してください",
           minlength: '※最低桁数は10桁です',
         },
         price_system: {
@@ -393,6 +395,7 @@ $(function () {
       tel: {
         required: true,
         minlength: 9,
+        number: true
       },
       price_system: {
         required: true,
@@ -423,6 +426,7 @@ $(function () {
       tel: {
         required: "※必須項目です",
         minlength: '※最低桁数は10桁です',
+        number: "※半角数字、ハイフンなしで入力して下さい"
       },
       price_system: {
         required: "※必須項目です",
