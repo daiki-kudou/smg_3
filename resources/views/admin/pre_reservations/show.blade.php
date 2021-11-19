@@ -24,6 +24,10 @@
 </div>
 @endif
 
+@foreach ($errors->all() as $error)
+<li>{{$error}}</li>
+@endforeach
+
 
 <section class="mt-5">
   <div class="row">
