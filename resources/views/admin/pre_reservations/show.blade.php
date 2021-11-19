@@ -523,7 +523,7 @@
             </div>
             @endif
 
-            @if ($pre_reservation->venue->layout==1)
+            @if ($pre_reservation->venue->luggage_flag==1)
             <div class='luggage'>
               <table class='table table-bordered' style="table-layout:fixed;">
                 <thead>
