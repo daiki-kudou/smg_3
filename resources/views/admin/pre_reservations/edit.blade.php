@@ -597,7 +597,7 @@
                 </td>
                 <td>
                   @if (empty($PreReservation->eat_in_prepare))
-                  {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                  {{Form::radio('eat_in_prepare', 1, true , ['id' => 'eat_in_prepare', 'disabled'])}}
                   {{Form::label('eat_in_prepare',"手配済み")}}
                   {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
                   {{Form::label('eat_in_consider',"検討中")}}

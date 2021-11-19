@@ -338,6 +338,7 @@ class PreReservationsController extends Controller
 
   public function edit_update(Request $request, $id)
   {
+    dd($request->all());
     DB::transaction(function () use ($request, $id) { //トランザクションさせる
       $pre_reservation = PreReservation::find($id);
       $pre_reservation->update([
@@ -362,6 +363,8 @@ class PreReservationsController extends Controller
         'attention' => $request->attention,
         'user_details' => $request->user_details,
         'admin_details' => $request->admin_details,
+        'eat_in' => $request->eat_in,
+        'eat_in_prepare' => $request->eat_in_prepare,
         'cost' => $request->cost,
       ]);
 
