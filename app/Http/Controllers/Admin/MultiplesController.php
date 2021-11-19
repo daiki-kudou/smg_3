@@ -74,7 +74,6 @@ class MultiplesController extends Controller
     $checkVenuePrice = $multiple->checkVenuePrice();
     $checkEachStatus = $multiple->checkEachStatus();
 
-    // dd($pre_reservations->pluck('formatdate'));
 
     return view(
       'admin.multiples.show',
@@ -445,7 +444,6 @@ class MultiplesController extends Controller
     $data = $request->all();
     if (!empty($data['delete_target']) && $data['delete_target'] !== "[]") { //空配列は弾く
       $delete_target_array = json_decode($data['delete_target']); //配列
-      dd($delete_target_array);
       DB::beginTransaction();
       try {
         foreach ($delete_target_array as $value) {
