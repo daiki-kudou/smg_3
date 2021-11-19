@@ -13,6 +13,7 @@ use App\Models\Breakdown;
 use App\Models\Venue;
 use App\Models\User;
 use App\Models\Agent;
+use App\Models\Enduser;
 
 use Illuminate\Support\Facades\DB; //トランザクション用
 
@@ -388,6 +389,17 @@ class MultiplesController extends Controller
         }
       }
 
+      $enduser = new Enduser;
+      $enduser_data = [];
+      $enduser_data['enduser_company'] = $pre_reservation->pre_enduser->first()->company;
+      $enduser_data['enduser_incharge'] = $pre_reservation->pre_enduser->first()->person;
+      $enduser_data['enduser_mail'] = $pre_reservation->pre_enduser->first()->email;
+      $enduser_data['enduser_mobile'] = $pre_reservation->pre_enduser->first()->mobile;
+      $enduser_data['enduser_tel'] = $pre_reservation->pre_enduser->first()->tel;
+      $enduser_data['enduser_address'] = $pre_reservation->pre_enduser->first()->address;
+      $enduser_data['enduser_attr'] = $pre_reservation->pre_enduser->first()->attr;
+      $enduser_data['end_user_charge'] = $pre_reservation->pre_enduser->first()->charge;
+
       DB::beginTransaction();
       try {
         $pre_reservation->delete();
@@ -397,6 +409,7 @@ class MultiplesController extends Controller
         }
         $result_bill = $bill->BillStore($result_reservation->id, $bill_data);
         $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $breakdown_data);
+        $enduser->endUserStore($result_reservation->id, $enduser_data);
         DB::commit();
       } catch (\Exception $e) {
         DB::rollback();
