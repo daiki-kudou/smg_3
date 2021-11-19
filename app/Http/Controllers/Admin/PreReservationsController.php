@@ -566,7 +566,7 @@ class PreReservationsController extends Controller
           $preReservation = PreReservation::with(['user', 'venue'])->find($v);
           if ($preReservation->user_id > 0) {
             $SendSMGEmail = new SendSMGEmail();
-            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除", $preReservation);
+            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除", $preReservation->id);
           } else {
             $preReservation = PreReservation::with(['user', 'venue'])->find($v);
             $preReservation->delete();

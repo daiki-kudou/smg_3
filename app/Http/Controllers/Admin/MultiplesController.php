@@ -475,13 +475,10 @@ class MultiplesController extends Controller
           $preReservation = PreReservation::with(['user', 'venue'])->find($v);
           if ($preReservation->user_id > 0) {
             $SendSMGEmail = new SendSMGEmail();
-            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除", $preReservation);
+            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除", $preReservation->id);
+          } else { //仲介会社の場合メール送付せず、削除
+            $preReservation->delete();
           }
-        }
-        // 上のメール送信も問題なければ削除
-        foreach ($delete_target_array as $v) {
-          $preReservation = PreReservation::find($v);
-          $preReservation->delete();
         }
         DB::commit();
       } catch (\Exception $e) {

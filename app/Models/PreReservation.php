@@ -773,7 +773,7 @@ class PreReservation extends Model
       ))
       ->leftJoin('venues', 'pre_reservations.venue_id', '=', 'venues.id')
       ->leftJoin('users', 'pre_reservations.user_id', '=', 'users.id')
-      ->whereRaw('pre_reservations.id = ?', [$id]);
+      ->whereRaw('pre_reservations.id = ?', [$id])->get();
 
     return $result->first();
   }
