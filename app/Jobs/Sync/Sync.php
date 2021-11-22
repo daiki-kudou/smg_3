@@ -38,7 +38,8 @@ class Sync implements ShouldQueue
   {
     $sync = SSH::run([
       'cd /webtrickster/public_html/osaka-conference.com',
-      'rsync -avz --exclude="smg_0621.sql" --exclude="SMG" --exclude="MT6" -e "ssh -i /webtrickster/public_html/system.osaka-conference.com.pem" ../osaka-conference.com/system.osaka-conference.com@3.112.120.173:/home/system.osaka-conference.com/public_html/'
+      // 'rsync -avz --exclude="smg_0621.sql" --exclude="SMG" --exclude="MT6" -e "ssh -i /webtrickster/public_html/system.osaka-conference.com.pem" ../osaka-conference.com/system.osaka-conference.com@3.112.120.173:/home/system.osaka-conference.com/public_html/'
+      'rsync -avz --exclude="smg_0621.sql" --exclude="SMG" --exclude="MT6" /webtrickster/public_html/osaka-conference.com/ -e "ssh -i /webtrickster/public_html/system.osaka-conference.com.pem" system.osaka-conference.com@3.112.120.173:/home/system.osaka-conference.com/public_html'
     ]);
   }
 
