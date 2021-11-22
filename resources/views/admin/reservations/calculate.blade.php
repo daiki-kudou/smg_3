@@ -672,6 +672,7 @@
           </h3>
         </div>
       </div>
+      {{ var_dump(array_sum($priceResult['price_details'])) }}
       <div class="main">
         <div class="venues billdetails_content">
           @if ($errors->any())
@@ -683,6 +684,7 @@
             </ul>
           </div>
           @endif
+
 
           <table class="table table-borderless">
             <tr>
@@ -700,7 +702,7 @@
                 <td>金額</td>
               </tr>
             </tbody>
-            @if ($priceResult['price_details']!=0)
+            @if (array_sum($priceResult['price_details'])!==0)
             <tbody class="venue_main">
               @if ($priceResult['price_details'][1])
               <tr>
@@ -1266,7 +1268,7 @@
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
-        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+        $(this).parent().parent().clone().insertAfter($(this).parent().parent());
         addThisTr('.others .others_main tr', 'others_breakdown_item', 'others_breakdown_cost', 'others_breakdown_count', 'others_breakdown_subtotal');
         addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count', 'venue_breakdown_subtotal');
         // 追加時内容クリア
