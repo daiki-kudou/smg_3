@@ -16,6 +16,8 @@ class Kernel extends ConsoleKernel
    */
   protected $commands = [
     Commands\CommandCronPayDayTwoDaysLeft::Class,
+    Commands\CommandCronThanks::Class,
+    Commands\CommandPayDayOverLimit::Class,
   ];
 
   /**
@@ -27,8 +29,9 @@ class Kernel extends ConsoleKernel
   protected function schedule(Schedule $schedule)
   {
     // クーロン実際の処理
-    $schedule->command('command:cron_pay_day_two_days_left')->dailyAt('13:00'); //入金2営業日前　催促
+    $schedule->command('command:cron_pay_day_two_days_left')->dailyAt('11:00'); //入金2営業日前　催促
     $schedule->command('command:thanks')->dailyAt('16:00'); //入金2営業日前　催促
+    $schedule->command('command:cron_pay_day_over_limit')->dailyAt('13:00'); //入金超過
   }
 
   /**
