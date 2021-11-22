@@ -4,7 +4,6 @@ html {
     font-size: 90%;
 }
 
-
 option:disabled {
     background: #d0d0d0;
 }
@@ -169,7 +168,7 @@ ul.tagBtn li:nth-child(3) a {
     border: 1px solid #EF6243;
     padding: 1em;
     position: absolute;
-    top: 130px;
+    top: 160px;
     right: 0;
     font-weight: bold;
 }
@@ -733,7 +732,7 @@ header div.contents {
 
 @media screen and (max-width: 750px) {
     .cart_area {
-        top: 310px;
+        top: 170px;
         right: 30px;
     }
     .cart-header {
@@ -863,6 +862,7 @@ header div.contents {
 
     #top main {
         max-width: 100%;
+        padding-top: 20px;
     }
 
     .calenderframe iframe {

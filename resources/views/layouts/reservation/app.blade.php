@@ -231,7 +231,7 @@
       </ul>
     </header>
 
-    <section class="contents news pc">
+    <!-- <section class="contents news pc">
       <dl class="information contents">
         <dt>重要なお知らせ</dt>
         <dd><a href="https://system.osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
@@ -242,7 +242,7 @@
         <dt>重要なお知らせ</dt>
         <dd><a href="https://system.osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
       </dl>
-    </section>
+    </section> -->
 
     <!------パンクズ-------->
     <nav class="contents">
