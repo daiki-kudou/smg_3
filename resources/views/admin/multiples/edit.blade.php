@@ -1623,20 +1623,20 @@
     <p><a class="btn more_btn_lg" href="{{url('admin/multiples/'.$multiple->id)}}">詳細にもどる</a></p>
   </li>
   <li>
-    <a class="btn more_btn_lg" href="{{url('admin/multiples/'.$multiple->id)}}">保存する</a>
-    {{-- @if (count($venue->frame_prices)===0&&count($venue->time_prices)===0)
+    {{-- <a class="btn more_btn_lg" href="{{url('admin/multiples/'.$multiple->id)}}">保存する</a> --}}
+    @if (count($venue->frame_prices)===0&&count($venue->time_prices)===0)
     <span>当該会場の料金体系が設定されていません。</span>
     @else
     <button id="master_submit" class="btn more_btn_lg">保存する</button>
-    @endif --}}
+    @endif
   </li>
 </ul>
 
-{{-- {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST',
+{{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST',
 'id'=>'master_form']) }}
 @csrf
 {{ Form::hidden('master_data', '',['class' => 'btn btn-primary more_btn_lg', 'id'=>'master_data'])}}
-{{ Form::close() }} --}}
+{{ Form::close() }}
 
 
 
@@ -1670,29 +1670,29 @@
       }
     })
     
-  // $(function() {
-  //   $(document).on("click", "#master_submit", function() {
-  //     var data = {};
-  //     $('input:radio:checked').each(function(index, elem) {
-  //       var key = $(elem).attr('name');
-  //       var value = $(elem).val();
-  //       data[key] = value;
-  //     })
-  //     $('select option:selected').each(function(index, elem) {
-  //       var key = $(elem).parent().attr('name');
-  //       var value = $(elem).val();
-  //       data[key] = value;
-  //     })
-  //     $('input:text').each(function(index, elem) {
-  //       var key = $(elem).attr('name');
-  //       var value = $(elem).val();
-  //       data[key] = value;
-  //     })
-  //     var encodes = JSON.stringify(data);
-  //     $('#master_data').val(encodes);
-  //     $('#master_form').submit();
-  //   })
-  // })
+  $(function() {
+    $(document).on("click", "#master_submit", function() {
+      var data = {};
+      $('input:radio:checked').each(function(index, elem) {
+        var key = $(elem).attr('name');
+        var value = $(elem).val();
+        data[key] = value;
+      })
+      $('select option:selected').each(function(index, elem) {
+        var key = $(elem).parent().attr('name');
+        var value = $(elem).val();
+        data[key] = value;
+      })
+      $('input:text').each(function(index, elem) {
+        var key = $(elem).attr('name');
+        var value = $(elem).val();
+        data[key] = value;
+      })
+      var encodes = JSON.stringify(data);
+      $('#master_data').val(encodes);
+      $('#master_form').submit();
+    })
+  })
 
   $(function() {
     var maxTarget = $('input[name="reserve_date"]').val();
