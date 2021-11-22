@@ -228,7 +228,6 @@ class PreAgentReservationsController extends Controller
 
   public function switch_status(Request $request)
   {
-
     $data = $request->all();
     $pre_reservation = PreReservation::with(['pre_bill.pre_breakdowns', 'pre_enduser'])->find($data['pre_reservation_id']);
     $data = $pre_reservation->toArray();
@@ -237,7 +236,6 @@ class PreAgentReservationsController extends Controller
     $data['email_flag'] = 0; // 仲介会社は利用後メールを送信しないのでemail_flagは手動で追加
     $data['in_charge'] = ""; // 仲介会社は利用後メールを送信しないのでemail_flagは手動で追加
     $reservation = new Reservation;
-
     $bill = new Bill;
     $bill_data = $data['pre_bill'];
     $agent = Agent::find($data['agent_id']);
@@ -285,14 +283,16 @@ class PreAgentReservationsController extends Controller
 
     $enduser = new Enduser;
     $enduser_data = [];
-    $enduser_data['enduser_company'] = $pre_reservation->pre_enduser->first()->company;
-    $enduser_data['enduser_incharge'] = $pre_reservation->pre_enduser->first()->person;
-    $enduser_data['enduser_mail'] = $pre_reservation->pre_enduser->first()->email;
-    $enduser_data['enduser_mobile'] = $pre_reservation->pre_enduser->first()->mobile;
-    $enduser_data['enduser_tel'] = $pre_reservation->pre_enduser->first()->tel;
-    $enduser_data['enduser_address'] = $pre_reservation->pre_enduser->first()->address;
-    $enduser_data['enduser_attr'] = $pre_reservation->pre_enduser->first()->attr;
-    $enduser_data['end_user_charge'] = $pre_reservation->pre_enduser->first()->charge;
+    $enduser_data['enduser_company'] = $pre_reservation['pre_enduser']->company;
+    $enduser_data['enduser_incharge'] = $pre_reservation['pre_enduser']->person;
+    $enduser_data['enduser_mail'] = $pre_reservation['pre_enduser']->email;
+    $enduser_data['enduser_mobile'] = $pre_reservation['pre_enduser']->mobile;
+    $enduser_data['enduser_tel'] = $pre_reservation['pre_enduser']->tel;
+    $enduser_data['enduser_address'] = $pre_reservation['pre_enduser']->address;
+    $enduser_data['enduser_attr'] = $pre_reservation['pre_enduser']->attr;
+    $enduser_data['end_user_charge'] = $pre_reservation['pre_enduser']->charge;
+
+
 
     DB::beginTransaction();
     try {

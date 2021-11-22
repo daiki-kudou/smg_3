@@ -391,14 +391,14 @@ class MultiplesController extends Controller
 
       $enduser = new Enduser;
       $enduser_data = [];
-      $enduser_data['enduser_company'] = $pre_reservation->pre_enduser->first()->company;
-      $enduser_data['enduser_incharge'] = $pre_reservation->pre_enduser->first()->person;
-      $enduser_data['enduser_mail'] = $pre_reservation->pre_enduser->first()->email;
-      $enduser_data['enduser_mobile'] = $pre_reservation->pre_enduser->first()->mobile;
-      $enduser_data['enduser_tel'] = $pre_reservation->pre_enduser->first()->tel;
-      $enduser_data['enduser_address'] = $pre_reservation->pre_enduser->first()->address;
-      $enduser_data['enduser_attr'] = $pre_reservation->pre_enduser->first()->attr;
-      $enduser_data['end_user_charge'] = $pre_reservation->pre_enduser->first()->charge;
+      $enduser_data['enduser_company'] = $pre_reservation->pre_enduser->company;
+      $enduser_data['enduser_incharge'] = $pre_reservation->pre_enduser->person;
+      $enduser_data['enduser_mail'] = $pre_reservation->pre_enduser->email;
+      $enduser_data['enduser_mobile'] = $pre_reservation->pre_enduser->mobile;
+      $enduser_data['enduser_tel'] = $pre_reservation->pre_enduser->tel;
+      $enduser_data['enduser_address'] = $pre_reservation->pre_enduser->address;
+      $enduser_data['enduser_attr'] = $pre_reservation->pre_enduser->attr;
+      $enduser_data['end_user_charge'] = $pre_reservation->pre_enduser->charge;
 
       DB::beginTransaction();
       try {
