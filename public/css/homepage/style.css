@@ -591,8 +591,6 @@ header div.contents {
     margin-left: 5px;
 }
 
-
-
 /* スピナー -------------------------------*/
 
 #fullOverlay {
@@ -734,15 +732,6 @@ header div.contents {
 }
 
 @media screen and (max-width: 750px) {
-
-    /* header {
-        position: absolute;
-    } */
-
-    /* .subNavi {
-        position: relative;
-    } */
-
     .cart_area {
         top: 310px;
         right: 30px;
@@ -814,7 +803,7 @@ header div.contents {
         width: 100%;
     }
 
-    header .logo {
+    /* header .logo {
         position: absolute;
         top: -14px;
         left: 15px;
@@ -822,12 +811,14 @@ header div.contents {
     }
     header nav {
         top: 85px;
-    }
+    } */
 
     .head-login {
         position: absolute;
-        right: 190px;
-        top: 48px;
+        /* right: 190px; */
+        /* top: 48px; */
+        right: 134px;
+        top: 18px;
         z-index: 550;
         text-align: center;
         border: 1px solid #3E4B5B;
@@ -842,7 +833,12 @@ header div.contents {
     }
 
     .head-mail {
-        top: 48px;
+        /* top: 48px; */
+        right: 65px;
+    }
+
+    header .logo .head_smgaccea {
+        font-size: 10px;
     }
 
     .btn-wrapper2 {

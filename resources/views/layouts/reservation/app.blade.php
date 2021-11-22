@@ -149,8 +149,9 @@
 
     <!-- ここからheader.html -->
     <header style="display: block;">
-      　<span class="head-login sp"><a href="{{url('user/home')}}">マイページへ</a></span>
-      <span class="head-mail sp"><a href="{{url('/')}}">会場を予約する</a></span>
+      <span class="head-login sp"><a href="{{url('user/home')}}">ログイン</a></span>
+      <span class="head-mail sp"><a href="https://osaka-conference.com/contact/">問合せ</a></span>
+      <!-- <span class="head-mail sp"><a href="{{url('/')}}">会場を予約する</a></span> -->
       <span class="btn"><span></span></span>
       <div class="contents">
         <p class="logo">
@@ -195,6 +196,7 @@
           <li><a href="https://system.osaka-conference.com/contact/">問い合わせ</a></li>
           <li>
             <ul class="sp formBtnBlock">
+            <li><a href="{{url('/')}}"><img src="https://osaka-conference.com/img/ico_form02@2x.png" alt="予約">会議室の予約をする</a></li>
             </ul>
             <div class="sp contactBlock">
               <div class="tel">
@@ -218,6 +220,7 @@
           <li><a href="https://system.osaka-conference.com/rental/">会場一覧</a></li>
           <li><a href="https://system.osaka-conference.com/price/">料金表</a></li>
           <li><a href="https://system.osaka-conference.com/characteristic/">8つの特徴</a></li>
+          <li><a href="{{url('/')}}">予約</a></li>
         </ul>
 
       </div>
@@ -253,7 +256,7 @@
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
           <a itemscope itemtype="http://schema.org/Thing" itemprop="item"
             href="https://system.osaka-conference.com/calendar/">
-            <span itemprop="name"><span class="changeTtl">カレンダー（空室確認）</span></span></a>
+            <span itemprop="name"><span class="changeTtl">会場予約</span></span></a>
           <meta itemprop="position" content="2">
         </li>
       </ol>
@@ -308,6 +311,21 @@
     <footer class="new">
       <nav class="contents">
         <div class="footerInfo">
+        <ul class="pc">
+				<li class="download">
+          <p>本申込み(フォーム・直接メールに添付・FAX)</p>
+          <!-- <p class="download_btn3 btnOrange"><a href="{{url('/')}}" target="_blank"><img src="https://osaka-conference.com/img/ico_form.png" alt="会場を予約する">予約</a></p> -->
+					<p class="download_btn3 btnOrange"><a href="https://osaka-conference.com/downlord/form.pdf" target="_blank"><img src="https://osaka-conference.com/img/ico_pdf.png" alt="PDF">PDF</a></p>
+					<p class="download_btn3 btnOrange"><a href="https://osaka-conference.com/downlord/form.xlsx" target="_blank"><img src="https://osaka-conference.com/img/ico_excel.png" alt="EXCEL">EXCEL</a></p>
+				</li>
+			</ul>
+			<ul class="sp">
+				<li>本申込みフォームあるいは本申込み書をダウンロード！</li>
+				<li class="foot-btnM"><a href="{{url('/')}}"><img src="https://osaka-conference.com/img/ico_form02@2x.png" alt="会場を予約する">会場を予約する</a></li>
+				<li class="foot-btnS"><a href="https://osaka-conference.com/downlord/form.pdf" target="_blank"><img src="https://osaka-conference.com/img/ico_pdf01@2x.png" alt="PDF">PDF</a></li>
+				<li class="foot-btnS"><a href="https://osaka-conference.com/downlord/form.xlsx" target="_blank"><img src="https://osaka-conference.com/img/ico_excel01@2x.png" alt="EXCEL">EXCEL</a></li>
+			</ul>
+
           <div class="pc">
             <div class="tel pc">
               <p><em>06-6556-6462</em>予約専用：10時～18時</p>
