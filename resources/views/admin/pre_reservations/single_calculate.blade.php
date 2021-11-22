@@ -821,16 +821,16 @@
               <tbody class="venue_main">
                 <tr>
                   <td>
-                    {{ Form::text('venue_breakdown_item[]', '会場料金',['class'=>'form-control'] ) }}
+                    {{ Form::text('venue_breakdown_item0', '会場料金',['class'=>'form-control'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_cost[]', 0,['class'=>'form-control'] ) }}
+                    {{ Form::text('venue_breakdown_cost0', 0,['class'=>'form-control'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_count[]', 0,['class'=>'form-control'] ) }}
+                    {{ Form::text('venue_breakdown_count0', 0,['class'=>'form-control'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_subtotal[]', 0,['class'=>'form-control'] ) }}
+                    {{ Form::text('venue_breakdown_subtotal0', 0,['class'=>'form-control'] ) }}
                   </td>
                   <td>
                     <input type="button" value="＋" class="add pluralBtn">
@@ -1080,12 +1080,11 @@
   getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
 });
 
-
   $(function() {
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
-        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+        $(this).parent().parent().clone().insertAfter($(this).parent().parent());
         addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count', 'others_input_subtotal');
         addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count', 'venue_breakdown_subtotal');
         // 追加時内容クリア
@@ -1165,7 +1164,7 @@
           var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
           var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
           var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
-          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
+          var others = 0;
           var result = venue + equipment + layout + others;
           var result_tax = Math.floor(result * 0.1);
           $('.total_result').text('').text(result);

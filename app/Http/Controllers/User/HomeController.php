@@ -15,19 +15,9 @@ use Illuminate\Support\Facades\Auth;
 use PDF;
 use Illuminate\Support\Facades\DB; //トランザクション用
 
-use App\Mail\ConfirmReservationByUser;
-use App\Mail\ConfirmToAdmin;
-use App\Mail\UserFinAddRes;
-use App\Mail\ResetEmail;
-use App\Mail\AdminUnSub;
-use App\Mail\UserUnSub;
-use Illuminate\Support\Facades\Mail;
-
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Traits\PaginatorTrait;
-use Session;
-use Artisan;
 
 use App\Service\SendSMGEmail;
 

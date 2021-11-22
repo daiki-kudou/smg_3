@@ -2,7 +2,7 @@ $(function () {
   $(document).on("click", "[class^='venue_main'] .add", function () {
 
     var master = $(this).parent().parent();
-    $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+    $(this).parent().parent().clone().insertAfter($(this).parent().parent());
     var target1 = $(this).parent().parent().find('td').eq(0).find('input').attr('name');
     var splitKey = target1.split('_copied');
 
@@ -183,7 +183,7 @@ $(function () {
     splitKey = Number(splitKey[1]);
 
     var master = $(this).parent().parent().parent();
-    $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+    $(this).parent().parent().clone().insertAfter($(this).parent().parent());
     var next = $(this).parent().parent().next();
     next.find('td').eq(0).find('input').val('');
     next.find('td').eq(1).find('input').val('');
