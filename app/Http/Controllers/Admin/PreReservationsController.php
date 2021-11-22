@@ -240,6 +240,19 @@ class PreReservationsController extends Controller
   public function store(Request $request)
   {
     $data = $request->all();
+    if ($request->venue_breakdown_item0 || $request->venue_breakdown_cost0 || $request->venue_breakdown_count0 || $request->venue_breakdown_subtotal0) {
+      foreach ($request->all() as $key => $value) {
+        if (preg_match("/venue_breakdown_item/", $key)) {
+          $data['venue_breakdown_item'] = [$value];
+        } elseif (preg_match("/venue_breakdown_cost/", $key)) {
+          $data['venue_breakdown_cost'] = [$value];
+        } elseif (preg_match("/venue_breakdown_count/", $key)) {
+          $data['venue_breakdown_count'] = [$value];
+        } elseif (preg_match("/venue_breakdown_subtotal/", $key)) {
+          $data['venue_breakdown_subtotal'] = [$value];
+        }
+      }
+    }
     $pre_reservation = new PreReservation;
     $pre_bill = new PreBill;
     $pre_breakdown = new PreBreakdown;
