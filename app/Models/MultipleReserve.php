@@ -97,7 +97,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'eat_in' => $requests->cp_master_eat_in,
           'eat_in_prepare' => $requests->cp_master_eat_in_prepare,
           'luggage_flag' => !empty($requests->cp_master_luggage_flag) ? $requests->cp_master_luggage_flag : 0,
-
+          'cost' => $requests->cp_master_cost,
         ]);
 
         $venue_price = empty($result[0][$key][2]) ? 0 : $result[0][$key][2];
