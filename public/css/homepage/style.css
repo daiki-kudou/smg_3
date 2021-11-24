@@ -20,6 +20,10 @@ option:disabled {
     margin-left: 20px;
 }
 
+.m-r5 {
+    margin-right: 5px;
+}
+
 .m-r10 {
     margin-right: 10px;
 }
@@ -70,6 +74,20 @@ ul.tagBtn li:nth-child(3) a {
 .login_btn {
     background: #3E4B5B;
     box-shadow: 0px 2px 0 rgb(36 43 51);
+}
+
+header .headerInfo {
+    align-items: center;
+}
+
+.head-login-btn {
+    margin: 0 10px 0 110px;
+    border: 1px solid #EF6243;
+    border-radius: 50px;
+    padding: 5px;
+    transition: 0.6s;
+    color: #EF6243;
+    padding: 10px 30px;
 }
 
 .is-error {
@@ -812,6 +830,8 @@ header div.contents {
         top: 85px;
     } */
 
+
+
     .head-login {
         position: absolute;
         /* right: 190px; */
@@ -820,15 +840,16 @@ header div.contents {
         top: 18px;
         z-index: 550;
         text-align: center;
-        border: 1px solid #3E4B5B;
+        border: 1px solid #EF6243;
         border-radius: 30px;
-        padding: 2px 15px;
+        /* padding: 2px 15px; */
+        padding: 2px 9px 2px 7px;
         font-size: 11px;
         font-weight: bold;
     }
 
     .head-login a {
-        color: #3E4B5B;
+        color: #EF6243;
     }
 
     .head-mail {
