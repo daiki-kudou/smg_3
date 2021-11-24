@@ -63,6 +63,10 @@ class Equipment extends Model
         $s_equipment[] = $value;
       }
     }
+    if (empty($s_equipment)) {
+      $s_equipment = [[0]];
+    }
+
     return $s_equipment;
   }
 }
