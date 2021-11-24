@@ -595,7 +595,7 @@
               <label for="enduser_attr" class="">利用者属性</label>
             </td>
             <td>
-              {{Form::select('enduser_attr',['一般企業','上場企業','近隣利用','個人講師','MLM','その他'],$reservation['enduser']?$reservation['enduser']['attr']:NULL,['class'=>'form-control'])}}
+              {{Form::select('enduser_attr',[1=>'一般企業',2=>'上場企業',3=>'近隣利用',4=>'個人講師',5=>'MLM',6=>'その他'],$reservation['enduser']?$reservation['enduser']['attr']:NULL,['class'=>'form-control'])}}
             </td>
           </tr>
         </table>

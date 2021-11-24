@@ -672,7 +672,6 @@
           </h3>
         </div>
       </div>
-      {{ var_dump(array_sum($priceResult['price_details'])) }}
       <div class="main">
         <div class="venues billdetails_content">
           @if ($errors->any())

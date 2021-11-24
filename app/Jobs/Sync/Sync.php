@@ -9,8 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use SSH;
 use Carbon\Carbon;
-
-
+use App\Mail\FailedMail;
 
 class Sync implements ShouldQueue
 {
@@ -51,10 +50,10 @@ class Sync implements ShouldQueue
    */
   public function failed($exception)
   {
-    // $admin = config('app.admin_email');
-    // $class_name = get_class($this);
-    // $time = Carbon::now();
-    // Mail::to($admin)
-    //   ->send(new FailedMail($exception, $class_name, $time));
+    $admin = config('app.admin_email');
+    $class_name = get_class($this);
+    $time = Carbon::now();
+    Mail::to($admin)
+      ->send(new FailedMail($exception, $class_name, $time));
   }
 }

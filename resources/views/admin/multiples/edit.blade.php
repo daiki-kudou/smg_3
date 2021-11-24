@@ -1286,8 +1286,6 @@
                           </h4>
                         </td>
                       </tr>
-
-
                       @if (empty($pre_reservation->pre_bill))
                       <p class="mb-2">※営業時間外の予約の為、管理者側にて料金設定を行います。</p>
                       <tbody class="venue_head">
