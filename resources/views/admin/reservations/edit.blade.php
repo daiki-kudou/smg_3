@@ -1119,7 +1119,7 @@
               <td>消費税：</td>
               <td>
                 {{
-                Form::text('master_tax',ReservationHelper::getTax((int)$reservation['bills'][0]['master_subtotal']+(int)$discounts)
+                Form::text('master_tax',floor(ReservationHelper::getTax((int)$reservation['bills'][0]['master_subtotal']+(int)$discounts))
                 ,['class'=>'form-control text-right', 'readonly'] ) }}
               </td>
             </tr>
@@ -1127,7 +1127,7 @@
               <td class="font-weight-bold">合計金額</td>
               <td>
                 {{
-                Form::text('master_total',ReservationHelper::taxAndPrice((int)$reservation['bills'][0]['master_subtotal']+(int)$discounts)
+                Form::text('master_total',floor(ReservationHelper::taxAndPrice((int)$reservation['bills'][0]['master_subtotal']+(int)$discounts))
                 ,['class'=>'form-control text-right', 'readonly'] ) }}
               </td>
             </tr>
