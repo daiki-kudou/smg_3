@@ -261,7 +261,7 @@
                     <tr>
                       <td class="table-active">{{$equipment->item}}</td>
                       <td>
-                        {{Form::text('cp_master_equipment_breakdown' . $key ,
+                        {{Form::number('cp_master_equipment_breakdown' . $key ,
                         $request->{'cp_master_equipment_breakdown'.$key}, ['class' => 'form-control
                         equipment_validation'])}}
                       </td>
@@ -811,7 +811,7 @@
                       <tr>
                         <td class="table-active">{{$equipment->item}}</td>
                         <td>
-                          {{Form::text('equipment_breakdown'.$e_key.'_copied'.$key ,
+                          {{Form::number('equipment_breakdown'.$e_key.'_copied'.$key ,
                           $request->{'cp_master_equipment_breakdown'.$e_key}, ['class' => 'form-control
                           equipment_validation'])}}
                         </td>

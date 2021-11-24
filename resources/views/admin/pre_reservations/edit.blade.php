@@ -371,11 +371,11 @@
                   <div class="d-flex align-items-end">
                     @foreach ($PreReservation->pre_breakdowns()->get() as $s_equ)
                     @if ($s_equ->unit_item==$equ->item)
-                    {{ Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control
+                    {{ Form::number('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control
                     equipment_breakdowns equipment_validation'] ) }}
                     @break
                     @elseif($loop->last)
-                    {{ Form::text('equipment_breakdown'.$key,"",['class'=>'form-control equipment_breakdowns
+                    {{ Form::number('equipment_breakdown'.$key,"",['class'=>'form-control equipment_breakdowns
                     equipment_validation'] ) }}
                     @endif
                     @endforeach

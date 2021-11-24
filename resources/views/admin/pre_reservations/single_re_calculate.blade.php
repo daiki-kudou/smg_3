@@ -321,7 +321,7 @@
                 </td>
                 <td>
                   <div class="d-flex align-items-end">
-                    {{ Form::text('equipment_breakdown'.$key,
+                    {{ Form::number('equipment_breakdown'.$key,
                     $request->{'equipment_breakdown'.$key},['class'=>'form-control equipment_validation'] ) }}
                     <span class="ml-1">個</span>
                   </div>
