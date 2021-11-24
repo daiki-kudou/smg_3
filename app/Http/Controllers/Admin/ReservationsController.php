@@ -500,6 +500,7 @@ class ReservationsController extends Controller
   {
     $reservation = Reservation::with(['bills', 'bills.breakdowns'])->find($id)->toArray();
     $venue = Venue::find($reservation['venue_id']);
+    $judge_calc = array_sum($venue->calculate_price($reservation['price_system'], $reservation['enter_time'], $reservation['leave_time']));
     $users = User::orderBy("id", "desc")->get();
     $discounts = collect($reservation['bills'][0]['breakdowns'])->filter(function ($value, $key) {
       if (strpos($value['unit_item'], '割引料金') !== false) {
@@ -514,6 +515,7 @@ class ReservationsController extends Controller
         'venue',
         'users',
         'discounts',
+        'judge_calc',
       )
     );
   }
@@ -561,6 +563,9 @@ class ReservationsController extends Controller
         $layouts_details[2] +
         (!empty($data['others_price']) ? $data['others_price'] : 0);
     }
+    $reservation = Reservation::with(['bills.breakdowns'])->find($data['reservation_id']);
+    $judge_calc = array_sum($venue->calculate_price($reservation['price_system'], $reservation['enter_time'], $reservation['leave_time']));
+
     return view('admin.reservations.edit_calc', compact(
       'data',
       'venue',
@@ -571,6 +576,8 @@ class ReservationsController extends Controller
       's_equipment',
       's_services',
       'masters',
+      'reservation',
+      'judge_calc',
     ));
   }
 

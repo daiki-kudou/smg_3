@@ -268,7 +268,11 @@ class AgentsReservationsController extends Controller
 
     $s_equipment = Equipment::getSessionArrays(collect($data))[0];
     $s_services = Service::getSessionArrays(collect($data))[0];
-    $item_details = $venue->calculate_items_price($s_equipment, $s_services);
+    if ($s_equipment !== 0 || $s_services !== 0) {
+      $item_details = $venue->calculate_items_price($s_equipment, $s_services);
+    } else {
+      $item_details = [];
+    }
     $layouts_details = $layout_price;
 
     return view('admin.agents_reservations.edit_calc', compact(

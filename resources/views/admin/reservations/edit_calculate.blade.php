@@ -1210,7 +1210,7 @@
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
-        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+        $(this).parent().parent().clone().insertAfter($(this).parent().parent());
         addThisTr('.others .others_main tr', 'others_breakdown_item', 'others_breakdown_cost', 'others_breakdown_count', 'others_breakdown_subtotal');
         addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count', 'venue_breakdown_subtotal');
         // 追加時内容クリア

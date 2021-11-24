@@ -149,9 +149,9 @@
 
     <!-- ここからheader.html -->
     <header style="display: block;">
-    <!-- <div><a class="head-login-btn sp" href="{{url('user/home')}}"><i class="fas fa-user m-r5"></i>会員登録</a></div> -->
+    <!-- <div><a class="head-login-btn sp" href="{{url('/user/home')}}"><i class="fas fa-user m-r5"></i>会員登録</a></div> -->
 
-      <span class="head-login sp"><a href="{{url('user/home')}}"><i class="fas fa-user m-r5"></i>会員登録</a></span>
+      <span class="head-login sp"><a href="{{url('/user/home')}}"><i class="fas fa-user m-r5"></i>会員登録</a></span>
       <span class="head-mail sp"><a href="https://osaka-conference.com/contact/">問合せ</a></span>
       <!-- <span class="head-mail sp"><a href="{{url('/')}}">会場を予約する</a></span> -->
       <span class="btn"><span></span></span>
@@ -166,12 +166,12 @@
           <!-- <div class="head_dl_btn">
             <div><a href="https://system.osaka-conference.com/application/">用紙ダウンロード</a></div>
           </div> -->
-          <div><a class="head-login-btn" href="{{url('user/home')}}"><i class="fas fa-user m-r5"></i>会員登録</a></div>
+          <div><a class="head-login-btn" href="{{url('/user/home')}}"><i class="fas fa-user m-r5"></i>会員登録</a></div>
           <div class="tel">
             <p><em>06-6556-6462</em><br>
               予約専用：10時～18時</p>
           </div>
-          <a class="cart_area" href="{{url('user/reservations/cart')}}">
+          <a class="cart_area" href="{{url('/user/reservations/cart')}}">
             <p>
               <i class="fas fa-calendar-alt cart_btn"></i>
               <span>予約カート</span>
@@ -200,7 +200,7 @@
           <li>
             <ul class="sp formBtnBlock">
             <li><a href="{{url('/')}}">会議予約</a></li>
-            <li><a href="{{url('user/home')}}">ログイン</a></li>
+            <li><a href="{{url('/user/home')}}">ログイン</a></li>
             </ul>
             <div class="sp contactBlock">
               <div class="tel">
@@ -231,7 +231,7 @@
       <ul class="tagBtn sticky">
         <li><a class="contact_btn" href="https://system.osaka-conference.com/contact/" target="_blank">お問合わせ</a></li>
         <li><a class="reserve_btn" href="{{url('/')}}">会場予約</a></li>
-        <li><a class="login_btn" href="{{url('user/home')}}">マイページへ</a></li>
+        <li><a class="login_btn" href="{{url('/user/home')}}">マイページへ</a></li>
       </ul>
     </header>
 
@@ -266,7 +266,7 @@
       </ol>
     </nav>
     <main>
-      <a class="cart_area sp" href="{{url('user/reservations/cart')}}">
+      <a class="cart_area sp" href="{{url('/user/reservations/cart')}}">
         <p>
           <i class="fas fa-calendar-alt cart_btn"></i>
           <span>予約カート</span>

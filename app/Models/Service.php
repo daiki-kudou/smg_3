@@ -60,6 +60,10 @@ class Service extends Model
         $s_services[] = $value;
       }
     }
+    if (empty($s_services)) {
+      $s_services = [[0]];
+    }
+
     return $s_services;
   }
 }
