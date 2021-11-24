@@ -687,7 +687,7 @@
         <tr>
           <td>
             <h2 class="text-white">
-              請求書No
+              請求書No {{ $reservation['bills'][0]['invoice_number'] }}
             </h2>
           </td>
           <td>
@@ -739,6 +739,7 @@
                 <td>単価</td>
                 <td>数量</td>
                 <td>金額</td>
+                @if ($judge_calc===0){!! "<td></td>" !!}　@endif
               </tr>
             </tbody>
             <tbody class="venue_main">
@@ -746,19 +747,28 @@
               @if (strpos($value['unit_item'],'割引料金')===false)
               <tr>
                 <td>
-                  {{ Form::text('venue_breakdown_item[]', $value['unit_item'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_item[]', $value['unit_item'],['class'=>'form-control',
+                  $judge_calc!==0?'readonly':""] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_cost[]', $value['unit_cost'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_cost[]', $value['unit_cost'],['class'=>'form-control',
+                  $judge_calc!==0?'readonly':""] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count[]', $value['unit_count'],['class'=>'form-control', 'readonly'] )
+                  {{ Form::text('venue_breakdown_count[]', $value['unit_count'],['class'=>'form-control',
+                  $judge_calc!==0?'readonly':""] )
                   }}
                 </td>
                 <td>
                   {{ Form::text('venue_breakdown_subtotal[]', $value['unit_subtotal'],['class'=>'form-control',
                   'readonly'] ) }}
                 </td>
+                @if ($judge_calc===0)
+                <td>
+                  <input type="button" value="＋" class="add pluralBtn">
+                  <input type="button" value="ー" class="del pluralBtn">
+                </td>
+                @endif
               </tr>
               @endif
               @endforeach
@@ -1258,7 +1268,7 @@
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
-        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+        $(this).parent().parent().clone().insertAfter($(this).parent().parent());
         // 追加時内容クリア
         $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');

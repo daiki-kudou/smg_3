@@ -156,16 +156,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 予約
     Route::resource('reservations', 'ReservationsController', ['except' => ['show']]);
     Route::get('reservations/datatable', 'ReservationsController@datatable');
-
     // 予約　（確認）
     Route::get('reservations/check', 'ReservationsController@check')->name('reservations.check');
-
     // 予約　編集確認
     Route::post('reservations/edit_check', 'ReservationsController@edit_check')->name('reservations.edit_check');
-
     // 予約　show
     Route::get('reservations/{reservation}', 'ReservationsController@show')->name('reservations.show');
-
     // ajax アイテム
     Route::post('reservations/geteitems', 'ReservationsController@geteitems');
     // ajax 料金体系
@@ -193,12 +189,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('reservations/generate_pdf/{reservation}', 'ReservationsController@generate_pdf')->name('reservations.generate_pdf');
 
-    // Breakdown　Billに紐づく
-    Route::resource('breakdowns', 'BreakdownsController');
-
     Route::post('reservations/{reservation}/send_email_and_approve', 'ReservationsController@send_email_and_approve')->name('reservations.send_email_and_approve');
 
     Route::post('reservations/{reservation}/confirm_reservation', 'ReservationsController@confirm_reservation')->name('reservations.confirm_reservation');
+
+    // Breakdown　Billに紐づく
+    Route::resource('breakdowns', 'BreakdownsController');
 
     // 管理者用カレンダーページ
     // 会場別
@@ -207,8 +203,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('calendar/date_calendar', 'CalendarsController@date_calendar')->name('calendar.date_calendar');
     // ミニカレンダー
     Route::get('calendar/mini_calendar', 'CalendarsController@mini_calendar')->name('calendar.mini_calendar');
-    // 請求書追加
-    // Route::post('reservations/{reservation}/add_bill', 'ReservationsController@add_bill')->name('reservations.add_bill');
 
     // 追加請求書新規登録
     Route::get('bills/create', 'BillsController@create');
