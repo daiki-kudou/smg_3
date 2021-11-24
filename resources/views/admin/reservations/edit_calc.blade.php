@@ -1289,7 +1289,7 @@
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
-        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+        $(this).parent().parent().clone().insertAfter($(this).parent().parent());
         // 追加時内容クリア
         $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
