@@ -36,7 +36,6 @@
 
   {{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'get', 'id'=>'pre_reservationCreateForm'])}}
   @csrf
-
   <div class="date_selector pt-4">
     <hr>
     <h3 class="mb-2 pt-3">日程選択</h3>
