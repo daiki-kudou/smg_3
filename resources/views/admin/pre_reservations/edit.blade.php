@@ -1076,7 +1076,6 @@
             target.remove();
           }
           for (let index = 0; index < count; index++) {
-            // console.log(index);
             $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
             $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index);
             $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index);
@@ -1174,7 +1173,6 @@
         })
         .done(function($user) {
           $('#fullOverlay').css('display', 'none');
-          console.log($user);
           $(".company").text($user[0]);
           $(".person").text($user[1]+$user[2]);
           $(".email").text($user[3]);
@@ -1187,7 +1185,7 @@
         })
         .fail(function($user) {
           $('#fullOverlay').css('display', 'none');
-          console.log("エラーです");
+          console.log("ajax failed", $user);
         });
     };
   });

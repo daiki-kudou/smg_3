@@ -161,7 +161,8 @@
         <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
           compatible</iframe>
       </div>
-      {{Form::open(['url' => 'admin/multiples/'.$multiple->id.'/add_date_store/'.$venue_id, 'method' => 'POST', 'id'=>''])}}
+      {{Form::open(['url' => 'admin/multiples/'.$multiple->id.'/add_date_store/'.$venue_id, 'method' => 'POST',
+      'id'=>''])}}
       @csrf
       <div class="date_selector mt-5">
         <h3 class="mb-2 pt-3">日程選択</h3>
@@ -222,7 +223,7 @@
     $(document).on("click", ".add", function() {
       // すべてのselect2初期化
       for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
-        console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
+        ($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
       }
       var base_venue = $(this).parent().parent().find('td').eq(1).find('select').val();
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());

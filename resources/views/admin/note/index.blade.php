@@ -68,10 +68,9 @@
       dataType: 'json',
       })
       .done(function ($result) {
-        console.log($result);
       })
       .fail(function ($result) {
-        console.log($result);
+        console.log('failed',$result);
       });
       };
     });

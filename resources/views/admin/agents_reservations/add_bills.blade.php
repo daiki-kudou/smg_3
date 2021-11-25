@@ -580,7 +580,6 @@
       $('input[name="master_subtotal"]').val(master_sub);
       $('input[name="master_tax"]').val(master_tax);
       $('input[name="master_total"]').val(master_sub + master_tax);
-      console.log(tar5);
     }
 
     $('input[type="checkbox"]').on("change",function(){

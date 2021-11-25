@@ -1657,7 +1657,6 @@
       for (let index = 0; index < target; index++) {
         $(document).on("click", 'input:radio[name="eat_in_copied'+index+'"]', function() {
           var radioTarget = $('input:radio[name="eat_in_copied'+index+'"]:checked').val();
-          console.log(radioTarget);
           if (radioTarget == 1) {
             $('input:radio[name="eat_in_prepare_copied'+index+'"]').prop('disabled', false);
           } else {
@@ -1714,7 +1713,7 @@ $(document).on('click', '#all_check', function (){
     array.push($('.checkbox').eq(index).val());
     }
     })
-    console.log(JSON.stringify(array));
+    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
     }
     );
@@ -1729,7 +1728,7 @@ $(document).on('click', '#all_check', function (){
     array.push($('.checkbox').eq(index).val());
     }
     })
-    console.log(JSON.stringify(array));
+    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
     }
     );
@@ -1742,7 +1741,7 @@ $(document).on('click', '#all_check', function (){
     array.push($('.checkbox').eq(index).val());
     }
     })
-    console.log(JSON.stringify(array));
+    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
     });
     

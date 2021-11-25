@@ -252,7 +252,6 @@
 
       function validationThis($index=1){
       for (let index2 = 1; index2 < $index; index2++) {
-        console.log(index2);
         $("input[name='frame"+index2+"']").rules("add", {
         required: true,
         messages: { required: "※必須項目です" },

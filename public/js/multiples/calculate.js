@@ -69,7 +69,6 @@ $(function () {
       });
 
       $('.' + $dic_btn + '' + loop2).on('click', function () {
-        console.log("test");
         $('.' + $inp_dsc + '' + loop2).remove();
         $("input[name='" + $m_prc + "" + loop2 + "']").val('');
         $("input[name='" + $m_prc + "" + loop2 + "']").val(price_ar[loop2]);
@@ -271,7 +270,6 @@ $(function () {
 
 function change_all_totals() {
   var count = $('#counts_reserve').val();
-  console.log(count);
   for (let index = 0; index < count; index++) {
     var venue = Number($('input[name="venue_price' + index + '"]').val());
     var equipment = Number($('input[name="equipment_price' + index + '"]').val());

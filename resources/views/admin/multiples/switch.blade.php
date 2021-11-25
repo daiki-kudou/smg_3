@@ -222,7 +222,7 @@
         })
         .fail(function($user) {
           $('#fullOverlay').css('display', 'none');
-          console.log("エラーです");
+          console.log("ajax failed", $user);
         });
     };
   })

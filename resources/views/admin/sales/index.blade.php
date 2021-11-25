@@ -366,7 +366,6 @@
 $(function(){
   $('.payment-status').each(function(index, value){
     var target=$(value).text();
-    console.log(target);
     if (target.match(/未入金/)) {
       $(value).css('font-weight','bold');
     }
@@ -463,7 +462,6 @@ $(function(){
         }
       ],
       createdRow: function( row, data, dataIndex ) {
-          console.log($(data)[0]['cxl']);
           if ($(data)[0]['cxl']>=1) {
             $(row).eq(0).addClass('bg-gray');
           }

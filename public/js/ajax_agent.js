@@ -247,7 +247,6 @@ $(function () {
       },
     })
       .done(function ($prices) {
-        console.log($prices);
         $('#price_system_radio1').prop('checked', false).prop('disabled', false); //初期化
         $('#price_system1').removeClass("hide");
         $('#price_system2').removeClass("hide");
@@ -662,13 +661,13 @@ $(function () {
       },
     })
       .done(function ($agent_result) {
-        console.log($agent_result);
         $('.selected_person').text($agent_result);
         $('#fullOverlay').css('display', 'none');
       })
       .fail(function ($agent_result) {
         $('#fullOverlay').css('display', 'none');
-        console.log('ajaxGetClients 失敗', $agent_result)
+        console.log("ajax failed", $agent_result);
+
       });
   }
 
@@ -693,11 +692,10 @@ $(function () {
         if ($result != 1) {
           $('.eat_in').addClass('hide');
         }
-        console.log($result);
       })
       .fail(function ($result) {
         $('#fullOverlay').css('display', 'none');
-        console.log(' 失敗', $result)
+        console.log("ajax failed", $result);
       });
   }
 });

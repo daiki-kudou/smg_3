@@ -2,19 +2,19 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <title>領収書</title>
+  <meta charset="UTF-8">
+  <title>領収書</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <link href="{{ asset('/css/invoice.css') }}" rel="stylesheet" media="screen">
-    <link href="{{ asset('/css/print.css') }}" rel="stylesheet" media="print">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link href="{{ asset('/css/invoice.css') }}" rel="stylesheet" media="screen">
+  <link href="{{ asset('/css/print.css') }}" rel="stylesheet" media="print">
 
 </head>
 
 <body>
-    <div class="button-wrap">
-        <p><input class="print-btn" type="button" value="このページを印刷する" onclick="window.print();" /></p>
-    </div>
+  <div class="button-wrap">
+    <p><input class="print-btn" type="button" value="このページを印刷する" onclick="window.print();" /></p>
+  </div>
 
   @if ($bill)
   @include('admin.receipts.receipt.bill.detail')
@@ -25,13 +25,10 @@
 </body>
 
 <script>
-    $(function() {
+  $(function() {
         var len = $(".bill-details").length;
-        console.log(len);
-
         if (len > 17) {
             $(".bill-note-wrap").addClass("break");
-            // $(".total-table").css('margin-top','20mm');
         } else {
             $(".bill-note-wrap").removeClass("break");
         }
@@ -43,8 +40,6 @@
         var target=$(value).text();
         if (target.match(/-/)) {
           $(value).css('color','red');
-        //   var result =target.replace('-','▲');
-        //   $(value).text(result);
         }
       });
     });
@@ -53,7 +48,6 @@
       $('.bill-detail-table td:nth-child(2n)').each(function(index, value){
         var target=$(value).text();
         if (target.match(/-/)) {
-        //   $(value).css('color','red');
           var result =target.replace('-','▲');
           $(value).text(result);
         }

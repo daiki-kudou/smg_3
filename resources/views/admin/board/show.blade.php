@@ -43,17 +43,17 @@
       <tr class="venue">
         <td>
           <!-- <p>{{ReservationHelper::getVenueForUser($reservation->venue_id)}}</p> -->
-          <p>{{ $reservation->venue->name_area }}<span class="venue_buildname">{{ $reservation->venue->name_bldg }}</span>{{ $reservation->venue->name_venue }}</p>
+          <p>{{ $reservation->venue->name_area }}<span class="venue_buildname">{{ $reservation->venue->name_bldg
+              }}</span>{{ $reservation->venue->name_venue }}</p>
         </td>
       </tr>
     </table>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script>
-$(function() {
+  <script>
+    $(function() {
     var owner = $(".evet-owner-name").text();
-    console.log(owner);
     if (owner.length>0) {
       $(".evet-owner-ttl").css("display","inline-block");
     } else {

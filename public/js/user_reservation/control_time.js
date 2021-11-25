@@ -36,8 +36,7 @@ $(document).on("change ", "#venue_id", function () {
     })
     .fail(function ($result) {
       $('#fullOverlay').css('display', 'none');
-      console.log("失敗");
-      console.log($result);
+      console.log("ajax failed", $result);
     });
 });
 
@@ -86,9 +85,6 @@ $(document).on("change", "#enter_time", function () {
 
   var venue_id = $('#venue_id').val();
   ajaxCheckPriceSystem(venue_id).done(function ($prices) {
-    console.log('成功', $prices);
-    console.log('枠', $prices[0].length);
-    console.log('時間', $prices[1].length);
     if ($prices[0].length === 0 && $prices[1].length > 0) {
       $('#leave_time option').each(function ($key, $value) {
         if (enter_time === $($value).val()) {
@@ -100,7 +96,7 @@ $(document).on("change", "#enter_time", function () {
     }
   })
     .fail(function ($prices) {
-      console.log('失敗', $prices);
+      console.log("ajax failed", $prices);
     });
 });
 
@@ -144,8 +140,7 @@ $(document).on("change", "#datepicker2", function () {
     })
     .fail(function ($result) {
       $('#fullOverlay').css('display', 'none');
-      console.log("失敗");
-      console.log($result);
+      console.log("ajax failed", $result);
     });
 });
 
