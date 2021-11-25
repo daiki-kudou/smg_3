@@ -238,6 +238,7 @@ class DataTableController extends Controller
           'pay_person' => $this->getPayPerson($record->reservation_id),
           'attr' => ReservationHelper::getAttr($record->attr),
           'alliance_flag' => (int)$record->alliance_flag === 0 ? '直' : '提',
+          'cxl' => $record->reservation_status6,
         ];
     }
 
