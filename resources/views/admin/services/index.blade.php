@@ -74,7 +74,7 @@
           {{ Form::model($query, ['route' => ['admin.services.destroy', $query->id], 'method' => 'delete']) }}
           @csrf
           {{Form::hidden("page",$services->currentPage())}}
-          {{ Form::submit('削除', ['class' => 'btn more_btn4 del_btn']) }}
+          {{ Form::submit('削除', ['class' => 'btn more_btn4 del_btn confirm_delete']) }}
           {{ Form::close() }}
         </td>
       </tr>
