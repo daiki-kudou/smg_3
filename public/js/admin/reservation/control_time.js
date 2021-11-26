@@ -36,8 +36,7 @@ $(function () {
         })
       })
     }).fail(function ($result) {
-      console.log("ajax失敗");
-      console.log($result);
+      console.log("ajax failed", $result);
     });
   }
 

@@ -1274,11 +1274,11 @@
                         @endif
                         <td class="text-right">
                           <div><span>申込日：</span>
-                          {{ ReservationHelper::formatDate($cxl->created_at) }}
-                        </div>
+                            {{ ReservationHelper::formatDate($cxl->created_at) }}
+                          </div>
                           <div><span>予約確定日：</span>
-                          {{ ReservationHelper::formatDate($cxl->approve_send_at) }}
-                        </div>
+                            {{ ReservationHelper::formatDate($cxl->approve_send_at) }}
+                          </div>
                         </td>
                       </tr>
                     </tbody>
@@ -1694,7 +1694,6 @@ $('.bill_edit', $(this).parent().parent()).prop('disabled', true);
 
 $(function() {
 $('.paid_edit_m').on('click', function() {
-console.log($(this));
 if ($('.paid_edit', $(this).parent().next()).prop('disabled')) {
 $('.paid_edit', $(this).parent().next()).prop('disabled', false);
 $('.paid_edit', $(this).parent().next().next()).prop('disabled', false);

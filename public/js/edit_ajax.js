@@ -118,8 +118,6 @@ $(function () {
       services_array.push(s_target);
     }
 
-    console.log("アレイです", services_array);
-
     ajaxGetItemsDetails(venue_id, equipemnts_array, services_array);
 
     // レイアウト金額取得
@@ -127,13 +125,11 @@ $(function () {
     var layout_clean = $('input:radio[name="layout_clean"]:checked').val();
     ajaxGetLayoutPrice(venue_id, layout_prepare, layout_clean);
 
-
     // 割引入力部分、全部初期化
     $('.venue_discount_percent').val('');
     $('.venue_dicsount_number').val('');
     $('.discount_item').val('');
     $('.layout_discount').val('');
-
 
     // 関数処理の順番にばらつきがあるので、１秒後に実行
     setTimeout(function () {
@@ -153,7 +149,6 @@ $(function () {
       $('#sub_total').val(all_totals);
       $('#tax').val(only_tax);
       $('#total').val(Number(all_totals) + Number(only_tax));
-
 
       //詳細内訳初期化
       $('input[name^="venue_breakdowns"]').remove();
@@ -190,7 +185,6 @@ $(function () {
 
     }, 1000);
   });
-
 })
 
 
@@ -351,7 +345,8 @@ function ajaxGetItems($venue_id) {
       $('#fullOverlay').css('display', 'none');
       $('.equipemnts table tbody').html('');
       $('.services table tbody').html('');
-      console.log("item失敗");
+      console.log("ajax failed", data);
+
     });
 };
 
@@ -437,7 +432,6 @@ function ajaxGetItemsDetails($venue_id, $equipemnts, $services) {
     })
     .fail(function ($each) {
       $('#fullOverlay').css('display', 'none');
-      console.log('備品又はサービスの料金取得に失敗しました。ページをリロードし再度試して下さい');
       $('.items_equipments table tbody').html(''); //テーブル初期化
       $('.selected_equipments_price').text(''); //有料備品料金初期化
       $('.selected_equipments_price').val(''); //有料備品料金初期化
@@ -454,6 +448,7 @@ function ajaxGetItemsDetails($venue_id, $equipemnts, $services) {
       $('.all_items_total').text('');　//請求総額初期化
       $('.selected_luggage_price').text('');　//荷物アヅカリ
       $('.selected_luggage_price').val('');　//荷物アヅカリ
+      console.log("ajax failed", $each);
     });
 };
 
@@ -477,7 +472,6 @@ function ajaxGetLayoutPrice($venue_id, $layout_prepare, $layout_clean) {
   })
     .done(function ($result) {
       $('#fullOverlay').css('display', 'none');
-      console.log($result[0]);
       $('.selected_layouts table tbody').html('');
       for (let s_layout = 0; s_layout < $result[0].length; s_layout++) {
         if ($result[0][s_layout] != '') {
@@ -553,7 +547,7 @@ function ajaxGetSalesHours($venue_id, $dates) {
     })
     .fail(function ($times) {
       $('#fullOverlay').css('display', 'none');
-      console.log('失敗', $times);
+      console.log("ajax failed", $times);
     });
 };
 
@@ -598,11 +592,9 @@ function ajaxGetPriceStstem($venue_id) {
     })
     .fail(function ($prices) {
       $('#fullOverlay').css('display', 'none');
-      // $('.price_selector').html('');
-      console.log('失敗したよ');
       $('#price_system_radio1').prop('checked', false).prop('disabled', true); //初期化
       $('#price_system_radio2').prop('checked', false).prop('disabled', true); //初期化
-
+      console.log("ajax failed", $prices);
     });
 };
 
@@ -624,13 +616,12 @@ function ajaxGetLayout($venue_id) {
   })
     .done(function ($result) {
       $('#fullOverlay').css('display', 'none');
-      console.log($result);
       $('.layouts table tbody').html(''); //初期化
       $result == 1 ? $('.layouts table tbody').append("<tr><td>レイアウト準備</td><td><input type='radio' name='layout_prepare' value='1'>有り<input type='radio' name='layout_prepare' value='0' checked >無し</td></tr><tr><td>レイアウト片付</td><td><input type='radio' name='layout_clean' value='1'>有り<input type='radio' name='layout_clean' value='0'checked>無し</td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
     })
     .fail(function ($result) {
       $('#fullOverlay').css('display', 'none');
-      swal('レイアウトの取得に失敗しました。ページをリロードし再度試して下さい!!!!');
+      console.log("ajax failed", $result);
     });
 };
 

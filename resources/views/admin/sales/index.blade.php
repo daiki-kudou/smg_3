@@ -366,7 +366,6 @@
 $(function(){
   $('.payment-status').each(function(index, value){
     var target=$(value).text();
-    console.log(target);
     if (target.match(/未入金/)) {
       $(value).css('font-weight','bold');
     }
@@ -387,7 +386,7 @@ $(function(){
             url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
         }
     });
-    $('#sales_sort').DataTable({
+    var table=$('#sales_sort').DataTable({
       order:[],
       processing: true,
       serverSide: true,
@@ -453,27 +452,23 @@ $(function(){
         { data: 'pay_person' },
         { data: 'attr' },
         { data: 'alliance_flag' },
+        // { data: 'test' },
       ],
       columnDefs: [
-        {targets: 10, sortable: false, orderable: false},
-        {targets: 11, sortable: false, orderable: false},
-        {targets: 12, sortable: false, orderable: false},
-        {targets: 13, sortable: false, orderable: false},
-        {targets: 14, sortable: false, orderable: false},
-        {targets: 15, sortable: false, orderable: false},
-        {targets: 16, sortable: false, orderable: false},
-        {targets: 17, sortable: false, orderable: false},
-        {targets: 18, sortable: false, orderable: false},
-        {targets: 19, sortable: false, orderable: false},
-        {targets: 20, sortable: false, orderable: false},
+        {targets: [10,11,12,13,14,15,16,17,18,19,20], sortable: false, orderable: false},
         {
           targets: [9,10,11,12],
           className: "text-right",
         }
-
       ],
+      createdRow: function( row, data, dataIndex ) {
+          if ($(data)[0]['cxl']>=1) {
+            $(row).eq(0).addClass('bg-gray');
+          }
+          }
      });
     });
+
 </script>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

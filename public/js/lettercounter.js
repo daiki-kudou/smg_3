@@ -171,7 +171,6 @@ $(function () {
 $(function () {
   $("#no_luggage_flag:checked").each(function () {
     var flag = $(this);
-    // console.log(this);
     if ($(flag).is(":checked") != null) {
       $("#luggage_count").prop("readonly", true);
       $("#luggage_arrive").prop("readonly", true);
@@ -185,7 +184,6 @@ $(function () {
 // ラジオボタンクリック時の荷物預かり入力制御
 $(document).on('change', 'input[name="luggage_flag"]', function () {
   var prop = $("#no_luggage_flag").prop("checked");
-  // console.log(prop);
   if (prop) {
     $("#luggage_arrive").removeClass("readonly-no-gray");
     $("#luggage_count").prop("readonly", true);
@@ -207,7 +205,6 @@ $(document).on('change', 'input[name="luggage_flag"]', function () {
 $(function () {
   $("#cp_master_no_luggage_flag:checked").each(function () {
     var flag = $(this);
-    // console.log(this);
     if ($(flag).is(":checked") != null) {
       $("#cp_master_luggage_count").prop("readonly", true);
       $("#cp_master_luggage_arrive").prop("readonly", true);
@@ -236,7 +233,7 @@ $(document).on('change', 'input[name*="luggage_flag"]', function () {
 // 一括の個別の荷物の制御
 const flagCheck = function () {
   var target = $('input[name*="luggage_flag_copied"]');
-  for(let i=0 ; i< target.length; i++){
+  for (let i = 0; i < target.length; i++) {
     var flag = '#no_luggage_flag' + i;
     var luggage_count = $('input[name="luggage_count_copied' + i + '"]');
     var luggage_arrive = $('input[name="luggage_arrive_copied' + i + '"]');
@@ -260,14 +257,14 @@ const flagCheck = function () {
 
 $(function () {
   flagCheck();
-  var flagItem= $('input[name*="luggage_flag_copied"]');
+  var flagItem = $('input[name*="luggage_flag_copied"]');
   flagItem.on('click', flagCheck);
 });
 
 // 一括の個別の案内板の制御
 const boardCheck = function () {
   var target = $('input[name*="board_flag_copied"]');
-  for(let i=0 ; i< target.length; i++){
+  for (let i = 0; i < target.length; i++) {
     var flag = '#board_flag_copied_off' + i;
     var event_name1 = $('input[name="event_name1_copied' + i + '"]');
     var event_name2 = $('input[name="event_name2_copied' + i + '"]');
@@ -294,8 +291,8 @@ const boardCheck = function () {
 
 $(function () {
   boardCheck();
-  
-  var flagItem= $('input[name*="board_flag_copied"]');
+
+  var flagItem = $('input[name*="board_flag_copied"]');
   flagItem.on('click', boardCheck);
 });
 

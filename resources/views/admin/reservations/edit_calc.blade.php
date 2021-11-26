@@ -1311,9 +1311,7 @@
         target_tbody.find('tr').each(function(r){
           result+=Number(target_tbody.find('tr').eq(r).find('td').eq(3).find('input').val());
         })
-        console.log(result);
         target_tbody.next().find('td').eq(1).find('input').val(result);
-
         var venue = !isNaN($('input[name="venue_price"]').val())?Number($('input[name="venue_price"]').val()):0;
         var equipment = !isNaN($('input[name="equipment_price"]').val())?Number($('input[name="equipment_price"]').val()):0;
         var layout = !isNaN($('input[name="layout_price"]').val())?Number($('input[name="layout_price"]').val()):0;

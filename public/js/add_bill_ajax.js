@@ -125,9 +125,7 @@ function ajaxAddBillsEquipments($reservation_id) {
     })
     .fail(function ($result) {
       $('#fullOverlay').css('display', 'none');
-      console.log("しっぱい");
-      console.log($result);
-
+      console.log("ajax failed", $result);
     });
 };
 
@@ -154,8 +152,7 @@ function ajaxAddBillsLayout($reservation_id) {
     })
     .fail(function ($layouts) {
       $('#fullOverlay').css('display', 'none');
-      console.log("しっぱい");
-      console.log($layouts);
+      console.log("ajax failed", $layouts);
 
     });
 };

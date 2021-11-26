@@ -254,7 +254,7 @@
         array.push($('.checkbox').eq(index).val());
       }
     })
-    console.log(JSON.stringify(array));
+    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
   }
   );
@@ -269,7 +269,7 @@
         array.push($('.checkbox').eq(index).val());
       }
     })
-    console.log(JSON.stringify(array));
+    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
     }
   );
@@ -282,7 +282,7 @@
     array.push($('.checkbox').eq(index).val());
     }
     })
-    console.log(JSON.stringify(array));
+    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
   });
 

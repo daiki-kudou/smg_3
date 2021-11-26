@@ -268,7 +268,6 @@
       var dt = new Date(base_date);
       dt.setDate(dt.getDate() + 1);
       var next_day=dt.getFullYear()+'-'+(( '00' + (dt.getMonth() + 1) ).slice( -2 ))+'-'+dt.getDate();
-      console.log(next_day);
 
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
       if (base_venue=="") {

@@ -1250,7 +1250,7 @@
       })
       .fail(function ($user_results) {
         $('#fullOverlay').css('display', 'none');
-        console.log('ajaxGetClients 失敗', $user_results)
+        console.log("ajax failed", $user_results);
       });
   });
 
@@ -1296,7 +1296,6 @@
             target.remove();
           }
           for (let index = 0; index < count; index++) {
-            // console.log(index);
             $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_breakdown_item' + index);
             $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_breakdown_cost' + index);
             $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_breakdown_count' + index);

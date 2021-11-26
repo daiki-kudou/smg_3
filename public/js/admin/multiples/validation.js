@@ -269,8 +269,6 @@ $(function () {
 // 一括仮押さえ　編集画面　タブ内
 $(function () {
   var target = $("input[name^='tel_copied']");
-  // console.log(target);
-
   for (let index = 0; index < target.length; index++) {
     var telcopied = "tel_copied" + index;
     var luggagecountcopied = "luggage_count_copied" + index;
@@ -455,9 +453,6 @@ $(function () {
     var luggagecountcopied = "luggage_count_copied" + index;
     var luggagereturncopied = "luggage_return_copied" + index;
     var luggagepricecopied = "luggage_price_copied" + index;
-
-    // console.log("enduserchargecopied");
-
     $("#multiplesAgentSpecificUpdateEdit" + index).validate({
       rules: {
         [enduserchargecopied]: {

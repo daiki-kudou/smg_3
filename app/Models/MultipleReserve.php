@@ -546,24 +546,26 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'luggage_flag' => 0
         ]);
 
-        $unknown = $pre_reservations->unknown_user()->count();
-        if ($unknown == 0) {
-          $pre_reservations->unknown_user()->create([
-            "unknown_user_company" => $request->unknown_user_company,
-            "unknown_user_name" => $request->unknown_user_name,
-            "unknown_user_email" => $request->unknown_user_tel,
-            "unknown_user_mobile" => $request->unknown_user_mobile,
-            "unknown_user_tel" => $request->unknown_user_email,
-          ]);
-        } else {
-          $pre_reservations->unknown_user()->delete();
-          $pre_reservations->unknown_user()->create([
-            "unknown_user_company" => $request->unknown_user_company,
-            "unknown_user_name" => $request->unknown_user_name,
-            "unknown_user_email" => $request->unknown_user_tel,
-            "unknown_user_mobile" => $request->unknown_user_mobile,
-            "unknown_user_tel" => $request->unknown_user_email,
-          ]);
+        if (!empty($request->unknown_user_company) || !empty($request->unknown_user_name) || !empty($request->unknown_user_tel) || !empty($request->unknown_user_mobile) || !empty($request->unknown_user_email)) {
+          $unknown = $pre_reservations->unknown_user()->count();
+          if ($unknown == 0) {
+            $pre_reservations->unknown_user()->create([
+              "unknown_user_company" => $request->unknown_user_company,
+              "unknown_user_name" => $request->unknown_user_name,
+              "unknown_user_email" => $request->unknown_user_tel,
+              "unknown_user_mobile" => $request->unknown_user_mobile,
+              "unknown_user_tel" => $request->unknown_user_email,
+            ]);
+          } else {
+            $pre_reservations->unknown_user()->delete();
+            $pre_reservations->unknown_user()->create([
+              "unknown_user_company" => $request->unknown_user_company,
+              "unknown_user_name" => $request->unknown_user_name,
+              "unknown_user_email" => $request->unknown_user_tel,
+              "unknown_user_mobile" => $request->unknown_user_mobile,
+              "unknown_user_tel" => $request->unknown_user_email,
+            ]);
+          }
         }
       }
     });
@@ -809,7 +811,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
     $searchTarget = DB::table('multiple_reserves')
       ->select(DB::raw(
         "
-        LPAD(multiple_reserves.id,6,0) as multiple_reserve_id,
+         LPAD(multiple_reserves.id,6,0) as multiple_reserve_id,
         multiple_reserves.id as multiple_reserve_original_id,
         concat(date_format(multiple_reserves.created_at, '%Y/%m/%d'),
         case 

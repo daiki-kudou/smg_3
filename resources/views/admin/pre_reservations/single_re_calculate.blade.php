@@ -1125,7 +1125,6 @@
             target.remove();
           }
           for (let index = 0; index < count; index++) {
-            // console.log(index);
             $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
             $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index);
             $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index);
@@ -1206,7 +1205,6 @@
   $(function() {
     $(document).on("change", "#user_id", function() {
       var user_id = Number($('#user_id').val());
-      console.log(user_id);
       if (user_id == 999) {
         $('input[name=unknown_user_company]').prop('readonly', false);
         $('input[name=unknown_user_name]').prop('readonly', false);
@@ -1250,7 +1248,6 @@
         })
         .done(function($user) {
           $('#fullOverlay').css('display', 'none');
-          console.log($user);
           $(".user_info").find('tr').eq(0).find('td').eq(1).text("");
           $(".user_info").find('tr').eq(0).find('td').eq(1).text($user[0]);
           $(".user_info").find('tr').eq(1).find('td').eq(1).text("");
@@ -1265,7 +1262,7 @@
         })
         .fail(function($user) {
           $('#fullOverlay').css('display', 'none');
-          console.log("エラーです");
+          console.log("ajax failed", $user);
         });
     };
   });

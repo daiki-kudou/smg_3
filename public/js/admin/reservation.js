@@ -84,7 +84,6 @@ function getThisIndex(_this) {
   var masterTR = $(_this).parent().parent();
   var TD = masterTR.find('td');
   var thisIndex = TD.index($(_this).parent());
-  // console.log(thisIndex);
   return thisIndex;
 }
 // 単価と数量の数値取得
@@ -124,8 +123,6 @@ function sumAllPrices() {
   var $others = Number($("input[name='others_price']").val());
   var result = $venue + $equipment + $layout + $others;
   $("input[name='master_subtotal']").val(result);
-  console.log($venue, $equipment, $layout, $others);
-
   var tax = 0.1;
   $("input[name='master_tax']").val(Math.floor(result * tax));
   $("input[name='master_total']").val(Math.floor(result + (result * tax)));
@@ -150,7 +147,6 @@ $(document).on("input", "input", function () {
 $(function () {
   $(document).on("click", "input[name='alliance_flag']", function () {
     var value = $('input[name="alliance_flag"]:checked').val();
-    console.log(value);
     if (value == 1) {
       $(".cost_data").removeClass("hide");
     } else {
@@ -177,7 +173,6 @@ $(function () {
 
   function partOfDisabled(start) {
     $('#sales_finish').find('option').each(function (index, element) {
-      console.log($(element).val());
       if (start > $(element).val()) {
         $('#sales_finish').find('option').eq(index).prop("disabled", true);
       }

@@ -130,29 +130,31 @@
             <tr>
               <td class="table-active" width="25%"><label for="onedayCompany">会社・団体名(仮)</label></td>
               <td>
-                {{Form::text("unknown_user_company",$multiple->pre_reservations()->first()->unknown_user->unknown_user_company,["class"=>"form-control"])}}
+                {{Form::text("unknown_user_company",optional($multiple->pre_reservations()->first()->unknown_user)->unknown_user_company,["class"=>"form-control"])}}
               </td>
               <td class="table-active"><label for="onedayName">担当者名(仮)</label></td>
               <td>
-                {{Form::text("unknown_user_name",$multiple->pre_reservations()->first()->unknown_user->unknown_user_name,["class"=>"form-control"])}}
+                {{Form::text("unknown_user_name",optional($multiple->pre_reservations()->first()->unknown_user)->unknown_user_name,["class"=>"form-control"])}}
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
               <td>
-                {{Form::text("unknown_user_tel",$multiple->pre_reservations()->first()->unknown_user->unknown_user_tel,["class"=>"form-control", 'placeholder' => '半角数字、ハイフンなしで入力してください'])}}
+                {{Form::text("unknown_user_tel",optional($multiple->pre_reservations()->first()->unknown_user)->unknown_user_tel,["class"=>"form-control",
+                'placeholder' => '半角数字、ハイフンなしで入力してください'])}}
                 <p class="is-error-unknown_user_tel" style="color: red"></p>
               </td>
               <td class="table-active" scope="row"><label for="onedayMobile">携帯番号</label></td>
               <td>
-                {{Form::text("unknown_user_mobile",$multiple->pre_reservations()->first()->unknown_user->unknown_user_mobile,["class"=>"form-control", 'placeholder' => '半角数字、ハイフンなしで入力してください'])}}
+                {{Form::text("unknown_user_mobile",optional($multiple->pre_reservations()->first()->unknown_user)->unknown_user_mobile,["class"=>"form-control",
+                'placeholder' => '半角数字、ハイフンなしで入力してください'])}}
                 <p class="is-error-unknown_user_mobile" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="onedayEmail">メールアドレス</label></td>
               <td>
-                {{Form::text("unknown_user_email",$multiple->pre_reservations()->first()->unknown_user->unknown_user_email,["class"=>"form-control"])}}
+                {{Form::text("unknown_user_email",optional($multiple->pre_reservations()->first()->unknown_user)->unknown_user_email,["class"=>"form-control"])}}
                 <p class="is-error-unknown_user_email" style="color: red"></p>
               </td>
             </tr>
@@ -220,7 +222,7 @@
         })
         .fail(function($user) {
           $('#fullOverlay').css('display', 'none');
-          console.log("エラーです");
+          console.log("ajax failed", $user);
         });
     };
   })

@@ -214,8 +214,6 @@ $(function () {
       },
     })
       .done(function ($result) {
-        // $('#fullOverlay').css('display', 'none');
-        // console.log($result[0]);
         $('.selected_layouts table tbody').html('');
         for (let s_layout = 0; s_layout < $result[0].length; s_layout++) {
           if ($result[0][s_layout] != '') {
@@ -237,8 +235,7 @@ $(function () {
         $('.after_duscount_layouts').val($result[1]);
       })
       .fail(function ($result) {
-        // $('#fullOverlay').css('display', 'none');
-        swal('レイアウトの金額取得に失敗しました。ページをリロードし再度試して下さい!!!!');
+        console.log("ajax failed", $result);
       });
   };
 
@@ -393,7 +390,7 @@ $(function () {
       })
       .fail(function ($user_results) {
         $('#fullOverlay').css('display', 'none');
-        console.log('ajaxGetClients 失敗', $user_results)
+        console.log("ajax failed", $user_results);
       });
   }
 
@@ -418,11 +415,10 @@ $(function () {
         if ($result != 1) {
           $('.eat_in').addClass('hide');
         }
-        console.log($result);
       })
       .fail(function ($result) {
         $('#fullOverlay').css('display', 'none');
-        console.log(' 失敗', $result)
+        console.log("ajax failed", $result);
       });
   }
 });

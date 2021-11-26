@@ -15,7 +15,8 @@
 </div>
 
 
-{{ Form::open(['url' => 'admin/multiples/agent_switch_cfm/'.$multiple->id, 'method'=>'POST', 'id'=>'multipleagent_switch']) }}
+{{ Form::open(['url' => 'admin/multiples/agent_switch_cfm/'.$multiple->id, 'method'=>'POST',
+'id'=>'multipleagent_switch']) }}
 @csrf
 
 <div class="container-fluid">
@@ -231,7 +232,6 @@
         })
         .done(function($agent) {
           $('#fullOverlay').css('display', 'none');
-          console.log($agent);
           $(".agent_info").find('tr').eq(0).find('td').eq(0).text("").text($agent["company"]);
           $(".agent_info").find('tr').eq(0).find('td').eq(1).text("").text($agent["person_firstname"] + $agent["person_lastname"]);
           $(".agent_info").find('tr').eq(1).find('td').eq(0).text("").text($agent["email"]);
@@ -240,7 +240,7 @@
         })
         .fail(function($user) {
           $('#fullOverlay').css('display', 'none');
-          console.log("エラーです");
+          console.log("ajax failed", $user);
         });
     };
   })
