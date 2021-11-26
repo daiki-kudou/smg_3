@@ -128,11 +128,11 @@ $(function () {
         tel: {
           required: "※必須項目です",
           number: "※半角数字を入力してください",
-          minlength: "※最低桁数は10です",
+          minlength: "※10桁で入力してください",
         },
         enduser_tel: {
           number: "※半角数字、ハイフンなしで入力して下さい",
-          minlength: "※最低桁数は10です",
+          minlength: "※10桁で入力してください",
         },
         enduser_mail: {
           email: "※メールアドレスの形式で入力してください",

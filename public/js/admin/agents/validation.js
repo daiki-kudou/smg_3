@@ -85,7 +85,7 @@ $(function () {
       rules: {
         name: { required: true },
         post_code: { maxlength: 7, number: true, minlength: 7 },
-        person_tel: { minlength: 10, number: true },
+        person_tel: { number: true, minlength: 10 },
         fax: { minlength: 10, number: true },
         firstname_kana: { katakana: true },
         email: { email: true },
@@ -106,11 +106,11 @@ $(function () {
           number: "※半角数字、ハイフンなしで入力して下さい",
         },
         person_tel: {
-          minlength: "最低桁数は10です",
+          minlength: "※10桁で入力してください",
           number: "※半角数字、ハイフンなしで入力して下さい",
         },
         fax: {
-          minlength: "最低桁数は10です",
+          minlength: "※10桁で入力してください",
           number: "※半角数字、ハイフンなしで入力して下さい",
         },
         email: { email: "※Emailの形式で入力してください" },
@@ -135,7 +135,7 @@ $(function () {
         firstname_kana: { katakana: "※全角カタカナで入力してください" },
         lastname_kana: { katakana: "※全角カタカナで入力してください" },
         person_mobile: {
-          minlength: "最低桁数は10です",
+          minlength: "※10桁で入力してください",
           number: "※半角数字、ハイフンなしで入力して下さい",
         },
       },

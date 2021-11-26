@@ -118,7 +118,7 @@ $(function () {
         },
         mobile: {
           number: true,
-          minlength: 10,
+          minlength: 11,
           require_from_group: [1, ".phone_number"]
         },
         tel: {
@@ -178,17 +178,17 @@ $(function () {
         mobile: {
           required: "※必須項目です",
           number: "※半角数字、ハイフンなしで入力して下さい",
-          minlength: "※10桁以上で入力してください",
+          minlength: "※11桁で入力してください",
           require_from_group: "携帯番号、電話番号のどちらか一方は必須です",
         },
         tel: {
           number: "※半角数字、ハイフンなしで入力して下さい",
-          minlength: "※10桁以上で入力してください",
+          minlength: "※10桁で入力してください",
           require_from_group: "携帯番号、電話番号のどちらか一方は必須です",
         },
         fax: {
           number: "※半角数字、ハイフンなしで入力して下さい",
-          minlength: "※10桁以上で入力してください",
+          minlength: "※10桁で入力してください",
         },
         email: {
           required: "※必須項目です",
