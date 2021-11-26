@@ -266,7 +266,13 @@
         <th>【6】｜利用後のお礼</th>
         <td>会議室ご利用の御礼（SMG貸し会議室）</td>
         <td>ユーザー</td>
-        <td></td>
+        <td>
+          <div class="mb-3">
+            <a target="_blank" class="btn more_btn" href="{{ url('/admin/maileclipse/mailables/view/Thanks') }}">
+              詳細
+            </a>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
