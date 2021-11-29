@@ -251,7 +251,6 @@
     array.push($('.checkbox').eq(index).val());
     }
     })
-    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
     }
     );
@@ -266,7 +265,6 @@
     array.push($('.checkbox').eq(index).val());
     }
     })
-    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
     }
     );
@@ -279,7 +277,6 @@
     array.push($('.checkbox').eq(index).val());
     }
     })
-    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
     });
     
@@ -331,6 +328,11 @@
           "targets": [0,1,2,3,4,6,7,8,9,10,11,12],
         }
         ],
+        createdRow: function( row, data, dataIndex ) {
+                if ($(data)[13]) {
+                $(row).eq(0).addClass('caution');
+                }
+                }
       });
   })
 </script>

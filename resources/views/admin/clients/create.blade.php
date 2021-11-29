@@ -96,7 +96,9 @@
                 {{ Form::label('condition', '割引条件') }}
               </div>
             </td>
-            <td>{{ Form::textarea('condition', '平日% 土日% 3週間前%', ['class' => 'form-control checkon']) }}
+            <td>
+              {{ Form::textarea('condition', "平日%\n土日%\n3週間前%", ['class' => 'form-control checkon','id'=>'condition'])
+              }}
             </td>
           </tr>
           <tr>
@@ -171,7 +173,6 @@
               <p class="is-error-fax" style="color: red"></p>
             </td>
           </tr>
-
         </tbody>
       </table>
 

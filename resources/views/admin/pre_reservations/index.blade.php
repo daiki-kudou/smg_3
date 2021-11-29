@@ -245,6 +245,7 @@
   })
 
   $(document).on('click', '#all_check', function (){
+    
     var parent_checked = $(this).prop('checked');
     var array = [];
      $('.checkbox').each(function(index, element){
@@ -254,7 +255,6 @@
         array.push($('.checkbox').eq(index).val());
       }
     })
-    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
   }
   );
@@ -269,7 +269,6 @@
         array.push($('.checkbox').eq(index).val());
       }
     })
-    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
     }
   );
@@ -282,7 +281,6 @@
     array.push($('.checkbox').eq(index).val());
     }
     })
-    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
   });
 
@@ -341,6 +339,11 @@
           "targets": [0,1,2,3,4,5,7,9,10,11,12,13,14,15],
         }
         ],
+        createdRow: function( row, data, dataIndex ) {
+          if ($(data)[16]) {
+            $(row).eq(0).addClass('caution');
+          }
+          }
       });
   })
 </script>

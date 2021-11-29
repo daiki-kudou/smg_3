@@ -60,6 +60,7 @@ class MultiplesController extends Controller
         $p->enduser,
         (int)$p->pre_status > 0 ? "顧" : "S",
         $detail_link,
+        $p->attention
       ];
     }
     $multiples = json_encode($multiples);

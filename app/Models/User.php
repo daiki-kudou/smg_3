@@ -85,6 +85,11 @@ class User extends Authenticatable
   ];
 
   // アクセサ
+  public function getFixIdAttribute()
+  {
+    return sprintf('%06d', $this->id);
+  }
+
 
 
   /*

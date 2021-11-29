@@ -66,6 +66,7 @@ class PreReservationsController extends Controller
         $p->enduser,
         ((int)$p->pre_reservation_status === 1 ? "顧" : "S"),
         "<a href=" . url('/admin/pre_reservations', $p->pre_reservation_id_original) . " class='more_btn btn'>詳細</a>",
+        $p->attention,
       ];
     }
 
