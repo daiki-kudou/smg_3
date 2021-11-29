@@ -566,7 +566,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-yen-sign icon-size"></i>エンドユーザーへの支払い料
+              <i class="fas fa-yen-sign icon-size"></i>エンドユーザーからの入金額(レイアウト料金は含まない)
             </p>
           </td>
         </tr>
