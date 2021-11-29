@@ -238,7 +238,7 @@ class DataTableController extends Controller
           'details' => "<a href=" . url('/admin/reservations', $record->reservation_id) . " class='more_btn btn'>詳細</a>",
           'pay_person' => $this->getPayPerson($record->reservation_id),
           'attr' => ReservationHelper::getAttr($record->attr),
-          'alliance_flag' => (int)$record->alliance_flag === 0 ? '直' : '提',
+          'alliance_flag' => (int)$record->alliance_flag === 0 ? '<p>直</p>' : '<p style="color:red;">提</p>',
           'cxl' => $record->reservation_status6,
         ];
     }
@@ -495,10 +495,11 @@ class DataTableController extends Controller
     $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
     $result = "";
     foreach ($r as $key => $b) {
+      $bold = (int)$b->paid === 0 ? "f-bold" : "";
       $result .=
         "<li>" .
         "<div class='multi-column__item'>" .
-        "<span class='payment-status'>" .
+        "<span class='payment-status $bold'>" .
         ReservationHelper::paidStatus($b->paid) .
         "</span>" .
         "</div>" .
@@ -516,10 +517,11 @@ class DataTableController extends Controller
         "</div>" .
         "</li>";
       // キャンセル料表示
+      $bold = $reservation->cxls->first()->paid === 0 ? "f-bold" : "";
       $result .=
         "<li>" .
         "<div class='multi-column__item'>" .
-        "<span class='payment-status'>" .
+        "<span class='payment-status $bold'>" .
         (ReservationHelper::paidStatus($reservation->cxls->first()->paid)) .
         "</span>" .
         "</div>" .
