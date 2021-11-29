@@ -1003,7 +1003,7 @@
   <div class="confirm-box text-sm-center">
     <p>上記、追加請求の内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
 
-    {{ Form::open(['url' => 'user/home/approve_user_additional_cfm', 'method' => 'post', 'class' => '']) }}
+    {{ Form::open(['url' => '/user/home/approve_user_additional_cfm', 'method' => 'post', 'class' => '']) }}
     @csrf
     {{ Form::hidden('bill_id', $other_bill->id) }}
     <p class="text-center mt-3">{{ Form::submit('追加請求の内容を承認する', ['class' => 'btn more_btn4_lg']) }}</p>
@@ -1300,7 +1300,7 @@
     <p>上記、予約内容をキャンセルしてもよろしいでしょうか。問題なければ、承認をお願い致します。</p>
 
     @foreach ($reservation->cxls->where('cxl_status', 1) as $cfm_selected_cxl)
-    {{ Form::open(['url' => 'user/home/cfm_cxl', 'method' => 'post', 'class' => '']) }}
+    {{ Form::open(['url' => '/user/home/cfm_cxl', 'method' => 'post', 'class' => '']) }}
     @csrf
     {{ Form::hidden('cxl_id', $cfm_selected_cxl->id) }}
     <p class="text-center mt-3">{{ Form::submit('キャンセルを承認する', ['class' => 'btn more_btn4_lg']) }}</p>
@@ -1403,7 +1403,7 @@
 
 <div class="btn_wrapper">
   <p class="text-center">
-    <a href="{{url('user/home')}}" class="more_btn_lg">予約一覧へもどる</a>
+    <a href="{{url('/user/home')}}" class="more_btn_lg">予約一覧へもどる</a>
   </p>
 </div>
 

@@ -21,7 +21,7 @@
   <hr>
 </div>
 
-{{Form::open(['url' => 'admin/pre_agent_reservations/calculate', 'method' => 'POST',
+{{Form::open(['url' => '/admin/pre_agent_reservations/calculate', 'method' => 'POST',
 'id'=>'pre_agent_reservationsSingleCalculateForm'])}}
 @csrf
 
@@ -628,7 +628,7 @@
 
 
 
-  {{ Form::open(['url' => 'admin/pre_agent_reservations/store', 'method'=>'POST', 'id'=>'']) }}
+  {{ Form::open(['url' => '/admin/pre_agent_reservations/store', 'method'=>'POST', 'id'=>'']) }}
   @csrf
   {{-- 以下計算結果 --}}
   <div class="bill">

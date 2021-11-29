@@ -42,9 +42,9 @@ class MultiplesController extends Controller
     $multiples = [];
     foreach ($_multiples as $p) {
       if ((int)$p->user_id === 0 || empty($p->user_id)) {
-        $detail_link = "<a href=" . url('admin/multiples/agent', $p->multiple_reserve_original_id) . " class='more_btn btn'>詳細</a>";
+        $detail_link = "<a href=" . url('/admin/multiples/agent', $p->multiple_reserve_original_id) . " class='more_btn btn'>詳細</a>";
       } else {
-        $detail_link = "<a href=" . url('admin/multiples', $p->multiple_reserve_original_id) . " class='more_btn btn'>詳細</a>";
+        $detail_link = "<a href=" . url('/admin/multiples', $p->multiple_reserve_original_id) . " class='more_btn btn'>詳細</a>";
       }
       $multiples[] = [
         "<input type='checkbox' name='checkbox" . $p->multiple_reserve_original_id . "' value='" . $p->multiple_reserve_original_id . "' class='checkbox'>",
@@ -210,7 +210,7 @@ class MultiplesController extends Controller
     $result = $agent->agentPriceCalculate($request->cp_master_end_user_charge);
     $multiple->AgentPreStore($venue_id, $request, $result);
 
-    return redirect(url('admin/multiples/agent/' . $multiple_id . '/edit/' . $venue_id));
+    return redirect(url('/admin/multiples/agent/' . $multiple_id . '/edit/' . $venue_id));
   }
 
   public function specificUpdate(Request $request, $multiple_id, $venue_id, $pre_reservation_id)
@@ -235,7 +235,7 @@ class MultiplesController extends Controller
     }
     $result = $agent->agentPriceCalculate($end_user_charge[0]);
     $pre_reservation->AgentSpecificUpdate($request, $result, $venue_id, $pre_reservation_id);
-    return redirect(url('admin/multiples/agent/' . $multiple_id . '/edit/' . $venue_id));
+    return redirect(url('/admin/multiples/agent/' . $multiple_id . '/edit/' . $venue_id));
   }
 
   public function allUpdates(Request $request, $multiples_id, $venues_id)

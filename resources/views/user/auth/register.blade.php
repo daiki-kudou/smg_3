@@ -119,7 +119,7 @@
   </div>
   @endif
 
-  {{ Form::open(['url' => 'user/preusers/register_check', 'method' => 'POST','id'=>'user_register']) }}
+  {{ Form::open(['url' => '/user/preusers/register_check', 'method' => 'POST','id'=>'user_register']) }}
   @csrf
   <div class="bgColorGray first">
     <table>

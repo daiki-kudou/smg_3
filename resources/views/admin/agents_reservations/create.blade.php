@@ -52,7 +52,7 @@
   <hr>
 </div>
 
-{{Form::open(['url' => 'admin/agents_reservations/store_session', 'method' => 'POST',
+{{Form::open(['url' => '/admin/agents_reservations/store_session', 'method' => 'POST',
 'id'=>'agentReservationCreateForm'])}}
 @csrf
 <section class="mt-5">

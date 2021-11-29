@@ -35,7 +35,7 @@
 <h2 class="mt-3 mb-3">追加請求書　確認画面</h2>
 <hr>
 
-{{ Form::open(['url' => 'admin/agents_reservations/add_bills/store', 'method'=>'POST']) }}
+{{ Form::open(['url' => '/admin/agents_reservations/add_bills/store', 'method'=>'POST']) }}
 @csrf
 {{ Form::hidden('reservation_id', $data['reservation_id'], ['class' => 'form-control'])}}
 {{ Form::hidden('reserve_date', $data['reserve_date'], ['class' => 'form-control'])}}
@@ -79,16 +79,20 @@
               @foreach ($data['venue_breakdown_item'] as $key=>$v)
               <tr>
                 <td>
-                  {{ Form::text('venue_breakdown_item[]', $data['venue_breakdown_item'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('venue_breakdown_item[]', $data['venue_breakdown_item'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_cost[]', $data['venue_breakdown_cost'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('venue_breakdown_cost[]', $data['venue_breakdown_cost'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count[]', $data['venue_breakdown_count'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('venue_breakdown_count[]', $data['venue_breakdown_count'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_subtotal[]', $data['venue_breakdown_subtotal'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('venue_breakdown_subtotal[]', $data['venue_breakdown_subtotal'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
               </tr>
               @endforeach
@@ -121,16 +125,20 @@
               @foreach ($data['equipment_breakdown_item'] as $key=>$e)
               <tr>
                 <td>
-                  {{ Form::text('equipment_breakdown_item[]', $data['equipment_breakdown_item'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('equipment_breakdown_item[]', $data['equipment_breakdown_item'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_cost[]', $data['equipment_breakdown_cost'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('equipment_breakdown_cost[]', $data['equipment_breakdown_cost'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_count[]', $data['equipment_breakdown_count'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('equipment_breakdown_count[]', $data['equipment_breakdown_count'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_subtotal[]', $data['equipment_breakdown_subtotal'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('equipment_breakdown_subtotal[]', $data['equipment_breakdown_subtotal'][$key], ['class'
+                  => 'form-control','readonly'])}}
                 </td>
               </tr>
               @endforeach
@@ -163,16 +171,20 @@
               @foreach ($data['layout_breakdown_item'] as $key=>$l)
               <tr>
                 <td>
-                  {{ Form::text('layout_breakdown_item[]', $data['layout_breakdown_item'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('layout_breakdown_item[]', $data['layout_breakdown_item'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_cost[]', $data['layout_breakdown_cost'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('layout_breakdown_cost[]', $data['layout_breakdown_cost'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_count[]', $data['layout_breakdown_count'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('layout_breakdown_count[]', $data['layout_breakdown_count'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_subtotal[]', $data['layout_breakdown_subtotal'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('layout_breakdown_subtotal[]', $data['layout_breakdown_subtotal'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
               </tr>
               @endforeach
@@ -214,16 +226,20 @@
               @foreach ($data['others_breakdown_item'] as $key=>$l)
               <tr>
                 <td>
-                  {{ Form::text('others_breakdown_item[]', $data['others_breakdown_item'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('others_breakdown_item[]', $data['others_breakdown_item'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_cost[]', $data['others_breakdown_cost'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('others_breakdown_cost[]', $data['others_breakdown_cost'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_count[]', $data['others_breakdown_count'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('others_breakdown_count[]', $data['others_breakdown_count'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_subtotal[]', $data['others_breakdown_subtotal'][$key], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('others_breakdown_subtotal[]', $data['others_breakdown_subtotal'][$key], ['class' =>
+                  'form-control','readonly'])}}
                 </td>
               </tr>
               @endforeach
@@ -242,7 +258,8 @@
                 </td>
                 <td>
                   {{ Form::text('end_user_charge', $data['end_user_charge'], ['class' => 'form-control',"readonly" ])}}
-                  {{ Form::hidden('end_user_charge_result', $data['end_user_charge_result'], ['class' => 'form-control','placeholder'=>"入力してください" ])}}
+                  {{ Form::hidden('end_user_charge_result', $data['end_user_charge_result'], ['class' =>
+                  'form-control','placeholder'=>"入力してください" ])}}
                 </td>
               </tr>
               <tr>

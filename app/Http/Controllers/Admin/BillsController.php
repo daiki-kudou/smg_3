@@ -268,7 +268,7 @@ class BillsController extends Controller
         'bill_remark' => $request->bill_remark,
       ]
     );
-    return redirect(url('admin/reservations/' . $bill->reservation->id));
+    return redirect(url('/admin/reservations/' . $bill->reservation->id));
   }
 
   public function updatePaidInfo(Request $request)
@@ -289,7 +289,7 @@ class BillsController extends Controller
     if ($bill->reservation->agent_id == 0) {
       $this->judgePaymentStatusAndSendEmail($request->paid, $bill->reservation->id, $bill->id, $request->bill_or_add_bill);
     }
-    return redirect(url('admin/reservations/' . $bill->reservation->id));
+    return redirect(url('/admin/reservations/' . $bill->reservation->id));
   }
 
   /**

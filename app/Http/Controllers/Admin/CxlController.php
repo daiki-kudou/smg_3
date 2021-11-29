@@ -297,7 +297,7 @@ class CxlController extends Controller
         'bill_remark' => $request->bill_remark,
       ]
     );
-    return redirect(url('admin/reservations/' . $cxl->reservation_id));
+    return redirect(url('/admin/reservations/' . $cxl->reservation_id));
   }
 
   public function updateCxlPaidInfo(Request $request)
@@ -328,7 +328,7 @@ class CxlController extends Controller
       $this->judgePaymentStatusAndSendEmail($request->paid, $cxl->reservation->id, $cxl->id);
     }
 
-    return redirect(url('admin/reservations/' . $cxl->reservation->id));
+    return redirect(url('/admin/reservations/' . $cxl->reservation->id));
   }
 
   public function judgePaymentStatusAndSendEmail($status, $reservation, $cxl_id)

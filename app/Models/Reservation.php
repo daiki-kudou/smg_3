@@ -302,6 +302,7 @@ class Reservation extends Model implements PresentableInterface
 
   public function SearchReservation($data)
   {
+    // dd($data);
     $searchTarget = $this->ReservationSearchTarget();
 
     if (!empty($data['multiple_id']) && (int)$data['multiple_id'] > 0) {
@@ -432,16 +433,16 @@ class Reservation extends Model implements PresentableInterface
 
     // アイコン
     if (!empty($data['check_icon1']) && (int)$data['check_icon1'] === 1) {
-      $searchTarget->orWhereRaw('check_unit_2.master_unit_2 >= ? ', [1]);
+      $searchTarget->havingRaw('check_unit_2.master_unit_2 >= ? ', [1]);
     }
     if (!empty($data['check_icon2']) && (int)$data['check_icon2'] === 1) {
-      $searchTarget->orWhereRaw('check_unit_3.master_unit_3 >= ? ', [1]);
+      $searchTarget->havingRaw('check_unit_3.master_unit_3 >= ? ', [1]);
     }
     if (!empty($data['check_icon3']) && (int)$data['check_icon3'] === 1) {
-      $searchTarget->orWhereRaw('check_unit_4.master_unit_4 >= ? ', [1]);
+      $searchTarget->havingRaw('check_unit_4.master_unit_4 >= ? ', [1]);
     }
     if (!empty($data['check_icon4']) && (int)$data['check_icon4'] === 1) {
-      $searchTarget->orWhereRaw('reservations.eat_in = ? ',  [1]);
+      $searchTarget->havingRaw('reservations.eat_in = ? ',  [1]);
     }
 
     // チェックボックス
@@ -662,6 +663,7 @@ class Reservation extends Model implements PresentableInterface
       users.mobile as mobile,
       users.tel as tel,
       users.attr as attr,
+      users.attention as attention,
       users.id as user_id,
       agents.name as agent_name,
       agents.id as agent_id,

@@ -49,7 +49,7 @@
           </h3>
         </td>
         <td class="text-right">
-          {{ Form::open(['url' => 'admin/multiples/switch_status', 'method'=>'POST','id'=>'']) }}
+          {{ Form::open(['url' => '/admin/multiples/switch_status', 'method'=>'POST','id'=>'']) }}
           @csrf
           {{ Form::hidden('multiple_id', $multiple->id)}}
           @if ($checkEachStatus)
@@ -80,7 +80,7 @@
                 顧客情報
               </p>
               <p>
-                <a href="{{url('admin/multiples/switch/'.$multiple->id)}}" class="more_btn">顧客情報を変更する</a>
+                <a href="{{url('/admin/multiples/switch/'.$multiple->id)}}" class="more_btn">顧客情報を変更する</a>
               </p>
             </div>
           </td>
@@ -169,7 +169,7 @@
     <div class="mt-5">
       @if ((int)$multiple->pre_reservations->first()->status===0)
       <p class="text-right">
-        <a href="{{url('admin/multiples/'.$multiple->id." /add_venue")}}" class="more_btn3">日程を追加する</a>
+        <a href="{{url('/admin/multiples/'.$multiple->id." /add_venue")}}" class="more_btn3">日程を追加する</a>
       </p>
       @endif
       <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
@@ -204,7 +204,7 @@
           </td>
           <td>
             @if ((int)$multiple->pre_reservations->first()->status===0)
-            <a class="more_btn" href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$v->venue_id)}}">編集</a>
+            <a class="more_btn" href="{{url('/admin/multiples/'.$multiple->id.'/edit'.'/'.$v->venue_id)}}">編集</a>
             @endif
           </td>
         </tr>
@@ -216,7 +216,7 @@
 
 </section>
 <div class="btn_wrapper">
-  <p class="text-center"><a class="more_btn_lg" href="{{url('admin/multiples')}}">一覧にもどる</a></p>
+  <p class="text-center"><a class="more_btn_lg" href="{{url('/admin/multiples')}}">一覧にもどる</a></p>
 </div>
 
 

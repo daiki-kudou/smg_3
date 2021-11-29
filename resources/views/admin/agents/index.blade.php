@@ -38,7 +38,7 @@
             <td>{{$agent->company}}</td>
             <td>{{ReservationHelper::getAgentPerson($agent->id)}}</td>
             <td>{{$agent->person_mobile}}</td>
-            <td class="text-center"><a href="{{ url('admin/agents', $agent->id) }}" class="more_btn">詳細</a></td>
+            <td class="text-center"><a href="{{ url('/admin/agents', $agent->id) }}" class="more_btn">詳細</a></td>
           </tr>
           @endforeach
         </tbody>

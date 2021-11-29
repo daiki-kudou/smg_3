@@ -131,6 +131,6 @@ class RegisterController extends Controller
       return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
-    return redirect(url('user/login'))->with('flash_message', '会員登録が完了しました。下記より、ログインしてください。');
+    return redirect(url('/user/login'))->with('flash_message', '会員登録が完了しました。下記より、ログインしてください。');
   }
 }

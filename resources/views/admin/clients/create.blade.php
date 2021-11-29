@@ -31,7 +31,7 @@
 </div>
 @endif
 
-{{ Form::open(['url' => 'admin/clients', 'method'=>'POST', 'id'=>'ClientsCreateForm']) }}
+{{ Form::open(['url' => '/admin/clients', 'method'=>'POST', 'id'=>'ClientsCreateForm']) }}
 @csrf
 <section class="mt-5">
   <div class="row">

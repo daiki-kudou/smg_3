@@ -96,7 +96,7 @@
       {{ Form::close() }}
     </div>
 
-    {{Form::open(['url' => 'admin/time_prices/'.$venue->id, 'method' => 'delete', 'id'=>'delete'])}}
+    {{Form::open(['url' => '/admin/time_prices/'.$venue->id, 'method' => 'delete', 'id'=>'delete'])}}
     @csrf
     {{ Form::close() }}
   </div>

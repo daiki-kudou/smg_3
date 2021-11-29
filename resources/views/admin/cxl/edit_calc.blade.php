@@ -24,7 +24,7 @@
 </div>
 @endif
 
-{{ Form::open(['url' => 'admin/cxl/update', 'method'=>'post', 'class'=>'' ,'id'=>'cxl_multicalc']) }}
+{{ Form::open(['url' => '/admin/cxl/update', 'method'=>'post', 'class'=>'' ,'id'=>'cxl_multicalc']) }}
 @csrf
 {{Form::hidden('reservation_id',!empty($data['reservation_id'])?$data['reservation_id']:0)}}
 {{Form::hidden('user_id',!empty($data['user_id'])?$data['user_id']:0)}}

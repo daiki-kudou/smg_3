@@ -50,7 +50,8 @@
   </div>
 
 
-  {{Form::open(['url' => 'admin/agents_reservations/store_session', 'method' => 'POST', 'id'=>'agentReservationCalculateForm'])}}
+  {{Form::open(['url' => '/admin/agents_reservations/store_session', 'method' => 'POST',
+  'id'=>'agentReservationCalculateForm'])}}
 
   @csrf
   <section class="mt-4">
@@ -68,23 +69,28 @@
             <tr>
               <td class="table-active form_required">利用日</td>
               <td>
-                {{ Form::text('reserve_date', $master_info['reserve_date'] ,['class'=>'form-control',  'placeholder'=>'入力してください','readonly'] ) }}
+                {{ Form::text('reserve_date', $master_info['reserve_date'] ,['class'=>'form-control',
+                'placeholder'=>'入力してください','readonly'] ) }}
                 <p class="is-error-reserve_date" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active form_required">会場</td>
               <td>
-                {{ Form::text('', ReservationHelper::getVenue($master_info['venue_id']) ,['class'=>'form-control',  'placeholder'=>'入力してください','readonly'] ) }}
-                {{ Form::hidden('venue_id', $master_info['venue_id'] ,['class'=>'form-control',  'placeholder'=>'入力してください','readonly'] ) }}
+                {{ Form::text('', ReservationHelper::getVenue($master_info['venue_id']) ,['class'=>'form-control',
+                'placeholder'=>'入力してください','readonly'] ) }}
+                {{ Form::hidden('venue_id', $master_info['venue_id'] ,['class'=>'form-control',
+                'placeholder'=>'入力してください','readonly'] ) }}
                 <p class="is-error-venue_id" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active form_required">料金体系</td>
               <td>
-                {{ Form::text('', $master_info['price_system']==1?"通常（枠貸）":"音響HG" ,['class'=>'form-control',  'placeholder'=>'入力してください','readonly'] ) }}
-                {{ Form::hidden('price_system', $master_info['price_system'],['class'=>'form-control',  'placeholder'=>'入力してください','readonly'] ) }}
+                {{ Form::text('', $master_info['price_system']==1?"通常（枠貸）":"音響HG" ,['class'=>'form-control',
+                'placeholder'=>'入力してください','readonly'] ) }}
+                {{ Form::hidden('price_system', $master_info['price_system'],['class'=>'form-control',
+                'placeholder'=>'入力してください','readonly'] ) }}
               </td>
             </tr>
             <tr>
@@ -130,11 +136,13 @@
               <td>
                 <div class="radio-box">
                   <p>
-                    {{ Form::radio('board_flag', 1, $master_info['board_flag']==1?true:false, ['class'=>'', 'id'=>'board_flag']) }}
+                    {{ Form::radio('board_flag', 1, $master_info['board_flag']==1?true:false, ['class'=>'',
+                    'id'=>'board_flag']) }}
                     {{Form::label('board_flag','有り')}}
                   </p>
                   <p>
-                    {{ Form::radio('board_flag', 0, $master_info['board_flag']==0?true:false, ['class'=>'', 'id'=>'no_board_flag']) }}
+                    {{ Form::radio('board_flag', 0, $master_info['board_flag']==0?true:false, ['class'=>'',
+                    'id'=>'no_board_flag']) }}
                     {{Form::label('no_board_flag','無し')}}
                   </p>
                 </div>
@@ -144,7 +152,9 @@
               <td class="table-active">イベント名称1</td>
               <td>
                 <div class="align-items-end d-flex">
-                  {{ Form::text('event_name1',!empty($master_info['event_name1'])?$master_info['event_name1']:"",['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
+                  {{
+                  Form::text('event_name1',!empty($master_info['event_name1'])?$master_info['event_name1']:"",['class'=>'form-control',
+                  'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
                   <span class="ml-1 annotation count_num1"></span>
                 </div>
                 <p class="is-error-event_name1" style="color: red"></p>
@@ -154,7 +164,9 @@
               <td class="table-active">イベント名称2</td>
               <td>
                 <div class="align-items-end d-flex">
-                  {{ Form::text('event_name2',!empty($master_info['event_name2'])?$master_info['event_name2']:"",['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                  {{
+                  Form::text('event_name2',!empty($master_info['event_name2'])?$master_info['event_name2']:"",['class'=>'form-control',
+                  'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
                   <span class="ml-1 annotation count_num2"></span>
                 </div>
                 <p class="is-error-event_name2" style="color: red"></p>
@@ -164,7 +176,9 @@
               <td class="table-active">主催者名</td>
               <td>
                 <div class="align-items-end d-flex">
-                  {{ Form::text('event_owner',!empty($master_info['event_owner'])?$master_info['event_owner']:"",['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                  {{
+                  Form::text('event_owner',!empty($master_info['event_owner'])?$master_info['event_owner']:"",['class'=>'form-control',
+                  'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
                   <span class="ml-1 annotation count_num3"></span>
                 </div>
                 <p class="is-error-event_owner" style="color: red"></p>
@@ -223,7 +237,9 @@
                 <td class="table-active">{{$equipment->item}}({{number_format($equipment->price)."円"}})</td>
                 <td>
                   <div class="d-flex align-items-end">
-                    {{ Form::number('equipment_breakdown'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control equipment_validation', 'placeholder'=>'入力してください'] ) }}
+                    {{ Form::number('equipment_breakdown'.$key,
+                    $master_info['equipment_breakdown'.$key],['class'=>'form-control equipment_validation',
+                    'placeholder'=>'入力してください'] ) }}
                     <span class="ml-1">個</span>
                   </div>
                 </td>
@@ -250,11 +266,13 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                      {{Form::radio('services_breakdown'.$key, 1,$master_info['services_breakdown'.$key]==1?true:false , ['id' => 'service'.$key.'on', 'class' => ''])}}
+                      {{Form::radio('services_breakdown'.$key, 1,$master_info['services_breakdown'.$key]==1?true:false ,
+                      ['id' => 'service'.$key.'on', 'class' => ''])}}
                       <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
                     </p>
                     <p>
-                      {{Form::radio('services_breakdown'.$key, 0, $master_info['services_breakdown'.$key]==0?true:false, ['id' => 'service'.$key.'off', 'class' => ''])}}
+                      {{Form::radio('services_breakdown'.$key, 0, $master_info['services_breakdown'.$key]==0?true:false,
+                      ['id' => 'service'.$key.'off', 'class' => ''])}}
                       <label for="{{'service'.$key.'off'}}" class="form-check-label">無し</label>
                     </p>
                   </div>
@@ -284,11 +302,13 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                      {{Form::radio('layout_prepare', 1, $master_info['layout_prepare']==1?true:false, ['id' => 'layout_prepare', 'class' => ''])}}
+                      {{Form::radio('layout_prepare', 1, $master_info['layout_prepare']==1?true:false, ['id' =>
+                      'layout_prepare', 'class' => ''])}}
                       <label for='layout_prepare' class="form-check-label">有り</label>
                     </p>
                     <p>
-                      {{Form::radio('layout_prepare', 0, $master_info['layout_prepare']==0?true:false, ['id' => 'no_layout_prepare', 'class' => ''])}}
+                      {{Form::radio('layout_prepare', 0, $master_info['layout_prepare']==0?true:false, ['id' =>
+                      'no_layout_prepare', 'class' => ''])}}
                       <label for='no_layout_prepare' class="form-check-label">無し</label>
                     </p>
                   </div>
@@ -299,11 +319,13 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                      {{Form::radio('layout_clean', 1, $master_info['layout_clean']==1?true:false, ['id' => 'layout_clean', 'class' => ''])}}
+                      {{Form::radio('layout_clean', 1, $master_info['layout_clean']==1?true:false, ['id' =>
+                      'layout_clean', 'class' => ''])}}
                       <label for='layout_clean' class="form-check-label">有り</label>
                     </p>
                     <p>
-                      {{Form::radio('layout_clean', 0, $master_info['layout_clean']==0?true:false, ['id' => 'no_layout_clean', 'class' => ''])}}
+                      {{Form::radio('layout_clean', 0, $master_info['layout_clean']==0?true:false, ['id' =>
+                      'no_layout_clean', 'class' => ''])}}
                       <label for='no_layout_clean' class="form-check-label">無し</label>
                     </p>
                   </div>
@@ -332,11 +354,13 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                      {{Form::radio('luggage_flag', 1, (int)$master_info['luggage_flag']===1?true:false, ['id'=>'luggage_flag'])}}
+                      {{Form::radio('luggage_flag', 1, (int)$master_info['luggage_flag']===1?true:false,
+                      ['id'=>'luggage_flag'])}}
                       {{Form::label('luggage_flag','有り')}}
                     </p>
                     <p>
-                      {{Form::radio('luggage_flag', 0, (int)$master_info['luggage_flag']===0?true:false, ['id'=>'no_luggage_flag'])}}
+                      {{Form::radio('luggage_flag', 0, (int)$master_info['luggage_flag']===0?true:false,
+                      ['id'=>'no_luggage_flag'])}}
                       {{Form::label('no_luggage_flag','無し')}}
                     </p>
                   </div>
@@ -345,21 +369,27 @@
               <tr>
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
-                  {{ Form::number('luggage_count', (int)$master_info['luggage_flag']===1?$master_info['luggage_count']:"",['class'=>'form-control','id'=>'luggage_count'] ) }}
+                  {{ Form::number('luggage_count',
+                  (int)$master_info['luggage_flag']===1?$master_info['luggage_count']:"",['class'=>'form-control','id'=>'luggage_count']
+                  ) }}
                   <p class="is-error-luggage_count" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', (int)$master_info['luggage_flag']===1?$master_info['luggage_arrive']:"",['class'=>'form-control holidays','id'=>'luggage_arrive'] ) }}
+                  {{ Form::text('luggage_arrive',
+                  (int)$master_info['luggage_flag']===1?$master_info['luggage_arrive']:"",['class'=>'form-control
+                  holidays','id'=>'luggage_arrive'] ) }}
                 </td>
               </tr>
 
               <tr>
                 <td class="table-active">事後返送する荷物</td>
                 <td>
-                  {{ Form::number('luggage_return', (int)$master_info['luggage_flag']===1?$master_info['luggage_return']:"",['class'=>'form-control' ,'id'=>'luggage_return'] ) }}
+                  {{ Form::number('luggage_return',
+                  (int)$master_info['luggage_flag']===1?$master_info['luggage_return']:"",['class'=>'form-control'
+                  ,'id'=>'luggage_return'] ) }}
                   <p class="is-error-luggage_return" style="color: red"></p>
                 </td>
               </tr>
@@ -387,9 +417,13 @@
                   {{Form::label('eat_in',"あり")}}
                 </td>
                 <td>
-                  {{Form::radio('eat_in_prepare', 1, $master_info['eat_in']==1&&$master_info['eat_in_prepare']==1?true:false , ['id' => 'eat_in_prepare', $master_info['eat_in']!=1?"disabled":""])}}
+                  {{Form::radio('eat_in_prepare', 1,
+                  $master_info['eat_in']==1&&$master_info['eat_in_prepare']==1?true:false , ['id' => 'eat_in_prepare',
+                  $master_info['eat_in']!=1?"disabled":""])}}
                   {{Form::label('eat_in_prepare',"手配済み")}}
-                  {{Form::radio('eat_in_prepare', 2, $master_info['eat_in']==1&&$master_info['eat_in_prepare']==2?true:false , ['id' => 'eat_in_consider',$master_info['eat_in']!=1?"disabled":""])}}
+                  {{Form::radio('eat_in_prepare', 2,
+                  $master_info['eat_in']==1&&$master_info['eat_in_prepare']==2?true:false , ['id' =>
+                  'eat_in_consider',$master_info['eat_in']!=1?"disabled":""])}}
                   {{Form::label('eat_in_consider',"検討中")}}
                 </td>
               </tr>
@@ -466,7 +500,8 @@
                 <label for="enduser_company" class="">エンドユーザー</label>
               </td>
               <td>
-                {{ Form::text('enduser_company', $master_info['enduser_company'],['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
+                {{ Form::text('enduser_company', $master_info['enduser_company'],['class'=>'form-control',
+                'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
               </td>
             </tr>
             <tr>
@@ -474,7 +509,8 @@
                 <label for="enduser_address" class=" ">住所</label>
               </td>
               <td>
-                {{ Form::text('enduser_address', $master_info['enduser_address'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_address'] ) }}
+                {{ Form::text('enduser_address', $master_info['enduser_address'],['class'=>'form-control',
+                'placeholder'=>'入力してください', 'id'=>'enduser_address'] ) }}
               </td>
             </tr>
             <tr>
@@ -482,7 +518,8 @@
                 <label for="enduser_tel" class="">連絡先</label>
               </td>
               <td>
-                {{ Form::text('enduser_tel', $master_info['enduser_tel'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
+                {{ Form::text('enduser_tel', $master_info['enduser_tel'],['class'=>'form-control',
+                'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
                 <p class="is-error-enduser_tel" style="color: red"></p>
               </td>
             </tr>
@@ -491,7 +528,8 @@
                 <label for="enduser_mail" class=" ">メールアドレス</label>
               </td>
               <td>
-                {{ Form::text('enduser_mail', $master_info['enduser_mail'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail'] ) }}
+                {{ Form::text('enduser_mail', $master_info['enduser_mail'],['class'=>'form-control',
+                'placeholder'=>'入力してください', 'id'=>'enduser_mail'] ) }}
                 <p class="is-error-enduser_mail" style="color: red"></p>
               </td>
             </tr>
@@ -500,7 +538,8 @@
                 <label for="enduser_incharge" class="">当日担当者</label>
               </td>
               <td>
-                {{ Form::text('enduser_incharge', $master_info['enduser_incharge'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_incharge'] ) }}
+                {{ Form::text('enduser_incharge', $master_info['enduser_incharge'],['class'=>'form-control',
+                'placeholder'=>'入力してください', 'id'=>'enduser_incharge'] ) }}
               </td>
             </tr>
             <tr>
@@ -508,7 +547,8 @@
                 <label for="enduser_mobile" class="">当日連絡先</label>
               </td>
               <td>
-                {{ Form::text('enduser_mobile', $master_info['enduser_mobile'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile'] ) }}
+                {{ Form::text('enduser_mobile', $master_info['enduser_mobile'],['class'=>'form-control',
+                'placeholder'=>'入力してください', 'id'=>'enduser_mobile'] ) }}
                 <p class="is-error-enduser_mobile" style="color: red"></p>
               </td>
             </tr>
@@ -544,7 +584,8 @@
               </td>
               <td>
                 <div class="d-flex align-items-center">
-                  {{ Form::text('end_user_charge', $master_info['end_user_charge'],['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}
+                  {{ Form::text('end_user_charge', $master_info['end_user_charge'],['class'=>'form-control
+                  sales_percentage', 'placeholder'=>'入力してください'] ) }}
                   <span class="ml-1">円</span>
                 </div>
                 <p class="is-error-end_user_charge" style="color: red"></p>
@@ -588,7 +629,8 @@
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
-                {{ Form::textarea('admin_details', $master_info['admin_details'],['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::textarea('admin_details', $master_info['admin_details'],['class'=>'form-control',
+                'placeholder'=>'入力してください'] ) }}
               </td>
             </tr>
           </tbody>
@@ -602,7 +644,8 @@
 
 
 
-  {{ Form::open(['url' => 'admin/agents_reservations/check_session', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
+  {{ Form::open(['url' => '/admin/agents_reservations/check_session', 'method'=>'POST', 'id'=>'agents_calculate_form'])
+  }}
   @csrf
   <section class="">
     <div class="bill">
@@ -705,11 +748,13 @@
                 @if (!empty($master_info['equipment_breakdown'.$key]))
                 <tr>
                   <td>
-                    {{ Form::text('equipment_breakdown_item'.$key, $equipment->item,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('equipment_breakdown_item'.$key, $equipment->item,['class'=>'form-control',
+                    'readonly'] ) }}
                   </td>
                   <td><input class="form-control" readonly value="0"></td>
                   <td>
-                    {{ Form::text('equipment_breakdown_count'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('equipment_breakdown_count'.$key,
+                    $master_info['equipment_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td><input class="form-control" readonly value="0"></td>
                 </tr>
@@ -719,11 +764,13 @@
                 @if (!empty($master_info['services_breakdown'.$key]))
                 <tr>
                   <td>
-                    {{ Form::text('service_breakdown_item'.$key, $service->item,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_item'.$key, $service->item,['class'=>'form-control', 'readonly'] )
+                    }}
                   </td>
                   <td><input class="form-control" readonly value="0"></td>
                   <td>
-                    {{ Form::text('service_breakdown_count'.$key, $master_info['services_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_count'.$key,
+                    $master_info['services_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td><input class="form-control" readonly value="0"></td>
                 </tr>
@@ -736,7 +783,8 @@
                   </td>
                   <td><input class="form-control" readonly value="0"></td>
                   <td>
-                    {{ Form::text('luggage_count', $master_info['luggage_count'],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('luggage_count', $master_info['luggage_count'],['class'=>'form-control', 'readonly'] )
+                    }}
                   </td>
                   <td><input class="form-control" readonly value="0"></td>
                 </tr>
@@ -779,7 +827,8 @@
                   </td>
                   <td>{{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
                   <td>
-                    {{ Form::text('layout_prepare_subtotal', $venues->find($master_info['venue_id'])->getLayouts()[0],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('layout_prepare_subtotal',
+                    $venues->find($master_info['venue_id'])->getLayouts()[0],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
                 @endif
@@ -791,7 +840,8 @@
                   </td>
                   <td>{{ Form::text('layout_clean_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
                   <td>
-                    {{ Form::text('layout_clean_subtotal', $venues->find($master_info['venue_id'])->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('layout_clean_subtotal',
+                    $venues->find($master_info['venue_id'])->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
                 @endif
@@ -852,19 +902,22 @@
                 <tr>
                   <td>小計：</td>
                   <td>
-                    {{ Form::text('master_subtotal',(floor($price)) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                    {{ Form::text('master_subtotal',(floor($price)) ,['class'=>'form-control text-right', 'readonly'] )
+                    }}
                   </td>
                 </tr>
                 <tr>
                   <td>消費税：</td>
                   <td>
-                    {{ Form::text('master_tax',ReservationHelper::getTax($price) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                    {{ Form::text('master_tax',ReservationHelper::getTax($price) ,['class'=>'form-control text-right',
+                    'readonly'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">合計金額</td>
                   <td>
-                    {{ Form::text('master_total',ReservationHelper::taxAndPrice($price) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                    {{ Form::text('master_total',ReservationHelper::taxAndPrice($price) ,['class'=>'form-control
+                    text-right', 'readonly'] ) }}
                   </td>
                 </tr>
               </tbody>
@@ -894,25 +947,34 @@
               <tbody>
                 <tr>
                   <td>請求日
-                    {{ Form::text('bill_created_at', !empty($check_info['bill_created_at'])?$check_info['bill_created_at']:date('Y-m-d'),['class'=>'form-control datepicker'] ) }}
+                    {{ Form::text('bill_created_at',
+                    !empty($check_info['bill_created_at'])?$check_info['bill_created_at']:date('Y-m-d'),['class'=>'form-control
+                    datepicker'] ) }}
                   </td>
                   <td>支払期日
-                    {{ Form::text('pay_limit', !empty($check_info['pay_limit'])?$check_info['bill_created_at']:$calc_info[1],['class'=>'form-control datepicker'] ) }}
+                    {{ Form::text('pay_limit',
+                    !empty($check_info['pay_limit'])?$check_info['bill_created_at']:$calc_info[1],['class'=>'form-control
+                    datepicker'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td>
                     請求書宛名
-                    {{ Form::text('pay_company', !empty($check_info['pay_company'])?$check_info['pay_company']:ReservationHelper::getAgentCompany($master_info['agent_id']),['class'=>'form-control'] ) }}
+                    {{ Form::text('pay_company',
+                    !empty($check_info['pay_company'])?$check_info['pay_company']:ReservationHelper::getAgentCompany($master_info['agent_id']),['class'=>'form-control']
+                    ) }}
                   </td>
                   <td>
                     担当者
-                    {{ Form::text('bill_person', !empty($check_info['bill_person'])?$check_info['bill_person']:ReservationHelper::getAgentPerson($master_info['agent_id']),['class'=>'form-control'] ) }}
+                    {{ Form::text('bill_person',
+                    !empty($check_info['bill_person'])?$check_info['bill_person']:ReservationHelper::getAgentPerson($master_info['agent_id']),['class'=>'form-control']
+                    ) }}
                   </td>
                 </tr>
                 <tr>
                   <td colspan="2">請求書備考
-                    {{ Form::textarea('bill_remark', !empty($check_info['bill_remark'])?$check_info['bill_remark']:"",['class'=>'form-control'] ) }}
+                    {{ Form::textarea('bill_remark',
+                    !empty($check_info['bill_remark'])?$check_info['bill_remark']:"",['class'=>'form-control'] ) }}
                   </td>
                 </tr>
               </tbody>
@@ -937,20 +999,24 @@
               <tbody>
                 <tr>
                   <td>入金状況
-                    {{Form::select('paid', ['未入金', '入金済み','遅延','入金不足','入金過多','次回繰越'],!empty($check_info['paid'])?$check_info['paid']:"",['class'=>'form-control'])}}
+                    {{Form::select('paid', ['未入金',
+                    '入金済み','遅延','入金不足','入金過多','次回繰越'],!empty($check_info['paid'])?$check_info['paid']:"",['class'=>'form-control'])}}
                   </td>
                   <td>
                     入金日
-                    {{ Form::text('pay_day', !empty($check_info['pay_day'])?$check_info['pay_day']:"",['class'=>'form-control datepicker'] ) }}
+                    {{ Form::text('pay_day',
+                    !empty($check_info['pay_day'])?$check_info['pay_day']:"",['class'=>'form-control datepicker'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td>振込人名
-                    {{ Form::text('pay_person', !empty($check_info['pay_person'])?$check_info['pay_person']:"",['class'=>'form-control '] ) }}
+                    {{ Form::text('pay_person',
+                    !empty($check_info['pay_person'])?$check_info['pay_person']:"",['class'=>'form-control '] ) }}
                     <p class="is-error-pay_person" style="color: red"></p>
                   </td>
                   <td>入金額
-                    {{ Form::text('payment', !empty($check_info['payment'])?$check_info['payment']:"",['class'=>'form-control '] ) }}
+                    {{ Form::text('payment',
+                    !empty($check_info['payment'])?$check_info['payment']:"",['class'=>'form-control '] ) }}
                     <p class="is-error-payment" style="color: red"></p>
                   </td>
                 </tr>
@@ -963,7 +1029,7 @@
   </section>
 
 
-  {{Form::submit('確認する', ['class'=>'btn more_btn_lg d-block  mx-auto my-5', 'id'=>'check_submit'])}}
+  {{Form::submit('確認する', ['class'=>'btn more_btn_lg d-block mx-auto my-5', 'id'=>'check_submit'])}}
   {{Form::close()}}
 
 </div>

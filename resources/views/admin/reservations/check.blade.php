@@ -32,7 +32,7 @@
 
 
 
-{{ Form::open(['url' => 'admin/reservations', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
+{{ Form::open(['url' => '/admin/reservations', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
 @csrf
 <section class="mt-4">
   <div class="row">

@@ -46,7 +46,7 @@
 
 
 
-{{Form::open(['url' => 'admin/agents_reservations/edit_check', 'method' => 'POST', 'id'=>'agents_reservations_edit'])}}
+{{Form::open(['url' => '/admin/agents_reservations/edit_check', 'method' => 'POST', 'id'=>'agents_reservations_edit'])}}
 @csrf
 {{ Form::hidden('reservation_id', $data['reservation_id'] ,['class'=>'form-control', 'readonly'] ) }}
 {{ Form::hidden('bill_id', $data['bill_id'] ,['class'=>'form-control', 'readonly'] ) }}

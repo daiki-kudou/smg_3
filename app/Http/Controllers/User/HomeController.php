@@ -208,7 +208,7 @@ class HomeController extends Controller
     $SendSMGEmail = new SendSMGEmail();
     $SendSMGEmail->AuthSend("ユーザーメール更新", ['result' => $result, 'user' => $old_user_info]);
 
-    return redirect(url('user/home/email_reset_send'));
+    return redirect(url('/user/home/email_reset_send'));
   }
 
   public function email_reset_send()
@@ -230,12 +230,12 @@ class HomeController extends Controller
       // レコードを削除
       EmailReset::where('token', $token)->delete();
       Auth::logout();
-      return redirect(url('email_reset_done'));
+      return redirect(url('/email_reset_done'));
     } else {
       // レコードが存在していた場合削除
       EmailReset::where('token', $token)->delete();
 
-      return redirect(url('user/email_reset_failed'));
+      return redirect(url('/user/email_reset_failed'));
     }
   }
 

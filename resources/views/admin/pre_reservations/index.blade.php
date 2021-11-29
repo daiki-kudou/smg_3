@@ -52,7 +52,7 @@
     @include('layouts.admin.errors')
 
     <!-- 検索--------------------------------------- -->
-    {{Form::open(['url' => 'admin/pre_reservations', 'method' => 'GET', 'id'=>'preserve_search'])}}
+    {{Form::open(['url' => '/admin/pre_reservations', 'method' => 'GET', 'id'=>'preserve_search'])}}
     @csrf
     <div class="search-wrap">
       <table class="table table-bordered">
@@ -145,7 +145,7 @@
         <p>※担当者氏名の検索時は、フルネーム時はスペース禁止</p>
       </div>
       <div class="btn_box d-flex justify-content-center">
-        <a href="{{url('admin/pre_reservations')}}" class="btn reset_btn">リセット</a>
+        <a href="{{url('/admin/pre_reservations')}}" class="btn reset_btn">リセット</a>
         {{Form::hidden("time_over",empty($data)?0:((int)$data['time_over']===1?1:0))}}
         {{Form::submit('検索', ['class'=>'btn search_btn', 'id'=>''])}}
       </div>
@@ -155,7 +155,7 @@
     <ul class="d-flex reservation_list mb-2 justify-content-between">
       <li>
         {{-- 削除ボタン --}}
-        {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>''])}}
+        {{Form::open(['url' => '/admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>''])}}
         @csrf
         {{Form::hidden('delete_target','')}}
         {{ Form::submit('削除', ['class' => 'btn more_btn4 confirm_delete','id'=>'confirm_destroy']) }}

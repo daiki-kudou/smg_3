@@ -84,6 +84,9 @@ class User extends Authenticatable
     'email_verified_at' => 'datetime',
   ];
 
+  // アクセサ
+
+
   /*
 |--------------------------------------------------------------------------
 | 会場と予約の一対多

@@ -531,7 +531,7 @@
   </div>
 </section>
 <div class="text-center mt-5">
-  <p><a class="more_btn_lg" href="{{url('admin/venues')}}">一覧にもどる</a>
+  <p><a class="more_btn_lg" href="{{url('/admin/venues')}}">一覧にもどる</a>
   </p>
 </div>
 

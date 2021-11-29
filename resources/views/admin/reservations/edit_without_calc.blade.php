@@ -42,7 +42,7 @@
 </div>
 
 
-{{Form::open(['url' => 'admin/reservations/session_for_edit_calculate', 'method' => 'POST',
+{{Form::open(['url' => '/admin/reservations/session_for_edit_calculate', 'method' => 'POST',
 'id'=>'reservations_edit'])}}
 @csrf
 
@@ -446,7 +446,7 @@
                 </p>
                 <p class="user_link">
                   <a class="more_btn" target="_blank" rel="noopener"
-                    href="{{url('admin/clients/'.$reservation->user_id)}}">顧客詳細</a>
+                    href="{{url('/admin/clients/'.$reservation->user_id)}}">顧客詳細</a>
                 </p>
               </div>
             </td>
@@ -603,7 +603,7 @@
 {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
-{{ Form::open(['url' => 'admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'']) }}
+{{ Form::open(['url' => '/admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'']) }}
 @csrf
 <section class="mt-5">
   <div class="bill">

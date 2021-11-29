@@ -50,7 +50,7 @@
   <hr>
 </div>
 
-{{ Form::open(['url' => 'admin/pre_agent_reservations/'.$PreReservation->id.'/edit_calculate', 'method'=>'POST',
+{{ Form::open(['url' => '/admin/pre_agent_reservations/'.$PreReservation->id.'/edit_calculate', 'method'=>'POST',
 'id'=>'pre_agent_reservationSingleEditForm']) }}
 @csrf
 <section class="mt-5">
@@ -714,7 +714,7 @@
   {{Form::close()}}
 
 
-  {{ Form::open(['url' => 'admin/pre_agent_reservations/'.$PreReservation->id.'/update', 'method'=>'PUT']) }}
+  {{ Form::open(['url' => '/admin/pre_agent_reservations/'.$PreReservation->id.'/update', 'method'=>'PUT']) }}
   @csrf
   {{-- 以下、計算結果 --}}
   <div class="container-fluid">

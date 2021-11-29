@@ -20,7 +20,7 @@
   <h2 class="mt-3 mb-3">仮押え　詳細入力画面</h2>
   <hr>
 
-  {{ Form::open(['url' => 'admin/pre_reservations/calculate', 'method'=>'get', 'id'=>'pre_reservationSingleCheckForm'])
+  {{ Form::open(['url' => '/admin/pre_reservations/calculate', 'method'=>'get', 'id'=>'pre_reservationSingleCheckForm'])
   }}
   @csrf
 
@@ -610,7 +610,7 @@
       @if ($venue->getPriceSystems()==0)
       <div class="">
         <p class="d-block">選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
-        <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+        <a href="{{url('/admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
       </div>
       @else
       {{Form::submit('計算する', ['class'=>'btn more_btn_lg mt-5', 'id'=>'check_submit'])}}

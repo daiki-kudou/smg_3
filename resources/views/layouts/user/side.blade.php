@@ -20,14 +20,14 @@
   <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <li class="nav-item has-treeview">
-        <a href="{{url('user/home')}}" class="nav-link user_home">
+        <a href="{{url('/user/home')}}" class="nav-link user_home">
           <i class="nav-icon fas fa-book-open" style=""></i>
           <p>予約一覧</p>
         </a>
       </li>
 
       <li class="nav-item has-treeview">
-        <a href="{{url('user/pre_reservations')}}" class="nav-link user_pre_reservations">
+        <a href="{{url('/user/pre_reservations')}}" class="nav-link user_pre_reservations">
           <i class="nav-icon fas fa-book-open" style=""></i>
           <p>仮押え一覧</p>
         </a>

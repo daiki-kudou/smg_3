@@ -92,7 +92,7 @@
         <th><label for="email">メールアドレス</label></th>
         <td>{{$user->email}}
           <p class="">
-            <a href="{{url('user/home/email_reset')}}">メールアドレスを変更する</a>
+            <a href="{{url('/user/home/email_reset')}}">メールアドレスを変更する</a>
           </p>
         </td>
       </tr>
@@ -100,7 +100,7 @@
         <th><label for="password">パスワード</label></th>
         <td>
           <p class="">
-            <a href="{{url('user/password/reset')}}">パスワードを変更する</a>
+            <a href="{{url('/user/password/reset')}}">パスワードを変更する</a>
           </p>
         </td>
       </tr>
@@ -110,7 +110,7 @@
 
 
 <div class="btn_wrapper ">
-  {{Form::open(['url' => 'user/home/user_edit', 'method' => 'POST'])}}
+  {{Form::open(['url' => '/user/home/user_edit', 'method' => 'POST'])}}
   @csrf
   {{Form::hidden('user_id',$user->id)}}
   <p class="text-center">{{Form::submit('編集する',['class'=>'more_btn_lg btn'])}}
@@ -118,7 +118,7 @@
   </p>
   <hr class="my-5 user-profile">
   <p class="user-profile text-right">
-    <a href="{{url('user/home/cxl_membership')}}">退会を希望する</a>
+    <a href="{{url('/user/home/cxl_membership')}}">退会を希望する</a>
   </p>
 </div>
 

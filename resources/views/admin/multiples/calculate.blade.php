@@ -100,7 +100,7 @@
       </section>
 
 
-      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST',
+      {{ Form::open(['url' => '/admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST',
       'id'=>'multipleCalculateForm']) }}
       @csrf
       <section class="m-5 border-inwrap">
@@ -1533,7 +1533,7 @@
 
 
 
-{{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST',
+{{ Form::open(['url' => '/admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST',
 'id'=>'master_form']) }}
 @csrf
 {{ Form::hidden('master_data', '',['class' => 'btn btn-primary more_btn_lg', 'id'=>'master_data'])}}

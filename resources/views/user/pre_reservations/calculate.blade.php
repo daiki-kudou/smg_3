@@ -30,7 +30,7 @@
 </div>
 @endif
 
-{{ Form::open(['url' => 'user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST',
+{{ Form::open(['url' => '/user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST',
 'id'=>'mypageDone']) }}
 @csrf
 {{Form::hidden('venue_id',$pre_reservation->venue_id)}}
