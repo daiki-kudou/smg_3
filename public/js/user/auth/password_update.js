@@ -1,5 +1,5 @@
 $(function () {
-  $("#loginForm").validate({
+  $("#password_reset_form").validate({
     rules: {
       email: {
         required: true,
@@ -7,7 +7,14 @@ $(function () {
       },
       password: {
         required: true,
-        minlength: 8
+        minlength: 6,
+        maxlength: 20
+      },
+      password_confirmation: {
+        required: true,
+        minlength: 6,
+        maxlength: 20,
+        equalTo: "#inputPassword"
       },
     },
     messages: {
@@ -18,6 +25,13 @@ $(function () {
       password: {
         required: "※必須項目です",
         minlength: "※パスワードは6文字以上です",
+        maxlength: "※パスワードは最大20文字です",
+      },
+      password_confirmation: {
+        required: "※必須項目です",
+        minlength: "※パスワードは6文字以上です",
+        maxlength: "※パスワードは最大20文字です",
+        equalTo: "※パスワードが一致しません",
       },
     },
     errorPlacement: function (error, element) {
