@@ -54,7 +54,7 @@
 
 
 
-{{Form::open(['url' => 'admin/reservations/session_for_edit_calculate', 'method' => 'POST',
+{{Form::open(['url' => '/admin/reservations/session_for_edit_calculate', 'method' => 'POST',
 'id'=>'reservations_edit'])}}
 @csrf
 
@@ -483,7 +483,7 @@
                 </p>
                 <p>
                   <a class="more_btn user_link" target="_blank" rel="noopener"
-                    href="{{url('admin/clients/'.$basicInfo['user_id'])}}">顧客詳細</a>
+                    href="{{url('/admin/clients/'.$basicInfo['user_id'])}}">顧客詳細</a>
                 </p>
               </div>
             </td>
@@ -652,7 +652,7 @@
 {{Form::close()}}
 
 
-{{ Form::open(['url' => 'admin/reservations/session_for_edit_check', 'method'=>'POST',
+{{ Form::open(['url' => '/admin/reservations/session_for_edit_check', 'method'=>'POST',
 'id'=>'reservations_edit_result']) }}
 @csrf
 <section class="mt-5 pt-5">

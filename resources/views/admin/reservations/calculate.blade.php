@@ -29,10 +29,6 @@
     justify-content: center;
     align-items: center;
   }
-
-  .hide {
-    display: none;
-  }
 </style>
 <div id="fullOverlay">
   <div class="frame_spinner">
@@ -52,8 +48,7 @@
   </nav>
 </div>
 
-{{Form::open(['url' => 'admin/reservations/store_session', 'method' => 'post', 'id'=>'reservationCreateForm'])}}
-
+{{Form::open(['url' => '/admin/reservations/store_session', 'method' => 'post', 'id'=>'reservationCreateForm'])}}
 @csrf
 <section class="mt-4">
   <div class="row">
@@ -631,7 +626,7 @@
 {{Form::close()}}
 
 
-{{ Form::open(['url' => 'admin/reservations/check_session', 'method'=>'POST', 'id'=>'reservations_calculate_form']) }}
+{{ Form::open(['url' => '/admin/reservations/check_session', 'method'=>'POST', 'id'=>'reservations_calculate_form']) }}
 @csrf
 <section class="">
   <div class="bill">
@@ -1038,6 +1033,8 @@
           </table>
         </div>
         @endif
+
+
         <div class="others billdetails_content">
           <table class="table table-borderless">
             <tbody>
@@ -1059,23 +1056,45 @@
               </tr>
             </tbody>
             <tbody class="others_main">
-              <tr>
-                <td>{{ Form::text('others_breakdown_item0', '',['class'=>'form-control'] ) }}</td>
-                <td>{{ Form::text('others_breakdown_cost0', '',['class'=>'form-control'] ) }}</td>
-                <td>{{ Form::text('others_breakdown_count0', '',['class'=>'form-control'] ) }}</td>
-                <td>{{ Form::text('others_breakdown_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}</td>
+              @if(!empty($checkInfo)&&($checkInfo['others_breakdown_item0']||$checkInfo['others_breakdown_cost0']||$checkInfo['others_breakdown_count0']||$checkInfo['others_breakdown_subtotal0']))
+              @for ($i = 0; $i < $others_count; $i++) <tr>
+                <td>{{ Form::text('others_breakdown_item'.$i,
+                  $checkInfo['others_breakdown_item'.$i],['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_breakdown_cost'.$i,
+                  $checkInfo['others_breakdown_cost'.$i],['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_breakdown_count'.$i,
+                  $checkInfo['others_breakdown_count'.$i],['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_breakdown_subtotal'.$i,
+                  $checkInfo['others_breakdown_subtotal'.$i],['class'=>'form-control', 'readonly'] ) }}</td>
                 <td class="text-left">
                   <input type="button" value="＋" class="add pluralBtn bg-blue">
                   <input type="button" value="ー" class="del pluralBtn bg-red">
                 </td>
-              </tr>
+                </tr>
+                @endfor
+                @else
+                <tr>
+                  <td>{{ Form::text('others_breakdown_item0', '',['class'=>'form-control'] ) }}</td>
+                  <td>{{ Form::text('others_breakdown_cost0', '',['class'=>'form-control'] ) }}</td>
+                  <td>{{ Form::text('others_breakdown_count0', '',['class'=>'form-control'] ) }}</td>
+                  <td>{{ Form::text('others_breakdown_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}</td>
+                  <td class="text-left">
+                    <input type="button" value="＋" class="add pluralBtn bg-blue">
+                    <input type="button" value="ー" class="del pluralBtn bg-red">
+                  </td>
+                </tr>
+                @endif
             </tbody>
             <tbody class="others_result">
               <tr>
                 <td colspan="4"></td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
+                  @if(!empty($checkInfo)&&($checkInfo['others_breakdown_item0']||$checkInfo['others_breakdown_cost0']||$checkInfo['others_breakdown_count0']||$checkInfo['others_breakdown_subtotal0']))
+                  {{ Form::text('others_price', $checkInfo['others_price'],['class'=>'form-control', 'readonly'] ) }}
+                  @else
                   {{ Form::text('others_price', '',['class'=>'form-control', 'readonly'] ) }}
+                  @endif
                 </td>
               </tr>
             </tbody>

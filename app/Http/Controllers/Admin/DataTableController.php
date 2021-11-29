@@ -75,13 +75,14 @@ class DataTableController extends Controller
           'user_name' => "<div>" . $record->user_name . "</div>",
           'mobile' => "<div>" . $record->mobile . "</div>",
           'tel' => "<div>" . $record->tel . "</div>",
+          'attention' =>  $record->attention,
           'agent_name' => "<div>" . $record->agent_name . "</div>",
           'enduser_company' => "<div>" . $record->enduser_company . "</div>",
           'icon' => "<div>" . $this->getReservationIcon($record->reservation_id) . "</div>",
           'category' => "<div>" . $this->getReservationCategory($record->reservation_id) . "</div>",
           'reservation_status' => "<div>" . $this->getReservationStatus($record->reservation_id) . "</div>",
-          'details' => "<div>" . "<a href=" . url('admin/reservations', $record->reservation_id) . " class='more_btn btn'>詳細</a>" . "</div>",
-          'board' => "<div>" . ((int)$record->board_flag === 1 ? ("<a href=" . url('admin/board', $record->reservation_id) . " class='more_btn btn' target='_blank'>詳細</a>") : "") . "</div>",
+          'details' => "<div>" . "<a href=" . url('/admin/reservations', $record->reservation_id) . " class='more_btn btn'>詳細</a>" . "</div>",
+          'board' => "<div>" . ((int)$record->board_flag === 1 ? ("<a href=" . url('/admin/board', $record->reservation_id) . " class='more_btn btn' target='_blank'>詳細</a>") : "") . "</div>",
         ];
     }
 
@@ -234,7 +235,7 @@ class DataTableController extends Controller
           'paid' => $this->getPaid($record->reservation_id),
           'payment_limit' => $this->getPaymentLimit($record->reservation_id),
           'pay_day' => $this->getPayDay($record->reservation_id),
-          'details' => "<a href=" . url('admin/reservations', $record->reservation_id) . " class='more_btn btn'>詳細</a>",
+          'details' => "<a href=" . url('/admin/reservations', $record->reservation_id) . " class='more_btn btn'>詳細</a>",
           'pay_person' => $this->getPayPerson($record->reservation_id),
           'attr' => ReservationHelper::getAttr($record->attr),
           'alliance_flag' => (int)$record->alliance_flag === 0 ? '直' : '提',
@@ -676,7 +677,7 @@ class DataTableController extends Controller
           'unknownuser' => $record->unknownuser,
           'agent_name' => $record->agent_name,
           'enduser' => $record->enduser,
-          'details' => "<a href=" . url('admin/pre_reservations', $record->pre_reservation_id_original) . " class='more_btn btn'>詳細</a>",
+          'details' => "<a href=" . url('/admin/pre_reservations', $record->pre_reservation_id_original) . " class='more_btn btn'>詳細</a>",
         ];
     }
 

@@ -32,7 +32,7 @@
 
 <section class="mt-5">
   <div class="mb-2">
-    {{Form::open(['url' => 'admin/multiples/destroy', 'method' => 'delete', 'id'=>'for_destroy'])}}
+    {{Form::open(['url' => '/admin/multiples/destroy', 'method' => 'delete', 'id'=>'for_destroy'])}}
     @csrf
     {{Form::hidden('delete_target', "[".$multiple->id."]")}}
     {{ Form::submit('削除', ['class' => 'btn
@@ -48,7 +48,7 @@
           </h3>
         </td>
         <td class="text-right">
-          {{ Form::open(['url' => 'admin/multiples/agent/agentMoveToReservation', 'method'=>'POST','id'=>'']) }}
+          {{ Form::open(['url' => '/admin/multiples/agent/agentMoveToReservation', 'method'=>'POST','id'=>'']) }}
           @csrf
           {{ Form::hidden('multiple_id', $multiple->id)}}
           {{ Form::submit('本予約へ切り替える', ['class' => 'btn more_btn4',!$checkEachBills?'disabled':'']) }}
@@ -68,7 +68,7 @@
                 仲介会社情報
               </p>
               <p>
-                <a href="{{url('admin/multiples/agent_switch/'.$multiple->id)}}" class="more_btn">
+                <a href="{{url('/admin/multiples/agent_switch/'.$multiple->id)}}" class="more_btn">
                   仲介会社情報を変更する
                 </a>
               </p>
@@ -167,7 +167,7 @@
     </table>
     <hr class="my-5 border_color">
     <div class="mt-5">
-      <p class="text-right"><a href="{{url('admin/multiples/agent/'.$multiple->id." /add_venue")}}"
+      <p class="text-right"><a href="{{url('/admin/multiples/agent/'.$multiple->id." /add_venue")}}"
           class="more_btn3">日程を追加する</a></p>
       <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
     </div>
@@ -200,7 +200,7 @@
             {{$multiple->pre_reservations->where('venue_id',$v->venue_id)->count()}}
           </td>
           <td>
-            <a class="more_btn" href="{{url('admin/multiples/agent/'.$multiple->id.'/edit'.'/'.$v->venue_id)}}">編集</a>
+            <a class="more_btn" href="{{url('/admin/multiples/agent/'.$multiple->id.'/edit'.'/'.$v->venue_id)}}">編集</a>
           </td>
         </tr>
         @endforeach
@@ -210,7 +210,7 @@
   </div>
 </section>
 <div class="btn_wrapper">
-  <p class="text-center"><a class="more_btn_lg" href="{{url('admin/multiples')}}">一覧にもどる</a></p>
+  <p class="text-center"><a class="more_btn_lg" href="{{url('/admin/multiples')}}">一覧にもどる</a></p>
 </div>
 
 

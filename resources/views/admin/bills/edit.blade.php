@@ -27,7 +27,7 @@
   </div>
   @endif
 
-  {{ Form::open(['url' => 'admin/bills/'.$bill->id, 'method'=>'PUT', 'id'=>'billsEditForm']) }}
+  {{ Form::open(['url' => '/admin/bills/'.$bill->id, 'method'=>'PUT', 'id'=>'billsEditForm']) }}
   @csrf
 
   <section class="mt-5">

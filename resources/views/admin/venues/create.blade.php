@@ -14,7 +14,7 @@
 @include('layouts.admin.errors')
 
 
-{{ Form::open(['url' => 'admin/venues', 'method'=>'POST', 'id'=>'VenuesCreateForm']) }}
+{{ Form::open(['url' => '/admin/venues', 'method'=>'POST', 'id'=>'VenuesCreateForm']) }}
 @csrf
 <div class="container-field">
   <div class="float-right">

@@ -604,6 +604,7 @@ class PreReservation extends Model
         unknown_users.unknown_user_company as unknownuser,
         agents.name as agent_name,
         users.id as user_id,
+        users.attention as attention,
         pre_endusers.company as enduser,
         pre_reservations.status as pre_reservation_status,
       case when pre_bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,

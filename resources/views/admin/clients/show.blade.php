@@ -266,14 +266,14 @@
 
     <ul class="d-flex justify-content-end mt-5">
       <li class="mr-3">
-        {{ Form::open(['url' => 'admin/pre_reservations/create', 'method'=>'get', 'id'=>'']) }}
+        {{ Form::open(['url' => '/admin/pre_reservations/create', 'method'=>'get', 'id'=>'']) }}
         @csrf
         {{Form::hidden('user_id_from_client_show',$user->id)}}
         {{Form::submit('仮押さえをする',['id'=>"form_submit",'class'=>'more_btn3'])}}
         {{Form::close()}}
       </li>
       <li>
-        {{ Form::open(['url' => 'admin/reservations/create', 'method'=>'get', 'id'=>'']) }}
+        {{ Form::open(['url' => '/admin/reservations/create', 'method'=>'get', 'id'=>'']) }}
         @csrf
         {{Form::hidden('user_id_from_client_show',$user->id)}}
         {{Form::submit('予約をする',['id'=>"form_submit",'class'=>'more_btn3'])}}
@@ -352,7 +352,7 @@
               {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}"><a
-                href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
+                href="{{ url('/admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
           </tr>
           @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
             <tr>
@@ -373,7 +373,7 @@
   </div>
 
   <div class="text-center">
-    <p><a class="more_btn_lg" href="{{url('admin/clients')}}">一覧にもどる</a>
+    <p><a class="more_btn_lg" href="{{url('/admin/clients')}}">一覧にもどる</a>
     </p>
   </div>
 

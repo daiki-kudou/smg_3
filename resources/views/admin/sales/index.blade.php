@@ -50,7 +50,7 @@
 
 
 <!-- 検索--------------------------------------- -->
-{{ Form::open(['url' => 'admin/sales', 'method'=>'GET','id'=>'sales_search']) }}
+{{ Form::open(['url' => '/admin/sales', 'method'=>'GET','id'=>'sales_search']) }}
 @csrf
 <div class="search-wrap">
   <table class="table table-bordered">
@@ -255,7 +255,7 @@
   </div>
 
   <div class="btn_box d-flex justify-content-center">
-    <a href="{{url('admin/sales')}}" class="btn reset_btn">リセット</a>
+    <a href="{{url('/admin/sales')}}" class="btn reset_btn">リセット</a>
     {{Form::hidden('sales_search_box','sales_search_box', ['class'=>'form-control'])}}
     {{Form::hidden('csv','')}}
     <!--csvダウンロード用のinput-->

@@ -65,7 +65,7 @@
 
 
 
-{{Form::open(['url' => 'admin/reservations/edit_check', 'method' => 'POST', 'id'=>'reservations_edit'])}}
+{{Form::open(['url' => '/admin/reservations/edit_check', 'method' => 'POST', 'id'=>'reservations_edit'])}}
 @csrf
 {{ Form::hidden('reservation_id', $data['reservation_id'] ,['class'=>'form-control', 'readonly'] ) }}
 {{ Form::hidden('bill_id', $data['bill_id'] ,['class'=>'form-control', 'readonly'] ) }}
@@ -478,7 +478,7 @@
                 </p>
                 <p>
                   <a class="more_btn user_link" target="_blank" rel="noopener"
-                    href="{{url('admin/clients/'.$data['user_id'])}}">顧客詳細</a>
+                    href="{{url('/admin/clients/'.$data['user_id'])}}">顧客詳細</a>
                 </p>
               </div>
             </td>

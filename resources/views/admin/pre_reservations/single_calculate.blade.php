@@ -22,7 +22,7 @@
 
 @include('layouts.admin.errors')
 
-{{ Form::open(['url' => 'admin/pre_reservations/calculate', 'method'=>'get',
+{{ Form::open(['url' => '/admin/pre_reservations/calculate', 'method'=>'get',
 'id'=>'pre_reservationSingleCalculateForm']) }}
 @csrf
 <section class="mt-5">
@@ -707,7 +707,7 @@
   {{Form::close()}}
 
 
-  {{ Form::open(['url' => 'admin/pre_reservations', 'method'=>'POST', 'id'=>'pre_reservationCalcresult']) }}
+  {{ Form::open(['url' => '/admin/pre_reservations', 'method'=>'POST', 'id'=>'pre_reservationCalcresult']) }}
   @csrf
 
   {{-- 以下、計算結果 --}}

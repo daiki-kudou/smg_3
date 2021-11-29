@@ -105,7 +105,8 @@
       </section>
 
 
-      {{ Form::open(['url' => 'admin/multiples/agent/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST',
+      {{ Form::open(['url' => '/admin/multiples/agent/'.$multiple->id."/edit/".$venue->id.'/calculate',
+      'method'=>'POST',
       'id'=>'multiplesAgentEdit']) }}
       @csrf
       <section class="m-5 border-inwrap">
@@ -543,7 +544,7 @@
             <p class="d-block">
               ※選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください
             </p>
-            <a href="{{url('admin/frame_prices')}}"
+            <a href="{{url('/admin/frame_prices')}}"
               class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
           </div>
         </div>
@@ -571,7 +572,7 @@
         </li>
         <li>
           <p>
-            {{Form::open(['url' => 'admin/multiples/'.$multiple->id.'/sp_destroy/'.$venue->id, 'method' => 'post'])}}
+            {{Form::open(['url' => '/admin/multiples/'.$multiple->id.'/sp_destroy/'.$venue->id, 'method' => 'post'])}}
             @csrf
 
             {{ Form::hidden('delete_target', "") }}
@@ -1166,7 +1167,7 @@
                     <p class="d-block">
                       ※選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください
                     </p>
-                    <a href="{{url('admin/frame_prices')}}"
+                    <a href="{{url('/admin/frame_prices')}}"
                       class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
                   </div>
                 </div>
@@ -1494,17 +1495,17 @@
     <ul class="d-flex col-12 justify-content-around mt-5 align-items-center">
       <li>
         <p>
-          <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn_lg">詳細にもどる</a>
+          <a href="{{url('/admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn_lg">詳細にもどる</a>
         </p>
       </li>
       <li>
-        <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn_lg">保存する</a>
+        <a href="{{url('/admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn_lg">保存する</a>
       </li>
     </ul>
   </div>
 </div>
 
-{{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST',
+{{ Form::open(['url' => '/admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST',
 'id'=>'master_form']) }}
 @csrf
 {{ Form::hidden('master_data', '',['class' => 'btn btn-primary more_btn_lg', 'id'=>'master_data'])}}

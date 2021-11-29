@@ -14,7 +14,7 @@
   </div>
 </div>
 
-{{ Form::open(['url' => 'admin/multiples/switch_cfm/'.$multiple->id, 'method'=>'POST', 'id'=>'multiple_switch']) }}
+{{ Form::open(['url' => '/admin/multiples/switch_cfm/'.$multiple->id, 'method'=>'POST', 'id'=>'multiple_switch']) }}
 @csrf
 
 <div class="container-fluid">
@@ -68,7 +68,7 @@
                 <div class="d-flex align-items-center justify-content-between">
                   <p class="title-icon">
                     <i class="far fa-address-card icon-size" aria-hidden="true"></i>
-                    顧客情報
+                    顧客ID：{{ $user->fix_id }}　顧客情報
                   </p>
                 </div>
               </td>

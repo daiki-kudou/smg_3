@@ -78,11 +78,12 @@
   </table>
 
   <div class="d-sm-flex mt-5 justify-content-between cancel-profile">
-    <p><a class="more_btn_lg btn" href="{{url('user/home')}}">会員情報に戻る</a></p>
-    {{ Form::open(['url' => 'user/home/'.$user->id, 'method'=>'delete', 'id'=>'']) }}
+    <p><a class="more_btn_lg btn" href="{{url('/user/home')}}">会員情報に戻る</a></p>
+    {{ Form::open(['url' => '/user/home/'.$user->id, 'method'=>'delete', 'id'=>'']) }}
     @csrf
     {{Form::hidden('user_id',$user->id)}}
-    <p>{{Form::submit('退会する',['class'=>'more_btn_lg btn bg-gray bg-gray confirm_membership', 'id'=>'cxl_membership'])}}</p>
+    <p>{{Form::submit('退会する',['class'=>'more_btn_lg btn bg-gray bg-gray confirm_membership', 'id'=>'cxl_membership'])}}
+    </p>
   </div>
 </section>
 

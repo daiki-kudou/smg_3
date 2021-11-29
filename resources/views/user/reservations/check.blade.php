@@ -11,7 +11,7 @@
 <section class="contents">
   <h2>予約1</h2>
 
-  {{ Form::open(['url' => 'user/reservations/store_session', 'method'=>'POST', 'id'=>'']) }}
+  {{ Form::open(['url' => '/user/reservations/store_session', 'method'=>'POST', 'id'=>'']) }}
   <div class="bgColorGray first">
     <table>
       <tr>

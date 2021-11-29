@@ -49,7 +49,7 @@
     </div>
 
     <!-- 検索--------------------------------------- -->
-    {{Form::open(['url' => 'admin/multiples', 'method' => 'GET', 'id'=>'searchMultiple'])}}
+    {{Form::open(['url' => '/admin/multiples', 'method' => 'GET', 'id'=>'searchMultiple'])}}
     @csrf
     <div class="search-wrap">
       <table class="table table-bordered mb-0">
@@ -126,7 +126,7 @@
       </div>
 
       <div class="btn_box d-flex justify-content-center">
-        <a href="{{url('admin/multiples')}}" class="btn reset_btn">リセット</a>
+        <a href="{{url('/admin/multiples')}}" class="btn reset_btn">リセット</a>
         {{-- 超過用hidden --}}
         {{Form::hidden("time_over",empty($data)?0:((int)$data['time_over']===1?1:0))}}
         {{Form::submit('検索', ['class'=>'btn search_btn', 'id'=>''])}}
@@ -144,7 +144,7 @@
       <ul class="d-flex reservation_list mb-2 justify-content-between">
         <li>
           {{-- 削除ボタン --}}
-          {{Form::open(['url' => 'admin/multiples/destroy', 'method' => 'delete'])}}
+          {{Form::open(['url' => '/admin/multiples/destroy', 'method' => 'delete'])}}
           @csrf
           <div id="for_destroy"></div>
           {{Form::hidden("delete_target","")}}
@@ -251,7 +251,6 @@
     array.push($('.checkbox').eq(index).val());
     }
     })
-    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
     }
     );
@@ -266,7 +265,6 @@
     array.push($('.checkbox').eq(index).val());
     }
     })
-    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
     }
     );
@@ -279,7 +277,6 @@
     array.push($('.checkbox').eq(index).val());
     }
     })
-    (JSON.stringify(array));
     $('input[name="delete_target"]').val(JSON.stringify(array));
     });
     
@@ -331,6 +328,11 @@
           "targets": [0,1,2,3,4,6,7,8,9,10,11,12],
         }
         ],
+        createdRow: function( row, data, dataIndex ) {
+                if ($(data)[13]) {
+                $(row).eq(0).addClass('caution');
+                }
+                }
       });
   })
 </script>

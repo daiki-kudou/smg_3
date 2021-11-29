@@ -28,7 +28,7 @@
     <h2 class="mt-3 mb-3">仲介会社　新規登録</h2>
     <hr>
 
-    {{ Form::open(['url' => 'admin/agents', 'method'=>'POST', 'id'=>'agentCreateForm']) }}
+    {{ Form::open(['url' => '/admin/agents', 'method'=>'POST', 'id'=>'agentCreateForm']) }}
     @csrf
     <section class="mt-5">
       <div class="row">

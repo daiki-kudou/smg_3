@@ -21,7 +21,7 @@
       <div class="flexBetween">
         <div class="grayBox spmt20">
           <p class="txtCenter"><em>利用日から選ぶ</em></p>
-          {{Form::open(['url' => 'slct_date', 'method' => 'get', 'id'=>'form01', 'class'=>'search'])}}
+          {{Form::open(['url' => '/slct_date', 'method' => 'get', 'id'=>'form01', 'class'=>'search'])}}
           @csrf
           <dl>
             <dt><label>利用日</label></dt>
@@ -44,7 +44,7 @@
         </div>
         <div class="grayBox btn-row">
           <p class="txtCenter"><em>会場から選ぶ</em></p>
-          {{Form::open(['url' => 'slct_venue', 'method' => 'get', 'id'=>'form02', 'class'=>'search'])}}
+          {{Form::open(['url' => '/slct_venue', 'method' => 'get', 'id'=>'form02', 'class'=>'search'])}}
           @csrf
           <dl class="m-b20">
             <dt><label>会場</label></dt>

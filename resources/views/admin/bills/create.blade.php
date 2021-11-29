@@ -47,7 +47,7 @@
 <div class="container-fluid">
   <h2 class="mt-3 mb-3">追加請求書</h2>
   <hr>
-  {{ Form::open(['url' => 'admin/bills/check', 'method'=>'get','id'=>'billsCreateForm']) }}
+  {{ Form::open(['url' => '/admin/bills/check', 'method'=>'get','id'=>'billsCreateForm']) }}
   @csrf
   {{ Form::hidden('reservation_id', $reservation['id'], ['class' => 'form-control'])}}
   <section class="mt-5">

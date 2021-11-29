@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="main">
-        {{ Form::open(['url' => 'admin/cxl/edit_calc', 'method'=>'get','id'=>'cxlcalc']) }}
+        {{ Form::open(['url' => '/admin/cxl/edit_calc', 'method'=>'get','id'=>'cxlcalc']) }}
         @csrf
         {{Form::hidden('reservation_id',old('reservation_id',$reservation->id))}}
         {{Form::hidden('user_id',old('user_id',!empty($reservation->user_id)?$reservation->user_id:0))}}

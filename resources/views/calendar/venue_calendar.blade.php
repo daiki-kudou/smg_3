@@ -17,7 +17,7 @@
   <section class="mt-5 bg-white">
     <div class="calender-ttl">
       <h2>{{ReservationHelper::getVenueForUser($selected_venue)}}</h2>
-      {{ Form::open(['url' => 'calendar/venue_calendar', 'method' => 'get','id'=>'v_calendar']) }}
+      {{ Form::open(['url' => '/calendar/venue_calendar', 'method' => 'get','id'=>'v_calendar']) }}
       @csrf
       <div class="d-flex align-items-center">
         {{Form::hidden("venue_id", "")}}
@@ -37,25 +37,25 @@
     <div class="calender-wrap">
       <table class="table table-bordered calender-flame" style="table-layout: fixed">
         <thead>
-        <tr class="calender-head">
-          <td class="field-title">日付</td>
-          <td colspan="2"><span class="time-item">08:00</span></td>
-          <td colspan="2"><span class="time-item">09:00</span></td>
-          <td colspan="2"><span class="time-item">10:00</span></td>
-          <td colspan="2"><span class="time-item">11:00</span></td>
-          <td colspan="2"><span class="time-item">12:00</span></td>
-          <td colspan="2"><span class="time-item">13:00</span></td>
-          <td colspan="2"><span class="time-item">14:00</span></td>
-          <td colspan="2"><span class="time-item">15:00</span></td>
-          <td colspan="2"><span class="time-item">16:00</span></td>
-          <td colspan="2"><span class="time-item">17:00</span></td>
-          <td colspan="2"><span class="time-item">18:00</span></td>
-          <td colspan="2"><span class="time-item">19:00</span></td>
-          <td colspan="2"><span class="time-item">20:00</span></td>
-          <td colspan="2"><span class="time-item">21:00</span></td>
-          <td colspan="2"><span class="time-item">22:00</span></td>
-          <td colspan="2"><span class="time-item">23:00</span></td>
-        </tr>
+          <tr class="calender-head">
+            <td class="field-title">日付</td>
+            <td colspan="2"><span class="time-item">08:00</span></td>
+            <td colspan="2"><span class="time-item">09:00</span></td>
+            <td colspan="2"><span class="time-item">10:00</span></td>
+            <td colspan="2"><span class="time-item">11:00</span></td>
+            <td colspan="2"><span class="time-item">12:00</span></td>
+            <td colspan="2"><span class="time-item">13:00</span></td>
+            <td colspan="2"><span class="time-item">14:00</span></td>
+            <td colspan="2"><span class="time-item">15:00</span></td>
+            <td colspan="2"><span class="time-item">16:00</span></td>
+            <td colspan="2"><span class="time-item">17:00</span></td>
+            <td colspan="2"><span class="time-item">18:00</span></td>
+            <td colspan="2"><span class="time-item">19:00</span></td>
+            <td colspan="2"><span class="time-item">20:00</span></td>
+            <td colspan="2"><span class="time-item">21:00</span></td>
+            <td colspan="2"><span class="time-item">22:00</span></td>
+            <td colspan="2"><span class="time-item">23:00</span></td>
+          </tr>
         </thead>
         <tbody>
           @foreach ($days as $key=>$day)
@@ -97,25 +97,25 @@
           @endforeach
         </tbody>
         <tfoot>
-        <tr class="calender-head">
-          <td class="field-title">日付</td>
-          <td colspan="2"><span class="time-item">08:00</span></td>
-          <td colspan="2"><span class="time-item">09:00</span></td>
-          <td colspan="2"><span class="time-item">10:00</span></td>
-          <td colspan="2"><span class="time-item">11:00</span></td>
-          <td colspan="2"><span class="time-item">12:00</span></td>
-          <td colspan="2"><span class="time-item">13:00</span></td>
-          <td colspan="2"><span class="time-item">14:00</span></td>
-          <td colspan="2"><span class="time-item">15:00</span></td>
-          <td colspan="2"><span class="time-item">16:00</span></td>
-          <td colspan="2"><span class="time-item">17:00</span></td>
-          <td colspan="2"><span class="time-item">18:00</span></td>
-          <td colspan="2"><span class="time-item">19:00</span></td>
-          <td colspan="2"><span class="time-item">20:00</span></td>
-          <td colspan="2"><span class="time-item">21:00</span></td>
-          <td colspan="2"><span class="time-item">22:00</span></td>
-          <td colspan="2"><span class="time-item">23:00</span></td>
-        </tr>
+          <tr class="calender-head">
+            <td class="field-title">日付</td>
+            <td colspan="2"><span class="time-item">08:00</span></td>
+            <td colspan="2"><span class="time-item">09:00</span></td>
+            <td colspan="2"><span class="time-item">10:00</span></td>
+            <td colspan="2"><span class="time-item">11:00</span></td>
+            <td colspan="2"><span class="time-item">12:00</span></td>
+            <td colspan="2"><span class="time-item">13:00</span></td>
+            <td colspan="2"><span class="time-item">14:00</span></td>
+            <td colspan="2"><span class="time-item">15:00</span></td>
+            <td colspan="2"><span class="time-item">16:00</span></td>
+            <td colspan="2"><span class="time-item">17:00</span></td>
+            <td colspan="2"><span class="time-item">18:00</span></td>
+            <td colspan="2"><span class="time-item">19:00</span></td>
+            <td colspan="2"><span class="time-item">20:00</span></td>
+            <td colspan="2"><span class="time-item">21:00</span></td>
+            <td colspan="2"><span class="time-item">22:00</span></td>
+            <td colspan="2"><span class="time-item">23:00</span></td>
+          </tr>
         </tfoot>
       </table>
     </div>

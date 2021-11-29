@@ -11,7 +11,7 @@
             <p>
               @if (!$user->trashed())
               <a class="more_btn" target="_blank" rel="noopener"
-                href="{{url('admin/clients/'.$reservation->user_id)}}">顧客詳細
+                href="{{url('/admin/clients/'.$reservation->user_id)}}">顧客詳細
               </a>
               @endif
             </p>

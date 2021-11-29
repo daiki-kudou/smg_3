@@ -269,6 +269,15 @@ class ReservationsController extends Controller
     $priceResult = $request->session()->get('calc_info');
     $checkInfo = $request->session()->get('discount_info');
 
+    $others_count = 0;
+    if ($checkInfo) {
+      foreach ($checkInfo as $key => $o) {
+        if (preg_match("/others_breakdown_item/", $key)) {
+          $others_count++;
+        }
+      }
+    }
+
     $users = User::orderBy("id", "desc")->get();
     $venues = Venue::orderBy("id", "desc")->get();
 
@@ -283,6 +292,7 @@ class ReservationsController extends Controller
         'value',
         'priceResult',
         'checkInfo',
+        'others_count',
       )
     );
   }

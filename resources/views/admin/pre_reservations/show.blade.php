@@ -32,7 +32,7 @@
 <section class="mt-5">
   <div class="row">
     <div class="col-12 mb-2">
-      {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>''])}}
+      {{Form::open(['url' => '/admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>''])}}
       @csrf
       {{Form::hidden("delete_target", json_encode([$pre_reservation->id]))}}
       {{ Form::submit('削除', ['class' => 'btn more_btn4 confirm_delete','id'=>'confirm_destroy']) }}
@@ -94,11 +94,12 @@
                   <p>
                     @if ($pre_reservation->status==0)
                     @if ($pre_reservation->user_id>0)
-                    <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
+                    <a href="{{url('/admin/pre_reservations/'.$pre_reservation->id.'/edit')}}"
+                      class="btn more_btn mr-2">
                       編集
                     </a>
                     @else
-                    <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}"
+                    <a href="{{url('/admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}"
                       class="btn more_btn mr-2">
                       仲介会社用編集
                     </a>
@@ -170,12 +171,12 @@
                     <p>
                       @if ($pre_reservation->status==0)
                       @if ($pre_reservation->user_id>0)
-                      <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}"
+                      <a href="{{url('/admin/pre_reservations/'.$pre_reservation->id.'/edit')}}"
                         class="btn more_btn mr-2">
                         編集
                       </a>
                       @else
-                      <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}"
+                      <a href="{{url('/admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}"
                         class="btn more_btn mr-2">
                         仲介会社用編集
                       </a>

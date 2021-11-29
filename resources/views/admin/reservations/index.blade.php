@@ -33,7 +33,7 @@
       <hr>
     </div>
 
-    {{ Form::open(['url' => 'admin/reservations', 'method'=>'get', 'id'=>'reserve_search'])}}
+    {{ Form::open(['url' => '/admin/reservations', 'method'=>'get', 'id'=>'reserve_search'])}}
     @csrf
 
     <div class="search-wrap">
@@ -147,19 +147,19 @@
             <td class="text-right">
               <ul class="search_category">
                 <li>
-                  {{Form::checkbox('check_icon1', 2, $request->check_icon1?true:false,['id'=>'checkboxPrimary1'])}}
+                  {{Form::checkbox('check_icon1', 1, $request->check_icon1?true:false,['id'=>'checkboxPrimary1'])}}
                   {{Form::label("checkboxPrimary1","有料備品")}}
                 </li>
                 <li>
-                  {{Form::checkbox('check_icon2', 3, $request->check_icon2?true:false,['id'=>'checkboxPrimary2'])}}
+                  {{Form::checkbox('check_icon2', 1, $request->check_icon2?true:false,['id'=>'checkboxPrimary2'])}}
                   {{Form::label("checkboxPrimary2","有料サービス")}}
                 </li>
                 <li>
-                  {{Form::checkbox('check_icon3', 4, $request->check_icon3?true:false,['id'=>'checkboxPrimary3'])}}
+                  {{Form::checkbox('check_icon3', 1, $request->check_icon3?true:false,['id'=>'checkboxPrimary3'])}}
                   {{Form::label("checkboxPrimary3","レイアウト")}}
                 </li>
                 <li>
-                  {{Form::checkbox('check_icon4', 5, $request->check_icon4!=""?true:false,['id'=>'checkboxPrimary4'])}}
+                  {{Form::checkbox('check_icon4', 1, $request->check_icon4!=""?true:false,['id'=>'checkboxPrimary4'])}}
                   {{Form::label("checkboxPrimary4","ケータリング")}}
                 </li>
               </ul>
@@ -216,7 +216,7 @@
       </div>
 
       <div class="btn_box d-flex justify-content-center">
-        <a href="{{url('admin/reservations')}}" class="btn reset_btn">リセット</a>
+        <a href="{{url('/admin/reservations')}}" class="btn reset_btn">リセット</a>
         {{ Form::submit('検索', ['class' => 'btn search_btn', "id"=>"m_submit"]) }}
       </div>
     </div>
@@ -358,7 +358,7 @@
       info: false,
       autowidth: false,
       ajax: { 
-        "url": "{{ url('admin/reservations/datatable') }}", 
+        "url": "{{ url('/admin/reservations/datatable') }}", 
         "type": "GET",
         "data": function ( d ) {
             return $.extend( {}, d, {
@@ -420,6 +420,11 @@
           className: "text-center",
         }
       ],
+      createdRow: function( row, data, dataIndex ) {
+            if ($(data)[0]['attention']) {
+            $(row).eq(0).addClass('caution');
+            }
+            }
      });
     });
 </script>

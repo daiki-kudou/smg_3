@@ -84,6 +84,14 @@ class User extends Authenticatable
     'email_verified_at' => 'datetime',
   ];
 
+  // アクセサ
+  public function getFixIdAttribute()
+  {
+    return sprintf('%06d', $this->id);
+  }
+
+
+
   /*
 |--------------------------------------------------------------------------
 | 会場と予約の一対多

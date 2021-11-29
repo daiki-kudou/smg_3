@@ -9,7 +9,7 @@
   </div>
 </div>
 <section class="contents">
-  {{ Form::open(['url' => 'user/reservations/session_destroy', 'method'=>'POST', 'id'=>'']) }}
+  {{ Form::open(['url' => '/user/reservations/session_destroy', 'method'=>'POST', 'id'=>'']) }}
   <!-- 予約内容 -------------------------------------------->
   <h2>予約1</h2>
   <div class="bgColorGray">
@@ -363,7 +363,7 @@
   <div class="section-wrap">
     <ul class="btn-wrapper">
       <li>
-        <p><a class="link-btn" href="{{url('user/reservations/cart')}}">カートに戻る</a></p>
+        <p><a class="link-btn" href="{{url('/user/reservations/cart')}}">カートに戻る</a></p>
       </li>
       <li>
         {{ Form::hidden("session_reservation_id",$session_id )}}

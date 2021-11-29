@@ -43,7 +43,7 @@
       </tr>
     </tbody>
   </table>
-  {{ Form::open(['url' => 'user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST',
+  {{ Form::open(['url' => '/user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST',
   'id'=>'mypageForm']) }}
   @csrf
   <div class="border-wrap2 p-4">

@@ -19,6 +19,6 @@ class ChangeLogsController extends Controller
         ['content' => $request->remark_textarea]
       );
     });
-    return redirect(url('admin/reservations/' . $request->reservation_id));
+    return redirect(url('/admin/reservations/' . $request->reservation_id));
   }
 }

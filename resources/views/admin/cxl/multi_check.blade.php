@@ -13,7 +13,7 @@
 
 
 <section class="section-wrap">
-  {{ Form::open(['url' => 'admin/cxl/store', 'method'=>'POST', 'class'=>'']) }}
+  {{ Form::open(['url' => '/admin/cxl/store', 'method'=>'POST', 'class'=>'']) }}
   @csrf
   <div class="bill">
     <div class="bill_details">
@@ -66,7 +66,8 @@
                 <td class="multiple">×</td>
                 <td class="">
                   {{number_format($data['cxl_equipment_PC'])}}
-                  <span>%</span></td>
+                  <span>%</span>
+                </td>
               </tr>
             </tbody>
             @endif
@@ -81,7 +82,8 @@
                 <td class="multiple">×</td>
                 <td class="">
                   {{number_format($data['cxl_layout_PC'])}}
-                  <span>%</span></td>
+                  <span>%</span>
+                </td>
               </tr>
             </tbody>
             @endif
@@ -96,7 +98,8 @@
                 <td class="multiple">×</td>
                 <td class="">
                   {{number_format($data['cxl_other_PC'])}}
-                  <span>%</span></td>
+                  <span>%</span>
+                </td>
               </tr>
             </tbody>
             @endif

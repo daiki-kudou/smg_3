@@ -20,7 +20,7 @@
   <hr>
 </div>
 
-{{Form::open(['url' => 'user/home/user_update', 'method' => 'POST', 'id'=>'register_edit'])}}
+{{Form::open(['url' => '/user/home/user_update', 'method' => 'POST', 'id'=>'register_edit'])}}
 @csrf
 
 <section class="section-bg mt-5">

@@ -831,6 +831,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
         concat(users.first_name, users.last_name) as person_name,
         users.mobile as mobile,
         users.tel as tel,
+        users.attention as attention,
         unknown_users.unknown_user_company as unknown_user_company,
         agents.name as agent_name,
         pre_endusers.company as enduser,

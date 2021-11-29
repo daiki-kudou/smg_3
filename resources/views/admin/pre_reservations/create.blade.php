@@ -31,12 +31,11 @@
 
 <section class="mt-5">
   <div class="calendar">
-    <iframe frameborder="0" src="{{url('admin/calendar/mini_calendar')}}" width="100%" height="500"></iframe>
+    <iframe frameborder="0" src="{{url('/admin/calendar/mini_calendar')}}" width="100%" height="500"></iframe>
   </div>
 
-  {{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'get', 'id'=>'pre_reservationCreateForm'])}}
+  {{Form::open(['url' => '/admin/pre_reservations/check', 'method' => 'get', 'id'=>'pre_reservationCreateForm'])}}
   @csrf
-
   <div class="date_selector pt-4">
     <hr>
     <h3 class="mb-2 pt-3">日程選択</h3>

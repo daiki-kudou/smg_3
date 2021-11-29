@@ -33,13 +33,13 @@
               <a href="javascript:$('#yesterday').submit()" class="text-white">
                 <i class="fas fa-chevron-left fa-2x"></i>
               </a>
-              {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get','id'=>'yesterday']) }}
+              {{ Form::open(['url' => '/admin/calendar/date_calendar', 'method' => 'get','id'=>'yesterday']) }}
               @csrf
               {{ Form::hidden('date', $yesterday) }}
               {{ Form::close() }}
             </div>
             <div class="col">
-              {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get','id'=>'s_calendar']) }}
+              {{ Form::open(['url' => '/admin/calendar/date_calendar', 'method' => 'get','id'=>'s_calendar']) }}
               @csrf
               {{ Form::text('', date('Y-m-d',strtotime($today)) ,['class'=>'form-control', 'id'=>'datepicker8',
               'placeholder'=>'入力してください'] ) }}
@@ -49,7 +49,7 @@
             <div class="col">
               <a href="javascript:$('#tomorrow').submit()" class="text-white"><i
                   class="fas fa-chevron-right fa-2x"></i></a>
-              {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get','id'=>'tomorrow']) }}
+              {{ Form::open(['url' => '/admin/calendar/date_calendar', 'method' => 'get','id'=>'tomorrow']) }}
               @csrf
               {{ Form::hidden('date', $tomorrow) }}
               {{ Form::close() }}

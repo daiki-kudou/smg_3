@@ -17,7 +17,7 @@
 <section class="contents">
   <div class="section-wrap">
     <h2>予約</h2>
-    {{ Form::open(['url' => 'user/reservations/check', 'method'=>'POST', 'id'=>'user_reservation_create']) }}
+    {{ Form::open(['url' => '/user/reservations/check', 'method'=>'POST', 'id'=>'user_reservation_create']) }}
     <div class="bgColorGray first">
       <table>
         <tr>

@@ -22,7 +22,7 @@
 <section class="contents">
   <h2>予約1</h2>
 
-  {{ Form::open(['url' => 'user/reservations/check', 'method'=>'POST', 'id'=>'user_reservation_re_calculate']) }}
+  {{ Form::open(['url' => '/user/reservations/check', 'method'=>'POST', 'id'=>'user_reservation_re_calculate']) }}
   <div class="bgColorGray first">
     <table>
       <tr>

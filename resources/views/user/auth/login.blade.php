@@ -91,7 +91,7 @@
     <p>WEBからの予約をご希望の場合は、会員登録が必要になります。<br>
       お手数ですが、会員登録のお手続きをよろしくお願い致します。</p>
     <div class="btn-wrapper2">
-      <a href="{{url('user/preusers')}}">
+      <a href="{{url('/user/preusers')}}">
         <p class="link-btn">
           会員登録をする
         </p>

@@ -25,7 +25,7 @@
   </h3>
   <div class="mt-5 mb-2">
     <p class="warning-text">※この情報はSMGサイト内、会場カレンダーや会場予約フォームの時間指定の開始・終了時間に紐づく情報です。<br>
- ※SMG管理者側では下記の営業時間に関係なく、24時間の予約入力が可能です。</p>
+      ※SMG管理者側では下記の営業時間に関係なく、24時間の予約入力が可能です。</p>
   </div>
   <table class="table table-bordered">
     <tbody>
@@ -56,7 +56,7 @@
         <td>{{Carbon\Carbon::parse($date_venue->start)->format('H:i')}} ~
           {{Carbon\Carbon::parse($date_venue->finish)->format('H:i')}}
         </td>
-        <td class="text-center">{{ Form::open(['url' => 'admin/dates/create', 'method'=>'get']) }}
+        <td class="text-center">{{ Form::open(['url' => '/admin/dates/create', 'method'=>'get']) }}
           @csrf
           {{Form::hidden('weekday_id', $date_venue->week_day)}}
           {{Form::hidden('id', $venues->id)}}

@@ -22,7 +22,7 @@
   <hr>
 
   <!-- 検索-------------------------------------------------------- -->
-  {{Form::open(['url' => 'admin/clients', 'method' => 'GET', 'id'=>'clients_search'])}}
+  {{Form::open(['url' => '/admin/clients', 'method' => 'GET', 'id'=>'clients_search'])}}
   @csrf
 
   <div class="search-wrap">
@@ -192,7 +192,7 @@
           <td>{{$query->tel}}</td>
           <td>{{$query->email}}</td>
           <td class="text-center">
-            {{ Form::open(['url' => 'admin/clients/'.$query->id, 'method'=>'get']) }}
+            {{ Form::open(['url' => '/admin/clients/'.$query->id, 'method'=>'get']) }}
             @csrf
             {{ Form::submit('詳細', ['class' => 'btn more_btn']) }}
             {{ Form::close() }}

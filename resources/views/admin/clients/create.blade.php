@@ -31,7 +31,7 @@
 </div>
 @endif
 
-{{ Form::open(['url' => 'admin/clients', 'method'=>'POST', 'id'=>'ClientsCreateForm']) }}
+{{ Form::open(['url' => '/admin/clients', 'method'=>'POST', 'id'=>'ClientsCreateForm']) }}
 @csrf
 <section class="mt-5">
   <div class="row">
@@ -96,7 +96,9 @@
                 {{ Form::label('condition', '割引条件') }}
               </div>
             </td>
-            <td>{{ Form::textarea('condition', '平日% 土日% 3週間前%', ['class' => 'form-control checkon']) }}
+            <td>
+              {{ Form::textarea('condition', "平日%\n土日%\n3週間前%", ['class' => 'form-control checkon','id'=>'condition'])
+              }}
             </td>
           </tr>
           <tr>
@@ -171,7 +173,6 @@
               <p class="is-error-fax" style="color: red"></p>
             </td>
           </tr>
-
         </tbody>
       </table>
 

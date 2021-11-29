@@ -158,10 +158,10 @@
       </div>
 
       <div class="calendar mt-5">
-        <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
+        <iframe src="{{url('/admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
           compatible</iframe>
       </div>
-      {{Form::open(['url' => 'admin/multiples/'.$multiple->id.'/add_date_store/'.$venue_id, 'method' => 'POST',
+      {{Form::open(['url' => '/admin/multiples/'.$multiple->id.'/add_date_store/'.$venue_id, 'method' => 'POST',
       'id'=>''])}}
       @csrf
       <div class="date_selector mt-5">
