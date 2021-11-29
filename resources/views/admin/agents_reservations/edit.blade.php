@@ -244,11 +244,11 @@
                 <div class="d-flex align-items-end">
                   @foreach ($reservation['bills'][0]['breakdowns'] as $key=>$value)
                   @if ($value['unit_item']===$equipment->item)
-                  {{ Form::text('equipment_breakdown[]', $value['unit_count'],['class'=>'form-control
+                  {{ Form::number('equipment_breakdown[]', $value['unit_count'],['class'=>'form-control
                   equipment_breakdown'] ) }}
                   @break
                   @elseif($loop->last)
-                  {{ Form::text('equipment_breakdown[]', "",['class'=>'form-control equipment_breakdown'] ) }}
+                  {{ Form::number('equipment_breakdown[]', "",['class'=>'form-control equipment_breakdown'] ) }}
                   @endif
                   @endforeach
                   <span class="ml-1">個</span>
