@@ -68,7 +68,7 @@
                 <div class="d-flex align-items-center justify-content-between">
                   <p class="title-icon">
                     <i class="far fa-address-card icon-size" aria-hidden="true"></i>
-                    顧客ID：{{ $user->fix_id }}　顧客情報
+                    顧客ID：{{ ReservationHelper::fixId($multiple->pre_reservations->first()->user->id) }}　顧客情報
                   </p>
                 </div>
               </td>
