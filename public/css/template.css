@@ -275,6 +275,10 @@ h2 {
     box-shadow: 0 0 1px rgb(0 0 0 / 8%), 0 1px 3px rgb(0 0 0 / 10%);
 }
 
+table.dataTable {
+    font-size: 12px;
+}
+
 .wrap_shadow {
     box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 18%);
 }
