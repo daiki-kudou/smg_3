@@ -291,7 +291,7 @@
       {{Form::close()}}
     </div>
 
-    <p class="cart-addbtn"><a class="link-btn3" href="/">日程を<br>追加する</a></p>
+    <p class="cart-addbtn"><a class="link-btn3" href="{{url('/')}}">日程を<br>追加する</a></p>
 
   </div>
   @endif
