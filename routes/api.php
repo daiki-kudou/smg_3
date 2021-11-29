@@ -15,6 +15,6 @@ use Illuminate\Http\Request;
 
 // https://qiita.com/shohei_ot/items/3a2ce550cdfecb48acf5
 // 参考：後にアクティブにする必要あり
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-  return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//   return $request->user();
+// });

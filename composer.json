@@ -20,7 +20,8 @@
     "laravelcollective/html": "^6.2",
     "laravelcollective/remote": "^6.2",
     "qoraiche/laravel-mail-editor": "^3.2",
-    "robclancy/presenter": "^2.0"
+    "robclancy/presenter": "^2.0",
+    "spatie/laravel-backup": "^6.16"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^3.5",

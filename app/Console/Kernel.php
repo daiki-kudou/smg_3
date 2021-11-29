@@ -32,6 +32,10 @@ class Kernel extends ConsoleKernel
     $schedule->command('command:cron_pay_day_two_days_left')->dailyAt('11:00'); //入金2営業日前　催促
     $schedule->command('command:thanks')->dailyAt('16:00'); //入金2営業日前　催促
     $schedule->command('command:cron_pay_day_over_limit')->dailyAt('13:00'); //入金超過
+
+    // バックアップ
+    $schedule->command('php artisan backup:clean --disable-notifications')->dailyAt('04:00');
+    $schedule->command('php artisan backup:run --disable-notifications --only-db')->dailyAt('04:00');
   }
 
   /**
