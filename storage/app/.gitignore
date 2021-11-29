@@ -1,3 +1,4 @@
 *
-!public/
+!backup-temp/
+!laravel-mysql-backup/
 !.gitignore
