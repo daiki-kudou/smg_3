@@ -1,5 +1,7 @@
 @extends('layouts.reservation.app')
 @section('content')
+@include('layouts.user.overlay')
+<script src="{{ asset('/js/user/auth/password_update.js') }}"></script>
 
 <!-- ログイン、会員登録 -->
 <div class="contents mt-5">
@@ -9,9 +11,8 @@
   </div>
 </div>
 <section class="contents">
-  <form method="POST" action="{{ route('user.password.update') }}">
+  <form method="POST" action="{{ route('user.password.update') }}" id="password_reset_form">
     @csrf
-
     <input type="hidden" name="token" value="{{ $token }}">
     <div class="bgColorGray">
       <table>
@@ -22,13 +23,8 @@
             </label>
           </th>
           <td>
-            <input id="email" type="email" class="text1 @error('email') is-invalid @enderror" name="email"
-              value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-            @error('email')
-            <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror
+            {{Form::email('email', old('email'), ['class' => 'text1 form-control','id' => 'email'])}}
+            <p class="is-error-email" style="color: red"></p>
           </td>
         </tr>
         <tr>
@@ -38,13 +34,8 @@
             </label>
           </th>
           <td>
-            <input id="password" type="password" class="text-1 @error('password') is-invalid @enderror" name="password"
-              required autocomplete="new-password">
-            @error('password')
-            <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-            </span>
-            @enderror
+            {{Form::password('password', ['class' => 'text-1 form-control','id' => 'inputPassword'])}}
+            <p class="is-error-password" style="color: red"></p>
             <p class="f-s90 m-t10">※半角英数字6文字以上20文字以内にてご記入お願い致します。</p>
           </td>
         </tr>
@@ -56,8 +47,8 @@
             </label>
           </th>
           <td>
-            <input id="password-confirm" type="password" class="text-1" name="password_confirmation" required
-              autocomplete="new-password">
+            {{Form::password('password_confirmation', ['class' => 'text-1 form-control','id' => 'password-confirm'])}}
+            <p class="is-error-password_confirmation" style="color: red"></p>
           </td>
         </tr>
       </table>

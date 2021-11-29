@@ -85,7 +85,7 @@ class MultiplesController extends Controller
 
   public function switch($id)
   {
-    $multiple = MultipleReserve::find($id);
+    $multiple = MultipleReserve::with('pre_reservations.user')->find($id);
     $venues = $multiple->pre_reservations()->distinct()->select('venue_id')->get();
     $venue_count = $venues->count('venue_id');
     $users = User::orderBy("id", "desc")->get();
