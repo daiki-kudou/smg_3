@@ -1,92 +1,138 @@
+String.prototype.bytes = function () {
+  var length = 0;
+  for (var i = 0; i < this.length; i++) {
+    var c = this.charCodeAt(i);
+    if ((c >= 0x0 && c < 0x81) || (c === 0xf8f0) || (c >= 0xff61 && c < 0xffa0) || (c >= 0xf8f1 && c < 0xf8f4)) {
+      length += 1;
+    } else {
+      length += 2;
+    }
+  }
+  return length;
+};
+
+
 // 案内板の文字数カウントダウン
 // イベント名称1
-const eventname1 = function () {
-  var len = textLength($(this).val());
-  $('.count_num1').html(len + "/28");
-  if (len > 28) {
-    $('.count_num1').css('color', 'red');
-    $('.is-error-event_name1').text('※文字数がオーバーしています');
-    $('.is-error-event_name1').show();
-    $('#eventname1Count').addClass('is-error');
-    $(':submit').prop("disabled", true);
-  } else {
-    $('.count_num1').css('color', 'black');
-    $('.is-error-event_name1').hide();
-    $('#eventname1Count').removeClass('is-error');
-    $(':submit').prop("disabled", false);
-  }
-}
+// const eventname1 = function () {
+//   var len = textLength($(this).val());
+//   $('.count_num1').html(len + "/28");
+//   if (len > 28) {
+//     $('.count_num1').css('color', 'red');
+//     $('.is-error-event_name1').text('※文字数がオーバーしています');
+//     $('.is-error-event_name1').show();
+//     $('#eventname1Count').addClass('is-error');
+//     $(':submit').prop("disabled", true);
+//   } else {
+//     $('.count_num1').css('color', 'black');
+//     $('.is-error-event_name1').hide();
+//     $('#eventname1Count').removeClass('is-error');
+//     $(':submit').prop("disabled", false);
+//   }
+// }
+
+// $(function () {
+//   $(function () {
+//     $('.is-error-event_name1').hide();
+//     var len = textLength($('#eventname1Count').val());
+//     $('.count_num1').html(len + "/28");
+//   });
+
+//   $('#eventname1Count').on('keyup', eventname1);
+//   $('#eventname1Count').blur(eventname1);
+// });
+
 
 $(function () {
-  $(function () {
-    $('.is-error-event_name1').hide();
-    var len = textLength($('#eventname1Count').val());
-    $('.count_num1').html(len + "/28");
-  });
-
-  $('#eventname1Count').on('keyup', eventname1);
-  $('#eventname1Count').blur(eventname1);
+  var len = $("#eventname1Count").val().bytes();
+  $('.count_num1').html(len + "/28");
 });
 
+$(document).on('input', '#eventname1Count', function () {
+  var len = $(this).val().bytes();
+  $('.count_num1').html(len + "/28");
+});
 
 // イベント名称2
-
-const eventname2 = function () {
-  var len = textLength($(this).val());
-  $('.count_num2').html(len + "/28");
-  if (len > 28) {
-    $('.count_num2').css('color', 'red');
-    $('.is-error-event_name2').text('※文字数がオーバーしています');
-    $('.is-error-event_name2').show();
-    $('#eventname2Count').addClass('is-error');
-    $(':submit').prop("disabled", true);
-  } else {
-    $('.count_num2').css('color', 'black');
-    $('.is-error-event_name2').hide();
-    $('#eventname2Count').removeClass('is-error');
-    $(':submit').prop("disabled", false);
-  }
-}
-
 $(function () {
-  $(function () {
-    var len = textLength($('#eventname2Count').val());
-    $('.count_num2').html(len + "/28");
-  });
-
-  $('#eventname2Count').on('keyup', eventname2);
-  $('#eventname2Count').blur(eventname2);
+  var len = $("#eventname2Count").val().bytes();
+  $('.count_num2').html(len + "/28");
 });
+
+$(document).on('input', '#eventname2Count', function () {
+  var len = $(this).val().bytes();
+  $('.count_num2').html(len + "/28");
+});
+
+// const eventname2 = function () {
+//   var len = textLength($(this).val());
+//   $('.count_num2').html(len + "/28");
+//   if (len > 28) {
+//     $('.count_num2').css('color', 'red');
+//     $('.is-error-event_name2').text('※文字数がオーバーしています');
+//     $('.is-error-event_name2').show();
+//     $('#eventname2Count').addClass('is-error');
+//     $(':submit').prop("disabled", true);
+//   } else {
+//     $('.count_num2').css('color', 'black');
+//     $('.is-error-event_name2').hide();
+//     $('#eventname2Count').removeClass('is-error');
+//     $(':submit').prop("disabled", false);
+//   }
+// }
+
+// $(function () {
+//   $(function () {
+//     var len = textLength($('#eventname2Count').val());
+//     $('.count_num2').html(len + "/28");
+//   });
+
+//   $('#eventname2Count').on('keyup', eventname2);
+//   $('#eventname2Count').blur(eventname2);
+// });
 
 
 // 主催者名
-const eventowner = function () {
-  var len = textLength($(this).val());
-
-  $('.count_num3').html(len + "/53");
-  if (len > 53) {
-    $('.count_num3').css('color', 'red');
-    $('.is-error-event_owner').text('※文字数がオーバーしています');
-    $('.is-error-event_owner').show();
-    $('#eventownerCount').addClass('is-error');
-    $(':submit').prop("disabled", true);
-  } else {
-    $('.count_num3').css('color', 'black');
-    $('.is-error-event_owner').hide();
-    $('#eventownerCount').removeClass('is-error');
-    $(':submit').prop("disabled", false);
-  }
-}
 
 $(function () {
-  $(function () {
-    var len = textLength($('#eventownerCount').val());
-    $('.count_num3').html(len + "/53");
-  });
-
-  $('#eventownerCount').on('keyup', eventowner);
-  $('#eventownerCount').blur(eventowner);
+  var len = $("#eventownerCount").val().bytes();
+  $('.count_num3').html(len + "/53");
 });
+
+
+$(document).on('input', '#eventownerCount', function () {
+  var len = $(this).val().bytes();
+  $('.count_num3').html(len + "/53");
+});
+
+
+// const eventowner = function () {
+//   var len = textLength($(this).val());
+
+//   $('.count_num3').html(len + "/53");
+//   if (len > 53) {
+//     $('.count_num3').css('color', 'red');
+//     $('.is-error-event_owner').text('※文字数がオーバーしています');
+//     $('.is-error-event_owner').show();
+//     $('#eventownerCount').addClass('is-error');
+//     $(':submit').prop("disabled", true);
+//   } else {
+//     $('.count_num3').css('color', 'black');
+//     $('.is-error-event_owner').hide();
+//     $('#eventownerCount').removeClass('is-error');
+//     $(':submit').prop("disabled", false);
+//   }
+// }
+
+// $(function () {
+//   $(function () {
+//     var len = textLength($('#eventownerCount').val());
+//     $('.count_num3').html(len + "/53");
+//   });
+
+//   $('#eventownerCount').on('keyup', eventowner);
+//   $('#eventownerCount').blur(eventowner);
+// });
 
 
 
@@ -179,23 +225,23 @@ $(function () {
 
 // ロード時の、荷物預かり入力制御
 $(function () {
-  var prop = $("#no_luggage_flag").prop("checked");
-  if (prop) {
-    $("#luggage_arrive").removeClass("readonly-no-gray");
-    $("#luggage_count").prop("readonly", true);
-    $("#luggage_arrive").prop("readonly", true);
-    $('input[name="luggage_arrive"]').prop("readonly", true);
-    $("#luggage_return").prop("readonly", true);
-    $("#luggage_price").prop("readonly", true);
-  } else {
-    $("#luggage_count").prop("readonly", false);
-    $("#luggage_arrive").prop("readonly", true);
-    $('input[name="luggage_arrive"]').prop("readonly", true);
-    $("#luggage_return").prop("readonly", false);
-    $("#luggage_price").prop("readonly", false);
-    $("#luggage_arrive").addClass("readonly-no-gray");
-  }
-})
+    var prop = $("#no_luggage_flag").prop("checked");
+    if (prop) {
+      $("#luggage_arrive").removeClass("readonly-no-gray");
+      $("#luggage_count").prop("readonly", true);
+      $("#luggage_arrive").prop("readonly", true);
+      $('input[name="luggage_arrive"]').prop("readonly", true);
+      $("#luggage_return").prop("readonly", true);
+      $("#luggage_price").prop("readonly", true);
+    } else {
+      $("#luggage_count").prop("readonly", false);
+      $("#luggage_arrive").prop("readonly", true);
+      $('input[name="luggage_arrive"]').prop("readonly", true);
+      $("#luggage_return").prop("readonly", false);
+      $("#luggage_price").prop("readonly", false);
+      $("#luggage_arrive").addClass("readonly-no-gray");
+    }
+});
 
 // ラジオボタンクリック時の荷物預かり入力制御
 $(document).on('change', 'input[name="luggage_flag"]', function () {
@@ -314,13 +360,14 @@ $(function () {
 
 
 // 一括の個別の案内板の文字数制御
-// const copiedEventname1 = function () {
+// $(function () {
 //   var target = $('input[name*="event_name1_copied"]');
 //   for(let i=0 ; i< target.length; i++){
 //     var event_name1 = $('input[name="event_name1_copied' + i + '"]');
 //     var copiedeventname1Count = '#copiedeventname1Count' + i;
 //     var error_message = '.eventname1_error' + i;
 //     var count_num1 = '.count_num1_copied' + i;
+
 
 //     var len = textLength($(event_name1).val());
 //     $(count_num1).html(len + "/28");
@@ -339,25 +386,29 @@ $(function () {
 //     }
 //   }
 
-// }
+// });
 
 
 // $(function () {
-// copiedEventname1();
+//   $(function () {
+//     $('.is-error-event_name1').hide();
+//     var len = textLength($('#eventname1Count').val());
+//     $('.count_num1').html(len + "/28");
+//   });
 
-//   $('#eventname1Count').on('keyup', copiedEventname1);
-//   $('#eventname1Count').blur(copiedEventname1);
+//   $('#eventname1Count').on('keyup', eventname1);
+//   $('#eventname1Count').blur(eventname1);
 // });
 
 
 
-function textLength(text) {
-  var regexp = /[\x01-\x7E\u{FF65}-\u{FF9F}]/mu;
+// function textLength(text) {
+//   var regexp = /[\x01-\x7E\u{FF65}-\u{FF9F}]/mu;
 
-  var len = 0;
-  for (i = 0; i < text.length; i++) {
-    var ch = text[i];
-    len += regexp.test(new String(ch)) ? 1 : 2;
-  }
-  return len;
-}
+//   var len = 0;
+//   for (i = 0; i < text.length; i++) {
+//     var ch = text[i];
+//     len += regexp.test(new String(ch)) ? 1 : 2;
+//   }
+//   return len;
+// }

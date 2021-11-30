@@ -1,3 +1,34 @@
+// 案内板文字数制御
+String.prototype.bytes = function () {
+  var length = 0;
+  for (var i = 0; i < this.length; i++) {
+    var c = this.charCodeAt(i);
+    if ((c >= 0x0 && c < 0x81) || (c === 0xf8f0) || (c >= 0xff61 && c < 0xffa0) || (c >= 0xf8f1 && c < 0xf8f4)) {
+      length += 1;
+    } else {
+      length += 2;
+    }
+  }
+  return length;
+};
+
+jQuery.validator.addMethod(
+  "byte_check",
+  function (value, element) {
+    var target = value.bytes();
+    var limit = 29;
+    return this.optional(element) || target < limit;
+  }
+);
+jQuery.validator.addMethod(
+  "byte_check2",
+  function (value, element) {
+    var target = value.bytes();
+    var limit = 54;
+    return this.optional(element) || target < limit;
+  }
+);
+
 // カタカナ
 jQuery.validator.addMethod(
   "katakana",
@@ -95,6 +126,9 @@ $(function () {
         price_system: { required: true },
         enter_time: { required: true },
         leave_time: { required: true },
+        event_name1: { byte_check: true },
+        event_name2: { byte_check: true },
+        event_owner: { byte_check2: true },
         agent_id: { required: true },
         in_charge: { required: true },
         tel: { required: true, number: true, minlength: 10 },
@@ -123,6 +157,9 @@ $(function () {
         price_system: { required: "※必須項目です" },
         enter_time: { required: "※必須項目です" },
         leave_time: { required: "※必須項目です" },
+        event_name1: { byte_check: "※文字数がオーバーしています" },
+        event_name2: { byte_check: "※文字数がオーバーしています" },
+        event_owner: { byte_check2: "※文字数がオーバーしています" },
         agent_id: { required: "※必須項目です" },
         in_charge: { required: "※必須項目です" },
         tel: {

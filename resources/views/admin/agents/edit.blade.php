@@ -346,7 +346,6 @@
 <script>
   $('#post_code_search').on('click', function(){
     AjaxZip3.zip2addr('post_code','','address1','address2');
-    
     //成功時に実行する処理
     AjaxZip3.onSuccess = function() {
       $('input[name="address1"]').click();

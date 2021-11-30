@@ -68,7 +68,7 @@
                 <div class="d-flex align-items-center justify-content-between">
                   <p class="title-icon">
                     <i class="far fa-address-card icon-size" aria-hidden="true"></i>
-                    顧客ID：{{ ReservationHelper::fixId($multiple->pre_reservations->first()->user->id) }}　顧客情報
+                    顧客ID：<span>{{ ReservationHelper::fixId($multiple->pre_reservations->first()->user->id) }}</span>　顧客情報
                   </p>
                 </div>
               </td>
@@ -182,12 +182,13 @@
       var user_id = Number($('#user_id').val());
       ajaxGetuser(user_id);
     });
+
     function ajaxGetuser($user_id) {
       $.ajax({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          url: rootPath+'/admin/pre_reservations/get_user',
+          url: rootPath + '/admin/pre_reservations/get_user',
           type: 'POST',
           data: {
             'user_id': $user_id,
@@ -198,25 +199,24 @@
           },
         })
         .done(function($user) {
+          console.log($user);
           $('#fullOverlay').css('display', 'none');
-
-          $(".user_info").find('tr').eq(0).find('td').eq(0).text("").text($user[0]);
-          $(".user_info").find('tr').eq(0).find('td').eq(1).text("").text($user[1] + $user[2]);
-          $(".user_info").find('tr').eq(1).find('td').eq(0).text("").text($user[3]);
-          $(".user_info").find('tr').eq(1).find('td').eq(1).text("").text($user[4]);
-          $(".user_info").find('tr').eq(2).find('td').eq(0).text("").text($user[4]);
-          $(".user_info").find('tr').eq(2).find('td').eq(0).text("").text($user[4]);
+          $(".customer-table thead span").text($user[0]);
+          $(".user_info").find('tr').eq(0).find('td').eq(0).text("").text($user[1]);
+          $(".user_info").find('tr').eq(0).find('td').eq(1).text("").text($user[2] + $user[3]);
+          $(".user_info").find('tr').eq(1).find('td').eq(0).text("").text($user[4]);
+          $(".user_info").find('tr').eq(1).find('td').eq(1).text("").text($user[5]);
+          $(".user_info").find('tr').eq(2).find('td').eq(0).text("").text($user[6]);
+          $(".user_info").find('tr').eq(2).find('td').eq(1).html($user[8].replace(/\n/g, '<br>'))
+          $(".user_info").find('tr').eq(3).find('td').eq(0).html($user[9].replace(/\n/g, '<br>'))
           $('input[name="user_id"]').val($user[6]);
 
-          $(".condition").text("");
-          $(".attention").text("");
-
-          if ($user[7]!==null) {
-            $(".condition").html($user[7].replace(/\n/g, '<br>'));
-          }
-          if ($user[8]!==null) {
-            $(".attention").html($user[8].replace(/\n/g, '<br>'));
-          }
+          // if ($user[7] !== null) {
+          //   $(".condition").html($user[7].replace(/\n/g, '<br>'));
+          // }
+          // if ($user[8] !== null) {
+          //   $(".attention").html($user[8].replace(/\n/g, '<br>'));
+          // }
 
 
         })

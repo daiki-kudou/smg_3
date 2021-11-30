@@ -17,6 +17,8 @@ use App\Models\Reservation;
 use App\Models\Bill;
 use App\Models\Breakdown;
 use App\Models\Enduser;
+use App\Models\Equipment;
+use App\Models\Service;
 use Carbon\Carbon;
 
 
@@ -162,6 +164,16 @@ class PreAgentReservationsController extends Controller
       $layout_clean = 0;
     }
     $layout_total = $layout_prepare + $layout_clean;
+
+
+
+    $s_equipment = Equipment::getSessionArrays(collect($request->all()));
+    $s_services = Service::getSessionArrays(collect($request->all()));
+    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
+    $item_details = $venue->calculate_items_price($s_equipment, $s_services);
+
+
+
     return view('admin.pre_agent_reservations.edit_calculate', [
       'agent' => $agent,
       'request' => $request,
@@ -171,6 +183,7 @@ class PreAgentReservationsController extends Controller
       'layout_clean' => $layout_clean,
       "id" => $id,
       "layout_total" => $layout_total,
+      "item_details" => $item_details,
     ]);
   }
 
