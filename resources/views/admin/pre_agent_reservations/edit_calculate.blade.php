@@ -673,6 +673,7 @@
             </table>
           </div>
 
+          @if(ReservationHelper::judgeArrayEmpty($item_details)==1||!empty($basicInfo['luggage_price']))
           <div class="equipment billdetails_content">
             <table class="table table-borderless">
               <tbody>
@@ -693,61 +694,51 @@
                 </tr>
               </tbody>
               <tbody class="equipment_main">
-                @foreach ($venue->getEquipments() as $e_key=>$equipment)
-                @if ($request->{'equipment_breakdown'.$e_key}>0)
-                {{ $counter = 0 }}
+              @foreach ($item_details[1] as $key=>$item)
                 <tr>
                   <td>
-                    {{ Form::text('equipment_breakdown_item'.$e_key, $equipment->item,['class'=>'form-control','readonly'] ) }}
+                    {{ Form::text('equipment_breakdown_item'.$key, $item[0],['class'=>'form-control','readonly'] ) }}
                   </td>
                   <td>
-                  {{ Form::text('equipment_breakdown_cost'.$e_key, 0,['class'=>'form-control','readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_cost'.$key, 0,['class'=>'form-control','readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('equipment_breakdown_count'.$e_key,$request->{'equipment_breakdown'.$e_key},['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('equipment_breakdown_count'.$key,$item[2],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('equipment_breakdown_subtotal'.$e_key, 0,['class'=>'form-control','readonly'] ) }}
+                    {{ Form::text('equipment_breakdown_subtotal'.$key, 0,['class'=>'form-control','readonly'] ) }}
                   </td>
                 </tr>
-                @endif
                 @endforeach
-                @foreach ($venue->getServices() as $s_key=>$service)
-                @if ($request->{'services_breakdown'.$s_key}>0)
+                @foreach ($item_details[2] as $key=>$item)
                 <tr>
                   <td>
-                    {{ Form::text('service_breakdown_item'.$s_key, $service->item,['class'=>'form-control', 'readonly']
-                    ) }}
+                    {{ Form::text('service_breakdown_item'.$key, $item[0],['class'=>'form-control', 'readonly']) }}
                   </td>
                   <td>
-                  {{ Form::text('service_breakdown_cost'.$s_key, 0,['class'=>'form-control', 'readonly']
-                  ) }}
+                  {{ Form::text('service_breakdown_cost'.$key, 0,['class'=>'form-control', 'readonly']) }}
                   </td>
                   <td>
-                    {{ Form::text('service_breakdown_count'.$s_key,
-                    $request->{'services_breakdown'.$s_key},['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_count'.$key,$item[2],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('service_breakdown_subtotal'.$s_key, 0,['class'=>'form-control', 'readonly']
+                    {{ Form::text('service_breakdown_subtotal'.$key, 0,['class'=>'form-control', 'readonly']
                     ) }}
                   </td>
                 </tr>
-                @endif
                 @endforeach
-                @if ($request->luggage_price)
+                @if ((int)$request->luggage_flag===1)
                 <tr>
                   <td>
                     {{ Form::text('luggage_item', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    <input class="form-control" readonly>
                     {{ Form::text('luggage_cost', 0,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('luggage_count', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('luggage_count', 0,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    <input class="form-control" readonly>
                     {{ Form::text('luggage_subtotal', 0,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
@@ -755,6 +746,7 @@
               </tbody>
             </table>
           </div>
+          @endif
 
           @if ($venue->layout!=0)
           <div class="layout billdetails_content">
