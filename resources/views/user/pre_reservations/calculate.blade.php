@@ -5,6 +5,8 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/user/validation.js') }}"></script>
+<script src="{{ asset('/js/holidays.js') }}"></script>
+
 
 <div class="container-field mt-3 d-md-flex justify-content-md-between">
   <h2 class="mt-3 mb-md-5">仮押え 申込み</h2>
@@ -375,7 +377,7 @@
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
                   {{Form::text('luggage_arrive',date('Y-m-d',strtotime($request->luggage_arrive)),['class'=>'form-control
-                  luggage_arrive','id'=>'datepicker9'])}}
+                  luggage_arrive holidays','id'=>'luggage_arrive'])}}
                 </td>
               </tr>
               <tr>
@@ -777,7 +779,7 @@
 <script>
   $(function() {
     var maxTarget = $('input[name="reserve_date"]').val();
-    $('#datepicker9').datepicker({
+    $('.luggage_arrive').datepicker({
       dateFormat: 'yy-mm-dd',
       minDate: 0,
       maxDate: maxTarget,
