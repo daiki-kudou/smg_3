@@ -121,6 +121,11 @@ $(function () {
       $("#event_start").prop("disabled", true);
       $("#event_finish").prop("disabled", true);
       $(".board-table input[type='text']").val("");
+      $(':submit').prop("disabled", false);
+      $("[class^='is-error-event']").hide();
+      $(".count_num1").css('color', '#333');
+      $(".count_num2").css('color', '#333');
+      $(".count_num3").css('color', '#333');
     } else {
       $("#event_start").prop("readonly", false);
       $("#event_finish").prop("readonly", false);
