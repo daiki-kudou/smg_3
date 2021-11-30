@@ -162,6 +162,11 @@ $(function () {
       $("#eventname1Count").prop("readonly", true);
       $("#eventname2Count").prop("readonly", true);
       $("#eventownerCount").prop("readonly", true);
+      $(':submit').prop("disabled", false);
+      $("[class^='is-error-event']").hide();
+      $(".count_num1").css('color', '#333');
+      $(".count_num2").css('color', '#333');
+      $(".count_num3").css('color', '#333');
     } else {
       $("#cp_master_event_start").prop("disabled", false);
       $("#cp_master_event_finish").prop("disabled", false);
