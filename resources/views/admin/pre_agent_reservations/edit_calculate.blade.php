@@ -13,7 +13,6 @@
 {{ Form::open(['url' => '/admin/pre_agent_reservations/'.$id.'/edit_calculate', 'method'=>'POST',
 'id'=>'pre_agent_reservationSingleEditForm']) }}
 @csrf
-
 <section class="mt-5">
   <div class="selected_user">
     <table class="table table-bordered" style="table-layout: fixed;">
@@ -664,11 +663,11 @@
               <tbody class="venue_main">
                 <tr>
                   <td>{{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }} </td>
-                  <td><input class="form-control" readonly></td>
+                  <td>{{ Form::text('venue_breakdown_cost0', 0,['class'=>'form-control', 'readonly'] ) }}</td>
                   <td>
                     {{ Form::text('venue_breakdown_count0', 1,['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td>{{ Form::text('venue_breakdown_subtotal0', 0,['class'=>'form-control', 'readonly'] ) }}</td>
                 </tr>
               </tbody>
             </table>
@@ -696,17 +695,20 @@
               <tbody class="equipment_main">
                 @foreach ($venue->getEquipments() as $e_key=>$equipment)
                 @if ($request->{'equipment_breakdown'.$e_key}>0)
+                {{ $counter = 0 }}
                 <tr>
                   <td>
-                    {{ Form::text('equipment_breakdown_item'.$e_key, $equipment->item,['class'=>'form-control',
-                    'readonly'] ) }}
+                    {{ Form::text('equipment_breakdown_item'.$e_key, $equipment->item,['class'=>'form-control','readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
                   <td>
-                    {{ Form::text('equipment_breakdown_count'.$e_key,
-                    $request->{'equipment_breakdown'.$e_key},['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_cost'.$e_key, 0,['class'=>'form-control','readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td>
+                    {{ Form::text('equipment_breakdown_count'.$e_key,$request->{'equipment_breakdown'.$e_key},['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td>
+                    {{ Form::text('equipment_breakdown_subtotal'.$e_key, 0,['class'=>'form-control','readonly'] ) }}
+                  </td>
                 </tr>
                 @endif
                 @endforeach
@@ -717,12 +719,18 @@
                     {{ Form::text('service_breakdown_item'.$s_key, $service->item,['class'=>'form-control', 'readonly']
                     ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td>
+                  {{ Form::text('service_breakdown_cost'.$s_key, 0,['class'=>'form-control', 'readonly']
+                  ) }}
+                  </td>
                   <td>
                     {{ Form::text('service_breakdown_count'.$s_key,
                     $request->{'services_breakdown'.$s_key},['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td>
+                    {{ Form::text('service_breakdown_subtotal'.$s_key, 0,['class'=>'form-control', 'readonly']
+                    ) }}
+                  </td>
                 </tr>
                 @endif
                 @endforeach
@@ -731,11 +739,17 @@
                   <td>
                     {{ Form::text('luggage_item', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td>
+                    <input class="form-control" readonly>
+                    {{ Form::text('luggage_cost', 0,['class'=>'form-control', 'readonly'] ) }}
+                  </td>
                   <td>
                     {{ Form::text('luggage_count', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td>
+                    <input class="form-control" readonly>
+                    {{ Form::text('luggage_subtotal', 0,['class'=>'form-control', 'readonly'] ) }}
+                  </td>
                 </tr>
                 @endif
               </tbody>
@@ -743,7 +757,6 @@
           </div>
 
           @if ($venue->layout!=0)
-
           <div class="layout billdetails_content">
             <table class="table table-borderless">
               <tbody>
@@ -899,9 +912,9 @@
 
 
 <script>
-  $(document).on('click', '.holidays', function () {
-  getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
-});
+  $(document).on('click', '.holidays', function() {
+    getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
+  });
 
   $(function() {
     $(function() {
