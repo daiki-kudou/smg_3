@@ -727,7 +727,7 @@
                   </td>
                 </tr>
                 @endforeach
-                @if ((int)$request->luggage_flag===1)
+                {{--@if ((int)$request->luggage_flag===1)
                 <tr>
                   <td>
                     {{ Form::text('luggage_item', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
@@ -742,7 +742,7 @@
                     {{ Form::text('luggage_subtotal', 0,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
-                @endif
+                @endif--}}
               </tbody>
             </table>
           </div>
