@@ -314,14 +314,13 @@ $(function () {
 
 
 // 一括の個別の案内板の文字数制御
-// $(function () {
+// const copiedEventname1 = function () {
 //   var target = $('input[name*="event_name1_copied"]');
 //   for(let i=0 ; i< target.length; i++){
 //     var event_name1 = $('input[name="event_name1_copied' + i + '"]');
 //     var copiedeventname1Count = '#copiedeventname1Count' + i;
 //     var error_message = '.eventname1_error' + i;
 //     var count_num1 = '.count_num1_copied' + i;
-
 
 //     var len = textLength($(event_name1).val());
 //     $(count_num1).html(len + "/28");
@@ -340,18 +339,14 @@ $(function () {
 //     }
 //   }
 
-// });
+// }
 
 
 // $(function () {
-//   $(function () {
-//     $('.is-error-event_name1').hide();
-//     var len = textLength($('#eventname1Count').val());
-//     $('.count_num1').html(len + "/28");
-//   });
+// copiedEventname1();
 
-//   $('#eventname1Count').on('keyup', eventname1);
-//   $('#eventname1Count').blur(eventname1);
+//   $('#eventname1Count').on('keyup', copiedEventname1);
+//   $('#eventname1Count').blur(copiedEventname1);
 // });
 
 
