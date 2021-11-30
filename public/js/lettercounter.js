@@ -28,9 +28,7 @@ $(function () {
   $('#eventname1Count').blur(eventname1);
 });
 
-
 // イベント名称2
-
 const eventname2 = function () {
   var len = textLength($(this).val());
   $('.count_num2').html(len + "/28");
@@ -121,6 +119,7 @@ $(function () {
       $("#event_start").prop("disabled", true);
       $("#event_finish").prop("disabled", true);
       $(".board-table input[type='text']").val("");
+
     } else {
       $("#event_start").prop("readonly", false);
       $("#event_finish").prop("readonly", false);
@@ -169,16 +168,22 @@ $(function () {
 
 // ロード時の、荷物預かり入力制御
 $(function () {
-  $("#no_luggage_flag:checked").each(function () {
-    var flag = $(this);
-    if ($(flag).is(":checked") != null) {
-      $("#luggage_count").prop("readonly", true);
-      $("#luggage_arrive").prop("readonly", true);
-      $('input[name="luggage_arrive"]').prop("readonly", true);
-      $("#luggage_return").prop("readonly", true);
-      $("#luggage_price").prop("readonly", true);
-    }
-  });
+  var prop = $("#no_luggage_flag").prop("checked");
+  if (prop) {
+    $("#luggage_arrive").removeClass("readonly-no-gray");
+    $("#luggage_count").prop("readonly", true);
+    $("#luggage_arrive").prop("readonly", true);
+    $('input[name="luggage_arrive"]').prop("readonly", true);
+    $("#luggage_return").prop("readonly", true);
+    $("#luggage_price").prop("readonly", true);
+  } else {
+    $("#luggage_count").prop("readonly", false);
+    $("#luggage_arrive").prop("readonly", true);
+    $('input[name="luggage_arrive"]').prop("readonly", true);
+    $("#luggage_return").prop("readonly", false);
+    $("#luggage_price").prop("readonly", false);
+    $("#luggage_arrive").addClass("readonly-no-gray");
+  }
 })
 
 // ラジオボタンクリック時の荷物預かり入力制御
@@ -194,7 +199,7 @@ $(document).on('change', 'input[name="luggage_flag"]', function () {
   } else {
     $("#luggage_count").prop("readonly", false);
     $("#luggage_arrive").prop("readonly", true);
-    $('input[name="luggage_arrive"]').prop("readonly", false);
+    $('input[name="luggage_arrive"]').prop("readonly", true);
     $("#luggage_return").prop("readonly", false);
     $("#luggage_price").prop("readonly", false);
     $("#luggage_arrive").addClass("readonly-no-gray");
@@ -295,50 +300,6 @@ $(function () {
   var flagItem = $('input[name*="board_flag_copied"]');
   flagItem.on('click', boardCheck);
 });
-
-
-// 一括の個別の案内板の文字数制御
-// $(function () {
-//   var target = $('input[name*="event_name1_copied"]');
-//   for(let i=0 ; i< target.length; i++){
-//     var event_name1 = $('input[name="event_name1_copied' + i + '"]');
-//     var copiedeventname1Count = '#copiedeventname1Count' + i;
-//     var error_message = '.eventname1_error' + i;
-//     var count_num1 = '.count_num1_copied' + i;
-
-
-//     var len = textLength($(event_name1).val());
-//     $(count_num1).html(len + "/28");
-
-//         if (len > 28) {
-//       $(count_num1).css('color', 'red');
-//       $(error_message).text('※文字数がオーバーしています');
-//       $(error_message).show();
-//       $(copiedeventname1Count).addClass('is-error');
-//       $(':submit').prop("disabled", true);
-//     } else {
-//       $(count_num1).css('color', 'black');
-//       $(error_message).hide();
-//       $(copiedeventname1Count).removeClass('is-error');
-//       $(':submit').prop("disabled", false);
-//     }
-//   }
-
-// });
-
-
-// $(function () {
-//   $(function () {
-//     $('.is-error-event_name1').hide();
-//     var len = textLength($('#eventname1Count').val());
-//     $('.count_num1').html(len + "/28");
-//   });
-
-//   $('#eventname1Count').on('keyup', eventname1);
-//   $('#eventname1Count').blur(eventname1);
-// });
-
-
 
 function textLength(text) {
   var regexp = /[\x01-\x7E\u{FF65}-\u{FF9F}]/mu;

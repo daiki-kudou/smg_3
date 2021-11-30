@@ -90,6 +90,11 @@ header .headerInfo {
     padding: 10px 30px;
 }
 
+.head-login-btn:hover {
+    background-color: #EF6243;
+    color: #fff;
+}
+
 .is-error {
     background: pink;
 }

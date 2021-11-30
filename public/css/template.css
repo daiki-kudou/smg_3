@@ -26,7 +26,7 @@ body {
 }
 
 /* ソート矢印上下表示 */
-table.dataTable thead .sorting:after,
+/* table.dataTable thead .sorting:after,
 table.dataTable thead .sorting_asc:after,
 table.dataTable thead .sorting_desc:after {
     opacity: 0.2;
@@ -34,7 +34,7 @@ table.dataTable thead .sorting_desc:after {
     content: "\f0ec";
     display: inline-block;
     transform: rotate(90deg);
-}
+} */
 
 /* venues create マルチセレクト */
 .ms-container {
@@ -275,6 +275,10 @@ h2 {
     box-shadow: 0 0 1px rgb(0 0 0 / 8%), 0 1px 3px rgb(0 0 0 / 10%);
 }
 
+table.dataTable {
+    font-size: 12px;
+}
+
 .wrap_shadow {
     box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 18%);
 }
@@ -507,7 +511,7 @@ input.more_btn {
 
 
 .annotation {
-    font-size: 0.8rem;
+    font-size: 10px;
 }
 
 .table_row {

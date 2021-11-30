@@ -163,7 +163,7 @@ Breadcrumbs::for('admin.multiples.add_venue', function ($trail, $id) {
 });
 Breadcrumbs::for('admin.multiples.switch', function ($trail, $id) {
   $trail->parent('admin.multiples.show', $id);
-  $trail->push('一括仮押え 顧客情報情報編集', route('admin.multiples.switch', $id));
+  $trail->push('一括仮押え 顧客情報編集', route('admin.multiples.switch', $id));
 });
 Breadcrumbs::for('admin.multiples.edit', function ($trail, $id, $venue) {
   $trail->parent('admin.multiples.show', $id);

@@ -467,7 +467,7 @@
                           <p class="title-icon">
                             {{-- <i class="fas fa-user icon-size" aria-hidden="true"></i> --}}
 
-                            エンドユーザーからの入金額
+                            エンドユーザーからの入金額(レイアウト料金は含まない)
                           </p>
                         </td>
                       </tr>
@@ -1091,7 +1091,7 @@
                             <p class="title-icon">
                               {{-- <i class="fas fa-user icon-size" aria-hidden="true"></i> --}}
 
-                              エンドユーザーからの入金額
+                              エンドユーザーからの入金額(レイアウト料金は含まない)
                             </p>
                           </td>
                         </tr>

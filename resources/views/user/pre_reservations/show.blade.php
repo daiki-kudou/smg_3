@@ -71,7 +71,7 @@
               <td class="table-active">会場</td>
               <td>
                 {{ReservationHelper::getVenueForUser($venue->id)}}
-                <div>料金体系：{{$pre_reservation->price_system==1?"通常（枠貸）":"音響HG"}}</div>
+                <div>{{$pre_reservation->price_system==1?"通常（枠貸）":"音響HG"}}</div>
               </td>
             </tr>
             <tr>
@@ -504,15 +504,15 @@
 </section>
 
 <script>
-  $(function() {
-    var maxTarget = $('input[name="reserve_date"]').val();
-    $('#datepicker9').datepicker({
-      dateFormat: 'yy-mm-dd',
-      minDate: 0,
-      maxDate: maxTarget,
-      autoclose: true,
-    });
-  })
+  // $(function() {
+  //   var maxTarget = $('input[name="reserve_date"]').val();
+  //   $('#datepicker9').datepicker({
+  //     dateFormat: 'yy-mm-dd',
+  //     minDate: 0,
+  //     maxDate: maxTarget,
+  //     autoclose: true,
+  //   });
+  // })
 
     // ロード時の、案内板入力制御
     $(document).ready(function() {
