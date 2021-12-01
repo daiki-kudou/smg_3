@@ -1,3 +1,35 @@
+// 案内板文字数制御
+String.prototype.bytes = function () {
+  var length = 0;
+  for (var i = 0; i < this.length; i++) {
+    var c = this.charCodeAt(i);
+    if ((c >= 0x0 && c < 0x81) || (c === 0xf8f0) || (c >= 0xff61 && c < 0xffa0) || (c >= 0xf8f1 && c < 0xf8f4)) {
+      length += 1;
+    } else {
+      length += 2;
+    }
+  }
+  return length;
+};
+
+jQuery.validator.addMethod(
+  "byte_check",
+  function (value, element) {
+    var target = value.bytes();
+    var limit = 29;
+    return this.optional(element) || target < limit;
+  }
+);
+jQuery.validator.addMethod(
+  "byte_check2",
+  function (value, element) {
+    var target = value.bytes();
+    var limit = 54;
+    return this.optional(element) || target < limit;
+  }
+);
+
+
 // カタカナ
 jQuery.validator.addMethod(
   "katakana",
@@ -210,6 +242,9 @@ $(function () {
         cp_master_luggage_return: { number: true, range: [0, 49] },
         cp_master_luggage_price: { number: true },
         cp_master_cost: { number: true, range: [1, 100] },
+        cp_master_event_name1: { byte_check: true },
+        cp_master_event_name2: { byte_check: true },
+        cp_master_event_owner: { byte_check2: true },
       },
       messages: {
         cp_master_tel: {
@@ -242,6 +277,9 @@ $(function () {
           number: "半角数字で入力してください",
           range: "※1から100までの数値を入力してください",
         },
+        cp_master_event_name1: { byte_check: "※文字数がオーバーしています" },
+        cp_master_event_name2: { byte_check: "※文字数がオーバーしています" },
+        cp_master_event_owner: { byte_check2: "※文字数がオーバーしています" },
       },
       errorPlacement: function (error, element) {
         var name = element.attr("name");
@@ -273,6 +311,9 @@ $(function () {
     var telcopied = "tel_copied" + index;
     var luggagecountcopied = "luggage_count_copied" + index;
     var luggagereturncopied = "luggage_return_copied" + index;
+    var eventname1copied = "event_name1_copied" + index;
+    var eventname2copied = "event_name2_copied" + index;
+    var eventownercopied = "event_owner" + index;
     $("#multipleSpecificUpdateForm" + index).validate({
       rules: {
         [telcopied]: {
@@ -287,6 +328,15 @@ $(function () {
           number: true,
           range: [1, 49],
         },
+        [eventname1copied]: {
+          byte_check: true,
+        },
+        [eventname2copied]: {
+          byte_check: true,
+        },
+        [eventownercopied]: {
+          byte_check2: true,
+        },
       },
       messages: {
         [telcopied]: {
@@ -300,6 +350,15 @@ $(function () {
         [luggagereturncopied]: {
           number: "※半角数字で入力してください",
           range: "※最大値は49です",
+        },
+        [eventname1copied]: {
+          byte_check: "※文字数がオーバーしています",
+        },
+        [eventname2copied]: {
+          byte_check: "※文字数がオーバーしています",
+        },
+        [eventownercopied]: {
+          byte_check2: "※文字数がオーバーしています",
         },
       },
       errorPlacement: function (error, element) {
@@ -334,6 +393,9 @@ $(function () {
     var luggagecountcopied = "luggage_count_copied" + index;
     var luggagereturncopied = "luggage_return_copied" + index;
     var luggagepricecopied = "luggage_price_copied" + index;
+    var eventname1copied = "event_name1_copied" + index;
+    var eventname2copied = "event_name2_copied" + index;
+    var eventownercopied = "event_owner" + index;
     $("#multipleCalculateSpecificUpdateForm" + index).validate({
       rules: {
         [telcopied]: {
@@ -351,6 +413,15 @@ $(function () {
         [luggagepricecopied]: {
           number: true,
         },
+        [eventname1copied]: {
+          byte_check: true,
+        },
+        [eventname2copied]: {
+          byte_check: true,
+        },
+        [eventownercopied]: {
+          byte_check2: true,
+        },
       },
       messages: {
         [telcopied]: {
@@ -367,6 +438,15 @@ $(function () {
         },
         [luggagepricecopied]: {
           number: "※半角数字で入力してください",
+        },
+        [eventname1copied]: {
+          byte_check: "※文字数がオーバーしています",
+        },
+        [eventname2copied]: {
+          byte_check: "※文字数がオーバーしています",
+        },
+        [eventownercopied]: {
+          byte_check2: "※文字数がオーバーしています",
         },
       },
       errorPlacement: function (error, element) {
@@ -402,6 +482,9 @@ $(function () {
         cp_master_luggage_count: { number: true, range: [0, 49] },
         cp_master_luggage_return: { number: true, range: [0, 49] },
         cp_master_cost: { number: true, range: [1, 100] },
+        cp_master_event_name1: { byte_check: true },
+        cp_master_event_name2: { byte_check: true },
+        cp_master_event_owner: { byte_check2: true },
       },
       messages: {
         cp_master_end_user_charge: {
@@ -420,6 +503,9 @@ $(function () {
           number: "半角数字で入力してください",
           range: "※1から100までの数値を入力してください",
         },
+        cp_master_event_name1: { byte_check: "※文字数がオーバーしています" },
+        cp_master_event_name2: { byte_check: "※文字数がオーバーしています" },
+        cp_master_event_owner: { byte_check2: "※文字数がオーバーしています" },
       },
       errorPlacement: function (error, element) {
         var name = element.attr("name");
@@ -453,6 +539,9 @@ $(function () {
     var luggagecountcopied = "luggage_count_copied" + index;
     var luggagereturncopied = "luggage_return_copied" + index;
     var luggagepricecopied = "luggage_price_copied" + index;
+    var eventname1copied = "event_name1_copied" + index;
+    var eventname2copied = "event_name2_copied" + index;
+    var eventownercopied = "event_owner" + index;
     $("#multiplesAgentSpecificUpdateEdit" + index).validate({
       rules: {
         [enduserchargecopied]: {
@@ -470,6 +559,15 @@ $(function () {
         [luggagepricecopied]: {
           number: true,
         },
+        [eventname1copied]: {
+          byte_check: true,
+        },
+        [eventname2copied]: {
+          byte_check: true,
+        },
+        [eventownercopied]: {
+          byte_check2: true,
+        },
       },
       messages: {
         [enduserchargecopied]: {
@@ -486,6 +584,15 @@ $(function () {
         },
         [luggagepricecopied]: {
           number: "※半角数字で入力してください",
+        },
+        [eventname1copied]: {
+          byte_check: "※文字数がオーバーしています",
+        },
+        [eventname2copied]: {
+          byte_check: "※文字数がオーバーしています",
+        },
+        [eventownercopied]: {
+          byte_check2: "※文字数がオーバーしています",
         },
       },
       errorPlacement: function (error, element) {

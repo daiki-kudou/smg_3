@@ -202,7 +202,7 @@
                     'placeholder'=>'入力してください','id'=>'eventname1Count'] ) }}
                     <span class="ml-1 annotation count_num1"></span>
                   </div>
-                  <p class="is-error-event_name1" style="color: red"></p>
+                  <p class="is-error-cp_master_event_name1" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -213,7 +213,7 @@
                     'id'=>'eventname2Count'] ) }}
                     <span class="ml-1 annotation count_num2"></span>
                   </div>
-                  <p class="is-error-event_name2" style="color: red"></p>
+                  <p class="is-error-cp_master_event_name2" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -224,7 +224,7 @@
                     'placeholder'=>'入力してください','id'=>'eventownerCount'] ) }}
                     <span class="ml-1 annotation count_num3"></span>
                   </div>
-                  <p class="is-error-event_owner" style="color: red"></p>
+                  <p class="is-error-cp_master_event_owner" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -768,7 +768,7 @@
                       'placeholder'=>'入力してください', 'id'=>"copiedeventname1Count".$key] ) }}
                       <span class="ml-1 annotation {{'count_num1_copied'.$key}}"></span>
                     </div>
-                    <p class="{{'eventname1_error'.$key}}" style="color: red"></p>
+                    <p class="{{" is-error-event_name1_copied".$key}}" style="color: red"></p>
                   </td>
                 </tr>
                 <tr>
@@ -779,7 +779,7 @@
                       'placeholder'=>'入力してください', 'id'=>"copiedeventname2Count".$key] ) }}
                       <span class="ml-1 annotation {{'count_num2_copied'.$key}}"></span>
                     </div>
-                    <p class="{{'eventname2_error'.$key}}" style="color: red"></p>
+                    <p class="{{" is-error-event_name2_copied".$key}}" style="color: red"></p>
                   </td>
                 </tr>
                 <tr>
@@ -790,7 +790,7 @@
                       'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
                       <span class="ml-1 annotation {{'count_num3_copied'.$key}}"></span>
                     </div>
-                    <p class="{{'eventowner_error'.$key}}" style="color: red"></p>
+                    <p class="{{" is-error-event_owner".$key}}" style="color: red"></p>
                   </td>
                 </tr>
                 <tr>

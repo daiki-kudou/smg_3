@@ -1,93 +1,15 @@
-// 案内板の文字数カウントダウン
-// イベント名称1
-const eventname1 = function () {
-  var len = textLength($(this).val());
-  $('.count_num1').html(len + "/28");
-  if (len > 28) {
-    $('.count_num1').css('color', 'red');
-    $('.is-error-event_name1').text('※文字数がオーバーしています');
-    $('.is-error-event_name1').show();
-    $('#eventname1Count').addClass('is-error');
-    $(':submit').prop("disabled", true);
-  } else {
-    $('.count_num1').css('color', 'black');
-    $('.is-error-event_name1').hide();
-    $('#eventname1Count').removeClass('is-error');
-    $(':submit').prop("disabled", false);
+String.prototype.bytes = function () {
+  var length = 0;
+  for (var i = 0; i < this.length; i++) {
+    var c = this.charCodeAt(i);
+    if ((c >= 0x0 && c < 0x81) || (c === 0xf8f0) || (c >= 0xff61 && c < 0xffa0) || (c >= 0xf8f1 && c < 0xf8f4)) {
+      length += 1;
+    } else {
+      length += 2;
+    }
   }
-}
-
-$(function () {
-  $(function () {
-    $('.is-error-event_name1').hide();
-    var len = textLength($('#eventname1Count').val());
-    $('.count_num1').html(len + "/28");
-  });
-
-  $('#eventname1Count').on('keyup', eventname1);
-  $('#eventname1Count').blur(eventname1);
-});
-
-// イベント名称2
-const eventname2 = function () {
-  var len = textLength($(this).val());
-  $('.count_num2').html(len + "/28");
-  if (len > 28) {
-    $('.count_num2').css('color', 'red');
-    $('.is-error-event_name2').text('※文字数がオーバーしています');
-    $('.is-error-event_name2').show();
-    $('#eventname2Count').addClass('is-error');
-    $(':submit').prop("disabled", true);
-  } else {
-    $('.count_num2').css('color', 'black');
-    $('.is-error-event_name2').hide();
-    $('#eventname2Count').removeClass('is-error');
-    $(':submit').prop("disabled", false);
-  }
-}
-
-$(function () {
-  $(function () {
-    var len = textLength($('#eventname2Count').val());
-    $('.count_num2').html(len + "/28");
-  });
-
-  $('#eventname2Count').on('keyup', eventname2);
-  $('#eventname2Count').blur(eventname2);
-});
-
-
-// 主催者名
-const eventowner = function () {
-  var len = textLength($(this).val());
-
-  $('.count_num3').html(len + "/53");
-  if (len > 53) {
-    $('.count_num3').css('color', 'red');
-    $('.is-error-event_owner').text('※文字数がオーバーしています');
-    $('.is-error-event_owner').show();
-    $('#eventownerCount').addClass('is-error');
-    $(':submit').prop("disabled", true);
-  } else {
-    $('.count_num3').css('color', 'black');
-    $('.is-error-event_owner').hide();
-    $('#eventownerCount').removeClass('is-error');
-    $(':submit').prop("disabled", false);
-  }
-}
-
-$(function () {
-  $(function () {
-    var len = textLength($('#eventownerCount').val());
-    $('.count_num3').html(len + "/53");
-  });
-
-  $('#eventownerCount').on('keyup', eventowner);
-  $('#eventownerCount').blur(eventowner);
-});
-
-
-
+  return length;
+};
 
 // ロード時の、案内板入力制御
 $(document).ready(function () {
@@ -101,7 +23,6 @@ $(document).ready(function () {
       $("#eventownerCount").prop("readonly", true);
       $("#event_start").prop("disabled", true);
       $("#event_finish").prop("disabled", true);
-      $(".board-table option:selected").val("");
     }
   });
 });
@@ -119,7 +40,14 @@ $(function () {
       $("#event_start").prop("disabled", true);
       $("#event_finish").prop("disabled", true);
       $(".board-table input[type='text']").val("");
-
+      $("[class^='is-error-event']").hide();
+      $("input[name^='event_']").removeClass("is-error");
+      var len1 = $("#eventname1Count").val().bytes();
+      var len2 = $("#eventname2Count").val().bytes();
+      var len3 = $("#eventownerCount").val().bytes();
+      $('.count_num1').html(len1 + "/28");
+      $('.count_num2').html(len2 + "/28");
+      $('.count_num3').html(len3 + "/53");
     } else {
       $("#event_start").prop("readonly", false);
       $("#event_finish").prop("readonly", false);
@@ -131,6 +59,44 @@ $(function () {
     }
   });
 });
+
+// 案内板の文字数カウントダウン
+// イベント名称1
+$(function () {
+  var len = $("#eventname1Count").val().bytes();
+  $('.count_num1').html(len + "/28");
+});
+
+$(document).on('input', '#eventname1Count', function () {
+  var len = $(this).val().bytes();
+  $('.count_num1').html(len + "/28");
+  $("[class^='is-error-event']").show();
+});
+
+// イベント名称2
+$(function () {
+  var len = $("#eventname2Count").val().bytes();
+  $('.count_num2').html(len + "/28");
+});
+
+$(document).on('input', '#eventname2Count', function () {
+  var len = $(this).val().bytes();
+  $('.count_num2').html(len + "/28");
+});
+
+
+// 主催者名
+$(function () {
+  var len = $("#eventownerCount").val().bytes();
+  $('.count_num3').html(len + "/53");
+});
+
+
+$(document).on('input', '#eventownerCount', function () {
+  var len = $(this).val().bytes();
+  $('.count_num3').html(len + "/53");
+});
+
 
 // 一括ロード時の、案内板入力制御
 $(document).ready(function () {
@@ -156,6 +122,15 @@ $(function () {
       $("#eventname1Count").prop("readonly", true);
       $("#eventname2Count").prop("readonly", true);
       $("#eventownerCount").prop("readonly", true);
+      $(".board-table input[type='text']").val("");
+      $("[class^='is-error-cp_master_event']").hide();
+      $("input[name^='cp_master_event_']").removeClass("is-error");
+      var len1 = $("input[name='cp_master_event_name1']").val().bytes();
+      var len2 = $("input[name='cp_master_event_name2']").val().bytes();
+      var len3 = $("input[name='cp_master_event_owner']").val().bytes();
+      $('.count_num1').html(len1 + "/28");
+      $('.count_num2').html(len2 + "/28");
+      $('.count_num3').html(len3 + "/53");
     } else {
       $("#cp_master_event_start").prop("disabled", false);
       $("#cp_master_event_finish").prop("disabled", false);
@@ -184,7 +159,7 @@ $(function () {
     $("#luggage_price").prop("readonly", false);
     $("#luggage_arrive").addClass("readonly-no-gray");
   }
-})
+});
 
 // ラジオボタンクリック時の荷物預かり入力制御
 $(document).on('change', 'input[name="luggage_flag"]', function () {

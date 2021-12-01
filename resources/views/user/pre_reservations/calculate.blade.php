@@ -95,7 +95,7 @@
               <td class="table-active">会場</td>
               <td>
                 {{ReservationHelper::getVenueForUser($venue->id)}}
-                <div>{{$pre_reservation->price_system==1?"通常（枠貸）":"音響HG"}}</div>
+                <div>料金体系：{{$pre_reservation->price_system==1?"通常（枠貸）":"音響HG"}}</div>
               </td>
             </tr>
             <tr>
@@ -778,7 +778,7 @@
 <script>
   $(function() {
     var maxTarget = $('input[name="reserve_date"]').val();
-    $('.luggage_arrive').datepicker({
+    $('#datepicker9').datepicker({
       dateFormat: 'yy-mm-dd',
       minDate: 0,
       maxDate: maxTarget,

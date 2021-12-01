@@ -1,3 +1,34 @@
+// 案内板文字数制御
+String.prototype.bytes = function () {
+  var length = 0;
+  for (var i = 0; i < this.length; i++) {
+    var c = this.charCodeAt(i);
+    if ((c >= 0x0 && c < 0x81) || (c === 0xf8f0) || (c >= 0xff61 && c < 0xffa0) || (c >= 0xf8f1 && c < 0xf8f4)) {
+      length += 1;
+    } else {
+      length += 2;
+    }
+  }
+  return length;
+};
+
+jQuery.validator.addMethod(
+  "byte_check",
+  function (value, element) {
+    var target = value.bytes();
+    var limit = 29;
+    return this.optional(element) || target < limit;
+  }
+);
+jQuery.validator.addMethod(
+  "byte_check2",
+  function (value, element) {
+    var target = value.bytes();
+    var limit = 54;
+    return this.optional(element) || target < limit;
+  }
+);
+
 
 // カタカナ
 jQuery.validator.addMethod("katakana", function (value, element) {
@@ -332,6 +363,9 @@ $(function () {
           number: true,
           range: [0, 49],
         },
+        event_name1: { byte_check: true },
+        event_name2: { byte_check: true },
+        event_owner: { byte_check2: true },
       },
       messages: {
         in_charge: {
@@ -363,6 +397,9 @@ $(function () {
           number: "※半角数字を入力してください",
           range: "※最大値は49です",
         },
+        event_name1: { byte_check: "※文字数がオーバーしています" },
+        event_name2: { byte_check: "※文字数がオーバーしています" },
+        event_owner: { byte_check2: "※文字数がオーバーしています" },
       },
       errorPlacement: function (error, element) {
         var name = element.attr('name');

@@ -1,3 +1,34 @@
+// 案内板文字数制御
+String.prototype.bytes = function () {
+  var length = 0;
+  for (var i = 0; i < this.length; i++) {
+    var c = this.charCodeAt(i);
+    if ((c >= 0x0 && c < 0x81) || (c === 0xf8f0) || (c >= 0xff61 && c < 0xffa0) || (c >= 0xf8f1 && c < 0xf8f4)) {
+      length += 1;
+    } else {
+      length += 2;
+    }
+  }
+  return length;
+};
+
+jQuery.validator.addMethod(
+  "byte_check",
+  function (value, element) {
+    var target = value.bytes();
+    var limit = 29;
+    return this.optional(element) || target < limit;
+  }
+);
+jQuery.validator.addMethod(
+  "byte_check2",
+  function (value, element) {
+    var target = value.bytes();
+    var limit = 54;
+    return this.optional(element) || target < limit;
+  }
+);
+
 // カタカナ
 jQuery.validator.addMethod(
   "katakana",
@@ -158,12 +189,14 @@ $(function () {
     "#pre_agent_reservationsSingleCheckForm",
     "#pre_agent_reservationsSingleCalculateForm",
     "#pre_agent_reservationSingleEditForm",
-    "#pre_agent_reservationSingleEditForm",
   ];
 
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
+        event_name1: { byte_check: true },
+        event_name2: { byte_check: true },
+        event_owner: { byte_check2: true },
         end_user_charge: { required: true, number: true },
         luggage_count: { number: true, range: [1, 49] },
         luggage_return: { number: true, range: [1, 49] },
@@ -178,6 +211,9 @@ $(function () {
         cost: { number: true, range: [1, 100] },
       },
       messages: {
+        event_name1: { byte_check: "※文字数がオーバーしています" },
+        event_name2: { byte_check: "※文字数がオーバーしています" },
+        event_owner: { byte_check2: "※文字数がオーバーしています" },
         end_user_charge: {
           required: "※必須項目です",
           number: "※半角数字を入力してください",
