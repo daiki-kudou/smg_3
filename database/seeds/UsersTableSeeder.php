@@ -18,8 +18,7 @@ class UsersTableSeeder extends Seeder
   public function run()
   {
 
-    // DB::table('users')->truncate();
-
+    DB::table('users')->truncate();
     DB::table('users')->insert([
       'email' => 'ooyama@web-trickster.com',
       'password' => Hash::make('12345678'),
@@ -62,23 +61,20 @@ class UsersTableSeeder extends Seeder
       'remember_token'    => Str::random(10),
     ]);
 
-
-    factory(\App\Models\User::class, 50)->create();
-
     DB::table('users')->insert([
       'id' => 999,
       'email' => 'sample@sample.com',
       'password' => Hash::make('12345678'),
-      'company' => "（未登録ユーザー）",
-      'post_code' => '（未設定）',
+      'company' => "(未設定)",
+      'post_code' => '(未設定)',
       "mobile" => "122345678",
-      'address1' => '（未設定）',
-      'address2' => '（未設定）',
-      'address3' => '（未設定）',
-      'first_name' => "（未登録ユーザー）",
-      'last_name' => "（未登録ユーザー）",
-      'first_name_kana' => "（未登録ユーザー）",
-      'last_name_kana' => "（未登録ユーザー）",
+      'address1' => '(未設定)',
+      'address2' => '(未設定)',
+      'address3' => '(未設定)',
+      'first_name' => "(未設定)",
+      'last_name' => "(未設定)",
+      'first_name_kana' => "(未設定)",
+      'last_name_kana' => "(未設定)",
       'pay_method' => 1,
       'pay_limit' => 1,
       'status' => 1,
