@@ -50,6 +50,8 @@ class DatesTableSeeder extends Seeder
     $venue16 = Venue::find(16);
     $venue17 = Venue::find(17);
     $venue18 = Venue::find(18);
+    $venue19 = Venue::find(19);
+    $venue20 = Venue::find(20);
 
     $venue1->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue1->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
@@ -58,6 +60,7 @@ class DatesTableSeeder extends Seeder
     $venue1->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue1->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue1->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
+
     $venue2->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue2->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue2->dates()->create(['week_day' => 3, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
@@ -65,6 +68,7 @@ class DatesTableSeeder extends Seeder
     $venue2->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue2->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue2->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
+
     $venue3->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue3->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue3->dates()->create(['week_day' => 3, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
@@ -72,6 +76,7 @@ class DatesTableSeeder extends Seeder
     $venue3->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue3->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue3->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
+
     $venue4->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue4->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue4->dates()->create(['week_day' => 3, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
@@ -79,6 +84,7 @@ class DatesTableSeeder extends Seeder
     $venue4->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue4->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue4->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
+
     $venue5->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue5->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue5->dates()->create(['week_day' => 3, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
@@ -86,6 +92,7 @@ class DatesTableSeeder extends Seeder
     $venue5->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue5->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue5->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
+
     $venue6->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue6->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue6->dates()->create(['week_day' => 3, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
@@ -93,6 +100,7 @@ class DatesTableSeeder extends Seeder
     $venue6->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue6->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue6->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
+
     $venue7->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue7->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue7->dates()->create(['week_day' => 3, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
@@ -100,6 +108,7 @@ class DatesTableSeeder extends Seeder
     $venue7->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue7->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue7->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
+
     $venue8->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue8->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue8->dates()->create(['week_day' => 3, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
@@ -107,6 +116,7 @@ class DatesTableSeeder extends Seeder
     $venue8->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue8->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue8->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
+
     $venue9->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue9->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue9->dates()->create(['week_day' => 3, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
@@ -114,6 +124,7 @@ class DatesTableSeeder extends Seeder
     $venue9->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue9->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue9->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
+
     $venue10->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('20:00:00'),]);
     $venue10->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('20:00:00'),]);
     $venue10->dates()->create(['week_day' => 3, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('20:00:00'),]);
@@ -121,6 +132,7 @@ class DatesTableSeeder extends Seeder
     $venue10->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('20:00:00'),]);
     $venue10->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('20:00:00'),]);
     $venue10->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('8:00:00'),]);
+
     $venue11->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('20:00:00'),]);
     $venue11->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('20:00:00'),]);
     $venue11->dates()->create(['week_day' => 3, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('20:00:00'),]);
@@ -128,6 +140,7 @@ class DatesTableSeeder extends Seeder
     $venue11->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('20:00:00'),]);
     $venue11->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('20:00:00'),]);
     $venue11->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('8:00:00'),]);
+
     $venue12->dates()->create(['week_day' => 1, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
     $venue12->dates()->create(['week_day' => 2, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
     $venue12->dates()->create(['week_day' => 3, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
@@ -135,13 +148,15 @@ class DatesTableSeeder extends Seeder
     $venue12->dates()->create(['week_day' => 5, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
     $venue12->dates()->create(['week_day' => 6, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
     $venue12->dates()->create(['week_day' => 7, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
+
     $venue13->dates()->create(['week_day' => 1, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
     $venue13->dates()->create(['week_day' => 2, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
     $venue13->dates()->create(['week_day' => 3, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
     $venue13->dates()->create(['week_day' => 4, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
     $venue13->dates()->create(['week_day' => 5, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
     $venue13->dates()->create(['week_day' => 6, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
-    $venue13->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('8:00:00'),]);
+    $venue13->dates()->create(['week_day' => 7, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+
     $venue14->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue14->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue14->dates()->create(['week_day' => 3, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
@@ -149,6 +164,7 @@ class DatesTableSeeder extends Seeder
     $venue14->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue14->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue14->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
+
     $venue15->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue15->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue15->dates()->create(['week_day' => 3, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
@@ -156,6 +172,7 @@ class DatesTableSeeder extends Seeder
     $venue15->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue15->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue15->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
+
     $venue16->dates()->create(['week_day' => 1, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
     $venue16->dates()->create(['week_day' => 2, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
     $venue16->dates()->create(['week_day' => 3, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
@@ -163,6 +180,7 @@ class DatesTableSeeder extends Seeder
     $venue16->dates()->create(['week_day' => 5, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
     $venue16->dates()->create(['week_day' => 6, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
     $venue16->dates()->create(['week_day' => 7, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
+
     $venue17->dates()->create(['week_day' => 1, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
     $venue17->dates()->create(['week_day' => 2, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
     $venue17->dates()->create(['week_day' => 3, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
@@ -170,6 +188,7 @@ class DatesTableSeeder extends Seeder
     $venue17->dates()->create(['week_day' => 5, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
     $venue17->dates()->create(['week_day' => 6, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
     $venue17->dates()->create(['week_day' => 7, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('21:00:00'),]);
+
     $venue18->dates()->create(['week_day' => 1, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue18->dates()->create(['week_day' => 2, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue18->dates()->create(['week_day' => 3, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
@@ -177,5 +196,21 @@ class DatesTableSeeder extends Seeder
     $venue18->dates()->create(['week_day' => 5, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue18->dates()->create(['week_day' => 6, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
     $venue18->dates()->create(['week_day' => 7, 'start' => Carbon::parse('8:00:00'), 'finish' => Carbon::parse('23:00:00'),]);
+   
+    $venue19->dates()->create(['week_day' => 1, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+    $venue19->dates()->create(['week_day' => 2, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+    $venue19->dates()->create(['week_day' => 3, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+    $venue19->dates()->create(['week_day' => 4, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+    $venue19->dates()->create(['week_day' => 5, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+    $venue19->dates()->create(['week_day' => 6, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+    $venue19->dates()->create(['week_day' => 7, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+  
+    $venue20->dates()->create(['week_day' => 1, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+    $venue20->dates()->create(['week_day' => 2, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+    $venue20->dates()->create(['week_day' => 3, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+    $venue20->dates()->create(['week_day' => 4, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+    $venue20->dates()->create(['week_day' => 5, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+    $venue20->dates()->create(['week_day' => 6, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
+    $venue20->dates()->create(['week_day' => 7, 'start' => Carbon::parse('10:00:00'), 'finish' => Carbon::parse('17:00:00'),]);
   }
 }
