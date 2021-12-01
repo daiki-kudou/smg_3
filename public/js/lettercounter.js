@@ -71,6 +71,7 @@ $(document).on('input', '#eventname1Count', function () {
   var len = $(this).val().bytes();
   $('.count_num1').html(len + "/28");
   $('.is-error-event_name1').show();
+  $('.is-error-cp_master_event_name1').show();
 });
 
 // イベント名称2
@@ -83,6 +84,7 @@ $(document).on('input', '#eventname2Count', function () {
   var len = $(this).val().bytes();
   $('.count_num2').html(len + "/28");
   $('.is-error-event_name2').show();
+  $('.is-error-cp_master_event_name2').show();
 });
 
 
@@ -97,6 +99,7 @@ $(document).on('input', '#eventownerCount', function () {
   var len = $(this).val().bytes();
   $('.count_num3').html(len + "/53");
   $('.is-error-event_owner').show();
+  $('.is-error-cp_master_event_owner').show();
 });
 
 
