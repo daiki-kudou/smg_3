@@ -218,7 +218,13 @@ class User extends Authenticatable
   {
     $users = $this->search_target();
     if (!empty($ary['search_id'])) {
-      $users = $users->whereRaw('users.id like ?', ['%' . $ary['search_id'] . '%']);
+      for ($i = 0; $i < strlen($ary['search_id']); $i++) {
+        if ((int)$ary['search_id'][$i] !== 0) {
+          $id = substr($ary['search_id'], $i, strlen($ary['search_id']));
+          break;
+        }
+      }
+      $users = $users->whereRaw('users.id like ?', ['%' . $id . '%']);
     }
     if (!empty($ary['search_company'])) {
       $users = $users->whereRaw('users.company like ?', ['%' . $ary['search_company'] . '%']);
@@ -238,6 +244,80 @@ class User extends Authenticatable
     if (!empty($ary['attention']) && (int)$ary['attention'] === 1) {
       $users = $users->whereRaw('users.attention is not null');
     }
+    if (!empty($ary['attr1']) || !empty($ary['attr2']) || !empty($ary['attr3']) || !empty($ary['attr4']) || !empty($ary['attr5']) || !empty($ary['attr6']) || !empty($ary['attr7'])) {
+      $users = $users->whereRaw('users.attr = ? or users.attr = ? or users.attr = ? or users.attr = ? or users.attr = ? or users.attr = ? or users.attr = ?', [
+        !empty($ary['attr1']) ? ($ary['attr1']) : NULL,
+        !empty($ary['attr2']) ? ($ary['attr2']) : NULL,
+        !empty($ary['attr3']) ? ($ary['attr3']) : NULL,
+        !empty($ary['attr4']) ? ($ary['attr4']) : NULL,
+        !empty($ary['attr5']) ? ($ary['attr5']) : NULL,
+        !empty($ary['attr6']) ? ($ary['attr6']) : NULL,
+        !empty($ary['attr7']) ? ($ary['attr7']) : NULL,
+      ]);
+    }
+    if (!empty($ary['freeword'])) {
+      if (preg_match('/^[0-9!,]+$/', $ary['freeword'])) {
+        //数字の場合検索
+        if ((int)$ary['freeword'] !== 0) {
+          $users = $users->where(function ($query) use ($ary) {
+            for ($i = 0; $i < strlen($ary['freeword']); $i++) {
+              if ((int)$ary['freeword'][$i] !== 0) {
+                $id = substr($ary['freeword'], $i, strlen($ary['freeword']));
+                break;
+              }
+            }
+            $query->whereRaw('users.id LIKE ? ', ['%' . $id . '%'])
+              ->orWhereRaw('users.mobile LIKE ? ', ['%' . $id . '%'])
+              ->orWhereRaw('users.tel LIKE ? ', ['%' . $id . '%']);
+          });
+        }
+      } elseif (preg_match('/^[一般企業]+$/', $ary['freeword'])) {
+        $users = $users->where(function ($query) use ($ary) {
+          $query->whereRaw('users.attr = ? ', [1]);
+        });
+      } elseif (preg_match('/^[上場企業]+$/', $ary['freeword'])) {
+        $users = $users->where(function ($query) use ($ary) {
+          $query->whereRaw('users.attr = ? ', [2]);
+        });
+      } elseif (preg_match('/^[近隣利用]+$/', $ary['freeword'])) {
+        $users = $users->where(function ($query) use ($ary) {
+          $query->whereRaw('users.attr = ? ', [3]);
+        });
+      } elseif (preg_match('/^[個人講師]+$/', $ary['freeword'])) {
+        $users = $users->where(function ($query) use ($ary) {
+          $query->whereRaw('users.attr = ? ', [4]);
+        });
+      } elseif (preg_match('/^[MLM]+$/', $ary['freeword'])) {
+        $users = $users->where(function ($query) use ($ary) {
+          $query->whereRaw('users.attr = ? ', [5]);
+        });
+      } elseif (preg_match('/^[その他]+$/', $ary['freeword'])) {
+        $users = $users->where(function ($query) use ($ary) {
+          $query->whereRaw('users.attr = ? ', [6]);
+        });
+      } else {
+        //文字列の場合
+        $users = $users->where(function ($query) use ($ary) {
+          if (!empty($ary['freeword'])) {
+            $query->whereRaw('concat(users.first_name, users.last_name) LIKE ? ', ['%' . $ary['freeword'] . '%'])
+              ->orWhereRaw('users.company LIKE ?', ['%' . $ary['freeword'] . '%'])
+              ->orWhereRaw('users.email LIKE ?', ['%' . $ary['freeword'] . '%']);
+          }
+        });
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     return $users;
   }

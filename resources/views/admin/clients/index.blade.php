@@ -1,8 +1,6 @@
 @extends('layouts.admin.app')
 
 @section('content')
-<script src="{{ asset('/js/tablesorter/juser.tablesorter.js') }}"></script>
-<link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/admin/search/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
@@ -81,7 +79,7 @@
           </td>
           <th class="search_item_name"><label for="id">フリーワード検索</label></th>
           <td>
-            <input type="text" name="freeword" class="form-control" id="freeword">
+            {{Form::text("freeword",$request->freeword?:'', ['class'=>'form-control','id'=>''])}}
           </td>
         </tr>
         <tr>
