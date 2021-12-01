@@ -28,65 +28,14 @@ class ClientsController extends Controller
    */
   public function index(Request $request)
   {
-    if (count($request->except('token')) != 0) {
-      $class = new User;
-      $querys = $class->search($request)->orderBy('id', 'desc')->get();
-      $counter = $this->exceptSortCount($request->except('_token'), $querys);
-    } else {
-      $querys = User::orderBy('id', 'desc')->get();
-      $counter = 0;
-    }
-    return view('admin.clients.index', compact('querys', 'request', 'counter'));
+    $data = $request->all();
+    $user = new User;
+    $users = $user->search($data)->get();
+
+    $counter = 0;
+    return view('admin.clients.index', compact('users', 'request', 'counter'));
   }
 
-  public function customSearchAndSort($model, $request)
-  {
-    if ($request->sort_id) {
-      if ($request->sort_id == 1) {
-        return $model->sortByDesc("id");
-      } else {
-        return $model->sortBy("id");
-      }
-    } elseif ($request->sort_user_company) {
-      if ($request->sort_user_company == 1) {
-        return $model->sortByDesc("company");
-      } else {
-        return $model->sortBy("company");
-      }
-    } elseif ($request->sort_user_attr) {
-      if ($request->sort_user_attr == 1) {
-        return $model->sortByDesc("attr");
-      } else {
-        return $model->sortBy("attr");
-      }
-    } elseif ($request->sort_user_name) {
-      if ($request->sort_user_name == 1) {
-        return $model->sortByDesc("first_name_kana");
-      } else {
-        return $model->sortBy("first_name_kana");
-      }
-    } elseif ($request->sort_user_mobile) {
-      if ($request->sort_user_mobile == 1) {
-        return $model->sortByDesc("mobile");
-      } else {
-        return $model->sortBy("mobile");
-      }
-    } elseif ($request->sort_user_tel) {
-      if ($request->sort_user_tel == 1) {
-        return $model->sortByDesc("tel");
-      } else {
-        return $model->sortBy("tel");
-      }
-    } elseif ($request->sort_user_email) {
-      if ($request->sort_user_email == 1) {
-        return $model->sortByDesc("email");
-      } else {
-        return $model->sortBy("email");
-      }
-    }
-
-    return $model;
-  }
 
   /**
    * Show the form for creating a new resource.

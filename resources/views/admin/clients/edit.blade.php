@@ -87,7 +87,7 @@
               </div>
             </td>
             <td>
-              {{ Form::textarea('condition', $user->condition?$user->condition:"平日 %\n土日 %\n3週間前 %\n",
+              {{ Form::textarea('condition', $user->condition,
               $user->condition?['class' => 'form-control ']:['class' => 'form-control checkon']) }}
             </td>
           </tr>
