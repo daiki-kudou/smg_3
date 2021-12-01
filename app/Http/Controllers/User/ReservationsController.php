@@ -463,10 +463,11 @@ class ReservationsController extends Controller
     $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
     $result = "";
     foreach ($r as $key => $b) {
+      $bold = (int)$b->paid === 0 ? "f-bold" : "";
       $result .=
         "<li>" .
         "<div class='multi-column__item'>" .
-        "<span class='payment-status'>" .
+        "<span class='payment-status $bold'>" .
         ReservationHelper::paidStatus($b->paid) .
         "</span>" .
         "</div>" .
@@ -484,10 +485,11 @@ class ReservationsController extends Controller
         "</div>" .
         "</li>";
       // キャンセル料表示
+      $bold = $reservation->cxls->first()->paid === 0 ? "f-bold" : "";
       $result .=
         "<li>" .
         "<div class='multi-column__item'>" .
-        "<span class='payment-status'>" .
+        "<span class='payment-status $bold'>" .
         (ReservationHelper::paidStatus($reservation->cxls->first()->paid)) .
         "</span>" .
         "</div>" .

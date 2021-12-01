@@ -85,11 +85,48 @@ class User extends Authenticatable
   ];
 
   // アクセサ
+  // fix_id
   public function getFixIdAttribute()
   {
     return sprintf('%06d', $this->id);
   }
 
+  // fix_attr
+  public function getFixAttrAttribute()
+  {
+    switch ($this->attr) {
+      case 1:
+        return '一般企業';
+        break;
+      case 2:
+        return '上場企業';
+        break;
+      case 3:
+        return '近隣利用';
+        break;
+      case 4:
+        return '個人講師';
+        break;
+      case 5:
+        return 'MLM';
+        break;
+      case 6:
+        return '仲介会社';
+        break;
+      case 7:
+        return 'その他';
+        break;
+      default:
+        return NULL;
+        break;
+    }
+  }
+
+  // person
+  public function getPersonAttribute()
+  {
+    return $this->first_name . $this->last_name;
+  }
 
 
   /*
@@ -149,71 +186,139 @@ class User extends Authenticatable
     return $this->first_name . $this->last_name;
   }
 
-  public function search($request)
+  public function search_target()
   {
-    $class = $this->where(function ($query) use ($request) {
+    $users = DB::table('users')
+      ->select(DB::raw(
+        "
+        case when users.attention is not null then '●' else null end as attention,
+        lpad(users.id,6,0) as fix_id,
+        users.company,
+        case 
+        when users.attr = 1 then '一般企業'
+        when users.attr = 2 then '上場企業'
+        when users.attr = 3 then '近隣利用'
+        when users.attr = 4 then '個人講師'
+        when users.attr = 5 then 'MLM'
+        when users.attr = 6 then '仲介会社'
+        when users.attr = 7 then 'その他'
+        end as attr,
+        concat(users.first_name, users.last_name) as name,
+        users.mobile,
+        users.tel,
+        users.email,
+        users.id
+        "
+      ))
+      ->whereRaw('deleted_at is null');
+    return $users;
+  }
 
-      if ($request->search_id) {
-        $editId = $request->search_id;
-        if (substr($request->search_id, 0, 5) == "00000") {
-          $editId = str_replace("00000", "", $request->search_id);
-        } elseif (substr($request->search_id, 0, 4) == "0000") {
-          $editId = str_replace("0000", "", $request->search_id);
-        } elseif (substr($request->search_id, 0, 3) == "000") {
-          $editId = str_replace("000", "", $request->search_id);
-        } elseif (substr($request->search_id, 0, 2) == "00") {
-          $editId = str_replace("00", "", $request->search_id);
-        }
-        $query->where("id", "LIKE", "%" . $editId . "%");
-      }
-
-      if ($request->search_company) {
-        $query->where("company", "LIKE", "%" . $request->search_company . "%");
-      }
-      if ($request->search_person) {
-        $query->where('first_name', 'LIKE', "%{$request->search_person}%");
-        $query->orWhere('last_name', 'LIKE', "%{$request->search_person}%");
-        $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_person . '%');
-      }
-      if ($request->search_mobile) {
-        $query->where('mobile', 'LIKE', "%{$request->search_mobile}%");
-      }
-      if ($request->search_tel) {
-        $query->where('tel', 'LIKE', "%{$request->search_tel}%");
-      }
-      if ($request->search_email) {
-        $query->where('email', 'LIKE', "%{$request->search_email}%");
-      }
-
-      if ($request->attention) {
-        if ($request->attention == 1) {
-          $query->where('attention', "LIKE", "%%");
-        } elseif ($request->attention == 2) {
-          $query->whereNull('attention');
+  public function search($ary)
+  {
+    $users = $this->search_target();
+    if (!empty($ary['search_id'])) {
+      for ($i = 0; $i < strlen($ary['search_id']); $i++) {
+        if ((int)$ary['search_id'][$i] !== 0) {
+          $id = substr($ary['search_id'], $i, strlen($ary['search_id']));
+          break;
         }
       }
-
-
-      $query->where(function ($query) use ($request) {
-        for ($i = 1; $i <= 7; $i++) {
-          if (!empty($request->{"attr" . $i})) {
-            $query->orWhere("attr", $request->{"attr" . $i});
+      $users = $users->whereRaw('users.id like ?', ['%' . $id . '%']);
+    }
+    if (!empty($ary['search_company'])) {
+      $users = $users->whereRaw('users.company like ?', ['%' . $ary['search_company'] . '%']);
+    }
+    if (!empty($ary['search_person'])) {
+      $users = $users->whereRaw('concat(users.first_name, users.last_name) like ?', ['%' . $ary['search_person'] . '%']);
+    }
+    if (!empty($ary['search_mobile'])) {
+      $users = $users->whereRaw('users.mobile like ?', ['%' . $ary['search_mobile'] . '%']);
+    }
+    if (!empty($ary['search_tel'])) {
+      $users = $users->whereRaw('users.tel like ?', ['%' . $ary['search_tel'] . '%']);
+    }
+    if (!empty($ary['search_email'])) {
+      $users = $users->whereRaw('users.email like ?', ['%' . $ary['search_email'] . '%']);
+    }
+    if (!empty($ary['attention']) && (int)$ary['attention'] === 1) {
+      $users = $users->whereRaw('users.attention is not null');
+    }
+    if (!empty($ary['attr1']) || !empty($ary['attr2']) || !empty($ary['attr3']) || !empty($ary['attr4']) || !empty($ary['attr5']) || !empty($ary['attr6']) || !empty($ary['attr7'])) {
+      $users = $users->whereRaw('users.attr = ? or users.attr = ? or users.attr = ? or users.attr = ? or users.attr = ? or users.attr = ? or users.attr = ?', [
+        !empty($ary['attr1']) ? ($ary['attr1']) : NULL,
+        !empty($ary['attr2']) ? ($ary['attr2']) : NULL,
+        !empty($ary['attr3']) ? ($ary['attr3']) : NULL,
+        !empty($ary['attr4']) ? ($ary['attr4']) : NULL,
+        !empty($ary['attr5']) ? ($ary['attr5']) : NULL,
+        !empty($ary['attr6']) ? ($ary['attr6']) : NULL,
+        !empty($ary['attr7']) ? ($ary['attr7']) : NULL,
+      ]);
+    }
+    if (!empty($ary['freeword'])) {
+      if (preg_match('/^[0-9!,]+$/', $ary['freeword'])) {
+        //数字の場合検索
+        if ((int)$ary['freeword'] !== 0) {
+          $users = $users->where(function ($query) use ($ary) {
+            for ($i = 0; $i < strlen($ary['freeword']); $i++) {
+              if ((int)$ary['freeword'][$i] !== 0) {
+                $id = substr($ary['freeword'], $i, strlen($ary['freeword']));
+                break;
+              }
+            }
+            $query->whereRaw('users.id LIKE ? ', ['%' . $id . '%'])
+              ->orWhereRaw('users.mobile LIKE ? ', ['%' . $id . '%'])
+              ->orWhereRaw('users.tel LIKE ? ', ['%' . $id . '%']);
+          });
+        }
+      } elseif (preg_match('/^[一般企業]+$/', $ary['freeword'])) {
+        $users = $users->where(function ($query) use ($ary) {
+          $query->whereRaw('users.attr = ? ', [1]);
+        });
+      } elseif (preg_match('/^[上場企業]+$/', $ary['freeword'])) {
+        $users = $users->where(function ($query) use ($ary) {
+          $query->whereRaw('users.attr = ? ', [2]);
+        });
+      } elseif (preg_match('/^[近隣利用]+$/', $ary['freeword'])) {
+        $users = $users->where(function ($query) use ($ary) {
+          $query->whereRaw('users.attr = ? ', [3]);
+        });
+      } elseif (preg_match('/^[個人講師]+$/', $ary['freeword'])) {
+        $users = $users->where(function ($query) use ($ary) {
+          $query->whereRaw('users.attr = ? ', [4]);
+        });
+      } elseif (preg_match('/^[MLM]+$/', $ary['freeword'])) {
+        $users = $users->where(function ($query) use ($ary) {
+          $query->whereRaw('users.attr = ? ', [5]);
+        });
+      } elseif (preg_match('/^[その他]+$/', $ary['freeword'])) {
+        $users = $users->where(function ($query) use ($ary) {
+          $query->whereRaw('users.attr = ? ', [6]);
+        });
+      } else {
+        //文字列の場合
+        $users = $users->where(function ($query) use ($ary) {
+          if (!empty($ary['freeword'])) {
+            $query->whereRaw('concat(users.first_name, users.last_name) LIKE ? ', ['%' . $ary['freeword'] . '%'])
+              ->orWhereRaw('users.company LIKE ?', ['%' . $ary['freeword'] . '%'])
+              ->orWhereRaw('users.email LIKE ?', ['%' . $ary['freeword'] . '%']);
           }
-        }
-      });
-
-      if ($request->freeword) {
-        $query->where('id', 'LIKE', "%{$request->freeword}%")
-          ->orWhere("company", "LIKE", "%{$request->freeword}%")
-          ->orWhere("first_name", "LIKE", "%{$request->freeword}%")
-          ->orWhere("last_name", "LIKE", "%{$request->freeword}%")
-          ->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->freeword . '%')
-          ->orWhere("mobile", "LIKE", "%{$request->freeword}%")
-          ->orWhere("tel", "LIKE", "%{$request->freeword}%")
-          ->orWhere("email", "LIKE", "%{$request->freeword}%");
+        });
       }
-    });
+    }
 
-    return $class;
+
+
+
+
+
+
+
+
+
+
+
+
+    return $users;
   }
 }

@@ -7,7 +7,6 @@
 <script src="{{ asset('/js/user/validation.js') }}"></script>
 <script src="{{ asset('/js/holidays.js') }}"></script>
 
-
 <div class="container-field mt-3 d-md-flex justify-content-md-between">
   <h2 class="mt-3 mb-md-5">仮押え 申込み</h2>
   <div class="">
@@ -377,7 +376,7 @@
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
                   {{Form::text('luggage_arrive',date('Y-m-d',strtotime($request->luggage_arrive)),['class'=>'form-control
-                  luggage_arrive holidays','id'=>'luggage_arrive'])}}
+                  luggage_arrive holidays'])}}
                 </td>
               </tr>
               <tr>
@@ -841,5 +840,10 @@
         $('input:radio[name="eat_in_prepare"]').val("");
         }
         })
+
+        $(document).on(' click', '.holidays', function () {
+        console.log($('input[name="reserve_date"]').val());
+        getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
+        });
 </script>
 @endsection

@@ -337,6 +337,7 @@ class PreReservationsController extends Controller
   {
     $user = User::find($request->user_id);
     return [
+      $user->fix_id,
       $user->company,
       $user->first_name,
       $user->last_name,

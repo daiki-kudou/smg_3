@@ -1,8 +1,6 @@
 @extends('layouts.admin.app')
 
 @section('content')
-<script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
-<link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/admin/search/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
@@ -81,7 +79,7 @@
           </td>
           <th class="search_item_name"><label for="id">フリーワード検索</label></th>
           <td>
-            <input type="text" name="freeword" class="form-control" id="freeword">
+            {{Form::text("freeword",$request->freeword?:'', ['class'=>'form-control','id'=>''])}}
           </td>
         </tr>
         <tr>
@@ -165,39 +163,50 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($querys as $query)
+        @foreach ($users as $user)
         <tr>
-          <td class="text-center">{{$query->attention!=null?'●':''}}</td>
-          <td>{{ReservationHelper::fixId($query->id)}}</td>
-          <td>{{$query->company}}</td>
+          <td>{{ $user->attention }}</td>
+          <td>{{ $user->fix_id }}</td>
+          <td>{{ $user->company }}</td>
+          <td>{{ $user->attr }}</td>
+          <td>{{ $user->name }}</td>
+          <td>{{ $user->mobile }}</td>
+          <td>{{ $user->tel }}</td>
+          <td>{{ $user->email }}</td>
+          <td><a href="{{ route('admin.clients.show',$user->id) }}" class="btn more_btn">詳細</a></td>
+        </tr>
+        {{-- <tr>
+          <td class="text-center">{{$user->attention!=null?'●':''}}</td>
+          <td>{{ReservationHelper::fixId($user->id)}}</td>
+          <td>{{$user->company}}</td>
           <td>
-            @if ($query->attr==1)
+            @if ($user->attr==1)
             一般企業
-            @elseif($query->attr==2)
+            @elseif($user->attr==2)
             上場企業
-            @elseif($query->attr==3)
+            @elseif($user->attr==3)
             近隣利用
-            @elseif($query->attr==4)
+            @elseif($user->attr==4)
             個人講師
-            @elseif($query->attr==5)
+            @elseif($user->attr==5)
             MLM
-            @elseif($query->attr==6)
+            @elseif($user->attr==6)
             仲介会社
-            @elseif($query->attr==7)
+            @elseif($user->attr==7)
             その他
             @endif
           </td>
-          <td>{{$query->first_name}}{{$query->last_name}}</td>
-          <td>{{$query->mobile}}</td>
-          <td>{{$query->tel}}</td>
-          <td>{{$query->email}}</td>
+          <td>{{$user->first_name}}{{$user->last_name}}</td>
+          <td>{{$user->mobile}}</td>
+          <td>{{$user->tel}}</td>
+          <td>{{$user->email}}</td>
           <td class="text-center">
-            {{ Form::open(['url' => '/admin/clients/'.$query->id, 'method'=>'get']) }}
+            {{ Form::open(['url' => '/admin/clients/'.$user->id, 'method'=>'get']) }}
             @csrf
             {{ Form::submit('詳細', ['class' => 'btn more_btn']) }}
             {{ Form::close() }}
           </td>
-        </tr>
+        </tr> --}}
         @endforeach
       </tbody>
     </table>
@@ -217,7 +226,7 @@
       searching: false,
       info: false,
       autowidth: false,
-      "order": [[ 0, "desc" ]], //初期ソートソート条件
+      "order": [[ 1, "desc" ]], //初期ソートソート条件
       "columnDefs": [
         {
           "orderable": false, 
