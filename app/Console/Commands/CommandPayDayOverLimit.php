@@ -131,7 +131,7 @@ class CommandPayDayOverLimit extends Command
       ->leftJoin('reservations', 'reservations.id', '=', 'bills.reservation_id')
       ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
       ->leftJoin('venues', 'venues.id', '=', 'reservations.venue_id')
-      ->whereRaw('reservations.deleted_at is null and bills.deleted_at is null and bills.reservation_status <= 3 and bills.reservation_status <= 3')
+      ->whereRaw('reservations.deleted_at is null and bills.deleted_at is null and bills.reservation_status <= 3 and bills.reservation_status <= 3 and users.id > 0')
       ->whereRaw('bills.payment_limit = ?', [$targetPaymentLimit])->get();
     return $bills;
   }
@@ -181,7 +181,7 @@ class CommandPayDayOverLimit extends Command
       ->leftJoin('reservations', 'reservations.id', '=', 'cxls.reservation_id')
       ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
       ->leftJoin('venues', 'venues.id', '=', 'reservations.venue_id')
-      ->whereRaw('reservations.deleted_at is null')
+      ->whereRaw('reservations.deleted_at is null and users.id > 0')
       ->whereRaw('cxls.payment_limit = ?', [$targetPaymentLimit])->get();
 
     return $cxls;
