@@ -44,7 +44,7 @@
         </td>
       </tr>
       <tr>
-        <th>当日の担当者</th>
+        <th>当日連絡できる担当者名</th>
         <td>
           {{$request->in_charge}}
           {{ Form::hidden('in_charge', $request->in_charge) }}
@@ -53,7 +53,7 @@
         </td>
       </tr>
       <tr>
-        <th>当日の担当者連絡先</th>
+        <th>当日連絡できる担当者携帯</th>
         <td>
           {{$request->tel}}
           {{ Form::hidden('tel', $request->tel) }}

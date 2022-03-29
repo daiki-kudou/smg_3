@@ -63,7 +63,7 @@
         </td>
       </tr>
       <tr>
-        <th>当日の担当者 <span class="txtRed c-block">＊</span></th>
+        <th>当日連絡できる担当者名 <span class="txtRed c-block">＊</span></th>
         <td>
           {{ Form::text('in_charge', $fix->in_charge,['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
           <br class="spOnlyunder">
@@ -71,7 +71,7 @@
         </td>
       </tr>
       <tr>
-        <th>当日の担当者連絡先 <span class="txtRed c-block">＊</span></th>
+        <th>当日連絡できる担当者携帯 <span class="txtRed c-block">＊</span></th>
         <td>
           {{ Form::text('tel', $fix->tel,['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
           <br class="spOnlyunder">

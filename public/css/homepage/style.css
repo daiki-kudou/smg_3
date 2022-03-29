@@ -505,7 +505,9 @@ form table td .text6 {
 
 }
 
-
+form table th {
+    width: 30%;
+}
 
 /* 確認画面 */
 .from-list li {
