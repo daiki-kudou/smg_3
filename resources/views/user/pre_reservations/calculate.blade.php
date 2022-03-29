@@ -453,7 +453,8 @@
     </div>
   </div>
   <div class="btn_wrapper">
-    {{ Form::submit('再計算する', ['class' => 'btn more_btn_lg mx-auto d-block my-5','name'=>'re_calculate']) }}
+    {{ Form::submit('再計算する', ['class' => 'btn more_btn_lg mx-auto d-block mt-5 mb-2','name'=>'re_calculate']) }}
+    <p class="text-center warning-text">※予約内容に変更・修正を加えた場合は「再計算する」ボタンを押して下さい。</p>
   </div>
 
   <div class="bill mt-5">

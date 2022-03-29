@@ -180,18 +180,6 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
-            <td>
-              {{ isset($reservation->event_start) ? ReservationHelper::formatTime($reservation->event_start) : '無し' }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
-            <td>
-              {{ isset($reservation->event_finish) ? ReservationHelper::formatTime($reservation->event_finish) : '無し' }}
-            </td>
-          </tr>
-          <tr>
             <td class="table-active"><label for="eventName1">イベント名称1</label></td>
             <td>
               {{ $reservation->event_name1 }}
@@ -207,6 +195,18 @@
             <td class="table-active"><label for="organizer">主催者名</label></td>
             <td>
               {{ $reservation->event_owner }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
+            <td>
+              {{ isset($reservation->event_start) ? ReservationHelper::formatTime($reservation->event_start) : '無し' }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
+            <td>
+              {{ isset($reservation->event_finish) ? ReservationHelper::formatTime($reservation->event_finish) : '無し' }}
             </td>
           </tr>
         </table>
