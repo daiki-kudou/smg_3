@@ -73,6 +73,10 @@
             {{ Form::text('tel', old('tel'),['class'=>'form-input text2', 'placeholder'=>'入力してください'] ) }}
             <br class="spOnlyunder">
             <p class="is-error-tel" style="color: red"></p>
+            <p>
+              <span class="txt-indent">※必ず当日連絡が付く担当者の連絡番号を記載下さい。</span>
+              <span class="txt-indent">※半角数字、ハイフンなしで入力下さい。</span>
+            </p>
           </td>
         </tr>
         @if ($venue->frame_prices->count()!=0&&$venue->time_prices->count()!=0)
