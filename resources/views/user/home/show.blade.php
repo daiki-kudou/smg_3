@@ -697,7 +697,7 @@
                 <ul class="bill_header">
                   <li>
                     <h2 class="text-white">
-                      請求書No. {{ $other_bill->invoice_number }}
+                      追加請求書No. {{ $other_bill->invoice_number }}
                     </h2>
                   </li>
                   <li>
