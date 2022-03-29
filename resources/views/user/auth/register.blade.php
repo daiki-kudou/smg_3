@@ -107,6 +107,10 @@
     .alert-danger .alert-link {
       color: #843534;
     }
+
+    .bg-gray {
+      background: #f0f0f0f0;
+    }
   </style>
   {{-- エラーメッセージ --}}
   @if ($errors->any())
@@ -280,7 +284,7 @@
         <th>メールアドレス</th>
         <td>
           {{ Form::text('email', !empty($session['email'])?$session['email']:$request->email, ['id' =>
-          'email','readonly','class' => 'text2']) }}
+          'email','readonly','class' => 'text2 bg-gray']) }}
         </td>
       </tr>
       <tr>
