@@ -481,7 +481,7 @@
       </table>
     </div>
 
-    <div class="bill_details">
+    <div class="bill_details user_preservation">
       <div class="head d-flex">
         <div class="accordion_btn">
           <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
@@ -683,6 +683,8 @@
                 </td>
               </tr>
               @endif
+            </tbody>
+            <tbody class="layouts_result">
               <tr>
                 <td colspan="4">
                   <div class="result_sum">
