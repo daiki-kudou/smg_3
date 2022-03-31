@@ -341,14 +341,14 @@
               <tr>
                 <th colspan="2">
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>お荷物預り
+                    <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>荷物預り
                   </p>
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="table-active form_required">お荷物預り</td>
+                <td class="table-active form_required">荷物預り</td>
                 <td>
                   <div class="radio-box">
                     <p>

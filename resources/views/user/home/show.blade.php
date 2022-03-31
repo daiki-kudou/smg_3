@@ -304,7 +304,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon py-1">
-                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>お荷物預り
+                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
                   </p>
                 </th>
               </tr>
