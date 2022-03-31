@@ -2041,19 +2041,19 @@ table .master_total_subttl2 {
     }
 
     /* スマホ時のテープルレイアウト修正 */
-    .venue_head,
-    .equipment_head,
-    .layout_head {
+    .user_preservation .venue_head,
+    .user_preservation .equipment_head,
+    .user_preservation .layout_head {
         display: none;
     }
 
 
-    .billdetails_content .table td  {
+    .user_preservation .billdetails_content .table td  {
         display: block;
         position: relative;
     }
 
-    .billdetails_content .table td::before {
+    .user_preservation .billdetails_content .table td::before {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -2061,40 +2061,40 @@ table .master_total_subttl2 {
         font-weight: bold;
     }
 
-    .billdetails_content .table .venue_main tr,
-    .billdetails_content .table .equipment_main tr, 
-    .billdetails_content .table .layout_main tr {
+    .user_preservation .billdetails_content .table .venue_main tr,
+    .user_preservation .billdetails_content .table .equipment_main tr, 
+    .user_preservation .billdetails_content .table .layout_main tr {
         border-bottom: 1px solid #ddd;
     }
 
-    .billdetails_content .table .venue_main .form-control,
-    .billdetails_content .table .equipment_main .form-control, 
-    .billdetails_content .table .layout_main .form-control {
+    .user_preservation .billdetails_content .table .venue_main .form-control,
+    .user_preservation .billdetails_content .table .equipment_main .form-control, 
+    .user_preservation .billdetails_content .table .layout_main .form-control {
         width: 88%;
         margin-left: 12%;
         text-align: left;
     }
 
-    .billdetails_content .table .venue_main td:nth-child(1):before,
-    .billdetails_content .table .equipment_main td:nth-child(1):before, 
-    .billdetails_content .table .layout_main td:nth-child(1):before {
+    .user_preservation .billdetails_content .table .venue_main td:nth-child(1):before,
+    .user_preservation .billdetails_content .table .equipment_main td:nth-child(1):before, 
+    .user_preservation .billdetails_content .table .layout_main td:nth-child(1):before {
         content: "内容";
     }
 
-    .billdetails_content .table .venue_main td:nth-child(2):before,
-    .billdetails_content .table .equipment_main td:nth-child(2):before, 
-    .billdetails_content .table .layout_main td:nth-child(2):before {
+    .user_preservation .billdetails_content .table .venue_main td:nth-child(2):before,
+    .user_preservation .billdetails_content .table .equipment_main td:nth-child(2):before, 
+    .user_preservation .billdetails_content .table .layout_main td:nth-child(2):before {
         content: "単価";
     }
-    .billdetails_content .table .venue_main td:nth-child(3):before,
-    .billdetails_content .table .equipment_main td:nth-child(3):before, 
-    .billdetails_content .table .layout_main td:nth-child(3):before {
+    .user_preservation .billdetails_content .table .venue_main td:nth-child(3):before,
+    .user_preservation .billdetails_content .table .equipment_main td:nth-child(3):before, 
+    .user_preservation .billdetails_content .table .layout_main td:nth-child(3):before {
         content: "数量";
     }
 
-    .billdetails_content .table .venue_main td:nth-child(4):before,
-    .billdetails_content .table .equipment_main td:nth-child(4):before, 
-    .billdetails_content .table .layout_main td:nth-child(4):before {
+    .user_preservation .billdetails_content .table .venue_main td:nth-child(4):before,
+    .user_preservation .billdetails_content .table .equipment_main td:nth-child(4):before, 
+    .user_preservation .billdetails_content .table .layout_main td:nth-child(4):before {
         content: "金額";
     }
 
