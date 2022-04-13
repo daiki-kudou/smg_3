@@ -38,5 +38,6 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
+    // alert('blurだよー!!');
   });
 });
