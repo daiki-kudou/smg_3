@@ -167,24 +167,6 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">イベント開始時間</td>
-              <td>
-                <select name="event_start" id="event_start" class="form-control">
-                  <option disabled>選択してください</option>
-                  {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start,$pre_reservation->enter_time,$pre_reservation->leave_time)!!}
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">イベント終了時間</td>
-              <td>
-                <select name="event_finish" id="event_finish" class="form-control">
-                  <option disabled>選択してください</option>
-                  {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$pre_reservation->enter_time,$pre_reservation->leave_time)!!}
-                </select>
-              </td>
-            </tr>
-            <tr>
               <td class="table-active">イベント名称1</td>
               <td>
                 <div class="align-items-end d-flex">
@@ -212,6 +194,24 @@
                   <span class="ml-1 annotation count_num3"></span>
                 </div>
                 <p class="is-error-event_owner" style="color: red"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">イベント開始時間</td>
+              <td>
+                <select name="event_start" id="event_start" class="form-control">
+                  <option disabled>選択してください</option>
+                  {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start,$pre_reservation->enter_time,$pre_reservation->leave_time)!!}
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">イベント終了時間</td>
+              <td>
+                <select name="event_finish" id="event_finish" class="form-control">
+                  <option disabled>選択してください</option>
+                  {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$pre_reservation->enter_time,$pre_reservation->leave_time)!!}
+                </select>
               </td>
             </tr>
           </tbody>
@@ -341,14 +341,14 @@
               <tr>
                 <th colspan="2">
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>お荷物預り
+                    <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>荷物預り
                   </p>
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="table-active form_required">お荷物預り</td>
+                <td class="table-active form_required">荷物預り</td>
                 <td>
                   <div class="radio-box">
                     <p>
@@ -453,7 +453,8 @@
     </div>
   </div>
   <div class="btn_wrapper">
-    {{ Form::submit('再計算する', ['class' => 'btn more_btn_lg mx-auto d-block my-5','name'=>'re_calculate']) }}
+    {{ Form::submit('再計算する', ['class' => 'btn more_btn_lg mx-auto d-block mt-5 mb-2','name'=>'re_calculate']) }}
+    <p class="text-center warning-text">※予約内容に変更・修正を加えた場合は「再計算する」ボタンを押して下さい。</p>
   </div>
 
   <div class="bill mt-5">
@@ -480,7 +481,7 @@
       </table>
     </div>
 
-    <div class="bill_details">
+    <div class="bill_details user_preservation">
       <div class="head d-flex">
         <div class="accordion_btn">
           <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
@@ -682,6 +683,8 @@
                 </td>
               </tr>
               @endif
+            </tbody>
+            <tbody class="layouts_result">
               <tr>
                 <td colspan="4">
                   <div class="result_sum">

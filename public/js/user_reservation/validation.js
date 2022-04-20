@@ -341,7 +341,8 @@ $(function () {
         tel: {
           required: true,
           number: true,
-          minlength: 10,
+          minlength: 11,
+          maxlength: 11,
         },
         price_system: {
           required: true,
@@ -374,7 +375,8 @@ $(function () {
         tel: {
           required: "※必須項目です",
           number: "※半角数字を入力してください",
-          minlength: '※最低桁数は10桁です',
+          maxlength: '※11桁で入力してください',
+          minlength: '※11桁で入力してください',
         },
         price_system: {
           required: "※必須項目です",
@@ -431,8 +433,9 @@ $(function () {
       },
       tel: {
         required: true,
-        minlength: 9,
-        number: true
+        number: true,
+        minlength: 11,
+        maxlength: 11,
       },
       price_system: {
         required: true,
@@ -462,8 +465,9 @@ $(function () {
       },
       tel: {
         required: "※必須項目です",
-        minlength: '※最低桁数は10桁です',
-        number: "※半角数字、ハイフンなしで入力して下さい"
+        number: "※半角数字、ハイフンなしで入力して下さい",
+        minlength: '※11桁で入力してください',
+        maxlength: '※11桁で入力してください',
       },
       price_system: {
         required: "※必須項目です",

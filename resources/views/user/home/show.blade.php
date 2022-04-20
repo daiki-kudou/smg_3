@@ -180,18 +180,6 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
-            <td>
-              {{ isset($reservation->event_start) ? ReservationHelper::formatTime($reservation->event_start) : '無し' }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
-            <td>
-              {{ isset($reservation->event_finish) ? ReservationHelper::formatTime($reservation->event_finish) : '無し' }}
-            </td>
-          </tr>
-          <tr>
             <td class="table-active"><label for="eventName1">イベント名称1</label></td>
             <td>
               {{ $reservation->event_name1 }}
@@ -207,6 +195,18 @@
             <td class="table-active"><label for="organizer">主催者名</label></td>
             <td>
               {{ $reservation->event_owner }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
+            <td>
+              {{ isset($reservation->event_start) ? ReservationHelper::formatTime($reservation->event_start) : '無し' }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
+            <td>
+              {{ isset($reservation->event_finish) ? ReservationHelper::formatTime($reservation->event_finish) : '無し' }}
             </td>
           </tr>
         </table>
@@ -304,7 +304,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon py-1">
-                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>お荷物預り
+                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
                   </p>
                 </th>
               </tr>
@@ -697,7 +697,7 @@
                 <ul class="bill_header">
                   <li>
                     <h2 class="text-white">
-                      請求書No. {{ $other_bill->invoice_number }}
+                      追加請求書No. {{ $other_bill->invoice_number }}
                     </h2>
                   </li>
                   <li>

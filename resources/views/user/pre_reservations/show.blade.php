@@ -26,7 +26,7 @@
   <p>
     下記日程で会場を仮押えしています。<br>
     予約に関する詳細情報を入力し、<span class="f-wb f-s15">下部の「金額を確認する」ボタンをクリック</span>してお申込み手続きを進めて下さい。<br>
-    なお、取消しの際はSMGまでご連絡下さい。
+    <span class="warning-text">なお、仮押え日時の変更や取消しの際はSMGまでご連絡下さい。</span>
   </p>
 </div>
 @endif
@@ -144,24 +144,6 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">イベント開始時間</td>
-              <td>
-                <select name="event_start" id="event_start" class="form-control">
-                  <option disabled>選択してください</option>
-                  {!!ReservationHelper::timeOptionsWithRequestAndLimit($pre_reservation->event_start,$pre_reservation->enter_time,$pre_reservation->leave_time)!!}
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">イベント終了時間</td>
-              <td>
-                <select name="event_finish" id="event_finish" class="form-control">
-                  <option disabled>選択してください</option>
-                  {!!ReservationHelper::timeOptionsWithRequestAndLimit($pre_reservation->event_finish,$pre_reservation->enter_time,$pre_reservation->leave_time)!!}
-                </select>
-              </td>
-            </tr>
-            <tr>
               <td class="table-active">イベント名称1</td>
               <td>
                 <div class="align-items-end d-flex">
@@ -192,6 +174,24 @@
                   <span class="ml-1 annotation count_num3"></span>
                 </div>
                 <p class="is-error-event_owner" style="color: red"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">イベント開始時間</td>
+              <td>
+                <select name="event_start" id="event_start" class="form-control">
+                  <option disabled>選択してください</option>
+                  {!!ReservationHelper::timeOptionsWithRequestAndLimit($pre_reservation->event_start,$pre_reservation->enter_time,$pre_reservation->leave_time)!!}
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">イベント終了時間</td>
+              <td>
+                <select name="event_finish" id="event_finish" class="form-control">
+                  <option disabled>選択してください</option>
+                  {!!ReservationHelper::timeOptionsWithRequestAndLimit($pre_reservation->event_finish,$pre_reservation->enter_time,$pre_reservation->leave_time)!!}
+                </select>
               </td>
             </tr>
           </tbody>
@@ -375,7 +375,7 @@
               <tr>
                 <th colspan="2">
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>お荷物預り
+                    <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>荷物預り
                   </p>
                 </th>
               </tr>
@@ -383,7 +383,7 @@
 
             <tbody>
               <tr>
-                <td class="table-active form_required">お荷物預り</td>
+                <td class="table-active form_required">荷物預り</td>
                 <td>
                   <div class="radio-box">
                     <p>

@@ -159,9 +159,9 @@ table.dataTable thead .sorting_desc:after {
     word-break: break-all;
 }
 
-.equipemnts .accordion-wrap .table-active {
+/* .equipemnts .accordion-wrap .table-active {
     width: 65%;
-}
+} */
 
 
 .equipemnts .form-control {
@@ -1958,6 +1958,12 @@ table .master_total_subttl2 {
     position: relative;
 }
 
+.company-info .company-tell a {
+    background: none;
+    color: #333;
+    padding: 0;
+}
+
 .company-info a span {
     position: absolute;
     right: 0.5em;
@@ -2029,6 +2035,69 @@ table .master_total_subttl2 {
     .cancel-profile p:first-child {
         margin-bottom: 2em;
     }
+
+    .bill_total table {
+        width: 65%;
+    }
+
+    /* スマホ時のテープルレイアウト修正 */
+    .user_preservation .venue_head,
+    .user_preservation .equipment_head,
+    .user_preservation .layout_head {
+        display: none;
+    }
+
+
+    .user_preservation .billdetails_content .table td  {
+        display: block;
+        position: relative;
+    }
+
+    .user_preservation .billdetails_content .table td::before {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 7px;
+        font-weight: bold;
+    }
+
+    .user_preservation .billdetails_content .table .venue_main tr,
+    .user_preservation .billdetails_content .table .equipment_main tr, 
+    .user_preservation .billdetails_content .table .layout_main tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .user_preservation .billdetails_content .table .venue_main .form-control,
+    .user_preservation .billdetails_content .table .equipment_main .form-control, 
+    .user_preservation .billdetails_content .table .layout_main .form-control {
+        width: 88%;
+        margin-left: 12%;
+        text-align: left;
+    }
+
+    .user_preservation .billdetails_content .table .venue_main td:nth-child(1):before,
+    .user_preservation .billdetails_content .table .equipment_main td:nth-child(1):before, 
+    .user_preservation .billdetails_content .table .layout_main td:nth-child(1):before {
+        content: "内容";
+    }
+
+    .user_preservation .billdetails_content .table .venue_main td:nth-child(2):before,
+    .user_preservation .billdetails_content .table .equipment_main td:nth-child(2):before, 
+    .user_preservation .billdetails_content .table .layout_main td:nth-child(2):before {
+        content: "単価";
+    }
+    .user_preservation .billdetails_content .table .venue_main td:nth-child(3):before,
+    .user_preservation .billdetails_content .table .equipment_main td:nth-child(3):before, 
+    .user_preservation .billdetails_content .table .layout_main td:nth-child(3):before {
+        content: "数量";
+    }
+
+    .user_preservation .billdetails_content .table .venue_main td:nth-child(4):before,
+    .user_preservation .billdetails_content .table .equipment_main td:nth-child(4):before, 
+    .user_preservation .billdetails_content .table .layout_main td:nth-child(4):before {
+        content: "金額";
+    }
+
 
 }
 

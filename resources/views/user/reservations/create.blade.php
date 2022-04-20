@@ -60,7 +60,7 @@
           </td>
         </tr>
         <tr>
-          <th>当日の担当者 <span class="txtRed c-block">＊</span></th>
+          <th>当日連絡できる担当者名 <span class="txtRed c-block">＊</span></th>
           <td>
             {{ Form::text('in_charge', old('in_charge'),['class'=>'form-input text2', 'placeholder'=>'入力してください'] ) }}
             <br class="spOnlyunder">
@@ -68,11 +68,15 @@
           </td>
         </tr>
         <tr>
-          <th>当日の担当者連絡先 <span class="txtRed c-block">＊</span></th>
+          <th>当日連絡できる担当者携帯 <span class="txtRed c-block">＊</span></th>
           <td>
             {{ Form::text('tel', old('tel'),['class'=>'form-input text2', 'placeholder'=>'入力してください'] ) }}
             <br class="spOnlyunder">
             <p class="is-error-tel" style="color: red"></p>
+            <p>
+              <span class="txt-indent">※必ず当日連絡が付く担当者の連絡番号を記載下さい。</span>
+              <span class="txt-indent">※半角数字、ハイフンなしで入力下さい。</span>
+            </p>
           </td>
         </tr>
         @if ($venue->frame_prices->count()!=0&&$venue->time_prices->count()!=0)

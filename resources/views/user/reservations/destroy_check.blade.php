@@ -43,13 +43,13 @@
         </td>
       </tr>
       <tr>
-        <th>当日の担当者</th>
+        <th>当日連絡できる担当者名</th>
         <td>
           {{$slctSession[0]['in_charge']}}
         </td>
       </tr>
       <tr>
-        <th>当日の担当者連絡先</th>
+        <th>当日連絡できる担当者携帯</th>
         <td>
           {{$slctSession[0]['tel']}}
         </td>
