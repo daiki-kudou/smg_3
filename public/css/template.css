@@ -1958,6 +1958,7 @@ table .master_total_subttl2 {
     position: relative;
 }
 
+/* iosのa="tel"対策 */
 .company-info .company-tell a {
     background: none;
     color: #333;
