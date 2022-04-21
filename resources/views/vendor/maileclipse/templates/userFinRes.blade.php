@@ -399,8 +399,8 @@
   ・利用料金：{{ $bill_data->master_total }}<br />
   ・支払期日：{{ $bill_data->payment_limit }}<br />
   ▼SMG銀行口座情報<br />
-  銀行名　：みずほ銀行　四ツ橋支店<br />
-  口座番号：普通　1113739　<br />
+  銀行名　：関西みらい銀行　堀江支店<br />
+  口座番号：普通　0088187　<br />
   口座名義：ｶ)ｴｽｴﾑｼﾞｰ<br />
   ※お支払いについて<br />
   https://osaka-conference.com/flow/#step3<br />
