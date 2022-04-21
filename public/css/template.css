@@ -1949,8 +1949,8 @@ table .master_total_subttl2 {
     display: none;
 }
 
-.company-info a {
-    color: #fff;
+.company-info-sitelink {
+    color: #fff !important;
     padding: 0.5em;
     background: #9d9d9d;
     border-radius: 0.25rem;
@@ -1958,6 +1958,7 @@ table .master_total_subttl2 {
     position: relative;
 }
 
+/* iosのa="tel"対策 */
 .company-info .company-tell a {
     background: none;
     color: #333;

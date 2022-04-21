@@ -81,12 +81,12 @@
       @include('layouts.user.side')
 
       <div class="company-info">
-        <p class="company-tell">SMGアクセア貸し会議室</p>
-        <p>06-6556-6462</p>
+        <p>SMGアクセア貸し会議室</p>
+        <p class="company-tell">06-6556-6462</p>
         <p>平日10時～18時</p>
         <p>kaigi@s-mg.co.jp</p>
         <a href="{{url('https://system.osaka-conference.com/')}}" target="_blank" rel="noopener noreferrer"
-          class="nav-link">
+          class="company-info-sitelink nav-link">
           WEBサイトを見る<span><i class="fas fa-chevron-right"></i></span></a>
       </div>
     </aside>
