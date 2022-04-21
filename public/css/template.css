@@ -1958,7 +1958,7 @@ table .master_total_subttl2 {
     position: relative;
 }
 
-.company-info .company-tell p a {
+.company-info .company-tell a {
     background: none;
     color: #333;
     padding: 0;
