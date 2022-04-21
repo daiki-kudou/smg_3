@@ -375,7 +375,7 @@
               <div class="luggage-cell">
                 <p>事前に預かる荷物<br>(目安)</p>
                 {{ Form::number('luggage_count', $fix->luggage_count,['class'=>'text6 ',
-                'style'=>'width:20%;','autocomplete="off"'] ) }}
+                'style'=>'width:20%;','autocomplete="off"','min'=>0] ) }}
                 <p class="">個</p>
               </div>
               <p class="is-error-luggage_count" style="color: red"></p>

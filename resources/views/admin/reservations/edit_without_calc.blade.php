@@ -358,7 +358,7 @@
             <tr>
               <td class="table-active">事前に預かる荷物<br>（個数）</td>
               <td>
-                {{ Form::text('luggage_count', $reservation->luggage_count,['class'=>'form-control'] ) }}
+                {{ Form::text('luggage_count', $reservation->luggage_count,['class'=>'form-control','min'=>0] ) }}
                 <p class="is-error-luggage_count" style="color: red"></p>
               </td>
             </tr>

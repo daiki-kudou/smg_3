@@ -535,7 +535,7 @@
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
                   {{ Form::number('luggage_count',
-                  $PreReservation->luggage_count,['class'=>'form-control','id'=>'luggage_count'] ) }}
+                  $PreReservation->luggage_count,['class'=>'form-control','id'=>'luggage_count','min'=>0] ) }}
                   <p class='is-error-luggage_count' style=' color: red'></p>
                 </td>
               </tr>

@@ -394,7 +394,7 @@
                       <td class="table-active">事前に預かる荷物<br>（個数）</td>
                       <td>
                         {{ Form::number('cp_master_luggage_count',
-                        $request->cp_master_luggage_count,['class'=>'form-control','id'=>'cp_master_luggage_count'] ) }}
+                        $request->cp_master_luggage_count,['class'=>'form-control','id'=>'cp_master_luggage_count','min'=>0] ) }}
                         <p class="is-error-cp_master_luggage_count" style="color: red"></p>
                       </td>
                     </tr>
@@ -939,7 +939,7 @@
                         <td class="table-active">事前に預かる荷物<br>（個数）</td>
                         <td>
                           {{
-                          Form::number('luggage_count_copied'.$key,$request->cp_master_luggage_count,['class'=>'form-control']
+                          Form::number('luggage_count_copied'.$key,$request->cp_master_luggage_count,['class'=>'form-control','min'=>0]
                           ) }}
                           <p class="{{" is-error-luggage_count_copied".$key}}" style="color: red"></p>
                         </td>
