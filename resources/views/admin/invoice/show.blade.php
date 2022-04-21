@@ -226,7 +226,7 @@
       <table cellpadding="0" cellspacing="0">
         <tr>
           <td class="bill-note-wrap">
-            <p>お振込み先：みずほ銀行　四ツ橋支店　普通 1113739　ｶ)ｴｽｴﾑｼﾞｰ</p>
+            <p>お振込み先：関西みらい銀行　堀江支店　普通　0088187　ｶ)ｴｽｴﾑｼﾞｰ</p>
           </td>
         </tr>
         <tr>

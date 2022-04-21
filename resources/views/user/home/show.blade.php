@@ -1390,7 +1390,7 @@
 <div class="confirm-box mt-5">
   <h3 class="caution_color mb-2 font-weight-bold">振込先案内</h3>
   <p class="p-3 border-wrap2 mb-2">
-    みずほ銀行　四ツ橋支店　普通　1113739　ｶ)ｴｽｴﾑｼﾞｰ</p>
+  関西みらい銀行　堀江支店　普通　0088187　ｶ)ｴｽｴﾑｼﾞｰ</p>
   <p>
     ※該当日が土日祝の場合は直前の平日にお振込み下さい。<br>
     ※振込み手数料はお客様負担となります。<br>
