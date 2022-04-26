@@ -117,9 +117,9 @@
               <li>
                 <div class="selectTime">
                   {{ Form::radio('board_flag', 1, false, ['class'=>'radio-input','id'=>'board_flag']) }}
-                  {{Form::label('board_flag','する')}}
+                  {{Form::label('board_flag','あり')}}
                   {{ Form::radio('board_flag', 0, true, ['class'=>'radio-input', 'id'=>'no_board_flag']) }}
-                  {{Form::label('no_board_flag','しない')}}
+                  {{Form::label('no_board_flag','なし')}}
                 </div>
               </li>
               <li>
