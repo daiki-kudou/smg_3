@@ -93,7 +93,7 @@
           <tr>
             <td class="table-active">案内板</td>
             <td>
-              {{$value['board_flag']==1?"有り":"無し" }}
+              {{$value['board_flag']==1?"あり":"なし" }}
             </td>
           </tr>
           <tr>

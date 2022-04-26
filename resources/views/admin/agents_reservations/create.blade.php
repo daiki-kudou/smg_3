@@ -152,11 +152,11 @@
               <div class="radio-box">
                 <p>
                   <input type="radio" name="board_flag" value="1" id="board_flag" class="mr-1"
-                    {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+                    {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>あり
                 </p>
                 <p class="mr-3">
                   <input type="radio" name="board_flag" value="0" id="no_board_flag" class="mr-1"
-                    {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
+                    {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>なし
                 </p>
               </div>
             </td>

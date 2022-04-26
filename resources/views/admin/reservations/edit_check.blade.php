@@ -84,7 +84,7 @@
           <tr>
             <td class="table-active">案内板</td>
             <td>
-              {{ Form::text('', $data['board_flag']==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('', $data['board_flag']==1?"あり":"なし",['class'=>'form-control', 'readonly'] ) }}
               {{ Form::hidden('board_flag', $data['board_flag'],['class'=>'form-control', 'readonly'] ) }}
             </td>
           </tr>
