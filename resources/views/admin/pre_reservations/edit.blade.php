@@ -276,11 +276,11 @@
               <div class="radio-box">
                 <p>
                   {{Form::radio('board_flag', 1, $PreReservation->board_flag==1?true:false , ['id' => 'board_flag'])}}
-                  {{Form::label('board_flag','有り')}}
+                  {{Form::label('board_flag','あり')}}
                 </p>
                 <p>
                   {{Form::radio('board_flag', 0, $PreReservation->board_flag==0?true:false, ['id' => 'no_board_flag'])}}
-                  {{Form::label('no_board_flag','無し')}}
+                  {{Form::label('no_board_flag','なし')}}
                 </p>
               </div>
             </td>
