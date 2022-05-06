@@ -410,7 +410,7 @@
                       <td class="table-active">事後返送する荷物</td>
                       <td>
                         {{ Form::number('cp_master_luggage_return',
-                        $request->cp_master_luggage_return,['class'=>'form-control','id'=>'cp_master_luggage_return'] )
+                        $request->cp_master_luggage_return,['class'=>'form-control','id'=>'cp_master_luggage_return','min'=>0] )
                         }}
                         <p class="is-error-cp_master_luggage_return" style="color: red"></p>
                       </td>
@@ -955,7 +955,7 @@
                         <td class="table-active">事後返送する荷物</td>
                         <td>
                           {{ Form::number('luggage_return_copied'.$key,
-                          $request->cp_master_luggage_return,['class'=>'form-control'] ) }}
+                          $request->cp_master_luggage_return,['class'=>'form-control','min'=>0] ) }}
                           <p class="{{" is-error-luggage_return_copied".$key}}" style="color: red"></p>
                         </td>
                       </tr>

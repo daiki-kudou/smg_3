@@ -500,7 +500,7 @@
                 <td class="table-active">事後返送する荷物</td>
                 <td>
                   {{ Form::number('luggage_return',
-                  (int)$request->luggage_flag===1?$request->luggage_return:"",['class'=>'form-control','id'=>'luggage_return']
+                  (int)$request->luggage_flag===1?$request->luggage_return:"",['class'=>'form-control','id'=>'luggage_return','min'=>0]
                   ) }}
                   <p class='is-error-luggage_return' style=' color: red'></p>
                 </td>

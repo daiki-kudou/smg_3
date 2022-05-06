@@ -327,7 +327,7 @@
               <li class="m-b10 luggage-border">
                 <div class="luggage-cell">
                   <p>事後返送する荷物</p>
-                  {{ Form::number('luggage_return', '',['class'=>'text6 ', 'style'=>'width: 20%;','autocomplete="off"']
+                  {{ Form::number('luggage_return', '',['class'=>'text6 ', 'style'=>'width: 20%;','autocomplete="off"','min'=>0]
                   ) }}
                   <p class="">個</p>
                 </div>

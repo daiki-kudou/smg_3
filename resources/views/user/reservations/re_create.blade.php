@@ -400,7 +400,7 @@
               <div class="luggage-cell">
                 <p>事後返送する荷物</p>
                 {{ Form::number('luggage_return', $fix->luggage_return,['class'=>'text6 ', 'style'=>'width:
-                20%;','autocomplete="off"'] ) }}
+                20%;','autocomplete="off"','min'=>0] ) }}
                 <p class="">個</p>
               </div>
               <p class="is-error-luggage_return" style="color: red"></p>

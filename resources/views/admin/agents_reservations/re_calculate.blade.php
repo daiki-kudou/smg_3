@@ -440,8 +440,8 @@
             <tr>
               <td>事後返送する荷物</td>
               <td>
-                {{ Form::text('luggage_return',
-                empty($all_requests['luggage_return'])?"":$all_requests['luggage_return'],['class'=>'form-control'] ) }}
+                {{ Form::number('luggage_return',
+                empty($all_requests['luggage_return'])?"":$all_requests['luggage_return'],['class'=>'form-control','min'=>0] ) }}
 
               </td>
             </tr>

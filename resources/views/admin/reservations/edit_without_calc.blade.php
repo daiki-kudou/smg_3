@@ -372,7 +372,7 @@
             <tr>
               <td class="table-active">事後返送する荷物</td>
               <td>
-                {{ Form::text('luggage_return', $reservation->luggage_return,['class'=>'form-control'] ) }}
+                {{ Form::number('luggage_return', $reservation->luggage_return,['class'=>'form-control','min'=>0] ) }}
                 <p class="is-error-luggage_return" style="color: red"></p>
               </td>
             </tr>

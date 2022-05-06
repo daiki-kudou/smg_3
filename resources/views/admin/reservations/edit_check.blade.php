@@ -257,7 +257,7 @@
             <tr>
               <td class="table-active">事後返送する荷物</td>
               <td>
-                {{ Form::text('luggage_return', $data['luggage_return'],['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::text('luggage_return', $data['luggage_return'],['class'=>'form-control', 'readonly','min'=>0] ) }}
               </td>
             </tr>
             <tr>

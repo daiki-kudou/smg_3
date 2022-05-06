@@ -291,7 +291,7 @@ $(function () {
             "</tr>" +
             "<tr> " +
             "<td class='table-active'>事後返送する荷物</td>" +
-            "<td class=''><input type='number' id='luggage_return' class='form-control luggage_return' placeholder='個数入力' name='luggage_return' readonly>" +
+            "<td class=''><input type='number' id='luggage_return' class='form-control luggage_return' placeholder='個数入力' name='luggage_return' readonly min=0>" +
             "<p class='is-error-luggage_return' style='color: red'></p>" +
             "</td>" +
             "</tr>" +
