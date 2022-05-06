@@ -364,7 +364,7 @@
               <td class="table-active">事前に預かる荷物<br>（個数）</td>
               <td>
                 {{ Form::number('luggage_count',
-                !empty($value['luggage_count'])?$value['luggage_count']:"",['class'=>'form-control','id'=>'luggage_count']
+                ($value['luggage_count']??null),['class'=>'form-control','id'=>'luggage_count','min'=>0]
                 ) }}
                 <p class="is-error-luggage_count" style="color: red"></p>
               </td>
@@ -381,7 +381,7 @@
               <td class="table-active">事後返送する荷物</td>
               <td>
                 {{ Form::number('luggage_return',
-                !empty($value['luggage_return'])?$value['luggage_return']:"",['class'=>'form-control','id'=>'luggage_return']
+                !empty($value['luggage_return'])?$value['luggage_return']:"",['class'=>'form-control','id'=>'luggage_return','min'=>0]
                 ) }}
                 <p class="is-error-luggage_return" style="color: red"></p>
               </td>

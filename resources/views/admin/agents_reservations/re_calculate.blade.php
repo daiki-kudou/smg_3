@@ -427,7 +427,7 @@
               <td>事前に預かる荷物<br>（個数）</td>
               <td>
                 {{ Form::text('luggage_count',
-                empty($all_requests['luggage_count'])?"":$all_requests['luggage_count'],['class'=>'form-control'] ) }}
+                empty($all_requests['luggage_count'])?"":$all_requests['luggage_count'],['class'=>'form-control','min'=>0] ) }}
               </td>
             </tr>
             <tr>
@@ -440,8 +440,8 @@
             <tr>
               <td>事後返送する荷物</td>
               <td>
-                {{ Form::text('luggage_return',
-                empty($all_requests['luggage_return'])?"":$all_requests['luggage_return'],['class'=>'form-control'] ) }}
+                {{ Form::number('luggage_return',
+                empty($all_requests['luggage_return'])?"":$all_requests['luggage_return'],['class'=>'form-control','min'=>0] ) }}
 
               </td>
             </tr>

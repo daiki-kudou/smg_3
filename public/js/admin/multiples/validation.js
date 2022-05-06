@@ -118,8 +118,8 @@ $(function () {
       unknown_user_mobile: { number: true, minlength: 11 },
       unknown_user_tel: { number: true, minlength: 10 },
       tel: { number: true, minlength: 11 },
-      luggage_count: { number: true, range: [1, 49] },
-      luggage_return: { number: true, range: [1, 49] },
+      luggage_count: { number: true, range: [0, 49] },
+      luggage_return: { number: true, range: [0, 49] },
       cost: { number: true, range: [1, 100] },
     },
     messages: {
@@ -322,11 +322,11 @@ $(function () {
         },
         [luggagecountcopied]: {
           number: true,
-          range: [1, 49],
+          range: [0, 49],
         },
         [luggagereturncopied]: {
           number: true,
-          range: [1, 49],
+          range: [0, 49],
         },
         [eventname1copied]: {
           byte_check: true,
@@ -404,11 +404,11 @@ $(function () {
         },
         [luggagecountcopied]: {
           number: true,
-          range: [1, 49],
+          range: [0, 49],
         },
         [luggagereturncopied]: {
           number: true,
-          range: [1, 49],
+          range: [0, 49],
         },
         [luggagepricecopied]: {
           number: true,
@@ -550,11 +550,11 @@ $(function () {
         },
         [luggagecountcopied]: {
           number: true,
-          range: [1, 49],
+          range: [0, 49],
         },
         [luggagereturncopied]: {
           number: true,
-          range: [1, 49],
+          range: [0, 49],
         },
         [luggagepricecopied]: {
           number: true,
