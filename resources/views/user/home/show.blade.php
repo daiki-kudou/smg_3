@@ -175,7 +175,7 @@
             <td class="table-active"><label for="direction">案内板</label></td>
             <td class="d-flex justify-content-between">
               <p>
-                {{ $reservation->board_flag == 1 ? '有り' : '無し' }}
+                {{ $reservation->board_flag == 1 ? 'あり' : 'なし' }}
               </p>
             </td>
           </tr>

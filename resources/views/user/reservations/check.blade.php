@@ -81,7 +81,7 @@
         <td class="">
           <ul>
             <li>
-              {{$request->board_flag==1?'する':'しない'}}
+              {{$request->board_flag==1?'あり':'なし'}}
               {{ Form::hidden('board_flag', $request->board_flag) }}
             </li>
             @if ($request->board_flag==1)

@@ -185,12 +185,12 @@
                         <p>
                           {{ Form::radio('cp_master_board_flag', 1, (int)$request->cp_master_board_flag===1?true:false,
                           ['id'=>'cp_master_board_flag1']) }}
-                          {{Form::label('cp_master_board_flag1','有り')}}
+                          {{Form::label('cp_master_board_flag1','あり')}}
                         </p>
                         <p>
                           {{ Form::radio('cp_master_board_flag', 0, (int)$request->cp_master_board_flag===0?true:false,
                           ['id'=>'cp_master_board_no_board_flag']) }}
-                          {{Form::label('cp_master_board_no_board_flag','無し')}}
+                          {{Form::label('cp_master_board_no_board_flag','なし')}}
                         </p>
                       </div>
                     </td>
@@ -730,12 +730,12 @@
                           <p>
                             {{ Form::radio('board_flag_copied'.$key, 1, $request->cp_master_board_flag==1?true:false,
                             ['id'=>'board_flag_copied'.$key]) }}
-                            {{Form::label('board_flag1'.$key,'有り')}}
+                            {{Form::label('board_flag1'.$key,'あり')}}
                           </p>
                           <p>
                             {{ Form::radio('board_flag_copied'.$key, 0, $request->cp_master_board_flag==0?true:false,
                             ['id'=>'board_flag_copied_off'.$key]) }}
-                            {{Form::label('board_flag_copied_off'.$key,'無し')}}
+                            {{Form::label('board_flag_copied_off'.$key,'なし')}}
                           </p>
                         </div>
                       </td>

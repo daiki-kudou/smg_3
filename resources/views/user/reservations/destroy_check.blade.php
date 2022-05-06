@@ -74,7 +74,7 @@
         <td>
           <ul class="from-list">
             <li>
-              {{$slctSession[0]['board_flag']==1?"する":"しない"}}
+              {{$slctSession[0]['board_flag']==1?"あり":"なし"}}
             </li>
             @if ($slctSession[0]['board_flag']==1)
 

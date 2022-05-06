@@ -125,12 +125,12 @@
                 <p>
                   <input type="radio" name="board_flag" value="1" id="board_flag"
                     {{$value['board_flag']==1?"checked":""}}>
-                  {{Form::label('board_flag','有り')}}
+                  {{Form::label('board_flag','あり')}}
                 </p>
                 <p>
                   <input type="radio" name="board_flag" value="0" id="no_board_flag"
                     {{$value['board_flag']==0?"checked":""}}>
-                  {{Form::label('no_board_flag','無し')}}
+                  {{Form::label('no_board_flag','なし')}}
                 </p>
               </div>
             </td>

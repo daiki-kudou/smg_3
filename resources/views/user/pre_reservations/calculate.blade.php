@@ -746,15 +746,18 @@
   </p>
 
   <div class="caution py-3 mt-3">
-    <div class="d-flex justify-content-center">
+    <!-- <div class="d-flex justify-content-center">
       <p class="checkbox-txt">
         <label><input id="" name="flow" type="checkbox" value="" class="mr-1">流れを確認しました</label>
       </p>
     </div>
-    <p class="is-error-flow text-center mb-2" style="color: red"></p>
+    <p class="is-error-flow text-center mb-2" style="color: red"></p> -->
+      <p class="text-center">
+      <a target="_blank" rel="noopener noreferrer" href="{{ asset('/img/terms_of_service.pdf') }}">利用規約</a>と利用の流れについての同意
+      </p>
     <div class="d-flex justify-content-center">
       <p class="checkbox-txt">
-        <label><input id="" name="policy" type="checkbox" value="" class="mr-1">利用規約に同意します</label>
+        <label><input id="" name="policy" type="checkbox" value="" class="mr-1">同意する</label>
       </p>
     </div>
     <p class="is-error-policy text-center" style="color: red"></p>

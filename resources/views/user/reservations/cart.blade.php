@@ -269,12 +269,13 @@
       </dd>
       <dd class="caution-area">
         <div class="page-text">
-          <p class="checkbox-txt">
+          <!-- <p class="checkbox-txt">
             <label><input id="" name="flow" type="checkbox" value="">今後の流れを確認しました</label>
           <p class="is-error-flow" style="color: red"></p>
-          </p>
+          </p> -->
+          <a target="_blank" rel="noopener noreferrer" href="{{ asset('/img/terms_of_service.pdf') }}">利用規約</a>と利用の流れについての同意
           <p class="checkbox-txt">
-            <label><input id="" name="policy" type="checkbox" value="">利用規約に同意します</label>
+            <label><input id="" name="policy" type="checkbox" value="">同意する</label>
           <p class="is-error-policy" style="color: red"></p>
           </p>
         </div>
