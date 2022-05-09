@@ -9,30 +9,30 @@ use Illuminate\Queue\SerializesModels;
 
 class UserReqLeg extends Mailable
 {
-  use Queueable, SerializesModels;
+	use Queueable, SerializesModels;
 
-  /**
-   * Create a new message instance.
-   *
-   * @return void
-   */
-  public function __construct($params)
-  {
-    $this->params = $params;
-  }
+	/**
+	 * Create a new message instance.
+	 *
+	 * @return void
+	 */
+	public function __construct($params)
+	{
+		$this->params = $params;
+	}
 
 
-  /**
-   * Build the message.
-   *
-   * @return $this
-   */
-  public function build()
-  {
-    return $this->view('maileclipse::templates.userReqLeg')
-      ->subject('SMGアクセア貸し会議室　会員登録について')
-      ->with([
-        'params' => $this->params,
-      ]);
-  }
+	/**
+	 * Build the message.
+	 *
+	 * @return $this
+	 */
+	public function build()
+	{
+		return $this->view('maileclipse::templates.userReqLeg')
+			->subject('会員仮登録のお知らせ（SMG貸し会議室）')
+			->with([
+				'params' => $this->params,
+			]);
+	}
 }
