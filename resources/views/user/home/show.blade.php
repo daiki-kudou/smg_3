@@ -300,51 +300,51 @@
                         </div>
                     @endif
 
-                    @if ($reservation->luggage_count || ReservationHelper::formatDate($reservation->luggage_arrive) || $reservation->luggage_return)
-                        <div class='luggage'>
-                            <table class='table table-bordered' style="table-layout:fixed;">
-                                <thead>
-                                    <tr>
-                                        <th colspan='2'>
-                                            <p class="title-icon py-1">
-                                                <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
-                                            </p>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="table-active"><label for="preDelivery">荷物預かり　</label></td>
-                                        <td>{{ (int) $reservation->luggage_flag === 1 ? '有り' : '無し' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-active"><label for="preDelivery">事前にお預りする荷物(目安)</label></td>
-                                        <td>
-                                            @if ($reservation->luggage_flag == 1)
-                                                {{ $reservation->luggage_count }}個
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-active"><label for="preDelivery">事前荷物の到着日</label></td>
-                                        <td>
-                                            @if ($reservation->luggage_flag == 1)
-                                                {{ ReservationHelper::formatDate($reservation->luggage_arrive) }}
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-active"><label for="preDelivery">事後返送するお荷物</label></td>
-                                        <td>
-                                            @if ($reservation->luggage_flag == 1)
-                                                {{ ReservationHelper::formatDate($reservation->luggage_arrive) }}
-                                            @endif
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    @endif
+                    {{-- @if ($reservation->luggage_count || ReservationHelper::formatDate($reservation->luggage_arrive) || $reservation->luggage_return) --}}
+                    <div class='luggage'>
+                        <table class='table table-bordered' style="table-layout:fixed;">
+                            <thead>
+                                <tr>
+                                    <th colspan='2'>
+                                        <p class="title-icon py-1">
+                                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+                                        </p>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="table-active"><label for="preDelivery">荷物預かり　</label></td>
+                                    <td>{{ (int) $reservation->luggage_flag === 1 ? '有り' : '無し' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-active"><label for="preDelivery">事前にお預りする荷物(目安)</label></td>
+                                    <td>
+                                        @if ($reservation->luggage_flag == 1)
+                                            {{ $reservation->luggage_count }}個
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="table-active"><label for="preDelivery">事前荷物の到着日</label></td>
+                                    <td>
+                                        @if ($reservation->luggage_flag == 1)
+                                            {{ ReservationHelper::formatDate($reservation->luggage_arrive) }}
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="table-active"><label for="preDelivery">事後返送するお荷物</label></td>
+                                    <td>
+                                        @if ($reservation->luggage_flag == 1)
+                                            {{ $reservation->luggage_return }}
+                                        @endif
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    {{-- @endif --}}
 
 
                     @if ($reservation->eat_in != 0)
@@ -434,7 +434,7 @@
                                                                     '/' .
                                                                     $reservation->bills->sortBy(
                                                                             "
-                                                                                                                                                                                                                                                                                                                                                                                                  id",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      id",
                                                                         )->first()->id .
                                                                     '/0',
                                                             ) }}"
@@ -451,7 +451,7 @@
                                                                 '/user/home/receipt/' .
                                                                     $reservation->bills->sortBy(
                                                                             "
-                                                                                                                                                                                                                                                                                                                                                                                                  id",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      id",
                                                                         )->first()->id .
                                                                     '/0',
                                                             ) }}"
