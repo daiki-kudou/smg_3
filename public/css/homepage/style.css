@@ -482,6 +482,7 @@ form table td .text6 {
 }
 
 .table-sum .checkbox-txt {
+    margin-right: 0;
     font-size: 1.8rem;
 }
 .table-sum .checkbox-txt span {

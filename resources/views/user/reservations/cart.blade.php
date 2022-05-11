@@ -231,7 +231,7 @@
                                     <span>小計(税抜)</span>
                                     {{ number_format(ReservationHelper::numTimesNumArrays($sessions, 'master')) }}円
                                 </p>
-                                <p class="checkbox-txt">
+                                <p class="">
                                     <span>消費税</span>
                                     {{ number_format(ReservationHelper::getTax(ReservationHelper::numTimesNumArrays($sessions, 'master'))) }}円
                                 </p>
