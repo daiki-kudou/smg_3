@@ -151,6 +151,12 @@
                                         <p class="title-icon">
                                             <i class="fas fa-clipboard icon-size" aria-hidden="true"></i>案内版
                                         </p>
+                                        <p>
+                                        <a target="_blank" rel="noopener noreferrer" href="https://system.osaka-conference.com/welcomboard/">
+                                        <i class="fas fa-external-link-alt form-icon"></i>
+                                        案内板サンプルはこちら
+                                        </a>
+                                        </p>
                                     </div>
                                 </td>
                             </tr>
