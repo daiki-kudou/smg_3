@@ -349,10 +349,11 @@
             <span class="sumText">
               {{number_format(ReservationHelper::taxAndPrice($slctSession[0]['master']))}}</span>
             <span class="checkbox-txt">円</span>
-            <p class="txtRight txtRed">
-              ※上記「総額」は確定金額ではありません。<br>
-              変更が生じる場合は弊社にて金額を修正し、改めて確認のご連絡をさせて頂きます。</p>
-            <p class="txtRight txtRed">※荷物預かりサービスをご利用の場合、上記「総額」に既定のサービス料金が加算されます。</p>
+            <p class="txtRed txtLeft">
+              ※上記「総額」は確定金額ではありません。
+              変更が生じる場合は、弊社にて金額修正し、改めて確認のご連絡をさせて頂きます。<br>
+              ※荷物預かりサービスをご利用の場合、上記「総額」に規定のサービス料金が加算されます。
+            </p>
           </td>
         </tr>
       </tbody>
