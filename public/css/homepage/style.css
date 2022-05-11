@@ -32,6 +32,10 @@ option:disabled {
     color: #EF6243;
 }
 
+.mb-15 {
+    margin-bottom: 15px;
+}
+
 
 .d-none {
     display: none;
