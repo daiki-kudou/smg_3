@@ -38,7 +38,7 @@
       <table class="table table-bordered calender-flame" style="table-layout: fixed">
         <thead>
           <tr class="calender-head">
-            <td class="field-title">日付</td>
+            <td class="field-title">&nbsp;&nbsp;</td>
             <td colspan="2"><span class="time-item">08:00</span></td>
             <td colspan="2"><span class="time-item">09:00</span></td>
             <td colspan="2"><span class="time-item">10:00</span></td>
@@ -98,7 +98,7 @@
         </tbody>
         <tfoot>
           <tr class="calender-head">
-            <td class="field-title">日付</td>
+            <td class="field-title">&nbsp;&nbsp;</td>
             <td colspan="2"><span class="time-item">08:00</span></td>
             <td colspan="2"><span class="time-item">09:00</span></td>
             <td colspan="2"><span class="time-item">10:00</span></td>

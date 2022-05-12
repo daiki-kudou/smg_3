@@ -94,7 +94,8 @@
     </article>
     @if((int)$request->room04===10||(int)$request->room04===11||(int)$request->room04===12||(int)$request->room04===13||(int)$request->room04===16||(int)$request->room04===17||(int)$request->room04===19||(int)$request->room04===20)
     <div class="caution-area m-t20">
-      <p class="txtCenter caution-text">提携会場のため、一度弊社にお問い合わせください。</p>
+      <p class="txtCenter caution-text">提携会場のため、一度弊社にお問い合わせください。<br>
+      お問合せ済みの方はこのまま下記の予約フォームに進んで下さい。</p>
     </div>
     @else
     <div class="calenderframe">

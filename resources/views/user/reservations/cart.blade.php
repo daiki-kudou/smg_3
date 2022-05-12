@@ -147,7 +147,7 @@
                                                 @endforeach
                                                 @if ($reservation[0]['luggage_count'] || $reservation[0]['luggage_arrive'] || $reservation[0]['luggage_return'])
                                                     <li>
-                                                        <p>荷持預り/返送</p>
+                                                        <p>荷物預り/返送</p>
                                                         <p>500<span>円</span></p>
                                                     </li>
                                                 @endif
@@ -183,8 +183,7 @@
                                 <tr>
 
                                     <td colspan="2" class="text-right checkbox-txt"><span>小計(税抜)</span>
-                                        <span
-                                            class="sumText">{{ number_format(ReservationHelper::taxAndPrice($reservation[0]['master'])) }}</span><span>円</span>
+                                        <span class="sumText">{{ number_format(ReservationHelper::taxAndPrice($reservation[0]['master'])) }}</span><span>円</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -216,7 +215,7 @@
                                             <p><span
                                                     class="f-wb">{{ ReservationHelper::formatDateJA($t_reservation[0]['date']) }}</span><br
                                                     class="sp">
-                                                {{-- {{ReservationHelper::getVenueForUser($t_reservation[0]["venue_id"])}} --}}
+                                                 {{ReservationHelper::getVenueForUser($t_reservation[0]["venue_id"])}}
                                                 会場ご利用料
                                             </p>
                                             <p>{{ number_format($t_reservation[0]['master']) }}<span>円</span></p>
@@ -231,7 +230,7 @@
                                     <span>小計(税抜)</span>
                                     {{ number_format(ReservationHelper::numTimesNumArrays($sessions, 'master')) }}円
                                 </p>
-                                <p class="checkbox-txt">
+                                <p class="">
                                     <span>消費税</span>
                                     {{ number_format(ReservationHelper::getTax(ReservationHelper::numTimesNumArrays($sessions, 'master'))) }}円
                                 </p>
@@ -240,14 +239,13 @@
                         <tr>
                             <td colspan="2">
                                 <span class="checkbox-txt">総額(税込)</span>
-                                <span class="sumText">
-                                    {{ number_format(ReservationHelper::taxAndPrice(ReservationHelper::numTimesNumArrays($sessions, 'master'))) }}
-                                </span>
+                                <span class="sumText">{{ number_format(ReservationHelper::taxAndPrice(ReservationHelper::numTimesNumArrays($sessions, 'master'))) }}</span>
                                 <span>円</span>
-                                <p class="txtRight txtRed">
-                                    ※上記「総額」は確定金額ではありません。<br>
-                                    変更が生じる場合は、弊社にて金額修正し、改めて確認のご連絡をさせて頂きます。<br>
-                                    ※荷物預かりサービスをご利用の場合、上記「総額」に規定のサービス料金が加算されます。</p>
+                                <p class="txtRed txtLeft">
+                                ※上記「総額」は確定金額ではありません。
+                                変更が生じる場合は、弊社にて金額修正し、改めて確認のご連絡をさせて頂きます。<br>
+                                ※荷物預かりサービスをご利用の場合、上記「総額」に規定のサービス料金が加算されます。
+                                </p>
                             </td>
                         </tr>
                     </tbody>
@@ -262,10 +260,10 @@
                     </dd>
                     <dd>
                         弊社で受付が完了しましたら「予約完了連絡」をお送りします。<br>
-                        <span class="txtRed">弊社からの予約完了連絡が到着した時点で「予約完了(予約確定)となります。」</span>
+                        <span class="txtRed">弊社からの予約完了連絡が到着した時点で「予約完了（予約確定）」となります。</span>
                     </dd>
                     <dd>
-                        原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生います。申込前に「<a
+                        原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生します。申込前に「<a
                             href="https://system.osaka-conference.com/cancelpolicy/">キャンセルポリシー</a>」
                         をご確認下さい。
                     </dd>

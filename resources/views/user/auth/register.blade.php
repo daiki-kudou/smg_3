@@ -198,13 +198,11 @@
         <th><label for="post_code">郵便番号</label><span class="txtRed c-block">＊</span></th>
         <td>
           <div class="form-cell">
-            <p>
-              <span class="postal-p">〒</span>
+              <!-- <span class="postal-p">〒</span> -->
               {{ Form::text('post_code',(!empty($session['post_code'])?$session['post_code']:"")) }}
-            </p>
             <button type="button" id="post_code_search">住所検索</button>
           </div>
-          <p>※半角数字、ハイフンなしで入力下さい。</p>
+          <p style="margin-top: 10px;">※半角数字、ハイフンなしで入力下さい。</p>
           <p class="is-error-post_code" style="color: red"></p>
         </td>
       </tr>
@@ -298,7 +296,7 @@
       <tr>
         <th>パスワード確認<span class="txtRed">＊</span></th>
         <td>
-          {{ Form::password('password_confirmation', null, ['class' => 'text2']) }}
+          {{ Form::password('password_confirmation', ['class' => 'text2'], null) }}
           <p class="is-error-password_confirmation" style="color: red"></p>
           <p>※確認のため、もう一度パスワードを入力してください。</p>
         </td>

@@ -32,6 +32,10 @@ option:disabled {
     color: #EF6243;
 }
 
+.mb-15 {
+    margin-bottom: 15px;
+}
+
 
 .d-none {
     display: none;
@@ -473,7 +477,7 @@ form table td .text6 {
     font-size: 3rem;
     font-weight: bold;
     color: #EF6243;
-    margin-right: 0.1em;
+    /* margin-right: 0.1em; */
 }
 
 .table-sum .totalsum-ttl {
@@ -482,6 +486,7 @@ form table td .text6 {
 }
 
 .table-sum .checkbox-txt {
+    margin-right: 0;
     font-size: 1.8rem;
 }
 .table-sum .checkbox-txt span {
@@ -610,9 +615,10 @@ header div.contents {
 #post_code_search {
     margin: 0;
     font-size: 1rem;
-    width: 100px;
+    width: 100px !important;
     padding: 0;
     margin-left: 5px;
+    /* box-shadow: none; */
 }
 
 /* スピナー -------------------------------*/
