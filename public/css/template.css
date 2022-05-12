@@ -870,12 +870,6 @@ table td.table_column p:last-child {
     margin-left: 5px;
 }
 
-/* 
-.checkbox dt {
-    margin-bottom: 0;
-    padding-left: 1em;
-} */
-
 .confirm-box {
     background: #fff;
     /* margin: 0 3%; */
@@ -910,8 +904,6 @@ table td.table_column p:last-child {
     background: rgb(53 167 167 / 80%);
     table-layout: fixed;
     color: #fff;
-    /* padding: 10px; */
-    /* border: solid 1px #ced4da; */
 }
 
 .bill_head .table {
@@ -954,8 +946,6 @@ table td.table_column p:last-child {
 }
 
 .register-list-item {
-    /* display: flex; */
-    /* align-items: center; */
     padding-left: 40px;
     position: relative;
     margin-bottom: 0;
@@ -2266,6 +2256,28 @@ table.dataTable.no-footer {
 .readonly{
     background-color: #ccc!important;
 }
+
+/* メールアドレス変更 */
+.mail-input {
+    width: 350px;
+}
+
+.mail-btn {
+    width: 100px;
+}
+
+
+@media screen and (max-width: 540px) {
+    .mail-input {
+        width: 100%;
+    }
+    
+    .mail-btn {
+        width: 100px;
+    }
+
+}
+
 
 
 
