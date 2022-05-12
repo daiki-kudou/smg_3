@@ -198,13 +198,11 @@
         <th><label for="post_code">郵便番号</label><span class="txtRed c-block">＊</span></th>
         <td>
           <div class="form-cell">
-            <p>
-              <span class="postal-p">〒</span>
+              <!-- <span class="postal-p">〒</span> -->
               {{ Form::text('post_code',(!empty($session['post_code'])?$session['post_code']:"")) }}
-            </p>
             <button type="button" id="post_code_search">住所検索</button>
           </div>
-          <p>※半角数字、ハイフンなしで入力下さい。</p>
+          <p style="margin-top: 10px;">※半角数字、ハイフンなしで入力下さい。</p>
           <p class="is-error-post_code" style="color: red"></p>
         </td>
       </tr>

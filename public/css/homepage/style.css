@@ -615,9 +615,10 @@ header div.contents {
 #post_code_search {
     margin: 0;
     font-size: 1rem;
-    width: 100px;
+    width: 100px !important;
     padding: 0;
     margin-left: 5px;
+    /* box-shadow: none; */
 }
 
 /* スピナー -------------------------------*/
