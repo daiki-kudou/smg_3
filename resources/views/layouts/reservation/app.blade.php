@@ -257,7 +257,7 @@
                 alt="HOME"></span></a>
           <meta itemprop="position" content="1">
         </li>
-        @if(Request::is('user/preusers/*'))
+        @if(Request::is('user/preusers*'))
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
           <a itemscope itemtype="http://schema.org/Thing" itemprop="item"
             href="https://system.osaka-conference.com/calendar/">
