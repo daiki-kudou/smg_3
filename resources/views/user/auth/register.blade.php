@@ -296,7 +296,7 @@
       <tr>
         <th>パスワード確認<span class="txtRed">＊</span></th>
         <td>
-          {{ Form::password('password_confirmation', null, ['class' => 'text2']) }}
+          {{ Form::password('password_confirmation', ['class' => 'text2'], null) }}
           <p class="is-error-password_confirmation" style="color: red"></p>
           <p>※確認のため、もう一度パスワードを入力してください。</p>
         </td>
