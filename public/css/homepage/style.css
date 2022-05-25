@@ -12,6 +12,10 @@ option:disabled {
     font-size: 0.9rem;
 }
 
+.f-s20 {
+    font-size: 1.5rem;
+}
+
 .f-wb {
     font-weight: bold;
 }
@@ -53,9 +57,6 @@ ul.tagBtn li a {
     line-height: 1;
 }
 
-ul.tagBtn li:nth-child(1) a {
-    /* height: 110px; */
-}
 
 ul.tagBtn li:nth-child(2) a {
     height: 100px;
@@ -141,7 +142,6 @@ header .headerInfo {
 }
 
 .table-scroll {
-    /* overflow-x: scroll; */
     white-space: nowrap;
 }
 
@@ -181,13 +181,8 @@ header .headerInfo {
     line-height: 1.4;
 }
 
-.wrapper {
-    /* overflow: inherit; */
-}
-
 .contents {
     max-width: 1000px;
-    /* margin: 0 auto; */
 }
 
 .cart_area {
@@ -234,7 +229,6 @@ header .headerInfo {
 .confirm-btn {
     min-width: 300px;
     background: #EF6243;
-    /* padding: 0.3em 5em; */
     padding: 0.4em 0em;
     color: #fff;
     box-shadow: 0 3px 0 #BE483C;
@@ -268,10 +262,16 @@ header .headerInfo {
     margin-right: 20px;
 }
 
-.luggage-border {
+.luggage-exp {
+    border: 1px solid #a6a6a6;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* .luggage-border {
     border-top: 1px solid #ddd;
     padding-top: 20px;
-}
+} */
 
 .luggage-cell input {
     margin: 0 5px;
@@ -305,8 +305,6 @@ header .headerInfo {
 .link-btn {
     min-width: 300px;
     background: #3E4B5B;
-    /* padding: 0.3em 1.5em; */
-    /* padding: 0.3em 5em; */
     padding: 0.4em 0em;
     color: #fff;
     box-shadow: 0 3px 0 #282828;
@@ -325,7 +323,6 @@ header .headerInfo {
 .link-btn2 {
     background: #EF6243;
     padding: 0.3em 5em;
-    /* padding: 0.3em 2em; */
     color: #fff;
     box-shadow: 0 3px 0 #BE483C;
 }
@@ -337,7 +334,6 @@ header .headerInfo {
 .link-btn3 {
     min-width: 300px;
     background: #35A7A7;
-    /* padding: 0.3em 1.5em; */
     padding: 0.3em 0em;
     color: #fff;
     box-shadow: 0 3px 0 #288282;
@@ -477,7 +473,6 @@ form table td .text6 {
     font-size: 3rem;
     font-weight: bold;
     color: #EF6243;
-    /* margin-right: 0.1em; */
 }
 
 .table-sum .totalsum-ttl {
@@ -524,7 +519,6 @@ form table th {
 }
 
 .option-list li p:first-child {
-    /* width: 60%; */
     margin-right: 10px;
 }
 
@@ -569,20 +563,6 @@ form table th {
     display: flex;
 }
 
-/* .cart-box {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 2em;
-}
-
-.cart-box li:last-child {
-    margin-left: 1em;
-}
-
-.cart-box a {
-    color: #fff;
-} */
-
 header div.contents {
     position: relative;
 }
@@ -618,11 +598,9 @@ header div.contents {
     width: 100px !important;
     padding: 0;
     margin-left: 5px;
-    /* box-shadow: none; */
 }
 
 /* スピナー -------------------------------*/
-
 #fullOverlay {
     position: absolute;
     left: 0;
@@ -761,6 +739,12 @@ header div.contents {
     padding: 5px 15px;
 }
 
+
+
+
+
+
+
 @media screen and (max-width: 750px) {
     .cart_area {
         top: 170px;
@@ -811,7 +795,6 @@ header div.contents {
     }
 
     .selectTime {
-        /* margin-left: -20px; */
         display: block;
     }
 
@@ -833,29 +816,14 @@ header div.contents {
         width: 100%;
     }
 
-    /* header .logo {
-        position: absolute;
-        top: -14px;
-        left: 15px;
-        padding: 0;
-    }
-    header nav {
-        top: 85px;
-    } */
-
-
-
     .head-login {
         position: absolute;
-        /* right: 190px; */
-        /* top: 48px; */
         right: 134px;
         top: 18px;
         z-index: 550;
         text-align: center;
         border: 1px solid #EF6243;
         border-radius: 30px;
-        /* padding: 2px 15px; */
         padding: 2px 9px 2px 7px;
         font-size: 11px;
         font-weight: bold;
@@ -866,7 +834,6 @@ header div.contents {
     }
 
     .head-mail {
-        /* top: 48px; */
         right: 65px;
     }
 
