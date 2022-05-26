@@ -381,7 +381,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                  <td class="table-active">事前に預かる荷物<br>(目安)</td>
                   <td>
                     {{ Form::number('cp_master_luggage_count',
                     '',['class'=>'form-control','id'=>'cp_master_luggage_count','min'=>0] ) }}
@@ -1033,7 +1033,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                    <td class="table-active">事前に預かる荷物<br>(目安)</td>
                     <td>
                       {{ Form::number('luggage_count_copied'.$key,
                       $pre_reservation->luggage_count,['class'=>'form-control','min'=>0] ) }}

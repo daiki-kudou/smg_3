@@ -236,7 +236,7 @@
                                 </tr>
                                 @if ($value['luggage_count'] && $value['luggage_flag'] == 1)
                                     <tr>
-                                        <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                                        <td class="table-active">事前に預かる荷物<br>(目安)</td>
                                         <td>
                                             {{ $value['luggage_count'] }}
                                         </td>

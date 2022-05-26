@@ -341,7 +341,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                                    <td class="table-active">事前に預かる荷物<br>(目安)</td>
                                     <td>
                                         @if ($master_info['luggage_flag'] == 1)
                                             {{ Form::text('luggage_count', $master_info['luggage_count'], ['class' => 'form-control', 'readonly', 'min' => 0]) }}

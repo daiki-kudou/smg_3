@@ -424,7 +424,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>事前に預かる荷物<br>（個数）</td>
+              <td>事前に預かる荷物<br>(目安)</td>
               <td>
                 {{ Form::text('luggage_count',
                 empty($all_requests['luggage_count'])?"":$all_requests['luggage_count'],['class'=>'form-control','min'=>0] ) }}
