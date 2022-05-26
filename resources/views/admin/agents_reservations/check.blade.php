@@ -324,7 +324,7 @@
                                 <tr>
                                     <th colspan="2">
                                         <p class="title-icon">
-                                            <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預り
+                                            <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預かり
                                         </p>
                                     </th>
                                 </tr>

@@ -419,7 +419,7 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>荷物預り</th>
+              <th colspan='2'>荷物預かり</th>
             </tr>
           </thead>
           <tbody>

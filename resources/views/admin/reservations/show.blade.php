@@ -318,7 +318,7 @@
                                 <tr>
                                     <th colspan='2'>
                                         <p class="title-icon">
-                                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+                                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
                                         </p>
                                     </th>
                                 </tr>
@@ -353,7 +353,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="table-active"><label for="">荷物預り料金(税抜)</label></td>
+                                    <td class="table-active"><label for="">荷物預かり料金(税抜)</label></td>
                                     <td>
                                         @if ($reservation->luggage_price && $reservation->luggage_flag == 1)
                                             {{ number_format($reservation->luggage_price) . '円' }}
