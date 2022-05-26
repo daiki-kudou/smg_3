@@ -450,6 +450,7 @@
         dt.setDate(dt.getDate() - 1);
         var max_date = dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
         $("#datepicker2").datepicker({
+          showButtonPanel: true,
           dateFormat: 'yy-mm-dd',
             showOn: "both",
             buttonImage: "https://system.osaka-conference.com/img/icon_calender.png",
@@ -484,6 +485,25 @@
             }
           },
 
+          // クリアボタンの表示
+          showButtonPanel: true,
+          beforeShow: function( input ) {  
+              setTimeout(function() {  
+                  var buttonPane = $( input )  
+                      .datepicker( "widget" )  
+                      .find( ".ui-datepicker-buttonpane" );  
+        
+                  var btn = $('<button type="button">クリア</button>');  
+                  btn
+                      .addClass("clear-btn")
+                      .unbind("click")  
+                      .bind("click", function () {  
+                          $.datepicker._clearDate( input );  
+                      });  
+
+                  btn.appendTo( buttonPane );  
+              }, 1 );  
+          },
 
         });
         $("ul.tabBtn li").mouseover(function () {
@@ -499,6 +519,7 @@
             $('.ui-datepicker').hide();
             $('.hasDatepicker').blur();
         });
+        
     });
 </script>
 

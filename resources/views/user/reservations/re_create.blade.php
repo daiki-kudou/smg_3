@@ -523,7 +523,26 @@
                         'left': left
                     });
                 }, 10) // 10msec
-            }
+            },
+          // クリアボタンの表示
+          showButtonPanel: true,
+          beforeShow: function( input ) {  
+              setTimeout(function() {  
+                  var buttonPane = $( input )  
+                      .datepicker( "widget" )  
+                      .find( ".ui-datepicker-buttonpane" );  
+        
+                  var btn = $('<button type="button">クリア</button>');  
+                  btn
+                      .addClass("clear-btn")
+                      .unbind("click")  
+                      .bind("click", function () {  
+                          $.datepicker._clearDate( input );  
+                      });  
+
+                  btn.appendTo( buttonPane );  
+              }, 1 );  
+          },
         });
         $("ul.tabBtn li").mouseover(function () {
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator

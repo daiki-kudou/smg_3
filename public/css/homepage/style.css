@@ -509,6 +509,23 @@ form table th {
     width: 30%;
 }
 
+
+/* カレンダー */
+.ui-datepicker-current,
+.ui-datepicker-close {
+    display: none;
+}
+
+.clear-btn {
+    border: 1px solid #c5dbec;
+    background: #dfeffc url(images/ui-bg_glass_85_dfeffc_1x400.png) 50% 50% repeat-x;
+    color: #2e6e9e;
+    border-radius: 5px;
+}
+
+
+
+
 /* 確認画面 */
 .from-list li {
     margin-bottom: 0.5em;
