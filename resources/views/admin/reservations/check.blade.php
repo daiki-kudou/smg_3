@@ -244,7 +244,7 @@
                                 @endif
                                 @if ($value['luggage_arrive'] && $value['luggage_flag'] == 1)
                                     <tr>
-                                        <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                                        <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                                         <td>
                                             {{ ReservationHelper::formatDate($value['luggage_arrive']) }}
                                         </td>

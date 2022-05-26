@@ -431,7 +431,7 @@
               </td>
             </tr>
             <tr>
-              <td>事前荷物の到着日<br>午前指定のみ</td>
+              <td>事前荷物の到着日<br>(平日午前指定)</td>
               <td>
                 {{ Form::text('luggage_arrive',
                 empty($all_requests['luggage_arrive'])?"":$all_requests['luggage_arrive'],['class'=>'form-control'] ) }}

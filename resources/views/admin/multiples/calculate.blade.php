@@ -399,7 +399,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                      <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                       <td>
                         {{ Form::text('cp_master_luggage_arrive',
                         $request->cp_master_luggage_arrive?:"",['class'=>'form-control
@@ -945,7 +945,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                        <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                         <td>
                           {{ Form::text('luggage_arrive_copied'.$key,
                           $request->cp_master_luggage_arrive,['class'=>'form-control datepicker9'] ) }}

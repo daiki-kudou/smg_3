@@ -351,7 +351,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                                    <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                                     <td>
                                         @if ($master_info['luggage_flag'] == 1)
                                             {{ Form::text('luggage_arrive', $master_info['luggage_arrive'], ['class' => 'form-control', 'readonly']) }}
