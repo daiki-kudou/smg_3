@@ -466,6 +466,19 @@
                         'top': top,
                         'left': left
                     });
+                    var buttonPane = $( input )  
+                      .datepicker( "widget" )  
+                      .find( ".ui-datepicker-buttonpane" );  
+        
+                  var btn = $('<button type="button">クリア</button>');  
+                  btn
+                      .addClass("clear-btn")
+                      .unbind("click")  
+                      .bind("click", function () {  
+                          $.datepicker._clearDate( input );  
+                      });  
+
+                  btn.appendTo( buttonPane );  
                 }, 10) // 10msec
             },
             beforeShowDay: function (date) {
@@ -485,27 +498,21 @@
             }
           },
 
-          // クリアボタンの表示
-          showButtonPanel: true,
-          beforeShow: function( input ) {  
-              setTimeout(function() {  
-                  var buttonPane = $( input )  
-                      .datepicker( "widget" )  
-                      .find( ".ui-datepicker-buttonpane" );  
-        
-                  var btn = $('<button type="button">クリア</button>');  
-                  btn
-                      .addClass("clear-btn")
-                      .unbind("click")  
-                      .bind("click", function () {  
-                          $.datepicker._clearDate( input );  
-                      });  
-
-                  btn.appendTo( buttonPane );  
-              }, 1 );  
+          // 月を変更してもクリアボタンを表示させる
+          onChangeMonthYear: function(year, month, instance) {
+          setTimeout(function() {
+          var buttonPane = $(instance).datepicker('widget').find('.ui-datepicker-buttonpane');
+          $('<button>', {text: 'クリア',
+          click: function() {
+          $.datepicker._clearDate(instance.input);
+          }
+          }).appendTo( buttonPane ).addClass('clear-btn');
+          }, 1 );
           },
 
         });
+
+
         $("ul.tabBtn li").mouseover(function () {
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator
                     .userAgent)) {
