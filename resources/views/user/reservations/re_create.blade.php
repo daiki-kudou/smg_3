@@ -212,7 +212,6 @@
           {{Form::radio('eat_in', 0, $fix->eat_in==0?true:false , ['id' => 'no_eat_in','class'=>'radio-input'])}}
           {{Form::label('no_eat_in',"なし")}}
           <a name="a-cataring01" class="error-r"></a>
-          <p><span class="txt-indent">※ケータリングは弊社にてご予算に合ったものをご提供可能です。 お気軽に問い合わせ下さい。</span></p>
         </td>
       </tr>
       @endif
@@ -361,19 +360,20 @@
             {{Form::radio('luggage_flag', 0,
             (int)$fix->luggage_flag===0?true:false,['id'=>'no_luggage_flag','class'=>'radio-input'])}}
             {{Form::label('no_luggage_flag','なし')}}
+            <div class="">500円(税抜)</div>
           </div>
+          <div class="luggage-exp">
+              <p>
+              【事前・事後】預かりの荷物について<br>
+                事前預かり/事後返送ともに<span class="f-s20">5個</span>まで。<br>
+                6個以上は要相談。その際は事前に必ずお問い合わせ下さい。<br>
+                荷物外寸合計(縦・横・奥行)120cm以下/個
+              </p>
+            </div>
           <ul class="luggage_info">
             <li class="m-b10">
-              <p>後日テキストを追加</p>
-              <p>
-                <span class="txt-indent">
-                  ※注釈が追加予定注釈が追加予定注釈が追加予定注釈が追加予定
-                </span>
-              </p>
-            </li>
-            <li class="m-b10">
               <div class="luggage-cell">
-                <p>事前に預かる荷物<br>(目安)</p>
+                <p>事前に預かる荷物(目安)</p>
                 {{ Form::number('luggage_count', $fix->luggage_count,['class'=>'text6 ',
                 'style'=>'width:20%;','autocomplete="off"','min'=>0] ) }}
                 <p class="">個</p>
@@ -382,21 +382,21 @@
             </li>
             <li class="m-b10">
               <div class="luggage-cell">
-                <p>事前荷物の到着日(午前指定)</p>
+                <p>事前荷物の到着日(平日午前指定)</p>
                 {{ Form::text('luggage_arrive',
                 $fix->luggage_arrive,['class'=>'','id'=>'datepicker2','autocomplete="off"'] ) }}
               </div>
             </li>
-            <li class="m-b20">
-              <p>利用日3日前～前日（平日のみ）を到着日に指定下さい</p>
-              <p><span class="txt-indent">※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預り / 返送
-                  PDF」をご確認下さい。</span>
-                <span class="txt-indent">※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。</span>
-                <span class="txt-indent">※貴重品等のお預りはできかねます。</span>
-                <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span>
-              </p>
-            </li>
-            <li class="m-b10 luggage-border">
+            <li class="m-b30">
+                <p><span class="txt-indent">※利用日3日前～前日（平日のみ）を到着日に指定下さい</span></p>
+                <p><span class="txt-indent">※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預り / 返送
+                    PDF」をご確認下さい。</span>
+                  <span class="txt-indent">※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。</span>
+                  <span class="txt-indent">※貴重品等のお預りはできかねます。</span>
+                  <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span>
+                </p>
+              </li>
+            <li class="m-b10">
               <div class="luggage-cell">
                 <p>事後返送する荷物</p>
                 {{ Form::number('luggage_return', $fix->luggage_return,['class'=>'text6 ', 'style'=>'width:
@@ -405,15 +405,12 @@
               </div>
               <p class="is-error-luggage_return" style="color: red"></p>
             </li>
-            <li class="m-b10">
-              <p>6個以上は要相談。まずは事前にお問合わせ下さい。<br>
-                [荷物外寸合計(縦・横・奥行)120cm以下/個]</p>
-              <p>
-                <span class="txt-indent">
-                  ※返送に関して、発送伝票（元払）、返送伝票（着払）は会場内に用意しているものを必ず使用して下さい。
-                </span>
-              </p>
-            </li>
+            <li class="m-b30">
+                  <span class="txt-indent">
+                  ※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。
+                  </span>
+                </p>
+              </li>
           </ul>
         </td>
       </tr>
@@ -441,7 +438,7 @@
   </style>
   <ul class="btn-wrapper">
     <li>
-      {{Form::submit('料金を確認する',['class'=>'confirm-btn','style'=>'width:100%;'])}}
+      {{Form::submit('入力内容を確認する',['class'=>'confirm-btn','style'=>'width:100%;'])}}
     </li>
   </ul>
   {{Form::hidden('venue_id',$fix->venue_id)}}

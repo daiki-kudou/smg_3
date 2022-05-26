@@ -290,6 +290,7 @@
               <label for="luggage_flag">あり</label>
               <input class="radio-input" id="no_luggage_flag" name="luggage_flag" type="radio" value="0" checked>
               <label for="no_luggage_flag">なし</label>
+              <div class="">500円<span class="annotation">(税抜)</span></div>
             </div>
             <div class="luggage-exp">
               <p>
@@ -302,7 +303,7 @@
             <ul class="luggage_info">
               <li class="m-b10">
                 <div class="luggage-cell">
-                  <p>事前に預かる荷物<br>(目安)</p>
+                  <p>事前に預かる荷物(目安)</p>
                   {{ Form::number('luggage_count', '',['class'=>'text6 ', 'style'=>'width:20%;','autocomplete="off"','min'=>0] )
                   }}
                   <p class="">個</p>
@@ -311,7 +312,7 @@
               </li>
               <li class="m-b10">
                 <div class="luggage-cell">
-                  <p>事前荷物の到着日(午前指定)</p>
+                  <p>事前荷物の到着日(平日午前指定)</p>
                   {{ Form::text('luggage_arrive', '',['class'=>'','id'=>'datepicker2','autocomplete="off"'] ) }}
                 </div>
               </li>
