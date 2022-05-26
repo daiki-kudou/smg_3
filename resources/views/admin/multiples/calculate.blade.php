@@ -782,6 +782,7 @@
                           <option disabled>選択してください</option>
                           {!!ReservationHelper::timeOptionsWithRequest($request->cp_master_event_start)!!}
                         </select>
+                        <p class="annotation caution_color mt-1">※利用時間内で入力してください。</p>
                       </td>
                     </tr>
                     <tr>
@@ -790,8 +791,8 @@
                         <select name="{{'event_finish_copied'.$key}}" class="form-control">
                           <option disabled>選択してください</option>
                           {!!ReservationHelper::timeOptionsWithRequest($request->cp_master_event_finish)!!}
-
                         </select>
+                        <p class="annotation caution_color mt-1">※利用時間内で入力してください。</p>
                       </td>
                     </tr>
                   </table>

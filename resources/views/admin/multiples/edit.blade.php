@@ -801,6 +801,7 @@
                       <option disabled>選択してください</option>
                       {!!ReservationHelper::timeOptionsWithRequest($pre_reservation->enter_time)!!}
                     </select>
+                    <p class="annotation caution_color mt-1">※利用時間内で入力してください。</p>
                   </td>
                 </tr>
                 <tr>
@@ -811,6 +812,7 @@
                       <option disabled>選択してください</option>
                       {!!ReservationHelper::timeOptionsWithRequest($pre_reservation->leave_time)!!}
                     </select>
+                    <p class="annotation caution_color mt-1">※利用時間内で入力してください。</p>
                   </td>
                 </tr>
               </table>
