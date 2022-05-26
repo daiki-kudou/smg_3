@@ -569,14 +569,14 @@ $(function () {
             "</td>" +
             "</tr>" +
             "<tr>" +
-            "<td class='table-active'>事前に預かる荷物<br>（個数）</td>" +
+            "<td class='table-active'>事前に預かる荷物<br>（目安）</td>" +
             "<td class=''>" +
             "<input type='number' id='luggage_count' class='form-control luggage_count' placeholder='個数入力' name='luggage_count' min='0' readonly>" +
             "<p class='is-error-luggage_count' style='color: red'></p>" +
             "</td>" +
             "</tr>" +
             "<tr>" +
-            "<td class='table-active'>事前荷物の到着日<br>午前指定のみ</td>" +
+            "<td class='table-active'>事前荷物の到着日<br>(平日午前指定)</td>" +
             "<td class=''> <input id='luggage_arrive' type='text' class='form-control holidays ' placeholder='年-月-日' name='luggage_arrive' readonly>" +
             "</td>" +
             "</tr>" +

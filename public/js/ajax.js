@@ -285,7 +285,7 @@ $(function () {
             "</td>" +
             "</tr>" +
             "<tr>" +
-            "<td class='table-active'>事前荷物の到着日<br>午前指定のみ</td>" +
+            "<td class='table-active'>事前荷物の到着日<br>(平日午前指定)</td>" +
             "<td class=''> <input id='luggage_arrive' type='text' class='form-control holidays' placeholder='年-月-日' name='luggage_arrive' readonly>" +
             "</td>" +
             "</tr>" +
