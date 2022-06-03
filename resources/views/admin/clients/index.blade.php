@@ -32,7 +32,7 @@
             {{Form::text("search_id", $request->search_id?:'', ['class'=>'form-control'])}}
             <p class="is-error-id" style="color: red"></p>
           </td>
-          <th class="search_item_name"><label for="company">会社名　団体名</label></th>
+          <th class="search_item_name"><label for="company">会社・団体名</label></th>
           <td class="text-right form-group">
             {{Form::text("search_company", $request->search_company?:'', ['class'=>'form-control'])}}
           </td>
@@ -153,7 +153,7 @@
         <tr class="table_row">
           <th>注意事項</th>
           <th>顧客ID </th>
-          <th>会社名・団体名 </th>
+          <th>会社・団体名 </th>
           <th>顧客属性 </th>
           <th>担当者 </th>
           <th>携帯電話 </th>
