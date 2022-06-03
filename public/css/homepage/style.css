@@ -432,6 +432,19 @@ form table td .text6 {
     display: flex;
 }
 
+.form-cell4 {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.form-cell4 .text5 {
+    width: 80%;
+}
+
+.form-cell4 .text4 {
+    width: 20%;
+}
+
 
 
 /* 合計金額 */
@@ -911,6 +924,20 @@ header div.contents {
     .form-cell3 .m-r10 {
         margin-right: 0;
     }
+
+    .form-cell4 {
+        display: block;
+        margin-bottom: 25px;
+    }
+    
+    .form-cell4 .text5 {
+        width: 100%;
+    }
+    
+    .form-cell4 .text4 {
+        width: 100%;
+    }
+
 
     .cart-wrap .table-sum {
         table-layout: fixed;
