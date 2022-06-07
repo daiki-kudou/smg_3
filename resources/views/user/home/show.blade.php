@@ -142,7 +142,7 @@
                                     <td colspan="2">
                                         <p class="title-icon">
                                             <i class="fas fa-user icon-size" aria-hidden="true"></i>
-                                            当日連絡のできるご担当者様
+                                            当日連絡できる担当者
                                         </p>
                                     </td>
                                 </tr>
@@ -307,7 +307,7 @@
                                 <tr>
                                     <th colspan='2'>
                                         <p class="title-icon py-1">
-                                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+                                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
                                         </p>
                                     </th>
                                 </tr>

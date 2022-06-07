@@ -27,7 +27,7 @@
             <h1 class="page-title oddcolor"><span>予約カート</span></h1>
             <p>下記内容をご確認の上、本ページ下部の「予約申込をする」ボタンを押し、申込手続きを完了させて下さい。<br>
                 <span class="txtRed">※複数日程の申込みをされる場合は「日程を追加する」ボタンを押して予約内容を追加作成して下さい。</span><br>
-                <span class="txtRed">※本カート内の予約内容は作成後●時間を過ぎた時点で削除されます。</span>
+                <span class="txtRed">※本カート内の予約内容は作成後2時間を過ぎた時点で削除されます。</span>
             </p>
         </div>
     </div>
@@ -147,7 +147,7 @@
                                                 @endforeach
                                                 @if ($reservation[0]['luggage_count'] || $reservation[0]['luggage_arrive'] || $reservation[0]['luggage_return'])
                                                     <li>
-                                                        <p>荷物預り/返送</p>
+                                                        <p>荷物預かり/返送</p>
                                                         <p>500<span>円</span></p>
                                                     </li>
                                                 @endif

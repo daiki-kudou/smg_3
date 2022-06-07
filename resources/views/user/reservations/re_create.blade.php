@@ -212,7 +212,6 @@
           {{Form::radio('eat_in', 0, $fix->eat_in==0?true:false , ['id' => 'no_eat_in','class'=>'radio-input'])}}
           {{Form::label('no_eat_in',"なし")}}
           <a name="a-cataring01" class="error-r"></a>
-          <p><span class="txt-indent">※ケータリングは弊社にてご予算に合ったものをご提供可能です。 お気軽に問い合わせ下さい。</span></p>
         </td>
       </tr>
       @endif
@@ -361,19 +360,20 @@
             {{Form::radio('luggage_flag', 0,
             (int)$fix->luggage_flag===0?true:false,['id'=>'no_luggage_flag','class'=>'radio-input'])}}
             {{Form::label('no_luggage_flag','なし')}}
+            <div class="">500円(税抜)</div>
           </div>
+          <div class="luggage-exp">
+              <p>
+              【事前・事後】預かりの荷物について<br>
+                事前預かり/事後返送ともに<span class="f-s20">5個</span>まで。<br>
+                6個以上は要相談。その際は事前に必ずお問い合わせ下さい。<br>
+                荷物外寸合計(縦・横・奥行)120cm以下/個
+              </p>
+            </div>
           <ul class="luggage_info">
             <li class="m-b10">
-              <p>後日テキストを追加</p>
-              <p>
-                <span class="txt-indent">
-                  ※注釈が追加予定注釈が追加予定注釈が追加予定注釈が追加予定
-                </span>
-              </p>
-            </li>
-            <li class="m-b10">
               <div class="luggage-cell">
-                <p>事前に預かる荷物<br>(目安)</p>
+                <p>事前に預かる荷物(目安)</p>
                 {{ Form::number('luggage_count', $fix->luggage_count,['class'=>'text6 ',
                 'style'=>'width:20%;','autocomplete="off"','min'=>0] ) }}
                 <p class="">個</p>
@@ -382,21 +382,21 @@
             </li>
             <li class="m-b10">
               <div class="luggage-cell">
-                <p>事前荷物の到着日(午前指定)</p>
+                <p>事前荷物の到着日(平日午前指定)</p>
                 {{ Form::text('luggage_arrive',
                 $fix->luggage_arrive,['class'=>'','id'=>'datepicker2','autocomplete="off"'] ) }}
               </div>
             </li>
-            <li class="m-b20">
-              <p>利用日3日前～前日（平日のみ）を到着日に指定下さい</p>
-              <p><span class="txt-indent">※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預り / 返送
-                  PDF」をご確認下さい。</span>
-                <span class="txt-indent">※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。</span>
-                <span class="txt-indent">※貴重品等のお預りはできかねます。</span>
-                <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span>
-              </p>
-            </li>
-            <li class="m-b10 luggage-border">
+            <li class="m-b30">
+                <p><span class="txt-indent">※利用日3日前～前日（平日のみ）を到着日に指定下さい</span></p>
+                <p><span class="txt-indent">※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送
+                    PDF」をご確認下さい。</span>
+                  <span class="txt-indent">※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。</span>
+                  <span class="txt-indent">※貴重品等のお預りはできかねます。</span>
+                  <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span>
+                </p>
+              </li>
+            <li class="m-b10">
               <div class="luggage-cell">
                 <p>事後返送する荷物</p>
                 {{ Form::number('luggage_return', $fix->luggage_return,['class'=>'text6 ', 'style'=>'width:
@@ -405,15 +405,12 @@
               </div>
               <p class="is-error-luggage_return" style="color: red"></p>
             </li>
-            <li class="m-b10">
-              <p>6個以上は要相談。まずは事前にお問合わせ下さい。<br>
-                [荷物外寸合計(縦・横・奥行)120cm以下/個]</p>
-              <p>
-                <span class="txt-indent">
-                  ※返送に関して、発送伝票（元払）、返送伝票（着払）は会場内に用意しているものを必ず使用して下さい。
-                </span>
-              </p>
-            </li>
+            <li class="m-b30">
+                  <span class="txt-indent">
+                  ※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。
+                  </span>
+                </p>
+              </li>
           </ul>
         </td>
       </tr>
@@ -441,7 +438,7 @@
   </style>
   <ul class="btn-wrapper">
     <li>
-      {{Form::submit('料金を確認する',['class'=>'confirm-btn','style'=>'width:100%;'])}}
+      {{Form::submit('入力内容を確認する',['class'=>'confirm-btn','style'=>'width:100%;'])}}
     </li>
   </ul>
   {{Form::hidden('venue_id',$fix->venue_id)}}
@@ -505,19 +502,26 @@
     });
 </script>
 
+
 <script type="text/javascript">
   $(function () {
+        var holidays = ['20210722', '20210723', '20210808', '20210809', '20210920', '20210923', '20211103', '20211123', '20220101', '20220110', '20220211', '20220223', '20220321', '20220429', '20220503', '20220504', '20220505', '20220718', '20220811', '20220919', '20220923', '20221010', '20221103', '20221123', '20230101', '20230102', '20230109', '20230211', '20230223', '20230321', '20230429', '20230503', '20230504', '20230505', '20230717', '20230811', '20230918', '20230923', '20231009', '20231103', '20231123', '20240101', '20240108', '20240211', '20240212', '20240223', '20240320', '20240429', '20240503', '20240504', '20240505', '20240506', '20240715', '20240811', '20240812', '20240916', '20240922', '20240923', '20241014', '20241103', '20241104', '20241123', '20250101', '20250113', '20250211', '20250223', '20250224', '20250320', '20250429', '20250503', '20250504', '20250505', '20250506', '20250721', '20250811', '20250915', '20250923', '20251013', '20251103', '20251123', '20251124', '20260101', '20260112', '20260211', '20260223', '20260320', '20260429', '20260503', '20260504', '20260505', '20260506', '20260720', '20260811', '20260921', '20260922', '20260923', '20261012', '20261103', '20261123', '20270101', '20270111', '20270211', '20270223', '20270321', '20270322', '20270429', '20270503', '20270504', '20270505', '20270719', '20270811', '20270920', '20270923', '20271011', '20271103', '20271123', '20280101', '20280110', '20280211', '20280223', '20280320', '20280429', '20280503', '20280504', '20280505', '20280717', '20280811', '20280918', '20280922', '20281009', '20281103', '20281123', '20290101', '20290108', '20290211', '20290212', '20290223', '20290320', '20290429', '20290430', '20290503', '20290504', '20290505', '20290716', '20290811', '20290917', '20290923', '20290924', '20291008', '20291103', '20291123', '20300101', '20300114', '20300211', '20300223', '20300320', '20300429', '20300503', '20300504', '20300505', '20300506', '20300715', '20300811', '20300812', '20300916', '20300923', '20301014', '20301103', '20301104', '20301123', '20310101', '20310113', '20310211', '20310223', '20310224', '20310321', '20310429', '20310503', '20310504', '20310505', '20310506', '20310721', '20310811', '20310915', '20310923', '20311013', '20311103', '20311123', '20311124', '20320101', '20320112', '20320211', '20320223', '20320320', '20320429', '20320503', '20320504', '20320505', '20320719', '20320811', '20320920', '20320921', '20320922', '20321011', '20321103', '20321123', '20330101', '20330110', '20330211', '20330223', '20330320', '20330321', '20330429', '20330503', '20330504', '20330505', '20330718', '20330811', '20330919', '20330923', '20331010', '20331103', '20331123', '20340101', '20340102', '20340109', '20340211', '20340223', '20340320', '20340429', '20340503', '20340504', '20340505', '20340717', '20340811', '20340918', '20340923', '20341009', '20341103', '20341123', '20350101', '20350108', '20350211', '20350212', '20350223', '20350321', '20350429', '20350430', '20350503', '20350504', '20350505', '20350716', '20350811', '20350917', '20350923', '20350924', '20351008', '20351103', '20351123', '20360101', '20360114', '20360211', '20360223', '20360320', '20360429', '20360503', '20360504', '20360505', '20360506', '20360721', '20360811', '20360915', '20360922', '20361013', '20361103', '20361123', '20361124',];
         var target_day=$('input[name="date"]').val();
         var today = new Date();
         var dd = today.getDate();
+        var dt = new Date(target_day);
+        dt.setDate(dt.getDate() - 1);
+        var max_date = dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
         $("#datepicker2").datepicker({
+          showButtonPanel: true,
           dateFormat: 'yy-mm-dd',
             showOn: "both",
             buttonImage: "https://system.osaka-conference.com/img/icon_calender.png",
             buttonImageOnly: true,
-            minDate: "+3",
-            maxDate: target_day,
-            beforeShow: function (input, inst) { // カレンダーを必ず下側へ表示させるための表示位置計算function
+            minDate: 0,
+            maxDate: max_date,
+            beforeShow: function (input, inst, date) { 
+              // カレンダーを必ず下側へ表示させるための表示位置計算function
                 var top = $(this).offset().top + $(this).outerHeight();
                 var left = $(this).offset().left;
                 setTimeout(function () {
@@ -525,9 +529,53 @@
                         'top': top,
                         'left': left
                     });
+                    var buttonPane = $( input )  
+                      .datepicker( "widget" )  
+                      .find( ".ui-datepicker-buttonpane" );  
+        
+                  var btn = $('<button type="button">クリア</button>');  
+                  btn
+                      .addClass("clear-btn")
+                      .unbind("click")  
+                      .bind("click", function () {  
+                          $.datepicker._clearDate( input );  
+                      });  
+
+                  btn.appendTo( buttonPane );  
                 }, 10) // 10msec
+            },
+            beforeShowDay: function (date) {
+            var ymd = date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + date.getDate()).slice(-2);
+            if (holidays.indexOf(ymd) != -1) {
+              // 祝日
+              return [false, 'ui-state-disabled'];
+            } else if (date.getDay() == 0) {
+              // 日曜日
+              return [false, 'ui-state-disabled'];
+            } else if (date.getDay() == 6) {
+              // 土曜日
+              return [false, 'ui-state-disabled'];
+            } else {
+              // 平日
+              return [true, ''];
             }
+          },
+
+          // 月を変更してもクリアボタンを表示させる
+          onChangeMonthYear: function(year, month, instance) {
+          setTimeout(function() {
+          var buttonPane = $(instance).datepicker('widget').find('.ui-datepicker-buttonpane');
+          $('<button>', {text: 'クリア',
+          click: function() {
+          $.datepicker._clearDate(instance.input);
+          }
+          }).appendTo( buttonPane ).addClass('clear-btn');
+          }, 1 );
+          },
+
         });
+
+
         $("ul.tabBtn li").mouseover(function () {
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator
                     .userAgent)) {
@@ -541,6 +589,7 @@
             $('.ui-datepicker').hide();
             $('.hasDatepicker').blur();
         });
+        
     });
 </script>
 

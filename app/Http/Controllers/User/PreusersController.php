@@ -58,9 +58,9 @@ class PreusersController extends Controller
 
 		try {
 			if ($users) {
-				throw new \Exception("既に存在するメールアドレスです。お持ちのメールアドレスでログインを試みるか別のメールアドレスで再度お試しください");
+				throw new \Exception("既に存在するメールアドレスです。");
 			} elseif ($preusers) {
-				throw new \Exception("既に認証用メールを送付しています。届いていない場合、迷惑メールフォルダをご確認いただくは別のメールアドレスをお試しください");
+				throw new \Exception("既に認証用メールを送付しています。届いていない場合、迷惑メールフォルダをご確認頂くか、別のメールアドレスをお試しください");
 			}
 		} catch (\Exception $e) {
 			return back()->withInput()->withErrors($e->getMessage());

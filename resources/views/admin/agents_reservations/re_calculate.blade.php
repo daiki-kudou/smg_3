@@ -419,19 +419,19 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>荷物預り</th>
+              <th colspan='2'>荷物預かり</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>事前に預かる荷物<br>（個数）</td>
+              <td>事前に預かる荷物<br>(目安)</td>
               <td>
                 {{ Form::text('luggage_count',
                 empty($all_requests['luggage_count'])?"":$all_requests['luggage_count'],['class'=>'form-control','min'=>0] ) }}
               </td>
             </tr>
             <tr>
-              <td>事前荷物の到着日<br>午前指定のみ</td>
+              <td>事前荷物の到着日<br>(平日午前指定)</td>
               <td>
                 {{ Form::text('luggage_arrive',
                 empty($all_requests['luggage_arrive'])?"":$all_requests['luggage_arrive'],['class'=>'form-control'] ) }}

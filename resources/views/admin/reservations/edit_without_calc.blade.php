@@ -349,21 +349,21 @@
             <tr>
               <th colspan='2'>
                 <p class="title-icon">
-                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
                 </p>
               </th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">事前に預かる荷物<br>（個数）</td>
+              <td class="table-active">事前に預かる荷物<br>(目安)</td>
               <td>
                 {{ Form::text('luggage_count', $reservation->luggage_count,['class'=>'form-control','min'=>0] ) }}
                 <p class="is-error-luggage_count" style="color: red"></p>
               </td>
             </tr>
             <tr>
-              <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+              <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
               <td>
                 {{ Form::text('luggage_arrive',
                 date('Y-m-d',strtotime($reservation->luggage_arrive)),['class'=>'form-control limited_datepicker'] ) }}

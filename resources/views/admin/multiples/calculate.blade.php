@@ -368,7 +368,7 @@
                     <tr>
                       <th colspan='2'>
                         <p class="title-icon">
-                          <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+                          <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
                         </p>
                       </th>
                     </tr>
@@ -391,7 +391,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                      <td class="table-active">事前に預かる荷物<br>(目安)</td>
                       <td>
                         {{ Form::number('cp_master_luggage_count',
                         $request->cp_master_luggage_count,['class'=>'form-control','id'=>'cp_master_luggage_count','min'=>0] ) }}
@@ -399,7 +399,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                      <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                       <td>
                         {{ Form::text('cp_master_luggage_arrive',
                         $request->cp_master_luggage_arrive?:"",['class'=>'form-control
@@ -782,6 +782,7 @@
                           <option disabled>選択してください</option>
                           {!!ReservationHelper::timeOptionsWithRequest($request->cp_master_event_start)!!}
                         </select>
+                        <p class="annotation caution_color mt-1">※利用時間内で入力してください。</p>
                       </td>
                     </tr>
                     <tr>
@@ -790,8 +791,8 @@
                         <select name="{{'event_finish_copied'.$key}}" class="form-control">
                           <option disabled>選択してください</option>
                           {!!ReservationHelper::timeOptionsWithRequest($request->cp_master_event_finish)!!}
-
                         </select>
+                        <p class="annotation caution_color mt-1">※利用時間内で入力してください。</p>
                       </td>
                     </tr>
                   </table>
@@ -913,7 +914,7 @@
                       <tr>
                         <th colspan="2">
                           <p class="title-icon">
-                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
                           </p>
                         </th>
                       </tr>
@@ -936,7 +937,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                        <td class="table-active">事前に預かる荷物<br>(目安)</td>
                         <td>
                           {{
                           Form::number('luggage_count_copied'.$key,$request->cp_master_luggage_count,['class'=>'form-control','min'=>0]
@@ -945,7 +946,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                        <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                         <td>
                           {{ Form::text('luggage_arrive_copied'.$key,
                           $request->cp_master_luggage_arrive,['class'=>'form-control datepicker9'] ) }}
