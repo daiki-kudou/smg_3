@@ -636,6 +636,7 @@
                 $("#eventname1Count").prop("disabled", false);
                 $("#eventname2Count").prop("disabled", false);
                 $("#eventownerCount").prop("disabled", false);
+                
             }
         });
     });
