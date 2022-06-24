@@ -423,6 +423,7 @@
                                             @else
                                                 {{ Form::text('luggage_arrive', '', [
                                                     'class' => 'form-control luggage_arrive holidays',
+                                                    'id' => 'luggage_arrive',
                                                 ]) }}
                                             @endif
                                             <div class="annotation mt-1 luggage_info">
