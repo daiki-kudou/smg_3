@@ -476,7 +476,7 @@
                                     'id' => 'luggage_arrive',
                                 ]) }}
                             @endif
-                            <div class="annotation mt-1">
+                            <div class="annotation mt-1 luggage_info">
                             ※利用日3日前～前日（平日のみ）を到着日に指定下さい<br>
                             ※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送 PDF」をご確認下さい。<br>
                             ※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。<br>
@@ -502,7 +502,7 @@
                                 ]) }}
                             @endif
                             <p class="is-error-luggage_return" style="color: red"></p>
-                            <div class="annotation mt-1">
+                            <div class="annotation mt-1 luggage_info">
                             ※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。
                             </div>
                         </td>

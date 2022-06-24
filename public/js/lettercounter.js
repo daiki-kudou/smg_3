@@ -150,12 +150,12 @@ $(function () {
 $(function () {
   var prop = $("#no_luggage_flag").prop("checked");
   if (prop) {
-    $("#luggage_arrive").removeClass("readonly-no-gray");
     $("#luggage_count").prop("readonly", true);
     $("#luggage_arrive").prop("readonly", true);
     $('input[name="luggage_arrive"]').prop("readonly", true);
     $("#luggage_return").prop("readonly", true);
     $("#luggage_price").prop("readonly", true);
+    $("#luggage_arrive").removeClass("readonly-no-gray");
   } else {
     $("#luggage_count").prop("readonly", false);
     $("#luggage_arrive").prop("readonly", true);
@@ -170,12 +170,12 @@ $(function () {
 $(document).on('change', 'input[name="luggage_flag"]', function () {
   var prop = $("#no_luggage_flag").prop("checked");
   if (prop) {
-    $("#luggage_arrive").removeClass("readonly-no-gray");
     $("#luggage_count").prop("readonly", true);
     $("#luggage_arrive").prop("readonly", true);
     $('input[name="luggage_arrive"]').prop("readonly", true);
     $("#luggage_return").prop("readonly", true);
     $("#luggage_price").prop("readonly", true);
+    $("#luggage_arrive").removeClass("readonly-no-gray");
   } else {
     $("#luggage_count").prop("readonly", false);
     $("#luggage_arrive").prop("readonly", true);
