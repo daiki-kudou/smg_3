@@ -392,7 +392,7 @@
         <tr>
           <td colspan="2" class="text-right">
             <p class="checkbox-txt"><span>小計(税抜)</span><span class="">{{number_format($master)}}</span>円</p>
-            <p class="checkbox-txt"><span>消費税</span>{{number_format(ReservationHelper::getTax($master))}}円</p>
+            <p class=""><span>消費税</span>{{number_format(ReservationHelper::getTax($master))}}円</p>
           </td>
         </tr>
         <tr>
