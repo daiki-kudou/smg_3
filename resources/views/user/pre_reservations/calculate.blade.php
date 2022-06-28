@@ -384,6 +384,7 @@
                                                     ]) }}
                                                     {{ Form::label('no_luggage_flag', '無し') }}
                                                 </p>
+                                                <div>500円(税抜)</div>
                                             </div>
                                             <p class="is-error-luggage_flag" style="color: red"></p>
                                             <div class="annotation mt-2">
@@ -419,6 +420,7 @@
                                             @if ($request->luggage_flag == 1)
                                                 {{ Form::text('luggage_arrive', date('Y-m-d', strtotime($request->luggage_arrive)), [
                                                     'class' => 'form-control luggage_arrive holidays',
+                                                    'id' => 'luggage_arrive',
                                                 ]) }}
                                             @else
                                                 {{ Form::text('luggage_arrive', '', [
@@ -868,41 +870,41 @@
             // })
         })
         // ロード時の、案内板入力制御
-        $(document).ready(function() {
-            $("#no_board_flag:checked").each(function() {
-                var flag = $(this);
-                if ($(flag).is(":checked") != null) {
-                    $("#event_start").prop("disabled", true);
-                    $("#event_finish").prop("disabled", true);
-                    $("#eventname1Count").prop("disabled", true);
-                    $("#eventname2Count").prop("disabled", true);
-                    $("#eventownerCount").prop("disabled", true);
-                    // $(".board-table input[type='text']").val("");
-                    $(".board-table option:selected").val("");
-                }
-            });
-        });
+        // $(document).ready(function() {
+        //     $("#no_board_flag:checked").each(function() {
+        //         var flag = $(this);
+        //         if ($(flag).is(":checked") != null) {
+        //             $("#event_start").prop("disabled", true);
+        //             $("#event_finish").prop("disabled", true);
+        //             $("#eventname1Count").prop("disabled", true);
+        //             $("#eventname2Count").prop("disabled", true);
+        //             $("#eventownerCount").prop("disabled", true);
+        //             // $(".board-table input[type='text']").val("");
+        //             $(".board-table option:selected").val("");
+        //         }
+        //     });
+        // });
 
-        // ラジオボタンクリック時の案内板入力制御
-        $(function() {
-            $('input[name="board_flag"]').change(function() {
-                var prop = $("#no_board_flag").prop("checked");
-                if (prop) {
-                    $("#event_start").prop("disabled", true);
-                    $("#event_finish").prop("disabled", true);
-                    $("#eventname1Count").prop("disabled", true);
-                    $("#eventname2Count").prop("disabled", true);
-                    $("#eventownerCount").prop("disabled", true);
-                    // $(".board-table input[type='text']").val("");
-                } else {
-                    $("#event_start").prop("disabled", false);
-                    $("#event_finish").prop("disabled", false);
-                    $("#eventname1Count").prop("disabled", false);
-                    $("#eventname2Count").prop("disabled", false);
-                    $("#eventownerCount").prop("disabled", false);
-                }
-            });
-        });
+        // // ラジオボタンクリック時の案内板入力制御
+        // $(function() {
+        //     $('input[name="board_flag"]').change(function() {
+        //         var prop = $("#no_board_flag").prop("checked");
+        //         if (prop) {
+        //             $("#event_start").prop("disabled", true);
+        //             $("#event_finish").prop("disabled", true);
+        //             $("#eventname1Count").prop("disabled", true);
+        //             $("#eventname2Count").prop("disabled", true);
+        //             $("#eventownerCount").prop("disabled", true);
+        //             // $(".board-table input[type='text']").val("");
+        //         } else {
+        //             $("#event_start").prop("disabled", false);
+        //             $("#event_finish").prop("disabled", false);
+        //             $("#eventname1Count").prop("disabled", false);
+        //             $("#eventname2Count").prop("disabled", false);
+        //             $("#eventownerCount").prop("disabled", false);
+        //         }
+        //     });
+        // });
 
         // 荷物預かりのラジオボタン選択の表示、非表示
             $(function() {
