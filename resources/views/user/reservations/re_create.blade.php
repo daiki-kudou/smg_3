@@ -370,7 +370,7 @@
                 荷物外寸合計(縦・横・奥行)120cm以下/個
               </p>
             </div>
-          <ul class="">
+          <ul class="luggage_info">
             <li class="m-b10">
               <div class="luggage-cell">
                 <p>事前に預かる荷物(目安)</p>
@@ -387,7 +387,7 @@
                 $fix->luggage_arrive,['class'=>'','id'=>'datepicker2','autocomplete="off"'] ) }}
               </div>
             </li>
-            <li class="m-b30 luggage_info">
+            <li class="m-b30">
                 <p><span class="txt-indent">※利用日3日前～前日（平日のみ）を到着日に指定下さい</span></p>
                 <p><span class="txt-indent">※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送
                     PDF」をご確認下さい。</span>
@@ -406,7 +406,7 @@
               <p class="is-error-luggage_return" style="color: red"></p>
             </li>
             <li class="m-b30">
-                  <span class="txt-indent luggage_info">
+                  <span class="txt-indent">
                   ※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。
                   </span>
                 </p>
@@ -488,14 +488,14 @@
     var no_luggage_flag = Number($('input[name="luggage_flag"]:checked').val());
     if (no_luggage_flag === 0) {
       $(".luggage_info").addClass("d-none");
-          $("input[name='luggage_count']").prop('disabled', true);
-          $("input[name='luggage_arrive']").prop('disabled', true);
-          $("input[name='luggage_return']").prop('disabled', true);
+          // $("input[name='luggage_count']").prop('disabled', true);
+          // $("input[name='luggage_arrive']").prop('disabled', true);
+          // $("input[name='luggage_return']").prop('disabled', true);
         } else {
           $(".luggage_info").removeClass("d-none");
-          $("input[name='luggage_count']").prop('disabled', false);
-          $("input[name='luggage_arrive']").prop('disabled', false);
-          $("input[name='luggage_return']").prop('disabled', false);
+          // $("input[name='luggage_count']").prop('disabled', false);
+          // $("input[name='luggage_arrive']").prop('disabled', false);
+          // $("input[name='luggage_return']").prop('disabled', false);
          }
     });
 
@@ -504,14 +504,14 @@
        var no_luggage_flag = $('#no_luggage_flag').prop('checked');
         if (no_luggage_flag) {
           $(".luggage_info").addClass("d-none");
-          $("input[name='luggage_count']").prop('disabled', true);
-          $("input[name='luggage_arrive']").prop('disabled', true);
-          $("input[name='luggage_return']").prop('disabled', true);
+          // $("input[name='luggage_count']").prop('disabled', true);
+          // $("input[name='luggage_arrive']").prop('disabled', true);
+          // $("input[name='luggage_return']").prop('disabled', true);
         } else {
           $(".luggage_info").removeClass("d-none");
-          $("input[name='luggage_count']").prop('disabled', false);
-          $("input[name='luggage_arrive']").prop('disabled', false);
-          $("input[name='luggage_return']").prop('disabled', false);
+          // $("input[name='luggage_count']").prop('disabled', false);
+          // $("input[name='luggage_arrive']").prop('disabled', false);
+          // $("input[name='luggage_return']").prop('disabled', false);
          }
       });
     });

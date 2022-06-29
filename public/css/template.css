@@ -768,6 +768,7 @@ table td.table_column p:last-child {
 .radio-box {
     /* display: flex; */
     display: inline-flex;
+    flex-wrap: wrap;
     /* justify-content: space-around; */
 }
 
@@ -2254,6 +2255,12 @@ table.dataTable.no-footer {
     width: 100px;
 }
 
+/* インデントのcssを追加 */
+.txt-indent {
+    display: block;
+    text-indent: -15px;
+    padding-left: 15px;
+}
 
 @media screen and (max-width: 540px) {
     .mail-input {

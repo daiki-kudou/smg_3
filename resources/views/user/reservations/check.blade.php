@@ -214,8 +214,12 @@
         <th>荷物預かり</th>
         <td class="spec-space">
           <div class="m-b10">
-            {{-- 荷物フラグ --}}
+             {{-- 荷物フラグ --}}
+             {{$request->luggage_flag==1?'あり':'なし'}}
             {{ Form::hidden('luggage_flag', $request->luggage_flag ) }}
+          </div>
+          @if ($request->luggage_flag==1)
+          <div class="m-b10">
             <p>【事前に預かる荷物】</p>
             <div class="">
               <p class="luggage_space">目安：{{$request->luggage_count}}個</p>
@@ -235,6 +239,7 @@
             </div>
           </div>
           <a name="a-baggagedate" class="error-r"></a>
+          @endif
         </td>
       </tr>
       @endif
