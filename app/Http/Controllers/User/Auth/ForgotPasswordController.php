@@ -75,7 +75,7 @@ class ForgotPasswordController extends Controller
   {
     return back()
       ->withInput($request->only('email'))
-      ->withErrors(['email' => trans("既にパスワード再設定用のメールを送信しました。
-      届かない場合はメールアドレスを変更もしくは、迷惑メールの確認をお願いします")]);
+    //   ->withErrors(['email' => trans("登録しているメールアドレスと一致しません。")]);
+      ->withErrors(['email' => trans($response)]);
   }
 }
