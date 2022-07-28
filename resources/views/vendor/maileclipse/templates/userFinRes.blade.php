@@ -37,31 +37,37 @@
 @endif
 @endif 
 @if (count($equipment_data) !== 0)
+
 ・有料備品：
 @foreach ($equipment_data as $e)
 {{ $e['unit_item'] }}+{{ number_format($e['unit_cost']) }}円+{{ $e['unit_count'] }}個
 @endforeach
 @endif
 @if (count($service_data) !== 0)
+
 ・有料サービス：
 @foreach ($service_data as $s)
 {{ $s['unit_item'] }}+{{ number_format($s['unit_cost']) }}円
 @endforeach
 @endif
 @if (count($layout_data) !== 0)
+
 ・レイアウト変更：
 @foreach ($layout_data as $l)
 {{ $l }}
 @endforeach
 @endif
 @if ((int) $luggage_flag === 1)
+
 ・荷物預かり：荷物預かり あり
 事前に預かる荷物（目安）：{{ $luggage_count }}個
 事前荷物の到着日（午前指定）：{{ $luggage_arrive }}
 事後返送する荷物：{{ $luggage_return }}個
 @endif
 @if (!empty($admin_details))
-・備考：{{ $admin_details }}
+
+・備考：
+{{ $admin_details }}
 @endif
 
 ・ご利用料金：{{ $bill_data->master_total }}円
