@@ -156,7 +156,7 @@
             @continue
             @else
             <li class="form-cell4">
-              <p class="text5">{{$eqpt->item}} {{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
+              <p class="text5">{{$eqpt->item}} {{number_format($eqpt->price)}}円<span class="annotation">(税抜)</span></p>
               <p class="text4">{{($request->{'equipment_breakdown'.$e_key})}}個</p>
               {{ Form::hidden('equipment_breakdown'.$e_key, ($request->{'equipment_breakdown'.$e_key}),['class'=>''] ) }}
               </p>
@@ -176,7 +176,7 @@
             @foreach ($venue->getServices() as $s_key=>$serv)
             @if ($request->{'services_breakdown'.$s_key}!=0)
             <li class="form-cell2">
-              <span class="">{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></span>
+              <span class="">{{$serv->item}} {{number_format($serv->price)}}円<span class="annotation">(税抜)</span></span>
               {{ Form::hidden('services_breakdown'.$s_key, ($request->{'services_breakdown'.$s_key}) ) }}
             </li>
             @endif

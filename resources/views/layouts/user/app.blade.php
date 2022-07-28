@@ -158,9 +158,7 @@
                   $('dd').eq(index).css('color','red'); } }) 
                 }
                 )
-      
-    
-    
+     
     </script>
 
   </div>

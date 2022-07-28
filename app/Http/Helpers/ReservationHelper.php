@@ -349,13 +349,17 @@ class ReservationHelper
   public static function getTax($num)
   {
     $target = $num * 0.1;
+    $target = floor($target);
+
     return $target;
   }
 
   public static function taxAndPrice($num)
   {
     $tax = ($num * 0.1);
-    return ($num + $tax);
+    $tax = ($num + $tax);
+    $tax = floor($tax);
+    return $tax;
   }
 
   public static function judgeArrayEmpty($array)

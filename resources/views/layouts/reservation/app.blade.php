@@ -520,8 +520,6 @@
       });
     });
     var rootPath = "{{url('/')}}";
-
-
     
     // 会員登録ページでカートを非表示
     $(window).bind("load", function() {
