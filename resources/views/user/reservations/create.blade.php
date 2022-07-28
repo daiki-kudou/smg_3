@@ -219,7 +219,7 @@
                 <div class="text6 m-b20">
                   <p class="f-wb m-r10" style="line-height: 1.2; margin-bottom: 5px;">{{$eqpt->item}}</p>
                   <p>
-                    {{$eqpt->price}}円<span
+                    {{number_format($eqpt->price)}}円<span
                       class="annotation">(税抜)</span>
                   </p>
                 </div>
@@ -240,7 +240,7 @@
             <ul>
               @foreach ($venue->getServices() as $s_key=>$serv)
               <li>
-                <p>{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></p>
+                <p>{{$serv->item}} {{number_format($serv->price)}}円<span class="annotation">(税抜)</span></p>
                 <div class="selectTime">
                   {{Form::radio('services_breakdown'.$s_key, 1, old('services_breakdown'.$s_key)==1?true:false, ['id' =>
                   'services_breakdown_on'.$s_key, 'class' => 'radio-input'])}}

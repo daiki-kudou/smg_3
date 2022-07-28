@@ -261,7 +261,7 @@
                                         <p>{{ ReservationHelper::formatTime($slctSession[0]['enter_time']) }}
                                             ～
                                             {{ ReservationHelper::formatTime($slctSession[0]['leave_time']) }}</p>
-                                        <p>{{ json_decode($slctSession[0]['price_result'])[0] }}<span>円</span></p>
+                                        <p>{{ number_format(json_decode($slctSession[0]['price_result'])[0]) }}<span>円</span></p>
                                     </li>
                                     <li>
                                         <p>延長{{ json_decode($slctSession[0]['price_result'])[4] }}h</p>
@@ -294,7 +294,7 @@
                                 @foreach (json_decode($slctSession[0]['items_results'])[2] as $b_ser)
                                     <li>
                                         <p>{{ $b_ser[0] }}</p>
-                                        <p>{{ $b_ser[1] }}<span>円</span></p>
+                                        <p>{{ number_format($b_ser[1]) }}<span>円</span></p>
                                     </li>
                                 @endforeach
                             </ul>
