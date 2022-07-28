@@ -246,6 +246,7 @@
                                     <tr>
                                         <td class="table-active">
                                             {{ $equ->item }}
+											({{ number_format($equ->price).'円' }})
                                         </td>
                                         <td>
                                             {{ Form::number('equipment_breakdown[]', $request->equipment_breakdown[$key], [
@@ -275,6 +276,7 @@
                                     <tr>
                                         <td class="table-active">
                                             {{ $ser->item }}
+											({{ number_format($ser->price).'円' }})
                                         </td>
                                         <td>
                                             <div class="radio-box">
@@ -313,7 +315,11 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="table-active">レイアウト準備</td>
+                                        <td class="table-active">レイアウト準備
+											(
+												{{ !empty($pre_reservation->venue->layout_prepare)?number_format($pre_reservation->venue->layout_prepare).'円':null }}
+											)
+										</td>
                                         <td>
                                             <div class="radio-box">
                                                 <p>
@@ -334,7 +340,11 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="table-active">レイアウト片付</td>
+                                        <td class="table-active">レイアウト片付
+											(
+												{{ !empty($pre_reservation->venue->layout_clean)?number_format($pre_reservation->venue->layout_clean).'円':null }}
+											)											
+										</td>
                                         <td>
                                             <div class="radio-box">
                                                 <p>

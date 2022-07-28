@@ -552,18 +552,18 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             $pre_reservations->unknown_user()->create([
               "unknown_user_company" => $request->unknown_user_company,
               "unknown_user_name" => $request->unknown_user_name,
-              "unknown_user_email" => $request->unknown_user_tel,
+              "unknown_user_email" => $request->unknown_user_email,
               "unknown_user_mobile" => $request->unknown_user_mobile,
-              "unknown_user_tel" => $request->unknown_user_email,
+              "unknown_user_tel" => $request->unknown_user_tel,
             ]);
           } else {
             $pre_reservations->unknown_user()->delete();
             $pre_reservations->unknown_user()->create([
               "unknown_user_company" => $request->unknown_user_company,
               "unknown_user_name" => $request->unknown_user_name,
-              "unknown_user_email" => $request->unknown_user_tel,
+              "unknown_user_email" => $request->unknown_user_email,
               "unknown_user_mobile" => $request->unknown_user_mobile,
-              "unknown_user_tel" => $request->unknown_user_email,
+              "unknown_user_tel" => $request->unknown_user_tel,
             ]);
           }
         }

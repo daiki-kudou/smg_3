@@ -236,9 +236,6 @@
                 </tr>
             @endif
 
-            <pre>
-    </pre>
-
             @if ($venue->getServices()->count() != 0)
                 <tr>
                     <th>有料サービス</th>
@@ -405,6 +402,7 @@
                     <span class="txt-indent">
                         ※入力に際し旧漢字・機種依存文字などはご使用になれません。
                     </span>
+
                 </p>
                 <a name="a-nam" class="error-r"></a>
             </td>

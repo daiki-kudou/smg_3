@@ -300,6 +300,7 @@
                         </td>
                     </tr>
 
+
                     @if ($venue->layout != 0)
                         <tr>
                             <th class=""><label for="service">レイアウト</label></th>
