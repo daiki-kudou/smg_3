@@ -235,6 +235,7 @@
                                     <tr>
                                         <td class="table-active">
                                             {{ $equ->item }}
+											({{ number_format($equ->price).'円' }})
                                         </td>
                                         <td>
                                             @foreach ($pre_reservation->pre_breakdowns()->get() as $s_equ)
@@ -275,6 +276,7 @@
                                 <tr>
                                     <td class="table-active">
                                         {{ $ser->item }}
+										({{ number_format($ser->price).'円' }})
                                     </td>
                                     <td>
                                         @foreach ($pre_reservation->pre_breakdowns()->get() as $s_ser)
@@ -331,7 +333,11 @@
                         <tbody>
 
                             <tr>
-                                <td class="table-active">レイアウト準備</td>
+                                <td class="table-active">レイアウト準備
+									(
+										{{ !empty($pre_reservation->venue->layout_prepare)?number_format($pre_reservation->venue->layout_prepare).'円':null }}
+									)
+								</td>
                                 <td>
                                     @foreach ($pre_reservation->pre_breakdowns()->get() as $s_lay)
                                         @if ($s_lay->unit_item == 'レイアウト準備料金')
@@ -363,7 +369,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="table-active">レイアウト片付</td>
+                            <td class="table-active">レイアウト片付
+								(
+									{{ !empty($pre_reservation->venue->layout_clean)?number_format($pre_reservation->venue->layout_clean).'円':null }}
+								)
+							</td>
                             <td>
                                 @foreach ($pre_reservation->pre_breakdowns()->get() as $s_lay)
                                     @if ($s_lay->unit_item == 'レイアウト片付料金')
