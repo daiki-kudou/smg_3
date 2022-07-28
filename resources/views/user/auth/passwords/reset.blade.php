@@ -16,17 +16,16 @@
     <input type="hidden" name="token" value="{{ $token }}">
     <div class="bgColorGray">
       <table>
-        <tr>
+        {{-- <tr>
           <th>
             <label for="email">
               メールアドレス
             </label>
           </th>
           <td>
-            {{Form::email('email', old('email'), ['class' => 'text1 form-control','id' => 'email'])}}
-            <p class="is-error-email" style="color: red"></p>
+			<input type="hidden" name="email" value="{{ $email }}">
           </td>
-        </tr>
+        </tr> --}}
         <tr>
           <th>
             <label for="password">
@@ -60,6 +59,8 @@
         </button>
       </div>
     </div>
+	
+	<input type="hidden" name="email" value="{{ $email }}">
 
   </form>
 </section>
