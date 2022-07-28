@@ -51,7 +51,7 @@
 </div>
 
 <section class="mt-5">
-  {{ Form::open(['url' => '/admin/pre_reservations/'.$PreReservation->id.'/re_calculate', 'method'=>'POST','id'=>'pre_reservationSingleEditForm']) }}
+  {{ Form::open(['url' => '/admin/pre_reservations/'.$PreReservation->id.'/re_calculate', 'method'=>'POST','id'=>'pre_reservationSingleEditForm','autocomplete'=>'off']) }}
   @csrf
   <div class="selected_user">
     <table class="table table-bordered" style="table-layout: fixed;">
@@ -762,7 +762,7 @@
   {{Form::close()}}
 
 
-  {{ Form::open(['url' => '/admin/pre_reservations/'.$PreReservation->id, 'method'=>'PUT']) }}
+  {{ Form::open(['url' => '/admin/pre_reservations/'.$PreReservation->id, 'method'=>'PUT','autocomplete'=>'off']) }}
   @csrf
   {{-- 以下、計算結果 --}}
   <div class="bill">

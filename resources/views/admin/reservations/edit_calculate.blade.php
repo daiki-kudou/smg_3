@@ -54,8 +54,7 @@
 
 
 
-{{Form::open(['url' => '/admin/reservations/session_for_edit_calculate', 'method' => 'POST',
-'id'=>'reservations_edit'])}}
+{{Form::open(['url' => '/admin/reservations/session_for_edit_calculate', 'method' => 'POST','id'=>'reservations_edit','autocomplete'=>'off',])}}
 @csrf
 
 @if (session('flash_message'))
@@ -652,8 +651,7 @@
 {{Form::close()}}
 
 
-{{ Form::open(['url' => '/admin/reservations/session_for_edit_check', 'method'=>'POST',
-'id'=>'reservations_edit_result']) }}
+{{ Form::open(['url' => '/admin/reservations/session_for_edit_check', 'method'=>'POST','id'=>'reservations_edit_result','autocomplete'=>'off',]) }}
 @csrf
 <section class="mt-5 pt-5">
   <div class="bill">

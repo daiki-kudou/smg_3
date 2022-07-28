@@ -43,7 +43,7 @@
     </div>
     @endif
     <div>
-      {{ Form::open( ['route' => 'admin.frame_prices.store',"id"=>'FramePriceCreateForm']) }}
+      {{ Form::open( ['route' => 'admin.frame_prices.store',"id"=>'FramePriceCreateForm','autocomplete'=>'off']) }}
       @csrf
       <p class="mb-2 text-right">※枠は「午前」「午後」「夜間」「午前＆午後」「午後＆夜間」「終日」です。</p>
       <table class="table table-bordered">

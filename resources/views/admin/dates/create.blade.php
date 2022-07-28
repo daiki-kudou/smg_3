@@ -37,7 +37,7 @@
 
       @foreach ($date_venues as $date_venue)
       @if ($date_venue->week_day==$weekday_id)
-      {{ Form::open(['url' => '/admin/dates', 'method'=>'POST']) }}
+      {{ Form::open(['url' => '/admin/dates', 'method'=>'POST','autocomplete'=>'off']) }}
       @csrf
       <tr>
         <td class="text-center">

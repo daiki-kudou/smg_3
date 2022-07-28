@@ -23,8 +23,7 @@
 </div>
 
 
-{{ Form::open(['url' => '/admin/pre_agent_reservations/calculate', 'method'=>'POST',
-'id'=>'pre_agent_reservationsSingleCheckForm']) }}
+{{ Form::open(['url' => '/admin/pre_agent_reservations/calculate', 'method'=>'POST','id'=>'pre_agent_reservationsSingleCheckForm','autocomplete'=>'off']) }}
 @csrf
 
 <section class="mt-5">

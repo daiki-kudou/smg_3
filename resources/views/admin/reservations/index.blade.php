@@ -35,7 +35,7 @@
       <hr>
     </div>
 
-    {{ Form::open(['url' => '/admin/reservations', 'method'=>'get', 'id'=>'reserve_search'])}}
+    {{ Form::open(['url' => '/admin/reservations', 'method'=>'get', 'id'=>'reserve_search','autocomplete'=>'off',])}}
     @csrf
 
     <div class="search-wrap">

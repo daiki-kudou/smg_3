@@ -20,8 +20,7 @@
   <hr>
 </div>
 
-{{ Form::open(['url' => '/admin/pre_reservations/'.$request->id.'/re_calculate',
-'method'=>'POST','id'=>'pre_reservationSingleRecalculateForm']) }}
+{{ Form::open(['url' => '/admin/pre_reservations/'.$request->id.'/re_calculate','method'=>'POST','id'=>'pre_reservationSingleRecalculateForm','autocomplete'=>'off',]) }}
 @csrf
 <section class="mt-5">
   <div class="selected_user">
@@ -729,8 +728,7 @@
 
 
 
-{{ Form::open(['url' => '/admin/pre_reservations/'.$request->id.'/edit_update',
-'method'=>'PUT','id'=>'pre_reservationRecalculateResult']) }}
+{{ Form::open(['url' => '/admin/pre_reservations/'.$request->id.'/edit_update','method'=>'PUT','id'=>'pre_reservationRecalculateResult','autocomplete'=>'off',]) }}
 @csrf
 {{-- 以下、計算結果 --}}
 <div class="container-fluid">

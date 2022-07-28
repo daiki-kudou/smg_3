@@ -50,7 +50,7 @@
 
 
 <!-- 検索--------------------------------------- -->
-{{ Form::open(['url' => '/admin/sales', 'method'=>'GET','id'=>'sales_search']) }}
+{{ Form::open(['url' => '/admin/sales', 'method'=>'GET','id'=>'sales_search','autocomplete'=>'off',]) }}
 @csrf
 <div class="search-wrap">
   <table class="table table-bordered">

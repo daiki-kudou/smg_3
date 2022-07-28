@@ -143,7 +143,7 @@
 
 
 
-{{Form::open(['url' => '/admin/agents_reservations/calculate', 'method' => 'POST', 'id'=>''])}}
+{{Form::open(['url' => '/admin/agents_reservations/calculate', 'method' => 'POST', 'id'=>'','autocomplete'=>'off'])}}
 @csrf
 
 <div class="container-field bg-white text-dark">
@@ -617,7 +617,7 @@
 {{Form::submit('再計算する', ['class'=>'btn btn-danger mx-auto d-block btn-lg mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
-{{ Form::open(['url' => '/admin/reservations/check', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
+{{ Form::open(['url' => '/admin/reservations/check', 'method'=>'POST', 'id'=>'agents_calculate_form','autocomplete'=>'off']) }}
 @csrf
 <div class="container-fluid">
   <div class="bill">

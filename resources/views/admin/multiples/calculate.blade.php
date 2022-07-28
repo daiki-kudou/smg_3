@@ -100,8 +100,7 @@
       </section>
 
 
-      {{ Form::open(['url' => '/admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST',
-      'id'=>'multipleCalculateForm']) }}
+      {{ Form::open(['url' => '/admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST','id'=>'multipleCalculateForm','autocomplete'=>'off']) }}
       @csrf
       <section class="m-5 border-inwrap">
         <div class="mb-2">
@@ -600,9 +599,7 @@
       {{-- 以下、pre_reservationの数分　ループ --}}
       @foreach ($multiple->getPreReservations($venue->id) as $key=>$pre_reservation)
 
-      {{ Form::open(['url' =>
-      'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update',
-      'method'=>'POST', 'id'=>'multipleCalculateSpecificUpdateForm'.$key]) }}
+      {{ Form::open(['url' =>'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update','method'=>'POST', 'id'=>'multipleCalculateSpecificUpdateForm'.$key,'autocomplete'=>'off']) }}
       @csrf
       {{ Form::hidden('split_keys', $key) }}
       <section class="register-list col">
@@ -1534,8 +1531,7 @@
 
 
 
-{{ Form::open(['url' => '/admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST',
-'id'=>'master_form']) }}
+{{ Form::open(['url' => '/admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST','id'=>'master_form','autocomplete'=>'off']) }}
 @csrf
 {{ Form::hidden('master_data', '',['class' => 'btn btn-primary more_btn_lg', 'id'=>'master_data'])}}
 {{ Form::close() }}

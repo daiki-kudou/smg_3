@@ -14,7 +14,7 @@
   </nav>
 </div>
 
-{{ Form::open(['url' => '/admin/reservations/'.$data['reservation_id'], 'method'=>'PUT', 'id'=>'']) }}
+{{ Form::open(['url' => '/admin/reservations/'.$data['reservation_id'], 'method'=>'PUT', 'id'=>'','autocomplete'=>'off',]) }}
 @csrf
 {{ Form::hidden('reservation_id', $data['reservation_id'] ,['class'=>'form-control', 'readonly'] ) }}
 {{ Form::hidden('bill_id', $data['bill_id'] ,['class'=>'form-control', 'readonly'] ) }}

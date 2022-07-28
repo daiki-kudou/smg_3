@@ -35,7 +35,7 @@
 <h2 class="mt-3 mb-3">追加請求書　確認画面</h2>
 <hr>
 
-{{ Form::open(['url' => '/admin/agents_reservations/add_bills/store', 'method'=>'POST']) }}
+{{ Form::open(['url' => '/admin/agents_reservations/add_bills/store', 'method'=>'POST','autocomplete'=>'off']) }}
 @csrf
 {{ Form::hidden('reservation_id', $data['reservation_id'], ['class' => 'form-control'])}}
 {{ Form::hidden('reserve_date', $data['reserve_date'], ['class' => 'form-control'])}}

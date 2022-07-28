@@ -153,7 +153,7 @@
       </div>
       {{ Form::close() }}
     </div>
-    {{Form::open(['url' => '/admin/frame_prices/'.$venue->id, 'method' => 'delete', 'id'=>'delete'])}}
+    {{Form::open(['url' => '/admin/frame_prices/'.$venue->id, 'method' => 'delete', 'id'=>'delete','autocomplete'=>'off'])}}
     @csrf
     {{ Form::close() }}
   </div>

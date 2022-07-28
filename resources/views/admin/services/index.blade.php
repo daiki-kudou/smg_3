@@ -23,7 +23,7 @@
   </div>
   <div class="d-flex justify-content-between my-3">
 
-    {{ Form::open(['url' => '/admin/services', 'method'=>'get', 'id'=>'page_counter_form']) }}
+    {{ Form::open(['url' => '/admin/services', 'method'=>'get', 'id'=>'page_counter_form','autocomplete'=>'off',]) }}
     @csrf
     {{Form::text('page_counter','',(['id'=>'page_counter_input','class'=>'hide']))}}
     {{ Form::close() }}
@@ -63,7 +63,7 @@
           </p>
         </td>
         <td class="text-center">
-          {{ Form::open(['url' => '/admin/services/'.$query->id."/edit", 'method'=>'GET', 'id'=>'']) }}
+          {{ Form::open(['url' => '/admin/services/'.$query->id."/edit", 'method'=>'GET', 'id'=>'','autocomplete'=>'off',]) }}
           @csrf
           {{Form::hidden('current_p',$services->currentPage() )}}
           {{ Form::submit('編集', ['class' => 'btn more_btn']) }}

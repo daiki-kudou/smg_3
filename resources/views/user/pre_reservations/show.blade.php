@@ -43,11 +43,7 @@
                 </tr>
             </tbody>
         </table>
-        {{ Form::open([
-            'url' => '/user/pre_reservations/' . $pre_reservation->id . '/calculate',
-            'method' => 'POST',
-            'id' => 'mypageForm',
-        ]) }}
+        {{ Form::open(['url' => '/user/pre_reservations/' . $pre_reservation->id . '/calculate','method' => 'POST','id' => 'mypageForm','autocomplete'=>'off',]) }}
         @csrf
         <div class="border-wrap2 p-4">
             <div class="row">

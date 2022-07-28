@@ -9,7 +9,7 @@
   </div>
 </div>
 <section class="contents">
-  {{ Form::open(['url' => '/user/reservations/session_destroy', 'method'=>'POST', 'id'=>'']) }}
+  {{ Form::open(['url' => '/user/reservations/session_destroy', 'method'=>'POST', 'id'=>'','autocomplete'=>'off',]) }}
   <!-- 予約内容 -------------------------------------------->
   <h2>予約1</h2>
   <div class="bgColorGray">

@@ -521,18 +521,6 @@
     });
     var rootPath = "{{url('/')}}";
 
-// 自動補完無効
-    $(function(){
-    $('input[type="text"]').each(function(index, element){
-    var this_val=$('input[type="text"]').eq(index);
-    this_val.on("mousedown", function(){
-    setTimeout(function(){
-    this_val.focus();
-    }, 1);
-    return false;
-    });
-    })
-    })
 
     
     // 会員登録ページでカートを非表示

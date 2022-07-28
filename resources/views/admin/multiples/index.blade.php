@@ -49,7 +49,7 @@
     </div>
 
     <!-- 検索--------------------------------------- -->
-    {{Form::open(['url' => '/admin/multiples', 'method' => 'GET', 'id'=>'searchMultiple'])}}
+    {{Form::open(['url' => '/admin/multiples', 'method' => 'GET', 'id'=>'searchMultiple','autocomplete'=>'off',])}}
     @csrf
     <div class="search-wrap">
       <table class="table table-bordered mb-0">
@@ -144,7 +144,7 @@
       <ul class="d-flex reservation_list mb-2 justify-content-between">
         <li>
           {{-- 削除ボタン --}}
-          {{Form::open(['url' => '/admin/multiples/destroy', 'method' => 'delete'])}}
+          {{Form::open(['url' => '/admin/multiples/destroy', 'method' => 'delete','autocomplete'=>'off',])}}
           @csrf
           <div id="for_destroy"></div>
           {{Form::hidden("delete_target","")}}

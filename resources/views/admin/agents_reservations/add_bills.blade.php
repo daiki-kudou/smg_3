@@ -37,7 +37,7 @@
 <hr>
 
 
-{{ Form::open(['url' => '/admin/agents_reservations/add_bills/check', 'method'=>'get','id'=>'agentsbillsCreateForm']) }}
+{{ Form::open(['url' => '/admin/agents_reservations/add_bills/check', 'method'=>'get','id'=>'agentsbillsCreateForm','autocomplete'=>'off']) }}
 @csrf
 {{ Form::hidden('reservation_id', $reservation['id'])}}
 {{ Form::hidden('reserve_date', $reservation['reserve_date'])}}

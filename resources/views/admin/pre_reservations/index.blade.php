@@ -52,7 +52,7 @@
     @include('layouts.admin.errors')
 
     <!-- 検索--------------------------------------- -->
-    {{Form::open(['url' => '/admin/pre_reservations', 'method' => 'GET', 'id'=>'preserve_search'])}}
+    {{Form::open(['url' => '/admin/pre_reservations', 'method' => 'GET', 'id'=>'preserve_search','autocomplete'=>'off'])}}
     @csrf
     <div class="search-wrap">
       <table class="table table-bordered">
@@ -155,7 +155,7 @@
     <ul class="d-flex reservation_list mb-2 justify-content-between">
       <li>
         {{-- 削除ボタン --}}
-        {{Form::open(['url' => '/admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>''])}}
+        {{Form::open(['url' => '/admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>'','autocomplete'=>'off'])}}
         @csrf
         {{Form::hidden('delete_target','')}}
         {{ Form::submit('削除', ['class' => 'btn more_btn4 confirm_delete','id'=>'confirm_destroy']) }}

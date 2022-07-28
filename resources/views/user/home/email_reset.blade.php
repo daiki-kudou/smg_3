@@ -34,8 +34,7 @@
 
   <div class="mt-5">
     <p class="mb-2">新しいメールアドレスを入力してください</p>
-    <div class="w-100">{{ Form::open(['url' => '/user/home/email_reset_create', 'method'=>'POST', 'id'=>'email_reset'])
-      }}
+    <div class="w-100">{{ Form::open(['url' => '/user/home/email_reset_create', 'method'=>'POST', 'id'=>'email_reset','autocomplete'=>'off'])}}
       @csrf
 
         <p class="mail-input">{{Form::text('new_email',old('new_email'),['class' => 'form-control '])}}</p>

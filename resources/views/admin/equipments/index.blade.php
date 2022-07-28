@@ -56,7 +56,7 @@
         </p>
       </td>
       <td class="text-center">
-        {{ Form::open(['url' => '/admin/equipments/'.$query->id."/edit", 'method'=>'GET', 'id'=>'']) }}
+        {{ Form::open(['url' => '/admin/equipments/'.$query->id."/edit", 'method'=>'GET', 'id'=>'','autocomplete'=>'off']) }}
         @csrf
         {{Form::hidden('current_p',$equipments->currentPage() )}}
         {{ Form::submit('編集', ['class' => 'btn more_btn']) }}

@@ -50,8 +50,7 @@
   </div>
 
 
-  {{Form::open(['url' => '/admin/agents_reservations/store_session', 'method' => 'POST',
-  'id'=>'agentReservationCalculateForm'])}}
+  {{Form::open(['url' => '/admin/agents_reservations/store_session', 'method' => 'POST','id'=>'agentReservationCalculateForm','autocomplete'=>'off'])}}
 
   @csrf
   <section class="mt-4">
@@ -644,8 +643,7 @@
 
 
 
-  {{ Form::open(['url' => '/admin/agents_reservations/check_session', 'method'=>'POST', 'id'=>'agents_calculate_form'])
-  }}
+  {{ Form::open(['url' => '/admin/agents_reservations/check_session', 'method'=>'POST', 'id'=>'agents_calculate_form','autocomplete'=>'off'])}}
   @csrf
   <section class="">
     <div class="bill">

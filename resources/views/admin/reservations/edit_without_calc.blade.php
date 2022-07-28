@@ -42,8 +42,7 @@
 </div>
 
 
-{{Form::open(['url' => '/admin/reservations/session_for_edit_calculate', 'method' => 'POST',
-'id'=>'reservations_edit'])}}
+{{Form::open(['url' => '/admin/reservations/session_for_edit_calculate', 'method' => 'POST','id'=>'reservations_edit','autocomplete'=>'off',])}}
 @csrf
 
 <section class="mt-5">
@@ -603,7 +602,7 @@
 {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
-{{ Form::open(['url' => '/admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'']) }}
+{{ Form::open(['url' => '/admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'','autocomplete'=>'off']) }}
 @csrf
 <section class="mt-5">
   <div class="bill">

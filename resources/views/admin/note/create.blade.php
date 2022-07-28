@@ -22,7 +22,7 @@
         <td></td>
       </tr>
       @endforeach
-      {{ Form::open(['url' => '/admin/note/store', 'method' => 'post','id'=>'add_note_form']) }}
+      {{ Form::open(['url' => '/admin/note/store', 'method' => 'post','id'=>'add_note_form','autocomplete'=>'off',]) }}
       @csrf
       <tr>
         <td>{{Form::text('hour',null , ['class' => 'form-control'])}}</td>

@@ -28,7 +28,7 @@
 <h2 class="mt-3 mb-3">有料サービス管理　新規登録</h2>
 <hr>
 
-{{ Form::open(['url' => '/admin/services', 'method'=>'POST', 'id'=>'ServiceCreateForm']) }}
+{{ Form::open(['url' => '/admin/services', 'method'=>'POST', 'id'=>'ServiceCreateForm','autocomplete'=>'off',]) }}
 @csrf
 <p class="text-right mt-5">※金額は税抜で入力してください。</p>
 <table class="table table-bordered">
