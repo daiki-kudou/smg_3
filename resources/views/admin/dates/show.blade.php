@@ -56,7 +56,7 @@
         <td>{{Carbon\Carbon::parse($date_venue->start)->format('H:i')}} ~
           {{Carbon\Carbon::parse($date_venue->finish)->format('H:i')}}
         </td>
-        <td class="text-center">{{ Form::open(['url' => '/admin/dates/create', 'method'=>'get']) }}
+        <td class="text-center">{{ Form::open(['url' => '/admin/dates/create', 'method'=>'get','autocomplete'=>'off']) }}
           @csrf
           {{Form::hidden('weekday_id', $date_venue->week_day)}}
           {{Form::hidden('id', $venues->id)}}

@@ -17,7 +17,7 @@
   <section class="mt-5 bg-white">
     <div class="calender-ttl">
       <h2>{{ReservationHelper::getVenueForUser($selected_venue)}}</h2>
-      {{ Form::open(['url' => '/calendar/venue_calendar', 'method' => 'get','id'=>'v_calendar']) }}
+      {{ Form::open(['url' => '/calendar/venue_calendar', 'method' => 'get','id'=>'v_calendar','autocomplete'=>'off',]) }}
       @csrf
       <div class="d-flex align-items-center">
         {{Form::hidden("venue_id", "")}}

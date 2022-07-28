@@ -53,7 +53,7 @@
     @endforeach
 
 
-    {{ Form::open(['url' => '/admin/agents_reservations', 'method' => 'POST', 'id' => 'agentReservationCreateForm']) }}
+    {{ Form::open(['url' => '/admin/agents_reservations', 'method' => 'POST', 'id' => 'agentReservationCreateForm','autocomplete'=>'off']) }}
     @csrf
     <section class="mt-4">
         <div class="row">

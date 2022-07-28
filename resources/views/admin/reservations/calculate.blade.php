@@ -48,7 +48,7 @@
   </nav>
 </div>
 
-{{Form::open(['url' => '/admin/reservations/store_session', 'method' => 'post', 'id'=>'reservationCreateForm'])}}
+{{Form::open(['url' => '/admin/reservations/store_session', 'method' => 'post', 'id'=>'reservationCreateForm','autocomplete'=>'off',])}}
 @csrf
 <section class="mt-4">
   <div class="row">
@@ -626,7 +626,7 @@
 {{Form::close()}}
 
 
-{{ Form::open(['url' => '/admin/reservations/check_session', 'method'=>'POST', 'id'=>'reservations_calculate_form']) }}
+{{ Form::open(['url' => '/admin/reservations/check_session', 'method'=>'POST', 'id'=>'reservations_calculate_form','autocomplete'=>'off',]) }}
 @csrf
 <section class="">
   <div class="bill">

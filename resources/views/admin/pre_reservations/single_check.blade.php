@@ -20,8 +20,7 @@
   <h2 class="mt-3 mb-3">仮押え　詳細入力画面</h2>
   <hr>
 
-  {{ Form::open(['url' => '/admin/pre_reservations/calculate', 'method'=>'get', 'id'=>'pre_reservationSingleCheckForm'])
-  }}
+  {{ Form::open(['url' => '/admin/pre_reservations/calculate', 'method'=>'get', 'id'=>'pre_reservationSingleCheckForm','autocomplete'=>'off'])}}
   @csrf
 
   <section class="mt-5">

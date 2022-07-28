@@ -5,8 +5,7 @@
   class="d-flex justify-content-end mt-2 mb-2">
   {{-- 予約ステータスを2にして、ユーザーにメール送付 --}}
   {{-- <a class="more_btn" href="">利用者に承認メールを送る</a> --}}
-  {{ Form::open(['url' => '/admin/reservations/'.$reservation->id.'/send_email_and_approve', 'method'=>'POST',
-  'class'=>'']) }}
+  {{ Form::open(['url' => '/admin/reservations/'.$reservation->id.'/send_email_and_approve', 'method'=>'POST','class'=>'','autocomplete'=>'off',]) }}
   @csrf
   {{ Form::hidden('reservation_id', $reservation->id ) }}
   {{ Form::hidden('user_id', $reservation->user_id ) }}
@@ -14,8 +13,7 @@
     {{ Form::submit('利用者に承認メールを送る',['class' => 'btn more_btn','id'=>'send_confirm']) }}
   </p>
   {{ Form::close() }}
-  {{ Form::open(['url' => '/admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST',
-  'class'=>''])
+  {{ Form::open(['url' => '/admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST','class'=>'','autocomplete'=>'off',])
   }}
   @csrf
   {{ Form::hidden('reservation_id', $reservation->id ) }}

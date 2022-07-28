@@ -31,7 +31,7 @@
         <div class="d-flex align-items-center">
           <div class="row w-100">
             <div class="col">
-              {{ Form::open(['url' => '/calendar/date_calendar', 'method' => 'get','id'=>'s_calendar']) }}
+              {{ Form::open(['url' => '/calendar/date_calendar', 'method' => 'get','id'=>'s_calendar','autocomplete'=>'off',]) }}
               @csrf
               {{ Form::hidden('date', $today) }}
               {{ Form::close() }}

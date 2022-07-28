@@ -17,7 +17,7 @@
   <hr>
 </div>
 
-{{ Form::open(['url' => '/user/home', 'method'=>'get', 'id'=>'user_reservations_form']) }}
+{{ Form::open(['url' => '/user/home', 'method'=>'get', 'id'=>'user_reservations_form','autocomplete'=>'off',]) }}
 @csrf
 <div class="col-12">
   <dl class="d-flex col-12 justify-content-end align-items-center statuscheck">

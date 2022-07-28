@@ -7,354 +7,51 @@
     <script src="{{ asset('/js/lettercounter.js') }}"></script>
 
 
-    <div class="contents">
-        <div class="pagetop-text">
-            <h1 class="page-title oddcolor"><span>会場予約 入力画面</span></h1>
-            <p>下記フォームに必要事項を入力してください。(＊は必須項目です)</p>
-            <p class="txtRed">複数日程を希望の場合は予約日毎に予約入力してください。</p>
-        </div>
-    </div>
-    <section class="contents">
-        <div class="section-wrap">
-            <h2>予約</h2>
-            {{ Form::open(['url' => '/user/reservations/check', 'method' => 'POST', 'id' => 'user_reservation_create']) }}
-            <div class="bgColorGray first">
-                <table>
-                    <tr>
-                        <th>利用日</th>
-                        <td>
-                            {{ ReservationHelper::formatDate($request->date) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>利用時間</th>
-                        <td>
-                            <ul class="form-cell">
-                                <li class="form-cell">
-                                    <p>入室</p>
-                                    <p>{{ ReservationHelper::formatTime($request->enter_time) }}</p>
-                                </li>
-                                <li>～</li>
-                                <li class="form-cell">
-                                    <p>退室</p>
-                                    <p>{{ ReservationHelper::formatTime($request->leave_time) }}</p>
-                                </li>
-                            </ul>
-                            <div class="borderAttention">
-                                <p>
-                                    <span>入室時間より以前に入室はできません。</span>
-                                </p>
-                                <p class="checkbox-txt">
-                                    {{ Form::checkbox('q1', 1, true, ['class' => 'custom-control-input', 'id' => 'checkbox', 'disabled']) }}
-                                    <input type="hidden" name="q1" value="1" />
-                                    <label for="checkbox">確認しました</label>
-                                <p class="is-error-q1" style="color: red"></p>
-                                </p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>利用会場</th>
-                        <td>
-                            {{ ReservationHelper::getVenueForUser($request->venue_id) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>当日連絡できる担当者名 <span class="txtRed c-block">＊</span></th>
-                        <td>
-                            {{ Form::text('in_charge', old('in_charge'), ['class' => 'form-input text2', 'placeholder' => '入力してください']) }}
-                            <br class="spOnlyunder">
-                            <p class="is-error-in_charge" style="color: red"></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>当日連絡できる担当者携帯 <span class="txtRed c-block">＊</span></th>
-                        <td>
-                            {{ Form::text('tel', old('tel'), ['class' => 'form-input text2', 'placeholder' => '入力してください']) }}
-                            <br class="spOnlyunder">
-                            <p class="is-error-tel" style="color: red"></p>
-                            <p>
-                                <span class="txt-indent">※必ず当日連絡が付く担当者の連絡番号を記載下さい。</span>
-                                <span class="txt-indent">※半角数字、ハイフンなしで入力下さい。</span>
-                            </p>
-                        </td>
-                    </tr>
-                    @if ($venue->frame_prices->count() != 0 && $venue->time_prices->count() != 0)
-                        @if (Carbon\Carbon::parse($request->enter_time)->diffInMinutes(Carbon\Carbon::parse($request->leave_time)) >= 180)
-                            <tr>
-                                <th>音響ハイグレード<span class="txtRed c-block">＊</span></th>
-                                <td class="">
-                                    <ul>
-                                        <li>
-                                            <div class="selectTime">
-                                                {{ Form::radio('price_system', 2, false, ['class' => 'radio-input', 'id' => 'price_system_radio2']) }}
-                                                {{ Form::label('price_system_radio2', 'する') }}
-                                                {{ Form::radio('price_system', 1, true, ['class' => 'radio-input', 'id' => 'price_system_radio1']) }}
-                                                {{ Form::label('price_system_radio1', 'しない') }}
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <a target="_blank" rel="noopener noreferrer" href="https://system.osaka-conference.com/characteristic/high-grade/">
-                                                <i class="fas fa-question-circle form-icon"></i>
-                                                音響ハイグレードとは？
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <a name="a-selectTime1" class="error-r"></a>
-                                </td>
-                            </tr>
-                        @else
-                            {{ Form::hidden('price_system', 1) }}
-                        @endif
-                    @else
-                        @if ($venue->frame_prices->count() != 0)
-                            {{ Form::hidden('price_system', 1) }}
-                        @else
-                            {{ Form::hidden('price_system', 2) }}
-                        @endif
-                    @endif
-                    <tr>
-                        <th>案内板の作成<span class="txtRed c-block">＊</span></th>
-                        <td class="">
-                            <ul>
-                                <li>
-                                    <div class="selectTime">
-                                        {{ Form::radio('board_flag', 1, false, ['class' => 'radio-input', 'id' => 'board_flag']) }}
-                                        {{ Form::label('board_flag', 'あり') }}
-                                        {{ Form::radio('board_flag', 0, true, ['class' => 'radio-input', 'id' => 'no_board_flag']) }}
-                                        {{ Form::label('no_board_flag', 'なし') }}
-                                    </div>
-                                </li>
-                                <li>
-                                    <a target="_blank" rel="noopener noreferrer" href="https://system.osaka-conference.com/welcomboard/">
-                                        <i class="fas fa-external-link-alt form-icon"></i>
-                                        案内板サンプルはこちら
-                                    </a>
-                                </li>
-                                <li class="cell-margin board_info">
-                                    <div class="m-b10">
-                                        <p>
-                                            <span class="txtRed c-block">＊</span>イベント名称1行目
-                                        </p>
-                                        <div class="form-counter">
-                                            {{ Form::text('event_name1', '', ['class' => 'form-input text2', 'placeholder' => '入力してください', 'id' => 'eventname1Count']) }}
-                                            <span class="count_num1"></span>
-                                        </div>
-                                        <p class="is-error-event_name1" style="color: red"></p>
-                                    </div>
-                                    <div class="m-b10">
-                                        <p>イベント名称2行目</p>
-                                        <div class="form-counter">
-                                            {{ Form::text('event_name2', '', ['class' => 'form-input text2', 'placeholder' => '入力してください', 'id' => 'eventname2Count']) }}
-                                            <span class="count_num2"></span>
-                                        </div>
-                                        <p class="is-error-event_name2" style="color: red"></p>
-                                    </div>
-                                    <div class="m-b10">
-                                        <p>主催者名</p>
-                                        <div class="form-counter">
-                                            {{ Form::text('event_owner', '', ['class' => 'form-input text2', 'placeholder' => '入力してください', 'id' => 'eventownerCount']) }}
-                                            <span class="count_num3"></span>
-                                        </div>
-                                        <p class="is-error-event_owner" style="color: red"></p>
-                                    </div>
-                                    <ul class="form-cell">
-                                        <li>
-                                            <p>イベント開始時間</p>
-                                            <div class="selectWrap">
-                                                <select name="event_start" id="event_start" class="timeScale">
-                                                    <option disabled>選択してください</option>
-                                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->enter_time, $request->enter_time, $request->leave_time) !!}
-                                                </select>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <p>イベント終了時間</p>
-                                            <div class="selectWrap">
-                                                <select name="event_finish" id="event_finish" class="timeScale">
-                                                    <option disabled>選択してください</option>
-                                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->leave_time, $request->enter_time, $request->leave_time) !!}
-                                                </select>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                        </td>
-                        </li>
-                        </ul>
-                        <a name="a-selectTime1" class="error-r"></a>
-                        </td>
-                    </tr>
-                    @if ($venue->eat_in_flag != 0)
-                        <tr>
-                            <th>室内飲食 <span class="txtRed c-block">＊</span></th>
-                            <td>
-                                {{ Form::radio('eat_in', 1, old('eat_in') == 1 ? true : false, ['id' => 'eat_in', 'class' => 'radio-input']) }}
-                                {{ Form::label('eat_in', 'あり') }}
-                                (
-                                {{ Form::radio('eat_in_prepare', 1, true, ['class' => old('eat_in') ? ((int) old('eat_in') === 1 ? 'radio-input' : '') : '', 'id' => 'eat_in_prepare', old('eat_in') ? 'test' : 'disabled']) }}
-                                {{ Form::label('eat_in_prepare', '手配済み', ['style' => 'margin-right: 20px;']) }}
-                                /
-                                {{ Form::radio('eat_in_prepare', 2, false, ['class' => old('eat_in') ? ((int) old('eat_in') === 1 ? 'radio-input' : '') : '', 'id' => 'eat_in_consider', old('eat_in') ? 'test' : 'disabled']) }}
-                                {{ Form::label('eat_in_consider', '検討中', ['style' => 'margin-right: 20px;']) }}
-                                )
-                                <br>
-                                {{ Form::radio('eat_in', 0, old('eat_in') == 0 ? true : false, ['id' => 'no_eat_in', 'class' => 'radio-input']) }}
-                                {{ Form::label('no_eat_in', 'なし') }}
-                                <a name="a-cataring01" class="error-r"></a>
-                            </td>
-                        </tr>
-                    @endif
-                    @if ($venue->getEquipments()->count() != 0)
-                        <tr>
-                            <th>有料備品</th>
-                            <td class="spec-space">
-                                <ul>
-                                    @foreach ($venue->getEquipments() as $e_key => $eqpt)
-                                        <li class="form-cell2">
-                                            <div class="text6 m-b20">
-                                                <p class="f-wb m-r10" style="line-height: 1.2; margin-bottom: 5px;">{{ $eqpt->item }}</p>
-                                                <p>
-                                                    {{ number_format($eqpt->price) }}円<span class="annotation">(税抜)</span>
-                                                </p>
-                                            </div>
-                                            <p class="m-l20">
-                                                {{ Form::number('equipment_breakdown' . $e_key, '', [
-                                                    'class' => 'text4 mL0
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                  number_validation',
-                                                    'autocomplete="off"',
-                                                ]) }}個
-                                            </p>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </td>
-                        </tr>
-                    @endif
-                    @if ($venue->getServices()->count() != 0)
-                        <tr>
-                            <th>有料サービス</th>
-                            <td class="spec-space">
-                                <ul>
-                                    @foreach ($venue->getServices() as $s_key => $serv)
-                                        <li>
-                                            <p>{{ $serv->item }} {{ number_format($serv->price) }}円<span class="annotation">(税抜)</span></p>
-                                            <div class="selectTime">
-                                                {{ Form::radio('services_breakdown' . $s_key, 1, old('services_breakdown' . $s_key) == 1 ? true : false, ['id' => 'services_breakdown_on' . $s_key, 'class' => 'radio-input']) }}
-                                                {{ Form::label('services_breakdown_on' . $s_key, 'あり') }}
-                                                {{ Form::radio('services_breakdown' . $s_key, 0, old('services_breakdown' . $s_key) == 0 ? true : false, ['id' => 'services_breakdown_off' . $s_key, 'class' => 'radio-input']) }}
-                                                {{ Form::label('services_breakdown_off' . $s_key, 'なし') }}
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </td>
-                        </tr>
-                    @endif
-                    @if ($venue->getLayouts() != 0)
-                        <tr>
-                            @if ($venue->getLayouts()[0])
-                                <th>レイアウト変更</th>
-                                <td class="spec-space">
-                                    <div class="m-b10">
-                                        <p>レイアウト準備</p>
-                                        <div class="selectTime">
-                                            {{ Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'radio-input']) }}
-                                            {{ Form::label('layout_prepare', 'あり') }}
-                                            {{ Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'radio-input']) }}
-                                            {{ Form::label('no_layout_prepare', 'なし') }}
-                                        </div>
-                                        <a name="a-selectTime1" class="error-r"></a>
-                                    </div>
-                            @endif
-                            @if ($venue->getLayouts()[1])
-                                <div class="m-b10">
-                                    <p>レイアウト片付</p>
-                                    <div class="selectTime">
-                                        {{ Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'radio-input']) }}
-                                        {{ Form::label('layout_clean', 'あり') }}
-                                        {{ Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'radio-input']) }}
-                                        {{ Form::label('no_layout_clean', 'なし') }}
-                                    </div>
-                                    <a name="a-selectTime1" class="error-r"></a>
-                                </div>
-                            @endif
-                            </td>
-                        </tr>
-                    @endif
-                    @if ($venue->getLuggage() != 0)
-                        <tr>
-                            <th>荷物預かり<span class="txtRed c-block">＊</span></th>
-                            <td class="spec-space">
-                                <div class="selectTime m-b10">
-                                    <input class="radio-input" id="luggage_flag" name="luggage_flag" type="radio" value="1">
-                                    <label for="luggage_flag">あり</label>
-                                    <input class="radio-input" id="no_luggage_flag" name="luggage_flag" type="radio" value="0" checked>
-                                    <label for="no_luggage_flag">なし</label>
-                                    <div class="">500円<span class="annotation">(税抜)</span></div>
-                                </div>
-                                <div class="luggage-exp">
-                                    <p>
-                                        【事前・事後】預かりの荷物について<br>
-                                        事前預かり/事後返送ともに<span class="f-s20">5個</span>まで。<br>
-                                        6個以上は要相談。その際は事前に必ずお問い合わせ下さい。<br>
-                                        荷物外寸合計(縦・横・奥行)120cm以下/個
-                                    </p>
-                                </div>
-                                <ul class="luggage_info">
-                                    <li class="m-b10">
-                                        <div class="luggage-cell">
-                                            <p>事前に預かる荷物(目安)</p>
-                                            {{ Form::number('luggage_count', '', ['class' => 'text6 ', 'style' => 'width:20%;', 'autocomplete="off"', 'min' => 0]) }}
-                                            <p class="">個</p>
-                                        </div>
-                                        <p class="is-error-luggage_count" style="color: red"></p>
-                                    </li>
-                                    <li class="m-b10">
-                                        <div class="luggage-cell">
-                                            <p>事前荷物の到着日(平日午前指定)</p>
-                                            {{ Form::text('luggage_arrive', '', ['class' => '', 'id' => 'datepicker2', 'autocomplete="off"']) }}
-                                        </div>
-                                    </li>
-                                    <li class="m-b30 ">
-                                        <p><span class="txt-indent">※利用日3日前～前日（平日のみ）を到着日に指定下さい</span></p>
-                                        <p><span class="txt-indent">※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送
-                                                PDF」をご確認下さい。</span>
-                                            <span class="txt-indent">※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。</span>
-                                            <span class="txt-indent">※貴重品等のお預りはできかねます。</span>
-                                            <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span>
-                                        </p>
-                                    </li>
-                                    <li class="m-b10">
-                                        <div class="luggage-cell">
-                                            <p>事後返送する荷物</p>
-                                            {{ Form::number('luggage_return', '', ['class' => 'text6 ', 'style' => 'width: 20%;', 'autocomplete="off"', 'min' => 0]) }}
-                                            <p class="">個</p>
-                                        </div>
-                                    </li>
-                                    <p class="is-error-luggage_return" style="color: red"></p>
-                                    <li class="m-b30">
-                                        <span class="txt-indent">
-                                            ※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。
-                                        </span>
-                                        </p>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                    @endif
-                    <tr>
-                        <th>備考</th>
-                        <td>
-                            {{ Form::textarea('remark', '', ['cols' => '30', 'rows' => '10']) }}
-                            <p>
-                                <span class="txt-indent">
-                                    ※入力に際し旧漢字・機種依存文字などはご使用になれません。
-                                </span>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
+
+<div class="contents">
+  <div class="pagetop-text">
+    <h1 class="page-title oddcolor"><span>会場予約 入力画面</span></h1>
+    <p>下記フォームに必要事項を入力してください。(＊は必須項目です)</p>
+    <p class="txtRed">複数日程を希望の場合は予約日毎に予約入力してください。</p>
+  </div>
+</div>
+<section class="contents">
+  <div class="section-wrap">
+    <h2>予約</h2>
+    {{ Form::open(['url' => '/user/reservations/check', 'method'=>'POST', 'id'=>'user_reservation_create','autocomplete'=>'off',]) }}
+    <div class="bgColorGray first">
+      <table>
+        <tr>
+          <th>利用日</th>
+          <td>
+            {{ReservationHelper::formatDate($request->date)}}
+          </td>
+        </tr>
+        <tr>
+          <th>利用時間</th>
+          <td>
+            <ul class="form-cell">
+              <li class="form-cell">
+                <p>入室</p>
+                <p>{{ReservationHelper::formatTime($request->enter_time)}}</p>
+              </li>
+              <li>～</li>
+              <li class="form-cell">
+                <p>退室</p>
+                <p>{{ReservationHelper::formatTime($request->leave_time)}}</p>
+              </li>
+            </ul>
+            <div class="borderAttention">
+              <p>
+                <span>入室時間より以前に入室はできません。</span>
+              </p>
+              <p class="checkbox-txt">
+                {{Form::checkbox('q1', 1, true, ['class'=>'custom-control-input','id'=>'checkbox', 'disabled'])}}
+                <input type="hidden" name="q1" value="1" />
+                <label for="checkbox">確認しました</label>
+              <p class="is-error-q1" style="color: red"></p>
+              </p>
+
             </div>
             <div class="btn-center">
                 <p>

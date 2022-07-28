@@ -61,7 +61,7 @@
   <hr>
 
 
-  {{Form::open(['url' => '/admin/reservations/store_session', 'method' => 'post', 'id'=>'reservationCreateForm'])}}
+  {{Form::open(['url' => '/admin/reservations/store_session', 'method' => 'post', 'id'=>'reservationCreateForm','autocomplete'=>'off','autocomplete'=>'off',])}}
   @csrf
   <section class="mt-5">
     <div class="row">

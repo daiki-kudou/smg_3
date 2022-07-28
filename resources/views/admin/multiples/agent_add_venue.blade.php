@@ -174,8 +174,7 @@
   </div>
 
 
-  {{Form::open(['url' => '/admin/multiples/agent/'.$multiple->id.'/add_venue_store', 'method' => 'POST',
-  'id'=>'add_venue'])}}
+  {{Form::open(['url' => '/admin/multiples/agent/'.$multiple->id.'/add_venue_store', 'method' => 'POST','id'=>'add_venue','autocomplete'=>'off'])}}
   @csrf
   <div class="date_selector pt-4">
     <hr>

@@ -32,7 +32,7 @@
 
 
 
-    {{ Form::open(['url' => '/admin/reservations', 'method' => 'POST', 'id' => 'agents_calculate_form']) }}
+    {{ Form::open(['url' => '/admin/reservations', 'method' => 'POST', 'id' => 'agents_calculate_form','autocomplete'=>'off',]) }}
     @csrf
     <section class="mt-4">
         <div class="row">

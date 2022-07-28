@@ -32,8 +32,7 @@
     <iframe frameborder="0" src="{{url('/admin/calendar/mini_calendar')}}" width="100%" height="500">Your browser isn't
       compatible</iframe>
   </div>
-  {{Form::open(['url' => '/admin/pre_agent_reservations/check', 'method' => 'POST',
-  'id'=>'pre_agent_reservationsCreateForm'])}}
+  {{Form::open(['url' => '/admin/pre_agent_reservations/check', 'method' => 'POST', 'id'=>'pre_agent_reservationsCreateForm','autocomplete'=>'off',])}}
   @csrf
 
   <div class="date_selector mt-5">

@@ -17,7 +17,7 @@
 
   <section class="mt-5 bg-white">
     <div class="calender-ttl">
-      {{ Form::open(['url' => '/admin/calendar/venue_calendar', 'method' => 'get']) }}
+      {{ Form::open(['url' => '/admin/calendar/venue_calendar', 'method' => 'get','autocomplete'=>'off']) }}
       @csrf
       <div class="d-flex align-items-center">
         {{ Form::select('venue_id',$venues,$selected_venue,['class'=>'form-control'] ) }}

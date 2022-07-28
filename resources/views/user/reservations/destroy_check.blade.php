@@ -3,58 +3,59 @@
 
     @include('layouts.user.overlay')
 
-    <div class="contents">
-        <div class="pagetop-text">
-            <h1 class="page-title oddcolor"><span>下記内容を取り消してもよろしいでしょうか。</span></h1>
-        </div>
-    </div>
-    <section class="contents">
-        {{ Form::open(['url' => '/user/reservations/session_destroy', 'method' => 'POST', 'id' => '']) }}
-        <!-- 予約内容 -------------------------------------------->
-        <h2>予約1</h2>
-        <div class="bgColorGray">
-            <table class="table-box">
-                <tbody>
-                    <tr>
-                        <th>利用日</th>
-                        <td>
-                            {{ ReservationHelper::formatDate($slctSession[0]['date']) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>利用時間</th>
-                        <td>
-                            <ul class="form-cell">
-                                <li class="form-cell">
-                                    <p>入室</p>
-                                    <p> {{ ReservationHelper::formatTime($slctSession[0]['enter_time']) }} </p>
-                                </li>
-                                <li>～</li>
-                                <li class="form-cell">
-                                    <p>退室</p>
-                                    <p> {{ ReservationHelper::formatTime($slctSession[0]['leave_time']) }} </p>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>利用会場</th>
-                        <td>
-                            {{ ReservationHelper::getVenueForUser($slctSession[0]['venue_id']) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>当日連絡できる担当者名</th>
-                        <td>
-                            {{ $slctSession[0]['in_charge'] }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>当日連絡できる担当者携帯</th>
-                        <td>
-                            {{ $slctSession[0]['tel'] }}
-                        </td>
-                    </tr>
+
+<div class="contents">
+  <div class="pagetop-text">
+    <h1 class="page-title oddcolor"><span>下記内容を取り消してもよろしいでしょうか。</span></h1>
+  </div>
+</div>
+<section class="contents">
+  {{ Form::open(['url' => '/user/reservations/session_destroy', 'method'=>'POST', 'id'=>'','autocomplete'=>'off',]) }}
+  <!-- 予約内容 -------------------------------------------->
+  <h2>予約1</h2>
+  <div class="bgColorGray">
+    <table class="table-box">
+      <tr>
+        <th>利用日</th>
+        <td>
+          {{ReservationHelper::formatDate($slctSession[0]['date'])}}
+        </td>
+      </tr>
+      <tr>
+        <th>利用時間</th>
+        <td>
+          <ul class="form-cell">
+            <li class="form-cell">
+              <p>入室</p>
+              <p> {{ReservationHelper::formatTime($slctSession[0]['enter_time'])}} </p>
+            </li>
+            <li>～</li>
+            <li class="form-cell">
+              <p>退室</p>
+              <p> {{ReservationHelper::formatTime($slctSession[0]['leave_time'])}} </p>
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th>利用会場</th>
+        <td>
+          {{ReservationHelper::getVenueForUser($slctSession[0]['venue_id'])}}
+        </td>
+      </tr>
+      <tr>
+        <th>当日連絡できる担当者名</th>
+        <td>
+          {{$slctSession[0]['in_charge']}}
+        </td>
+      </tr>
+      <tr>
+        <th>当日連絡できる担当者携帯</th>
+        <td>
+          {{$slctSession[0]['tel']}}
+        </td>
+      </tr>
+
 
                     @if ($venue->frame_prices->count() != 0 && $venue->time_prices->count() != 0)
                         <tr>

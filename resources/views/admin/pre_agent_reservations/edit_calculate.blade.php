@@ -10,8 +10,7 @@
 <h2 class="mt-3 mb-3">仲介会社　仮押え 計算</h2>
 <hr>
 
-{{ Form::open(['url' => '/admin/pre_agent_reservations/'.$id.'/edit_calculate', 'method'=>'POST',
-'id'=>'pre_agent_reservationSingleEditForm']) }}
+{{ Form::open(['url' => '/admin/pre_agent_reservations/'.$id.'/edit_calculate', 'method'=>'POST','id'=>'pre_agent_reservationSingleEditForm','autocomplete'=>'off',]) }}
 @csrf
 <section class="mt-5">
   <div class="selected_user">
@@ -602,7 +601,7 @@
 
 
 
-  {{ Form::open(['url' => '/admin/pre_agent_reservations/'.$id.'/update', 'method'=>'PUT', 'id'=>'']) }}
+  {{ Form::open(['url' => '/admin/pre_agent_reservations/'.$id.'/update', 'method'=>'PUT', 'id'=>'','autocomplete'=>'off']) }}
   @csrf
   {{-- 以下計算結果 --}}
   <div class="container-fluid">

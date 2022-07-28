@@ -30,11 +30,7 @@
         </div>
     @endif
 
-    {{ Form::open([
-        'url' => '/user/pre_reservations/' . $pre_reservation->id . '/calculate',
-        'method' => 'POST',
-        'id' => 'mypageDone',
-    ]) }}
+    {{ Form::open(['url' => '/user/pre_reservations/' . $pre_reservation->id . '/calculate','method' => 'POST','id' => 'mypageDone','autocomplete'=>'off',]) }}
     @csrf
     {{ Form::hidden('venue_id', $pre_reservation->venue_id) }}
     {{ Form::hidden('user_id', $pre_reservation->user_id) }}

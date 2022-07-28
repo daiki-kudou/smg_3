@@ -105,9 +105,7 @@
       </section>
 
 
-      {{ Form::open(['url' => '/admin/multiples/agent/'.$multiple->id."/edit/".$venue->id.'/calculate',
-      'method'=>'POST',
-      'id'=>'multiplesAgentEdit']) }}
+      {{ Form::open(['url' => '/admin/multiples/agent/'.$multiple->id."/edit/".$venue->id.'/calculate','method'=>'POST','id'=>'multiplesAgentEdit','autocomplete'=>'off']) }}
       @csrf
       <section class="m-5 border-inwrap">
         <div class="mb-2">
@@ -572,7 +570,7 @@
         </li>
         <li>
           <p>
-            {{Form::open(['url' => '/admin/multiples/'.$multiple->id.'/sp_destroy/'.$venue->id, 'method' => 'post'])}}
+            {{Form::open(['url' => '/admin/multiples/'.$multiple->id.'/sp_destroy/'.$venue->id, 'method' => 'post','autocomplete'=>'off'])}}
             @csrf
 
             {{ Form::hidden('delete_target', "") }}
@@ -589,9 +587,7 @@
       }}
       {{-- 以下、pre_reservationの数分　ループ --}}
       @foreach ($multiple->pre_reservations->where('venue_id',$venue->id) as $key=>$pre_reservation)
-      {{ Form::open(['url' =>
-      'admin/multiples/agent/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update',
-      'method'=>'POST', 'id'=>'multiplesAgentSpecificUpdateEdit' .$key]) }}
+      {{ Form::open(['url' =>'admin/multiples/agent/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update','method'=>'POST', 'id'=>'multiplesAgentSpecificUpdateEdit' .$key,'autocomplete'=>'off']) }}
       @csrf
       {{ Form::hidden('split_keys', $key) }}
 
@@ -1507,8 +1503,7 @@
   </div>
 </div>
 
-{{ Form::open(['url' => '/admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST',
-'id'=>'master_form']) }}
+{{ Form::open(['url' => '/admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST','id'=>'master_form','autocomplete'=>'off']) }}
 @csrf
 {{ Form::hidden('master_data', '',['class' => 'btn btn-primary more_btn_lg', 'id'=>'master_data'])}}
 {{ Form::close() }}

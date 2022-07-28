@@ -61,13 +61,13 @@
               <a href="javascript:$('#yesterday').submit()" class="text-white">
                 <i class="fas fa-chevron-left fa-2x"></i>
               </a>
-              {{ Form::open(['url' => '/admin/calendar/mini_calendar', 'method' => 'get','id'=>'yesterday']) }}
+              {{ Form::open(['url' => '/admin/calendar/mini_calendar', 'method' => 'get','id'=>'yesterday','autocomplete'=>'off']) }}
               @csrf
               {{ Form::hidden('date', $yesterday) }}
               {{ Form::close() }}
             </div>
             <div class="col">
-              {{ Form::open(['url' => '/admin/calendar/mini_calendar', 'method' => 'get','id'=>'s_calendar']) }}
+              {{ Form::open(['url' => '/admin/calendar/mini_calendar', 'method' => 'get','id'=>'s_calendar','autocomplete'=>'off']) }}
               @csrf
               {{ Form::text('', date('Y-m-d',strtotime($today)) ,['class'=>'form-control', 'id'=>'datepicker8',
               'placeholder'=>'入力してください'] ) }}
@@ -77,7 +77,7 @@
             <div class="col">
               <a href="javascript:$('#tomorrow').submit()" class="text-white"><i
                   class="fas fa-chevron-right fa-2x"></i></a>
-              {{ Form::open(['url' => '/admin/calendar/mini_calendar', 'method' => 'get','id'=>'tomorrow']) }}
+              {{ Form::open(['url' => '/admin/calendar/mini_calendar', 'method' => 'get','id'=>'tomorrow','autocomplete'=>'off']) }}
               @csrf
               {{ Form::hidden('date', $tomorrow) }}
               {{ Form::close() }}

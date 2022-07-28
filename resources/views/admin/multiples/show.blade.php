@@ -33,7 +33,7 @@
 
 <section class="mt-5">
   <div class="mb-2">
-    {{Form::open(['url' => '/admin/multiples/destroy', 'method' => 'delete'])}}
+    {{Form::open(['url' => '/admin/multiples/destroy', 'method' => 'delete','autocomplete'=>'off',])}}
     @csrf
     {{Form::hidden('delete_target', "[".$multiple->id."]")}}
     {{ Form::submit('削除', ['class' => 'btn more_btn4 confirm_delete']) }}
@@ -49,7 +49,7 @@
           </h3>
         </td>
         <td class="text-right">
-          {{ Form::open(['url' => '/admin/multiples/switch_status', 'method'=>'POST','id'=>'']) }}
+          {{ Form::open(['url' => '/admin/multiples/switch_status', 'method'=>'POST','id'=>'','autocomplete'=>'off',]) }}
           @csrf
           {{ Form::hidden('multiple_id', $multiple->id)}}
           @if ($checkEachStatus)

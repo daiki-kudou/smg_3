@@ -8,7 +8,7 @@
 </div>
 
 
-{{ Form::open(['url' => '/admin/administer/'.$auth['id'], 'method'=>'PUT', 'id'=>'admin_update']) }}
+{{ Form::open(['url' => '/admin/administer/'.$auth['id'], 'method'=>'PUT', 'id'=>'admin_update','autocomplete'=>'off']) }}
 @csrf
 
 <section class="section-bg mt-5">

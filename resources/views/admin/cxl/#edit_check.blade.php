@@ -13,7 +13,7 @@
 
 
 <section class="section-wrap">
-  {{ Form::open(['url' => '/admin/cxl/update', 'method'=>'POST', 'class'=>'']) }}
+  {{ Form::open(['url' => '/admin/cxl/update', 'method'=>'POST', 'class'=>'','autocomplete'=>'off']) }}
   @csrf
   <div class="bill">
     <div class="bill_details">

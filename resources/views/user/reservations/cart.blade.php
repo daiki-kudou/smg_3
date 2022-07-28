@@ -50,13 +50,13 @@
                                             <h3>予約{{ (int) $loop->index + 1 }}</h3>
                                             <ul>
                                                 <li>
-                                                    {{ Form::open(['url' => '/user/reservations/destroy_check', 'method' => 'POST', 'id' => '']) }}
+                                                    {{ Form::open(['url' => '/user/reservations/destroy_check', 'method' => 'POST', 'id' => '','autocomplete'=>'off',]) }}
                                                     {{ Form::hidden('session_reservation_id', $key) }}
                                                     <p>{{ Form::submit('取消', ['class' => 'confirm-btn']) }}</p>
                                                     {{ Form::close() }}
                                                 </li>
                                                 <li>
-                                                    {{ Form::open(['url' => '/user/reservations/re_create', 'method' => 'POST', 'id' => '']) }}
+                                                    {{ Form::open(['url' => '/user/reservations/re_create', 'method' => 'POST', 'id' => '','autocomplete'=>'off',]) }}
                                                     {{ Form::hidden('session_reservation_id', $key) }}
                                                     <p>{{ Form::submit('編集', ['class' => 'link-btn3']) }}</p>
                                                     {{ Form::close() }}
@@ -251,7 +251,7 @@
                     </tbody>
                 </table>
 
-                {{ Form::open(['url' => '/user/reservations/store', 'method' => 'POST', 'id' => 'cartConfirm']) }}
+                {{ Form::open(['url' => '/user/reservations/store', 'method' => 'POST', 'id' => 'cartConfirm','autocomplete'=>'off',]) }}
 
                 <dl class="attention-txt">
                     <dt>【今後の流れ】</dt>

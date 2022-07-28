@@ -14,7 +14,7 @@
   </div>
 </div>
 
-{{ Form::open(['url' => '/admin/multiples/switch_cfm/'.$multiple->id, 'method'=>'POST', 'id'=>'multiple_switch']) }}
+{{ Form::open(['url' => '/admin/multiples/switch_cfm/'.$multiple->id, 'method'=>'POST', 'id'=>'multiple_switch','autocomplete'=>'off',]) }}
 @csrf
 
 <div class="container-fluid">
