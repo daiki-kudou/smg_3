@@ -225,7 +225,7 @@
             <li class="form-cell2">
               <div class="text6 m-b20">
                 <p class="f-wb m-r10" style="line-height: 1.2; margin-bottom: 5px;">{{$eqpt->item}}</p>
-                <p>{{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
+                <p>{{number_format($eqpt->price)}}円<span class="annotation">(税抜)</span></p>
               </div>
               @if (empty(json_decode($fix->items_results)[1]))
               <p>{{ Form::number('equipment_breakdown'.$e_key, "",['class'=>'text4 mL0','autocomplete="off"'] ) }}個</p>
@@ -260,7 +260,7 @@
             @foreach (json_decode($fix->items_results)[2] as $s_item_key=>$s_item_val)
             @if ($s_item_val[0]==$serv->item)
             <li>
-              <p>{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></p>
+              <p>{{$serv->item}} {{number_format($serv->price)}}円<span class="annotation">(税抜)</span></p>
               <div class="selectTime">
                 {{Form::radio('services_breakdown'.$s_key, 1, true, ['id' => 'services_breakdown_on'.$s_key, 'class' =>
                 'radio-input'])}}
@@ -273,7 +273,7 @@
             @break
             @elseif($loop->last)
             <li>
-              <p>{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></p>
+              <p>{{$serv->item}} {{number_format($serv->price)}}円<span class="annotation">(税抜)</span></p>
               <div class="selectTime">
                 {{Form::radio('services_breakdown'.$s_key, 1, false, ['id' => 'services_breakdown_on'.$s_key, 'class' =>
                 'radio-input'])}}
@@ -287,7 +287,7 @@
             @endforeach
             @else
             <li>
-              <p>{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></p>
+              <p>{{$serv->item}} {{number_format($serv->price)}}円<span class="annotation">(税抜)</span></p>
               <div class="selectTime">
                 {{Form::radio('services_breakdown'.$s_key, 1, false, ['id' => 'services_breakdown_on'.$s_key, 'class' =>
                 'radio-input'])}}
