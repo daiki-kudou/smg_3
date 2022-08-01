@@ -91,6 +91,7 @@ class ClientsController extends Controller
     // 会員登録時デフォルトではでは会員ステータスを1とする
     $user->status = 1;
     $user->admin_or_user = $request->admin_or_user; //1なら管理者　2ならユーザー
+	$user->status = $request->payer??null;
     $user->save();
 
     return redirect('admin/clients');

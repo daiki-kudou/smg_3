@@ -208,6 +208,12 @@
             </td>
           </tr>
           <tr>
+            <td class="table-active ">{{ Form::label('payer', '振込名') }}</td>
+            <td>
+				<input type="text" name="payer" class="form-control">
+            </td>
+          </tr>
+          <tr>
             <td class="table-active">{{ Form::label('pay_post_code', '請求書送付先郵便番号') }}</td>
             <td>{{ Form::text('pay_post_code', old('pay_post_code'), [
               'class' => 'form-control pay_post_code',
