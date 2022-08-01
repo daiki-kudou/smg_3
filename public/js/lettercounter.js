@@ -15,6 +15,7 @@ String.prototype.bytes = function () {
 $(document).ready(function () {
   $("#no_board_flag:checked").each(function () {
     var flag = $(this);
+    $("td:contains('イベント名称1')").addClass("form_required"); 
     if ($(flag).is(":checked") != null) {
       $("#event_start").prop("readonly", true);
       $("#event_finish").prop("readonly", true);
@@ -23,6 +24,7 @@ $(document).ready(function () {
       $("#eventownerCount").prop("readonly", true);
       $("#event_start").prop("disabled", true);
       $("#event_finish").prop("disabled", true);
+      $("td:contains('イベント名称1')").removeClass("form_required"); 
     }
   });
 });
@@ -48,6 +50,7 @@ $(function () {
       $('.count_num1').html(len1 + "/28");
       $('.count_num2').html(len2 + "/28");
       $('.count_num3').html(len3 + "/53");
+      $("td:contains('イベント名称1')").removeClass("form_required"); 
     } else {
       $("#event_start").prop("readonly", false);
       $("#event_finish").prop("readonly", false);
@@ -56,6 +59,7 @@ $(function () {
       $("#eventownerCount").prop("readonly", false);
       $("#event_start").prop("disabled", false);
       $("#event_finish").prop("disabled", false);
+      $("td:contains('イベント名称1')").addClass("form_required"); 
     }
   });
 });
