@@ -143,7 +143,7 @@
 
 
 
-{{Form::open(['url' => '/admin/agents_reservations/calculate', 'method' => 'POST', 'id'=>''])}}
+{{Form::open(['url' => '/admin/agents_reservations/calculate', 'method' => 'POST', 'id'=>'','autocomplete'=>'off'])}}
 @csrf
 
 <div class="container-field bg-white text-dark">
@@ -419,19 +419,19 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>荷物預り</th>
+              <th colspan='2'>荷物預かり</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>事前に預かる荷物<br>（個数）</td>
+              <td>事前に預かる荷物<br>(目安)</td>
               <td>
                 {{ Form::text('luggage_count',
                 empty($all_requests['luggage_count'])?"":$all_requests['luggage_count'],['class'=>'form-control','min'=>0] ) }}
               </td>
             </tr>
             <tr>
-              <td>事前荷物の到着日<br>午前指定のみ</td>
+              <td>事前荷物の到着日<br>(平日午前指定)</td>
               <td>
                 {{ Form::text('luggage_arrive',
                 empty($all_requests['luggage_arrive'])?"":$all_requests['luggage_arrive'],['class'=>'form-control'] ) }}
@@ -617,7 +617,7 @@
 {{Form::submit('再計算する', ['class'=>'btn btn-danger mx-auto d-block btn-lg mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
-{{ Form::open(['url' => '/admin/reservations/check', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
+{{ Form::open(['url' => '/admin/reservations/check', 'method'=>'POST', 'id'=>'agents_calculate_form','autocomplete'=>'off']) }}
 @csrf
 <div class="container-fluid">
   <div class="bill">

@@ -31,7 +31,7 @@
         <div class="d-flex align-items-center">
           <div class="row w-100">
             <div class="col">
-              {{ Form::open(['url' => '/calendar/date_calendar', 'method' => 'get','id'=>'s_calendar']) }}
+              {{ Form::open(['url' => '/calendar/date_calendar', 'method' => 'get','id'=>'s_calendar','autocomplete'=>'off',]) }}
               @csrf
               {{ Form::hidden('date', $today) }}
               {{ Form::close() }}
@@ -51,7 +51,7 @@
         <table class="table table-bordered calender-flame" style="table-layout: fixed">
           <thead>
             <tr class="calender-head">
-              <td class="field-title">日付</td>
+              <td class="field-title">&nbsp;&nbsp;</td>
               <td colspan="2"><span class="time-item">08:00</span></td>
               <td colspan="2"><span class="time-item">09:00</span></td>
               <td colspan="2"><span class="time-item">10:00</span></td>
@@ -116,7 +116,7 @@
           </tbody>
           <tfoot>
             <tr class="calender-head">
-              <td class="field-title">日付</td>
+              <td class="field-title">&nbsp;&nbsp;</td>
               <td colspan="2"><span class="time-item">08:00</span></td>
               <td colspan="2"><span class="time-item">09:00</span></td>
               <td colspan="2"><span class="time-item">10:00</span></td>

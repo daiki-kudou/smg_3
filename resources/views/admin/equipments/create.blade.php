@@ -27,7 +27,7 @@
 <h2 class="mt-3 mb-3">有料備品管理　新規登録</h2>
 <hr>
 
-{{ Form::open(['url' => '/admin/equipments', 'method'=>'POST', 'id'=>'EquipmentsCreateForm']) }}
+{{ Form::open(['url' => '/admin/equipments', 'method'=>'POST', 'id'=>'EquipmentsCreateForm','autocomplete'=>'off']) }}
 @csrf
 <p class="text-right mt-5">※金額は税抜で入力してください。</p>
 <table class="table table-bordered">

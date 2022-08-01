@@ -22,7 +22,7 @@
   <hr>
 </div>
 
-{{ Form::open(['url' => '/admin/clients/'.$user->id, 'method'=>'PUT', 'id'=>'ClientsEditForm']) }}
+{{ Form::open(['url' => '/admin/clients/'.$user->id, 'method'=>'PUT', 'id'=>'ClientsEditForm','autocomplete'=>'off']) }}
 @csrf
 
 <section class="mt-5">

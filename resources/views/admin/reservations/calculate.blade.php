@@ -48,7 +48,7 @@
   </nav>
 </div>
 
-{{Form::open(['url' => '/admin/reservations/store_session', 'method' => 'post', 'id'=>'reservationCreateForm'])}}
+{{Form::open(['url' => '/admin/reservations/store_session', 'method' => 'post', 'id'=>'reservationCreateForm','autocomplete'=>'off',])}}
 @csrf
 <section class="mt-4">
   <div class="row">
@@ -361,7 +361,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">事前に預かる荷物<br>（個数）</td>
+              <td class="table-active">事前に預かる荷物<br>(目安)</td>
               <td>
                 {{ Form::number('luggage_count',
                 ($value['luggage_count']??null),['class'=>'form-control','id'=>'luggage_count','min'=>0]
@@ -370,7 +370,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+              <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
               <td>
                 {{ Form::text('luggage_arrive',
                 !empty($value['luggage_arrive'])?$value['luggage_arrive']:"",['class'=>'form-control
@@ -626,7 +626,7 @@
 {{Form::close()}}
 
 
-{{ Form::open(['url' => '/admin/reservations/check_session', 'method'=>'POST', 'id'=>'reservations_calculate_form']) }}
+{{ Form::open(['url' => '/admin/reservations/check_session', 'method'=>'POST', 'id'=>'reservations_calculate_form','autocomplete'=>'off',]) }}
 @csrf
 <section class="">
   <div class="bill">

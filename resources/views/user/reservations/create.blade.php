@@ -17,7 +17,7 @@
 <section class="contents">
   <div class="section-wrap">
     <h2>予約</h2>
-    {{ Form::open(['url' => '/user/reservations/check', 'method'=>'POST', 'id'=>'user_reservation_create']) }}
+    {{ Form::open(['url' => '/user/reservations/check', 'method'=>'POST', 'id'=>'user_reservation_create','autocomplete'=>'off']) }}
     <div class="bgColorGray first">
       <table>
         <tr>
@@ -216,8 +216,13 @@
             <ul>
               @foreach ($venue->getEquipments() as $e_key=>$eqpt)
               <li class="form-cell2">
-                <p class="text6"><span class="f-wb m-r10">{{$eqpt->item}}</span>{{$eqpt->price}}円<span
-                    class="annotation">(税抜)</span></p>
+                <div class="text6 m-b20">
+                  <p class="f-wb m-r10" style="line-height: 1.2; margin-bottom: 5px;">{{$eqpt->item}}</p>
+                  <p>
+                    {{number_format($eqpt->price)}}円<span
+                      class="annotation">(税抜)</span>
+                  </p>
+                </div>
                 <p class="m-l20">
                   {{ Form::number('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0
                   number_validation','autocomplete="off"'] ) }}個
@@ -235,7 +240,7 @@
             <ul>
               @foreach ($venue->getServices() as $s_key=>$serv)
               <li>
-                <p>{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></p>
+                <p>{{$serv->item}} {{number_format($serv->price)}}円<span class="annotation">(税抜)</span></p>
                 <div class="selectTime">
                   {{Form::radio('services_breakdown'.$s_key, 1, old('services_breakdown'.$s_key)==1?true:false, ['id' =>
                   'services_breakdown_on'.$s_key, 'class' => 'radio-input'])}}
@@ -290,19 +295,20 @@
               <label for="luggage_flag">あり</label>
               <input class="radio-input" id="no_luggage_flag" name="luggage_flag" type="radio" value="0" checked>
               <label for="no_luggage_flag">なし</label>
+              <div class="">500円<span class="annotation">(税抜)</span></div>
+            </div>
+            <div class="luggage-exp">
+              <p>
+              【事前・事後】預かりの荷物について<br>
+                事前預かり/事後返送ともに<span class="f-s20">5個</span>まで。<br>
+                6個以上は要相談。その際は事前に必ずお問い合わせ下さい。<br>
+                荷物外寸合計(縦・横・奥行)120cm以下/個
+              </p>
             </div>
             <ul class="luggage_info">
               <li class="m-b10">
-                <p>後日テキストを追加</p>
-                <p>
-                  <span class="txt-indent">
-                    ※注釈が追加予定注釈が追加予定注釈が追加予定注釈が追加予定
-                  </span>
-                </p>
-              </li>
-              <li class="m-b10">
                 <div class="luggage-cell">
-                  <p>事前に預かる荷物<br>(目安)</p>
+                  <p>事前に預かる荷物(目安)</p>
                   {{ Form::number('luggage_count', '',['class'=>'text6 ', 'style'=>'width:20%;','autocomplete="off"','min'=>0] )
                   }}
                   <p class="">個</p>
@@ -311,20 +317,20 @@
               </li>
               <li class="m-b10">
                 <div class="luggage-cell">
-                  <p>事前荷物の到着日(午前指定)</p>
+                  <p>事前荷物の到着日(平日午前指定)</p>
                   {{ Form::text('luggage_arrive', '',['class'=>'','id'=>'datepicker2','autocomplete="off"'] ) }}
                 </div>
               </li>
-              <li class="m-b30">
-                <p>利用日3日前～前日（平日のみ）を到着日に指定下さい</p>
-                <p><span class="txt-indent">※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預り / 返送
+              <li class="m-b30 ">
+                <p><span class="txt-indent">※利用日3日前～前日（平日のみ）を到着日に指定下さい</span></p>
+                <p><span class="txt-indent">※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送
                     PDF」をご確認下さい。</span>
                   <span class="txt-indent">※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。</span>
                   <span class="txt-indent">※貴重品等のお預りはできかねます。</span>
                   <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span>
                 </p>
               </li>
-              <li class="m-b10 luggage-border">
+              <li class="m-b10">
                 <div class="luggage-cell">
                   <p>事後返送する荷物</p>
                   {{ Form::number('luggage_return', '',['class'=>'text6 ', 'style'=>'width: 20%;','autocomplete="off"','min'=>0]
@@ -334,11 +340,8 @@
               </li>
               <p class="is-error-luggage_return" style="color: red"></p>
               <li class="m-b30">
-                <p>6個以上は要相談。まずは事前にお問合わせ下さい。<br>
-                  [荷物外寸合計(縦・横・奥行)120cm以下/個]</p>
-                <p>
                   <span class="txt-indent">
-                    ※返送に関して、発送伝票（元払）、返送伝票（着払）は会場内に用意しているものを必ず使用して下さい。
+                  ※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。
                   </span>
                 </p>
               </li>
@@ -380,6 +383,12 @@
   </a>
 </div>
 
+<style>
+  input:disabled {
+    background-color: #ccc;
+  }
+</style>
+
 <script>
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
@@ -394,7 +403,6 @@
       }
     })
   })
-
   // 案内板のラジオボタン選択の表示、非表示
   $(function() {
     
@@ -405,7 +413,6 @@
           $(".board_info").removeClass("d-none");
          }
     });
-
     $(function() {
      $("input[name='board_flag']").change(function() {
        var no_board_flag = $('#no_board_flag').prop('checked');
@@ -416,31 +423,37 @@
          }
       });
     });
-
   // 荷物預かりのラジオボタン選択の表示、非表示
   $(function() {
     var no_luggage_flag = $('#no_luggage_flag').val();
     if (no_luggage_flag == 0) {
           $(".luggage_info").addClass("d-none");
+          // $("input[name='luggage_count']").prop('disabled', true);
+          // $("input[name='luggage_arrive']").prop('disabled', true);
+          // $("input[name='luggage_return']").prop('disabled', true);
         } else {
           $(".luggage_info").removeClass("d-none");
+          // $("input[name='luggage_count']").prop('disabled', false);
+          // $("input[name='luggage_arrive']").prop('disabled', false);
+          // $("input[name='luggage_return']").prop('disabled', false);
          }
     });
-
     $(function() {
      $("input[name='luggage_flag']").change(function() {
        var no_luggage_flag = $('#no_luggage_flag').prop('checked');
         if (no_luggage_flag) {
           $(".luggage_info").addClass("d-none");
+          // $("input[name='luggage_count']").prop('disabled', true);
+          // $("input[name='luggage_arrive']").prop('disabled', true);
+          // $("input[name='luggage_return']").prop('disabled', true);
         } else {
           $(".luggage_info").removeClass("d-none");
+          // $("input[name='luggage_count']").prop('disabled', false);
+          // $("input[name='luggage_arrive']").prop('disabled', false);
+          // $("input[name='luggage_return']").prop('disabled', false);
          }
       });
     });
-
-
-
-
 </script>
 <script type="text/javascript">
   $(function () {
@@ -452,6 +465,7 @@
         dt.setDate(dt.getDate() - 1);
         var max_date = dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
         $("#datepicker2").datepicker({
+          showButtonPanel: true,
           dateFormat: 'yy-mm-dd',
             showOn: "both",
             buttonImage: "https://system.osaka-conference.com/img/icon_calender.png",
@@ -467,6 +481,18 @@
                         'top': top,
                         'left': left
                     });
+                    var buttonPane = $( input )  
+                      .datepicker( "widget" )  
+                      .find( ".ui-datepicker-buttonpane" );  
+        
+                  var btn = $('<button type="button">クリア</button>');  
+                  btn
+                      .addClass("clear-btn")
+                      .unbind("click")  
+                      .bind("click", function () {  
+                          $.datepicker._clearDate( input );  
+                      });  
+                  btn.appendTo( buttonPane );  
                 }, 10) // 10msec
             },
             beforeShowDay: function (date) {
@@ -485,8 +511,17 @@
               return [true, ''];
             }
           },
-
-
+          // 月を変更してもクリアボタンを表示させる
+          onChangeMonthYear: function(year, month, instance) {
+          setTimeout(function() {
+          var buttonPane = $(instance).datepicker('widget').find('.ui-datepicker-buttonpane');
+          $('<button>', {text: 'クリア',
+          click: function() {
+          $.datepicker._clearDate(instance.input);
+          }
+          }).appendTo( buttonPane ).addClass('clear-btn');
+          }, 1 );
+          },
         });
         $("ul.tabBtn li").mouseover(function () {
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator
@@ -501,6 +536,7 @@
             $('.ui-datepicker').hide();
             $('.hasDatepicker').blur();
         });
+        
     });
 </script>
 

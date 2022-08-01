@@ -32,7 +32,7 @@
 <section class="mt-5">
   <div class="row">
     <div class="col-12 mb-2">
-      {{Form::open(['url' => '/admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>''])}}
+      {{Form::open(['url' => '/admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>'','autocomplete'=>'off'])}}
       @csrf
       {{Form::hidden("delete_target", json_encode([$pre_reservation->id]))}}
       {{ Form::submit('削除', ['class' => 'btn more_btn4 confirm_delete','id'=>'confirm_destroy']) }}
@@ -52,15 +52,13 @@
 
                 @if ($pre_reservation->status==0)
                 @if ($pre_reservation->user_id>0)
-                {{ Form::open(['url' =>
-                'admin/pre_reservations/switch_status','method'=>'POST','id'=>'confirm_prereserve']) }}
+                {{ Form::open(['url' =>'admin/pre_reservations/switch_status','method'=>'POST','id'=>'confirm_prereserve','autocomplete'=>'off']) }}
                 @csrf
                 {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
                 {{ Form::submit('予約の編集・承認権限を顧客に移行', ['class' => 'btn more_btn4']) }}
                 {{ Form::close() }}
                 @elseif($pre_reservation->agent_id>0)
-                {{ Form::open(['url' =>
-                'admin/pre_agent_reservations/switch_status','method'=>'POST']) }}
+                {{ Form::open(['url' =>'admin/pre_agent_reservations/switch_status','method'=>'POST','autocomplete'=>'off']) }}
                 @csrf
                 {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
                 {{ Form::submit('予約に移行する', ['class' => 'btn more_btn4']) }}
@@ -535,7 +533,7 @@
                   <tr>
                     <th colspan='2'>
                       <p class="title-icon">
-                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
                       </p>
                     </th>
                   </tr>

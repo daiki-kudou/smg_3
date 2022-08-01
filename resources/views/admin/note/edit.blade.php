@@ -15,7 +15,7 @@
     <tbody class="main_table" style="table-layout: fixed;">
       @foreach ($notes as $note)
       @if ($id==$note['id'])
-      {{ Form::open(['url' => '/admin/note/update', 'method' => 'post','id'=>'add_note_form']) }}
+      {{ Form::open(['url' => '/admin/note/update', 'method' => 'post','id'=>'add_note_form','autocomplete'=>'off',]) }}
       @csrf
       <td>{{Form::text('hour',$note['hour'], ['class' => 'form-control'])}}</td>
       <td>{{Form::text('venue',$note['venue'], ['class' => 'form-control'])}}</td>

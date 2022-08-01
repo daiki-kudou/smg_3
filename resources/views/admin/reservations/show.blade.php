@@ -37,7 +37,7 @@
                 @endif @if ($reservation->user_id > 0)
                     @if ($reservation->bills->sortBy('id')->first()->reservation_status == 3)
                         <p class="text-right mb-5">
-                            {{ Form::open(['url' => '/admin/bills/create/', 'method' => 'get', 'class' => '']) }}
+                            {{ Form::open(['url' => '/admin/bills/create/', 'method' => 'get', 'class' => '','autocomplete'=>'off',]) }}
                             @csrf
                             {{ Form::hidden('reservation_id', $reservation->id) }}
                             {{ Form::submit('追加の請求書を作成する', ['class' => 'btn more_btn3']) }}
@@ -47,7 +47,7 @@
                 @else
                     @if ($reservation->bills->sortBy('id')->first()->reservation_status == 3)
                         <p class="text-right mb-5">
-                            {{ Form::open(['url' => '/admin/agents_reservations/add_bills', 'method' => 'get', 'class' => '']) }}
+                            {{ Form::open(['url' => '/admin/agents_reservations/add_bills', 'method' => 'get', 'class' => '','autocomplete'=>'off',]) }}
                             @csrf
                             {{ Form::hidden('reservation_id', $reservation->id) }}
                             {{ Form::submit('追加の請求書を作成する', ['class' => 'btn more_btn3']) }}
@@ -113,7 +113,7 @@
 
         <section class="register-wrap mt-2">
             @if ($reservation->bills->sortBy('id')->first()->reservation_status < 3)
-                {{ Form::open(['url' => '/admin/reservations/' . $reservation->id, 'method' => 'delete']) }}
+                {{ Form::open(['url' => '/admin/reservations/' . $reservation->id, 'method' => 'delete','autocomplete'=>'off',]) }}
                 @csrf
                 {{ Form::submit('取り消し', ['class' => 'btn more_btn4 mb-3 confirm_delete']) }}
                 {{ Form::close() }}
@@ -318,7 +318,7 @@
                                 <tr>
                                     <th colspan='2'>
                                         <p class="title-icon">
-                                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+                                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
                                         </p>
                                     </th>
                                 </tr>
@@ -353,7 +353,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="table-active"><label for="">荷物預り料金(税抜)</label></td>
+                                    <td class="table-active"><label for="">荷物預かり料金(税抜)</label></td>
                                     <td>
                                         @if ($reservation->luggage_price && $reservation->luggage_flag == 1)
                                             {{ number_format($reservation->luggage_price) . '円' }}
@@ -426,7 +426,7 @@
                         </tr>
                         <tr>
                             <td>
-                                {{ Form::open(['url' => '/admin/change_log', 'method' => 'POST']) }}
+                                {{ Form::open(['url' => '/admin/change_log', 'method' => 'POST','autocomplete'=>'off',]) }}
                                 @csrf
                                 {{ Form::textarea('remark_textarea', optional($reservation->change_log)->content, [
                                     'class' => 'form-control remark_textarea',
@@ -480,11 +480,7 @@
                                         @else
                                             @if ($reservation->bills->sortBy('id')->first()->reservation_status < 3)
                                                 <p>
-                                                    {{ Form::open([
-                                                        'url' => route('admin.agents_reservations.edit', $reservation->id),
-                                                        'method' => 'get',
-                                                        'class' => '',
-                                                    ]) }}
+                                                    {{ Form::open(['url' => route('admin.agents_reservations.edit', $reservation->id),'method' => 'get','class' => '','autocomplete'=>'off',]) }}
                                                     @csrf
                                                     {{ Form::hidden('reservation_id', $reservation->id) }}
                                                     {{ Form::hidden('bill_id', $reservation->bills->sortBy('id')->first()->id) }}
@@ -577,7 +573,7 @@
                     <div class="cancel">
                         @if ($reservation->bills->sortBy('id')->first()->reservation_status == 3)
                             @if ($reservation->cxls->count() === 0)
-                                {{ Form::open(['url' => '/admin/cxl/multi_create', 'method' => 'get', 'class' => '']) }}
+                                {{ Form::open(['url' => '/admin/cxl/multi_create', 'method' => 'get', 'class' => '','autocomplete'=>'off',]) }}
                                 @csrf
                                 {{ Form::hidden('reservation_id', $reservation->id) }}
                                 <p class="text-right py-2 mr-2">
@@ -654,7 +650,7 @@
                             <h3>
                                 請求書情報
                             </h3>
-                            {{ Form::open(['url' => '/admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                            {{ Form::open(['url' => '/admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '','autocomplete'=>'off',]) }}
                             @csrf
                             {{ Form::hidden('reservation_id', $reservation->id) }}
                             {{ Form::hidden('bill_id', $reservation->bills->sortBy('id')->first()->id) }}
@@ -666,7 +662,7 @@
                     </div>
 
                     <div class="main hide">
-                        {{ Form::open(['url' => '/admin/bills/update_bill_info', 'method' => 'post']) }}
+                        {{ Form::open(['url' => '/admin/bills/update_bill_info', 'method' => 'post','autocomplete'=>'off',]) }}
                         @csrf
                         {{ Form::hidden('bill_id', $reservation->bills->sortBy('id')->first()->id) }}
                         <p class="text-right billdetails_content pb-0">
@@ -745,7 +741,7 @@
                             <h3 class="pl-3">
                                 入金情報
                             </h3>
-                            {{ Form::open(['url' => '/admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                            {{ Form::open(['url' => '/admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '','autocomplete'=>'off',]) }}
                             @csrf
                             {{ Form::hidden('bill_id', $reservation->bills->sortBy('id')->first()->id) }}
                             @if ($reservation->bills->sortBy('id')->first()->paid == 1)
@@ -755,7 +751,7 @@
                         </div>
                     </div>
                     <div class="main">
-                        {{ Form::open(['url' => '/admin/bills/update_paid_info', 'method' => 'post', 'id' => 'payment_info']) }}
+                        {{ Form::open(['url' => '/admin/bills/update_paid_info', 'method' => 'post', 'id' => 'payment_info','autocomplete'=>'off','autocomplete'=>'off',]) }}
                         @csrf
                         {{ Form::hidden('bill_id', $reservation->bills->sortBy('id')->first()->id) }}
                         {{ Form::hidden('bill_or_add_bill', '会場予約') }}
@@ -972,7 +968,7 @@
                             @if ($other_bill->double_check_status == 2)
                                 @if ($other_bill->reservation_status <= 2)
                                     <div class="d-flex justify-content-end mt-2 mb-2">
-                                        {{ Form::open(['url' => '/admin/bills/other_send_approve', 'method' => 'POST', 'class' => '']) }}
+                                        {{ Form::open(['url' => '/admin/bills/other_send_approve', 'method' => 'POST', 'class' => '','autocomplete'=>'off',]) }}
                                         @csrf
                                         {{ Form::hidden('bill_id', $other_bill->id) }}
                                         {{ Form::hidden('user_id', $reservation->user_id) }}
@@ -984,7 +980,7 @@
                                             </p>
                                         @endif
                                         {{ Form::close() }}
-                                        {{ Form::open(['url' => '/admin/agents_reservations/confirm', 'method' => 'POST', 'class' => '']) }}
+                                        {{ Form::open(['url' => '/admin/agents_reservations/confirm', 'method' => 'POST', 'class' => '','autocomplete'=>'off',]) }}
                                         @csrf
                                         {{ Form::hidden('bill_id', $other_bill->id) }}
                                         <p>{{ Form::submit('予約を確定する', ['class' => 'btn more_btn4 confirm_btn']) }}</p>
@@ -1055,7 +1051,7 @@
                                 <h3>
                                     請求書情報
                                 </h3>
-                                {{ Form::open(['url' => '/admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                                {{ Form::open(['url' => '/admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '','autocomplete'=>'off',]) }}
                                 @csrf
                                 {{ Form::hidden('reservation_id', $reservation->id) }}
                                 {{ Form::hidden('bill_id', $other_bill->id) }}
@@ -1067,7 +1063,7 @@
                         </div>
 
                         <div class="main hide">
-                            {{ Form::open(['url' => '/admin/bills/update_bill_info', 'method' => 'post']) }}
+                            {{ Form::open(['url' => '/admin/bills/update_bill_info', 'method' => 'post','autocomplete'=>'off']) }}
                             @csrf
                             {{ Form::hidden('bill_id', $other_bill->id) }}
                             <p class="text-right billdetails_content pb-0">
@@ -1141,7 +1137,7 @@
                                 <h3 class="pl-3">
                                     入金情報
                                 </h3>
-                                {{ Form::open(['url' => '/admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                                {{ Form::open(['url' => '/admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '','autocomplete'=>'off',]) }}
                                 @csrf
                                 {{ Form::hidden('reservation_id', $reservation->id) }}
                                 {{ Form::hidden('bill_id', $other_bill->id) }}
@@ -1154,7 +1150,7 @@
                         </div>
 
                         <div class="main">
-                            {{ Form::open(['url' => '/admin/bills/update_paid_info', 'method' => 'post', 'id' => 'payment_info2']) }}
+                            {{ Form::open(['url' => '/admin/bills/update_paid_info', 'method' => 'post', 'id' => 'payment_info2','autocomplete'=>'off',]) }}
                             @csrf
                             {{ Form::hidden('bill_id', $other_bill->id) }}
                             {{ Form::hidden('bill_or_add_bill', '追加請求') }}
@@ -1216,7 +1212,7 @@
                         <dl class="d-flex col-12 justify-content-end align-items-center">
                             <dt><label for="checkname">一人目チェック者</label></dt>
                             <dd>
-                                {{ Form::open(['url' => '/admin/bills/other_doublecheck', 'method' => 'POST']) }}
+                                {{ Form::open(['url' => '/admin/bills/other_doublecheck', 'method' => 'POST','autocomplete'=>'off',]) }}
                                 @csrf
                                 {{ Form::select('double_check1_name', $admin, null, ['class' => 'form-control double_check1_name']) }}
                                 {{ Form::hidden('double_check_status', $other_bill->double_check_status) }}
@@ -1235,7 +1231,7 @@
                         <dl class="d-flex col-12 justify-content-end align-items-center">
                             <dt><label for="checkname">二人目チェック者</label></dt>
                             <dd>
-                                {{ Form::open(['url' => '/admin/bills/other_doublecheck', 'method' => 'POST']) }}
+                                {{ Form::open(['url' => '/admin/bills/other_doublecheck', 'method' => 'POST','autocomplete'=>'off',]) }}
                                 @csrf
                                 {{ Form::select('double_check2_name', $admin, null, ['class' => 'form-control double_check2_name']) }}
                                 {{ Form::hidden('double_check_status', $other_bill->double_check_status) }}
@@ -1364,7 +1360,7 @@
                             @if ($cxl->double_check_status == 2)
                                 @if ($cxl->cxl_status < 2)
                                     <div class="d-flex justify-content-end mt-2 mb-2">
-                                        {{ Form::open(['url' => '/admin/cxl/send_email_and_approve', 'method' => 'POST', 'class' => '']) }}
+                                        {{ Form::open(['url' => '/admin/cxl/send_email_and_approve', 'method' => 'POST', 'class' => '','autocomplete'=>'off',]) }}
                                         @csrf
                                         {{ Form::hidden('cxl_id', $cxl->id) }}
                                         @if ($reservation->user_id > 0)
@@ -1374,7 +1370,7 @@
                                         @endif
                                         {{ Form::close() }}
 
-                                        {{ Form::open(['url' => '/admin/cxl/confirm', 'method' => 'POST', 'class' => '']) }}
+                                        {{ Form::open(['url' => '/admin/cxl/confirm', 'method' => 'POST', 'class' => '','autocomplete'=>'off',]) }}
                                         @csrf
                                         {{ Form::hidden('cxl_id', $cxl->id) }}
                                         <p>
@@ -1495,7 +1491,7 @@
                                 <h3>
                                     請求書情報
                                 </h3>
-                                {{ Form::open(['url' => '/admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                                {{ Form::open(['url' => '/admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '','autocomplete'=>'off',]) }}
                                 @csrf
                                 {{ Form::hidden('reservation_id', $reservation->id) }}
                                 {{ Form::hidden('cxl_id', $cxl->id) }}
@@ -1507,7 +1503,7 @@
                         </div>
 
                         <div class="main hide">
-                            {{ Form::open(['url' => '/admin/cxl/update_cxl_bill_info', 'method' => 'post']) }}
+                            {{ Form::open(['url' => '/admin/cxl/update_cxl_bill_info', 'method' => 'post','autocomplete'=>'off',]) }}
                             @csrf
                             {{ Form::hidden('cxl_id', $cxl->id) }}
                             <p class="text-right billdetails_content pb-0">
@@ -1579,7 +1575,7 @@
                                 <h3 class="pl-3">
                                     入金情報
                                 </h3>
-                                {{ Form::open(['url' => '/admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                                {{ Form::open(['url' => '/admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '','autocomplete'=>'off',]) }}
                                 @csrf
                                 {{ Form::hidden('cxl_id', $cxl->id) }}
                                 @if ($cxl->paid == 1)
@@ -1591,7 +1587,7 @@
                         </div>
 
                         <div class="main">
-                            {{ Form::open(['url' => '/admin/cxl/update_cxl_paid_info', 'method' => 'post', 'id' => 'payment_info3']) }}
+                            {{ Form::open(['url' => '/admin/cxl/update_cxl_paid_info', 'method' => 'post', 'id' => 'payment_info3','autocomplete'=>'off',]) }}
                             @csrf
                             {{ Form::hidden('cxl_id', $cxl->id) }}
                             <div class="text-right billdetails_content pb-0">
@@ -1653,7 +1649,7 @@
                         <dl class="d-flex col-12 justify-content-end align-items-center">
                             <dt><label for="checkname">一人目チェック者</label></dt>
                             <dd>
-                                {{ Form::open(['url' => '/admin/cxl/double_check', 'method' => 'POST']) }}
+                                {{ Form::open(['url' => '/admin/cxl/double_check', 'method' => 'POST','autocomplete'=>'off',]) }}
                                 @csrf
                                 {{ Form::select('double_check1_name', $admin, null, ['class' => 'form-control double_check1_name']) }}
                                 {{ Form::hidden('double_check_status', $cxl->double_check_status) }}
@@ -1673,7 +1669,7 @@
                         <dl class="d-flex col-12 justify-content-end align-items-center">
                             <dt><label for="checkname">二人目チェック者</label></dt>
                             <dd>
-                                {{ Form::open(['url' => '/admin/cxl/double_check', 'method' => 'POST']) }}
+                                {{ Form::open(['url' => '/admin/cxl/double_check', 'method' => 'POST','autocomplete'=>'off',]) }}
                                 @csrf
                                 {{ Form::select('double_check2_name', $admin, null, ['class' => 'form-control double_check2_name']) }}
                                 {{ Form::hidden('double_check_status', $cxl->double_check_status) }}

@@ -132,6 +132,7 @@ return [
     */
 
   'admin_email' => ['sisutemu@s-mg.co.jp'],
+  // 'admin_email' => ['maruoka@web-trickster.com'],
 
 
 

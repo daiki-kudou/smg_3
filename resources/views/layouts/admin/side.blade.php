@@ -260,7 +260,7 @@
 </div>
 <!-- /.sidebar -->
 
-{{Form::open(['url' => '/admin/sync', 'method' => 'post', 'id'=>'sync'])}}
+{{Form::open(['url' => '/admin/sync', 'method' => 'post', 'id'=>'sync','autocomplete'=>'off',])}}
 @csrf
 {{Form::close()}}
 

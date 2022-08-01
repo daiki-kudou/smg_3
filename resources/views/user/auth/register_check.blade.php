@@ -11,7 +11,7 @@
   </div>
 </div>
 <section class="contents">
-  {{ Form::open(['route' => 'user.preusers.store', 'method'=>'POST']) }}
+  {{ Form::open(['route' => 'user.preusers.store', 'method'=>'POST','autocomplete'=>'off',]) }}
   @csrf
   <div class="bgColorGray first">
     <table class="table-box">

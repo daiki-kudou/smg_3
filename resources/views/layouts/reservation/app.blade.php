@@ -257,12 +257,35 @@
                 alt="HOME"></span></a>
           <meta itemprop="position" content="1">
         </li>
+        @if(Request::is('user/preusers*'))
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a itemscope itemtype="http://schema.org/Thing" itemprop="item"
+            href="https://system.osaka-conference.com/calendar/">
+            <span itemprop="name"><span class="changeTtl">会員登録</span></span></a>
+          <meta itemprop="position" content="2">
+        </li>
+        @elseif(Request::is('user/register*'))
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a itemscope itemtype="http://schema.org/Thing" itemprop="item"
+            href="https://system.osaka-conference.com/calendar/">
+            <span itemprop="name"><span class="changeTtl">会員登録</span></span></a>
+          <meta itemprop="position" content="2">
+        </li>
+        @elseif(Request::is('timeout'))
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a itemscope itemtype="http://schema.org/Thing" itemprop="item"
+            href="https://system.osaka-conference.com/calendar/">
+            <span itemprop="name"><span class="changeTtl">会員登録</span></span></a>
+          <meta itemprop="position" content="2">
+        </li>
+        @else
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
           <a itemscope itemtype="http://schema.org/Thing" itemprop="item"
             href="https://system.osaka-conference.com/calendar/">
             <span itemprop="name"><span class="changeTtl">会場予約</span></span></a>
           <meta itemprop="position" content="2">
         </li>
+        @endif
       </ol>
     </nav>
     <main>
@@ -497,20 +520,6 @@
       });
     });
     var rootPath = "{{url('/')}}";
-
-// 自動補完無効
-    $(function(){
-    $('input[type="text"]').each(function(index, element){
-    var this_val=$('input[type="text"]').eq(index);
-    this_val.on("mousedown", function(){
-    setTimeout(function(){
-    this_val.focus();
-    }, 1);
-    return false;
-    });
-    })
-    })
-
     
     // 会員登録ページでカートを非表示
     $(window).bind("load", function() {

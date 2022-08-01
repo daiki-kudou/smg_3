@@ -34,13 +34,11 @@
 
   <div class="mt-5">
     <p class="mb-2">新しいメールアドレスを入力してください</p>
-    <div class="w-50">{{ Form::open(['url' => '/user/home/email_reset_create', 'method'=>'POST', 'id'=>'email_reset'])
-      }}
+    <div class="w-100">{{ Form::open(['url' => '/user/home/email_reset_create', 'method'=>'POST', 'id'=>'email_reset','autocomplete'=>'off'])}}
       @csrf
-      <div class="d-flex w-md-50">
-        {{Form::text('new_email',old('new_email'),['class' => 'form-control'])}}
-        {{Form::submit('送信する',['class' => 'btn more_btn'])}}
-      </div>
+
+        <p class="mail-input">{{Form::text('new_email',old('new_email'),['class' => 'form-control '])}}</p>
+        <p class="mt-2">{{Form::submit('送信する',['class' => 'btn more_btn mail-btn'])}}</p>
       <p class="is-error-new_email" style="color: red"></p>
       {{Form::close()}}
     </div>

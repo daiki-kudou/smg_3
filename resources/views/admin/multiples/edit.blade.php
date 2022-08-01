@@ -111,8 +111,7 @@
     </table>
   </section>
 
-  {{ Form::open(['url' => '/admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST',
-  'id'=>'multipleEditForm'])}}
+  {{ Form::open(['url' => '/admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST','id'=>'multipleEditForm','autocomplete'=>'off',])}}
   @csrf
   <section class="m-5 border-inwrap">
     <div class="mb-2">
@@ -358,7 +357,7 @@
                 <tr>
                   <th colspan='2'>
                     <p class="title-icon">
-                      <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+                      <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
                     </p>
                   </th>
                 </tr>
@@ -381,7 +380,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                  <td class="table-active">事前に預かる荷物<br>(目安)</td>
                   <td>
                     {{ Form::number('cp_master_luggage_count',
                     '',['class'=>'form-control','id'=>'cp_master_luggage_count','min'=>0] ) }}
@@ -389,7 +388,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                  <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                   <td>
                     {{ Form::text('cp_master_luggage_arrive', '',['class'=>'form-control
                     datepicker9','id'=>'cp_master_luggage_arrive'] ) }}
@@ -605,8 +604,7 @@
       </div>
     </li>
     <li>
-      {{Form::open(['url' => '/admin/multiples/'.$multiple->id.'/sp_destroy/'.$venue->id, 'method' => 'post',
-      'id'=>''])}}
+      {{Form::open(['url' => '/admin/multiples/'.$multiple->id.'/sp_destroy/'.$venue->id, 'method' => 'post','id'=>'','autocomplete'=>'off'])}}
       @csrf
       {{ Form::hidden('delete_target', "") }}
       {{ Form::submit('削除', ['class' => 'btn more_btn4 confirm_delete','id'=>'confirm_destroy']) }}
@@ -626,9 +624,7 @@
   {{ Form::hidden('', $multiple->pre_reservations->where('venue_id',$venue->id)->count(),['id'=>'counts_reserve']) }}
   {{-- 以下、pre_reservationの数分　ループ --}}
   @foreach ($multiple->pre_reservations->where('venue_id',$venue->id) as $key=>$pre_reservation)
-  {{ Form::open(['url' =>
-  'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update',
-  'method'=>'POST', 'id'=>'multipleSpecificUpdateForm' .$key]) }}
+  {{ Form::open(['url' =>'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update','method'=>'POST', 'id'=>'multipleSpecificUpdateForm' .$key,'autocomplete'=>'off']) }}
   @csrf
   {{ Form::hidden('split_keys', $key) }}
 
@@ -801,6 +797,7 @@
                       <option disabled>選択してください</option>
                       {!!ReservationHelper::timeOptionsWithRequest($pre_reservation->enter_time)!!}
                     </select>
+                    <p class="annotation caution_color mt-1">※利用時間内で入力してください。</p>
                   </td>
                 </tr>
                 <tr>
@@ -811,6 +808,7 @@
                       <option disabled>選択してください</option>
                       {!!ReservationHelper::timeOptionsWithRequest($pre_reservation->leave_time)!!}
                     </select>
+                    <p class="annotation caution_color mt-1">※利用時間内で入力してください。</p>
                   </td>
                 </tr>
               </table>
@@ -1011,7 +1009,7 @@
                   <tr>
                     <th colspan="2">
                       <p class="title-icon">
-                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
                       </p>
                     </th>
                   </tr>
@@ -1033,7 +1031,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                    <td class="table-active">事前に預かる荷物<br>(目安)</td>
                     <td>
                       {{ Form::number('luggage_count_copied'.$key,
                       $pre_reservation->luggage_count,['class'=>'form-control','min'=>0] ) }}
@@ -1041,7 +1039,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                    <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                     <td>
                       {{ Form::text('luggage_arrive_copied'.$key,
                       !empty($pre_reservation->luggage_arrive)?date('Y-m-d',strtotime($pre_reservation->luggage_arrive)):"",['class'=>'form-control
@@ -1630,8 +1628,7 @@
   </li>
 </ul>
 
-{{ Form::open(['url' => '/admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST',
-'id'=>'master_form']) }}
+{{ Form::open(['url' => '/admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST','id'=>'master_form','autocomplete'=>'off',]) }}
 @csrf
 {{ Form::hidden('master_data', '',['class' => 'btn btn-primary more_btn_lg', 'id'=>'master_data'])}}
 {{ Form::close() }}

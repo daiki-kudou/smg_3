@@ -25,9 +25,7 @@
   </div>
   @endif
 
-  {{ Form::open(['url' => '/admin/bills/'.$bill->id.'/agent_edit_update', 'method'=>'psot',
-  'id'=>'agentsbillsEditForm'])
-  }}
+  {{ Form::open(['url' => '/admin/bills/'.$bill->id.'/agent_edit_update', 'method'=>'psot','id'=>'agentsbillsEditForm','autocomplete'=>'off'])}}
   @csrf
   <section class="mt-5">
     <div class="bill">

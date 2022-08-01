@@ -12,6 +12,8 @@
     <div class="block">
       <p class="page-text">再度、会員登録画面にてメールアドレスを入力してください。
       </p>
+      <p class="page-text"><a href="{{url('/user/preusers')}}">会員登録画面へ＞＞</a>
+      </p>
     </div>
     <div class="sitemaplist">
       <ul>

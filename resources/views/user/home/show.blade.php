@@ -142,7 +142,7 @@
                                     <td colspan="2">
                                         <p class="title-icon">
                                             <i class="fas fa-user icon-size" aria-hidden="true"></i>
-                                            当日連絡のできるご担当者様
+                                            当日連絡できる担当者
                                         </p>
                                     </td>
                                 </tr>
@@ -307,7 +307,7 @@
                                 <tr>
                                     <th colspan='2'>
                                         <p class="title-icon py-1">
-                                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+                                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
                                         </p>
                                     </th>
                                 </tr>
@@ -1042,7 +1042,7 @@
                 <div class="confirm-box text-sm-center">
                     <p>上記、追加請求の内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
 
-                    {{ Form::open(['url' => '/user/home/approve_user_additional_cfm', 'method' => 'post', 'class' => '']) }}
+                    {{ Form::open(['url' => '/user/home/approve_user_additional_cfm', 'method' => 'post', 'class' => '','autocomplete'=>'off',]) }}
                     @csrf
                     {{ Form::hidden('bill_id', $other_bill->id) }}
                     <p class="text-center mt-3">{{ Form::submit('追加請求の内容を承認する', ['class' => 'btn more_btn4_lg']) }}</p>
@@ -1350,7 +1350,7 @@
                 <p>上記、予約内容をキャンセルしてもよろしいでしょうか。問題なければ、承認をお願い致します。</p>
 
                 @foreach ($reservation->cxls->where('cxl_status', 1) as $cfm_selected_cxl)
-                    {{ Form::open(['url' => '/user/home/cfm_cxl', 'method' => 'post', 'class' => '']) }}
+                    {{ Form::open(['url' => '/user/home/cfm_cxl', 'method' => 'post', 'class' => '','autocomplete'=>'off',]) }}
                     @csrf
                     {{ Form::hidden('cxl_id', $cfm_selected_cxl->id) }}
                     <p class="text-center mt-3">{{ Form::submit('キャンセルを承認する', ['class' => 'btn more_btn4_lg']) }}</p>

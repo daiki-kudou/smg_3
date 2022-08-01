@@ -51,7 +51,7 @@
 </div>
 
 <section class="mt-5">
-  {{ Form::open(['url' => '/admin/pre_agent_reservations/'.$PreReservation->id.'/edit_calculate', 'method'=>'POST', 'id'=>'pre_agent_reservationSingleEditForm']) }}
+  {{ Form::open(['url' => '/admin/pre_agent_reservations/'.$PreReservation->id.'/edit_calculate', 'method'=>'POST', 'id'=>'pre_agent_reservationSingleEditForm','autocomplete'=>'off']) }}
   @csrf
   <div class="selected_user">
     <table class="table table-bordered" style="table-layout: fixed;">
@@ -508,7 +508,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
+                    <i class="fas fa-suitcase-rolling icon-size"></i>荷物預かり
                   </p>
                 </th>
               </tr>
@@ -532,7 +532,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                <td class="table-active">事前に預かる荷物<br>(目安)</td>
                 <td>
                   {{ Form::number('luggage_count',
                   $PreReservation->luggage_count,['class'=>'form-control','id'=>'luggage_count','min'=>0] ) }}
@@ -540,7 +540,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                 <td>
                   {{ Form::text('luggage_arrive',
                   !empty($PreReservation->luggage_arrive)?(date('Y-m-d',strtotime($PreReservation->luggage_arrive)??"")):"",['class'=>'form-control
@@ -713,7 +713,7 @@
   {{Form::close()}}
 
 
-  {{ Form::open(['url' => '/admin/pre_agent_reservations/'.$PreReservation->id.'/update', 'method'=>'PUT']) }}
+  {{ Form::open(['url' => '/admin/pre_agent_reservations/'.$PreReservation->id.'/update', 'method'=>'PUT','autocomplete'=>'off']) }}
   @csrf
   {{-- 以下、計算結果 --}}
   <div class="container-fluid">

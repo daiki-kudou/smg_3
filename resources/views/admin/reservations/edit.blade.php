@@ -66,7 +66,7 @@
 
 
 
-{{Form::open(['url' => '/admin/reservations/edit_check', 'method' => 'POST', 'id'=>'reservations_edit'])}}
+{{Form::open(['url' => '/admin/reservations/edit_check', 'method' => 'POST', 'id'=>'reservations_edit','autocomplete'=>'off',])}}
 @csrf
 {{ Form::hidden('reservation_id', $reservation['id'] ,['class'=>'form-control', 'readonly'] ) }}
 {{ Form::hidden('bill_id', $reservation['bills'][0]['id'] ,['class'=>'form-control', 'readonly'] ) }}
@@ -388,7 +388,7 @@
             <tr>
               <th colspan='2'>
                 <p class="title-icon">
-                  <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
+                  <i class="fas fa-suitcase-rolling icon-size"></i>荷物預かり
                 </p>
               </th>
             </tr>
@@ -412,7 +412,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">事前に預かる荷物<br>（個数）</td>
+              <td class="table-active">事前に預かる荷物<br>(目安)</td>
               <td>
                 {{ Form::number('luggage_count',
                 $reservation['luggage_count'],['class'=>'form-control','id'=>'luggage_count','min'=>0] ) }}
@@ -420,7 +420,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+              <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
               <td>
                 {{ Form::text('luggage_arrive',
                 !empty($reservation['luggage_arrive'])?date('Y-m-d',strtotime($reservation['luggage_arrive'])):"",['class'=>'form-control

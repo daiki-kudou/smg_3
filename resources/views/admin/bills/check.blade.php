@@ -22,7 +22,7 @@
 @include('layouts.admin.breadcrumbs',['id'=>$data['reservation_id']])
 @include('layouts.admin.errors')
 
-{{ Form::open(['route' => 'admin.bills.store', 'method'=>'POST']) }}
+{{ Form::open(['route' => 'admin.bills.store', 'method'=>'POST','autocomplete'=>'off']) }}
 @csrf
 {{Form::hidden('reservation_id',$data['reservation_id'])}}
 {{Form::hidden('category',2)}}

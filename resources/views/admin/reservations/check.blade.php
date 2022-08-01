@@ -32,7 +32,7 @@
 
 
 
-    {{ Form::open(['url' => '/admin/reservations', 'method' => 'POST', 'id' => 'agents_calculate_form']) }}
+    {{ Form::open(['url' => '/admin/reservations', 'method' => 'POST', 'id' => 'agents_calculate_form','autocomplete'=>'off',]) }}
     @csrf
     <section class="mt-4">
         <div class="row">
@@ -222,7 +222,7 @@
                                 <tr>
                                     <th colspan="2">
                                         <p class="title-icon">
-                                            <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預り
+                                            <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預かり
                                         </p>
                                     </th>
                                 </tr>
@@ -236,7 +236,7 @@
                                 </tr>
                                 @if ($value['luggage_count'] && $value['luggage_flag'] == 1)
                                     <tr>
-                                        <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                                        <td class="table-active">事前に預かる荷物<br>(目安)</td>
                                         <td>
                                             {{ $value['luggage_count'] }}
                                         </td>
@@ -244,7 +244,7 @@
                                 @endif
                                 @if ($value['luggage_arrive'] && $value['luggage_flag'] == 1)
                                     <tr>
-                                        <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                                        <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                                         <td>
                                             {{ ReservationHelper::formatDate($value['luggage_arrive']) }}
                                         </td>

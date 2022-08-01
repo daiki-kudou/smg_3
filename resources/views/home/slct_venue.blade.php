@@ -27,7 +27,7 @@
       <div class="flexBetween">
         <div class="grayBox spmt20">
           <p class="txtCenter"><em>利用日から選ぶ</em></p>
-          {{Form::open(['url' => '/slct_date', 'method' => 'get', 'id'=>'form01', 'class'=>'search'])}}
+          {{Form::open(['url' => '/slct_date', 'method' => 'get', 'id'=>'form01', 'class'=>'search','autocomplete'=>'off',])}}
           @csrf
           <dl>
             <dt><label>利用日</label></dt>
@@ -49,7 +49,7 @@
         </div>
         <div class="grayBox btn-row">
           <p class="txtCenter"><em>会場から選ぶ</em></p>
-          {{Form::open(['url' => '/slct_venue', 'method' => 'get', 'id'=>'form02', 'class'=>'search'])}}
+          {{Form::open(['url' => '/slct_venue', 'method' => 'get', 'id'=>'form02', 'class'=>'search','autocomplete'=>'off',])}}
           @csrf
           <dl class="m-b20">
             <dt><label>会場</label></dt>
@@ -94,7 +94,8 @@
     </article>
     @if((int)$request->room04===10||(int)$request->room04===11||(int)$request->room04===12||(int)$request->room04===13||(int)$request->room04===16||(int)$request->room04===17||(int)$request->room04===19||(int)$request->room04===20)
     <div class="caution-area m-t20">
-      <p class="txtCenter caution-text">提携会場のため、一度弊社にお問い合わせください。</p>
+      <p class="txtCenter caution-text">提携会場のため、一度弊社にお問い合わせください。<br>
+      お問合せ済みの方はこのまま下記の予約フォームに進んで下さい。</p>
     </div>
     @else
     <div class="calenderframe">
@@ -102,7 +103,7 @@
     </div>
     @endif
 
-    {{Form::open(['url' => '/user/reservations/create', 'method' => 'get', 'class'=>'search','id'=>'slct_venue_form'])}}
+    {{Form::open(['url' => '/user/reservations/create', 'method' => 'get', 'class'=>'search','id'=>'slct_venue_form','autocomplete'=>'off',])}}
     @csrf
     <h2 class="sub-ttl">申込み内容</h2>
     <div class="bgColorGray first">

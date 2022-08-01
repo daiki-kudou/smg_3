@@ -110,9 +110,6 @@ $(function () {
 
 
 // マイページ仮押さえ申し込み
-
-
-
 $(function () {
     var target = [
         "#mypageForm"
@@ -127,7 +124,8 @@ $(function () {
                 tel: {
                     required: true,
                     number: true,
-                    minlength: 11
+                    minlength: 11,
+                    maxlength: 11
                 },
                 luggage_flag: {
                     required: true
@@ -154,7 +152,8 @@ $(function () {
                 tel: {
                     required: "※必須項目です",
                     number: "※半角数字を入力してください",
-                    minlength: "※最低桁数は11です",
+                    minlength: "※11桁で入力してください",
+                    maxlength: "※11桁で入力してください",
                 },
                 luggage_flag: {
                     required: "※必須項目です",
@@ -243,7 +242,7 @@ $(function () {
             tel: {
                 required: "※必須項目です",
                 number: "※半角数字を入力してください",
-                minlength: "※最低桁数は11です",
+                minlength: "※11桁で入力してください",
             },
             luggage_flag: {
                 required: "※必須項目です",

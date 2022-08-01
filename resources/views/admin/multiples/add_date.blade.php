@@ -161,8 +161,7 @@
         <iframe src="{{url('/admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
           compatible</iframe>
       </div>
-      {{Form::open(['url' => '/admin/multiples/'.$multiple->id.'/add_date_store/'.$venue_id, 'method' => 'POST',
-      'id'=>''])}}
+      {{Form::open(['url' => '/admin/multiples/'.$multiple->id.'/add_date_store/'.$venue_id, 'method' => 'POST','id'=>'','autocomplete'=>'off'])}}
       @csrf
       <div class="date_selector mt-5">
         <h3 class="mb-2 pt-3">日程選択</h3>

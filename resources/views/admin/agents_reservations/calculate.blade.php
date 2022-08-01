@@ -50,8 +50,7 @@
   </div>
 
 
-  {{Form::open(['url' => '/admin/agents_reservations/store_session', 'method' => 'POST',
-  'id'=>'agentReservationCalculateForm'])}}
+  {{Form::open(['url' => '/admin/agents_reservations/store_session', 'method' => 'POST','id'=>'agentReservationCalculateForm','autocomplete'=>'off'])}}
 
   @csrf
   <section class="mt-4">
@@ -343,7 +342,7 @@
               <tr>
                 <th colspan="2">
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預り
+                    <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預かり
                   </p>
                 </th>
               </tr>
@@ -367,7 +366,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                <td class="table-active">事前に預かる荷物<br>(目安)</td>
                 <td>
                   {{ Form::number('luggage_count',
                   (int)$master_info['luggage_flag']===1?$master_info['luggage_count']:"",['class'=>'form-control','id'=>'luggage_count','min'=>0]
@@ -376,7 +375,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                 <td>
                   {{ Form::text('luggage_arrive',
                   (int)$master_info['luggage_flag']===1?$master_info['luggage_arrive']:"",['class'=>'form-control
@@ -644,8 +643,7 @@
 
 
 
-  {{ Form::open(['url' => '/admin/agents_reservations/check_session', 'method'=>'POST', 'id'=>'agents_calculate_form'])
-  }}
+  {{ Form::open(['url' => '/admin/agents_reservations/check_session', 'method'=>'POST', 'id'=>'agents_calculate_form','autocomplete'=>'off'])}}
   @csrf
   <section class="">
     <div class="bill">

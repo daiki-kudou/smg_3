@@ -11,7 +11,7 @@
 <section class="contents">
   <h2>予約1</h2>
 
-  {{ Form::open(['url' => '/user/reservations/store_session', 'method'=>'POST', 'id'=>'']) }}
+  {{ Form::open(['url' => '/user/reservations/store_session', 'method'=>'POST', 'id'=>'','autocomplete'=>'off',]) }}
   <div class="bgColorGray first">
     <table>
       <tr>
@@ -155,12 +155,10 @@
             @if ($request->{'equipment_breakdown'.$e_key}==0||$request->{'equipment_breakdown'.$e_key}=="")
             @continue
             @else
-            <li class="form-cell2">
-              <p class="text5">{{$eqpt->item}} {{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
-              <p>
-              <p class="text4" style="margin-left: 20px;">{{($request->{'equipment_breakdown'.$e_key})}}個</p>
-              {{ Form::hidden('equipment_breakdown'.$e_key, ($request->{'equipment_breakdown'.$e_key}),['class'=>'text4
-              mL0'] ) }}
+            <li class="form-cell4">
+              <p class="text5">{{$eqpt->item}} {{number_format($eqpt->price)}}円<span class="annotation">(税抜)</span></p>
+              <p class="text4">{{($request->{'equipment_breakdown'.$e_key})}}個</p>
+              {{ Form::hidden('equipment_breakdown'.$e_key, ($request->{'equipment_breakdown'.$e_key}),['class'=>''] ) }}
               </p>
             </li>
             @endif
@@ -178,7 +176,7 @@
             @foreach ($venue->getServices() as $s_key=>$serv)
             @if ($request->{'services_breakdown'.$s_key}!=0)
             <li class="form-cell2">
-              <span class="">{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></span>
+              <span class="">{{$serv->item}} {{number_format($serv->price)}}円<span class="annotation">(税抜)</span></span>
               {{ Form::hidden('services_breakdown'.$s_key, ($request->{'services_breakdown'.$s_key}) ) }}
             </li>
             @endif
@@ -216,8 +214,12 @@
         <th>荷物預かり</th>
         <td class="spec-space">
           <div class="m-b10">
-            {{-- 荷物フラグ --}}
+             {{-- 荷物フラグ --}}
+             {{$request->luggage_flag==1?'あり':'なし'}}
             {{ Form::hidden('luggage_flag', $request->luggage_flag ) }}
+          </div>
+          @if ($request->luggage_flag==1)
+          <div class="m-b10">
             <p>【事前に預かる荷物】</p>
             <div class="">
               <p class="luggage_space">目安：{{$request->luggage_count}}個</p>
@@ -237,6 +239,7 @@
             </div>
           </div>
           <a name="a-baggagedate" class="error-r"></a>
+          @endif
         </td>
       </tr>
       @endif
@@ -394,19 +397,18 @@
         <tr>
           <td colspan="2" class="text-right">
             <p class="checkbox-txt"><span>小計(税抜)</span><span class="">{{number_format($master)}}</span>円</p>
-            <p class="checkbox-txt"><span>消費税</span>{{number_format(ReservationHelper::getTax($master))}}円</p>
+            <p class=""><span>消費税</span>{{number_format(ReservationHelper::getTax($master))}}円</p>
           </td>
         </tr>
         <tr>
-          <td colspan="2" class="text-right"><span>合計金額</span>
+          <td colspan="2" class="">
+            <span>合計金額</span>
             <span class="sumText">{{number_format(ReservationHelper::taxAndPrice($master))}}</span><span>円</span>
-            <p class="txtRight">
-              <!-- ※上記「総額」は確定金額ではありません。<br>
-            変更が生じる場合は弊社にて金額修正し、改めて確認のご連絡をさせて頂きます。<br> -->
-              ※お申込み内容によっては、弊社からご連絡の上で、合計金額が変更となる場合がございます<br>
-              ※荷物預かりサービスをご利用の場合、上記「総額」に規定のサービス料金が加算されます。<br>
+            <p class="txtRed txtLeft">
+              ※上記「総額」は確定金額ではありません。
+              変更が生じる場合は、弊社にて金額修正し、改めて確認のご連絡をさせて頂きます。<br>
+              ※荷物預かりサービスをご利用の場合、上記「総額」に規定のサービス料金が加算されます。
             </p>
-          </td>
         </tr>
       </tbody>
     </table>

@@ -110,7 +110,7 @@
 
 
 <div class="btn_wrapper ">
-  {{Form::open(['url' => '/user/home/user_edit', 'method' => 'POST'])}}
+  {{Form::open(['url' => '/user/home/user_edit', 'method' => 'POST','autocomplete'=>'off',])}}
   @csrf
   {{Form::hidden('user_id',$user->id)}}
   <p class="text-center">{{Form::submit('編集する',['class'=>'more_btn_lg btn'])}}

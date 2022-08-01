@@ -32,7 +32,7 @@
 
 <section class="mt-5">
   <div class="mb-2">
-    {{Form::open(['url' => '/admin/multiples/destroy', 'method' => 'delete', 'id'=>'for_destroy'])}}
+    {{Form::open(['url' => '/admin/multiples/destroy', 'method' => 'delete', 'id'=>'for_destroy','autocomplete'=>'off'])}}
     @csrf
     {{Form::hidden('delete_target', "[".$multiple->id."]")}}
     {{ Form::submit('削除', ['class' => 'btn
@@ -48,7 +48,7 @@
           </h3>
         </td>
         <td class="text-right">
-          {{ Form::open(['url' => '/admin/multiples/agent/agentMoveToReservation', 'method'=>'POST','id'=>'']) }}
+          {{ Form::open(['url' => '/admin/multiples/agent/agentMoveToReservation', 'method'=>'POST','id'=>'','autocomplete'=>'off']) }}
           @csrf
           {{ Form::hidden('multiple_id', $multiple->id)}}
           {{ Form::submit('本予約へ切り替える', ['class' => 'btn more_btn4',!$checkEachBills?'disabled':'']) }}

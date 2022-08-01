@@ -52,8 +52,7 @@
   <hr>
 </div>
 
-{{Form::open(['url' => '/admin/agents_reservations/store_session', 'method' => 'POST',
-'id'=>'agentReservationCreateForm'])}}
+{{Form::open(['url' => '/admin/agents_reservations/store_session', 'method' => 'POST','id'=>'agentReservationCreateForm','autocomplete'=>'off'])}}
 @csrf
 <section class="mt-5">
   <div class="row">
@@ -268,7 +267,7 @@
             <tr>
               <th colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預り
+                  <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預かり
                 </p>
               </th>
             </tr>

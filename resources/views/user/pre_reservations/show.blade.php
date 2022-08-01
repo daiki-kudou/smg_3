@@ -43,11 +43,7 @@
                 </tr>
             </tbody>
         </table>
-        {{ Form::open([
-            'url' => '/user/pre_reservations/' . $pre_reservation->id . '/calculate',
-            'method' => 'POST',
-            'id' => 'mypageForm',
-        ]) }}
+        {{ Form::open(['url' => '/user/pre_reservations/' . $pre_reservation->id . '/calculate','method' => 'POST','id' => 'mypageForm','autocomplete'=>'off',]) }}
         @csrf
         <div class="border-wrap2 p-4">
             <div class="row">
@@ -98,7 +94,7 @@
                                 <td colspan="2">
                                     <p class="title-icon">
                                         <i class="fas fa-user-check icon-size" aria-hidden="true"></i>
-                                        当日連絡のできるご担当者様
+                                        当日連絡できる担当者
                                     </p>
                                 </td>
                             </tr>
@@ -119,6 +115,8 @@
                                         'placeholder' => '半角数字、ハイフンなしで入力してください',
                                     ]) }}
                                     <p class="is-error-tel" style="color: red"></p>
+                                    <p class="annotation mt-1">※必ず当日連絡が付く担当者の連絡番号を記載下さい。<br>
+                                        ※半角数字、ハイフンなしで入力下さい。</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -130,6 +128,12 @@
                                     <div class="d-flex align-items-center justify-content-between">
                                         <p class="title-icon">
                                             <i class="fas fa-clipboard icon-size" aria-hidden="true"></i>案内版
+                                        </p>
+                                        <p>
+                                        <a target="_blank" rel="noopener noreferrer" href="https://system.osaka-conference.com/welcomboard/">
+                                        <i class="fas fa-external-link-alt form-icon"></i>
+                                        案内板サンプルはこちら
+                                        </a>
                                         </p>
                                     </div>
                                 </td>
@@ -150,7 +154,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="table-active">イベント名称1</td>
+                                <td class="table-active">イベント名称1行目</td>
                                 <td>
                                     <div class="align-items-end d-flex">
                                         {{ Form::text('event_name1', $pre_reservation->event_name1, [
@@ -163,7 +167,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="table-active">イベント名称2</td>
+                                <td class="table-active">イベント名称2行目</td>
                                 <td>
                                     <div class="align-items-end d-flex">
                                         {{ Form::text('event_name2', $pre_reservation->event_name2, [
@@ -227,6 +231,7 @@
                                     <tr>
                                         <td class="table-active">
                                             {{ $equ->item }}
+											({{ number_format($equ->price).'円' }})
                                         </td>
                                         <td>
                                             @foreach ($pre_reservation->pre_breakdowns()->get() as $s_equ)
@@ -267,6 +272,7 @@
                                 <tr>
                                     <td class="table-active">
                                         {{ $ser->item }}
+										({{ number_format($ser->price).'円' }})
                                     </td>
                                     <td>
                                         @foreach ($pre_reservation->pre_breakdowns()->get() as $s_ser)
@@ -315,7 +321,7 @@
                             <tr>
                                 <th colspan="2">
                                     <p class="title-icon py-1">
-                                        <i class="fas fa-th icon-size" aria-hidden="true"></i>レイアウト
+                                        <i class="fas fa-th icon-size" aria-hidden="true"></i>レイアウト変更
                                     </p>
                                 </th>
                             </tr>
@@ -323,7 +329,11 @@
                         <tbody>
 
                             <tr>
-                                <td class="table-active">レイアウト準備</td>
+                                <td class="table-active">レイアウト準備
+									(
+										{{ !empty($pre_reservation->venue->layout_prepare)?number_format($pre_reservation->venue->layout_prepare).'円':null }}
+									)
+								</td>
                                 <td>
                                     @foreach ($pre_reservation->pre_breakdowns()->get() as $s_lay)
                                         @if ($s_lay->unit_item == 'レイアウト準備料金')
@@ -355,7 +365,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="table-active">レイアウト片付</td>
+                            <td class="table-active">レイアウト片付
+								(
+									{{ !empty($pre_reservation->venue->layout_clean)?number_format($pre_reservation->venue->layout_clean).'円':null }}
+								)
+							</td>
                             <td>
                                 @foreach ($pre_reservation->pre_breakdowns()->get() as $s_lay)
                                     @if ($s_lay->unit_item == 'レイアウト片付料金')
@@ -398,7 +412,7 @@
                     <tr>
                         <th colspan="2">
                             <p class="title-icon">
-                                <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>荷物預り
+                                <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>荷物預かり
                             </p>
                         </th>
                     </tr>
@@ -406,27 +420,34 @@
 
                 <tbody>
                     <tr>
-                        <td class="table-active form_required">荷物預り</td>
+                        <td class="table-active form_required">荷物預かり</td>
                         <td>
                             <div class="radio-box">
                                 <p>
                                     {{ Form::radio('luggage_flag', 1, (int) $pre_reservation['luggage_flag'] === 1 ? true : false, [
                                         'id' => 'luggage_flag',
                                     ]) }}
-                                    {{ Form::label('luggage_flag', '有り') }}
+                                    {{ Form::label('luggage_flag', 'あり') }}
                                 </p>
                                 <p>
                                     {{ Form::radio('luggage_flag', 0, (int) $pre_reservation['luggage_flag'] === 0 ? true : false, [
                                         'id' => 'no_luggage_flag',
                                     ]) }}
-                                    {{ Form::label('no_luggage_flag', '無し') }}
+                                    {{ Form::label('no_luggage_flag', 'なし') }}
                                 </p>
+                                <p>500円(税抜)</p>
                             </div>
                             <p class="is-error-luggage_flag" style="color: red"></p>
+                            <div class="annotation mt-2">
+                            【事前・事後】預かりの荷物について<br>
+                            事前預かり/事後返送ともに5個まで。<br>
+                            6個以上は要相談。その際は事前に必ずお問い合わせ下さい。<br>
+                            荷物外寸合計(縦・横・奥行)120cm以下/個
+                            </div>
                         </td>
                     </tr>
                     <tr>
-                        <td class="table-active">事前にお預りする荷物</td>
+                        <td class="table-active">事前に預かる荷物(目安)</td>
                         <td>
                             @if ($pre_reservation['luggage_flag'] == 1)
                                 {{ Form::number('luggage_count', $pre_reservation->luggage_count, [
@@ -445,7 +466,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                        <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                         <td>
                             @if ($pre_reservation['luggage_flag'] == 1)
                                 {{ Form::text(
@@ -462,10 +483,17 @@
                                     'id' => 'luggage_arrive',
                                 ]) }}
                             @endif
+                            <div class="annotation mt-1 luggage_info">
+                            ※利用日3日前～前日（平日のみ）を到着日に指定下さい<br>
+                            ※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送 PDF」をご確認下さい。<br>
+                            ※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。<br>
+                            ※貴重品等のお預りはできかねます。<br>
+                            ※事前荷物は入室時間迄に弊社が会場搬入します。
+                            </div>
                         </td>
                     </tr>
                     <tr>
-                        <td class="table-active">事後返送するお荷物</td>
+                        <td class="table-active">事後返送する荷物</td>
                         <td>
                             @if ($pre_reservation['luggage_flag'] == 1)
                                 {{ Form::number('luggage_return', $pre_reservation->luggage_return, [
@@ -481,6 +509,9 @@
                                 ]) }}
                             @endif
                             <p class="is-error-luggage_return" style="color: red"></p>
+                            <div class="annotation mt-1 luggage_info">
+                            ※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -551,6 +582,7 @@
                 <td>
                     <label for="userNote">備考</label>
                     {{ Form::textarea('user_details', $pre_reservation->user_details, ['class' => 'form-control']) }}
+                    <div class="annotation mt-2">※入力に際し旧漢字・機種依存文字などはご使用になれません。</div>
                 </td>
             </tr>
         </tbody>
@@ -611,6 +643,7 @@
                 $("#eventname1Count").prop("disabled", false);
                 $("#eventname2Count").prop("disabled", false);
                 $("#eventownerCount").prop("disabled", false);
+                
             }
         });
     });

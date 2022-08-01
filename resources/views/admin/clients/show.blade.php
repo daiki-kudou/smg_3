@@ -270,14 +270,14 @@
 
     <ul class="d-flex justify-content-end mt-5">
       <li class="mr-3">
-        {{ Form::open(['url' => '/admin/pre_reservations/create', 'method'=>'get', 'id'=>'']) }}
+        {{ Form::open(['url' => '/admin/pre_reservations/create', 'method'=>'get', 'id'=>'','autocomplete'=>'off']) }}
         @csrf
         {{Form::hidden('user_id_from_client_show',$user->id)}}
         {{Form::submit('仮押さえをする',['id'=>"form_submit",'class'=>'more_btn3'])}}
         {{Form::close()}}
       </li>
       <li>
-        {{ Form::open(['url' => '/admin/reservations/create', 'method'=>'get', 'id'=>'']) }}
+        {{ Form::open(['url' => '/admin/reservations/create', 'method'=>'get', 'id'=>'','autocomplete'=>'off']) }}
         @csrf
         {{Form::hidden('user_id_from_client_show',$user->id)}}
         {{Form::submit('予約をする',['id'=>"form_submit",'class'=>'more_btn3'])}}

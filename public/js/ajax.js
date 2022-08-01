@@ -285,8 +285,8 @@ $(function () {
             "</td>" +
             "</tr>" +
             "<tr>" +
-            "<td class='table-active'>事前荷物の到着日<br>午前指定のみ</td>" +
-            "<td class=''> <input id='luggage_arrive' type='text' class='form-control holidays' placeholder='年-月-日' name='luggage_arrive' readonly>" +
+            "<td class='table-active'>事前荷物の到着日<br>(平日午前指定)</td>" +
+            "<td class=''> <input id='luggage_arrive' type='text' autocomplete='off' class='form-control holidays' placeholder='年-月-日' name='luggage_arrive' readonly>" +
             "</td>" +
             "</tr>" +
             "<tr> " +
@@ -298,7 +298,7 @@ $(function () {
             "<tr>" +
             "<td class='table-active'>荷物預かり　料金</td>" +
             "<td class=''>" +
-            "<input type='text' id='luggage_price' class='form-control luggage_price' placeholder='金額入力' name='luggage_price' readonly>" +
+            "<input type='text' id='luggage_price' autocomplete='off' class='form-control luggage_price' placeholder='金額入力' name='luggage_price' readonly>" +
             "<p class='is-error-luggage_price' style='color: red'></p>" +
             "</td>" +
             "</tr>";

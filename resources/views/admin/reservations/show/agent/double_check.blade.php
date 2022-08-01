@@ -4,8 +4,7 @@
 @if ($reservation->bills->sortBy("id")->first()->reservation_status<=2) <div
   class="d-flex justify-content-end mt-2 mb-2">
   {{-- <a class="more_btn4" href="">予約を確定する</a> --}}
-  {{ Form::open(['url' => '/admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST',
-  'class'=>'']) }}
+  {{ Form::open(['url' => '/admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST','class'=>'','autocomplete'=>'off',]) }}
   @csrf
   {{ Form::hidden('reservation_id', $reservation->id ) }}
   {{ Form::hidden('user_id', $reservation->user_id ) }}
