@@ -451,7 +451,7 @@
                             <tr>
                                 <td>
                                     <h2 class="text-white">
-                                        請求書No. {{ $reservation->bills->sortBy('id')->first()->invoice_number }}
+                                        請求書No. {{ $reservation->bills->sortBy('id')->first()->invoice_number }} 会場予約
                                     </h2>
                                 </td>
                                 <td style="width: 70%;">
@@ -842,7 +842,7 @@
                                 <tr>
                                     <td>
                                         <h2 class="text-white">
-                                            請求書No. {{ $other_bill->invoice_number }}
+                                            請求書No. {{ $other_bill->invoice_number }} 追加{{ $key}}
                                         </h2>
                                     </td>
                                     <td style="width: 70%;">
@@ -1235,7 +1235,7 @@
                                 <tr>
                                     <td>
                                         <h2 class="text-white">
-                                            請求書No. {{ $cxl->invoice_number }}
+                                            請求書No. {{ $cxl->invoice_number }} キャンセル料
                                         </h2>
                                     </td>
                                     <td style="width: 70%;">
