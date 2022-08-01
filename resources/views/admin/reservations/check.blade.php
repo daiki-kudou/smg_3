@@ -32,7 +32,7 @@
 
 
 
-    {{ Form::open(['url' => '/admin/reservations', 'method' => 'POST', 'id' => 'agents_calculate_form','autocomplete'=>'off',]) }}
+    {{ Form::open(['url' => '/admin/reservations', 'method' => 'POST', 'id' => 'agents_calculate_form', 'autocomplete' => 'off']) }}
     @csrf
     <section class="mt-4">
         <div class="row">
@@ -983,7 +983,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>振込人名
+                                    <td>振込名
                                         {{ Form::text('pay_person', $checkInfo['pay_person'], ['class' => 'form-control', 'readonly']) }}
                                     </td>
                                     <td>入金額

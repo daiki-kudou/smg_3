@@ -200,6 +200,10 @@
             </td>
           </tr>
           <tr>
+            <th class="table-active">{{ Form::label('payer', '振込名') }}</th>
+            <td><input type="text" name="payer" value="{{ $user->payer }}" class="form-control"></td>
+          </tr>
+          <tr>
             <th class="table-active">{{ Form::label('pay_post_code', '請求書送付先郵便番号') }}</th>
             <td>{{ Form::text('pay_post_code', $user->pay_post_code, [
               'class' => 'form-control pay_post_code',

@@ -30,7 +30,7 @@
         </div>
     @endif
 
-    {{ Form::open(['url' => '/user/pre_reservations/' . $pre_reservation->id . '/calculate','method' => 'POST','id' => 'mypageDone','autocomplete'=>'off',]) }}
+    {{ Form::open(['url' => '/user/pre_reservations/' . $pre_reservation->id . '/calculate', 'method' => 'POST', 'id' => 'mypageDone', 'autocomplete' => 'off']) }}
     @csrf
     {{ Form::hidden('venue_id', $pre_reservation->venue_id) }}
     {{ Form::hidden('user_id', $pre_reservation->user_id) }}
@@ -78,8 +78,7 @@
                                     <p class="title-icon">
                                         <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
                                         仮押え情報
-                                        <span
-                                            class="ml-3">仮押えID：{{ ReservationHelper::fixId($pre_reservation->id) }}</span>
+                                        <span class="ml-3">仮押えID：{{ ReservationHelper::fixId($pre_reservation->id) }}</span>
                                     </p>
                                 </td>
                             </tr>
@@ -150,10 +149,10 @@
                                             <i class="fas fa-clipboard icon-size" aria-hidden="true"></i>案内版
                                         </p>
                                         <p>
-                                        <a target="_blank" rel="noopener noreferrer" href="https://system.osaka-conference.com/welcomboard/">
-                                        <i class="fas fa-external-link-alt form-icon"></i>
-                                        案内板サンプルはこちら
-                                        </a>
+                                            <a target="_blank" rel="noopener noreferrer" href="https://system.osaka-conference.com/welcomboard/">
+                                                <i class="fas fa-external-link-alt form-icon"></i>
+                                                案内板サンプルはこちら
+                                            </a>
                                         </p>
                                     </div>
                                 </td>
@@ -242,12 +241,12 @@
                                     <tr>
                                         <td class="table-active">
                                             {{ $equ->item }}
-											({{ number_format($equ->price).'円' }})
+                                            ({{ number_format($equ->price) . '円' }})
                                         </td>
                                         <td>
                                             {{ Form::number('equipment_breakdown[]', $request->equipment_breakdown[$key], [
                                                 'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              equipment_validation',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          equipment_validation',
                                                 'autocomplete="off"',
                                             ]) }}
                                         </td>
@@ -272,7 +271,7 @@
                                     <tr>
                                         <td class="table-active">
                                             {{ $ser->item }}
-											({{ number_format($ser->price).'円' }})
+                                            ({{ number_format($ser->price) . '円' }})
                                         </td>
                                         <td>
                                             <div class="radio-box">
@@ -312,10 +311,10 @@
                                 <tbody>
                                     <tr>
                                         <td class="table-active">レイアウト準備
-											(
-												{{ !empty($pre_reservation->venue->layout_prepare)?number_format($pre_reservation->venue->layout_prepare).'円':null }}
-											)
-										</td>
+                                            (
+                                            {{ !empty($pre_reservation->venue->layout_prepare) ? number_format($pre_reservation->venue->layout_prepare) . '円' : null }}
+                                            )
+                                        </td>
                                         <td>
                                             <div class="radio-box">
                                                 <p>
@@ -337,10 +336,10 @@
                                     </tr>
                                     <tr>
                                         <td class="table-active">レイアウト片付
-											(
-												{{ !empty($pre_reservation->venue->layout_clean)?number_format($pre_reservation->venue->layout_clean).'円':null }}
-											)											
-										</td>
+                                            (
+                                            {{ !empty($pre_reservation->venue->layout_clean) ? number_format($pre_reservation->venue->layout_clean) . '円' : null }}
+                                            )
+                                        </td>
                                         <td>
                                             <div class="radio-box">
                                                 <p>
@@ -394,10 +393,10 @@
                                             </div>
                                             <p class="is-error-luggage_flag" style="color: red"></p>
                                             <div class="annotation mt-2">
-                                            【事前・事後】預かりの荷物について<br>
-                                            事前預かり/事後返送ともに5個まで。<br>
-                                            6個以上は要相談。その際は事前に必ずお問い合わせ下さい。<br>
-                                            荷物外寸合計(縦・横・奥行)120cm以下/個
+                                                【事前・事後】預かりの荷物について<br>
+                                                事前預かり/事後返送ともに5個まで。<br>
+                                                6個以上は要相談。その際は事前に必ずお問い合わせ下さい。<br>
+                                                荷物外寸合計(縦・横・奥行)120cm以下/個
                                             </div>
                                         </td>
                                     </tr>
@@ -435,11 +434,11 @@
                                                 ]) }}
                                             @endif
                                             <div class="annotation mt-1 luggage_info">
-                                            ※利用日3日前～前日（平日のみ）を到着日に指定下さい<br>
-                                            ※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送 PDF」をご確認下さい。<br>
-                                            ※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。<br>
-                                            ※貴重品等のお預りはできかねます。<br>
-                                            ※事前荷物は入室時間迄に弊社が会場搬入します。
+                                                ※利用日3日前～前日（平日のみ）を到着日に指定下さい<br>
+                                                ※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送 PDF」をご確認下さい。<br>
+                                                ※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。<br>
+                                                ※貴重品等のお預りはできかねます。<br>
+                                                ※事前荷物は入室時間迄に弊社が会場搬入します。
                                             </div>
                                         </td>
                                     </tr>
@@ -461,7 +460,7 @@
                                             @endif
                                             <p class="is-error-luggage_return" style="color: red"></p>
                                             <div class="annotation mt-1 luggage_info">
-                                            ※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。
+                                                ※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。
                                             </div>
                                         </td>
                                     </tr>
@@ -488,19 +487,9 @@
                                             {{ Form::radio('eat_in', 1, (int) $request->eat_in === 1 ? true : false, ['id' => 'eat_in']) }}
                                             {{ Form::label('eat_in', 'あり') }} </td>
                                         <td>
-                                            {{ Form::radio(
-                                                'eat_in_prepare',
-                                                1,
-                                                (int) $request->eat_in === 1 ? ((int) $request->eat_in_prepare === 1 ? true : false) : true,
-                                                ['id' => 'eat_in_prepare', (int) $request->eat_in === 1 ? '' : 'disabled'],
-                                            ) }}
+                                            {{ Form::radio('eat_in_prepare', 1, (int) $request->eat_in === 1 ? ((int) $request->eat_in_prepare === 1 ? true : false) : true, ['id' => 'eat_in_prepare', (int) $request->eat_in === 1 ? '' : 'disabled']) }}
                                             {{ Form::label('eat_in_prepare', '手配済み') }}
-                                            {{ Form::radio(
-                                                'eat_in_prepare',
-                                                2,
-                                                (int) $request->eat_in === 1 ? ((int) $request->eat_in_prepare === 2 ? true : false) : false,
-                                                ['id' => 'eat_in_consider', (int) $request->eat_in === 1 ? '' : 'disabled'],
-                                            ) }}
+                                            {{ Form::radio('eat_in_prepare', 2, (int) $request->eat_in === 1 ? ((int) $request->eat_in_prepare === 2 ? true : false) : false, ['id' => 'eat_in_consider', (int) $request->eat_in === 1 ? '' : 'disabled']) }}
                                             {{ Form::label('eat_in_consider', '検討中') }}
                                         </td>
                                     </tr>
@@ -599,8 +588,7 @@
                                 </tr>
                             </tbody>
                             <tbody class="venue_main">
-                                @foreach ($pre_reservation->pre_breakdowns()->where('unit_type', 1)->get()
-        as $key => $price_details)
+                                @foreach ($pre_reservation->pre_breakdowns()->where('unit_type', 1)->get() as $key => $price_details)
                                     <tr>
                                         <td>
                                             {{ Form::text('venue_breakdown_item[]', $price_details->unit_item, ['class' => 'form-control', 'readonly']) }}
@@ -821,15 +809,13 @@
         <p>・ 弊社で受付が完了しましたら「予約完了連絡」をお送りします。<br>
             <span class="caution_color">弊社からの予約完了連絡が到着した時点で「予約完了(予約確定)となります。」</span>
         </p>
-        <p>・原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生います。申込前に「<a target="_blank" rel="noopener noreferrer"
-                href="https://system.osaka-conference.com/cancelpolicy/">キャンセルポリシー</a>」
+        <p>・原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生います。申込前に「<a target="_blank" rel="noopener noreferrer" href="https://system.osaka-conference.com/cancelpolicy/">キャンセルポリシー</a>」
             をご確認下さい。
         </p>
 
         <div class="caution py-3 mt-3">
             <p class="text-center">
-                <a target="_blank" rel="noopener noreferrer"
-                    href="{{ asset('/img/terms_of_service.pdf') }}">利用規約</a>と利用の流れについての同意
+                <a target="_blank" rel="noopener noreferrer" href="{{ asset('/img/terms_of_service.pdf') }}">利用規約</a>と利用の流れについての同意
             </p>
             <div class="d-flex justify-content-center">
                 <p class="checkbox-txt">
@@ -842,9 +828,7 @@
 
     <div class="confirm-box mt-3">
         <h5 class="mb-2 caution_color">【個人情報の取り扱いについて】</h5>
-        <p>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
-                href="https://system.osaka-conference.com/privacypolicy/" target="_blank"
-                rel="noopener noreferrer">プライバシーポリシー</a>をご確認下さい。</p>
+        <p>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a href="https://system.osaka-conference.com/privacypolicy/" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>をご確認下さい。</p>
     </div>
 
 
@@ -913,25 +897,25 @@
         // });
 
         // 荷物預かりのラジオボタン選択の表示、非表示
-            $(function() {
-                var no_luggage_flag = $('#no_luggage_flag').val();
-                if (no_luggage_flag == 0) {
+        $(function() {
+            var no_luggage_flag = $('#no_luggage_flag').val();
+            if (no_luggage_flag == 0) {
+                $(".luggage_info").addClass("d-none");
+            } else {
+                $(".luggage_info").removeClass("d-none");
+            }
+        });
+
+        $(function() {
+            $("input[name='luggage_flag']").change(function() {
+                var no_luggage_flag = $('#no_luggage_flag').prop('checked');
+                if (no_luggage_flag) {
                     $(".luggage_info").addClass("d-none");
                 } else {
                     $(".luggage_info").removeClass("d-none");
                 }
             });
-
-            $(function() {
-                $("input[name='luggage_flag']").change(function() {
-                    var no_luggage_flag = $('#no_luggage_flag').prop('checked');
-                    if (no_luggage_flag) {
-                        $(".luggage_info").addClass("d-none");
-                    } else {
-                        $(".luggage_info").removeClass("d-none");
-                    }
-                });
-            });
+        });
 
 
         $(document).on("click", "input:radio[name='eat_in']", function() {

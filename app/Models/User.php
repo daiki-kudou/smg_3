@@ -63,7 +63,8 @@ class User extends Authenticatable
     'attention',
     'remark',
     'status',
-    'admin_or_user'
+    'admin_or_user',
+	'payer'
   ];
 
   /**

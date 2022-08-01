@@ -37,7 +37,7 @@
                 @endif @if ($reservation->user_id > 0)
                     @if ($reservation->bills->sortBy('id')->first()->reservation_status == 3)
                         <p class="text-right mb-5">
-                            {{ Form::open(['url' => '/admin/bills/create/', 'method' => 'get', 'class' => '','autocomplete'=>'off',]) }}
+                            {{ Form::open(['url' => '/admin/bills/create/', 'method' => 'get', 'class' => '', 'autocomplete' => 'off']) }}
                             @csrf
                             {{ Form::hidden('reservation_id', $reservation->id) }}
                             {{ Form::submit('追加の請求書を作成する', ['class' => 'btn more_btn3']) }}
@@ -47,7 +47,7 @@
                 @else
                     @if ($reservation->bills->sortBy('id')->first()->reservation_status == 3)
                         <p class="text-right mb-5">
-                            {{ Form::open(['url' => '/admin/agents_reservations/add_bills', 'method' => 'get', 'class' => '','autocomplete'=>'off',]) }}
+                            {{ Form::open(['url' => '/admin/agents_reservations/add_bills', 'method' => 'get', 'class' => '', 'autocomplete' => 'off']) }}
                             @csrf
                             {{ Form::hidden('reservation_id', $reservation->id) }}
                             {{ Form::submit('追加の請求書を作成する', ['class' => 'btn more_btn3']) }}
@@ -74,8 +74,7 @@
         @endif
 
         @if ((int) $reservation->bills->sortBy('id')->first()->reservation_status === 3)
-            @foreach ($reservation->bills->sortBy('id')->skip(1)->toArray()
-        as $key => $item)
+            @foreach ($reservation->bills->sortBy('id')->skip(1)->toArray() as $key => $item)
                 @if ((int) $item['double_check_status'] <= 1 && (int) $item['reservation_status'] < 3)
                     <div class="alert-box d-flex align-items-center mb-0">
                         <p class="w-100 text-center">
@@ -113,7 +112,7 @@
 
         <section class="register-wrap mt-2">
             @if ($reservation->bills->sortBy('id')->first()->reservation_status < 3)
-                {{ Form::open(['url' => '/admin/reservations/' . $reservation->id, 'method' => 'delete','autocomplete'=>'off',]) }}
+                {{ Form::open(['url' => '/admin/reservations/' . $reservation->id, 'method' => 'delete', 'autocomplete' => 'off']) }}
                 @csrf
                 {{ Form::submit('取り消し', ['class' => 'btn more_btn4 mb-3 confirm_delete']) }}
                 {{ Form::close() }}
@@ -185,8 +184,7 @@
                             <td class="table-active"><label for="direction">案内板</label></td>
                             <td class="d-flex justify-content-between">
                                 <p>{{ $reservation->board_flag == 0 ? 'なし' : 'あり' }}</p>
-                                <a href="{{ url('/admin/board/' . $reservation->id) }}" class="more_btn btn"
-                                    target="_blank">案内板を表示</a>
+                                <a href="{{ url('/admin/board/' . $reservation->id) }}" class="more_btn btn" target="_blank">案内板を表示</a>
                             </td>
                         </tr>
                         <tr>
@@ -426,7 +424,7 @@
                         </tr>
                         <tr>
                             <td>
-                                {{ Form::open(['url' => '/admin/change_log', 'method' => 'POST','autocomplete'=>'off',]) }}
+                                {{ Form::open(['url' => '/admin/change_log', 'method' => 'POST', 'autocomplete' => 'off']) }}
                                 @csrf
                                 {{ Form::textarea('remark_textarea', optional($reservation->change_log)->content, [
                                     'class' => 'form-control remark_textarea',
@@ -473,14 +471,13 @@
                                         @if (!empty($reservation->user))
                                             @if ($reservation->bills->sortBy('id')->first()->reservation_status < 3)
                                                 <p>
-                                                    <a href="{{ url('/admin/reservations/' . $reservation->id . '/edit') }}"
-                                                        class="btn more_btn">編集</a>
+                                                    <a href="{{ url('/admin/reservations/' . $reservation->id . '/edit') }}" class="btn more_btn">編集</a>
                                                 </p>
                                             @endif
                                         @else
                                             @if ($reservation->bills->sortBy('id')->first()->reservation_status < 3)
                                                 <p>
-                                                    {{ Form::open(['url' => route('admin.agents_reservations.edit', $reservation->id),'method' => 'get','class' => '','autocomplete'=>'off',]) }}
+                                                    {{ Form::open(['url' => route('admin.agents_reservations.edit', $reservation->id), 'method' => 'get', 'class' => '', 'autocomplete' => 'off']) }}
                                                     @csrf
                                                     {{ Form::hidden('reservation_id', $reservation->id) }}
                                                     {{ Form::hidden('bill_id', $reservation->bills->sortBy('id')->first()->id) }}
@@ -561,19 +558,15 @@
                     </table>
                     <div class="approve_or_confirm">
                         @if ($reservation->user_id > 0)
-                            @include(
-                                'admin.reservations.show.user.double_check'
-                            )
+                            @include('admin.reservations.show.user.double_check')
                         @else
-                            @include(
-                                'admin.reservations.show.agent.double_check'
-                            )
+                            @include('admin.reservations.show.agent.double_check')
                         @endif
                     </div>
                     <div class="cancel">
                         @if ($reservation->bills->sortBy('id')->first()->reservation_status == 3)
                             @if ($reservation->cxls->count() === 0)
-                                {{ Form::open(['url' => '/admin/cxl/multi_create', 'method' => 'get', 'class' => '','autocomplete'=>'off',]) }}
+                                {{ Form::open(['url' => '/admin/cxl/multi_create', 'method' => 'get', 'class' => '', 'autocomplete' => 'off']) }}
                                 @csrf
                                 {{ Form::hidden('reservation_id', $reservation->id) }}
                                 <p class="text-right py-2 mr-2">
@@ -605,9 +598,7 @@
                         @if ($reservation->user_id > 0)
                             @include('admin.reservations.show.user.breakdown')
                         @else
-                            @include(
-                                'admin.reservations.show.agent.breakdown'
-                            )
+                            @include('admin.reservations.show.agent.breakdown')
                         @endif
                         <div class="bill_total">
                             <table class="table text-right">
@@ -650,7 +641,7 @@
                             <h3>
                                 請求書情報
                             </h3>
-                            {{ Form::open(['url' => '/admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '','autocomplete'=>'off',]) }}
+                            {{ Form::open(['url' => '/admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '', 'autocomplete' => 'off']) }}
                             @csrf
                             {{ Form::hidden('reservation_id', $reservation->id) }}
                             {{ Form::hidden('bill_id', $reservation->bills->sortBy('id')->first()->id) }}
@@ -662,7 +653,7 @@
                     </div>
 
                     <div class="main hide">
-                        {{ Form::open(['url' => '/admin/bills/update_bill_info', 'method' => 'post','autocomplete'=>'off',]) }}
+                        {{ Form::open(['url' => '/admin/bills/update_bill_info', 'method' => 'post', 'autocomplete' => 'off']) }}
                         @csrf
                         {{ Form::hidden('bill_id', $reservation->bills->sortBy('id')->first()->id) }}
                         <p class="text-right billdetails_content pb-0">
@@ -670,10 +661,9 @@
                                 id="{{ 'bill_edit_m' .
                                     $reservation->bills->sortBy(
                                             "
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        id",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        id",
                                         )->first()->id }}">
-                            <label
-                                for="{{ 'bill_edit_m' . $reservation->bills->sortBy(' id')->first()->id }}">編集する</label>
+                            <label for="{{ 'bill_edit_m' . $reservation->bills->sortBy(' id')->first()->id }}">編集する</label>
                         </p>
                         <div class="informations billdetails_content">
                             <table class="table">
@@ -682,23 +672,19 @@
                                         <td>
                                             請求日：{{ Form::text('bill_created_at', $reservation->bills->sortBy('id')->first()->bill_created_at, [
                                                 'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      bill_edit datepicker_no_min_date',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  bill_edit datepicker_no_min_date',
                                                 'disabled',
                                             ]) }}
                                         </td>
                                         <td>
-                                            支払期日：{{ Form::text(
-                                                'payment_limit',
-                                                date('Y-m-d', strtotime($reservation->bills->sortBy('id')->first()->payment_limit)),
-                                                ['class' => 'form-control bill_edit datepicker_no_min_date', 'disabled'],
-                                            ) }}
+                                            支払期日：{{ Form::text('payment_limit', date('Y-m-d', strtotime($reservation->bills->sortBy('id')->first()->payment_limit)), ['class' => 'form-control bill_edit datepicker_no_min_date', 'disabled']) }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             請求書宛名：{{ Form::text('bill_company', $reservation->bills->sortBy('id')->first()->bill_company, [
                                                 'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      bill_edit',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  bill_edit',
                                                 'disabled',
                                             ]) }}
                                         </td>
@@ -715,7 +701,7 @@
                                             <p>
                                                 {{ Form::textarea('bill_remark', $reservation->bills->sortBy('id')->first()->bill_remark, [
                                                     'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                bill_edit',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                bill_edit',
                                                     'disabled',
                                                 ]) }}
                                             </p>
@@ -741,7 +727,7 @@
                             <h3 class="pl-3">
                                 入金情報
                             </h3>
-                            {{ Form::open(['url' => '/admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '','autocomplete'=>'off',]) }}
+                            {{ Form::open(['url' => '/admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '', 'autocomplete' => 'off']) }}
                             @csrf
                             {{ Form::hidden('bill_id', $reservation->bills->sortBy('id')->first()->id) }}
                             @if ($reservation->bills->sortBy('id')->first()->paid == 1)
@@ -751,7 +737,7 @@
                         </div>
                     </div>
                     <div class="main">
-                        {{ Form::open(['url' => '/admin/bills/update_paid_info', 'method' => 'post', 'id' => 'payment_info','autocomplete'=>'off','autocomplete'=>'off',]) }}
+                        {{ Form::open(['url' => '/admin/bills/update_paid_info', 'method' => 'post', 'id' => 'payment_info', 'autocomplete' => 'off', 'autocomplete' => 'off']) }}
                         @csrf
                         {{ Form::hidden('bill_id', $reservation->bills->sortBy('id')->first()->id) }}
                         {{ Form::hidden('bill_or_add_bill', '会場予約') }}
@@ -760,10 +746,9 @@
                                 id="{{ 'paid_edit_m' .
                                     $reservation->bills->sortBy(
                                             "
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        id",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        id",
                                         )->first()->id }}">
-                            <label
-                                for="{{ 'paid_edit_m' . $reservation->bills->sortBy(' id')->first()->id }}">編集する</label>
+                            <label for="{{ 'paid_edit_m' . $reservation->bills->sortBy(' id')->first()->id }}">編集する</label>
                         </div>
                         <div class="paids billdetails_content">
                             <table class="table">
@@ -771,26 +756,15 @@
                                     <tr>
                                         <td>
                                             入金状況：
-                                            {{ Form::select(
-                                                'paid',
-                                                ['未入金', '入金済み', '遅延', '入金不足', '入金過多', '次回繰越'],
-                                                $reservation->bills->sortBy('id')->first()->paid,
-                                                ['class' => 'form-control paid_edit', 'disabled'],
-                                            ) }}
+                                            {{ Form::select('paid', ['未入金', '入金済み', '遅延', '入金不足', '入金過多', '次回繰越'], $reservation->bills->sortBy('id')->first()->paid, ['class' => 'form-control paid_edit', 'disabled']) }}
                                         </td>
                                         <td>
                                             入金日：
-                                            {{ Form::text(
-                                                'pay_day',
-                                                !empty($reservation->bills->sortBy('id')->first()->pay_day)
-                                                    ? date('Y-m-d', strtotime($reservation->bills->sortBy('id')->first()->pay_day))
-                                                    : '',
-                                                ['class' => 'form-control paid_edit datepicker_no_min_date', 'disabled'],
-                                            ) }}
+                                            {{ Form::text('pay_day', !empty($reservation->bills->sortBy('id')->first()->pay_day) ? date('Y-m-d', strtotime($reservation->bills->sortBy('id')->first()->pay_day)) : '', ['class' => 'form-control paid_edit datepicker_no_min_date', 'disabled']) }}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>振込人名：
+                                        <td>振込名：
                                             {{ Form::text('pay_person', $reservation->bills->sortBy('id')->first()->pay_person, [
                                                 'class' => 'form-control paid_edit',
                                                 'disabled',
@@ -887,14 +861,12 @@
                                             <p>
                                                 @if ($reservation->user_id > 0)
                                                     @if ($other_bill->reservation_status < 3)
-                                                        <a href="{{ url('/admin/bills/' . $other_bill->id . '/edit') }}"
-                                                            class="btn more_btn">
+                                                        <a href="{{ url('/admin/bills/' . $other_bill->id . '/edit') }}" class="btn more_btn">
                                                             追加請求書編集</a>
                                                     @endif
                                                 @else
                                                     @if ($other_bill->reservation_status < 3)
-                                                        <a href="{{ url('/admin/bills/' . $other_bill->id . '/agent_edit') }}"
-                                                            class="btn more_btn">
+                                                        <a href="{{ url('/admin/bills/' . $other_bill->id . '/agent_edit') }}" class="btn more_btn">
                                                             編集</a>
                                                     @endif
                                                 @endif
@@ -968,7 +940,7 @@
                             @if ($other_bill->double_check_status == 2)
                                 @if ($other_bill->reservation_status <= 2)
                                     <div class="d-flex justify-content-end mt-2 mb-2">
-                                        {{ Form::open(['url' => '/admin/bills/other_send_approve', 'method' => 'POST', 'class' => '','autocomplete'=>'off',]) }}
+                                        {{ Form::open(['url' => '/admin/bills/other_send_approve', 'method' => 'POST', 'class' => '', 'autocomplete' => 'off']) }}
                                         @csrf
                                         {{ Form::hidden('bill_id', $other_bill->id) }}
                                         {{ Form::hidden('user_id', $reservation->user_id) }}
@@ -980,7 +952,7 @@
                                             </p>
                                         @endif
                                         {{ Form::close() }}
-                                        {{ Form::open(['url' => '/admin/agents_reservations/confirm', 'method' => 'POST', 'class' => '','autocomplete'=>'off',]) }}
+                                        {{ Form::open(['url' => '/admin/agents_reservations/confirm', 'method' => 'POST', 'class' => '', 'autocomplete' => 'off']) }}
                                         @csrf
                                         {{ Form::hidden('bill_id', $other_bill->id) }}
                                         <p>{{ Form::submit('予約を確定する', ['class' => 'btn more_btn4 confirm_btn']) }}</p>
@@ -1004,13 +976,9 @@
                         </div>
                         <div class="main hide">
                             @if ($reservation->user_id > 0)
-                                @include(
-                                    'admin.reservations.show.user.additional_breakdown'
-                                )
+                                @include('admin.reservations.show.user.additional_breakdown')
                             @else
-                                @include(
-                                    'admin.reservations.show.agent.additional_breakdown'
-                                )
+                                @include('admin.reservations.show.agent.additional_breakdown')
                             @endif
 
 
@@ -1029,8 +997,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <span
-                                                    class="font-weight-bold">合計金額：</span>{{ number_format($other_bill->master_total) }}
+                                                <span class="font-weight-bold">合計金額：</span>{{ number_format($other_bill->master_total) }}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -1051,7 +1018,7 @@
                                 <h3>
                                     請求書情報
                                 </h3>
-                                {{ Form::open(['url' => '/admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '','autocomplete'=>'off',]) }}
+                                {{ Form::open(['url' => '/admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '', 'autocomplete' => 'off']) }}
                                 @csrf
                                 {{ Form::hidden('reservation_id', $reservation->id) }}
                                 {{ Form::hidden('bill_id', $other_bill->id) }}
@@ -1063,12 +1030,11 @@
                         </div>
 
                         <div class="main hide">
-                            {{ Form::open(['url' => '/admin/bills/update_bill_info', 'method' => 'post','autocomplete'=>'off']) }}
+                            {{ Form::open(['url' => '/admin/bills/update_bill_info', 'method' => 'post', 'autocomplete' => 'off']) }}
                             @csrf
                             {{ Form::hidden('bill_id', $other_bill->id) }}
                             <p class="text-right billdetails_content pb-0">
-                                <input type="checkbox" class="bill_edit_m"
-                                    id="{{ 'bill_edit_m' . $other_bill->id }}">
+                                <input type="checkbox" class="bill_edit_m" id="{{ 'bill_edit_m' . $other_bill->id }}">
                                 <label for="{{ 'bill_edit_m' . $other_bill->id }}">編集する</label>
                             </p>
                             <div class="informations billdetails_content">
@@ -1092,14 +1058,14 @@
                                             <td>
                                                 請求書宛名：{{ Form::text('bill_company', $other_bill->bill_company, [
                                                     'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              bill_edit',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              bill_edit',
                                                     'disabled',
                                                 ]) }}
                                             </td>
                                             <td>
                                                 担当者：{{ Form::text('bill_person', $other_bill->bill_person, [
                                                     'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              bill_edit',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              bill_edit',
                                                     'disabled',
                                                 ]) }}
                                             </td>
@@ -1110,7 +1076,7 @@
                                                 <p>
                                                     {{ Form::textarea('bill_remark', $other_bill->bill_remark, [
                                                         'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        bill_edit',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            bill_edit',
                                                         'disabled',
                                                     ]) }}
                                                 </p>
@@ -1137,7 +1103,7 @@
                                 <h3 class="pl-3">
                                     入金情報
                                 </h3>
-                                {{ Form::open(['url' => '/admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '','autocomplete'=>'off',]) }}
+                                {{ Form::open(['url' => '/admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '', 'autocomplete' => 'off']) }}
                                 @csrf
                                 {{ Form::hidden('reservation_id', $reservation->id) }}
                                 {{ Form::hidden('bill_id', $other_bill->id) }}
@@ -1150,13 +1116,12 @@
                         </div>
 
                         <div class="main">
-                            {{ Form::open(['url' => '/admin/bills/update_paid_info', 'method' => 'post', 'id' => 'payment_info2','autocomplete'=>'off',]) }}
+                            {{ Form::open(['url' => '/admin/bills/update_paid_info', 'method' => 'post', 'id' => 'payment_info2', 'autocomplete' => 'off']) }}
                             @csrf
                             {{ Form::hidden('bill_id', $other_bill->id) }}
                             {{ Form::hidden('bill_or_add_bill', '追加請求') }}
                             <div class="text-right billdetails_content pb-0">
-                                <input type="checkbox" class="paid_edit_m"
-                                    id="{{ 'paid_edit_m' . $other_bill->id }}">
+                                <input type="checkbox" class="paid_edit_m" id="{{ 'paid_edit_m' . $other_bill->id }}">
                                 <label for="{{ 'paid_edit_m' . $other_bill->id }}">編集する</label>
                             </div>
                             <div class="paids billdetails_content">
@@ -1174,13 +1139,13 @@
                                                 入金日：
                                                 {{ Form::text('pay_day', !empty($other_bill->pay_day) ? date('Y-m-d', strtotime($other_bill->pay_day)) : '', [
                                                     'class' => 'form-control paid_edit
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              datepicker_no_min_date',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              datepicker_no_min_date',
                                                     'disabled',
                                                 ]) }}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>振込人名：
+                                            <td>振込名：
                                                 {{ Form::text('pay_person', $other_bill->pay_person, [
                                                     'class' => 'form-control paid_edit',
                                                     'disabled',
@@ -1212,7 +1177,7 @@
                         <dl class="d-flex col-12 justify-content-end align-items-center">
                             <dt><label for="checkname">一人目チェック者</label></dt>
                             <dd>
-                                {{ Form::open(['url' => '/admin/bills/other_doublecheck', 'method' => 'POST','autocomplete'=>'off',]) }}
+                                {{ Form::open(['url' => '/admin/bills/other_doublecheck', 'method' => 'POST', 'autocomplete' => 'off']) }}
                                 @csrf
                                 {{ Form::select('double_check1_name', $admin, null, ['class' => 'form-control double_check1_name']) }}
                                 {{ Form::hidden('double_check_status', $other_bill->double_check_status) }}
@@ -1231,7 +1196,7 @@
                         <dl class="d-flex col-12 justify-content-end align-items-center">
                             <dt><label for="checkname">二人目チェック者</label></dt>
                             <dd>
-                                {{ Form::open(['url' => '/admin/bills/other_doublecheck', 'method' => 'POST','autocomplete'=>'off',]) }}
+                                {{ Form::open(['url' => '/admin/bills/other_doublecheck', 'method' => 'POST', 'autocomplete' => 'off']) }}
                                 @csrf
                                 {{ Form::select('double_check2_name', $admin, null, ['class' => 'form-control double_check2_name']) }}
                                 {{ Form::hidden('double_check_status', $other_bill->double_check_status) }}
@@ -1287,8 +1252,7 @@
                                             </dl>
                                             <p>
                                                 @if ($cxl->cxl_status != 2)
-                                                    <a href="{{ url('/admin/cxl/edit/' . $cxl->id) }}"
-                                                        class="btn more_btn">キャンセル編集</a>
+                                                    <a href="{{ url('/admin/cxl/edit/' . $cxl->id) }}" class="btn more_btn">キャンセル編集</a>
                                                 @endif
                                             </p>
                                         </div>
@@ -1360,7 +1324,7 @@
                             @if ($cxl->double_check_status == 2)
                                 @if ($cxl->cxl_status < 2)
                                     <div class="d-flex justify-content-end mt-2 mb-2">
-                                        {{ Form::open(['url' => '/admin/cxl/send_email_and_approve', 'method' => 'POST', 'class' => '','autocomplete'=>'off',]) }}
+                                        {{ Form::open(['url' => '/admin/cxl/send_email_and_approve', 'method' => 'POST', 'class' => '', 'autocomplete' => 'off']) }}
                                         @csrf
                                         {{ Form::hidden('cxl_id', $cxl->id) }}
                                         @if ($reservation->user_id > 0)
@@ -1370,7 +1334,7 @@
                                         @endif
                                         {{ Form::close() }}
 
-                                        {{ Form::open(['url' => '/admin/cxl/confirm', 'method' => 'POST', 'class' => '','autocomplete'=>'off',]) }}
+                                        {{ Form::open(['url' => '/admin/cxl/confirm', 'method' => 'POST', 'class' => '', 'autocomplete' => 'off']) }}
                                         @csrf
                                         {{ Form::hidden('cxl_id', $cxl->id) }}
                                         <p>
@@ -1491,7 +1455,7 @@
                                 <h3>
                                     請求書情報
                                 </h3>
-                                {{ Form::open(['url' => '/admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '','autocomplete'=>'off',]) }}
+                                {{ Form::open(['url' => '/admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '', 'autocomplete' => 'off']) }}
                                 @csrf
                                 {{ Form::hidden('reservation_id', $reservation->id) }}
                                 {{ Form::hidden('cxl_id', $cxl->id) }}
@@ -1503,7 +1467,7 @@
                         </div>
 
                         <div class="main hide">
-                            {{ Form::open(['url' => '/admin/cxl/update_cxl_bill_info', 'method' => 'post','autocomplete'=>'off',]) }}
+                            {{ Form::open(['url' => '/admin/cxl/update_cxl_bill_info', 'method' => 'post', 'autocomplete' => 'off']) }}
                             @csrf
                             {{ Form::hidden('cxl_id', $cxl->id) }}
                             <p class="text-right billdetails_content pb-0">
@@ -1518,14 +1482,14 @@
                                                 請求日：
                                                 {{ Form::text('bill_created_at', $cxl->bill_created_at, [
                                                     'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              datepicker_no_min_date cxl_bill_edit',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              datepicker_no_min_date cxl_bill_edit',
                                                     'disabled',
                                                 ]) }}
                                             </td>
                                             <td>支払期日：
                                                 {{ Form::text('payment_limit', $cxl->payment_limit, [
                                                     'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              datepicker_no_min_date cxl_bill_edit',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              datepicker_no_min_date cxl_bill_edit',
                                                     'disabled',
                                                 ]) }}
                                             </td>
@@ -1534,7 +1498,7 @@
                                             <td>請求書宛名：
                                                 {{ Form::text('bill_company', $cxl->bill_company, [
                                                     'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              cxl_bill_edit',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              cxl_bill_edit',
                                                     'disabled',
                                                 ]) }}
                                             </td>
@@ -1549,7 +1513,7 @@
                                                 <p>
                                                     {{ Form::textarea('bill_remark', $cxl->bill_remark, [
                                                         'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        cxl_bill_edit',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            cxl_bill_edit',
                                                         'disabled',
                                                     ]) }}
                                                 </p>
@@ -1575,7 +1539,7 @@
                                 <h3 class="pl-3">
                                     入金情報
                                 </h3>
-                                {{ Form::open(['url' => '/admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '','autocomplete'=>'off',]) }}
+                                {{ Form::open(['url' => '/admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '', 'autocomplete' => 'off']) }}
                                 @csrf
                                 {{ Form::hidden('cxl_id', $cxl->id) }}
                                 @if ($cxl->paid == 1)
@@ -1587,7 +1551,7 @@
                         </div>
 
                         <div class="main">
-                            {{ Form::open(['url' => '/admin/cxl/update_cxl_paid_info', 'method' => 'post', 'id' => 'payment_info3','autocomplete'=>'off',]) }}
+                            {{ Form::open(['url' => '/admin/cxl/update_cxl_paid_info', 'method' => 'post', 'id' => 'payment_info3', 'autocomplete' => 'off']) }}
                             @csrf
                             {{ Form::hidden('cxl_id', $cxl->id) }}
                             <div class="text-right billdetails_content pb-0">
@@ -1613,7 +1577,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>振込人名：
+                                            <td>振込名：
                                                 {{ Form::text('pay_person', $cxl->pay_person, [
                                                     'class' => 'form-control cxl_paid_edit',
                                                     'disabled',
@@ -1649,7 +1613,7 @@
                         <dl class="d-flex col-12 justify-content-end align-items-center">
                             <dt><label for="checkname">一人目チェック者</label></dt>
                             <dd>
-                                {{ Form::open(['url' => '/admin/cxl/double_check', 'method' => 'POST','autocomplete'=>'off',]) }}
+                                {{ Form::open(['url' => '/admin/cxl/double_check', 'method' => 'POST', 'autocomplete' => 'off']) }}
                                 @csrf
                                 {{ Form::select('double_check1_name', $admin, null, ['class' => 'form-control double_check1_name']) }}
                                 {{ Form::hidden('double_check_status', $cxl->double_check_status) }}
@@ -1669,7 +1633,7 @@
                         <dl class="d-flex col-12 justify-content-end align-items-center">
                             <dt><label for="checkname">二人目チェック者</label></dt>
                             <dd>
-                                {{ Form::open(['url' => '/admin/cxl/double_check', 'method' => 'POST','autocomplete'=>'off',]) }}
+                                {{ Form::open(['url' => '/admin/cxl/double_check', 'method' => 'POST', 'autocomplete' => 'off']) }}
                                 @csrf
                                 {{ Form::select('double_check2_name', $admin, null, ['class' => 'form-control double_check2_name']) }}
                                 {{ Form::hidden('double_check_status', $cxl->double_check_status) }}

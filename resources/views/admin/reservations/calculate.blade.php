@@ -1198,8 +1198,8 @@
               </td>
             </tr>
             <tr>
-              <td>振込人名{{ Form::text('pay_person', null,['class'=>'form-control'] ) }}
-                <p class="is-error-pay_person" style="color: red"></p>
+              <td>振込名{{ Form::text('pay_person', optional($users->find($value['user_id']))->payer,['class'=>'form-control'] ) }}
+                {{-- <p class="is-error-pay_person" style="color: red"></p> --}}
               </td>
               <td>入金額{{ Form::text('payment', null,['class'=>'form-control'] ) }}
                 <p class="is-error-payment" style="color: red"></p>

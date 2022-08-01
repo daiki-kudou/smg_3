@@ -112,7 +112,7 @@ class Bill extends Model
       'bill_remark' => !empty($data['bill_remark']) ? $data['bill_remark'] : "",
       'paid' => $data['paid'],
       'pay_day' => $data['pay_day'],
-      'pay_person' => $data['pay_person'],
+      'pay_person' => $data['payer'], //2022-08-01 修正
       'payment' => $data['payment'],
       'reservation_status' => $reservation_status,
       'double_check_status' => $double_check_status,

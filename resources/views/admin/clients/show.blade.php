@@ -190,6 +190,10 @@
               @endif
             </td>
           </tr>
+		  <tr>
+            <th class="table-active">{{ Form::label('payer', '振込名') }}</th>
+            <td>{{$user->payer}}</td>
+		  </tr>
           <tr>
             <th class="table-active">{{ Form::label('pay_post_code', '請求書送付先郵便番号') }}</th>
             <td>{{$user->pay_post_code}}</td>
