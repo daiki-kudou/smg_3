@@ -12,6 +12,13 @@ String.prototype.bytes = function () {
 };
 
 // ロード時の、案内板入力制御
+
+$(document).ready(function () {
+  $("#board_flag:checked").each(function () {
+    $("td:contains('イベント名称1')").addClass("form_required"); 
+  });
+});
+
 $(document).ready(function () {
   $("#no_board_flag:checked").each(function () {
     var flag = $(this);
