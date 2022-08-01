@@ -926,16 +926,17 @@ header div.contents {
     }
 
     .form-cell4 {
-        display: block;
+        /* display: block; */
         margin-bottom: 25px;
     }
     
-    .form-cell4 .text5 {
+    /* .form-cell4 .text5 {
         width: 100%;
-    }
+    } */
     
     .form-cell4 .text4 {
-        width: 100%;
+        /* width: 100%; */
+        text-align: right;
     }
 
 
