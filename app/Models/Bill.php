@@ -112,7 +112,7 @@ class Bill extends Model
       'bill_remark' => !empty($data['bill_remark']) ? $data['bill_remark'] : "",
       'paid' => $data['paid'],
       'pay_day' => $data['pay_day'],
-      'pay_person' => $data['payer'], //2022-08-01 修正
+      'pay_person' => $data['payer']??null, //2022-08-01 修正
       'payment' => $data['payment'],
       'reservation_status' => $reservation_status,
       'double_check_status' => $double_check_status,
@@ -420,7 +420,7 @@ class Bill extends Model
   public function CSVSearch($data)
   {
     $searchTarget = $this->CSVSearchTarget();
-
+	$id=null;
     if (!empty($data['multiple_id']) && (int)$data['multiple_id'] > 0) {
       for ($i = 0; $i < strlen($data['multiple_id']); $i++) {
         if ((int)$data['multiple_id'][$i] !== 0) {
