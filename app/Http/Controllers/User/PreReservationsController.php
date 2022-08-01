@@ -96,9 +96,11 @@ class PreReservationsController extends Controller
     }
     $user = User::find($request->user_id);
     $payment_limit = $user->getUserPayLimit($request->reserve_date);
+	$payer=$user->payer;
 
     $data = $request->all();
     $data['payment_limit'] = $payment_limit;
+    $data['payer'] = $payer;
     $reservation = new Reservation;
     $bill = new Bill;
     $breakdowns = new Breakdown;

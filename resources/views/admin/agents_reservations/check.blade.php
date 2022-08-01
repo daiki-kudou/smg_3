@@ -30,7 +30,6 @@
         .hide {
             display: none;
         }
-
     </style>
 
     @include('layouts.admin.breadcrumbs')
@@ -53,7 +52,7 @@
     @endforeach
 
 
-    {{ Form::open(['url' => '/admin/agents_reservations', 'method' => 'POST', 'id' => 'agentReservationCreateForm','autocomplete'=>'off']) }}
+    {{ Form::open(['url' => '/admin/agents_reservations', 'method' => 'POST', 'id' => 'agentReservationCreateForm', 'autocomplete' => 'off']) }}
     @csrf
     <section class="mt-4">
         <div class="row">
@@ -185,11 +184,7 @@
                             <td class="table-active">イベント開始時間</td>
                             <td>
                                 <div>
-                                    {{ Form::text(
-                                        '',
-                                        !empty($master_info['event_start']) ? ReservationHelper::formatTime($master_info['event_start']) : '',
-                                        ['class' => 'form-control', 'readonly'],
-                                    ) }}
+                                    {{ Form::text('', !empty($master_info['event_start']) ? ReservationHelper::formatTime($master_info['event_start']) : '', ['class' => 'form-control', 'readonly']) }}
                                     {{ Form::hidden('event_start', !empty($master_info['event_start']) ? $master_info['event_start'] : '', [
                                         'class' => 'form-control',
                                         'readonly',
@@ -200,11 +195,7 @@
                         <tr>
                             <td class="table-active">イベント終了時間</td>
                             <td>
-                                {{ Form::text(
-                                    '',
-                                    !empty($master_info['event_finish']) ? ReservationHelper::formatTime($master_info['event_finish']) : '',
-                                    ['class' => 'form-control', 'readonly'],
-                                ) }}
+                                {{ Form::text('', !empty($master_info['event_finish']) ? ReservationHelper::formatTime($master_info['event_finish']) : '', ['class' => 'form-control', 'readonly']) }}
                                 {{ Form::hidden('event_finish', !empty($master_info['event_finish']) ? $master_info['event_finish'] : '', [
                                     'class' => 'form-control',
                                     'readonly',
@@ -559,8 +550,7 @@
                             <tr>
                                 <td colspan="2">
                                     <p class="title-icon">
-                                        <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span
-                                            class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
+                                        <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
                                     </p>
                                 </td>
                             </tr>
@@ -1044,7 +1034,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>振込人名{{ Form::text('pay_person', $check_info['pay_person'], ['class' => 'form-control', 'readonly']) }}
+                                    <td>振込名{{ Form::text('pay_person', $check_info['pay_person'], ['class' => 'form-control', 'readonly']) }}
                                     </td>
                                     <td>入金額{{ Form::text('payment', $check_info['payment'], ['class' => 'form-control', 'readonly']) }}
                                     </td>
@@ -1058,8 +1048,7 @@
     </section>
 
     <div class="container-field d-flex justify-content-center mt-5">
-        <a href="{{ route('admin.agents_reservations.calculate') }}"
-            class="btn more_btn4_lg d-block mr-5">請求内訳を修正する</a>
+        <a href="{{ route('admin.agents_reservations.calculate') }}" class="btn more_btn4_lg d-block mr-5">請求内訳を修正する</a>
         {{ Form::submit('予約を登録する', ['class' => 'd-block btn more_btn_lg confirm_submit', 'id' => 'check_submit']) }}
         {{ Form::close() }}
     </div>

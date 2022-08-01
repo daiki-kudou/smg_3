@@ -630,6 +630,7 @@ class PreReservation extends Model
     $searchTarget = $this->PreReservationSearchTarget();
 
     if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
+		$id=null;
       for ($i = 0; $i < strlen($data['search_id']); $i++) {
         if ((int)$data['search_id'][$i] !== 0) {
           $id = strstr($data['search_id'], $data['search_id'][$i]);
@@ -699,7 +700,8 @@ class PreReservation extends Model
       if (preg_match('/^[0-9!,]+$/', $data['search_free'])) {
         //数字の場合検索
         if ((int)$data['search_free'] !== 0) {
-          $searchTarget = $searchTarget->where(function ($query) use ($data) {
+		$id=null;
+          $searchTarget = $searchTarget->where(function ($query) use ($data, $id) {
             for ($i = 0; $i < strlen($data['search_free']); $i++) {
               if ((int)$data['search_free'][$i] !== 0) {
                 $id = substr($data['search_free'], $i, strlen($data['search_free']));
