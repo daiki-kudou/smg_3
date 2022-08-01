@@ -39,7 +39,7 @@ $(function () {
       $("#eventownerCount").prop("readonly", true);
       $("#event_start").prop("disabled", true);
       $("#event_finish").prop("disabled", true);
-      $(".board-table input[type='text']").val("");
+      // $(".board-table input[type='text']").val("");
       $("[class^='is-error-event']").hide();
       $("input[name^='event_']").removeClass("is-error");
       var len1 = $("#eventname1Count").val().bytes();
