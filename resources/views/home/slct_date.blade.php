@@ -92,7 +92,6 @@
     </div>
 
     {{Form::open(['url' => '/user/reservations/create', 'method' => 'get', 'class'=>'search','id'=>'slct_date_form','autocomplete'=>'off',])}}
-    @csrf
     <h2 class="sub-ttl">申込み内容</h2>
     <div class="bgColorGray first">
       <table>

@@ -68,11 +68,11 @@ class ReservationsController extends Controller
       }
     }
 
-    // 荷物はユーザーから依頼があったタイミングでは0円の固定
+    // 荷物はユーザーから依頼があったタイミングでは0円の固定 ← 変更:デフォルト500円
     $luggage_price = 0;
-    // if ($request->luggage_count || $request->luggage_arrive || $request->luggage_return) {
-    //   $luggage_price += 500;
-    // }
+    if ($request->luggage_flag ||$request->luggage_count || $request->luggage_arrive || $request->luggage_return) {
+      $luggage_price += 500;
+    }
 
     $master =
       $price_result[0]
@@ -656,4 +656,13 @@ class ReservationsController extends Controller
     }
     return "<ul class='multi-column__list'>" . $result . "</ul>";
   }
+
+  public function reenter(Request $request){
+	// dd($request->all());
+	$venue = Venue::with(["frame_prices", "time_prices"])->find($request->venue_id);
+	return view('user.reservations.create', compact(
+	  'request',
+	  'venue',
+	));
+}
 }
