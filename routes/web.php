@@ -26,7 +26,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
   Auth::routes(['register' => true, 'confirm' => true, 'reset' => true,]);
 
-  Route::middleware('auth')->group(function () {
+  Route::middleware(['auth','verified'])->group(function () {
     Route::get('home/invoice/{reservation_id}/{bill_id}/{cxl_id}', 'HomeController@invoice');
     Route::get('home/receipt/{bill_id}/{cxl_id}', 'HomeController@receipt');
     Route::get('home/user_info', 'HomeController@user_info')->name('home.user_info');
@@ -56,6 +56,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     // 以下、ユーザーからの予約経路
     // 例外でgetリクエスト
     Route::get('reservations/create', 'ReservationsController@create')->name('reservations.create');
+	Route::post('reservations/create', 'ReservationsController@reenter')->name('reservations.reenter');
     Route::post('reservations/check', 'ReservationsController@check');
     Route::post('reservations/store_session', 'ReservationsController@storeSession');
     Route::get('reservations/cart', 'ReservationsController@cart');
