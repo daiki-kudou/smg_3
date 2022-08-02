@@ -99,7 +99,7 @@
                         <tr>
                             <td class="table-active">イベント名称1</td>
                             <td>
-                                @if (!empty($value['event_name1']))
+                                @if (!empty($value['event_name1'])&&!empty($value['board_flag']))
                                     {{ $value['event_name1'] }}
                                 @endif
                             </td>
@@ -107,7 +107,7 @@
                         <tr>
                             <td class="table-active">イベント名称2</td>
                             <td>
-                                @if (!empty($value['event_name2']))
+                                @if (!empty($value['event_name2'])&&!empty($value['board_flag']))
                                     {{ $value['event_name2'] }}
                                 @endif
                             </td>
@@ -115,7 +115,7 @@
                         <tr>
                             <td class="table-active">主催者名</td>
                             <td>
-                                @if (!empty($value['event_owner']))
+                                @if (!empty($value['event_owner'])&&!empty($value['board_flag']))
                                     {{ $value['event_owner'] }}
                                 @endif
                             </td>
@@ -123,7 +123,7 @@
                         <tr>
                             <td class="table-active">イベント開始時間</td>
                             <td>
-                                @if (!empty($value['event_start']))
+                                @if (!empty($value['event_start'])&&!empty($value['board_flag']))
                                     {{ date('H:i', strtotime($value['event_start'])) }}
                                 @endif
                             </td>
@@ -131,7 +131,7 @@
                         <tr>
                             <td class="table-active">イベント終了時間</td>
                             <td>
-                                @if (!empty($value['event_finish']))
+                                @if (!empty($value['event_finish'])&&!empty($value['board_flag']))
                                     {{ date('H:i', strtotime($value['event_finish'])) }}
                                 @endif
                             </td>

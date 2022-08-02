@@ -156,28 +156,19 @@
                         <tr>
                             <td class="table-active">イベント名称1</td>
                             <td>
-                                {{ Form::text('event_name1', !empty($master_info['event_name1']) ? $master_info['event_name1'] : '', [
-                                    'class' => 'form-control',
-                                    'readonly',
-                                ]) }}
+                                {{ Form::text('event_name1', !empty($master_info['event_name1'] && !empty($master_info['board_flag'])) ? $master_info['event_name1'] : '', ['class' => 'form-control', 'readonly']) }}
                             </td>
                         </tr>
                         <tr>
                             <td class="table-active">イベント名称2</td>
                             <td>
-                                {{ Form::text('event_name2', !empty($master_info['event_name2']) ? $master_info['event_name2'] : '', [
-                                    'class' => 'form-control',
-                                    'readonly',
-                                ]) }}
+                                {{ Form::text('event_name2', !empty($master_info['event_name2'] && !empty($master_info['board_flag'])) ? $master_info['event_name2'] : '', ['class' => 'form-control', 'readonly']) }}
                             </td>
                         </tr>
                         <tr>
                             <td class="table-active">主催者名</td>
                             <td>
-                                {{ Form::text('event_owner', !empty($master_info['event_owner']) ? $master_info['event_owner'] : '', [
-                                    'class' => 'form-control',
-                                    'readonly',
-                                ]) }}
+                                {{ Form::text('event_owner', !empty($master_info['event_owner'] && !empty($master_info['board_flag'])) ? $master_info['event_owner'] : '', ['class' => 'form-control', 'readonly']) }}
                             </td>
                         </tr>
                         <tr>
@@ -185,10 +176,7 @@
                             <td>
                                 <div>
                                     {{ Form::text('', !empty($master_info['event_start']) ? ReservationHelper::formatTime($master_info['event_start']) : '', ['class' => 'form-control', 'readonly']) }}
-                                    {{ Form::hidden('event_start', !empty($master_info['event_start']) ? $master_info['event_start'] : '', [
-                                        'class' => 'form-control',
-                                        'readonly',
-                                    ]) }}
+                                    {{ Form::hidden('event_start', !empty($master_info['event_start']) ? $master_info['event_start'] : '', ['class' => 'form-control', 'readonly']) }}
                                 </div>
                             </td>
                         </tr>
@@ -196,10 +184,7 @@
                             <td class="table-active">イベント終了時間</td>
                             <td>
                                 {{ Form::text('', !empty($master_info['event_finish']) ? ReservationHelper::formatTime($master_info['event_finish']) : '', ['class' => 'form-control', 'readonly']) }}
-                                {{ Form::hidden('event_finish', !empty($master_info['event_finish']) ? $master_info['event_finish'] : '', [
-                                    'class' => 'form-control',
-                                    'readonly',
-                                ]) }}
+                                {{ Form::hidden('event_finish', !empty($master_info['event_finish']) ? $master_info['event_finish'] : '', ['class' => 'form-control', 'readonly']) }}
                             </td>
                         </tr>
                     </tbody>
@@ -429,10 +414,7 @@
                                 <label for="agent_id" class=" form_required">サービス名称</label>
                             </td>
                             <td>
-                                {{ Form::text('', ReservationHelper::getAgentCompany($master_info['agent_id']), [
-                                    'class' => 'form-control',
-                                    'readonly',
-                                ]) }}
+                                {{ Form::text('', ReservationHelper::getAgentCompany($master_info['agent_id']), ['class' => 'form-control', 'readonly']) }}
                                 {{ Form::hidden('agent_id', $master_info['agent_id'], ['class' => 'form-control']) }}
                                 <p class="is-error-user_id" style="color: red"></p>
                             </td>
@@ -440,14 +422,8 @@
                         <tr>
                             <td class="table-active"><label for="name">担当者氏名<br></label></td>
                             <td>
-                                {{ Form::text('in_charge', ReservationHelper::getAgentPerson($master_info['agent_id']), [
-                                    'class' => 'form-control',
-                                    'readonly',
-                                ]) }}
-                                {{ Form::hidden('tel', ReservationHelper::getAgentTel($master_info['agent_id']), [
-                                    'class' => 'form-control',
-                                    'readonly',
-                                ]) }}
+                                {{ Form::text('in_charge', ReservationHelper::getAgentPerson($master_info['agent_id']), ['class' => 'form-control', 'readonly']) }}
+                                {{ Form::hidden('tel', ReservationHelper::getAgentTel($master_info['agent_id']), ['class' => 'form-control', 'readonly']) }}
                                 {{ Form::hidden('email_flag', 0, ['class' => 'form-control', 'readonly']) }}
                             </td>
                         </tr>
@@ -655,19 +631,13 @@
                             <tbody class="venue_main">
                                 <tr>
                                     <td>
-                                        {{ Form::text('venue_breakdown_item[]', $check_info['venue_breakdown_item0'], [
-                                            'class' => 'form-control',
-                                            'readonly',
-                                        ]) }}
+                                        {{ Form::text('venue_breakdown_item[]', $check_info['venue_breakdown_item0'], ['class' => 'form-control', 'readonly']) }}
                                     </td>
                                     <td>
                                         {{ Form::text('venue_breakdown_cost[]', 0, ['class' => 'form-control', 'readonly']) }}
                                     </td>
                                     <td>
-                                        {{ Form::text('venue_breakdown_count[]', $check_info['venue_breakdown_count0'], [
-                                            'class' => 'form-control',
-                                            'readonly',
-                                        ]) }}
+                                        {{ Form::text('venue_breakdown_count[]', $check_info['venue_breakdown_count0'], ['class' => 'form-control', 'readonly']) }}
                                     </td>
                                     <td>
                                         {{ Form::text('venue_breakdown_subtotal[]', 0, ['class' => 'form-control', 'readonly']) }}
@@ -703,19 +673,13 @@
                                         @if (!empty($check_info['equipment_breakdown_item' . $key]))
                                             <tr>
                                                 <td>
-                                                    {{ Form::text('equipment_breakdown_item[]', $check_info['equipment_breakdown_item' . $key], [
-                                                        'class' => 'form-control',
-                                                        'readonly',
-                                                    ]) }}
+                                                    {{ Form::text('equipment_breakdown_item[]', $check_info['equipment_breakdown_item' . $key], ['class' => 'form-control', 'readonly']) }}
                                                 </td>
                                                 <td>
                                                     {{ Form::text('equipment_breakdown_cost[]', 0, ['class' => 'form-control', 'readonly']) }}
                                                 </td>
                                                 <td>
-                                                    {{ Form::text('equipment_breakdown_count[]', $check_info['equipment_breakdown_count' . $key], [
-                                                        'class' => 'form-control',
-                                                        'readonly',
-                                                    ]) }}
+                                                    {{ Form::text('equipment_breakdown_count[]', $check_info['equipment_breakdown_count' . $key], ['class' => 'form-control', 'readonly']) }}
                                                 </td>
                                                 <td>
                                                     {{ Form::text('equipment_breakdown_subtotal[]', 0, ['class' => 'form-control', 'readonly']) }}
@@ -728,19 +692,13 @@
                                         @if (!empty($check_info['service_breakdown_item' . $key]))
                                             <tr>
                                                 <td>
-                                                    {{ Form::text('service_breakdown_item[]', $check_info['service_breakdown_item' . $key], [
-                                                        'class' => 'form-control',
-                                                        'readonly',
-                                                    ]) }}
+                                                    {{ Form::text('service_breakdown_item[]', $check_info['service_breakdown_item' . $key], ['class' => 'form-control', 'readonly']) }}
                                                 </td>
                                                 <td>
                                                     {{ Form::text('service_breakdown_cost[]', 0, ['class' => 'form-control', 'readonly']) }}
                                                 </td>
                                                 <td>
-                                                    {{ Form::text('service_breakdown_count[]', $check_info['service_breakdown_count' . $key], [
-                                                        'class' => 'form-control',
-                                                        'readonly',
-                                                    ]) }}
+                                                    {{ Form::text('service_breakdown_count[]', $check_info['service_breakdown_count' . $key], ['class' => 'form-control', 'readonly']) }}
                                                 </td>
                                                 <td>
                                                     {{ Form::text('service_breakdown_subtotal[]', 0, ['class' => 'form-control', 'readonly']) }}
@@ -758,10 +716,7 @@
                                                 {{ Form::text('service_breakdown_cost[]', 0, ['class' => 'form-control', 'readonly']) }}
                                             </td>
                                             <td>
-                                                {{ Form::text('service_breakdown_count[]', $check_info['luggage_count'], [
-                                                    'class' => 'form-control',
-                                                    'readonly',
-                                                ]) }}
+                                                {{ Form::text('service_breakdown_count[]', $check_info['luggage_count'], ['class' => 'form-control', 'readonly']) }}
                                             </td>
                                             <td>
                                                 {{ Form::text('service_breakdown_subtotal[]', 0, ['class' => 'form-control', 'readonly']) }}
@@ -798,57 +753,33 @@
                                     @if ($master_info['layout_prepare'] == 1)
                                         <tr>
                                             <td>
-                                                {{ Form::text('layout_breakdown_item[]', $check_info['layout_prepare_item'], [
-                                                    'class' => 'form-control',
-                                                    'readonly',
-                                                ]) }}
+                                                {{ Form::text('layout_breakdown_item[]', $check_info['layout_prepare_item'], ['class' => 'form-control', 'readonly']) }}
                                             </td>
                                             <td>
-                                                {{ Form::text('layout_breakdown_cost[]', $check_info['layout_prepare_cost'], [
-                                                    'class' => 'form-control',
-                                                    'readonly',
-                                                ]) }}
+                                                {{ Form::text('layout_breakdown_cost[]', $check_info['layout_prepare_cost'], ['class' => 'form-control', 'readonly']) }}
                                             </td>
                                             </td>
                                             <td>
-                                                {{ Form::text('layout_breakdown_count[]', $check_info['layout_prepare_count'], [
-                                                    'class' => 'form-control',
-                                                    'readonly',
-                                                ]) }}
+                                                {{ Form::text('layout_breakdown_count[]', $check_info['layout_prepare_count'], ['class' => 'form-control', 'readonly']) }}
                                             </td>
                                             <td>
-                                                {{ Form::text('layout_breakdown_subtotal[]', $check_info['layout_prepare_subtotal'], [
-                                                    'class' => 'form-control',
-                                                    'readonly',
-                                                ]) }}
+                                                {{ Form::text('layout_breakdown_subtotal[]', $check_info['layout_prepare_subtotal'], ['class' => 'form-control', 'readonly']) }}
                                             </td>
                                         </tr>
                                     @endif
                                     @if ($master_info['layout_clean'] == 1)
                                         <tr>
                                             <td>
-                                                {{ Form::text('layout_breakdown_item[]', $check_info['layout_clean_item'], [
-                                                    'class' => 'form-control',
-                                                    'readonly',
-                                                ]) }}
+                                                {{ Form::text('layout_breakdown_item[]', $check_info['layout_clean_item'], ['class' => 'form-control', 'readonly']) }}
                                             </td>
                                             <td>
-                                                {{ Form::text('layout_breakdown_cost[]', $check_info['layout_clean_cost'], [
-                                                    'class' => 'form-control',
-                                                    'readonly',
-                                                ]) }}
+                                                {{ Form::text('layout_breakdown_cost[]', $check_info['layout_clean_cost'], ['class' => 'form-control', 'readonly']) }}
                                             </td>
                                             <td>
-                                                {{ Form::text('layout_breakdown_count[]', $check_info['layout_clean_count'], [
-                                                    'class' => 'form-control',
-                                                    'readonly',
-                                                ]) }}
+                                                {{ Form::text('layout_breakdown_count[]', $check_info['layout_clean_count'], ['class' => 'form-control', 'readonly']) }}
                                             </td>
                                             <td>
-                                                {{ Form::text('layout_breakdown_subtotal[]', $check_info['layout_clean_subtotal'], [
-                                                    'class' => 'form-control',
-                                                    'readonly',
-                                                ]) }}
+                                                {{ Form::text('layout_breakdown_subtotal[]', $check_info['layout_clean_subtotal'], ['class' => 'form-control', 'readonly']) }}
                                             </td>
                                         </tr>
                                     @endif
@@ -891,19 +822,13 @@
                                     @foreach ($check_info['others_input_count'] as $key => $item)
                                         <tr>
                                             <td>
-                                                {{ Form::text('others_breakdown_item[]', $check_info['others_input_item'][$key], [
-                                                    'class' => 'form-control',
-                                                    'readonly',
-                                                ]) }}
+                                                {{ Form::text('others_breakdown_item[]', $check_info['others_input_item'][$key], ['class' => 'form-control', 'readonly']) }}
                                             </td>
                                             <td>
                                                 {{ Form::text('others_breakdown_cost[]', 0, ['class' => 'form-control', 'readonly']) }}
                                             </td>
                                             <td>
-                                                {{ Form::text('others_breakdown_count[]', $check_info['others_input_count'][$key], [
-                                                    'class' => 'form-control',
-                                                    'readonly',
-                                                ]) }}
+                                                {{ Form::text('others_breakdown_count[]', $check_info['others_input_count'][$key], ['class' => 'form-control', 'readonly']) }}
                                             </td>
                                             <td>
                                                 {{ Form::text('others_breakdown_subtotal[]', 0, ['class' => 'form-control', 'readonly']) }}
@@ -921,10 +846,7 @@
                                 <tr>
                                     <td>小計：</td>
                                     <td>
-                                        {{ Form::text('master_subtotal', $check_info['master_subtotal'], [
-                                            'class' => 'form-control text-right',
-                                            'readonly',
-                                        ]) }}
+                                        {{ Form::text('master_subtotal', $check_info['master_subtotal'], ['class' => 'form-control text-right', 'readonly']) }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -968,20 +890,10 @@
                             <tbody>
                                 <tr>
                                     <td>請求日
-                                        {{ Form::text('bill_created_at', $check_info['bill_created_at'], [
-                                            'class' => 'form-control',
-                                            'id' => 'datepicker6',
-                                            'readonly',
-                                        ]) }}
-
+                                        {{ Form::text('bill_created_at', $check_info['bill_created_at'], ['class' => 'form-control', 'id' => 'datepicker6', 'readonly']) }}
                                     </td>
                                     <td>支払期日
-                                        {{ Form::text('payment_limit', $check_info['pay_limit'], [
-                                            'class' => 'form-control',
-                                            'id' => 'datepicker6',
-                                            'readonly',
-                                        ]) }}
-
+                                        {{ Form::text('payment_limit', $check_info['pay_limit'], ['class' => 'form-control', 'id' => 'datepicker6', 'readonly']) }}
                                     </td>
                                 </tr>
                                 <tr>

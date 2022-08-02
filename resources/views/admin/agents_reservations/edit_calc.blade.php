@@ -149,7 +149,7 @@
                         <td class="table-active">イベント名称1</td>
                         <td>
                             <div class="align-items-end d-flex">
-                                {{ Form::text('event_name1', $data['event_name1'], ['class' => 'form-control', 'id' => 'eventname1Count']) }}
+                                {{ Form::text('event_name1', !empty($data['event_name1']) && !empty($data['board_flag']) ? $data['event_name1'] : null, ['class' => 'form-control', 'id' => 'eventname1Count']) }}
                                 <span class="ml-1 annotation count_num1"></span>
                             </div>
                             <p class="is-error-event_name1" style="color: red"></p>
@@ -159,7 +159,7 @@
                         <td class="table-active">イベント名称2</td>
                         <td>
                             <div class="align-items-end d-flex">
-                                {{ Form::text('event_name2', $data['event_name2'], ['class' => 'form-control', 'id' => 'eventname2Count']) }}
+                                {{ Form::text('event_name2', !empty($data['event_name2']) && !empty($data['board_flag']) ? $data['event_name2'] : null, ['class' => 'form-control', 'id' => 'eventname2Count']) }}
                                 <span class="ml-1 annotation count_num2"></span>
                             </div>
                             <p class="is-error-event_name2" style="color: red"></p>
@@ -169,7 +169,7 @@
                         <td class="table-active">主催者名</td>
                         <td>
                             <div class="align-items-end d-flex">
-                                {{ Form::text('event_owner', $data['event_owner'], ['class' => 'form-control', 'id' => 'eventownerCount']) }}
+                                {{ Form::text('event_owner', !empty($data['event_owner']) && !empty($data['board_flag']) ? $data['event_owner'] : null, ['class' => 'form-control', 'id' => 'eventownerCount']) }}
                                 <span class="ml-1 annotation count_num3"></span>
                             </div>
                             <p class="is-error-event_owner" style="color: red"></p>
@@ -222,10 +222,7 @@
                                     <td class="table-active">{{ $equipment->item }}({{ $equipment->price }}円)</td>
                                     <td>
                                         <div class="d-flex align-items-end">
-                                            {{ Form::number('equipment_breakdown[]', $data['equipment_breakdown'][$key], [
-                                                'class' => 'form-control
-                                                              equipment_breakdown',
-                                            ]) }}
+                                            {{ Form::number('equipment_breakdown[]', $data['equipment_breakdown'][$key], ['class' => 'form-control equipment_breakdown']) }}
                                             <span class="ml-1">個</span>
                                         </div>
                                     </td>
@@ -359,11 +356,7 @@
                                 <tr>
                                     <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                                     <td>
-                                        {{ Form::text('luggage_arrive', (int) $data['luggage_flag'] === 1 ? (!empty($data['luggage_arrive']) ? date('Y-m-d', strtotime($data['luggage_arrive'])) : '') : '', [
-                                            'class' => 'form-control
-                                                        holidays',
-                                            'id' => 'luggage_arrive',
-                                        ]) }}
+                                        {{ Form::text('luggage_arrive', (int) $data['luggage_flag'] === 1 ? (!empty($data['luggage_arrive']) ? date('Y-m-d', strtotime($data['luggage_arrive'])) : '') : '', ['class' => 'form-control holidays', 'id' => 'luggage_arrive']) }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -870,21 +863,13 @@
                             <tr>
                                 <td>消費税：</td>
                                 <td>
-                                    {{ Form::text('master_tax', ReservationHelper::getTax($master_subtotal), [
-                                        'class' => 'form-control
-                                                    text-right',
-                                        'readonly',
-                                    ]) }}
+                                    {{ Form::text('master_tax', ReservationHelper::getTax($master_subtotal), ['class' => 'form-control text-right', 'readonly']) }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="font-weight-bold">合計金額</td>
                                 <td>
-                                    {{ Form::text('master_total', ReservationHelper::taxAndPrice($master_subtotal), [
-                                        'class' => 'form-control
-                                                    text-right',
-                                        'readonly',
-                                    ]) }}
+                                    {{ Form::text('master_total', ReservationHelper::taxAndPrice($master_subtotal), ['class' => 'form-control text-right', 'readonly']) }}
                                 </td>
                             </tr>
                         </table>
@@ -916,10 +901,7 @@
                                     {{ Form::text('bill_created_at', date('Y-m-d', strtotime($data['bill_created_at'])), ['class' => 'form-control datepicker']) }}
                                 </td>
                                 <td>支払期日
-                                    {{ Form::text('payment_limit', date('Y-m-d', strtotime($payment_limit)), [
-                                        'class' => 'form-control
-                                                    datepicker',
-                                    ]) }}
+                                    {{ Form::text('payment_limit', date('Y-m-d', strtotime($payment_limit)), ['class' => 'form-control datepicker']) }}
                                 </td>
                             </tr>
                             <tr>
@@ -962,10 +944,7 @@
                                 </td>
                                 <td>
                                     入金日
-                                    {{ Form::text('pay_day', !empty($data['pay_day']) ? date('Y-m-d', strtotime($data['pay_day'])) : '', [
-                                        'class' => 'form-control
-                                                    datepicker',
-                                    ]) }}
+                                    {{ Form::text('pay_day', !empty($data['pay_day']) ? date('Y-m-d', strtotime($data['pay_day'])) : '', ['class' => 'form-control datepicker']) }}
                                 </td>
                             </tr>
                             <tr>

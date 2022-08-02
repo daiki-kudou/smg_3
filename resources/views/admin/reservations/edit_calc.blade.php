@@ -168,7 +168,7 @@
                         <td class="table-active">イベント名称1</td>
                         <td>
                             <div class="align-items-end d-flex">
-                                {{ Form::text('event_name1', $data['event_name1'], ['class' => 'form-control', 'id' => 'eventname1Count']) }}
+                                {{ Form::text('event_name1', !empty($data['event_name1']) && !empty($data['board_flag']) ? $data['event_name1'] : null, ['class' => 'form-control', 'id' => 'eventname1Count']) }}
                                 <span class="ml-1 annotation count_num1"></span>
                             </div>
                             <p class="is-error-event_name1" style="color: red"></p>
@@ -178,7 +178,7 @@
                         <td class="table-active">イベント名称2</td>
                         <td>
                             <div class="align-items-end d-flex">
-                                {{ Form::text('event_name2', $data['event_name2'], ['class' => 'form-control', 'id' => 'eventname2Count']) }}
+                                {{ Form::text('event_name2', !empty($data['event_name2']) && !empty($data['board_flag']) ? $data['event_name2'] : null, ['class' => 'form-control', 'id' => 'eventname2Count']) }}
                                 <span class="ml-1 annotation count_num2"></span>
                             </div>
                             <p class="is-error-event_name2" style="color: red"></p>
@@ -188,7 +188,7 @@
                         <td class="table-active">主催者名</td>
                         <td>
                             <div class="align-items-end d-flex">
-                                {{ Form::text('event_owner', $data['event_owner'], ['class' => 'form-control', 'id' => 'eventownerCount']) }}
+                                {{ Form::text('event_owner', !empty($data['event_owner']) && !empty($data['board_flag']) ? $data['event_owner'] : null, ['class' => 'form-control', 'id' => 'eventownerCount']) }}
                                 <span class="ml-1 annotation count_num3"></span>
                             </div>
                             <p class="is-error-event_owner" style="color: red"></p>
@@ -243,7 +243,7 @@
                                         <div class="d-flex align-items-end">
                                             {{ Form::number('equipment_breakdown[]', $data['equipment_breakdown'][$key], [
                                                 'class' => 'form-control
-                                                              equipment_breakdown',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      equipment_breakdown',
                                             ]) }}
                                             <span class="ml-1">個</span>
                                         </div>
@@ -380,7 +380,7 @@
                                     <td>
                                         {{ Form::text('luggage_arrive', (int) $data['luggage_flag'] === 1 ? (!empty($data['luggage_arrive']) ? date('Y-m-d', strtotime($data['luggage_arrive'])) : '') : '', [
                                             'class' => 'form-control
-                                                        holidays',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        holidays',
                                             'id' => 'luggage_arrive',
                                         ]) }}
                                     </td>
@@ -771,24 +771,7 @@
                             @else
                                 <span class="text-red">※料金体系がないため、手打ちで会場料を入力してください</span>
                                 <tbody class="venue_main">
-                                    {{-- <tr>
-                <td>
-                  {{ Form::text('venue_breakdown_item[]', '会場料金',['class'=>'form-control'] ) }}
-                </td>
-                <td>
-                  {{ Form::text('venue_breakdown_cost[]', 0,['class'=>'form-control'] ) }}
-                </td>
-                <td>
-                  {{ Form::text('venue_breakdown_count[]', 1,['class'=>'form-control'] ) }}
-                </td>
-                <td>
-                  {{ Form::text('venue_breakdown_subtotal[]', 0,['class'=>'form-control','readonly'] ) }}
-                </td>
-                <td>
-                  <input type="button" value="＋" class="add pluralBtn">
-                  <input type="button" value="ー" class="del pluralBtn">
-                </td>
-              </tr> --}}
+
                                     @foreach ($reservation->bills->first()->breakdowns->where('unit_type', 1) as $key => $value)
                                         @if (strpos($value->unit_item, '割引料金') === false)
                                             <tr>
@@ -819,11 +802,7 @@
                                         <td colspan="4"></td>
                                         <td colspan="1">
                                             <p class="text-left">合計</p>
-                                            {{ Form::text('venue_price', !empty($reservation->bills->first()->venue_price) ? $reservation->bills->first()->venue_price : 0, [
-                                                'class' => 'form-control
-                                                              col-xs-3',
-                                                'readonly',
-                                            ]) }}
+                                            {{ Form::text('venue_price', !empty($reservation->bills->first()->venue_price) ? $reservation->bills->first()->venue_price : 0, ['class' => 'form-controlcol-xs-3', 'readonly']) }}
                                             <p class="is-error-venue_price" style="color: red"></p>
                                         </td>
                                     </tr>
@@ -906,11 +885,7 @@
                                         <td colspan="3"></td>
                                         <td colspan="1">
                                             <p class="text-left">合計</p>
-                                            {{ Form::text('equipment_price', (int) $item_details[0] + (!empty($data['luggage_price']) ? $data['luggage_price'] : 0), [
-                                                'class' => 'form-control
-                                                              col-xs-3',
-                                                'readonly',
-                                            ]) }}
+                                            {{ Form::text('equipment_price', (int) $item_details[0] + (!empty($data['luggage_price']) ? $data['luggage_price'] : 0), ['class' => 'form-controlcol-xs-3', 'readonly']) }}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1102,21 +1077,13 @@
                             <tr>
                                 <td>消費税：</td>
                                 <td>
-                                    {{ Form::text('master_tax', ReservationHelper::getTax((int) $masters), [
-                                        'class' => 'form-control
-                                                    text-right',
-                                        'readonly',
-                                    ]) }}
+                                    {{ Form::text('master_tax', ReservationHelper::getTax((int) $masters), ['class' => 'form-control text-right', 'readonly']) }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="font-weight-bold">合計金額</td>
                                 <td>
-                                    {{ Form::text('master_total', ReservationHelper::taxAndPrice((int) $masters), [
-                                        'class' => 'form-control
-                                                    text-right',
-                                        'readonly',
-                                    ]) }}
+                                    {{ Form::text('master_total', ReservationHelper::taxAndPrice((int) $masters), ['class' => 'form-control text-right', 'readonly']) }}
                                 </td>
                             </tr>
                         </table>
