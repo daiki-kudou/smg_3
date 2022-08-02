@@ -247,7 +247,7 @@
                             <td class="table-active">イベント名称1</td>
                             <td>
                                 <div class="align-items-end d-flex">
-                                    {{ Form::text('event_name1', $request->event_name1, ['class' => 'form-control', 'placeholder' => '入力してください', 'id' => 'eventname1Count']) }}
+                                    {{ Form::text('event_name1', !empty($request->event_name1) && !empty($request->board_flag) ? $request->event_name1 : null, ['class' => 'form-control', 'placeholder' => '入力してください', 'id' => 'eventname1Count']) }}
                                     <span class="ml-1 annotation count_num1"></span>
                                 </div>
                                 <p class="is-error-event_name1" style="color: red"></p>
@@ -257,7 +257,7 @@
                             <td class="table-active">イベント名称2</td>
                             <td>
                                 <div class="align-items-end d-flex">
-                                    {{ Form::text('event_name2', $request->event_name2, ['class' => 'form-control', 'placeholder' => '入力してください', 'id' => 'eventname2Count']) }}
+                                    {{ Form::text('event_name2', !empty($request->event_name2) && !empty($request->board_flag) ? $request->event_name2 : null, ['class' => 'form-control', 'placeholder' => '入力してください', 'id' => 'eventname2Count']) }}
                                     <span class="ml-1 annotation count_num2"></span>
                                 </div>
                                 <p class="is-error-event_name2" style="color: red"></p>
@@ -267,7 +267,7 @@
                             <td class="table-active">主催者名</td>
                             <td>
                                 <div class="align-items-end d-flex">
-                                    {{ Form::text('event_owner', $request->event_owner, ['class' => 'form-control', 'placeholder' => '入力してください', 'id' => 'eventownerCount']) }}
+                                    {{ Form::text('event_owner', !empty($request->event_owner) && !empty($request->board_flag) ? $request->event_owner : null, ['class' => 'form-control', 'placeholder' => '入力してください', 'id' => 'eventownerCount']) }}
                                     <span class="ml-1 annotation count_num3"></span>
                                 </div>
                                 <p class="is-error-event_owner" style="color: red"></p>
@@ -469,11 +469,7 @@
                                         <tr>
                                             <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                                             <td>
-                                                {{ Form::text('luggage_arrive', (int) $request->luggage_flag === 1 ? $request->luggage_arrive : '', [
-                                                    'class' => 'form-control
-                                                                                                                  holidays',
-                                                    'id' => 'luggage_arrive',
-                                                ]) }}
+                                                {{ Form::text('luggage_arrive', (int) $request->luggage_flag === 1 ? $request->luggage_arrive : '', ['class' => 'form-control holidays', 'id' => 'luggage_arrive']) }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -732,23 +728,7 @@
                                             </tr>
                                         @endif
                                     @endforeach
-                                    {{-- @if ((int) $request->luggage_flag !== 0)
-              <tr>
-                <td>
-                  {{ Form::text('service_breakdown_item[]', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
-                </td>
-                <td>
-                  {{ Form::text('service_breakdown_cost[]', 0,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-                <td>
-                  {{ Form::text('service_breakdown_count[]', $request->luggage_price,['class'=>'form-control',
-                  'readonly'] ) }}
-                </td>
-                <td>
-                  {{ Form::text('service_breakdown_subtotal[]', 0,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-              </tr>
-              @endif --}}
+
                                 </tbody>
                             </table>
                         </div>
@@ -857,9 +837,9 @@
     {{ Form::hidden('board_flag', $request->board_flag) }}
     {{ Form::hidden('event_start', $request->event_start) }}
     {{ Form::hidden('event_finish', $request->event_finish) }}
-    {{ Form::hidden('event_name1', $request->event_name1) }}
-    {{ Form::hidden('event_name2', $request->event_name2) }}
-    {{ Form::hidden('event_owner', $request->event_owner) }}
+    {{ Form::hidden('event_name1', !empty($request->event_name1) && !empty($request->board_flag) ? $request->event_name1 : null) }}
+    {{ Form::hidden('event_name2', !empty($request->event_name2) && !empty($request->board_flag) ? $request->event_name2 : null) }}
+    {{ Form::hidden('event_owner', !empty($request->event_owner) && !empty($request->board_flag) ? $request->event_owner : null) }}
 
     {{ Form::hidden('luggage_count', $request->luggage_count) }}
     {{ Form::hidden('luggage_arrive', $request->luggage_arrive) }}
@@ -888,9 +868,6 @@
 
     {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id' => 'check_submit']) }}
     {{ Form::close() }}
-
-
-
 
     <script>
         $(document).on(' click', '.holidays', function() {

@@ -81,19 +81,19 @@
                         <tr>
                             <td class="table-active">イベント名称1</td>
                             <td>
-                                {{ Form::text('event_name1', $data['event_name1'], ['class' => 'form-control', 'readonly']) }}
+                                {{ Form::text('event_name1', !empty($data['event_name1']) && !empty($data['board_flag']) ? $data['event_name1'] : null, ['class' => 'form-control', 'readonly']) }}
                             </td>
                         </tr>
                         <tr>
                             <td class="table-active">イベント名称2</td>
                             <td>
-                                {{ Form::text('event_name2', $data['event_name2'], ['class' => 'form-control', 'readonly']) }}
+                                {{ Form::text('event_name2', !empty($data['event_name2']) && !empty($data['board_flag']) ? $data['event_name2'] : null, ['class' => 'form-control', 'readonly']) }}
                             </td>
                         </tr>
                         <tr>
                             <td class="table-active">主催者名</td>
                             <td>
-                                {{ Form::text('event_owner', $data['event_owner'], ['class' => 'form-control', 'readonly']) }}
+                                {{ Form::text('event_owner', !empty($data['event_owner']) && !empty($data['board_flag']) ? $data['event_owner'] : null, ['class' => 'form-control', 'readonly']) }}
                             </td>
                         </tr>
                         <tr>
@@ -139,11 +139,7 @@
                                     <td class="table-active">{{ $equipment->item }}({{ $equipment->price }}円)</td>
                                     <td>
                                         <div class="d-flex align-items-end">
-                                            {{ Form::text('equipment_breakdown[]', $data['equipment_breakdown'][$key], [
-                                                'class' => 'form-control
-                                                              equipment_breakdown',
-                                                'readonly',
-                                            ]) }}
+                                            {{ Form::text('equipment_breakdown[]', $data['equipment_breakdown'][$key], ['class' => 'form-control equipment_breakdown', 'readonly']) }}
                                             <span class="ml-1">個</span>
                                         </div>
                                     </td>

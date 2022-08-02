@@ -127,8 +127,7 @@
                                     </td>
                                 </tr>
                             </tbody>
-                            <tbody class="equipment_head 
-            {{ empty($data['equipment_breakdown_item'][0]) ? ' hide' : '' }} ">
+                            <tbody class="equipment_head  {{ empty($data['equipment_breakdown_item'][0]) ? ' hide' : '' }} ">
                                 <tr>
                                     <td>内容</td>
                                     <td>単価</td>
@@ -376,10 +375,7 @@
                             <tbody>
                                 <tr>
                                     <td>請求日
-                                        {{ Form::text('bill_created_at', !empty($data['bill_created_at']) ? $data['bill_created_at'] : date('Y-m-d'), [
-                                            'class' => 'form-control
-                                                          datepicker',
-                                        ]) }}
+                                        {{ Form::text('bill_created_at', !empty($data['bill_created_at']) ? $data['bill_created_at'] : date('Y-m-d'), ['class' => 'form-control datepicker']) }}
                                     </td>
                                     <td>支払期日
                                         {{ Form::text('payment_limit', !empty($data['payment_limit']) ? $data['payment_limit'] : $payment_limit, ['class' => 'form-control datepicker']) }}
@@ -425,10 +421,7 @@
                                     </td>
                                     <td>
                                         入金日
-                                        {{ Form::text('pay_day', !empty($data['pay_day']) ? $data['pay_day'] : '', [
-                                            'class' => 'form-control
-                                                          datepicker',
-                                        ]) }}
+                                        {{ Form::text('pay_day', !empty($data['pay_day']) ? $data['pay_day'] : '', ['class' => 'form-control datepicker']) }}
                                     </td>
                                 </tr>
                                 <tr>
