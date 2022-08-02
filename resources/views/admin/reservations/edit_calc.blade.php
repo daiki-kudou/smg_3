@@ -241,10 +241,7 @@
                                     <td class="table-active">{{ $equipment->item }}({{ $equipment->price }}円)</td>
                                     <td>
                                         <div class="d-flex align-items-end">
-                                            {{ Form::number('equipment_breakdown[]', $data['equipment_breakdown'][$key], [
-                                                'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      equipment_breakdown',
-                                            ]) }}
+                                            {{ Form::number('equipment_breakdown[]', $data['equipment_breakdown'][$key], ['class' => 'form-control equipment_breakdown']) }}
                                             <span class="ml-1">個</span>
                                         </div>
                                     </td>
@@ -380,7 +377,7 @@
                                     <td>
                                         {{ Form::text('luggage_arrive', (int) $data['luggage_flag'] === 1 ? (!empty($data['luggage_arrive']) ? date('Y-m-d', strtotime($data['luggage_arrive'])) : '') : '', [
                                             'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        holidays',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        holidays',
                                             'id' => 'luggage_arrive',
                                         ]) }}
                                     </td>
@@ -802,7 +799,7 @@
                                         <td colspan="4"></td>
                                         <td colspan="1">
                                             <p class="text-left">合計</p>
-                                            {{ Form::text('venue_price', !empty($reservation->bills->first()->venue_price) ? $reservation->bills->first()->venue_price : 0, ['class' => 'form-controlcol-xs-3', 'readonly']) }}
+                                            {{ Form::text('venue_price', !empty($reservation->bills->first()->venue_price) ? $reservation->bills->first()->venue_price : 0, ['class' => 'form-control col-xs-3', 'readonly']) }}
                                             <p class="is-error-venue_price" style="color: red"></p>
                                         </td>
                                     </tr>
@@ -885,7 +882,7 @@
                                         <td colspan="3"></td>
                                         <td colspan="1">
                                             <p class="text-left">合計</p>
-                                            {{ Form::text('equipment_price', (int) $item_details[0] + (!empty($data['luggage_price']) ? $data['luggage_price'] : 0), ['class' => 'form-controlcol-xs-3', 'readonly']) }}
+                                            {{ Form::text('equipment_price', (int) $item_details[0] + (!empty($data['luggage_price']) ? $data['luggage_price'] : 0), ['class' => 'form-control col-xs-3', 'readonly']) }}
                                         </td>
                                     </tr>
                                 </tbody>

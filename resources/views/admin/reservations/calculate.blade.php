@@ -224,10 +224,7 @@
                                     <td class="table-active">{{ $equipment->item }}({{ $equipment->price }}円)</td>
                                     <td>
                                         <div class="d-flex align-items-end">
-                                            {{ Form::number('equipment_breakdown' . $key, $value['equipment_breakdown' . $key], [
-                                                'class' => 'form-control
-                                                                                                                                                                                																																																																																												equipment_breakdown equipment_validation',
-                                            ]) }}
+                                            {{ Form::number('equipment_breakdown' . $key, $value['equipment_breakdown' . $key], ['class' => 'form-control equipment_breakdown equipment_validation']) }}
                                             <span class="ml-1">個</span>
                                         </div>
                                     </td>
@@ -357,11 +354,7 @@
                                 <tr>
                                     <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                                     <td>
-                                        {{ Form::text('luggage_arrive', !empty($value['luggage_arrive']) ? $value['luggage_arrive'] : '', [
-                                            'class' => 'form-control
-                                                                                                                                                                																																																																																			holidays',
-                                            'id' => 'luggage_arrive',
-                                        ]) }}
+                                        {{ Form::text('luggage_arrive', !empty($value['luggage_arrive']) ? $value['luggage_arrive'] : '', ['class' => 'form-control holidays', 'id' => 'luggage_arrive']) }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -1057,11 +1050,7 @@
                                 <tr>
                                     <td>消費税：</td>
                                     <td>
-                                        {{ Form::text('master_tax', ReservationHelper::getTax($priceResult['masters']), [
-                                            'class' => 'form-control
-                                                                                                                                                                																																																																																				text-right',
-                                            'readonly',
-                                        ]) }}
+                                        {{ Form::text('master_tax', ReservationHelper::getTax($priceResult['masters']), ['class' => 'form-control text-right', 'readonly']) }}
                                     </td>
                                 </tr>
                                 <tr>
