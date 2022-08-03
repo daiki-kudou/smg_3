@@ -153,13 +153,14 @@
                                         </div>
                                         <p class="is-error-event_owner" style="color: red"></p>
                                     </div>
+                                    {{-- {{ dd($request->all()) }} --}}
                                     <ul class="form-cell">
                                         <li>
                                             <p>イベント開始時間</p>
                                             <div class="selectWrap">
                                                 <select name="event_start" id="event_start" class="timeScale">
                                                     <option disabled>選択してください</option>
-                                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->enter_time, $request->enter_time, $request->leave_time) !!}
+                                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start ?? $request->enter_time, $request->enter_time, $request->leave_time) !!}
                                                 </select>
                                             </div>
                                         </li>
@@ -168,7 +169,7 @@
                                             <div class="selectWrap">
                                                 <select name="event_finish" id="event_finish" class="timeScale">
                                                     <option disabled>選択してください</option>
-                                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->leave_time, $request->enter_time, $request->leave_time) !!}
+                                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish ?? $request->leave_time, $request->enter_time, $request->leave_time) !!}
                                                 </select>
                                             </div>
                                         </li>
@@ -222,7 +223,7 @@
                             </td>
                         </tr>
                     @endif
-					{{-- {{ dd($request->all()) }} --}}
+                    {{-- {{ dd($request->all()) }} --}}
                     @if ($venue->getServices()->count() != 0)
                         <tr>
                             <th>有料サービス</th>
@@ -232,9 +233,9 @@
                                         <li>
                                             <p>{{ $serv->item }} {{ number_format($serv->price) }}円<span class="annotation">(税抜)</span></p>
                                             <div class="selectTime">
-                                                {{ Form::radio('services_breakdown' . $s_key, 1, !empty($request->{'services_breakdown'.$s_key})?($request->{'services_breakdown'.$s_key}==1?true:false):false, ['id' => 'services_breakdown_on' . $s_key, 'class' => 'radio-input']) }}
+                                                {{ Form::radio('services_breakdown' . $s_key, 1, !empty($request->{'services_breakdown' . $s_key}) ? ($request->{'services_breakdown' . $s_key} == 1 ? true : false) : false, ['id' => 'services_breakdown_on' . $s_key, 'class' => 'radio-input']) }}
                                                 {{ Form::label('services_breakdown_on' . $s_key, 'あり') }}
-                                                {{ Form::radio('services_breakdown' . $s_key, 0, !empty($request->{'services_breakdown'.$s_key})?($request->{'services_breakdown'.$s_key}==0?true:false):true, ['id' => 'services_breakdown_off' . $s_key, 'class' => 'radio-input']) }}
+                                                {{ Form::radio('services_breakdown' . $s_key, 0, !empty($request->{'services_breakdown' . $s_key}) ? ($request->{'services_breakdown' . $s_key} == 0 ? true : false) : true, ['id' => 'services_breakdown_off' . $s_key, 'class' => 'radio-input']) }}
                                                 {{ Form::label('services_breakdown_off' . $s_key, 'なし') }}
                                             </div>
                                         </li>
@@ -251,9 +252,9 @@
                                     <div class="m-b10">
                                         <p>レイアウト準備</p>
                                         <div class="selectTime">
-                                            {{ Form::radio('layout_prepare', 1, !empty($request->layout_prepare)?($request->layout_prepare==1?true:false):false, ['id' => 'layout_prepare', 'class' => 'radio-input']) }}
+                                            {{ Form::radio('layout_prepare', 1, !empty($request->layout_prepare) ? ($request->layout_prepare == 1 ? true : false) : false, ['id' => 'layout_prepare', 'class' => 'radio-input']) }}
                                             {{ Form::label('layout_prepare', 'あり') }}
-                                            {{ Form::radio('layout_prepare', 0, !empty($request->layout_prepare)?($request->layout_prepare==0?true:false):true, ['id' => 'no_layout_prepare', 'class' => 'radio-input']) }}
+                                            {{ Form::radio('layout_prepare', 0, !empty($request->layout_prepare) ? ($request->layout_prepare == 0 ? true : false) : true, ['id' => 'no_layout_prepare', 'class' => 'radio-input']) }}
                                             {{ Form::label('no_layout_prepare', 'なし') }}
                                         </div>
                                         <a name="a-selectTime1" class="error-r"></a>
@@ -263,9 +264,9 @@
                                 <div class="m-b10">
                                     <p>レイアウト片付</p>
                                     <div class="selectTime">
-                                        {{ Form::radio('layout_clean', 1, !empty($request->layout_clean)?($request->layout_clean==1?true:false):false, ['id' => 'layout_clean', 'class' => 'radio-input']) }}
+                                        {{ Form::radio('layout_clean', 1, !empty($request->layout_clean) ? ($request->layout_clean == 1 ? true : false) : false, ['id' => 'layout_clean', 'class' => 'radio-input']) }}
                                         {{ Form::label('layout_clean', 'あり') }}
-                                        {{ Form::radio('layout_clean', 0, !empty($request->layout_clean)?($request->layout_clean==0?true:false):true, ['id' => 'no_layout_clean', 'class' => 'radio-input']) }}
+                                        {{ Form::radio('layout_clean', 0, !empty($request->layout_clean) ? ($request->layout_clean == 0 ? true : false) : true, ['id' => 'no_layout_clean', 'class' => 'radio-input']) }}
                                         {{ Form::label('no_layout_clean', 'なし') }}
                                     </div>
                                     <a name="a-selectTime1" class="error-r"></a>
@@ -279,9 +280,9 @@
                             <th>荷物預かり<span class="txtRed c-block">＊</span></th>
                             <td class="spec-space">
                                 <div class="selectTime m-b10">
-                                    <input class="radio-input" id="luggage_flag" name="luggage_flag" type="radio" value="1" {{ !empty($request->luggage_flag)?($request->luggage_flag==1?'checked':null):null }}>
+                                    <input class="radio-input" id="luggage_flag" name="luggage_flag" type="radio" value="1" {{ !empty($request->luggage_flag) ? ($request->luggage_flag == 1 ? 'checked' : null) : null }}>
                                     <label for="luggage_flag">あり</label>
-                                    <input class="radio-input" id="no_luggage_flag" name="luggage_flag" type="radio" value="0" {{ !empty($request->luggage_flag)?($request->luggage_flag==0?'checked':null):'checked' }}>
+                                    <input class="radio-input" id="no_luggage_flag" name="luggage_flag" type="radio" value="0" {{ !empty($request->luggage_flag) ? ($request->luggage_flag == 0 ? 'checked' : null) : 'checked' }}>
                                     <label for="no_luggage_flag">なし</label>
                                     <div class="">500円<span class="annotation">(税抜)</span></div>
                                 </div>
@@ -297,7 +298,7 @@
                                     <li class="m-b10">
                                         <div class="luggage-cell">
                                             <p>事前に預かる荷物(目安)</p>
-                                            {{ Form::number('luggage_count', !empty($request->luggage_count)?$request->luggage_count:null, ['class' => 'text6 ', 'style' => 'width:20%;', 'autocomplete="off"', 'min' => 0]) }}
+                                            {{ Form::number('luggage_count', !empty($request->luggage_count) ? $request->luggage_count : null, ['class' => 'text6 ', 'style' => 'width:20%;', 'autocomplete="off"', 'min' => 0]) }}
                                             <p class="">個</p>
                                         </div>
                                         <p class="is-error-luggage_count" style="color: red"></p>
@@ -305,7 +306,7 @@
                                     <li class="m-b10">
                                         <div class="luggage-cell">
                                             <p>事前荷物の到着日(平日午前指定)</p>
-                                            {{ Form::text('luggage_arrive', !empty($request->luggage_arrive)?$request->luggage_arrive:null, ['class' => '', 'id' => 'datepicker2', 'autocomplete="off"']) }}
+                                            {{ Form::text('luggage_arrive', !empty($request->luggage_arrive) ? $request->luggage_arrive : null, ['class' => '', 'id' => 'datepicker2', 'autocomplete="off"']) }}
                                         </div>
                                     </li>
                                     <li class="m-b30 ">
@@ -320,7 +321,7 @@
                                     <li class="m-b10">
                                         <div class="luggage-cell">
                                             <p>事後返送する荷物</p>
-                                            {{ Form::number('luggage_return', !empty($request->luggage_return)?$request->luggage_return:null, ['class' => 'text6 ', 'style' => 'width: 20%;', 'autocomplete="off"', 'min' => 0]) }}
+                                            {{ Form::number('luggage_return', !empty($request->luggage_return) ? $request->luggage_return : null, ['class' => 'text6 ', 'style' => 'width: 20%;', 'autocomplete="off"', 'min' => 0]) }}
                                             <p class="">個</p>
                                         </div>
                                     </li>
@@ -338,7 +339,7 @@
                     <tr>
                         <th>備考</th>
                         <td>
-                            {{ Form::textarea('remark', !empty($request->remark)?$request->remark:null, ['cols' => '30', 'rows' => '10']) }}
+                            {{ Form::textarea('remark', !empty($request->remark) ? $request->remark : null, ['cols' => '30', 'rows' => '10']) }}
                             <p>
                                 <span class="txt-indent">
                                     ※入力に際し旧漢字・機種依存文字などはご使用になれません。
@@ -412,7 +413,7 @@
         // 荷物預かりのラジオボタン選択の表示、非表示
         $(function() {
             var no_luggage_flag = $('#no_luggage_flag').prop('checked');
-            if (no_luggage_flag ) {
+            if (no_luggage_flag) {
                 $(".luggage_info").addClass("d-none");
                 // $("input[name='luggage_count']").prop('disabled', true);
                 // $("input[name='luggage_arrive']").prop('disabled', true);
