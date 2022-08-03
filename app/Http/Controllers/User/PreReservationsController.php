@@ -117,7 +117,10 @@ class PreReservationsController extends Controller
       if ($result_reservation === "重複") {
         throw new \Exception("選択された会場・日付・利用時間は既に利用済みです。");
       }
+	  // 振込名
+	  $data['pay_person']=\Auth::user()->payer;
       $result_bill = $bill->BillStore($result_reservation->id, $data);
+
       $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
       DB::commit();
     } catch (\Exception $e) {

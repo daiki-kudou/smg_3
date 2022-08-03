@@ -391,7 +391,7 @@
                                 </tr>
                                 <tr>
                                     <td>振込名
-                                        {{ Form::text('pay_person', '', ['class' => 'form-control']) }}
+                                        {{ Form::text('pay_person', $user->payer??null, ['class' => 'form-control']) }}
                                         <p class="is-error-pay_person" style="color: red"></p>
                                     </td>
                                     <td>入金額

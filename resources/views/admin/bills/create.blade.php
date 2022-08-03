@@ -455,7 +455,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>振込名{{ Form::text('pay_person', $data['pay_person'] ?? null, ['class' => 'form-control']) }}
+                                        <td>振込名{{ Form::text('pay_person', $data['pay_person'] ?? ($reservation->user->payer??null), ['class' => 'form-control']) }}
                                             <p class="is-error-pay_person" style="color: red"></p>
                                         </td>
                                         <td>入金額{{ Form::text('payment', $data['payment'] ?? null, ['class' => 'form-control']) }}
