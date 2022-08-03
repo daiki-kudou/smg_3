@@ -192,7 +192,7 @@ class ReservationsController extends Controller
         $value[0]['category'] = 1;
         $value[0]['admin_judge'] = 2;
         $value[0]['pay_day'] = NULL;
-        $value[0]['pay_person'] = "";
+        $value[0]['pay_person'] = $user->payer??'';
         $value[0]['payment'] = 0;
         $value[0]['user_details'] = $value[0]['remark'];
         // データ加工▲
