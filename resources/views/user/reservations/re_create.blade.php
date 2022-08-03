@@ -153,13 +153,14 @@
                                     </div>
                                     <p class="is-error-event_owner" style="color: red"></p>
                                 </div>
+                                {{-- {{ dd($fix) }} --}}
                                 <ul class="form-cell">
                                     <li>
                                         <p>イベント開始時間</p>
                                         <div class="selectWrap">
                                             <select name="event_start" id="event_start" class="form-control timeScale">
                                                 <option disabled>選択してください</option>
-                                                {!! ReservationHelper::timeOptionsWithRequest($fix->enter_time) !!}
+                                                {!! ReservationHelper::timeOptionsWithRequest($fix->event_start ?? $fix->enter_time) !!}
                                             </select>
                                         </div>
                                     </li>
@@ -168,7 +169,7 @@
                                         <div class="selectWrap">
                                             <select name="event_finish" id="event_finish" class="form-control timeScale">
                                                 <option disabled>選択してください</option>
-                                                {!! ReservationHelper::timeOptionsWithRequest($fix->leave_time) !!}
+                                                {!! ReservationHelper::timeOptionsWithRequest($fix->event_finish ?? $fix->leave_time) !!}
                                             </select>
                                         </div>
                                     </li>
@@ -380,7 +381,7 @@
                                 {{ Form::number('luggage_return', $fix->luggage_return ?? null, [
                                     'class' => 'text6 ',
                                     'style' => 'width:
-                                                                                                				  20%;',
+                                                                                                                                                                				  20%;',
                                     'autocomplete="off"',
                                     'min' => 0,
                                 ]) }}
