@@ -404,7 +404,7 @@
                                         <td class="table-active">事前に預かる荷物(目安)</td>
                                         <td>
                                             @if ($request->luggage_flag == 1)
-                                                {{ Form::number('luggage_count', $request->luggage_count, [
+                                                {{ Form::number('luggage_count', $request->luggage_count??null, [
                                                     'class' => 'form-control',
                                                     'id' => 'luggage_count',
                                                     'autocomplete="off"',
@@ -423,7 +423,7 @@
                                         <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                                         <td>
                                             @if ($request->luggage_flag == 1)
-                                                {{ Form::text('luggage_arrive', date('Y-m-d', strtotime($request->luggage_arrive)), [
+                                                {{ Form::text('luggage_arrive', !empty($request->luggage_arrive)?date('Y-m-d', strtotime($request->luggage_arrive)):null, [
                                                     'class' => 'form-control luggage_arrive holidays',
                                                     'id' => 'luggage_arrive',
                                                 ]) }}
