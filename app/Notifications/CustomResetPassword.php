@@ -11,22 +11,25 @@ use App\Mail\ResetPasswordEmail;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Mail;
 use App\Service\SendSMGEmail;
+use App\Consts\MailTemplateConst;
 
 
 class CustomResetPassword extends ResetPassword
 {
 
-  public function toMail($user)
-  {
-    if (static::$toMailCallback) {
-      return call_user_func(static::$toMailCallback, $notifiable, $this->token);
-    }
-    $url = url(route('user.password.reset', ['token' => $this->token, 'email' => $user->email], false));
+	public function toMail($user)
+	{
+		// if (static::$toMailCallback) {
+		// 	return call_user_func(static::$toMailCallback, $notifiable, $this->token);
+		// }
 
-    // $SendSMGEmail = new SendSMGEmail();
-    // return $SendSMGEmail->AuthSend("リセットパスワード", ['user' => $user, 'url' => $url]);
+		$url = url(route('user.password.reset', ['token' => $this->token, 'email' => $user->email], false));
 
-    $mail = new ResetPasswordEmail($user, $url);
-    return $mail->to($user->email);
-  }
+		$mail = new ResetPasswordEmail(
+			MailTemplateConst::RESET_PASSWORD,
+			$user->company,
+			$url,
+		);
+		return $mail->to($user->email);
+	}
 }
