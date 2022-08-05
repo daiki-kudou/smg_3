@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\MailTemplate;
 
 class UserReqLeg extends Mailable
 {
@@ -16,9 +17,10 @@ class UserReqLeg extends Mailable
 	 *
 	 * @return void
 	 */
-	public function __construct($params)
+	public function __construct($template_id, $register_confirm_link)
 	{
-		$this->params = $params;
+		$this->template_id = $template_id;
+		$this->register_confirm_link = $register_confirm_link;
 	}
 
 
@@ -29,10 +31,17 @@ class UserReqLeg extends Mailable
 	 */
 	public function build()
 	{
+		$template = MailTemplate::find($this->template_id);
+		$subtitle = $template->subtitle;
+		$body = $template->body;
+
+		$send_html = str_replace('${register_confirm_link}', $this->register_confirm_link, $body);
+		$send_html = str_replace('${register}', url('user/preusers'), $send_html);
+
 		return $this->view('maileclipse::templates.userReqLeg')
-			->subject('会員仮登録のお知らせ（SMG貸し会議室）')
+			->subject($subtitle)
 			->with([
-				'params' => $this->params,
+				'send_html' => $send_html,
 			]);
 	}
 }

@@ -18,11 +18,8 @@ use App\Service\SendSMGEmail;
 use DB;
 use Session;
 use Illuminate\Support\Facades\Auth;
-
-
-
-
-
+use App\Consts\MailTemplateConst;
+use App\Models\MailTemplate;
 
 class PreusersController extends Controller
 {
@@ -76,8 +73,13 @@ class PreusersController extends Controller
 			]);
 			$link = url('/') . "/user/preusers/" . $result->id . "/" . $result->token . "/" . $result->email;
 
-			$SendSMGEmail = new SendSMGEmail();
-			$SendSMGEmail->AuthSend("ユーザー会員登録用、認証メール送信", ['result' => $result, 'link' => $link]);
+			$MailTemplate = MailTemplate::find(MailTemplateConst::REGISTRATION);
+			Mail::to($result->email)
+				->send(new UserReqLeg(
+					MailTemplateConst::REGISTRATION,
+					$link
+				));
+
 
 			DB::commit();
 		} catch (\Exception $e) {
