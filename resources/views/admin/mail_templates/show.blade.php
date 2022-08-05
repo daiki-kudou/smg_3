@@ -36,18 +36,18 @@
             @csrf
             <div class="mb-5">
                 <p>メールテンプレートタイトル</p>
-                <h1>{{ $template['title'] }}</h1>
+                <h1>{{ $template['title'] ?? null }}</h1>
             </div>
 
             <div class="mb-3">
                 <p>表題</p>
-                <input type="text" name="subtitle" value="{{ $template['subtitle'] }}" class="form-control">
+                <input type="text" name="subtitle" value="{{ $template['subtitle'] ?? null }}" class="form-control">
             </div>
 
             <div class="mb-3">
                 <p>本文</p>
-                <div id="editor" style="height: 700px; background:white">{!! $template['body'] !!}</div>
-                <input type="hidden" name="body" id="body" value="{{ $template['body'] }}">
+                <div id="editor" style="height: 700px; background:white">{!! $template['body']??nul !!}</div>
+                <input type="hidden" name="body" id="body" value="{{ $template['body']??null }}">
                 <input type="hidden" name="id" value="{{ $id }}">
                 <input type="submit" value="更新">
                 {{-- <button type="button" id="submit">更新</button> --}}
@@ -58,9 +58,9 @@
     <script>
         $('input[type="submit"]').on('click', function() {
             var input_text = $('.ql-editor').html();
-			if (input_text==='<p><br></p>') {
-				input_text='';
-			}
+            if (input_text === '<p><br></p>') {
+                input_text = '';
+            }
             $('#body').val('').val(input_text);
             $('#form').submit();
         })

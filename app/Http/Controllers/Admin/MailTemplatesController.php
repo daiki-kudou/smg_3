@@ -41,6 +41,7 @@ class MailTemplatesController extends Controller
 					'body' => $data['body'],
 				]
 			);
+		$request->session()->regenerate();
 		return redirect(route('admin.mail_templates.show', $data['id']))->with('flash_message', '※更新に成功しました');
 	}
 

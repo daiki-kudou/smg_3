@@ -80,7 +80,6 @@ class PreusersController extends Controller
 					$link
 				));
 
-
 			DB::commit();
 		} catch (\Exception $e) {
 			DB::rollback();
