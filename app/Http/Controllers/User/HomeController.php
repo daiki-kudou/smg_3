@@ -14,14 +14,13 @@ use App\Models\EmailReset;
 use Illuminate\Support\Facades\Auth;
 use PDF;
 use Illuminate\Support\Facades\DB; //トランザクション用
-
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Traits\PaginatorTrait;
-
 use App\Service\SendSMGEmail;
-
-
+use App\Consts\MailTemplateConst;
+use App\Models\MailTemplate;
+use App\Mail\ResetEmail;
 
 class HomeController extends Controller
 {
@@ -205,8 +204,15 @@ class HomeController extends Controller
       return $email_reset;
     });
     $old_user_info = User::find($result->user_id);
-    $SendSMGEmail = new SendSMGEmail();
-    $SendSMGEmail->AuthSend("ユーザーメール更新", ['result' => $result, 'user' => $old_user_info]);
+    // $SendSMGEmail = new SendSMGEmail();
+    // $SendSMGEmail->AuthSend("ユーザーメール更新", ['result' => $result, 'user' => $old_user_info]);
+	\Mail::to($request->new_email)
+	->send(new ResetEmail(
+		MailTemplateConst::RESET_EMAIL,
+		$old_user_info->company,
+		url('/user/email_reset_confirm/'.$result->token),
+	));
+
 
     return redirect(url('/user/home/email_reset_send'));
   }
