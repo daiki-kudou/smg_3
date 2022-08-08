@@ -22,6 +22,7 @@ use App\Consts\MailTemplateConst;
 use App\Models\MailTemplate;
 use App\Mail\ResetEmail;
 use App\Mail\ResetEmailDone;
+use App\Mail\UserUnSub;
 
 class HomeController extends Controller
 {
@@ -286,11 +287,16 @@ class HomeController extends Controller
 			return redirect(url('/user/home'));
 		}
 		$user = User::with(["reservations.bills", "pre_reservations"])->find($id);
+
+		// $SendSMGEmail = new SendSMGEmail();
+		// $SendSMGEmail->AuthSend("退会", $user);
+		\Mail::to($user->email)
+		->send(new UserUnSub(
+			MailTemplateConst::UNSUBSCRIBING,
+			$user->company,
+		));
+
 		$user->delete();
-
-		$SendSMGEmail = new SendSMGEmail();
-		$SendSMGEmail->AuthSend("退会", $user);
-
 		return redirect(url('/cxl_member_ship_done'));
 	}
 

@@ -10,4 +10,5 @@ class MailTemplateConst
 	public const RESET_EMAIL_DONE = 4;
 	public const RESET_PASSWORD = 5;
 	public const RESET_PASSWORD_DONE = 6;
+	public const UNSUBSCRIBING = 7;
 }
