@@ -9,4 +9,5 @@ class MailTemplateConst
 	public const RESET_EMAIL = 3;
 	public const RESET_EMAIL_DONE = 4;
 	public const RESET_PASSWORD = 5;
+	public const RESET_PASSWORD_DONE = 6;
 }
