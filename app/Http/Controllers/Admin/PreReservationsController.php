@@ -13,22 +13,21 @@ use App\Models\Breakdown;
 use App\Models\Agent;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB; //トランザクション用
-
 use App\Models\PreReservation;
 use App\Models\PreBill;
 use App\Models\PreBreakdown;
 use App\Models\MultipleReserve;
 use App\Models\UnknownUser;
-
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserFinPreRes;
 // キャンセル
 use App\Traits\SearchTrait;
 use App\Traits\PaginatorTrait;
-
 // バリデーションロジック
 use App\Http\Requests\Admin\PreReservations\Common\VenuePriceRequiredRequest;
 use App\Service\SendSMGEmail;
+use App\Consts\MailTemplateConst;
+
 
 class PreReservationsController extends Controller
 {
@@ -503,8 +502,15 @@ class PreReservationsController extends Controller
 
       $user = User::find($PreReservation->user->id);
       $venue = Venue::find($PreReservation->venue_id);
-      $SendSMGEmail = new SendSMGEmail();
-      $SendSMGEmail->send("管理者仮押え完了及びユーザーへ編集権限譲渡", $PreReservation->id);
+    //   $SendSMGEmail = new SendSMGEmail();
+    //   $SendSMGEmail->send("管理者仮押え完了及びユーザーへ編集権限譲渡", $PreReservation->id);
+	\Mail::to($user->email)
+	->send(new UserFinPreRes(
+		MailTemplateConst::PRE_RESERVATION_APPROVE,
+		$PreReservation,
+		$venue
+	));
+
 
       $flash_message = "顧客に承認権限メールを送りました";
       $request->session()->regenerate();

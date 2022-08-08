@@ -11,4 +11,5 @@ class MailTemplateConst
 	public const RESET_PASSWORD = 5;
 	public const RESET_PASSWORD_DONE = 6;
 	public const UNSUBSCRIBING = 7;
+	public const PRE_RESERVATION_APPROVE = 8;
 }
