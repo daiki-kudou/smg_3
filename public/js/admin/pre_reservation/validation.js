@@ -117,7 +117,7 @@ $(function () {
       user_id: { required: true },
       unknown_user_email: { email: true },
       unknown_user_mobile: { number: true, minlength: 11, maxlength: 11 },
-      unknown_user_tel: { number: true, minlength: 10, maxlength: 11 },
+      unknown_user_tel: { number: true, minlength: 10, maxlength: 10 },
       pre_date0: { required: true },
       pre_venue0: { required: true },
       pre_enter0: { required: true },
