@@ -209,7 +209,8 @@ $(function () {
             tel: {
                 required: true,
                 number: true,
-                minlength: 11
+                minlength: 11,
+                maxlength: 11
             },
             luggage_flag: {
                 required: true
@@ -243,6 +244,7 @@ $(function () {
                 required: "※必須項目です",
                 number: "※半角数字を入力してください",
                 minlength: "※11桁で入力してください",
+                maxlength: "※11桁で入力してください",
             },
             luggage_flag: {
                 required: "※必須項目です",

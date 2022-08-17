@@ -116,8 +116,8 @@ $(function () {
     rules: {
       user_id: { required: true },
       unknown_user_email: { email: true },
-      unknown_user_mobile: { number: true, minlength: 11 },
-      unknown_user_tel: { number: true, minlength: 10 },
+      unknown_user_mobile: { number: true, minlength: 11, maxlength: 11 },
+      unknown_user_tel: { number: true, minlength: 10, maxlength: 11 },
       pre_date0: { required: true },
       pre_venue0: { required: true },
       pre_enter0: { required: true },
@@ -128,11 +128,13 @@ $(function () {
       unknown_user_email: { email: "※Emailの形式で入力してください" },
       unknown_user_mobile: {
         number: "※半角数字を入力してください",
-        minlength: "※最低桁数は11です",
+        minlength: "※11桁を入力して下さい。",
+        maxlength: "※11桁を入力して下さい。",
       },
       unknown_user_tel: {
         number: "※半角数字を入力してください",
-        minlength: "※最低桁数は10です",
+        minlength: "※10桁を入力して下さい。",
+        maxlength: "※10桁を入力して下さい。",
       },
       pre_date0: { required: "※必須項目です" },
       pre_venue0: { required: "※必須項目です" },
@@ -175,8 +177,8 @@ $(function () {
     $(value).validate({
       rules: {
         unknown_user_email: { email: true },
-        unknown_user_mobile: { number: true, minlength: 11 },
-        unknown_user_tel: { number: true, minlength: 10 },
+        unknown_user_mobile: { number: true, minlength: 11, maxlength: 11 },
+        unknown_user_tel: { number: true, minlength: 10, maxlength: 10 },
         tel: { number: true, minlength: 11, maxlength: 11 },
         luggage_count: { number: true, range: [0, 49] },
         luggage_return: { number: true, range: [0, 49] },
@@ -189,16 +191,18 @@ $(function () {
         unknown_user_email: { email: "※Emailの形式で入力してください" },
         unknown_user_mobile: {
           number: "※半角数字を入力してください",
-          minlength: "※最低桁数は11です",
+          minlength: "※11桁を入力して下さい",
+          maxlength: "※11桁を入力して下さい",
         },
         unknown_user_tel: {
           number: "※半角数字を入力してください",
-          minlength: "※最低桁数は10です",
+          minlength: "※10桁を入力して下さい",
+          maxlength: "※10桁を入力して下さい",
         },
         tel: {
           number: "※半角数字を入力してください",
-          minlength: "※11桁で入力してください",
-          maxlength: "※11桁で入力してください"
+          minlength: "※11桁を入力して下さい",
+          maxlength: "※11桁を入力して下さい"
         },
         luggage_count: {
           number: "半角数字で入力してください",

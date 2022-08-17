@@ -160,8 +160,8 @@ $(function () {
       },
       post_code: {
         required: "※必須項目です",
-        minlength: "７桁で入力してください",
-        maxlength: "７桁で入力してください",
+        minlength: "※7桁で入力してください",
+        maxlength: "※7桁で入力してください",
         number: "※半角数字、ハイフンなしで入力して下さい",
       },
       address1: {
@@ -171,13 +171,13 @@ $(function () {
         required: "※必須項目です",
       },
       tel: {
-        minlength: "※最低桁数は10桁です",
-        maxlength: "※最大桁数は10桁です",
+        minlength: "※10桁を入力して下さい",
+        maxlength: "※10桁を入力して下さい",
         number: "※半角数字で入力してください",
       },
       mobile: {
-        minlength: "※最低桁数は11桁です",
-        maxlength: "※最大桁数は11桁です",
+        minlength: "※11桁を入力して下さい",
+        maxlength: "※11桁を入力して下さい",
         number: "※半角数字で入力してください",
       },
       fax: {
@@ -375,8 +375,8 @@ $(function () {
         tel: {
           required: "※必須項目です",
           number: "※半角数字を入力してください",
-          maxlength: '※11桁で入力してください',
-          minlength: '※11桁で入力してください',
+          maxlength: '※11桁を入力して下さい',
+          minlength: '※11桁を入力して下さい',
         },
         price_system: {
           required: "※必須項目です",
@@ -466,8 +466,8 @@ $(function () {
       tel: {
         required: "※必須項目です",
         number: "※半角数字、ハイフンなしで入力して下さい",
-        minlength: '※11桁で入力してください',
-        maxlength: '※11桁で入力してください',
+        minlength: '※11桁を入力して下さい',
+        maxlength: '※11桁を入力して下さい',
       },
       price_system: {
         required: "※必須項目です",
@@ -606,11 +606,13 @@ $(function () {
       tel: {
         number: true,
         minlength: 10,
+        maxlength: 10,
         require_from_group: [1, ".phone_number"]
       },
       mobile: {
         number: true,
         minlength: 11,
+        maxlength: 11,
         require_from_group: [1, ".phone_number"]
       },
       fax: {
@@ -648,12 +650,14 @@ $(function () {
         required: "※必須項目です",
       },
       tel: {
-        minlength: "※最低桁数は10桁です",
+        minlength: "※10桁を入力して下さい",
+        maxlength: "※10桁を入力して下さい",
         number: "※半角数字で入力してください",
         require_from_group: "携帯番号、電話番号のどちらか一方は必須です",
       },
       mobile: {
-        minlength: "※最低桁数は10桁です",
+        minlength: "※11桁を入力して下さい",
+        maxlength: "※11桁を入力して下さい",
         number: "※半角数字で入力してください",
         require_from_group: "携帯番号、電話番号のどちらか一方は必須です",
       },
