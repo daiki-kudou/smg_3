@@ -64,7 +64,7 @@ class UserReqRes extends Mailable
 		$send_html = str_replace('${master_total}', $this->master_total, $send_html);
 		$send_html = str_replace('${login}', url('/user/login'), $send_html);
 
-		return $this->view('maileclipse::templates.userReqLeg')
+		return $this->view('maileclipse::templates.userReqRes')
 			->subject($subtitle)
 			->with([
 				'send_html' => $send_html,
