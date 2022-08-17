@@ -62,7 +62,7 @@
         <tr>
           <td>
             <dl class="total-billing">
-              <dt>御請求書金額</dt>
+              <dt>御請求金額</dt>
               <dd>
                 <span class="master-total">
                   @if ($cxl)
