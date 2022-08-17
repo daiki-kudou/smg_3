@@ -145,6 +145,7 @@
               {{ Form::text('tel', $user->tel, ['class' => 'form-control phone_number','placeholder' =>
               '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-tel" style="color: red"></p>
+              <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
             </td>
           </tr>
           <tr>
@@ -155,6 +156,7 @@
               {{ Form::text('mobile', $user->mobile, ['class' => 'form-control phone_number','placeholder' =>
               '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-mobile" style="color: red"></p>
+              <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
             </td>
           </tr>
           <tr>
