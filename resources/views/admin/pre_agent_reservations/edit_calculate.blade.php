@@ -86,6 +86,7 @@
                         <td>
                             {{ Form::text('pre_endusers_tel', $request->pre_endusers_tel, ['class' => 'form-control']) }}
                             <p class="is-error-pre_endusers_tel" style="color: red"></p>
+                            <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                         </td>
                         <td class="table-active">メールアドレス</td>
                         <td>
@@ -102,6 +103,7 @@
                         <td>
                             {{ Form::text('pre_endusers_mobile', $request->pre_endusers_mobile, ['class' => 'form-control']) }}
                             <p class="is-error-pre_endusers_mobile" style="color: red"></p>
+                            <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                         </td>
                     </tr>
                     <tr>

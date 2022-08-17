@@ -145,6 +145,7 @@
               <td>
                 {{Form::text("end_user_tel",!empty($pre_enduser)?$pre_enduser->tel:'',["class"=>"form-control"])}}
                 <p class="is-error-end_user_tel" style="color: red"></p>
+                <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
               </td>
               <td class="table-active" scope="row">
                 <label for="onedayEmail">メールアドレス</label>
@@ -167,6 +168,7 @@
               <td>
                 {{Form::text("end_user_mobile",!empty($pre_enduser)?$pre_enduser->mobile:'',["class"=>"form-control"])}}
                 <p class="is-error-end_user_mobile" style="color: red"></p>
+                <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
               </td>
             </tr>
             <tr>
