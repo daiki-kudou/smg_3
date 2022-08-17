@@ -42,12 +42,14 @@ class MailForBillAfterDblCheckAddBill implements ShouldQueue
     $subject = "【会議室｜[予約情報：追加請求]：" . $data->reservation_id . "】承認手続きのお願い（SMG貸し会議室）";
     $master_total = $this->adjustBillData();
     $bill_id = $this->data['bill_id'];
+	$category = '追加請求';
     Mail::to($data->user_email)
       ->send(new UserReqAddRes(
         $data,
         $subject,
         $master_total,
-        $bill_id
+        $bill_id,
+		$category
       ));
   }
 

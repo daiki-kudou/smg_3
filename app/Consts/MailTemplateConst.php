@@ -14,4 +14,5 @@ class MailTemplateConst
 	public const PRE_RESERVATION_APPROVE = 8;
 	public const PRE_RESERVATION_CXL = 9;
 	public const RESERVATION_REQUEST = 10;
+	public const RESERVATION_APPROVE = 11;
 }
