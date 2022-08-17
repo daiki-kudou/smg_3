@@ -238,7 +238,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <span class="checkbox-txt">総額(税込)</span>
+                                <span class="checkbox-txt">合計金額(税込)</span>
                                 <span class="sumText">{{ number_format(ReservationHelper::taxAndPrice(ReservationHelper::numTimesNumArrays($sessions, 'master'))) }}</span>
                                 <span>円</span>
                                 <p class="txtRed txtLeft">
