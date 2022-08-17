@@ -27,6 +27,7 @@ use App\Traits\PaginatorTrait;
 use App\Http\Requests\Admin\PreReservations\Common\VenuePriceRequiredRequest;
 use App\Service\SendSMGEmail;
 use App\Consts\MailTemplateConst;
+use App\Mail\UserPreResCxl;
 
 
 class PreReservationsController extends Controller
@@ -504,7 +505,9 @@ class PreReservationsController extends Controller
       $venue = Venue::find($PreReservation->venue_id);
     //   $SendSMGEmail = new SendSMGEmail();
     //   $SendSMGEmail->send("管理者仮押え完了及びユーザーへ編集権限譲渡", $PreReservation->id);
+	$admin = config('app.admin_email');
 	\Mail::to($user->email)
+	->cc($admin)
 	->send(new UserFinPreRes(
 		MailTemplateConst::PRE_RESERVATION_APPROVE,
 		$PreReservation,
@@ -585,8 +588,22 @@ class PreReservationsController extends Controller
         foreach ($delete_target_array as $v) {
           $preReservation = PreReservation::with(['user', 'venue'])->find($v);
           if ($preReservation->user_id > 0) {
-            $SendSMGEmail = new SendSMGEmail();
-            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除", $preReservation->id);
+            // $SendSMGEmail = new SendSMGEmail();
+            // $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除", $preReservation->id);
+			$admin = config('app.admin_email');
+			\Mail::to($preReservation->user->email)
+			->cc($admin)
+			->send(new UserPreResCxl(
+				MailTemplateConst::PRE_RESERVATION_CXL,
+				$preReservation->user->company,
+				sprintf('%06d', $preReservation->id),
+				date('Y年m月d日',strtotime($preReservation->reserve_date)),
+				date('H:i',strtotime($preReservation->enter_time)),
+				date('H:i',strtotime($preReservation->leave_time)),
+				$preReservation->venue->full_name,
+				$preReservation->venue->smg_url,
+			));
+
           } else {
             $preReservation = PreReservation::with(['user', 'venue'])->find($v);
             $preReservation->delete();
