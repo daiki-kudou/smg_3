@@ -13,4 +13,5 @@ class MailTemplateConst
 	public const UNSUBSCRIBING = 7;
 	public const PRE_RESERVATION_APPROVE = 8;
 	public const PRE_RESERVATION_CXL = 9;
+	public const RESERVATION_REQUEST = 10;
 }
