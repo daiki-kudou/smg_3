@@ -71,7 +71,7 @@
         <div class="border-wrap2 p-4">
             <div class="row user_wrap">
                 <div class="col-md-6 col-12">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered mb-0">
                         <tbody>
                             <tr>
                                 <td colspan="2">
@@ -110,6 +110,8 @@
                             </tr>
                         </tbody>
                     </table>
+                    <p class="warning-text mb-3 mt-1">※入退室時間より以前に入室はできません。</p>
+
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
