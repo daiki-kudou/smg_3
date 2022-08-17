@@ -193,6 +193,7 @@ header .headerInfo {
     top: 160px;
     right: 0;
     font-weight: bold;
+    z-index: 99;
 }
 
 .cart_area p {
