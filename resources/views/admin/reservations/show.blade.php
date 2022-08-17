@@ -457,7 +457,7 @@
                                 <td style="width: 70%;">
                                     <div class="d-flex align-items-center justify-content-end">
                                         <dl class="ttl_box">
-                                            <dt>合計金額：</dt>
+                                            <dt>合計金額(税込)：</dt>
                                             <dd class="total_result">
                                                 {{ number_format($reservation->bills->sortBy('id')->first()->master_total) }}
                                                 円</dd>
@@ -848,7 +848,7 @@
                                     <td style="width: 70%;">
                                         <div class="d-flex align-items-center justify-content-end">
                                             <dl class="ttl_box">
-                                                <dt>合計金額：</dt>
+                                                <dt>合計金額(税込)：</dt>
                                                 <dd class="total_result">
                                                     {{ number_format($other_bill->master_total) }} 円
                                                 </dd>
@@ -1241,7 +1241,7 @@
                                     <td style="width: 70%;">
                                         <div class="d-flex align-items-center justify-content-end">
                                             <dl class="ttl_box">
-                                                <dt>合計金額：</dt>
+                                                <dt>合計金額(税込)：</dt>
                                                 <dd class="total_result">{{ number_format($cxl->master_total) }} 円
                                                 </dd>
                                             </dl>
