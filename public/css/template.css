@@ -2078,6 +2078,9 @@ table .master_total_subttl2 {
         content: "金額";
     }
 
+    .user_info {
+        display: none;
+    }
 
 }
 
@@ -2188,9 +2191,7 @@ table .master_total_subttl2 {
 
 
 @media screen and (max-width: 540px) {
-    .user_info {
-        display: none;
-    }
+
 
     .calender-color {
         flex-wrap: wrap;
