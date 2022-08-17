@@ -197,7 +197,7 @@ class UserFinAddRes extends Mailable
 		$send_html = str_replace('${reservation_id}', $reservation_id, $send_html);
 		$send_html = str_replace('${reserve_date}', $reserve_date, $send_html);
 		$send_html = str_replace('${enter_time}', $enter_time, $send_html);
-		$send_html = str_replace('${leave_time}', $enter_time, $send_html);
+		$send_html = str_replace('${leave_time}', $leave_time, $send_html);
 		$send_html = str_replace('${venue_name}', $venue_name, $send_html);
 		$send_html = str_replace('${in_charge}', $in_charge, $send_html);
 		$send_html = str_replace('${tel}', $tel, $send_html);

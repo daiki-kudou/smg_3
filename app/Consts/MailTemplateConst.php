@@ -16,4 +16,5 @@ class MailTemplateConst
 	public const RESERVATION_REQUEST = 10;
 	public const RESERVATION_APPROVE = 11;
 	public const RESERVATION_DONE = 12;
+	public const RESERVATION_DELETE = 13;
 }
