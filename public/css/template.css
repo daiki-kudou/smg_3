@@ -2228,6 +2228,20 @@ table .master_total_subttl2 {
         width: 100%;
     }
 
+    /* カレンダー */
+
+    .calender-data {
+        position: relative;
+    }
+
+    .calender-data .field-title {
+        position: sticky;
+        width: 160px;
+        top: 0;
+        left: 0;
+        /* height: 56px; */
+    }
+
 
 }
 
