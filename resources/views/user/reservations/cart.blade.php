@@ -263,7 +263,7 @@
                         <span class="txtRed">弊社からの予約完了連絡が到着した時点で「予約完了（予約確定）」となります。</span>
                     </dd>
                     <dd>
-                        原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生します。申込前に「<a
+                        原則として予約完了後の「キャンセル」「変更」にはキャンセル料金が発生します。申込前に「<a target="_blank" rel="noopener noreferrer"
                             href="https://system.osaka-conference.com/cancelpolicy/">キャンセルポリシー</a>」
                         をご確認下さい。
                     </dd>
@@ -280,7 +280,7 @@
                 </dl>
                 <dl class="attention-txt">
                     <dt>【個人情報の取り扱いについて】</dt>
-                    <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
+                    <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a target="_blank" rel="noopener noreferrer"
                             href="https://system.osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
                 </dl>
 
