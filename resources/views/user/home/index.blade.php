@@ -108,12 +108,12 @@ $("td:contains('未入金')").css("font-weight","bold");
 
 <script>
   $(document).ready(function(){
-    $.extend($.fn.dataTable.defaults, {
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
-        }
-    });
-    var test = $('#sales_sort').DataTable({
+  $.extend($.fn.dataTable.defaults, {
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+         }
+    });
+    var test = $('#sales_sort').DataTable({
       order:[],
       processing: true,
       serverSide: true,

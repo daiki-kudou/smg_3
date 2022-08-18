@@ -292,6 +292,7 @@
         <table class="table table-bordered compact hover order-column" id="sales_sort" style="height: 100%;">
             <thead>
                 <tr class="table_row">
+                    <th class="btn-cell">予約詳細</th>
                     <th>予約一括ID</th>
                     <th>予約ID</th>
                     <th>利用日</th>
@@ -310,7 +311,6 @@
                     <th>入金状況</th>
                     <th>支払期日</th>
                     <th>入金日</th>
-                    <th class="btn-cell">予約詳細</th>
                     <th>振込名</th>
                     <th>顧客属性</th>
                     <th>運営</th>
@@ -424,7 +424,11 @@
                         });
                     }
                 },
-                columns: [{
+                columns: [
+                    {
+                        data: 'details'
+                    },
+                    {
                         data: 'multiple_reserve_id'
                     },
                     {
@@ -479,9 +483,6 @@
                         data: 'pay_day'
                     },
                     {
-                        data: 'details'
-                    },
-                    {
                         data: 'pay_person'
                     },
                     {
@@ -490,10 +491,9 @@
                     {
                         data: 'alliance_flag'
                     },
-                    // { data: 'test' },
                 ],
                 columnDefs: [{
-                        targets: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+                        targets: [0, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
                         sortable: false,
                         orderable: false
                     },
