@@ -46,7 +46,7 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">仲介会社　仮押え　編集</h2>
+  <h2 class="mt-3 mb-3">仮押え 編集（仲介会社）</h2>
   <hr>
 </div>
 
