@@ -6,7 +6,7 @@
 
 <!-- ログイン、会員登録 -->
 @if (session('flash_message'))
-<div class="contents mt-5">
+<div class="contents mt-5" id="cartNone">
   <div class="pagetop-text">
     <h1 class="page-title oddcolor"><span>会員登録完了</span></h1>
   </div>
