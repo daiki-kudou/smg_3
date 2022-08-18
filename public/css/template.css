@@ -551,6 +551,21 @@ option:disabled {
 }
 
 
+.sp-table {
+    display: none;
+}
+
+@media screen and (max-width: 540px) { 
+    .pc-table {
+        display: none;
+    }
+
+    .sp-table {
+        display: table-cell;
+    }
+}
+
+
 
 
 /* 備考の長さ制限 -----------------------------*/

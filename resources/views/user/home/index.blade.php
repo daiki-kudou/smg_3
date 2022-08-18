@@ -72,6 +72,7 @@
         style="height: 100%;">
         <thead>
           <tr>
+            <th>詳細</th>
             <th>予約ID</th>
             <th>利用日</th>
             <th>入室</th>
@@ -130,6 +131,7 @@ $("td:contains('未入金')").css("font-weight","bold");
         }
       },
       columns: [
+        { data: 'details' },
         { data: 'reservation_id' },
         { data: 'reserve_date' },
         { data: 'enter_time' },
@@ -150,8 +152,10 @@ $("td:contains('未入金')").css("font-weight","bold");
           $('#counter').text('').text(test.page.info().recordsDisplay);
       },
       columnDefs: [
-        {targets: [5,6,8,9,10,11,12,13], sortable: false, orderable: false},
-        {targets: [7,8],className: "text-right",}
+        {targets: [0,6,7,9,10,11,12,13,14], sortable: false, orderable: false},
+        {targets: [8,9],className: "text-right",},
+        {targets: [0],className: "sp-table",},
+        {targets: [12],className: "pc-table",}
       ],
      });
 });
