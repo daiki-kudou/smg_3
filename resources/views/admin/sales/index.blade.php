@@ -59,17 +59,44 @@
         <table class="table table-bordered">
             <tbody>
                 <tr>
-                    <th class="search_item_name">
-                        <label for="bulkid">予約一括ID</label>
-                    </th>
-                    <td class="text-right">
-                        {{ Form::text('multiple_id', optional($data)['multiple_id'], ['class' => 'form-control']) }}
+                    <th class="search_item_name"><label for="freeword">フリーワード検索</label>
+                    <td colspan="3" class="text-right">
+                        {{ Form::text('free_word', optional($data)['free_word'], ['class' => 'form-control']) }}
                     </td>
+                </tr>
+                <tr>
+                    <th class="search_item_name">
+                        <label for="customer">顧客ID</label>
+                    </th>
+                    <td>
+                        {{ Form::text('user_id', optional($data)['user_id'], ['class' => 'form-control']) }}
+                    </td>
+                    <th class="search_item_name"><label for="venuetype">直/提</label></th>
+                    <td class="text-left">
+                        <ul class="search_category">
+                            <li>
+                                {{ Form::checkbox('alliance0', '1', optional($data)['alliance0'] != '' ? true : false, ['id' => 'alliance0']) }}
+                                {{ Form::label('alliance0', '直営') }}
+                            </li>
+                            <li>
+                                {{ Form::checkbox('alliance1', '1', optional($data)['alliance1'] != '' ? true : false, ['id' => 'alliance1']) }}
+                                {{ Form::label('alliance1', '提携') }}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
                     <th class="search_item_name">
                         <label for="id">予約ID</label>
                     </th>
                     <td>
                         {{ Form::text('search_id', optional($data)['search_id'], ['class' => 'form-control']) }}
+                    </td>
+                    <th class="search_item_name">
+                        <label for="bulkid">予約一括ID</label>
+                    </th>
+                    <td class="text-right">
+                        {{ Form::text('multiple_id', optional($data)['multiple_id'], ['class' => 'form-control']) }}
                     </td>
                 </tr>
                 <tr>
@@ -93,42 +120,23 @@
                 </tr>
                 <tr>
                     <th class="search_item_name">
-                        <label for="customer">顧客ID</label>
-                    </th>
-                    <td>
-                        {{ Form::text('user_id', optional($data)['user_id'], ['class' => 'form-control']) }}
-                    </td>
-                    <th class="search_item_name">
-                        <label for="company">会社名・団体名</label>
+                        <label for="company">会社・団体名</label>
                     </th>
                     <td class="text-right">
                         {{ Form::text('company', optional($data)['company'], ['class' => 'form-control']) }}
                     </td>
-                </tr>
-                <tr>
                     <th class="search_item_name">
                         <label for="person">担当者氏名</label>
                     </th>
                     <td class="text-right">
                         {{ Form::text('person_name', optional($data)['person_name'], ['class' => 'form-control']) }}
                     </td>
-                    <th class="search_item_name"><label for="agent">仲介会社</label></th>
-                    <td class="text-right">
-                        <select class="form-control select2" name="agent">
-                            <option value=""></option>
-                            @foreach ($agents as $key => $value)
-                                @if (optional($data)['agent'] == $key)
-                                    <option value="{{ $key }}" selected>{{ $value }}</option>
-                                @endif
-                                <option value="{{ $key }}">{{ $value }}</option>
-                            @endforeach
-                        </select>
-                    </td>
+
                 </tr>
                 <tr>
-                    <th class="search_item_name"><label for="enduser">エンドユーザー</label></th>
-                    <td class="text-right">
-                        {{ Form::text('enduser_person', optional($data)['enduser_person'], ['class' => 'form-control']) }}
+                    <th class="search_item_name"><label for="sum">振込名</label></th>
+                    <td>
+                        {{ Form::text('pay_person', optional($data)['pay_person'], ['class' => 'form-control']) }}
                     </td>
                     <th class="search_item_name"><label for="sum">総額</label></th>
                     <td>
@@ -136,42 +144,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="search_item_name"><label for="paydue">支払期日</label></th>
-                    <td class="text-right form-group">
-                        {{ Form::text('payment_limit', optional($data)['payment_limit'], ['class' => 'form-control']) }}
-                    </td>
-                    <th class="search_item_name"><label for="billStatus">売上区分</label></th>
-                    <td>
-                        <ul class="search_category">
-                            <li>
-                                {{ Form::checkbox('sales1', '1', optional($data)['sales1'] == 1 ? true : false, ['id' => 'sales1']) }}
-                                {{ Form::label('sales1', '会場予約') }}
-                            </li>
-                            <li>
-                                {{ Form::checkbox('sales2', '2', optional($data)['sales2'] == 2 ? true : false, ['id' => 'sales2']) }}
-                                {{ Form::label('sales2', 'キャンセル') }}
-                            </li>
-                            <li>
-                                {{ Form::checkbox('sales3', '3', optional($data)['sales3'] == 3 ? true : false, ['id' => 'sales3']) }}
-                                {{ Form::label('sales3', '追加請求') }}
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="search_item_name"><label for="billStatus">予約状況</label></th>
-                    <td>
-                        <ul class="search_category">
-                            <li>
-                                {{ Form::checkbox('check_status3', '3', optional($data)['check_status3'] ? true : false, ['id' => 'check_status3']) }}
-                                {{ Form::label('check_status3', '予約完了') }}
-                            </li>
-                            <li>
-                                {{ Form::checkbox('check_status6', '6', optional($data)['check_status6'] ? true : false, ['id' => 'check_status6']) }}
-                                {{ Form::label('check_status6', 'キャンセル') }}
-                            </li>
-                        </ul>
-                    </td>
                     <th class="search_item_name"><label for="payStatus">入金状況</label></th>
                     <td class="text-right">
                         <ul class="search_category">
@@ -201,41 +173,70 @@
                             </li>
                         </ul>
                     </td>
-                </tr>
-                <tr>
-                    <th class="search_item_name"><label for="venuetype">直/提</label></th>
-                    <td class="text-left">
+                    <th class="search_item_name"><label for="billStatus">売上区分</label></th>
+                    <td>
                         <ul class="search_category">
                             <li>
-                                {{ Form::checkbox('alliance0', '1', optional($data)['alliance0'] != '' ? true : false, ['id' => 'alliance0']) }}
-                                {{ Form::label('alliance0', '直営') }}
+                                {{ Form::checkbox('sales1', '1', optional($data)['sales1'] == 1 ? true : false, ['id' => 'sales1']) }}
+                                {{ Form::label('sales1', '会場予約') }}
                             </li>
                             <li>
-                                {{ Form::checkbox('alliance1', '1', optional($data)['alliance1'] != '' ? true : false, ['id' => 'alliance1']) }}
-                                {{ Form::label('alliance1', '提携') }}
+                                {{ Form::checkbox('sales2', '2', optional($data)['sales2'] == 2 ? true : false, ['id' => 'sales2']) }}
+                                {{ Form::label('sales2', 'キャンセル') }}
+                            </li>
+                            <li>
+                                {{ Form::checkbox('sales3', '3', optional($data)['sales3'] == 3 ? true : false, ['id' => 'sales3']) }}
+                                {{ Form::label('sales3', '追加請求') }}
                             </li>
                         </ul>
                     </td>
-                    <th class="search_item_name"><label for="freeword">フリーワード検索</label>
-                    <td class="text-right">
-                        {{ Form::text('free_word', optional($data)['free_word'], ['class' => 'form-control']) }}
-                    </td>
                 </tr>
                 <tr>
-                    <th class="search_item_name"><label for="enduser">支払日</label></th>
+                    <th class="search_item_name"><label for="paydue">支払期日</label></th>
+                    <td class="text-right form-group">
+                        {{ Form::text('payment_limit', optional($data)['payment_limit'], ['class' => 'form-control']) }}
+                    </td>
+                    <th class="search_item_name"><label for="enduser">入金日</label></th>
                     <td class="text-right">
                         {{ Form::text('pay_day', optional($data)['pay_day'], ['class' => 'form-control']) }}
                     </td>
-                    <th class="search_item_name"><label for="sum">振込名</label></th>
-                    <td>
-                        {{ Form::text('pay_person', optional($data)['pay_person'], ['class' => 'form-control']) }}
-                    </td>
                 </tr>
                 <tr>
+                    <th class="search_item_name"><label for="billStatus">予約状況</label></th>
+                    <td>
+                        <ul class="search_category">
+                            <li>
+                                {{ Form::checkbox('check_status3', '3', optional($data)['check_status3'] ? true : false, ['id' => 'check_status3']) }}
+                                {{ Form::label('check_status3', '予約完了') }}
+                            </li>
+                            <li>
+                                {{ Form::checkbox('check_status6', '6', optional($data)['check_status6'] ? true : false, ['id' => 'check_status6']) }}
+                                {{ Form::label('check_status6', 'キャンセル') }}
+                            </li>
+                        </ul>
+                    </td>
                     <th class="search_item_name"><label for="enduser">顧客属性</label>
                     </th>
                     <td class="text-right">
                         {{ Form::select('attr', [0 => '', 1 => '一般企業', 2 => '上場企業', 3 => '近隣利用', 4 => '個人講師', 5 => 'MLM', 6 => 'その他'], optional($data)['attr'], ['class' => 'form-control']) }}
+                    </td>
+                </tr>
+                <tr>
+                <th class="search_item_name"><label for="agent">仲介会社</label></th>
+                    <td class="text-right">
+                        <select class="form-control select2" name="agent">
+                            <option value=""></option>
+                            @foreach ($agents as $key => $value)
+                                @if (optional($data)['agent'] == $key)
+                                    <option value="{{ $key }}" selected>{{ $value }}</option>
+                                @endif
+                                <option value="{{ $key }}">{{ $value }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <th class="search_item_name"><label for="enduser">エンドユーザー</label></th>
+                    <td class="text-right">
+                        {{ Form::text('enduser_person', optional($data)['enduser_person'], ['class' => 'form-control']) }}
                     </td>
                 </tr>
             </tbody>
