@@ -347,7 +347,7 @@
                     <p>
                       {{ReservationHelper::getVenue($pre_reservation->venue_id)}}
                     </p>
-                    <p>{{$pre_reservation->price_system==1?"通常（枠貸し）":"アクセア（時間貸し）"}}</p>
+                    <p>{{$pre_reservation->price_system==1?"通常（枠貸し）":"(音響HG)"}}</p>
                   </td>
                 </tr>
                 <tr>

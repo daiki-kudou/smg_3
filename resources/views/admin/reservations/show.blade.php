@@ -150,9 +150,10 @@
                         <tr>
                             <td class="table-active"><label for="venue">会場</label></td>
                             <td>
-                                <p>{{ ReservationHelper::getVenue($reservation->venue_id) }}</p>
-                                <p>
-                                    {{ $reservation->price_system == 1 ? '通常（枠貸）' : '音響HG' }}
+                                <p>{{ ReservationHelper::getVenue($reservation->venue_id) }}
+                                <span>
+                                    {{ $reservation->price_system == 1 ? '通常（枠貸）' : '(音響HG)' }}
+                                </span>
                                 </p>
                             </td>
                         </tr>
