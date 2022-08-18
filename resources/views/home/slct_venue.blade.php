@@ -36,6 +36,7 @@
                 {{ Form::text('date', HomeHelper::now(),['class'=>'form-control text6', 'readonly', 'id'=>'datepicker']
                 ) }}
               </div>
+              <span class="txt-indent f-s90">※複数日程検索は出来ません。</span>
               <span class="txt-indent f-s90">※選択不可の日程につきましては、直接お問い合わせ下さい。</span>
               <span class="txt-indent f-s90">※一部検索対応をしていない会場があります。</span></p>
             </dd>
