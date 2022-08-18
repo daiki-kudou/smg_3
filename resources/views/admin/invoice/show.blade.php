@@ -109,7 +109,7 @@
               <dl class="bill-heading">
                 <dd>{{ ReservationHelper::formatDate($reservation->reserve_date) }}
                 </dd>
-                <dd>{{ ReservationHelper::getVenueForUser($reservation->venue_id) }}</dd>
+                <dd>{{ ReservationHelper::getVenueForUser($reservation->venue_id) }}{{ (int) $reservation->price_system === 2 ? '(音響HG)' : '' }}</dd>
                 <dd><span>ご利用料金</span></dd>
               </dl>
             </td>
