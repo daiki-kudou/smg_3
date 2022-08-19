@@ -67,7 +67,7 @@ class UserCxlChck extends Mailable
 		$send_html = str_replace('${master_total}', $this->cxl_data->master_total, $send_html);
 		$send_html = str_replace('${login}', url('/user/login'), $send_html);
 
-		return $this->view('maileclipse::templates.userReqRes')
+		return $this->view('maileclipse::templates.userCxlChck')
 			->subject($subtitle)
 			->with([
 				'send_html' => $send_html,
