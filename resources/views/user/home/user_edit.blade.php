@@ -39,7 +39,7 @@
       <tr>
         <th class="form_required"><label for="company">会社・団体名</label></th>
         <td colspan="2">
-          {{Form::text('company',$user->company,['class'=>'form-control'])}}
+          {{Form::text('company',$user->company,['class'=>'form-control','readonly'])}}
           <p class="is-error-company" style="color: red"></p>
         </td>
       </tr>
