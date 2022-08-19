@@ -26,6 +26,9 @@
   <form method="POST" action="{{ route('user.login') }}" id="loginForm">
     @csrf
     <div class="bgColorGray">
+      @error('email')
+            <div class="alert text-center mt-15">ログイン情報が誤っています</div>
+      @enderror
       <table>
         <tr>
           <th>
@@ -34,9 +37,7 @@
           <td class="col-md-6">
             {{ Form::text('email', old('email'),['class'=>'form-control text2','autocomplete'=>'email']) }}
             <p class="is-error-email" style="color: red"></p>
-            @error('email')
-            <div class="alert text-left">{{ $message }}</div>
-            @enderror
+
             {{-- <input id="email" type="email" class="form-control text2 @error('email') is-invalid @enderror"
               name="email" value="{{ old('email') }}" required autocomplete="email" autofocus> --}}
             {{-- @error('email')

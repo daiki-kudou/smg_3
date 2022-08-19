@@ -45,6 +45,14 @@ option:disabled {
     display: none;
 }
 
+.text-center {
+    text-align: center;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
+
 ul.tagBtn li a {
     letter-spacing: 0.15em;
     writing-mode: vertical-lr;

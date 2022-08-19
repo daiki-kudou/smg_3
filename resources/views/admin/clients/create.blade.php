@@ -296,7 +296,7 @@
       if ($('#condition').hasClass('checkon')) {
         $('#condition').text('');
       }else{
-        $('#condition').text("平日%\n土日%\n3週間前%");
+        $('#condition').text("平日：%\n土日：%\n3週間前：%");
       }
     })
   });
