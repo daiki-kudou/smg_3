@@ -304,6 +304,7 @@
         });
       $("#pre_reservation_sort").DataTable({
       // data オプションでデータを定義する
+      // app/Http/Controllers/Admin/PreReservationsController.phpの53行目〜69行目に抽出されるデータが順に並んでいる
       data: pre_reservations,
       searching: false,
       info: false,

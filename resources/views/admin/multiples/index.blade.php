@@ -300,6 +300,7 @@
         });
       $("#multiple_sort").DataTable({
       // data オプションでデータを定義する
+      // /app/Http/Controllers/Admin/MultiplesController.phpの51行目〜63行目に抽出されるデータが順に並んでいる
       data: multiples,
       searching: false,
       info: false,
