@@ -295,7 +295,7 @@
           <p class="text-center">会員登録が完了しました。<br>下記より、ログインしてください。</p>
         </div>
       </div>
-      <section class="contents">
+      <section class="contents" id="cartNone">
         <form method="POST" action="https://develop2-smg2.herokuapp.com/user/login">
           <input type="hidden" name="_token" value="sddI1lQ7NvzDN323hgNFpZq8YJTyrVUi39Ghuqtf">
           <div class="form-group row">

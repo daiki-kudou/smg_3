@@ -46,7 +46,7 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">仲介会社　仮押え　編集</h2>
+  <h2 class="mt-3 mb-3">仮押え 編集（仲介会社）</h2>
   <hr>
 </div>
 
@@ -138,6 +138,7 @@
           <td>
             {{Form::text('pre_endusers_tel',$PreReservation->pre_enduser->tel,['class'=>'form-control'])}}
             <p class="is-error-pre_endusers_tel" style="color: red"></p>
+            <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
           </td>
           <td class="table-active">メールアドレス </td>
           <td>
@@ -154,6 +155,7 @@
           <td>
             {{Form::text('pre_endusers_mobile',$PreReservation->pre_enduser->mobile,['class'=>'form-control'])}}
             <p class="is-error-pre_endusers_mobile" style="color: red"></p>
+            <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
           </td>
         </tr>
         <tr>

@@ -196,12 +196,16 @@
           <td>
             {{ Form::text('unknown_user_tel', '',['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
             <p class="is-error-unknown_user_tel" style="color: red"></p>
+            <p class="annotation mt-1">
+              ※半角数字、ハイフンなしで入力下さい。</p>
           </td>
           <td class="table-active">携帯番号</td>
           <td>
             {{ Form::text('unknown_user_mobile', '',['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] )
             }}
             <p class="is-error-unknown_user_mobile" style="color: red"></p>
+            <p class="annotation mt-1">
+              ※半角数字、ハイフンなしで入力下さい。</p>
           </td>
         </tr>
         <tr>

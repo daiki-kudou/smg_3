@@ -18,18 +18,19 @@
       <table class="table table-bordered mt-5" id="agent_sort">
         <thead>
           <tr class="table_row">
+            <th>詳細</th>
             <th>ID</th>
             <th>サービス名称</th>
             <th>管理URL</th>
             <th>運営会社名</th>
             <th>担当者氏名</th>
             <th>担当者TEL</th>
-            <th>詳細</th>
           </tr>
         </thead>
         <tbody>
           @foreach ($agents as $agent)
           <tr>
+            <td class="text-center"><a href="{{ url('/admin/agents', $agent->id) }}" class="more_btn">詳細</a></td>
             <td>{{ReservationHelper::fixId($agent->id)}}</td>
             <td>{{$agent->name}}</td>
             <td class="text-center">
@@ -38,7 +39,6 @@
             <td>{{$agent->company}}</td>
             <td>{{ReservationHelper::getAgentPerson($agent->id)}}</td>
             <td>{{$agent->person_mobile}}</td>
-            <td class="text-center"><a href="{{ url('/admin/agents', $agent->id) }}" class="more_btn">詳細</a></td>
           </tr>
           @endforeach
         </tbody>
@@ -48,12 +48,12 @@
 </div>
 <script>
   $(document).ready(function(){
-    $.extend($.fn.dataTable.defaults, {
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
-        }
-    });
-    $('#agent_sort').DataTable({
+  $.extend($.fn.dataTable.defaults, {
+     language: {
+      url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+      }
+     });
+  $('#agent_sort').DataTable({
       searching: false,
       info: false,
       autowidth: false,
@@ -61,7 +61,7 @@
       "columnDefs": [
         {
         "orderable": false, 
-        "targets": [2,6] 
+        "targets": [0,3] 
         },
         {
         "className": "text-center",

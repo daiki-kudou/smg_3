@@ -45,6 +45,14 @@ option:disabled {
     display: none;
 }
 
+.text-center {
+    text-align: center;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
+
 ul.tagBtn li a {
     letter-spacing: 0.15em;
     writing-mode: vertical-lr;
@@ -193,6 +201,7 @@ header .headerInfo {
     top: 160px;
     right: 0;
     font-weight: bold;
+    z-index: 99;
 }
 
 .cart_area p {
@@ -629,6 +638,22 @@ header div.contents {
     padding: 0;
     margin-left: 5px;
 }
+
+/* sp時のマイページのボタン */
+.sp_login_btn {
+    position: fixed;
+    display: block;
+    width: 100%;
+    background-color: #3E4B5B;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+}
+
+
+
 
 /* スピナー -------------------------------*/
 #fullOverlay {

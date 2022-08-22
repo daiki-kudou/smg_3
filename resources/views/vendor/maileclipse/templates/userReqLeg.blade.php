@@ -147,6 +147,7 @@
         }
     </style>
     {!! $send_html !!}
+
 </body>
 
 </html>

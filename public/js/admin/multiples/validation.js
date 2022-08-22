@@ -115,9 +115,9 @@ $(function () {
   $("#multiple_switch").validate({
     rules: {
       unknown_user_email: { email: true },
-      unknown_user_mobile: { number: true, minlength: 11 },
-      unknown_user_tel: { number: true, minlength: 10 },
-      tel: { number: true, minlength: 11 },
+      unknown_user_mobile: { number: true, minlength: 11, maxlength: 11 },
+      unknown_user_tel: { number: true, minlength: 10, maxlength: 10 },
+      tel: { number: true, minlength: 11, maxlength: 11 },
       luggage_count: { number: true, range: [0, 49] },
       luggage_return: { number: true, range: [0, 49] },
       cost: { number: true, range: [1, 100] },
@@ -126,15 +126,18 @@ $(function () {
       unknown_user_email: { email: "※Emailの形式で入力してください" },
       unknown_user_mobile: {
         number: "※半角数字を入力してください",
-        minlength: "※最低桁数は11です",
+        minlength: "※11桁を入力して下さい",
+        maxlength: "※11桁を入力して下さい",
       },
       unknown_user_tel: {
         number: "※半角数字を入力してください",
-        minlength: "※最低桁数は10です",
+        minlength: "※10桁を入力して下さい",
+        maxlength: "※10桁を入力して下さい",
       },
       tel: {
         number: "※半角数字を入力してください",
-        minlength: "※最低桁数は11です",
+        minlength: "※11桁を入力して下さい",
+        maxlength: "※11桁を入力して下さい",
       },
       luggage_count: {
         number: "半角数字で入力してください",
@@ -179,10 +182,12 @@ $(function () {
       end_user_tel: {
         number: true,
         minlength: 10,
+        maxlength: 10,
       },
       end_user_mobile: {
         number: true,
         minlength: 11,
+        maxlength: 11,
       },
       end_user_email: {
         email: true,
@@ -194,11 +199,13 @@ $(function () {
     messages: {
       end_user_tel: {
         number: "※半角数字を入力してください",
-        minlength: "※最低桁数は10です",
+        minlength: "※10桁を入力して下さい",
+        minlength: "※10桁を入力して下さい",
       },
       end_user_mobile: {
         number: "※半角数字を入力してください",
-        minlength: "※最低桁数は11です",
+        minlength: "※11桁を入力して下さい",
+        maxlength: "※11桁を入力して下さい",
       },
       end_user_email: {
         email: "※Emailの形式で入力してください",
@@ -237,7 +244,7 @@ $(function () {
     $(value).validate({
       rules: {
         cp_master_tel: { number: true, minlength: 11, maxlength: 11 },
-        tel: { required: true, number: true, minlength: 11 },
+        tel: { required: true, number: true, minlength: 11, maxlength: 11 },
         cp_master_luggage_count: { number: true, range: [0, 49] },
         cp_master_luggage_return: { number: true, range: [0, 49] },
         cp_master_luggage_price: { number: true },
@@ -249,18 +256,20 @@ $(function () {
       messages: {
         cp_master_tel: {
           number: "※半角数字を入力してください",
-          minlength: "※11桁で入力してください",
-          maxlength: "※11桁で入力してください",
+          minlength: "※11桁を入力して下さい",
+          maxlength: "※11桁を入力して下さい",
         },
         unknown_user_tel: {
           number: "※半角数字を入力してください",
-          minlength: "※最低桁数は10です",
+          minlength: "※10桁を入力して下さい",
+          maxlength: "※10桁を入力して下さい",
         },
         in_charge: { required: "※必須項目です" },
         tel: {
           required: "※必須項目です",
           number: "※半角数字を入力してください",
-          minlength: "※最低桁数は11です",
+          minlength: "※11桁を入力して下さい",
+          maxlength: "※11桁を入力して下さい",
         },
         cp_master_luggage_count: {
           number: "半角数字で入力してください",
@@ -319,6 +328,7 @@ $(function () {
         [telcopied]: {
           number: true,
           minlength: 11,
+          maxlength: 11,
         },
         [luggagecountcopied]: {
           number: true,
@@ -341,7 +351,8 @@ $(function () {
       messages: {
         [telcopied]: {
           number: "※半角数字で入力してください",
-          minlength: "※最低桁数は11です",
+          minlength: "※11桁を入力して下さい",
+          maxlength: "※11桁を入力して下さい",
         },
         [luggagecountcopied]: {
           number: "※半角数字で入力してください",
@@ -401,6 +412,7 @@ $(function () {
         [telcopied]: {
           number: true,
           minlength: 11,
+          maxlength: 11,
         },
         [luggagecountcopied]: {
           number: true,
@@ -426,7 +438,8 @@ $(function () {
       messages: {
         [telcopied]: {
           number: "※半角数字で入力してください",
-          minlength: "※最低桁数は11です",
+          minlength: "※11桁を入力して下さい",
+          maxlength: "※11桁を入力して下さい",
         },
         [luggagecountcopied]: {
           number: "※半角数字で入力してください",

@@ -147,11 +147,12 @@
 <body id="top" class="calender contactpage tentative vacancy">
   <div class="wrapper">
 
+
     <!-- ここからheader.html -->
     <header style="display: block;">
     <!-- <div><a class="head-login-btn sp" href="{{url('/user/home')}}"><i class="fas fa-user m-r5"></i>会員登録</a></div> -->
 
-      <span class="head-login sp"><a href="{{url('/user/home')}}"><i class="fas fa-user m-r5"></i>会員登録</a></span>
+      <span class="head-login sp"><a href="{{url('/user/preusers')}}"><i class="fas fa-user m-r5"></i>会員登録</a></span>
       <span class="head-mail sp"><a href="https://osaka-conference.com/contact/">問合せ</a></span>
       <!-- <span class="head-mail sp"><a href="{{url('/')}}">会場を予約する</a></span> -->
       <span class="btn"><span></span></span>
@@ -166,7 +167,7 @@
           <!-- <div class="head_dl_btn">
             <div><a href="https://system.osaka-conference.com/application/">用紙ダウンロード</a></div>
           </div> -->
-          <div><a class="head-login-btn" href="{{url('/user/home')}}"><i class="fas fa-user m-r5"></i>会員登録</a></div>
+          <div><a class="head-login-btn" href="{{url('/user/preusers')}}"><i class="fas fa-user m-r5"></i>会員登録</a></div>
           <div class="tel">
             <p><em>06-6556-6462</em><br>
               予約専用：10時～18時</p>
@@ -497,7 +498,9 @@
           </div>
       </div>
     </div>
-
+  <div class="sp">
+    <a class="sp_login_btn" href="{{url('/user/home')}}">マイページへ</a>
+  </div>
 
   </div>
   <!-- 住所検索 -->

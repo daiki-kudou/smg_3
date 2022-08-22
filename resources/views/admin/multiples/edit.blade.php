@@ -476,6 +476,7 @@
                       {{ Form::text('cp_master_tel', '',['class'=>'form-control', 'placeholder' =>
                       '半角数字、ハイフンなしで入力してください'] ) }}
                       <p class="is-error-cp_master_tel" style="color: red"></p>
+                      <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                     </td>
                   </tr>
                 </tbody>
@@ -1137,6 +1138,7 @@
                         {{ Form::text('tel_copied'.$key, $pre_reservation->tel,['class'=>'form-control', 'placeholder'
                         => '半角数字、ハイフンなしで入力してください'] ) }}
                         <p class="{{" is-error-tel_copied".$key}}" style="color: red"></p>
+                        <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                       </td>
                     </tr>
                   </tbody>

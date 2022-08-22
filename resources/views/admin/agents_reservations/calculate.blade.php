@@ -476,6 +476,7 @@
                                 <td>
                                     {{ Form::text('enduser_tel', $master_info['enduser_tel'], ['class' => 'form-control', 'placeholder' => '入力してください', 'id' => 'enduser_tel']) }}
                                     <p class="is-error-enduser_tel" style="color: red"></p>
+                                    <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                                 </td>
                             </tr>
                             <tr>
@@ -502,6 +503,7 @@
                                 <td>
                                     {{ Form::text('enduser_mobile', $master_info['enduser_mobile'], ['class' => 'form-control', 'placeholder' => '入力してください', 'id' => 'enduser_mobile']) }}
                                     <p class="is-error-enduser_mobile" style="color: red"></p>
+                                    <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                                 </td>
                             </tr>
                             <tr>

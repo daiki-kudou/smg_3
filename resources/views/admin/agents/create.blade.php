@@ -96,6 +96,7 @@
                   {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control','placeholder' =>
                   '半角数字、ハイフンなしで入力してください']) }}
                   <p class="is-error-person_tel" style="color: red"></p>
+                  <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                 </td>
               </tr>
               <tr>
@@ -136,6 +137,7 @@
                   {{ Form::text('person_mobile', old('person_mobile'), ['class' => 'form-control','placeholder' =>
                   '半角数字、ハイフンなしで入力してください']) }}
                   <p class="is-error-person_mobile" style="color: red"></p>
+                  <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                 </td>
               </tr>
               <tr>

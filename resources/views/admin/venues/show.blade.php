@@ -478,6 +478,7 @@
               <th scope="col">枠</th>
               <th>時間</th>
               <th>料金</th>
+              <th>延長料金</th>
             </tr>
           </thead>
           <tbody>
@@ -491,6 +492,10 @@
               </td>
               <td>{{number_format($frame_price->price)}}
               </td>
+              @if ($loop->first)
+              <td rowspan="{{$frame_prices->count()}}">{{number_format($frame_price->extend)}}円
+              </td>
+              @endif
             </tr>
             @endforeach
           </tbody>

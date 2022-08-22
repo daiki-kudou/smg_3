@@ -32,21 +32,18 @@
           <p>仮押え一覧</p>
         </a>
       </li>
-
-      <li class="nav-item has-treeview">
-        <a href="{{route('user.home.user_info')}}" class="nav-link ">
-          <i class="nav-icon fas fa-user-shield" style=""></i>
-          <p>会員情報</p>
-        </a>
-      </li>
-
       <li class="nav-item has-treeview">
         <a href="{{url('/')}}" target="_blank" class="nav-link venues">
           <i class="nav-icon fas fa-link" style=""></i>
           <p>予約する</p>
         </a>
       </li>
-
+      <li class="nav-item has-treeview">
+        <a href="{{route('user.home.user_info')}}" class="nav-link ">
+          <i class="nav-icon fas fa-user-shield" style=""></i>
+          <p>会員情報</p>
+        </a>
+      </li>
       <li class="nav-item has-treeview">
         <a href="https://system.osaka-conference.com/cancelpolicy/" class="nav-link" target="_blank" rel="noopener">
           <i class="nav-icon fas fa-clipboard-list" style=""></i>

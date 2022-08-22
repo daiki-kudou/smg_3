@@ -522,6 +522,7 @@
                     <td>
                         {{ Form::text('enduser_tel', !empty($reservation['enduser']) ? $reservation['enduser']['tel'] : null, ['class' => 'form-control', 'placeholder' => '入力してください', 'id' => 'enduser_tel']) }}
                         <p class="is-error-enduser_tel" style="color: red"></p>
+                        <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                     </td>
                 </tr>
                 <tr>
@@ -549,6 +550,7 @@
                     <td>
                         {{ Form::text('enduser_mobile', !empty($reservation['enduser']) ? $reservation['enduser']['mobile'] : null, ['class' => 'form-control', 'placeholder' => '入力してください', 'id' => 'enduser_mobile']) }}
                         <p class="is-error-enduser_mobile" style="color: red"></p>
+                        <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                     </td>
                 </tr>
                 <tr>

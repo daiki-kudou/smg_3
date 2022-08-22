@@ -515,6 +515,7 @@
                             <td>
                                 {{ Form::text('tel', $value['tel'], ['class' => 'form-control']) }}
                                 <p class="is-error-tel" style="color: red"></p>
+                                <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                             </td>
                         </tr>
                     </tbody>
