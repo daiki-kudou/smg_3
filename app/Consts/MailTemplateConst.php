@@ -19,4 +19,5 @@ class MailTemplateConst
 	public const RESERVATION_DELETE = 13;
 	public const CXL_APPROVE = 14;
 	public const CXL_DONE = 15;
+	public const REMIND_PAYDAY_2 = 16;
 }
