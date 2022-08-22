@@ -252,6 +252,7 @@
       <table class="table table-bordered compact hover order-column" id="reservation_sort" style="height: 100%;">
         <thead>
           <tr class="table_row">
+            <th class="text-center">予約詳細</th>
             <th>予約一括ID</th>
             <th>予約ID </th>
             <th>利用日 </th>
@@ -267,7 +268,6 @@
             <th>アイコン</th>
             <th width="120">売上区分</th>
             <th width="120">予約状況</th>
-            <th class="text-center">予約詳細</th>
             <th class="text-center">案内板</th>
           </tr>
         </thead>
@@ -347,12 +347,12 @@
 
 <script>
   $(document).ready(function(){
-    $.extend($.fn.dataTable.defaults, {
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
-        }
-    });
-    $('#reservation_sort').DataTable({
+  $.extend($.fn.dataTable.defaults, {
+    language: {
+    url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+  }
+  });
+   $('#reservation_sort').DataTable({
       order:[],
       processing: true,
       serverSide: true,
@@ -393,6 +393,7 @@
         }
       },
       columns: [
+        { data: 'details' },
         { data: 'multiple_reserve_id' },
         { data: 'reservation_id' },
         { data: 'reserve_date' },
@@ -408,12 +409,11 @@
         { data: 'icon' },
         { data: 'category' },
         { data: 'reservation_status' },
-        { data: 'details' },
         { data: 'board' },
       ],
       columnDefs: [
         {
-          targets: [12,13,14,15,16], 
+          targets: [0,12,13,14,15,16], 
           sortable: false, 
           orderable: false
         },
@@ -422,7 +422,7 @@
           className: "text-center",
         },
         {
-          targets: [5],
+          targets: [6],
           className: "venue-width",
         }
       ],

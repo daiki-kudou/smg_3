@@ -7,7 +7,7 @@
     <script src="{{ asset('/js/holidays.js') }}"></script>
     <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-    <h2 class="mt-3 mb-3">仲介会社　仮押え 計算</h2>
+    <h2 class="mt-3 mb-3">仮押え 計算（仲介会社）</h2>
     <hr>
 
     {{ Form::open(['url' => '/admin/pre_agent_reservations/' . $id . '/edit_calculate', 'method' => 'POST', 'id' => 'pre_agent_reservationSingleEditForm', 'autocomplete' => 'off']) }}
@@ -86,6 +86,7 @@
                         <td>
                             {{ Form::text('pre_endusers_tel', $request->pre_endusers_tel, ['class' => 'form-control']) }}
                             <p class="is-error-pre_endusers_tel" style="color: red"></p>
+                            <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                         </td>
                         <td class="table-active">メールアドレス</td>
                         <td>
@@ -102,6 +103,7 @@
                         <td>
                             {{ Form::text('pre_endusers_mobile', $request->pre_endusers_mobile, ['class' => 'form-control']) }}
                             <p class="is-error-pre_endusers_mobile" style="color: red"></p>
+                            <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                         </td>
                     </tr>
                     <tr>

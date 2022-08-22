@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <section class="contents block">
+  <section class="contents block" id="cartNone">
     <div class="block">
       <p class="page-text">再度、会員登録画面にてメールアドレスを入力してください。
       </p>

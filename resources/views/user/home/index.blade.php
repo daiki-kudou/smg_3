@@ -72,6 +72,7 @@
         style="height: 100%;">
         <thead>
           <tr>
+            <th>詳細</th>
             <th>予約ID</th>
             <th>利用日</th>
             <th>入室</th>
@@ -83,7 +84,7 @@
             <th>利用料金</th>
             <th>支払期日</th>
             <th>入金状況</th>
-            <th>予約詳細</th>
+            <th>詳細</th>
             <th>請求書</th>
             <th>領収書</th>
           </tr>
@@ -107,12 +108,12 @@ $("td:contains('未入金')").css("font-weight","bold");
 
 <script>
   $(document).ready(function(){
-    $.extend($.fn.dataTable.defaults, {
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
-        }
-    });
-    var test = $('#sales_sort').DataTable({
+  $.extend($.fn.dataTable.defaults, {
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+         }
+    });
+    var test = $('#sales_sort').DataTable({
       order:[],
       processing: true,
       serverSide: true,
@@ -130,6 +131,7 @@ $("td:contains('未入金')").css("font-weight","bold");
         }
       },
       columns: [
+        { data: 'details' },
         { data: 'reservation_id' },
         { data: 'reserve_date' },
         { data: 'enter_time' },
@@ -150,8 +152,10 @@ $("td:contains('未入金')").css("font-weight","bold");
           $('#counter').text('').text(test.page.info().recordsDisplay);
       },
       columnDefs: [
-        {targets: [5,6,8,9,10,11,12,13], sortable: false, orderable: false},
-        {targets: [7,8],className: "text-right",}
+        {targets: [0,6,7,9,10,11,12,13,14], sortable: false, orderable: false},
+        {targets: [8,9],className: "text-right",},
+        {targets: [0],className: "sp-table",},
+        {targets: [12],className: "pc-table",}
       ],
      });
 });

@@ -7,7 +7,7 @@
   </div>
 </div>
 
-<section class="contents">
+<section class="contents" id="cartNone">
   <div class="section-wrap">
     <p class="txtCenter">パスワードの変更が完了しました</p>
     <p class="txtCenter"><a class="link-btn3" href="{{ url('/user/home') }}">新しいパスワードでログイン</a></p>

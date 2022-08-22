@@ -174,7 +174,7 @@
                                 @endif
                                 @if (!empty($data['adjust']) && $data['adjust'] !== 0)
                                     <tr>
-                                        <td>調整料 (<span>その他</span>・<span>100%</span>)
+                                        <td>調整費
                                         </td>
                                         <td>{{ number_format(round($data['adjust'])) }}
                                         </td>

@@ -28,6 +28,7 @@
     <table class="table table-bordered mt-5" id="venue_sort">
       <thead>
         <tr class="table_row">
+          <th class="btn-cell">詳細</th>
           <th id="id">ID </th>
           <th id="created_at">登録日 </th>
           <th id="alliance_flag">直/携 </th>
@@ -38,13 +39,13 @@
           <th id="layout">レイアウト変更 </th>
           <th id="luggage_flag">預り荷物 </th>
           <th id="eat_in_flag">室内飲食 </th>
-          <th class="btn-cell">詳細</th>
         </tr>
       </thead>
       <tbody>
         @foreach ($venues as $key=>$venue)
         @if (!empty($venue->deleted_at))
         <tr role="row" class="even">
+          <td class="text-center"><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
           <td class="sorting_1">{{ ReservationHelper::fixId($venue->id)}}</td>
           <td>{{ ReservationHelper::formatDate($venue->created_at)}}</td>
           <td class="text-center">{{$venue->alliance_flag==0?'直':'提'}}</td>
@@ -55,10 +56,10 @@
           <td class="text-center">{{$venue->layout==1?"可":"不可"}}</td>
           <td class="text-center">{{$venue->luggage_flag==1?"可":"不可"}}</td>
           <td class="text-center">{{$venue->eat_in_flag==1?"可":"不可"}}</td>
-          <td class="text-center"><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
         </tr>
         @else
         <tr role="row" class="even">
+          <td class="text-center"><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
           <td class="sorting_1">{{ ReservationHelper::fixId($venue->id)}}</td>
           <td>{{ ReservationHelper::formatDate($venue->created_at)}}</td>
           <td class="text-center">{{$venue->alliance_flag==0?'直':'提'}}</td>
@@ -69,7 +70,6 @@
           <td class="text-center">{{$venue->layout==1?"可":"不可"}}</td>
           <td class="text-center">{{$venue->luggage_flag==1?"可":"不可"}}</td>
           <td class="text-center">{{$venue->eat_in_flag==1?"可":"不可"}}</td>
-          <td class="text-center"><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
         </tr>
         @endif
         @endforeach
@@ -103,9 +103,11 @@
       info: false,
       autowidth: false,
       "order": [[ 0, "desc" ]], //初期ソートソート条件
-      "columnDefs": [
-        { "orderable": false, 
-        "targets": [10] 
+      columnDefs: [
+        { 
+          "orderable": false, 
+          "sortable": false,
+          "targets": [0] 
         },
         {
         "className": "text-center",

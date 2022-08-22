@@ -119,11 +119,13 @@ $(function () {
         mobile: {
           number: true,
           minlength: 11,
+          maxlength: 11,
           require_from_group: [1, ".phone_number"]
         },
         tel: {
           number: true,
           minlength: 10,
+          maxlength: 10,
           require_from_group: [1, ".phone_number"]
         },
 
@@ -179,11 +181,13 @@ $(function () {
           required: "※必須項目です",
           number: "※半角数字、ハイフンなしで入力して下さい",
           minlength: "※11桁で入力してください",
+          maxlength: "※11桁で入力してください",
           require_from_group: "携帯番号、電話番号のどちらか一方は必須です",
         },
         tel: {
           number: "※半角数字、ハイフンなしで入力して下さい",
           minlength: "※10桁で入力してください",
+          maxlength: "※10桁で入力してください",
           require_from_group: "携帯番号、電話番号のどちらか一方は必須です",
         },
         fax: {

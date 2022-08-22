@@ -551,6 +551,21 @@ option:disabled {
 }
 
 
+.sp-table {
+    display: none;
+}
+
+@media screen and (max-width: 540px) { 
+    .pc-table {
+        display: none;
+    }
+
+    .sp-table {
+        display: table-cell;
+    }
+}
+
+
 
 
 /* 備考の長さ制限 -----------------------------*/
@@ -2078,6 +2093,9 @@ table .master_total_subttl2 {
         content: "金額";
     }
 
+    .user_info {
+        display: none;
+    }
 
 }
 
@@ -2188,9 +2206,7 @@ table .master_total_subttl2 {
 
 
 @media screen and (max-width: 540px) {
-    .user_info {
-        display: none;
-    }
+
 
     .calender-color {
         flex-wrap: wrap;
@@ -2210,6 +2226,20 @@ table .master_total_subttl2 {
 
     .attention-box {
         width: 100%;
+    }
+
+    /* カレンダー */
+
+    .calender-data {
+        position: relative;
+    }
+
+    .calender-data .field-title {
+        position: sticky;
+        width: 160px;
+        top: 0;
+        left: 0;
+        /* height: 56px; */
     }
 
 

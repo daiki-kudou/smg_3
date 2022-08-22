@@ -106,11 +106,11 @@ $(function () {
           number: "※半角数字、ハイフンなしで入力して下さい",
         },
         person_tel: {
-          minlength: "※10桁で入力してください",
+          minlength: "※10桁を入力してください",
           number: "※半角数字、ハイフンなしで入力して下さい",
         },
         fax: {
-          minlength: "※10桁で入力してください",
+          minlength: "※10桁を入力してください",
           number: "※半角数字、ハイフンなしで入力して下さい",
         },
         email: { email: "※Emailの形式で入力してください" },
@@ -135,7 +135,7 @@ $(function () {
         firstname_kana: { katakana: "※全角カタカナで入力してください" },
         lastname_kana: { katakana: "※全角カタカナで入力してください" },
         person_mobile: {
-          minlength: "※10桁で入力してください",
+          minlength: "※10桁を入力してください",
           number: "※半角数字、ハイフンなしで入力して下さい",
         },
       },

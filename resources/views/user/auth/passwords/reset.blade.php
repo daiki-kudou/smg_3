@@ -10,7 +10,7 @@
     <p>新しいパスワードを設定してください</p>
   </div>
 </div>
-<section class="contents">
+<section class="contents" id="cartNone">
   <form method="POST" action="{{ route('user.password.update') }}" id="password_reset_form">
     @csrf
     <input type="hidden" name="token" value="{{ $token }}">
