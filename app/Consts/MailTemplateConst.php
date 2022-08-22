@@ -23,4 +23,5 @@ class MailTemplateConst
 	public const REMIND_PAYDAY_LIMIT = 17;
 	public const CXL_PAYMENT_DONE = 18;
 	public const PAYMENT_DONE = 19;
+	public const THANKS = 20;
 }
