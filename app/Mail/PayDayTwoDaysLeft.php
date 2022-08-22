@@ -72,7 +72,7 @@ class PayDayTwoDaysLeft extends Mailable
 		$send_html = str_replace('${smg_url}', $this->data->smg_url, $send_html);
 		$send_html = str_replace('${login}', url('/user/login'), $send_html);
 
-		return $this->view('maileclipse::templates.userReqAddRes')
+		return $this->view('maileclipse::templates.payDayTwoDaysLeft')
 			->subject($subtitle)
 			->with([
 				'send_html' => $send_html,
