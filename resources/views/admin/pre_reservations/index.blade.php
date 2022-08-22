@@ -310,7 +310,8 @@
       autowidth: false,
       // column オプションで view の th にあたる部分を定義する
       columns: [
-      { title: "<p class='annotation'>すべて</p> <input type='checkbox' name='all_check' id='all_check'>" },
+        { title: "<p class='annotation'>すべて</p> <input type='checkbox' name='all_check' id='all_check'>" },
+        { title: "仮押え詳細" },
       { title: "仮押えID" },
       { title: "受付日" },
       { title: "利用日" },
@@ -325,12 +326,11 @@
       { title: "仲介会社" },
       { title: "エンドユーザー" },
       { title: "権限" },
-      { title: "仮押え詳細" }
       ],
       order: [],
       columnDefs: [
         {
-          targets: [0,15], 
+          targets: [0,1], 
           sortable: false, 
           orderable: false
         },

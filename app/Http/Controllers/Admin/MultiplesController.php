@@ -48,6 +48,7 @@ class MultiplesController extends Controller
       }
       $multiples[] = [
         "<input type='checkbox' name='checkbox" . $p->multiple_reserve_original_id . "' value='" . $p->multiple_reserve_original_id . "' class='checkbox'>",
+        $detail_link,
         $p->multiple_reserve_id,
         $p->created_at,
         $p->pre_reservation_count,
@@ -59,7 +60,6 @@ class MultiplesController extends Controller
         $p->agent_name,
         $p->enduser,
         (int)$p->pre_status > 0 ? "顧" : "S",
-        $detail_link,
         $p->attention
       ];
     }
