@@ -41,13 +41,13 @@
         </td>
       </tr>
       <tr>
-        <th><label for="address1">住所1（都道府県）</label></th>
+        <th><label for="address1">住所1（都道府県）<span class="txtRed c-block">＊</span></label></th>
         <td>
           {{$request->address1}}
         </td>
       </tr>
       <tr>
-        <th><label for="address2">住所2（市町村番地）</label></th>
+        <th><label for="address2">住所2（市町村番地）<span class="txtRed c-block">＊</span></label></th>
         <td>
           {{$request->address2}}
         </td>

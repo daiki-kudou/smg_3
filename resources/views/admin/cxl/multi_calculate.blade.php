@@ -262,8 +262,8 @@
                                 @endif
                                 @if (!empty($data['adjust']) && $data['adjust'] !== 0)
                                     <tr>
-                                        <td>調整料 (<span>その他</span>・<span>100%</span>)
-                                            {{ Form::hidden('cxl_unit_item[]', '調整料(その他・100%)') }}
+                                        <td>調整費
+                                            {{ Form::hidden('cxl_unit_item[]', '調整費') }}
                                         </td>
                                         <td>{{ number_format(round($data['adjust'])) }}
                                             {{ Form::hidden('cxl_unit_cost[]', round($data['adjust'])) }}

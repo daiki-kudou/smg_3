@@ -162,8 +162,8 @@ $(function () {
         tel: {
           required: "※必須項目です",
           number: "※半角数字、ハイフンなしで入力して下さい",
-          maxlength: "※11桁で入力してください",
-          minlength: "※11桁で入力してください",
+          maxlength: "※11桁を入力して下さい",
+          minlength: "※11桁を入力して下さい",
         },
         luggage_count: {
           number: "半角数字で入力してください",

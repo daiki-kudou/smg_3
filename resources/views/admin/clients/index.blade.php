@@ -150,6 +150,7 @@
             <table class="table table-bordered table-scroll" id="client_sort">
                 <thead>
                     <tr class="table_row">
+                        <th>詳細</th>
                         <th>注意事項</th>
                         <th>顧客ID </th>
                         <th>会社・団体名 </th>
@@ -158,12 +159,12 @@
                         <th>携帯電話 </th>
                         <th>固定電話 </th>
                         <th>担当者メールアドレス </th>
-                        <th>詳細</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
+                            <td><a href="{{ route('admin.clients.show', $user->id) }}" class="btn more_btn">詳細</a></td>
                             <td>{{ $user->attention }}</td>
                             <td>{{ $user->fix_id }}</td>
                             <td>{{ $user->company }}</td>
@@ -172,7 +173,6 @@
                             <td>{{ $user->mobile }}</td>
                             <td>{{ $user->tel }}</td>
                             <td>{{ $user->email }}</td>
-                            <td><a href="{{ route('admin.clients.show', $user->id) }}" class="btn more_btn">詳細</a></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -185,8 +185,8 @@
     <script>
         $(document).ready(function() {
             $.extend($.fn.dataTable.defaults, {
-                : {
-                    : "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+                language: {
+                url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
                 }
             });
             $('#client_sort').DataTable({
@@ -198,7 +198,7 @@
                 ], //初期ソートソート条件
                 "columnDefs": [{
                         "orderable": false,
-                        "targets": [8]
+                        "targets": [0]
                     },
                     {
                         "className": "text-center",

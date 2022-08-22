@@ -46,7 +46,7 @@
         <td colspan="4">
           <dl class="bill-heading">
             <dd>{{ReservationHelper::formatDate($cxl->reservation->reserve_date)}}<span>ご利用料金</span></dd>
-            <dd>{{ReservationHelper::getVenueForUser($cxl->reservation->venue_id)}}</dd>
+            <dd>{{ReservationHelper::getVenueForUser($cxl->reservation->venue_id)}}{{ (int) $cxl->reservation->price_system === 2 ? '(音響HG)' : '' }}</dd>
           </dl>
         </td>
       </tr>

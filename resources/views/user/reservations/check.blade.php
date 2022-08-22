@@ -421,7 +421,7 @@
                 {{ Form::hidden('master', $master) }}
                 {{ Form::hidden('select_id', $request->select_id) }}
                 {{ Form::hidden('cost', $request->cost ?? 0) }}
-                {{ Form::submit('予約カートに追加する', ['class' => 'confirm-btn', 'style' => 'width:100%;', 'name' => 'store']) }}
+                {{ Form::submit('カートに入れる', ['class' => 'confirm-btn', 'style' => 'width:100%;', 'name' => 'store']) }}
             </li>
         </ul>
         {{ Form::close() }}

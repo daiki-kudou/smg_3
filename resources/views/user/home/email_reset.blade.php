@@ -27,7 +27,7 @@
 </div>
 <hr>
 
-<section class="mt-5">
+<section class="mt-5" id="cartNone">
   <p>
     現在のメールアドレス：{{$user_email}}
   </p>

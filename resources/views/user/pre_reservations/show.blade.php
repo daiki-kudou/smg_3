@@ -48,7 +48,7 @@
         <div class="border-wrap2 p-4">
             <div class="row">
                 <div class="col-md-6 col-12">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered mb-0">
                         <tbody>
                             <tr>
                                 <td colspan="2">
@@ -71,7 +71,7 @@
                                 <td class="table-active">会場</td>
                                 <td>
                                     {{ ReservationHelper::getVenueForUser($venue->id) }}
-                                    <div>{{ $pre_reservation->price_system == 1 ? '通常（枠貸）' : '音響HG' }}</div>
+                                    <div>{{ $pre_reservation->price_system == 1 ? '通常（枠貸）' : '(音響HG)' }}</div>
                                 </td>
                             </tr>
                             <tr>
@@ -88,6 +88,8 @@
                             </tr>
                         </tbody>
                     </table>
+                    <p class="warning-text mb-3 mt-1">※入退室時間より以前に入室はできません。</p>
+
                     <table class="table table-bordered">
                         <tbody>
                             <tr>

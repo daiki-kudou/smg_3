@@ -7,7 +7,7 @@
   </div>
 </div>
 
-<section class="contents">
+<section class="contents" id="cartNone">
   <div class="section-wrap">
     <p class="txtCenter">パスワード変更依頼のメールを送信しました</p>
   </div>

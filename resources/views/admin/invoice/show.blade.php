@@ -62,7 +62,7 @@
         <tr>
           <td>
             <dl class="total-billing">
-              <dt>御請求書金額</dt>
+              <dt>御請求金額</dt>
               <dd>
                 <span class="master-total">
                   @if ($cxl)
@@ -109,7 +109,7 @@
               <dl class="bill-heading">
                 <dd>{{ ReservationHelper::formatDate($reservation->reserve_date) }}
                 </dd>
-                <dd>{{ ReservationHelper::getVenueForUser($reservation->venue_id) }}</dd>
+                <dd>{{ ReservationHelper::getVenueForUser($reservation->venue_id) }}{{ (int) $reservation->price_system === 2 ? '(音響HG)' : '' }}</dd>
                 <dd><span>ご利用料金</span></dd>
               </dl>
             </td>

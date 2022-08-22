@@ -457,7 +457,7 @@
             var today = new Date();
             var dd = today.getDate();
             var dt = new Date(target_day);
-            dt.setDate(dt.getDate() - 1);
+            dt.setDate(dt.getDate() - 3);
             var max_date = dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
             $("#datepicker2").datepicker({
                 showButtonPanel: true,
