@@ -192,7 +192,7 @@
                         <th>レイアウト変更</th>
                         <td class="spec-space">
                             <div class="m-b10">
-                                <p>レイアウト準備</p>
+                                <p>レイアウト準備 {{ !empty($venue->layout_prepare)?'('.number_format($venue->layout_prepare).'円)':'' }}</p>
                                 {{ $request->layout_prepare == 1 ? 'あり' : 'なし' }}
                                 {{ Form::hidden('layout_prepare', $request->layout_prepare) }}
                                 <a name="a-selectTime1" class="error-r"></a>
@@ -200,7 +200,7 @@
                     @endif
                     @if ($request->layout_clean == 1)
                         <div class="m-b10">
-                            <p>片付</p>
+                            <p>レイアウト片付 {{ !empty($venue->layout_clean)?'('.number_format($venue->layout_clean).'円)':'' }}</p>
                             {{ $request->layout_clean == 1 ? 'あり' : 'なし' }}
                             {{ Form::hidden('layout_clean', $request->layout_clean) }}
                             <a name="a-selectTime1" class="error-r"></a>
