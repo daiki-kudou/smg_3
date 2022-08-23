@@ -14,16 +14,15 @@ use App\Models\Venue;
 use App\Models\User;
 use App\Models\Agent;
 use App\Models\Enduser;
-
 use Illuminate\Support\Facades\DB; //トランザクション用
-
 use App\Traits\SearchTrait;
-
 use App\Traits\PaginatorTrait;
 // バリデーションロジック
 use App\Http\Requests\Admin\Multiples\Agent\PostRequest;
 use Carbon\Carbon;
 use App\Service\SendSMGEmail;
+use App\Consts\MailTemplateConst;
+use App\Mail\UserPreResCxl;
 
 
 class MultiplesController extends Controller
@@ -475,8 +474,22 @@ class MultiplesController extends Controller
         foreach ($delete_target_array as $v) {
           $preReservation = PreReservation::with(['user', 'venue'])->find($v);
           if ($preReservation->user_id > 0) {
-            $SendSMGEmail = new SendSMGEmail();
-            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除", $preReservation->id);
+            // $SendSMGEmail = new SendSMGEmail();
+            // $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除", $preReservation->id);
+			$admin = config('app.admin_email');
+			\Mail::to($preReservation->user->email)
+			->cc($admin)
+			->send(new UserPreResCxl(
+				MailTemplateConst::PRE_RESERVATION_CXL,
+				$preReservation->user->company,
+				sprintf('%06d', $preReservation->id),
+				date('Y年m月d日',strtotime($preReservation->reserve_date)),
+				date('H:i',strtotime($preReservation->enter_time)),
+				date('H:i',strtotime($preReservation->leave_time)),
+				$preReservation->venue->full_name,
+				$preReservation->venue->smg_url,
+			));
+
           } else { //仲介会社の場合メール送付せず、削除
             $preReservation->delete();
           }

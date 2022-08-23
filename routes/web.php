@@ -381,6 +381,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     // メールてんぷれ
     Route::get('mail_templates', 'MailTemplatesController@index')->name('mail_templates.mail_templates');
+	Route::get('mail_templates/{id}', 'MailTemplatesController@show')->name('mail_templates.show');
+	Route::post('mail_templates/update','MailTemplatesController@update')->name('mail_templates.update');
     Route::get('cron_templates', 'MailTemplatesController@cron')->name('mail_templates.cron_templates');
 
     Route::post('invoice', 'InvoiceController@show');

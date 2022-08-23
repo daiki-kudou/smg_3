@@ -5,14 +5,12 @@ namespace App\Http\Controllers\User\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Auth;
-use App\Service\SendSMGEmail;
 use App\Models\User;
-
+use App\Mail\ResetPasswordEmailDone;
+use App\Consts\MailTemplateConst;
 
 class ResetPasswordController extends Controller
 {
@@ -76,8 +74,15 @@ class ResetPasswordController extends Controller
   protected function sendResetResponse(Request $request, $response)
   {
     $user = User::where('email', $request->email)->first();
-    $SendSMGEmail = new SendSMGEmail();
-    $SendSMGEmail->AuthSend("リセットパスワード完了", ['user' => $user]);
+
+    // $SendSMGEmail = new SendSMGEmail();
+    // $SendSMGEmail->AuthSend("リセットパスワード完了", ['user' => $user]);
+	\Mail::to($user->email)
+	->send(new ResetPasswordEmailDone(
+		MailTemplateConst::RESET_PASSWORD_DONE,
+		$user->company,
+	));
+
 
     return view('user.auth.passwords.reset_cfm');
   }
