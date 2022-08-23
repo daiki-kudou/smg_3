@@ -46,7 +46,7 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">仮押え　編集</h2>
+  <h2 class="mt-3 mb-3">仮押え 編集</h2>
   <hr>
 </div>
 
@@ -779,7 +779,7 @@
           </td>
           <td>
             <dl class="ttl_box">
-              <dt>合計金額</dt>
+              <dt>合計金額（税込）</dt>
               <dd class="total_result">{{number_format($PreReservation->pre_bill->master_total)}}円</dd>
             </dl>
           </td>

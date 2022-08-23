@@ -631,15 +631,16 @@
                         </td>
                         <td>
                             <dl class="ttl_box">
-                                <dt>合計金額</dt>
+                                <dt>合計金額(税込)</dt>
                                 <dd class="total_result">
-                                    円</dd>
+                                {{ number_format($data['master_total']) }}円</dd>
                             </dl>
                         </td>
                         <td>
                             <dl class="ttl_box">
                                 <dt>支払い期日</dt>
                                 <dd class="total_result">
+                                {{ ReservationHelper::formatDate($data['payment_limit']) }}
                                 </dd>
                             </dl>
                         </td>

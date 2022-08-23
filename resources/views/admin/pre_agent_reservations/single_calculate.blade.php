@@ -616,7 +616,7 @@
                             </td>
                             <td>
                                 <dl class="ttl_box">
-                                    <dt>合計金額</dt>
+                                    <dt>合計金額（税込）</dt>
                                     <dd class="total_result">
                                         {{ number_format(ReservationHelper::taxAndPrice(floor($price + $layout_prepare + $layout_clean))) }}
                                     </dd>

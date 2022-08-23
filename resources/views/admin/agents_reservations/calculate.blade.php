@@ -610,7 +610,7 @@
                                 </td>
                                 <td>
                                     <dl class="ttl_box">
-                                        <dt>合計金額</dt>
+                                        <dt>合計金額（税込）</dt>
                                         <dd class="total_result">{{ ReservationHelper::taxAndPrice($price) }}円</dd>
                                     </dl>
                                 </td>
