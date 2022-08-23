@@ -250,7 +250,7 @@
                                 <th>レイアウト変更</th>
                                 <td class="spec-space">
                                     <div class="m-b10">
-                                        <p>レイアウト準備</p>
+                                        <p>レイアウト準備 {{ !empty($venue->layout_prepare)?'('.number_format($venue->layout_prepare).'円)':'' }}</p>
                                         <div class="selectTime">
                                             {{ Form::radio('layout_prepare', 1, !empty($request->layout_prepare) ? ($request->layout_prepare == 1 ? true : false) : false, ['id' => 'layout_prepare', 'class' => 'radio-input']) }}
                                             {{ Form::label('layout_prepare', 'あり') }}
@@ -262,7 +262,7 @@
                             @endif
                             @if ($venue->getLayouts()[1])
                                 <div class="m-b10">
-                                    <p>レイアウト片付</p>
+                                    <p>レイアウト片付 {{ !empty($venue->layout_clean)?'('.number_format($venue->layout_clean).'円)':'' }}</p>
                                     <div class="selectTime">
                                         {{ Form::radio('layout_clean', 1, !empty($request->layout_clean) ? ($request->layout_clean == 1 ? true : false) : false, ['id' => 'layout_clean', 'class' => 'radio-input']) }}
                                         {{ Form::label('layout_clean', 'あり') }}
