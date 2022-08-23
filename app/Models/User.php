@@ -9,11 +9,9 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use App\Notifications\CustomResetPassword; //自作
 
 use Carbon\Carbon;
-
 use Illuminate\Support\Facades\DB; //トランザクション用
-
 use Illuminate\Database\Eloquent\SoftDeletes; //追記
-
+use Yasumi\Yasumi;
 
 // implements MustVerifyEmailを削除した
 class User extends Authenticatable
@@ -150,32 +148,37 @@ class User extends Authenticatable
     return $this->hasMany(PreReservation::class);
   }
 
-  public function getUserPayLimit($reserve_date)
-  {
-    $date = Carbon::parse($reserve_date);
-    $limit = "";
+	public function getUserPayLimit($reserve_date)
+	{
+		$date = Carbon::parse($reserve_date);
 
-    if ($this->pay_limit == 1) {
-      $limit = $date;
-    } elseif ($this->pay_limit == 2) {
-      $limit = $date->subDays(3);
-      if (!$limit->isSaturday() && !$limit->isSunday()) {
-        $limit;
-      } else {
-        $limit->subDays(1);
-      }
-    } elseif ($this->pay_limit == 3) {
-      $limit = $date->endOfMonth();
-    } elseif ($this->pay_limit == 4) {
-      $months = 1; // 追加する月数
-      $limit = $date->day(1)->addMonths($months)->endOfMonth();
-    } elseif ($this->pay_limit == 5) {
-      $months = 2; // 追加する月数
-      $limit = $date->day(1)->addMonths($months)->endOfMonth();
-    }
-    $result = new Carbon($limit);
-    return date("Y-m-d", strtotime($result));
-  }
+		if ($this->pay_limit == 1) {
+			$limit = $date;
+		} elseif ($this->pay_limit == 2) {
+			$subDays = 3;
+			for ($i = 1; $i <= $subDays; $i++) {
+				$checkDay = Carbon::parse($reserve_date)->subDays($i);
+				if ($checkDay->isSunday() || $checkDay->isSaturday()) {
+					$subDays++;
+				}
+				$holidays = Yasumi::create('Japan', date('Y', strtotime($checkDay)));
+				if ($holidays->isHoliday($checkDay)) {
+					$subDays++;
+				}
+			}
+			$limit = Carbon::parse($date->subDays($subDays));
+		} elseif ($this->pay_limit == 3) {
+			$limit = $date->endOfMonth();
+		} elseif ($this->pay_limit == 4) {
+			$months = 1; // 追加する月数
+			$limit = $date->day(1)->addMonths($months)->endOfMonth();
+		} elseif ($this->pay_limit == 5) {
+			$months = 2; // 追加する月数
+			$limit = $date->day(1)->addMonths($months)->endOfMonth();
+		}
+		$result = Carbon::parse($limit)->toDateTimeString();
+		return date("Y-m-d", strtotime($result));
+	}
 
   public function getCompany()
   {
@@ -307,18 +310,6 @@ class User extends Authenticatable
         });
       }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     return $users;
   }
