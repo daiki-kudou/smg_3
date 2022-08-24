@@ -306,7 +306,7 @@
                                 @foreach ($SPVenue->equipments as $key => $equipment)
                                     <tr>
                                         <td class="table-active">
-                                            {{ $equipment->item }}
+                                            {{ $equipment->item }}({{ number_format($equipment->price) . '円' }})
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-end">
@@ -334,7 +334,7 @@
                                 @foreach ($SPVenue->services as $key => $service)
                                     <tr>
                                         <td class="table-active">
-                                            {{ $service->item }}
+                                            {{ $service->item }}({{ number_format($service->price) . '円' }})
                                         </td>
                                         <td>
                                             <div class="radio-box">
@@ -370,7 +370,7 @@
                                     @if ($request->layout_prepare == 1)
                                         <tr>
                                             <td class="table-active">
-                                                準備
+                                                レイアウト準備({{ !empty($SPVenue->layout_prepare) ? number_format($SPVenue->layout_prepare) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
@@ -388,7 +388,7 @@
                                     @else
                                         <tr>
                                             <td class="table-active">
-                                                準備
+                                                レイアウト準備({{ !empty($venue->layout_prepare) ? number_format($venue->layout_prepare) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
@@ -407,7 +407,7 @@
                                     @if ($request->layout_clean == 1)
                                         <tr>
                                             <td class="table-active">
-                                                片付
+                                                レイアウト片付({{ !empty($SPVenue->layout_clean) ? number_format($SPVenue->layout_clean) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
@@ -425,7 +425,7 @@
                                     @else
                                         <tr>
                                             <td class="table-active">
-                                                片付
+                                                レイアウト片付({{ !empty($SPVenue->layout_clean) ? number_format($SPVenue->layout_clean) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
