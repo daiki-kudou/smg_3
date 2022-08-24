@@ -907,7 +907,7 @@
                         <td>
                             {{ Form::text('layout_breakdown_subtotal' . $key, $l_break->unit_subtotal, [
                                 'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          col-xs-3',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          col-xs-3',
                                 'readonly',
                             ]) }}
                         </td>
@@ -933,7 +933,7 @@
                 <td>
                     {{ Form::text('master_subtotal', $PreReservation->pre_bill->master_subtotal, [
                         'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                        text-right',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        text-right',
                         'readonly',
                     ]) }}
                 </td>
@@ -949,7 +949,7 @@
                 <td>
                     {{ Form::text('master_total', $PreReservation->pre_bill->master_total, [
                         'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                        text-right',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        text-right',
                         'readonly',
                     ]) }}
                 </td>
@@ -1132,16 +1132,17 @@
                     },
                 })
                 .done(function($user) {
+                    console.log($user);
                     $('#fullOverlay').css('display', 'none');
-                    $(".company").text($user[0]);
-                    $(".person").text($user[1] + $user[2]);
-                    $(".email").text($user[3]);
-                    $(".mobile").text($user[4]);
-                    $(".tel").text($user[5]);
-                    $(".condition").text($user[7]);
-                    $(".attention").text($user[8]);
-                    $('input[name="user_id"]').val($user[6]);
-                    $('.selected_user_id').text("").text(('000000' + $user[6]).slice(-6));
+                    $(".company").text($user[1]);
+                    $(".person").text($user[2] + $user[3]);
+                    $(".email").text($user[4]);
+                    $(".mobile").text($user[5]);
+                    $(".tel").text($user[6]);
+                    // $(".condition").text($user[7]);
+                    $(".attention").text($user[9]);
+                    $('input[name="user_id"]').val($user[0]);
+                    $('.selected_user_id').text("").text(('000000' + $user[0]).slice(-6));
                 })
                 .fail(function($user) {
                     $('#fullOverlay').css('display', 'none');
