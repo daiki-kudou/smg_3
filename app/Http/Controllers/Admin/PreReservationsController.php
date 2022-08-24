@@ -271,7 +271,7 @@ class PreReservationsController extends Controller
       return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
-    return redirect()->route('admin.pre_reservations.show', $result_pre_reservation->id);
+    return redirect()->route('admin.pre_reservations.show', $result_pre_reservation->id)->with('flash_message', '仮押さえは完了しました');
   }
 
   /**
