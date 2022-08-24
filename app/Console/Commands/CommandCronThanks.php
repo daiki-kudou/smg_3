@@ -43,45 +43,31 @@ class CommandCronThanks extends Command
 	{
 		$reservations = $this->masterQuery();
 		foreach ($reservations as $key => $value) {
-			$status = explode(',', $value->reservation_status);
-			$skip = false;
-			foreach ($status as $s_value) {
-				if ($s_value > 3) {
-					$skip = true;
-				}
-			}
-			if (!$skip) {
-				$SendSMGEmail = new SendSMGEmail();
-				$SendSMGEmail->CronSend(
-					"お礼メール",
-					[
-						'email' => $value->user_email,
-						'company' => $value->company
-					]
-				);
-			}
+			$SendSMGEmail = new SendSMGEmail();
+			$SendSMGEmail->CronSend(
+				"お礼メール",
+				[
+					'email' => $value->email,
+					'company' => $value->company
+				]
+			);
 		}
 	}
 
 	public function masterQuery()
 	{
-		$reservations = DB::table('reservations')
-			->select(DB::raw(
-				"
-        reservations.id as reservation_id,
-        GROUP_CONCAT(DISTINCT bills.reservation_status) as reservation_status,
-        users.company as company,
-        users.email as user_email
-        "
-			))
-			->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')
+
+		$reservations = DB::table('bills')
+			->select(DB::raw("distinct users.id, users.email, users.company"))
+			->leftJoin('reservations', 'bills.reservation_id', '=', 'reservations.id')
 			->leftJoin('users', 'reservations.user_id', '=', 'users.id')
-			->whereRaw('email_flag = 1')
-			->whereRaw('users.id > 0')
-			->whereRaw("reservations.reserve_date = (DATE_FORMAT(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), '%Y-%m-%d'))")
-			->whereRaw('reservations.deleted_at is null')
-			->groupByRaw('reservations.id')
+			->whereRaw("reservation_status = ?", [3])
+			->whereRaw("reservations.email_flag = ?", [1])
+			->whereRaw("reservations.reserve_date = (DATE_FORMAT(DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY), '%Y-%m-%d')) ")
+			->whereRaw("reservations.user_id > ?", [0])
+			->whereRaw("reservations.deleted_at is null")
 			->get();
+
 
 		return $reservations;
 	}
