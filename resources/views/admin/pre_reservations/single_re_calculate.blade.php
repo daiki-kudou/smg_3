@@ -76,7 +76,7 @@
                     <tr>
                         <td class="table-active caution" scope="row"><label for="">注意事項</label></td>
                         <td class="caution" colspan="3">
-                            {!! nl2br(e(ReservationHelper::getPersonAttention($request->user_id))) !!}
+                            <p>{!! nl2br(e(ReservationHelper::getPersonAttention($request->user_id))) !!}</p>
                         </td>
                     </tr>
                 </tbody>
@@ -1201,18 +1201,15 @@
                         },
                     })
                     .done(function($user) {
+                        console.log($user);
                         $('#fullOverlay').css('display', 'none');
-                        $(".user_info").find('tr').eq(0).find('td').eq(1).text("");
-                        $(".user_info").find('tr').eq(0).find('td').eq(1).text($user[0]);
-                        $(".user_info").find('tr').eq(1).find('td').eq(1).text("");
-                        $(".user_info").find('tr').eq(1).find('td').eq(1).text($user[1] + $user[2]);
-                        $(".user_info").find('tr').eq(1).find('td').eq(3).text("");
-                        $(".user_info").find('tr').eq(1).find('td').eq(3).text($user[3]);
-                        $(".user_info").find('tr').eq(2).find('td').eq(1).text("");
-                        $(".user_info").find('tr').eq(2).find('td').eq(1).text($user[4]);
-                        $(".user_info").find('tr').eq(2).find('td').eq(3).text("");
-                        $(".user_info").find('tr').eq(2).find('td').eq(3).text($user[5]);
-                        $('input[name="user_id"]').val($user[6]);
+                        $(".user_info").find('tr').eq(0).find('td').eq(1).text("").text($user[1]);
+                        $(".person").text("").text($user[2] + $user[3]);
+                        $(".email").text("").text($user[4]);
+                        $(".mobile").text("").text($user[5]);
+                        $(".tel").text("").text($user[6]);
+                        $(".caution p").text("").text($user[9]);
+                        $('input[name="user_id"]').val($user[0]);
                     })
                     .fail(function($user) {
                         $('#fullOverlay').css('display', 'none');
