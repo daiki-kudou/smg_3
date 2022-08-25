@@ -31,6 +31,14 @@
                 </ul>
             </div>
         @endif
+        @if (session('flash_message'))
+            <div class="alert alert-success">
+                <ul>
+                    <li> {!! session('flash_message') !!} </li>
+                </ul>
+            </div>
+        @endif
+
 
         <div class="mb-3 mt-5 align-items-center d-flex justify-content-between">
             @if ($reservation->bills->sortBy('id')->first()->reservation_status < 3)
@@ -662,7 +670,7 @@
                                 id="{{ 'bill_edit_m' .
                                     $reservation->bills->sortBy(
                                             "
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        id",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        id",
                                         )->first()->id }}">
                             <label for="{{ 'bill_edit_m' . $reservation->bills->sortBy(' id')->first()->id }}">編集する</label>
                         </p>
@@ -673,7 +681,7 @@
                                         <td>
                                             請求日：{{ Form::text('bill_created_at', $reservation->bills->sortBy('id')->first()->bill_created_at, [
                                                 'class' => 'form-control
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              bill_edit datepicker_no_min_date',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          bill_edit datepicker_no_min_date',
                                                 'disabled',
                                             ]) }}
                                         </td>
@@ -1446,15 +1454,15 @@
                                         <tr>
                                             <td>
                                                 請求日：
-                                                {{ Form::text('bill_created_at', $cxl->bill_created_at, ['class' => 'form-control datepicker_no_min_date cxl_bill_edit','disabled',]) }}
+                                                {{ Form::text('bill_created_at', $cxl->bill_created_at, ['class' => 'form-control datepicker_no_min_date cxl_bill_edit', 'disabled']) }}
                                             </td>
                                             <td>支払期日：
-                                                {{ Form::text('payment_limit', $cxl->payment_limit, ['class' => 'form-control datepicker_no_min_date cxl_bill_edit','disabled',]) }}
+                                                {{ Form::text('payment_limit', $cxl->payment_limit, ['class' => 'form-control datepicker_no_min_date cxl_bill_edit', 'disabled']) }}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>請求書宛名：
-                                                {{ Form::text('bill_company', $cxl->bill_company, ['class' => 'form-control cxl_bill_edit','disabled',]) }}
+                                                {{ Form::text('bill_company', $cxl->bill_company, ['class' => 'form-control cxl_bill_edit', 'disabled']) }}
                                             </td>
                                             <td>
                                                 担当者：
@@ -1465,7 +1473,7 @@
                                             <td colspan="2">
                                                 <p>請求書備考</p>
                                                 <p>
-                                                    {{ Form::textarea('bill_remark', $cxl->bill_remark, ['class' => 'form-control cxl_bill_edit','disabled',]) }}
+                                                    {{ Form::textarea('bill_remark', $cxl->bill_remark, ['class' => 'form-control cxl_bill_edit', 'disabled']) }}
                                                 </p>
                                             </td>
                                         </tr>
