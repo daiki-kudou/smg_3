@@ -192,7 +192,7 @@
                         <th>レイアウト変更</th>
                         <td class="spec-space">
                             <div class="m-b10">
-                                <p>レイアウト準備 {{ !empty($venue->layout_prepare)?'('.number_format($venue->layout_prepare).'円)':'' }}</p>
+                                <p>レイアウト準備 {{ !empty($venue->layout_prepare) ? '(' . number_format($venue->layout_prepare) . '円)' : '' }}</p>
                                 {{ $request->layout_prepare == 1 ? 'あり' : 'なし' }}
                                 {{ Form::hidden('layout_prepare', $request->layout_prepare) }}
                                 <a name="a-selectTime1" class="error-r"></a>
@@ -200,7 +200,7 @@
                     @endif
                     @if ($request->layout_clean == 1)
                         <div class="m-b10">
-                            <p>レイアウト片付 {{ !empty($venue->layout_clean)?'('.number_format($venue->layout_clean).'円)':'' }}</p>
+                            <p>レイアウト片付 {{ !empty($venue->layout_clean) ? '(' . number_format($venue->layout_clean) . '円)' : '' }}</p>
                             {{ $request->layout_clean == 1 ? 'あり' : 'なし' }}
                             {{ Form::hidden('layout_clean', $request->layout_clean) }}
                             <a name="a-selectTime1" class="error-r"></a>
@@ -331,7 +331,7 @@
                             </td>
                         </tr>
                     @endif
-                    @if (ReservationHelper::checkServiceBreakdowns($request->all()) != 0 ||$request->luggage_flag|| $request->luggage_count || $request->luggage_arrive || $request->luggage_return)
+                    @if (ReservationHelper::checkServiceBreakdowns($request->all()) != 0 || $request->luggage_flag || $request->luggage_count || $request->luggage_arrive || $request->luggage_return)
                         <tr>
                             <th class=""><label for="service">有料サービス</label></th>
                             <td>
@@ -346,7 +346,7 @@
                                         {{ Form::hidden('service_breakdown_count[]', $service_result[2]) }}
                                         {{ Form::hidden('service_breakdown_subtotal[]', ReservationHelper::numTimesNum($service_result[1], $service_result[2])) }}
                                     @endforeach
-                                    @if ($request->luggage_flag||$request->luggage_count || $request->luggage_arrive || $request->luggage_return)
+                                    @if ($request->luggage_flag || $request->luggage_count || $request->luggage_arrive || $request->luggage_return)
                                         <li>
                                             <p>荷物預かり</p>
                                             <p>500<span>円</span></p>
@@ -427,7 +427,7 @@
         {{ Form::close() }}
     </section>
 
-    <form action="{{ url('user/reservations/create?date=' . $request->date . '&venue_id=' . $request->venue_id . '&enter_time=' . $request->enter_time . '&leave_time=' . $request->leave_time) }}" method="post" id="backform">
+    <form action="{{ url('user/reservations/re_create') }}" method="post" id="backform">
         @csrf
         {{ Form::hidden('venue_id', $request->venue_id) }}
         {{ Form::hidden('in_charge', $request->in_charge) }}
@@ -545,8 +545,9 @@
         {{ Form::hidden('price_result', json_encode($price_result)) }}
         {{ Form::hidden('items_results', json_encode($items_results)) }}
         {{ Form::hidden('master', $master) }}
-        {{ Form::hidden('select_id', $request->select_id) }}
+        {{ Form::hidden('session_reservation_id', $request->select_id) }}
         {{ Form::hidden('cost', $request->cost ?? 0) }}
+        {{ Form::hidden('form_back', 1) }}
     </form>
 
     <div class="top contents"><a href="#top"><img src="https://system.osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
