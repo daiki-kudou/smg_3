@@ -23,6 +23,8 @@ use App\Models\MailTemplate;
 use App\Mail\ResetEmail;
 use App\Mail\ResetEmailDone;
 use App\Mail\UserUnSub;
+use Illuminate\Validation\Rule;
+
 
 class HomeController extends Controller
 {
@@ -192,9 +194,11 @@ class HomeController extends Controller
 
 	public function email_reset_create(Request $request)
 	{
-
 		$request->validate([
-			'new_email' => 'required|unique:users,email|email',
+			'new_email' => [
+				'required',
+				'email',
+				Rule::unique('users', 'email')->whereNull('deleted_at')]
 		]);
 		$token = hash_hmac('sha256', Str::random(40) . $request->new_email, config('app.key'));
 		$result = DB::transaction(function () use ($request, $token) {
