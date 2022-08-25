@@ -466,7 +466,7 @@ class ReservationsController extends Controller
       $SendSMGEmail = new SendSMGEmail();
       $SendSMGEmail->send("管理者ダブルチェック完了後、ユーザーへ承認依頼を送付", ['reservation_id' => $reservation_id, 'bill_id' => $reservation->bills->first()->id]);
     });
-    return redirect()->route('admin.reservations.index')->with('flash_message', 'ユーザーに承認メールを送信しました');
+    return redirect()->route('admin.reservations.show',$request->reservation_id)->with('flash_message', 'ユーザーに承認メールを送信しました');
   }
 
   public function confirm_reservation(Request $request)
