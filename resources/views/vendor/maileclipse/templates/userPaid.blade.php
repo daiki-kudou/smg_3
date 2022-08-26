@@ -1,218 +1,152 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Plain Jane Text</title>
-    <style type="text/css">
-      /* Based on The MailChimp Reset INLINE: Yes. */
-      /* Client-specific Styles */
-      #outlook a {
-        padding: 0;
-      }
+<!doctype html>
+<html lang="ja">
 
-      /* Force Outlook to provide a "view in browser" menu link. */
-      body {
-        width: 100% !important;
-        margin: 0;
-        padding: 0;
-        -webkit-text-size-adjust: 100%;
-        -ms-text-size-adjust: 100%;
-      }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1200, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'Laravel') }}</title>
+</head>
 
-      /* Prevent Webkit and Windows Mobile platforms from changing default font sizes.*/
-      .ExternalClass {
-        width: 100%;
-      }
+<body class="hold-transition sidebar-mini">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            line-height: calc(0.25rem + 1em + 0.25rem)
+        }
 
-      /* Force Hotmail to display emails at full width */
-      .ExternalClass,
-      .ExternalClass p,
-      .ExternalClass span,
-      .ExternalClass font,
-      .ExternalClass td,
-      .ExternalClass div {
-        line-height: 100%;
-      }
+        *,
+        ::before,
+        ::after {
+            box-sizing: border-box
+        }
 
-      /* Forces Hotmail to display normal line spacing.  More on that: http://www.emailonacid.com/forum/viewthread/43/ */
-      #backgroundTable {
-        margin: 0;
-        padding: 0;
-        width: 100% !important;
-        line-height: 100% !important;
-      }
-      /* End reset */
-      /* Some sensible defaults for images
-          Bring inline: Yes. */
+        *:where(:not(fieldset, progress, meter)) {
+            border-width: 0;
+            border-style: solid;
+            background-origin: border-box;
+            background-repeat: no-repeat
+        }
 
-      img {
-        outline: none;
-        text-decoration: none;
-        -ms-interpolation-mode: bicubic;
-      }
+        html {
+            block-size: 100%;
+            -webkit-text-size-adjust: none
+        }
 
-      a img {
-        border: none;
-      }
+        @media (prefers-reduced-motion:no-preference) {
+            html:focus-within {
+                scroll-behavior: smooth
+            }
+        }
 
-      .image_fix {
-        display: block;
-      }
+        body {
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeSpeed;
+            min-block-size: 100%
+        }
 
-      /* Yahoo paragraph fix
-          Bring inline: Yes. */
-      p {
-        margin: 1em 0;
-      }
+        :where(img, svg, video, canvas, audio, iframe, embed, object) {
+            display: block
+        }
 
-      /* Hotmail header color reset
-          Bring inline: Yes. */
-      h1, h2, h3, h4, h5, h6 {
-        color: black !important;
-      }
+        :where(img, svg, video) {
+            block-size: auto;
+            max-inline-size: 100%
+        }
 
-      h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
-        color: blue !important;
-      }
+        :where(svg) {
+            stroke: none;
+            fill: currentColor
+        }
 
-      h1 a:active, h2 a:active, h3 a:active, h4 a:active, h5 a:active, h6 a:active {
-        color: red !important;
-        /* Preferably not the same color as the normal header link color.  There is limited support for psuedo classes in email clients, this was added just for good measure. */
-      }
+        :where(svg):where(:not([fill])) {
+            stroke: currentColor;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round
+        }
 
-      h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
-        color: #000;
-        color: purple !important;
-        /* Preferably not the same color as the normal header link color. There is limited support for psuedo classes in email clients, this was added just for good measure. */
-      }
+        :where(svg):where(:not([width])) {
+            inline-size: 5rem
+        }
 
-      /* Outlook 07, 10 Padding issue fix
-          Bring inline: No.*/
-      table td {
-        border-collapse: collapse;
-      }
+        :where(input, button, textarea, select),
+        :where(input[type="file"])::-webkit-file-upload-button {
+            color: inherit;
+            font: inherit;
+            font-size: inherit;
+            letter-spacing: inherit
+        }
 
-      /* Remove spacing around Outlook 07, 10 tables
-          Bring inline: Yes */
-      table {
-        border-collapse: collapse;
-        mso-table-lspace: 0pt;
-        mso-table-rspace: 0pt;
-      }
+        :where(textarea) {
+            resize: vertical
+        }
 
+        @supports (resize:block) {
+            :where(textarea) {
+                resize: block
+            }
+        }
 
-      /* Global */
-      * {
-        margin: 0;
-        padding: 0;
-      }
+        :where(p, h1, h2, h3, h4, h5, h6) {
+            overflow-wrap: break-word
+        }
 
-      body {
-        -webkit-text-size-adjust: 100%;
-        -ms-text-size-adjust: 100%;
-        width: 100%!important;
-        height: 100%;
-        font-family: Cambria, Utopia, "Liberation Serif", Times, "Times New Roman", serif;
-        font-weight: 400;
-        font-size: 100%;
-        line-height: 1.6;
-      }
+        h1 {
+            font-size: 2em
+        }
 
-      /* Styling your links has become much simpler with the new Yahoo.  In fact, it falls in line with the main credo of styling in email and make sure to bring your styles inline.  Your link colors will be uniform across clients when brought inline.
-          Bring inline: Yes. */
-      a {
-        color: #348eda;
-      }
+        :where(ul, ol)[role="list"] {
+            list-style: none
+        }
 
-      h1, h2, h3, h4, h5,
-      p, ul, ol {
-        /* This fixes Gmail's terrible text rendering  */
-        font-family: Cambria, Utopia, "Liberation Serif",Times, "Times New Roman", serif;
-        font-weight: 400;
-      }
+        a:not([class]) {
+            text-decoration-skip-ink: auto
+        }
 
-      h1, h2, h3, h4, h5 {
-        margin: 20px 0 10px;
-        color: #000;
-        line-height: 1.2;
-      }
+        :where(a[href], area, button, input, label[for], select, summary, textarea, [tabindex]:not([tabindex*="-"])) {
+            cursor: pointer;
+            touch-action: manipulation
+        }
 
-      h1 { font-size: 32px; }
-      h2 { font-size: 26px; }
-      h3 { font-size: 22px; }
-      h4 { font-size: 18px; }
-      h5 { font-size: 16px; }
+        :where(input[type="file"]) {
+            cursor: auto
+        }
 
-      p, ul, ol {
-        margin-bottom: 10px;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 1.4;
-      }
+        :where(input[type="file"])::-webkit-file-upload-button,
+        :where(input[type="file"])::file-selector-button {
+            cursor: pointer
+        }
 
-      ul li,
-      ol li {
-        margin-left: 5px;
-        list-style-position: inside;
-      }
+        @media (prefers-reduced-motion:no-preference) {
+            :focus-visible {
+                transition: outline-offset 145ms cubic-bezier(.25, 0, .4, 1)
+            }
 
-      /* Body */
-      table.body-wrap {
-        width: 100%;
-        padding: 30px;
-      }
+            :where(:not(:active)):focus-visible {
+                transition-duration: 0.25s
+            }
+        }
 
+        :where(:not(:active)):focus-visible {
+            outline-offset: 5px
+        }
 
-      /* Footer */
-      table.footer-wrap {
-        width: 100%;
-        clear: both!important;
-      }
+        :where(button, button[type], input[type="button"], input[type="submit"], input[type="reset"]),
+        :where(input[type="file"])::-webkit-file-upload-button,
+        :where(input[type="file"])::file-selector-button {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            user-select: none;
+            text-align: center
+        }
 
-      .footer-wrap .container p {
-        font-size: 12px;
-        color: #666;
-      }
-
-      table.footer-wrap a {
-        color: #999;
-      }
-
-
-      /* Give it some responsive love */
-      .container {
-        display: block!important;
-        max-width: 600px!important;
-        margin: 0 auto!important; /* makes it centered */
-        clear: both!important;
-      }
-
-      /* Set the padding on the td rather than the div for Outlook compatibility */
-      .body-wrap .container {
-        padding: 30px;
-      }
-
-      /* This should also be a block element, so that it will fill 100% of the .container */
-      .content {
-        max-width: 600px;
-        margin: 0 auto;
-        display: block;
-      }
-
-      /* Let's make sure tables in the content area are 100% wide */
-      .content table {
-        width: 100%;
-      }
+        :where(button, button[type], input[type="button"], input[type="submit"], input[type="reset"])[disabled] {
+            cursor: not-allowed
+        }
     </style>
-    <!--[if gte mso 9]>
-      <style>
-        /* Target Outlook 2007 and 2010 */
-      </style>
-    <![endif]-->
-  </head>
-
-  <body>
-<pre>----------------------------------------------------------------------------------<br />当メールは自動送信メールです。<br />----------------------------------------------------------------------------------<br /><br />{{ $company }} 様<br /><br />株式会社SMGです。<br /><br />いつも「SMG貸し会議室」をご利用頂き、<br />誠にありがとうございます。<br /><br />下記の通り、利用料金のご入金を確認させて頂きました。<br />お忙しい中にも関わらず、ご対応頂きましてありがとうございました。<br /><br />────────────────<br />【ご入金済みの予約内容】<br />・カテゴリ：{{ $bill_or_add_bill }}<br />・予約ID：{{ $reservation_id }}<br />・ご利用日：{{ $reserve_date }}<br />・ご利用時間：{{ $enter_time }}～{{ $leave_time }}<br />・会場：{{ $venue_name }}<br />・請求書No：{{ $invoice_number }}<br />・支払期日：{{ $payment_limit }}<br />・利用料金：{{ $master_total }} 円<br />・会場URL：{{ $smg_url }}<br />────────────────<br />【領収書について】<br />領収書は会員マイページからダウンロードして頂けます。<br />▼マイページログイン画面<br /><a href="{{url('/user/login')}}">マイページ</a><br />────────────────<br /><br />ご不明な点がございましたら気軽にお問合せ下さい。<br />どうぞよろしくお願い致します。<br /><br />----------------------------------------------------------------------------------<br />※万一、本メールにお心当たりがない場合は、<br />　大変お手数ですが下記署名欄の連絡先までお知らせ下さい。<br />----------------------------------------------------------------------------------<br />SMG貸し会議室（株式会社SMG）<br />〒550-0014 <br />大阪市西区北堀江1-6-2 サンワールドビル11F<br />TEL: 0665566462　FAX: 0665384315<br />（受付時間：平日10時～18時）<br />E-mail: kaigi@s-mg.co.jp<br />HP: {{url('/')}}<br />----------------------------------------------------------------------------------</pre>
+    {!! $send_html !!}
 </body>
+
 </html>

@@ -67,11 +67,11 @@
                         <td class="text-left">
                             <ul class="search_category">
                                 <li>
-                                    {{ Form::radio('attention', 1, (int) $request->attention === 1 ? true : false, ['id' => 'chk_atten']) }}
+                                    {{ Form::radio('attention', 1, (int) $request->attention == 1 ? true : false, ['id' => 'chk_atten']) }}
                                     {{ Form::label('chk_atten', 'あり') }}
                                 </li>
                                 <li>
-                                    {{ Form::radio('attention', 2, (int) $request->attention === 2 ? true : ($request->attention === 1 ? false : true), ['id' => 'chk_atten_no']) }}
+                                    {{ Form::radio('attention', 2, (int) $request->attention == 2 ? true : ($request->attention == 1 ? false : true), ['id' => 'chk_atten_no']) }}
                                     {{ Form::label('chk_atten_no', 'なし') }}
                                 </li>
                             </ul>
@@ -186,7 +186,7 @@
         $(document).ready(function() {
             $.extend($.fn.dataTable.defaults, {
                 language: {
-                url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+                    url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
                 }
             });
             $('#client_sort').DataTable({

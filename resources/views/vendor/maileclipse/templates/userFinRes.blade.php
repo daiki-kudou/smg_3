@@ -1,117 +1,152 @@
-<pre>
-----------------------------------------------------------------------------------
-当メールは自動送信メールです。
-----------------------------------------------------------------------------------
+<!doctype html>
+<html lang="ja">
 
-{{ $company }} 様
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1200, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'Laravel') }}</title>
+</head>
 
-株式会社SMGです。
-いつも「SMG貸し会議室」をご利用頂き、
-誠にありがとうございます。
+<body class="hold-transition sidebar-mini">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            line-height: calc(0.25rem + 1em + 0.25rem)
+        }
 
-本メールをもちまして
-下記の通り、予約が完了しました。
-ご確認の上、支払期日までに利用料金をお振込下さいますよう
-よろしくお願いいたします。
+        *,
+        ::before,
+        ::after {
+            box-sizing: border-box
+        }
 
-▼マイページログイン
-マイページ
-────────────────
-【予約内容】
-────────────────
-・会員ID：{{ $user_id }}
-・カテゴリ：会場予約
-・予約ID：{{ $reservation_id }}
-・ご利用日：{{ $reserve_date }}
-・ご利用時間：{{ $enter_time }}～{{ $leave_time }}
-・会場：{{ $venue_name }}
-・当日の担当者：{{ $in_charge }}
-・当日の担当者連絡先：{{ $tel }}{{ $price_system }}{{ $board_flag }}
+        *:where(:not(fieldset, progress, meter)) {
+            border-width: 0;
+            border-style: solid;
+            background-origin: border-box;
+            background-repeat: no-repeat
+        }
 
-@if ((int) $eat_in === 1)
-・室内飲食：室内飲食　あり
-@if ((int) $eat_in_prepare === 1)
-手配済み
-@elseif((int) $eat_in_prepare === 2)
-検討中
-@endif
-@endif 
-@if (count($equipment_data) !== 0)
+        html {
+            block-size: 100%;
+            -webkit-text-size-adjust: none
+        }
 
-・有料備品：
-@foreach ($equipment_data as $e)
-{{ $e['unit_item'] }}+{{ number_format($e['unit_cost']) }}円+{{ $e['unit_count'] }}個
-@endforeach
-@endif
-@if (count($service_data) !== 0)
+        @media (prefers-reduced-motion:no-preference) {
+            html:focus-within {
+                scroll-behavior: smooth
+            }
+        }
 
-・有料サービス：
-@foreach ($service_data as $s)
-{{ $s['unit_item'] }}+{{ number_format($s['unit_cost']) }}円
-@endforeach
-@endif
-@if (count($layout_data) !== 0)
+        body {
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeSpeed;
+            min-block-size: 100%
+        }
 
-・レイアウト変更：
-@foreach ($layout_data as $l)
-{{ $l }}
-@endforeach
-@endif
-@if ((int) $luggage_flag === 1)
+        :where(img, svg, video, canvas, audio, iframe, embed, object) {
+            display: block
+        }
 
-・荷物預かり：荷物預かり あり
-事前に預かる荷物（目安）：{{ $luggage_count }}個
-事前荷物の到着日（午前指定）：{{ $luggage_arrive }}
-事後返送する荷物：{{ $luggage_return }}個
-@endif
-@if (!empty($admin_details))
+        :where(img, svg, video) {
+            block-size: auto;
+            max-inline-size: 100%
+        }
 
-・備考：
-{{ $admin_details }}
-@endif
+        :where(svg) {
+            stroke: none;
+            fill: currentColor
+        }
 
-・ご利用料金：{{ $bill_data->master_total }}円
+        :where(svg):where(:not([fill])) {
+            stroke: currentColor;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round
+        }
 
-・支払期日：{{ $bill_data->payment_limit }}
+        :where(svg):where(:not([width])) {
+            inline-size: 5rem
+        }
 
-・会場URL：{{ $smg_url }}
-────────────────
-【料金のお支払いについて】
-────────────────
-支払期日をご確認の上、銀行振込みにてお支払い下さい。
-・請求書No：{{ $bill_data->invoice_number }}
-・利用料金：{{ $bill_data->master_total }}
-・支払期日：{{ $bill_data->payment_limit }}
-▼SMG銀行口座情報
-銀行名：みずほ銀行　四ツ橋支店
-口座番号：普通　1113739
-口座名義：ｶ)ｴｽｴﾑｼﾞｰ
-※お支払いについて
-https://osaka-conference.com/flow/#step3
-────────────────
-【予約キャンセル・変更について】
-────────────────
-本メールをもって「予約完了」しております。
-これより予約変更・キャンセルをされる場合は、
-原則、キャンセル料金が発生致しますのでご了承下さい。
-キャンセルポリシー
-https://osaka-conference.com/cancelpolicy/
-────────────────
-▼マイページログイン
-マイページ貸し会議室の予約申込み、予約内容の確認、
-会員情報変更などが可能です。
-────────────────
+        :where(input, button, textarea, select),
+        :where(input[type="file"])::-webkit-file-upload-button {
+            color: inherit;
+            font: inherit;
+            font-size: inherit;
+            letter-spacing: inherit
+        }
 
-ご不明な点がございましたら気軽にお問合せ下さい。
-どうぞよろしくお願い致します。
-----------------------------------------------------------------------------------
-※万一、本メールにお心当たりがない場合は、　大変お手数ですが下記署名欄の連絡先までお知らせ下さい。
-----------------------------------------------------------------------------------
-SMG貸し会議室（株式会社SMG）
-〒550-0014
-大阪市西区北堀江1-6-2 サンワールドビル11F
-TEL: 0665566462
-FAX: 0665384315（受付時間：平日10時～18時）
-E-mail: kaigi@s-mg.co.jpHP: {{ url('/') }}
-----------------------------------------------------------------------------------
-</pre>
+        :where(textarea) {
+            resize: vertical
+        }
+
+        @supports (resize:block) {
+            :where(textarea) {
+                resize: block
+            }
+        }
+
+        :where(p, h1, h2, h3, h4, h5, h6) {
+            overflow-wrap: break-word
+        }
+
+        h1 {
+            font-size: 2em
+        }
+
+        :where(ul, ol)[role="list"] {
+            list-style: none
+        }
+
+        a:not([class]) {
+            text-decoration-skip-ink: auto
+        }
+
+        :where(a[href], area, button, input, label[for], select, summary, textarea, [tabindex]:not([tabindex*="-"])) {
+            cursor: pointer;
+            touch-action: manipulation
+        }
+
+        :where(input[type="file"]) {
+            cursor: auto
+        }
+
+        :where(input[type="file"])::-webkit-file-upload-button,
+        :where(input[type="file"])::file-selector-button {
+            cursor: pointer
+        }
+
+        @media (prefers-reduced-motion:no-preference) {
+            :focus-visible {
+                transition: outline-offset 145ms cubic-bezier(.25, 0, .4, 1)
+            }
+
+            :where(:not(:active)):focus-visible {
+                transition-duration: 0.25s
+            }
+        }
+
+        :where(:not(:active)):focus-visible {
+            outline-offset: 5px
+        }
+
+        :where(button, button[type], input[type="button"], input[type="submit"], input[type="reset"]),
+        :where(input[type="file"])::-webkit-file-upload-button,
+        :where(input[type="file"])::file-selector-button {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            user-select: none;
+            text-align: center
+        }
+
+        :where(button, button[type], input[type="button"], input[type="submit"], input[type="reset"])[disabled] {
+            cursor: not-allowed
+        }
+    </style>
+    {!! $send_html !!}
+</body>
+
+</html>

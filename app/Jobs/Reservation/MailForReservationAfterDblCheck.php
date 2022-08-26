@@ -41,11 +41,13 @@ class MailForReservationAfterDblCheck implements ShouldQueue
     $data = $this->adjustReservationData();
     $subject = "【会議室｜[予約情報：会場予約]：" . $data->reservation_id . "】承認手続きのお願い（SMG貸し会議室）";
     $master_total = $this->adjustBillData();
+	$category = '会場予約';
     Mail::to($data->user_email)
       ->send(new UserFinDblChk(
         $data,
         $subject,
-        $master_total
+        $master_total,
+		$category
       ));
   }
 

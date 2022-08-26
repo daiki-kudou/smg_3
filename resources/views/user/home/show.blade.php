@@ -81,9 +81,7 @@
                                         <p><span>申込日：</span>{{ ReservationHelper::formatDate($reservation->created_at) }}
                                         </p>
                                         <p>
-                                            <span>予約確定日：</span>{{ !empty($reservation->bills()->first()->cfm_at)
-                                                ? ReservationHelper::formatDate($reservation->bills()->first()->cfm_at)
-                                                : '' }}
+                                            <span>予約確定日：</span>{{ !empty($reservation->bills()->first()->cfm_at) ? ReservationHelper::formatDate($reservation->bills()->first()->cfm_at) : '' }}
                                         </p>
                                     </li>
                                 </ul>
@@ -117,7 +115,7 @@
                                 <td>
                                     <p>
                                         {{ ReservationHelper::getVenueForUser($reservation->venue_id) }}<br>
-                                    <span>{{ (int) $reservation->price_system === 2 ? '(音響HG)' : '' }}</span>
+                                        <span>{{ (int) $reservation->price_system === 2 ? '(音響HG)' : '' }}</span>
                                     </p>
                                 </td>
                             </tr>
@@ -428,35 +426,15 @@
                                             <div class="bill_btn_wrap">
                                                 <p class="ml-2 mb-1">
                                                     @if ((int) $reservation->bills->sortBy('id')->first()->reservation_status === 3)
-                                                        <a target="_blank"
-                                                            href="{{ url(
-                                                                '/user/home/invoice/' .
-                                                                    $reservation->id .
-                                                                    '/' .
-                                                                    $reservation->bills->sortBy(
-                                                                            "
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      id",
-                                                                        )->first()->id .
-                                                                    '/0',
-                                                            ) }}"
-                                                            class="more_btn btn">
+                                                        <a target="_blank" href="{{ url('/user/home/invoice/' . $reservation->id . '/' . $reservation->bills->sortBy('id')->first()->id . '/0') }}"class="more_btn btn">
                                                             請求書をみる
                                                         </a>
                                                     @endif
                                                 </p>
 
                                                 <p class="ml-2">
-                                                    @if ((int) $reservation->bills->sortBy('id')->first()->paid === 1)
-                                                        <a target="_blank"
-                                                            href="{{ url(
-                                                                '/user/home/receipt/' .
-                                                                    $reservation->bills->sortBy(
-                                                                            "
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      id",
-                                                                        )->first()->id .
-                                                                    '/0',
-                                                            ) }}"
-                                                            class="more_btn4 btn">領収書をみる
+                                                    @if ((int) $reservation->bills->sortBy('id')->first()->paid === 1 || (int) $reservation->bills->sortBy('id')->first()->paid === 5)
+                                                        <a target="_blank" href="{{ url('/user/home/receipt/' . $reservation->bills->sortBy('id')->first()->id . '/0') }}" class="more_btn4 btn">領収書をみる
                                                         </a>
                                                     @endif
                                                 </p>
@@ -502,8 +480,7 @@
                                     </tr>
                                 </tbody>
                                 <tbody class="venue_main">
-                                    @foreach ($reservation->bills->sortBy('id')->first()->breakdowns->where('unit_type', 1)
-        as $v)
+                                    @foreach ($reservation->bills->sortBy('id')->first()->breakdowns->where('unit_type', 1) as $v)
                                         <tr>
                                             <td>{{ $v->unit_item }}</td>
                                             <td>{{ number_format($v->unit_cost) }}</td>
@@ -548,8 +525,7 @@
                                         </tr>
                                     </tbody>
                                     <tbody class="equipment_main">
-                                        @foreach ($reservation->bills->sortBy('id')->first()->breakdowns->where('unit_type', 2)
-        as $e)
+                                        @foreach ($reservation->bills->sortBy('id')->first()->breakdowns->where('unit_type', 2) as $e)
                                             <tr>
                                                 <td>{{ $e->unit_item }}</td>
                                                 <td>{{ number_format($e->unit_cost) }}</td>
@@ -557,8 +533,7 @@
                                                 <td>{{ number_format($e->unit_subtotal) }}</td>
                                             </tr>
                                         @endforeach
-                                        @foreach ($reservation->bills->sortBy('id')->first()->breakdowns->where('unit_type', 3)
-        as $s)
+                                        @foreach ($reservation->bills->sortBy('id')->first()->breakdowns->where('unit_type', 3) as $s)
                                             <tr>
                                                 <td>{{ $s->unit_item }}</td>
                                                 <td>{{ number_format($s->unit_cost) }}</td>
@@ -603,8 +578,7 @@
                                         </tr>
                                     </tbody>
                                     <tbody class="layout_main">
-                                        @foreach ($reservation->bills->sortBy('id')->first()->breakdowns->where('unit_type', 4)
-        as $l)
+                                        @foreach ($reservation->bills->sortBy('id')->first()->breakdowns->where('unit_type', 4) as $l)
                                             <tr>
                                                 <td>{{ $l->unit_item }}</td>
                                                 <td>{{ number_format($l->unit_cost) }}</td>
@@ -649,8 +623,7 @@
                                         </tr>
                                     </tbody>
                                     <tbody class="others_main">
-                                        @foreach ($reservation->bills->sortBy('id')->first()->breakdowns->where('unit_type', 5)
-        as $o)
+                                        @foreach ($reservation->bills->sortBy('id')->first()->breakdowns->where('unit_type', 5) as $o)
                                             <tr>
                                                 <td>{{ $o->unit_item }}</td>
                                                 <td>{{ $o->unit_cost }}</td>
@@ -726,7 +699,7 @@
 
 
         <!-- 追加請求セクション------------------------------------------------------------------- -->
-        @foreach ($other_bills as $k=>$other_bill)
+        @foreach ($other_bills as $k => $other_bill)
             <section class="mt-5">
                 <div class="bill">
                     <div class="bill_head2">
@@ -755,19 +728,15 @@
                                                 <div class="bill_btn_wrap">
                                                     <p class="ml-2 mb-1">
                                                         @if ((int) $other_bill->reservation_status === 3)
-                                                            <a target="_blank"
-                                                                href="{{ url('/user/home/invoice/' . $reservation->id . '/' . $other_bill->id . '/0') }}"
-                                                                class="more_btn btn">
+                                                            <a target="_blank" href="{{ url('/user/home/invoice/' . $reservation->id . '/' . $other_bill->id . '/0') }}" class="more_btn btn">
                                                                 請求書をみる
                                                             </a>
                                                         @endif
                                                     </p>
 
                                                     <p class="ml-2">
-                                                        @if ((int) $other_bill->paid === 1)
-                                                            <a target="_blank"
-                                                                href="{{ url('/user/home/receipt/' . $other_bill->id . '/0') }}"
-                                                                class="more_btn4 btn">
+                                                        @if ((int) $other_bill->paid === 1 || (int) $other_bill->paid === 5)
+                                                            <a target="_blank" href="{{ url('/user/home/receipt/' . $other_bill->id . '/0') }}" class="more_btn4 btn">
                                                                 領収書をみる
                                                             </a>
                                                         @endif
@@ -1043,7 +1012,7 @@
                 <div class="confirm-box text-sm-center">
                     <p>上記、追加請求の内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
 
-                    {{ Form::open(['url' => '/user/home/approve_user_additional_cfm', 'method' => 'post', 'class' => '','autocomplete'=>'off',]) }}
+                    {{ Form::open(['url' => '/user/home/approve_user_additional_cfm', 'method' => 'post', 'class' => '', 'autocomplete' => 'off']) }}
                     @csrf
                     {{ Form::hidden('bill_id', $other_bill->id) }}
                     <p class="text-center mt-3">{{ Form::submit('追加請求の内容を承認する', ['class' => 'btn more_btn4_lg']) }}</p>
@@ -1195,18 +1164,14 @@
                                                 <div class="bill_btn_wrap">
                                                     <p class="ml-2 mb-1">
                                                         @if ((int) $cxl->cxl_status === 2)
-                                                            <a target="_blank"
-                                                                href="{{ url('/user/home/invoice/' . $reservation->id . '/' . '0' . '/' . $cxl->id) }}"
-                                                                class="more_btn btn">
+                                                            <a target="_blank" href="{{ url('/user/home/invoice/' . $reservation->id . '/' . '0' . '/' . $cxl->id) }}" class="more_btn btn">
                                                                 請求書をみる
                                                             </a>
                                                         @endif
                                                     </p>
                                                     <p class="ml-2">
-                                                        @if ((int) $cxl->paid === 1)
-                                                            <a target="_blank"
-                                                                href="{{ url('/user/home/receipt/' . '0' . '/' . $cxl->id) }}"
-                                                                class="more_btn4 btn">領収書をみる
+                                                        @if ((int) $cxl->paid === 1 || (int) $cxl->paid === 5)
+                                                            <a target="_blank" href="{{ url('/user/home/receipt/' . '0' . '/' . $cxl->id) }}" class="more_btn4 btn">領収書をみる
                                                             </a>
                                                         @endif
                                                     </p>
@@ -1351,7 +1316,7 @@
                 <p>上記、予約内容をキャンセルしてもよろしいでしょうか。問題なければ、承認をお願い致します。</p>
 
                 @foreach ($reservation->cxls->where('cxl_status', 1) as $cfm_selected_cxl)
-                    {{ Form::open(['url' => '/user/home/cfm_cxl', 'method' => 'post', 'class' => '','autocomplete'=>'off',]) }}
+                    {{ Form::open(['url' => '/user/home/cfm_cxl', 'method' => 'post', 'class' => '', 'autocomplete' => 'off']) }}
                     @csrf
                     {{ Form::hidden('cxl_id', $cfm_selected_cxl->id) }}
                     <p class="text-center mt-3">{{ Form::submit('キャンセルを承認する', ['class' => 'btn more_btn4_lg']) }}</p>

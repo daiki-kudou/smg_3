@@ -172,7 +172,10 @@ class PreReservationsController extends Controller
     // Total records 
     $_pre_reservations = DB::table('pre_reservations')
       ->select(DB::raw("
-        LPAD(pre_reservations.multiple_reserve_id,6,0) as multiple_reserve_id,
+	  	case 
+		when LPAD(pre_reservations.multiple_reserve_id,6,0) ='000000' then ''
+		when LPAD(pre_reservations.multiple_reserve_id,6,0) !='000000' then LPAD(pre_reservations.multiple_reserve_id,6,0)
+		end as multiple_reserve_id,
         LPAD(pre_reservations.id,6,0) as pre_reservation_id,
         pre_reservations.user_id,
         pre_reservations.status,

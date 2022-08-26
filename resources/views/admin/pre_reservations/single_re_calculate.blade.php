@@ -76,7 +76,7 @@
                     <tr>
                         <td class="table-active caution" scope="row"><label for="">注意事項</label></td>
                         <td class="caution" colspan="3">
-                            {!! nl2br(e(ReservationHelper::getPersonAttention($request->user_id))) !!}
+                            <p>{!! nl2br(e(ReservationHelper::getPersonAttention($request->user_id))) !!}</p>
                         </td>
                     </tr>
                 </tbody>
@@ -306,7 +306,7 @@
                                 @foreach ($SPVenue->equipments as $key => $equipment)
                                     <tr>
                                         <td class="table-active">
-                                            {{ $equipment->item }}
+                                            {{ $equipment->item }}({{ number_format($equipment->price) . '円' }})
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-end">
@@ -334,7 +334,7 @@
                                 @foreach ($SPVenue->services as $key => $service)
                                     <tr>
                                         <td class="table-active">
-                                            {{ $service->item }}
+                                            {{ $service->item }}({{ number_format($service->price) . '円' }})
                                         </td>
                                         <td>
                                             <div class="radio-box">
@@ -370,7 +370,7 @@
                                     @if ($request->layout_prepare == 1)
                                         <tr>
                                             <td class="table-active">
-                                                準備
+                                                レイアウト準備({{ !empty($SPVenue->layout_prepare) ? number_format($SPVenue->layout_prepare) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
@@ -388,7 +388,7 @@
                                     @else
                                         <tr>
                                             <td class="table-active">
-                                                準備
+                                                レイアウト準備({{ !empty($venue->layout_prepare) ? number_format($venue->layout_prepare) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
@@ -407,7 +407,7 @@
                                     @if ($request->layout_clean == 1)
                                         <tr>
                                             <td class="table-active">
-                                                片付
+                                                レイアウト片付({{ !empty($SPVenue->layout_clean) ? number_format($SPVenue->layout_clean) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
@@ -425,7 +425,7 @@
                                     @else
                                         <tr>
                                             <td class="table-active">
-                                                片付
+                                                レイアウト片付({{ !empty($SPVenue->layout_clean) ? number_format($SPVenue->layout_clean) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
@@ -1201,18 +1201,15 @@
                         },
                     })
                     .done(function($user) {
+                        console.log($user);
                         $('#fullOverlay').css('display', 'none');
-                        $(".user_info").find('tr').eq(0).find('td').eq(1).text("");
-                        $(".user_info").find('tr').eq(0).find('td').eq(1).text($user[0]);
-                        $(".user_info").find('tr').eq(1).find('td').eq(1).text("");
-                        $(".user_info").find('tr').eq(1).find('td').eq(1).text($user[1] + $user[2]);
-                        $(".user_info").find('tr').eq(1).find('td').eq(3).text("");
-                        $(".user_info").find('tr').eq(1).find('td').eq(3).text($user[3]);
-                        $(".user_info").find('tr').eq(2).find('td').eq(1).text("");
-                        $(".user_info").find('tr').eq(2).find('td').eq(1).text($user[4]);
-                        $(".user_info").find('tr').eq(2).find('td').eq(3).text("");
-                        $(".user_info").find('tr').eq(2).find('td').eq(3).text($user[5]);
-                        $('input[name="user_id"]').val($user[6]);
+                        $(".user_info").find('tr').eq(0).find('td').eq(1).text("").text($user[1]);
+                        $(".person").text("").text($user[2] + $user[3]);
+                        $(".email").text("").text($user[4]);
+                        $(".mobile").text("").text($user[5]);
+                        $(".tel").text("").text($user[6]);
+                        $(".caution p").text("").text($user[9]);
+                        $('input[name="user_id"]').val($user[0]);
                     })
                     .fail(function($user) {
                         $('#fullOverlay').css('display', 'none');

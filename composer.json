@@ -9,6 +9,7 @@
   "license": "MIT",
   "require": {
     "php": "^7.2",
+    "azuyalabs/yasumi": "^2.5",
     "barryvdh/laravel-dompdf": "^0.9.0",
     "davejamesmiller/laravel-breadcrumbs": "^5.3",
     "doctrine/dbal": "2.*",
@@ -19,7 +20,7 @@
     "laravel/ui": "1.2.0",
     "laravelcollective/html": "^6.2",
     "laravelcollective/remote": "^6.2",
-    "qoraiche/laravel-mail-editor": "^3.2",
+    "qoraiche/laravel-mail-editor": "^4.0.3",
     "robclancy/presenter": "^2.0",
     "spatie/laravel-backup": "^6.16"
   },
@@ -36,7 +37,10 @@
     "optimize-autoloader": true,
     "preferred-install": "dist",
     "sort-packages": true,
-    "platform-check": false
+    "platform-check": false,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   },
   "extra": {
     "laravel": {

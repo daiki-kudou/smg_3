@@ -36,13 +36,13 @@ class MailForResetPasswordEmail implements ShouldQueue
    */
   public function handle()
   {
-    $admin = config('app.admin_email');
-    $subject = "パスワード変更のご確認（SMG貸し会議室）";
-    Mail::to($this->data['user']->email)
-      ->send(new ResetPasswordEmail(
-        $this->data,
-        $subject,
-      ));
+    // $admin = config('app.admin_email');
+    // $subject = "パスワード変更のご確認（SMG貸し会議室）";
+    // Mail::to($this->data['user']->email)
+    //   ->send(new ResetPasswordEmail(
+    //     $this->data,
+    //     $subject,
+    //   ));
   }
 
   /**

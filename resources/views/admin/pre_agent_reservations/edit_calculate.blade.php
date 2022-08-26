@@ -304,7 +304,7 @@
                                 @foreach ($venue->getEquipments() as $e_key => $equipment)
                                     <tr>
                                         <td class="table-active">
-                                            {{ $equipment->item }}
+                                            {{ $equipment->item }}({{ number_format($equipment->price) . '円' }})
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-end">
@@ -332,7 +332,7 @@
                                 @foreach ($venue->getServices() as $s_key => $service)
                                     <tr>
                                         <td class="table-active">
-                                            {{ $service->item }}
+                                            {{ $service->item }}({{ number_format($service->price) . '円' }})
                                         </td>
                                         <td>
                                             <div class="radio-box">
@@ -368,7 +368,7 @@
                                     @if ($venue->getLayouts()[0])
                                         <tr>
                                             <td class="table-active">
-                                                レイアウト準備
+                                                レイアウト準備({{ !empty($venue->layout_prepare) ? number_format($venue->layout_prepare) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
@@ -387,7 +387,7 @@
                                     @if ($venue->getLayouts()[1])
                                         <tr>
                                             <td class="table-active">
-                                                レイアウト片付
+                                                レイアウト片付({{ !empty($venue->layout_clean) ? number_format($venue->layout_clean) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
