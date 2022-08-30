@@ -639,12 +639,20 @@
                 </p>
             </td>
         </tr>
+		<tr>
+            <td>
+                <label for="adminNote">申し込みフォーム備考</label>
+				<br>
+				{!! nl2br(e($reservation['user_details']??"なし")) !!}
+            </td>
+        </tr>
         <tr>
             <td>
                 <label for="adminNote">管理者備考</label>
                 {{ Form::textarea('admin_details', $reservation['admin_details'], ['class' => 'form-control']) }}
             </td>
         </tr>
+        
     </table>
 </div>
 </div>
