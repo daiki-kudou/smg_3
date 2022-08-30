@@ -608,7 +608,7 @@ class ReservationsController extends Controller
 		$r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
 		$result = "";
 		foreach ($r as $key => $b) {
-			if ($b->paid === 1) {
+			if ($b->paid === 1||$b->paid == 5) {
 				$result .=
 					"<li>" .
 					"<div class='multi-column__item'>" .
@@ -640,7 +640,7 @@ class ReservationsController extends Controller
 				"</div>" .
 				"</li>";
 			// キャンセル料表示
-			if ((int)$reservation->cxls->first()->paid === 1) {
+			if ((int)$reservation->cxls->first()->paid === 1||(int)$reservation->cxls->first()->paid === 5) {
 				$result .=
 					"<li>" .
 					"<div class='multi-column__item'>" .
