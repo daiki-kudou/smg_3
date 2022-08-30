@@ -187,7 +187,7 @@ class Venue extends Model implements PresentableInterface
   // アクセサ
   public function getFullNameAttribute($value)
   {
-    return $this->name_area . $this->name_bldg . $this->name_venue;
+    return $this->name_area . '・'.$this->name_bldg . $this->name_venue;
   }
 
 
