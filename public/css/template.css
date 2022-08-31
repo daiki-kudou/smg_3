@@ -718,7 +718,7 @@ table td.table_column p:last-child {
 .statuscheck dt {
     background: #464646;
     color: #fff;
-    padding: 0.5em 1em;
+    padding: 5px 8px;
 }
 
 .use_history {
