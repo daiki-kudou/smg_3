@@ -178,6 +178,8 @@
                             </td>
                         </tr>
                     </table>
+                    <p class="warning-text mb-3 mt-1">※入室時間より以前に入室はできません。</p>
+
 
                     <table class="table table-bordered board-table">
                         <tr>

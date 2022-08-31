@@ -300,6 +300,7 @@
         });
       $("#multiple_sort").DataTable({
       // data オプションでデータを定義する
+      // /app/Http/Controllers/Admin/MultiplesController.phpの51行目〜63行目に抽出されるデータが順に並んでいる
       data: multiples,
       searching: false,
       info: false,
@@ -307,6 +308,7 @@
       // column オプションで view の th にあたる部分を定義する
       columns: [
       { title: "<p class='annotation'>すべて</p> <input type='checkbox' name='all_check' id='all_check'>" },
+      { title: "仮押え詳細" },
       { title: "一括仮押えID" },
       { title: "受付日" },
       { title: "件数" },
@@ -318,11 +320,10 @@
       { title: "仲介会社" },
       { title: "エンドユーザー" },
       { title: "権限" },
-      { title: "仮押え詳細" },
       ],
       order: [],
       columnDefs: [
-        {targets: [0,12], sortable: false, orderable: false},
+        {targets: [0,1], sortable: false, orderable: false},
         {
           "className": "text-center",
           "targets": [0,1,2,3,4,6,7,8,9,10,11,12],

@@ -167,7 +167,12 @@
           <!-- <div class="head_dl_btn">
             <div><a href="https://system.osaka-conference.com/application/">用紙ダウンロード</a></div>
           </div> -->
+          
+          @if (Auth::check())
+          @else
           <div><a class="head-login-btn" href="{{url('/user/preusers')}}"><i class="fas fa-user m-r5"></i>会員登録</a></div>
+          @endif
+          
           <div class="tel">
             <p><em>06-6556-6462</em><br>
               予約専用：10時～18時</p>

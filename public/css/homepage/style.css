@@ -91,6 +91,7 @@ ul.tagBtn li:nth-child(3) a {
 
 header .headerInfo {
     align-items: center;
+    width: 100%;
 }
 
 .head-login-btn {

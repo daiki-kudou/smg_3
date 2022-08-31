@@ -51,6 +51,7 @@ class PreReservationsController extends Controller
     foreach ($_pre_reservations as $p) {
       $pre_reservations[] = [
         "<input type='checkbox' name='checkbox" . $p->pre_reservation_id_original . "' value='" . $p->pre_reservation_id_original . "' class='checkbox'>",
+        "<a href=" . url('/admin/pre_reservations', $p->pre_reservation_id_original) . " class='more_btn btn'>詳細</a>",
         $p->pre_reservation_id,
         $p->created_at,
         $p->reserve_date,
@@ -65,7 +66,6 @@ class PreReservationsController extends Controller
         $p->agent_name,
         $p->enduser,
         ((int)$p->pre_reservation_status === 1 ? "顧" : "S"),
-        "<a href=" . url('/admin/pre_reservations', $p->pre_reservation_id_original) . " class='more_btn btn'>詳細</a>",
         $p->attention,
       ];
     }

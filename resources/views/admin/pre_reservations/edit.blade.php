@@ -36,19 +36,19 @@
     </div>
 
 
-    <div class="container-field">
-        <div class="float-right">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active">
-                        {{ Breadcrumbs::render(Route::currentRouteName(), $PreReservation->id) }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-        <h2 class="mt-3 mb-3">仮押え　編集</h2>
-        <hr>
-    </div>
+<div class="container-field">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName(),$PreReservation->id) }}
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <h2 class="mt-3 mb-3">仮押え 編集</h2>
+  <hr>
+</div>
 
     <section class="mt-5">
         {{ Form::open(['url' => '/admin/pre_reservations/' . $PreReservation->id . '/re_calculate', 'method' => 'POST', 'id' => 'pre_reservationSingleEditForm', 'autocomplete' => 'off']) }}
@@ -746,7 +746,7 @@
         </td>
         <td>
             <dl class="ttl_box">
-                <dt>合計金額</dt>
+                <dt>合計金額（税込）</dt>
                 <dd class="total_result">{{ number_format($PreReservation->pre_bill->master_total) }}円</dd>
             </dl>
         </td>
