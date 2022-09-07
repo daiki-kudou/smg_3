@@ -662,7 +662,7 @@ class Venue extends Model implements PresentableInterface
           $total += (int)$value->unit_subtotal;
         }
 
-        return floor($total * $percent);
+        return floor($total * $percent)*1.1;
       }
     } else {
       return NULL;
