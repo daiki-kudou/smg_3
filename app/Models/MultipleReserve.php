@@ -100,7 +100,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'cost' => $requests->cp_master_cost,
         ]);
 
-        $venue_price = empty($result[0][$key][2]) ? 0 : $result[0][$key][2];
+        $venue_price = empty($result[0][$key][0]) ? 0 : $result[0][$key][0];
         $equipment_price = empty($result[1][0]) ? 0 : $result[1][0];
         $layout_price = empty($result[2][2]) ? 0 : $result[2][2];
         $luggage_price = $requests->cp_master_luggage_price ? $requests->cp_master_luggage_price : 0;
@@ -138,13 +138,13 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
         }
 
         if (!empty($result[0][$key][1])) {
-          $venue_prices = ['会場料金', $result[0][$key][0], $result[0][$key][3] - $result[0][$key][4], $result[0][$key][0]];
+          $venue_prices = ['会場料金', ($result[0][$key][0]-$result[0][$key][1]), $result[0][$key][3] - $result[0][$key][4], $result[0][$key][0]];
           $extend_prices = ['延長料金', $result[0][$key][1], $result[0][$key][4], $result[0][$key][1]];
         } elseif (empty($result[0][$key][0])) {
           $venue_prices = [];
           $extend_prices = [];
         } else {
-          $venue_prices = ['会場料金', $result[0][$key][0], $result[0][$key][3] - $result[0][$key][4], $result[0][$key][0]];
+          $venue_prices = ['会場料金', ($result[0][$key][0]-$result[0][$key][1]), $result[0][$key][3] - $result[0][$key][4], $result[0][$key][0]];
           $extend_prices = [];
         }
 
@@ -154,7 +154,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
               'unit_item' => $venue_prices[0],
               'unit_cost' => $venue_prices[1],
               'unit_count' => $venue_prices[2],
-              'unit_subtotal' => $venue_prices[3],
+              'unit_subtotal' => $venue_prices[1],
               'unit_type' => 1,
             ]);
             $pre_bill->pre_breakdowns()->create([
@@ -169,7 +169,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
               'unit_item' => $venue_prices[0],
               'unit_cost' => $venue_prices[1],
               'unit_count' => $venue_prices[2],
-              'unit_subtotal' => $venue_prices[3],
+              'unit_subtotal' => $venue_prices[1],
               'unit_type' => 1,
             ]);
           }
