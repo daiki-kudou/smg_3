@@ -305,14 +305,11 @@ class Reservation extends Model implements PresentableInterface
 		$id = null;
 		$searchTarget = $this->ReservationSearchTarget();
 
-		if (!empty($data['multiple_id']) && (int)$data['multiple_id'] > 0) {
-			for ($i = 0; $i < strlen($data['multiple_id']); $i++) {
-				if ((int)$data['multiple_id'][$i] !== 0) {
-					$id = substr($data['multiple_id'], $i, strlen($data['multiple_id']));
-					break;
-				}
-			}
-			$searchTarget->whereRaw('reservations.multiple_reserve_id = ? ', ['%' . $id . '%']);
+		if (!empty($data['multiple_id']) ) 
+		{		
+			$id = abs($data['multiple_id']);
+			// $searchTarget->whereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']);
+			$searchTarget->whereRaw('reservations.multiple_reserve_id LIKE ? ',  ['%' . $id . '%']);
 		}
 
 		if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
@@ -532,7 +529,6 @@ class Reservation extends Model implements PresentableInterface
 						});
 					}
 				} elseif (preg_match('/^[0-9!-]+$/', $data['free_word'])) {
-					//○○○○-○○-○○の日付が来た際
 					$searchTarget = $searchTarget->where(function ($query) use ($data) {
 						if (!empty($data['free_word'])) {
 							$query->whereRaw('reservations.reserve_date = ? ', [$data['free_word']])
@@ -543,32 +539,26 @@ class Reservation extends Model implements PresentableInterface
 						}
 					});
 				} elseif (preg_match('/^[一般企業]+$/', $data['free_word'])) {
-					//○○○○-○○-○○の日付が来た際
 					$searchTarget = $searchTarget->where(function ($query) use ($data) {
 						$query->whereRaw('users.attr = ? ', [1]);
 					});
 				} elseif (preg_match('/^[上場企業]+$/', $data['free_word'])) {
-					//○○○○-○○-○○の日付が来た際
 					$searchTarget = $searchTarget->where(function ($query) use ($data) {
 						$query->whereRaw('users.attr = ? ', [2]);
 					});
 				} elseif (preg_match('/^[近隣利用]+$/', $data['free_word'])) {
-					//○○○○-○○-○○の日付が来た際
 					$searchTarget = $searchTarget->where(function ($query) use ($data) {
 						$query->whereRaw('users.attr = ? ', [3]);
 					});
 				} elseif (preg_match('/^[個人講師]+$/', $data['free_word'])) {
-					//○○○○-○○-○○の日付が来た際
 					$searchTarget = $searchTarget->where(function ($query) use ($data) {
 						$query->whereRaw('users.attr = ? ', [4]);
 					});
 				} elseif (preg_match('/^[MLM]+$/', $data['free_word'])) {
-					//○○○○-○○-○○の日付が来た際
 					$searchTarget = $searchTarget->where(function ($query) use ($data) {
 						$query->whereRaw('users.attr = ? ', [5]);
 					});
 				} elseif (preg_match('/^[その他]+$/', $data['free_word'])) {
-					//○○○○-○○-○○の日付が来た際
 					$searchTarget = $searchTarget->where(function ($query) use ($data) {
 						$query->whereRaw('users.attr = ? ', [6]);
 					});
@@ -611,7 +601,6 @@ class Reservation extends Model implements PresentableInterface
 						});
 					}
 				} elseif (preg_match('/^[0-9!-]+$/', $data['free_word'])) {
-					//○○○○-○○-○○の日付が来た際
 					$searchTarget = $searchTarget->where(function ($query) use ($data) {
 						if (!empty($data['free_word'])) {
 							$query->whereRaw('reservations.reserve_date = ? ', [$data['free_word']]);

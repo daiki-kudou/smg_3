@@ -364,6 +364,7 @@
         "type": "GET",
         "data": function ( d ) {
             return $.extend( {}, d, {
+            "multiple_id": $('input[name="multiple_id"]').val(),
             "search_id": $('input[name="search_id"]').val(),
             "reserve_date": $('input[name="reserve_date"]').val(),
             "enter_time": $('select[name="enter_time"]').val(),
