@@ -547,7 +547,7 @@
           </div>
         </div>
         @else
-        {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
+        {{ Form::submit('すべての日程に反映して保存', ['class' => 'btn more_btn_lg mt-3'])}}
         @endif
         {{ Form::close() }}
         </p>
@@ -555,7 +555,7 @@
 
       <div class="pt-5 mx-5">
         <p>※一日程ごとに入力する場合は、下記タブより、それぞれ選択してください。</p>
-        <p class="caution_color">※一日程ごとに入力後、すべての日程に反映するボタンをクリックすると、一日程ごとの内容が上書きされてしまうので、
+        <p class="caution_color">※一日程ごとに入力後、すべての日程に反映して保存ボタンをクリックすると、一日程ごとの内容が上書きされてしまうので、
           ご注意ください。
         </p>
         <hr>
@@ -1170,7 +1170,7 @@
                   </div>
                 </div>
                 @else
-                {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
+                {{ Form::submit('個別日程に反映して保存', ['class' => 'btn more_btn_lg'])}}
                 @endif
 
                 </p>

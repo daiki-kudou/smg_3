@@ -580,7 +580,7 @@
         <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
         <div class="btn_wrapper">
           <p class="text-center">
-            {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
+            {{ Form::submit('すべての日程に反映して保存', ['class' => 'btn more_btn_lg mt-3'])}}
             {{ Form::close() }}
           </p>
         </div>
