@@ -290,7 +290,7 @@
                                 @foreach ($SpVenue->equipments as $key => $equipment)
                                     <tr>
                                         <td class="table-active">
-                                            {{ $equipment->item }}
+                                            {{ $equipment->item }}({{ number_format($equipment->price) . '円' }})
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-end">
@@ -319,7 +319,7 @@
                                 @foreach ($SpVenue->services as $key => $service)
                                     <tr>
                                         <td class="table-active">
-                                            {{ $service->item }}
+                                            {{ $service->item }}({{ number_format($service->price) . '円' }})
                                         </td>
                                         <td>
                                             <div class="radio-box">

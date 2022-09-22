@@ -388,7 +388,7 @@
                                     @else
                                         <tr>
                                             <td class="table-active">
-                                                レイアウト準備({{ !empty($venue->layout_prepare) ? number_format($venue->layout_prepare) . '円' : null }})
+                                                レイアウト準備({{ !empty($SPVenue->layout_prepare) ? number_format($SPVenue->layout_prepare) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
