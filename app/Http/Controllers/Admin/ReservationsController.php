@@ -254,7 +254,7 @@ class ReservationsController extends Controller
     if ($price_details == 0) {
       $masters = ($item_details[0] + $data->luggage_price) + $layouts_details[2];
     } else {
-      $masters = ($price_details[2] ? $price_details[2] : 0) + ($item_details[0] + $data->luggage_price) + $layouts_details[2];
+      $masters = ($price_details[2] ? $price_details[2]-$price_details[1] : 0) + ($item_details[0] + $data->luggage_price) + $layouts_details[2];
     }
     $user = User::find($data->user_id);
     $pay_limit = $user->getUserPayLimit($data->reserve_date);
