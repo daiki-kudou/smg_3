@@ -209,6 +209,9 @@ $(function () {
       $("#cp_master_luggage_count").prop("readonly", true);
       $("#cp_master_luggage_arrive").prop("readonly", true);
       $("#cp_master_luggage_return").prop("readonly", true);
+      $(".luggage_info").addClass("d-none");
+    } else {
+      $(".luggage_info").removeClass("d-none");
     }
   });
 })
@@ -221,11 +224,13 @@ $(document).on('change', 'input[name*="luggage_flag"]', function () {
     $("#cp_master_luggage_count").prop("readonly", true);
     $("#cp_master_luggage_arrive").prop("readonly", true);
     $("#cp_master_luggage_return").prop("readonly", true);
+    $(".luggage_info").addClass("d-none");
   } else {
     $("#cp_master_luggage_count").prop("readonly", false);
     $("#cp_master_luggage_arrive").prop("readonly", true);
     $("#cp_master_luggage_return").prop("readonly", false);
     $("#cp_master_luggage_arrive").addClass("readonly-no-gray");
+    $(".luggage_info").removeClass("d-none");
   }
 });
 
