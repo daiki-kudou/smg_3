@@ -251,20 +251,32 @@
                             <ul class="sum-list">
                                 @if ($slctSession[0]['enter_time'][1] == 0)
                                     <li>
-                                        <p>{{ ReservationHelper::formatTime($slctSession[0]['enter_time']) }}
+                                        <p>
+                                        会場料金
+                                        {{-- 料金の内訳を固定で表示のため、時間の出力を非表示
+                                        {{ ReservationHelper::formatTime($slctSession[0]['enter_time']) }}
                                             ～
-                                            {{ ReservationHelper::formatTime($slctSession[0]['leave_time']) }}</p>
+                                            {{ ReservationHelper::formatTime($slctSession[0]['leave_time']) }}
+                                        --}}
+                                        </p>
+
                                         <p>{{ number_format(json_decode($slctSession[0]['price_result'])[0]) }}<span>円</span></p>
                                     </li>
                                 @else
                                     <li>
-                                        <p>{{ ReservationHelper::formatTime($slctSession[0]['enter_time']) }}
+                                        <p>
+                                            会場料金
+                                            {{-- 料金の内訳を固定で表示のため、時間の出力を非表示
+                                            {{ ReservationHelper::formatTime($slctSession[0]['enter_time']) }}
                                             ～
-                                            {{ ReservationHelper::formatTime($slctSession[0]['leave_time']) }}</p>
+                                            {{ ReservationHelper::formatTime($slctSession[0]['leave_time']) }}
+                                            --}}
+                                        </p>
                                         <p>{{ number_format(json_decode($slctSession[0]['price_result'])[0]) }}<span>円</span></p>
                                     </li>
                                     <li>
-                                        <p>延長{{ json_decode($slctSession[0]['price_result'])[4] }}h</p>
+                                        <p>延長料金</p>
+                                         {{--<p>延長{{ json_decode($slctSession[0]['price_result'])[4] }}h</p>--}}
                                         <p>{{ number_format(json_decode($slctSession[0]['price_result'])[1]) }}<span>円</span></p>
                                     </li>
                                 @endif
