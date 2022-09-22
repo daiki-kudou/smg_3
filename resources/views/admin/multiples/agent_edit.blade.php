@@ -385,6 +385,12 @@
                             {{Form::label('cp_master_no_luggage_flag','無し')}}
                           </p>
                         </div>
+                        <div class="mt-2 luggage-border">
+                                            【事前・事後】預かりの荷物について<br>
+                                            事前預かり/事後返送ともに<span class="f-s20">5個</span>まで。<br>
+                                            6個以上は要相談。その際は事前に必ずお問い合わせ下さい。<br>
+                                            荷物外寸合計(縦・横・奥行)120cm以下/個
+                        </div>
                       </td>
                     </tr>
                     <tr>
@@ -400,6 +406,13 @@
                       <td>
                         {{ Form::text('cp_master_luggage_arrive', '',['class'=>'form-control
                         datepicker9','id'=>'cp_master_luggage_arrive'] ) }}
+                        <div class="mt-1 luggage_info">
+                                                ※利用日3日前～前日（平日のみ）を到着日に指定下さい<br>
+                                                ※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送 PDF」をご確認下さい。<br>
+                                                ※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。<br>
+                                                ※貴重品等のお預りはできかねます。<br>
+                                                ※事前荷物は入室時間迄に弊社が会場搬入します。
+                        </div>
                       </td>
                     </tr>
                     <tr>
@@ -408,6 +421,9 @@
                         {{ Form::number('cp_master_luggage_return',
                         '',['class'=>'form-control','id'=>'cp_master_luggage_return','min'=>0] ) }}
                         <p class="is-error-cp_master_luggage_return" style="color: red"></p>
+                        <div class="mt-1 luggage_info">
+                          ※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。
+                        </div>
                       </td>
                     </tr>
                     @endif
@@ -547,7 +563,7 @@
           </div>
         </div>
         @else
-        {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
+        {{ Form::submit('すべての日程に反映して保存', ['class' => 'btn more_btn_lg mt-3'])}}
         @endif
         {{ Form::close() }}
         </p>
@@ -555,7 +571,7 @@
 
       <div class="pt-5 mx-5">
         <p>※一日程ごとに入力する場合は、下記タブより、それぞれ選択してください。</p>
-        <p class="caution_color">※一日程ごとに入力後、すべての日程に反映するボタンをクリックすると、一日程ごとの内容が上書きされてしまうので、
+        <p class="caution_color">※一日程ごとに入力後、すべての日程に反映して保存ボタンをクリックすると、一日程ごとの内容が上書きされてしまうので、
           ご注意ください。
         </p>
         <hr>
@@ -1170,7 +1186,7 @@
                   </div>
                 </div>
                 @else
-                {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
+                {{ Form::submit('個別日程に反映して保存', ['class' => 'btn more_btn_lg'])}}
                 @endif
 
                 </p>

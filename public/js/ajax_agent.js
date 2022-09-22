@@ -566,6 +566,12 @@ $(function () {
             "<label for='no_luggage_flag' class ='form-check-label'>無し</label>" +
             "</p>" +
             "</div>" +
+            "<div class='mt-2 luggage-border'>"+
+            "【事前・事後】預かりの荷物について<br>"+
+            "事前預かり/事後返送ともに<span class='f-s20'>5個</span>まで。<br>"+
+            "6個以上は要相談。その際は事前に必ずお問い合わせ下さい。<br>"+
+            "荷物外寸合計(縦・横・奥行)120cm以下/個"+
+            "</div>"+
             "</td>" +
             "</tr>" +
             "<tr>" +
@@ -578,12 +584,18 @@ $(function () {
             "<tr>" +
             "<td class='table-active'>事前荷物の到着日<br>(平日午前指定)</td>" +
             "<td class=''> <input id='luggage_arrive' type='text' class='form-control holidays ' placeholder='年-月-日' name='luggage_arrive' readonly>" +
+            "<div class='mt-1 luggage_info'>"+
+            "※利用日3日前～前日（平日のみ）を到着日に指定下さい<br>※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送 PDF」をご確認下さい。<br>※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。<br>※貴重品等のお預りはできかねます。<br>※事前荷物は入室時間迄に弊社が会場搬入します。"+
+            "</div>"+
             "</td>" +
             "</tr>" +
             "<tr> " +
             "<td class='table-active'>事後返送する荷物</td>" +
             "<td class=''><input type='number' id='luggage_return' class='form-control luggage_return' placeholder='個数入力' name='luggage_return' readonly min=0>" +
             "<p class='is-error-luggage_return' style='color: red'></p>" +
+            "<div class='mt-1 luggage_info'>"+
+            "※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。"+
+            "</div>"+
             "</td>" +
             "</tr>";
 

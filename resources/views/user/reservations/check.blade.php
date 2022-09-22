@@ -283,11 +283,16 @@
                             <ul class="sum-list">
                                 <li>
                                     <p>
+                                    会場料金
+                                    {{ Form::hidden('enter_time', $request->enter_time) }}
+                                    {{ Form::hidden('leave_time', $request->leave_time) }}
+                                    {{-- 料金の内訳を固定で表示のため、時間の出力を非表示
                                         {{ ReservationHelper::formatTime($request->enter_time) }}
                                         {{ Form::hidden('enter_time', $request->enter_time) }}
                                         ～
                                         {{ ReservationHelper::formatTime($request->leave_time) }}
                                         {{ Form::hidden('leave_time', $request->leave_time) }}
+                                    --}}
                                     </p>
                                     <p>{{ number_format($price_result[0] - $price_result[1]) }}<span>円</span></p>
                                     {{ Form::hidden('venue_breakdown_item[]', '会場料金') }}
@@ -297,7 +302,10 @@
                                 </li>
                                 @if ($price_result[1] != 0)
                                     <li>
-                                        <p>延長{{ $price_result[4] }}h</p>
+                                        <p>延長料金</p>
+                                        {{-- 延長料金の内訳を固定で表示のため、時間の出力を非表示 
+                                            <p>延長{{ $price_result[4] }}h</p>
+                                        --}}
                                         <p>{{ number_format($price_result[1]) }}<span>円</span></p>
                                         {{ Form::hidden('venue_breakdown_item[]', '延長料金') }}
                                         {{ Form::hidden('venue_breakdown_cost[]', $price_result[1]) }}

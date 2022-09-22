@@ -517,6 +517,12 @@
                                     {{ Form::label('no_luggage_flag', '無し') }}
                                 </p>
                             </div>
+                            <div class="mt-2 luggage-border">
+                                            【事前・事後】預かりの荷物について<br>
+                                            事前預かり/事後返送ともに<span class="f-s20">5個</span>まで。<br>
+                                            6個以上は要相談。その際は事前に必ずお問い合わせ下さい。<br>
+                                            荷物外寸合計(縦・横・奥行)120cm以下/個
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -530,6 +536,13 @@
                         <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                         <td>
                             {{ Form::text('luggage_arrive', !empty($PreReservation->luggage_arrive) ? date('Y-m-d', strtotime($PreReservation->luggage_arrive) ?? '') : '', ['class' => 'form-control holidays', 'id' => 'luggage_arrive']) }}
+                            <div class="mt-1 luggage_info">
+                                                ※利用日3日前～前日（平日のみ）を到着日に指定下さい<br>
+                                                ※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送 PDF」をご確認下さい。<br>
+                                                ※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。<br>
+                                                ※貴重品等のお預りはできかねます。<br>
+                                                ※事前荷物は入室時間迄に弊社が会場搬入します。
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -537,10 +550,13 @@
                         <td>
                             {{ Form::number('luggage_return', $PreReservation->luggage_return, ['class' => 'form-control', 'id' => 'luggage_return', 'min' => 0]) }}
                             <p class='is-error-luggage_return' style=' color: red'></p>
+                            <div class="mt-1 luggage_info">
+                                ※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。
+                            </div>
                         </td>
                     </tr>
                     <!-- <tr>
-<td class="table-active">荷物預かり<br>料金</td>
+<td class="table-active">荷物預り料金(税抜)</td>
 <td>
 @foreach ($PreReservation->pre_breakdowns()->get() as $lug_chk)
 @if ($lug_chk->unit_item == '荷物預かり')

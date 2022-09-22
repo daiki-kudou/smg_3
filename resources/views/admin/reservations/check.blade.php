@@ -260,7 +260,7 @@
                                 @endif
                                 @if ($value['luggage_price'] && $value['luggage_flag'] == 1)
                                     <tr>
-                                        <td class="table-active">荷物預かり<br>料金</td>
+                                        <td class="table-active">荷物預り料金(税抜)</td>
                                         <td>
                                             <div class="d-flex align-items-end">
                                                 {{ $value['luggage_price'] }}

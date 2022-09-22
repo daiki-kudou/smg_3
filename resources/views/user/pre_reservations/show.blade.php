@@ -96,7 +96,7 @@
                                 <td colspan="2">
                                     <p class="title-icon">
                                         <i class="fas fa-user-check icon-size" aria-hidden="true"></i>
-                                        当日連絡できる担当者
+                                        当日連絡できる担当者名
                                     </p>
                                 </td>
                             </tr>
@@ -440,9 +440,9 @@
                                 <p>500円(税抜)</p>
                             </div>
                             <p class="is-error-luggage_flag" style="color: red"></p>
-                            <div class="annotation mt-2">
+                            <div class="mt-2 luggage-border">
                             【事前・事後】預かりの荷物について<br>
-                            事前預かり/事後返送ともに5個まで。<br>
+                            事前預かり/事後返送ともに<span class="f-s20">5個</span>まで。<br>
                             6個以上は要相談。その際は事前に必ずお問い合わせ下さい。<br>
                             荷物外寸合計(縦・横・奥行)120cm以下/個
                             </div>
@@ -485,7 +485,7 @@
                                     'id' => 'luggage_arrive',
                                 ]) }}
                             @endif
-                            <div class="annotation mt-1 luggage_info">
+                            <div class="mt-1 luggage_info">
                             ※利用日3日前～前日（平日のみ）を到着日に指定下さい<br>
                             ※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送 PDF」をご確認下さい。<br>
                             ※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。<br>
@@ -511,7 +511,7 @@
                                 ]) }}
                             @endif
                             <p class="is-error-luggage_return" style="color: red"></p>
-                            <div class="annotation mt-1 luggage_info">
+                            <div class="mt-1 luggage_info">
                             ※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。
                             </div>
                         </td>

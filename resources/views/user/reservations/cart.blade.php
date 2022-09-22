@@ -97,9 +97,12 @@
                                         <ul class="sum-list">
                                             <li>
                                                 <p>
+                                                会場料金
+                                                {{-- 料金の内訳を固定で表示のため、時間の出力を非表示
                                                     {{ ReservationHelper::formatTime($reservation[0]['enter_time']) }}
                                                     ～
                                                     {{ ReservationHelper::formatTime($reservation[0]['leave_time']) }}
+                                                 --}}
                                                 </p>
                                                 <p>
                                                     {{ number_format(ReservationHelper::jsonDecode($reservation[0]['price_result'])[0]) }}<span>円</span>
@@ -107,7 +110,10 @@
                                             </li>
                                             @if (ReservationHelper::jsonDecode($reservation[0]['price_result'])[1] != 0)
                                                 <li>
+                                                <p>延長料金</p>
+                                                {{-- 長料金の内訳を固定で表示のため、時間の出力を非表示 
                                                     <p>延長{{ ReservationHelper::jsonDecode($reservation[0]['price_result'])[4] }}h
+                                                --}}
                                                     </p>
                                                     <p>
                                                         {{ number_format(ReservationHelper::jsonDecode($reservation[0]['price_result'])[1]) }}<span>円</span>

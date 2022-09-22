@@ -376,7 +376,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">荷物預かり<br>料金</td>
+              <td class="table-active">荷物預り料金(税抜)</td>
               <td>
                 @foreach ($bill->breakdowns()->get() as $l_prices)
                 @if ($l_prices->unit_item=="荷物預かり")
