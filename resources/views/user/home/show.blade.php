@@ -141,7 +141,7 @@
                                     <td colspan="2">
                                         <p class="title-icon">
                                             <i class="fas fa-user icon-size" aria-hidden="true"></i>
-                                            当日連絡できる担当者
+                                            当日連絡できる担当者名
                                         </p>
                                     </td>
                                 </tr>
