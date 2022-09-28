@@ -105,7 +105,7 @@
                                                  --}}
                                                 </p>
                                                 <p>
-                                                    {{ number_format(ReservationHelper::jsonDecode($reservation[0]['price_result'])[0]) }}<span>円</span>
+                                                    {{ number_format(ReservationHelper::jsonDecode($reservation[0]['price_result'])[0] - ReservationHelper::jsonDecode($reservation[0]['price_result'])[1]) }}<span>円</span>
                                                 </p>
                                             </li>
                                             @if (ReservationHelper::jsonDecode($reservation[0]['price_result'])[1] != 0)
@@ -189,7 +189,7 @@
                                 <tr>
 
                                     <td colspan="2" class="text-right checkbox-txt"><span>小計(税抜)</span>
-                                        <span class="sumText">{{ number_format(ReservationHelper::taxAndPrice($reservation[0]['master'])) }}</span><span>円</span>
+                                        <span class="sumText">{{ number_format($reservation[0]['master']) }}</span><span>円</span>
                                     </td>
                                 </tr>
                             </tbody>
