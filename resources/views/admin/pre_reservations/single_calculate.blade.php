@@ -355,7 +355,7 @@
                                     @if ($request->layout_prepare == 1)
                                         <tr>
                                             <td class="table-active">
-                                                準備
+                                                準備({{ !empty($SpVenue->layout_prepare) ? number_format($SpVenue->layout_prepare) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
@@ -373,7 +373,7 @@
                                     @else
                                         <tr>
                                             <td class="table-active">
-                                                準備
+                                                準備({{ !empty($SpVenue->layout_prepare) ? number_format($SpVenue->layout_prepare) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
@@ -392,7 +392,7 @@
                                     @if ($request->layout_clean == 1)
                                         <tr>
                                             <td class="table-active">
-                                                片付
+                                                片付({{ !empty($SpVenue->layout_clean) ? number_format($SpVenue->layout_clean) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
@@ -410,7 +410,7 @@
                                     @else
                                         <tr>
                                             <td class="table-active">
-                                                片付
+                                                片付({{ !empty($SpVenue->layout_clean) ? number_format($SpVenue->layout_clean) . '円' : null }})
                                             </td>
                                             <td>
                                                 <div class="radio-box">
