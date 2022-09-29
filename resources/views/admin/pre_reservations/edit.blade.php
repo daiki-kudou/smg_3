@@ -428,7 +428,9 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="table-active">レイアウト準備</td>
+                                <td class="table-active">
+                                    レイアウト準備({{ !empty($SPVenue->layout_prepare) ? number_format($SPVenue->layout_prepare) . '円' : null }})
+                                </td>
                                 <td>
                                     <div class="radio-box">
                                         @foreach ($PreReservation->pre_breakdowns()->get() as $s_lay_pre)
@@ -458,7 +460,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="table-active">レイアウト片付</td>
+                            <td class="table-active">
+                                レイアウト片付({{ !empty($SPVenue->layout_clean) ? number_format($SPVenue->layout_clean) . '円' : null }})
+                            </td>
                             <td>
                                 <div class="radio-box">
                                     @foreach ($PreReservation->pre_breakdowns()->get() as $s_lay_cle)
