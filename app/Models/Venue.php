@@ -196,7 +196,7 @@ class Venue extends Model implements PresentableInterface
 | 会場の料金計算
 |--------------------------------------------------------------------------|
 */
-  public function calculate_price($status_id, $start_time, $finish_time, $reserve_weekday = 1)
+  public function calculate_price($status_id, $start_time, $finish_time, $reserve_weekday = 1,$click_btn_flg = 0)
   {
     if ($status_id == 1) {
       // 時間外を除外
@@ -271,11 +271,14 @@ class Venue extends Model implements PresentableInterface
         $exted_specific_price = 0;
       }
       // 延長料金抽出（夜間以外の延長料金を加算した会場料金算出）
-      $min_result = $this->getTotalResult($start_time, $min_result, $price_arrays);
+      // 「個別日程に反映して保存」時は通らない
+      if ($click_btn_flg == 0) {
+        $min_result = $this->getTotalResult($start_time, $min_result, $price_arrays);        
+      }
       // 延長料金抽出（最終）
       $exted_specific_price = $this->getExtendPrice($start_time, $exted_specific_price, $price_arrays);
 
-
+      
       // // 23時例外：22時から23時を選択すると時間に応じて延長料金適応
       //17時以降は無条件で夜間料金適応
       if ($start_time == '17:00:00') {

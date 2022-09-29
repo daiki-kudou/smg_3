@@ -153,7 +153,9 @@ class PreReservation extends Model
     $venue_price_result = $venue->calculate_price(
       $requests->{'price_system_copied' . $requests->split_keys},
       $requests->{'enter_time' . $requests->split_keys},
-      $requests->{'leave_time' . $requests->split_keys}
+      $requests->{'leave_time' . $requests->split_keys},
+      1,
+      1
     );
 
     $s_equipment = [];
