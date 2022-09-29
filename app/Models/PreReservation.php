@@ -268,13 +268,13 @@ class PreReservation extends Model
       ]);
 
       if (!empty($result[0][1])) {
-        $venue_prices = ['会場料金', $result[0][0], $result[0][3] - $result[0][4], $result[0][0]];
+        $venue_prices = ['会場料金', $result[0][0], $result[0][3], $result[0][0]];
         $extend_prices = ['延長料金', $result[0][1], $result[0][4], $result[0][1]];
       } elseif (empty($result[0][0])) {
         $venue_prices = [];
         $extend_prices = [];
       } else {
-        $venue_prices = ['会場料金', $result[0][0], $result[0][3] - $result[0][4], $result[0][0]];
+        $venue_prices = ['会場料金', $result[0][0], $result[0][3], $result[0][0]];
         $extend_prices = [];
       }
 

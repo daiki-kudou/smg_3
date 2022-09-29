@@ -138,13 +138,13 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
         }
 
         if (!empty($result[0][$key][1])) {
-          $venue_prices = ['会場料金', ($result[0][$key][0]-$result[0][$key][1]), $result[0][$key][3] - $result[0][$key][4], $result[0][$key][0]];
+          $venue_prices = ['会場料金', ($result[0][$key][0]-$result[0][$key][1]), $result[0][$key][3] , $result[0][$key][0]];
           $extend_prices = ['延長料金', $result[0][$key][1], $result[0][$key][4], $result[0][$key][1]];
         } elseif (empty($result[0][$key][0])) {
           $venue_prices = [];
           $extend_prices = [];
         } else {
-          $venue_prices = ['会場料金', ($result[0][$key][0]-$result[0][$key][1]), $result[0][$key][3] - $result[0][$key][4], $result[0][$key][0]];
+          $venue_prices = ['会場料金', ($result[0][$key][0]-$result[0][$key][1]), $result[0][$key][3] , $result[0][$key][0]];
           $extend_prices = [];
         }
 
