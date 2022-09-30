@@ -394,7 +394,19 @@ class Bill extends Model
         when DAYOFWEEK(cxls.payment_limit) = 6 then '(金)'
         when DAYOFWEEK(cxls.payment_limit) = 7 then '(土)'
         end
-        ) as cxl_payment_limit
+        ) as cxl_payment_limit,
+        concat(
+        case
+        when venues.alliance_flag = '0' then '0'
+        else format(floor((bills.master_total - (bills.layout_price * 1.1)) * ((venues.cost) * 0.01)),0)
+        end
+        ) as cost,
+        concat(
+        case
+        when venues.alliance_flag = '0' then '0'
+        else format(floor(bills.master_total - (bills.master_total - (bills.layout_price * 1.1)) * ((venues.cost) * 0.01)),0)
+        end
+        ) as profit
       "
       ))
       ->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')

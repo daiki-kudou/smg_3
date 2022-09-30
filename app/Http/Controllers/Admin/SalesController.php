@@ -52,7 +52,7 @@ class SalesController extends Controller
       ->orderByRaw("予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc")
       ->get();
     // // ※参照　https://blog.hrendoh.com/laravel-6-download-csv-with-streamdownload/
-
+    
     $header = [
       '予約一括ID',
       '予約ID',
@@ -96,8 +96,8 @@ class SalesController extends Controller
               $r->enduser_company,
               $r->sogaku,
               $r->master_total,
-              '（売上原価）',
-              '（粗利）',
+              $r->cost,
+              $r->profit,
               $r->bill_category,
               $r->reservation_status,
               $r->pay_day,
@@ -123,8 +123,8 @@ class SalesController extends Controller
                     $r->enduser_company,
                     $r->sogaku,
                     number_format((int)str_replace(',', '', $r->sogaku) * -1),
-                    '（売上原価）',
-                    '（粗利）',
+                    number_format((int)str_replace(',', '', $r->cost) * -1),
+                    number_format((int)str_replace(',', '', $r->profit) * -1),
                     "打ち消し",
                     "-",
                     "-",
@@ -147,8 +147,8 @@ class SalesController extends Controller
                     $r->enduser_company,
                     $r->sogaku,
                     $r->cxl_master_total,
-                    '（売上原価）',
-                    '（粗利）',
+                    $r->cost,
+                    $r->profit,
                     "キャンセル料",
                     $r->cxl_status,
                     $r->cxl_pay_day,
@@ -176,8 +176,8 @@ class SalesController extends Controller
                   $r->enduser_company,
                   $r->sogaku,
                   number_format((int)str_replace(',', '', $r->sogaku) * -1),
-                  '（売上原価）',
-                  '（粗利）',
+                  number_format((int)str_replace(',', '', $r->cost) * -1),
+                  number_format((int)str_replace(',', '', $r->profit) * -1),
                   "打ち消し",
                   "-",
                   "-",
@@ -200,8 +200,8 @@ class SalesController extends Controller
                   $r->enduser_company,
                   $r->sogaku,
                   $r->cxl_master_total,
-                  '（売上原価）',
-                  '（粗利）',
+                  $r->cost,
+                  $r->profit,
                   "キャンセル料",
                   $r->cxl_status,
                   $r->cxl_pay_day,
