@@ -128,35 +128,6 @@ $(function () {
 })
 
 
-// 予約新規登録、入退室時間があれば、イベント開始終了の時間制御
-$(function () {
-  $('#event_start, #event_finish').on('click', function () {
-    var parent_target_start = $('#sales_start').val();
-    var parent_target_finish = $('#sales_finish').val();
-    var target = ($(this).find('option')).length;
-    for (let index = 0; index < target; index++) {
-      if ($(this).find('option').eq(index).val() < parent_target_start || $(this).find('option').eq(index).val() > parent_target_finish) {
-        $(this).find('option').eq(index).prop('disabled', true);
-      }
-    }
-  })
-  $('#sales_start').on('change', function () {
-    var child_target = $('#event_start').val();
-    $('#event_start option').prop('disabled', false);
-    if ($(this).val() > child_target) {
-      $('#event_start').val('');
-      // swal('イベント開始時間は入室時間より後に設定してください');
-    }
-  })
-  $('#sales_finish').on('change', function () {
-    var child_target2 = $('#event_finish').val();
-    $('#event_finish option').prop('disabled', false);
-    if ($(this).val() < child_target2) {
-      $('#event_finish').val('');
-      // swal('イベント終了時間は退室時間より前に設定してください');
-    }
-  })
-})
 
 // マイナスは赤字に
 // function toRed() {
