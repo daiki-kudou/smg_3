@@ -575,22 +575,22 @@ class Bill extends Model
 
     // チェックボックス
     $searchTarget = $searchTarget->where(function ($query) use ($data) {
-      if (!empty($data['check_status1']) && (int)$data['check_status1'] === 1) {
+      if (!empty($data['check_status1'])) {
         $query->orWhereRaw('check_status1.status1 >= ? ', [1]);
       }
-      if (!empty($data['check_status2']) && (int)$data['check_status2'] === 1) {
+      if (!empty($data['check_status2'])) {
         $query->orWhereRaw('check_status2.status2 >= ? ', [1]);
       }
-      if (!empty($data['check_status3']) && (int)$data['check_status3'] === 1) {
+      if (!empty($data['check_status3'])) {
         $query->orWhereRaw('check_status3.status3 >= ? ', [1]);
       }
-      if (!empty($data['check_status4']) && (int)$data['check_status4'] === 1) {
+      if (!empty($data['check_status4'])) {
         $query->orWhereRaw('check_status4.status4 >= ? ', [1]);
       }
-      if (!empty($data['check_status5']) && (int)$data['check_status5'] === 1) {
+      if (!empty($data['check_status5'])) {
         $query->orWhereRaw('check_status5.status5 >= ? ', [1]);
       }
-      if (!empty($data['check_status6']) && (int)$data['check_status6'] === 1) {
+      if (!empty($data['check_status6'])) {
         $query->orWhereRaw('check_status6.status6 >= ? ', [1]);
       }
     });
