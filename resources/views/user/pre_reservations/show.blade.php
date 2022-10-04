@@ -156,7 +156,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="table-active">イベント名称1行目</td>
+                                <td class="table-active">イベント名称1</td>
                                 <td>
                                     <div class="align-items-end d-flex">
                                         {{ Form::text('event_name1', $pre_reservation->event_name1, [
@@ -169,7 +169,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="table-active">イベント名称2行目</td>
+                                <td class="table-active">イベント名称2</td>
                                 <td>
                                     <div class="align-items-end d-flex">
                                         {{ Form::text('event_name2', $pre_reservation->event_name2, [

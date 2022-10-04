@@ -111,9 +111,9 @@ class UserFinRes extends Mailable
 			$board_flag = '';
 			$board_flag .= '・案内板の作成：';
 			$board_flag .= '<br>案内板の作成 : する';
-			$board_flag .= '<br>イベント名称1行目 : ' . $event_name1;
+			$board_flag .= '<br>イベント名称1 : ' . $event_name1;
 			if (!empty($event_name2)) {
-				$board_flag .= '<br>イベント名称2行目 : ' . $event_name2;
+				$board_flag .= '<br>イベント名称2 : ' . $event_name2;
 			}
 			if (!empty($event_owner)) {
 				$board_flag .= '<br>主催者名 : ' . $event_owner;

@@ -130,7 +130,7 @@
                             <li><a target="_blank" rel="noopener noreferrer" href="https://system.osaka-conference.com/welcomboard/"><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
                             <li class="{{ $fix->board_flag == 0 ? 'cell-margin d-none' : ' cell-margin' }}">
                                 <div class="m-b10">
-                                    <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
+                                    <p><span class="txtRed c-block">＊</span>イベント名称1</p>
                                     <div class="form-counter">
                                         {{ Form::text('event_name1', $fix->event_name1 ?? '', ['class' => 'form-control text2', 'placeholder' => '入力してください', 'id' => 'eventname1Count']) }}
                                         <span class="count_num1"></span>
@@ -138,7 +138,7 @@
                                     <p class="is-error-event_name1" style="color: red"></p>
                                 </div>
                                 <div class="m-b10">
-                                    <p>イベント名称2行目</p>
+                                    <p>イベント名称2</p>
                                     <div class="form-counter">
                                         {{ Form::text('event_name2', $fix->event_name2 ?? '', ['class' => 'form-control text2', 'placeholder' => '入力してください', 'id' => 'eventname2Count']) }}
                                         <span class="count_num2"></span>

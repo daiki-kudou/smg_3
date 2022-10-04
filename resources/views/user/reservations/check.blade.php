@@ -87,12 +87,12 @@
                             @if ($request->board_flag == 1)
                                 <li class="cell-margin">
                                     <div class="m-b10">
-                                        <p>【イベント名称1行目】</p>
+                                        <p>【イベント名称1】</p>
                                         {{ $request->event_name1 }}
                                         {{ Form::hidden('event_name1', $request->event_name1) }}
                                     </div>
                                     <div class="m-b10">
-                                        <p>【イベント名称2行目】</p>
+                                        <p>【イベント名称2】</p>
                                         {{ $request->event_name2 }}
                                         {{ Form::hidden('event_name2', $request->event_name2) }}
                                     </div>
