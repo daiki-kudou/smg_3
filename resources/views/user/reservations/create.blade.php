@@ -461,7 +461,7 @@
             var max_date = dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
             $("#datepicker2").datepicker({
                 showButtonPanel: true,
-                dateFormat: 'yy-mm-dd',
+                dateFormat: 'yy/mm/dd(D)',
                 showOn: "both",
                 buttonImage: "https://system.osaka-conference.com/img/icon_calender.png",
                 buttonImageOnly: true,
