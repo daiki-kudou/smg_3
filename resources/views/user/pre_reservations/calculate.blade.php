@@ -175,7 +175,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="table-active">イベント名称1行目</td>
+                                <td class="table-active">イベント名称1</td>
                                 <td>
                                     <div class="align-items-end d-flex">
                                         {{ Form::text('event_name1', $request->event_name1, ['class' => 'form-control', 'id' => 'eventname1Count']) }}
@@ -185,7 +185,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="table-active">イベント名称2行目</td>
+                                <td class="table-active">イベント名称2</td>
                                 <td>
                                     <div class="align-items-end d-flex">
                                         {{ Form::text('event_name2', $request->event_name2, ['class' => 'form-control', 'id' => 'eventname2Count']) }}
@@ -899,25 +899,25 @@
         // });
 
         // 荷物預かりのラジオボタン選択の表示、非表示
-        $(function() {
-            var no_luggage_flag = $('#no_luggage_flag').val();
-            if (no_luggage_flag == 0) {
-                $(".luggage_info").addClass("d-none");
-            } else {
-                $(".luggage_info").removeClass("d-none");
-            }
-        });
+        // $(function() {
+        //     var no_luggage_flag = $('#no_luggage_flag').val();
+        //     if (no_luggage_flag == 0) {
+        //         $(".luggage_info").addClass("d-none");
+        //     } else {
+        //         $(".luggage_info").removeClass("d-none");
+        //     }
+        // });
 
-        $(function() {
-            $("input[name='luggage_flag']").change(function() {
-                var no_luggage_flag = $('#no_luggage_flag').prop('checked');
-                if (no_luggage_flag) {
-                    $(".luggage_info").addClass("d-none");
-                } else {
-                    $(".luggage_info").removeClass("d-none");
-                }
-            });
-        });
+        // $(function() {
+        //     $("input[name='luggage_flag']").change(function() {
+        //         var no_luggage_flag = $('#no_luggage_flag').prop('checked');
+        //         if (no_luggage_flag) {
+        //             $(".luggage_info").addClass("d-none");
+        //         } else {
+        //             $(".luggage_info").removeClass("d-none");
+        //         }
+        //     });
+        // });
 
 
         $(document).on("click", "input:radio[name='eat_in']", function() {

@@ -167,7 +167,7 @@ $(function () {
     $("#luggage_return").prop("readonly", true);
     $("#luggage_price").prop("readonly", true);
     $("#luggage_arrive").removeClass("readonly-no-gray");
-    $(".luggage_info").addClass("d-none");
+    $(".luggage_info").css("display","none");
   } else {
     $("#luggage_count").prop("readonly", false);
     $("#luggage_arrive").prop("readonly", true);
@@ -175,9 +175,30 @@ $(function () {
     $("#luggage_return").prop("readonly", false);
     $("#luggage_price").prop("readonly", false);
     $("#luggage_arrive").addClass("readonly-no-gray");
-    $(".luggage_info").removeClass("d-none");
+    $(".luggage_info").css("display","block");
   }
 });
+
+        // 荷物預かりのラジオボタン選択の表示、非表示
+      //   $(function() {
+      //     var no_luggage_flag = $('#no_luggage_flag').val();
+      //     if (no_luggage_flag == 0) {
+      //         $(".luggage_info").addClass("d-none");
+      //     } else {
+      //         $(".luggage_info").removeClass("d-none");
+      //     }
+      // });
+
+      $(function() {
+          $("input[name='luggage_flag']").change(function() {
+              var no_luggage_flag = $('#no_luggage_flag').prop('checked');
+              if (no_luggage_flag) {
+                  $(".luggage_info").addClass("d-none");
+              } else {
+                  $(".luggage_info").removeClass("d-none");
+              }
+          });
+      });
 
 // ラジオボタンクリック時の荷物預かり入力制御
 $(document).on('change', 'input[name="luggage_flag"]', function () {
@@ -189,7 +210,7 @@ $(document).on('change', 'input[name="luggage_flag"]', function () {
     $("#luggage_return").prop("readonly", true);
     $("#luggage_price").prop("readonly", true);
     $("#luggage_arrive").removeClass("readonly-no-gray");
-    $(".luggage_info").addClass("d-none");
+    // $(".luggage_info").css("display","none");
   } else {
     $("#luggage_count").prop("readonly", false);
     $("#luggage_arrive").prop("readonly", true);
@@ -197,7 +218,7 @@ $(document).on('change', 'input[name="luggage_flag"]', function () {
     $("#luggage_return").prop("readonly", false);
     $("#luggage_price").prop("readonly", false);
     $("#luggage_arrive").addClass("readonly-no-gray");
-    $(".luggage_info").removeClass("d-none");
+    // $(".luggage_info").css("display","block");
   }
 });
 
@@ -209,9 +230,9 @@ $(function () {
       $("#cp_master_luggage_count").prop("readonly", true);
       $("#cp_master_luggage_arrive").prop("readonly", true);
       $("#cp_master_luggage_return").prop("readonly", true);
-      $(".luggage_info").addClass("d-none");
+    $(".luggage_info").css("display","none");
     } else {
-      $(".luggage_info").removeClass("d-none");
+    $(".luggage_info").css("display","block");
     }
   });
 })
@@ -224,13 +245,13 @@ $(document).on('change', 'input[name*="luggage_flag"]', function () {
     $("#cp_master_luggage_count").prop("readonly", true);
     $("#cp_master_luggage_arrive").prop("readonly", true);
     $("#cp_master_luggage_return").prop("readonly", true);
-    $(".luggage_info").addClass("d-none");
+    $(".luggage_info").css("display","none");
   } else {
     $("#cp_master_luggage_count").prop("readonly", false);
     $("#cp_master_luggage_arrive").prop("readonly", true);
     $("#cp_master_luggage_return").prop("readonly", false);
     $("#cp_master_luggage_arrive").addClass("readonly-no-gray");
-    $(".luggage_info").removeClass("d-none");
+    $(".luggage_info").css("display","block");
   }
 });
 

@@ -129,7 +129,7 @@
                                 <li class="cell-margin board_info">
                                     <div class="m-b10">
                                         <p>
-                                            <span class="txtRed c-block">＊</span>イベント名称1行目
+                                            <span class="txtRed c-block">＊</span>イベント名称1
                                         </p>
                                         <div class="form-counter">
                                             {{ Form::text('event_name1', $request->event_name1 ?? null, ['class' => 'form-input text2', 'placeholder' => '入力してください', 'id' => 'eventname1Count']) }}
@@ -138,7 +138,7 @@
                                         <p class="is-error-event_name1" style="color: red"></p>
                                     </div>
                                     <div class="m-b10">
-                                        <p>イベント名称2行目</p>
+                                        <p>イベント名称2</p>
                                         <div class="form-counter">
                                             {{ Form::text('event_name2', $request->event_name2 ?? null, ['class' => 'form-input text2', 'placeholder' => '入力してください', 'id' => 'eventname2Count']) }}
                                             <span class="count_num2"></span>
@@ -461,7 +461,7 @@
             var max_date = dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
             $("#datepicker2").datepicker({
                 showButtonPanel: true,
-                dateFormat: 'yy-mm-dd',
+                dateFormat: 'yy/mm/dd(D)',
                 showOn: "both",
                 buttonImage: "https://system.osaka-conference.com/img/icon_calender.png",
                 buttonImageOnly: true,

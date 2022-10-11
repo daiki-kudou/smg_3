@@ -80,11 +80,11 @@
                                 </li>
                                 @if ($slctSession[0]['board_flag'] == 1)
                                     <li>
-                                        <p>イベント名称1行目</p>
+                                        <p>イベント名称1</p>
                                         <p>{{ $slctSession[0]['event_name1'] ?? '' }}</p>
                                     </li>
                                     <li>
-                                        <p>イベント名称2行目</p>
+                                        <p>イベント名称2</p>
                                         <p>{{ $slctSession[0]['event_name2'] ?? '' }}</p>
                                     </li>
                                     <li>
