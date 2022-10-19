@@ -1061,19 +1061,19 @@
                                 <tr>
                                     <td>小計：</td>
                                     <td>
-                                        {{ Form::text('master_subtotal', $priceResult['masters'], ['class' => 'form-control text-right', 'readonly']) }}
+                                        {{ Form::text('master_subtotal', $priceResult['price_details'][0], ['class' => 'form-control text-right', 'readonly']) }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>消費税：</td>
                                     <td>
-                                        {{ Form::text('master_tax', ReservationHelper::getTax($priceResult['masters']), ['class' => 'form-control text-right', 'readonly']) }}
+                                        {{ Form::text('master_tax', ReservationHelper::getTax($priceResult['price_details'][0]), ['class' => 'form-control text-right', 'readonly']) }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="font-weight-bold">合計金額</td>
                                     <td>
-                                        {{ Form::text('master_total', ReservationHelper::taxAndPrice($priceResult['masters']), ['class' => 'form-control text-right', 'readonly']) }}
+                                        {{ Form::text('master_total', ReservationHelper::taxAndPrice($priceResult['price_details'][0]), ['class' => 'form-control text-right', 'readonly']) }}
                                     </td>
                                 </tr>
                             </tbody>
