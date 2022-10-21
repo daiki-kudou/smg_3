@@ -220,12 +220,12 @@
                     <td>ユーザー</td>
                     <td>
                         <div class="mb-3">
-                            <a target="_blank" class="btn more_btn" href="{{ url('/admin/mail_templates/18') }}">
+                            <a target="_blank" class="btn more_btn" href="{{ url('/admin/mail_templates/19') }}">
                                 詳細（会場・追加）
                             </a>
                         </div>
                         <div class="mb-3">
-                            <a target="_blank" class="btn more_btn" href="{{ url('/admin/mail_templates/19') }}">
+                            <a target="_blank" class="btn more_btn" href="{{ url('/admin/mail_templates/18') }}">
                                 詳細（キャンセル）
                             </a>
                         </div>
