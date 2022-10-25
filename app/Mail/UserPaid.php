@@ -55,13 +55,11 @@ class UserPaid extends Mailable
 		$subtitle = $template->subtitle;
 		$body = $template->body;
 
-		$category = '会場予約';
-
 		$subtitle = str_replace('${reservation_id}', $this->reservation_data->reservation_id, $subtitle);
-		$subtitle = str_replace('${category}', $category, $subtitle);
+		$subtitle = str_replace('${category}', $this->bill_or_add_bill, $subtitle);
 
 		$send_html = str_replace('${company}', $this->reservation_data->company, $body);
-		$send_html = str_replace('${category}', $category, $body);
+		$send_html = str_replace('${category}', $this->bill_or_add_bill, $send_html);
 		$send_html = str_replace('${reservation_id}', $this->reservation_data->reservation_id, $send_html);
 		$send_html = str_replace('${reserve_date}', $this->reservation_data->reserve_date, $send_html);
 		$send_html = str_replace('${user_id}', $this->reservation_data->user_id, $send_html);
@@ -73,6 +71,7 @@ class UserPaid extends Mailable
 		$send_html = str_replace('${master_total}', $this->bill_data->master_total, $send_html);
 		$send_html = str_replace('${payment_limit}', $this->bill_data->payment_limit, $send_html);
 		$send_html = str_replace('${login}', url('/user/login'), $send_html);
+		dd($send_html, $subtitle);
 
 		return $this->view('maileclipse::templates.userPaid')
 			->subject($subtitle)
