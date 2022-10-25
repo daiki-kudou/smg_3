@@ -71,7 +71,6 @@ class UserPaid extends Mailable
 		$send_html = str_replace('${master_total}', $this->bill_data->master_total, $send_html);
 		$send_html = str_replace('${payment_limit}', $this->bill_data->payment_limit, $send_html);
 		$send_html = str_replace('${login}', url('/user/login'), $send_html);
-		dd($send_html, $subtitle);
 
 		return $this->view('maileclipse::templates.userPaid')
 			->subject($subtitle)
