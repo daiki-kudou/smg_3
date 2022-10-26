@@ -92,7 +92,7 @@ class UserDelRes extends Mailable
 		$luggage_count = $this->reservation_data->luggage_count;
 		$luggage_arrive = $this->reservation_data->luggage_arrive;
 		$luggage_return = $this->reservation_data->luggage_return;
-		$admin_details = $this->reservation_data->admin_details;
+		$user_details = $this->reservation_data->user_details;
 		$bill_data = $this->bill_data;
 		$equipment_data = $this->equipment_data;
 		$service_data = $this->service_data;
@@ -177,11 +177,10 @@ class UserDelRes extends Mailable
 			$luggage_flag = '';
 		}
 		// 管理者備考
-		if (!empty($admin_details)) {
-			$admin_details = '・備考：<br>';
-			$admin_details .= '<br>';
+		if (!empty($user_details)) {
+			$user_details = '・備考：<br>' . nl2br($user_details) . '<br>';
 		} else {
-			$admin_details = '';
+			$user_details = '';
 		}
 
 		$template = MailTemplate::find($this->template_id);
@@ -208,7 +207,7 @@ class UserDelRes extends Mailable
 		$send_html = str_replace('${service_html}', $service_html, $send_html);
 		$send_html = str_replace('${layout_html}', $layout_html, $send_html);
 		$send_html = str_replace('${luggage_flag}', $luggage_flag, $send_html);
-		$send_html = str_replace('${admin_details}', $admin_details, $send_html);
+		$send_html = str_replace('${user_details}', $user_details, $send_html);
 		$send_html = str_replace('${master_total}', $bill_data->master_total, $send_html);
 		$send_html = str_replace('${payment_limit}', $bill_data->payment_limit, $send_html);
 		$send_html = str_replace('${smg_url}', $smg_url, $send_html);
