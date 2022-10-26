@@ -851,7 +851,8 @@ class Reservation extends Model implements PresentableInterface
         end
         ) as luggage_arrive,
         reservations.luggage_return as luggage_return,
-        reservations.admin_details as admin_details
+        reservations.user_details as user_details,
+		reservations.admin_details as admin_details
         "
 			))
 			->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
