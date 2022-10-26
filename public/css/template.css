@@ -555,6 +555,16 @@ option:disabled {
     display: none;
 }
 
+#luggage-arrive-main {
+    position: relative;
+}
+
+.luggage-arrive-day-of-week {
+    position: absolute;
+    left: 80px;
+    top: 6px;
+}
+
 @media screen and (max-width: 540px) { 
     .pc-table {
         display: none;

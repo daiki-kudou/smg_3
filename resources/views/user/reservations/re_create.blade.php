@@ -3,8 +3,10 @@
 
     @include('layouts.user.overlay')
 
+    <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
     <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
     <script src="{{ asset('/js/lettercounter.js') }}"></script>
+    <script src="{{ asset('/js/edit_luggage_date.js') }}"></script>
     <style>
         .hide {
             display: none;
@@ -332,7 +334,6 @@
         @endif
 
         @if ($venue->getLuggage() != 0)
-            {{ $fix->luggage_flag }}
             <tr>
                 <th>荷物預かり</th>
                 <td class="spec-space">
@@ -363,7 +364,10 @@
                         <li class="m-b10">
                             <div class="luggage-cell">
                                 <p>事前荷物の到着日(平日午前指定)</p>
-                                {{ Form::text('luggage_arrive', $fix->luggage_arrive ?? null, ['class' => '', 'id' => 'datepicker2', 'autocomplete="off"']) }}
+                                <div id="luggage-arrive-main">
+                                    {{ Form::text('luggage_arrive', $fix->luggage_arrive ?? null, ['class' => '', 'id' => 'datepicker2', 'autocomplete="off"']) }}
+                                    <span id="changeLuggageArriveDate" class="luggage-arrive-day-of-week"></span>
+                                </div>
                             </div>
                         </li>
                         <li class="m-b30">
@@ -519,7 +523,7 @@
         var max_date = dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
         $("#datepicker2").datepicker({
             showButtonPanel: true,
-            dateFormat: 'yy/mm/dd(D)',
+            dateFormat: 'yy-mm-dd',
             showOn: "both",
             buttonImage: "https://system.osaka-conference.com/img/icon_calender.png",
             buttonImageOnly: true,
@@ -591,7 +595,7 @@
             $('.hasDatepicker').blur();
         });
 
-    });
+});
 </script>
 
 @endsection
