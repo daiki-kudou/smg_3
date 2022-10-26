@@ -3,6 +3,9 @@
 
     @include('layouts.user.overlay')
 
+    <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+    <script src="{{ asset('/js/edit_luggage_date.js') }}"></script>
+
     <div class="contents">
         <div class="pagetop-text">
             <h1 class="page-title oddcolor"><span>入力内容</span></h1>
@@ -228,8 +231,8 @@
                                 </div>
                                 <div class="m-b10">
                                     <p>【事前荷物の到着日】</p>
-                                    <p class="luggage_space">{{ $request->luggage_arrive }}</p>
-                                    {{ Form::hidden('luggage_arrive', $request->luggage_arrive) }}
+                                    <p>{{ $request->luggage_arrive }}<span id="changeLuggageArriveDate"></span></p>
+                                    {{ Form::hidden('luggage_arrive', $request->luggage_arrive, ['id' => 'datepicker2']) }}
                                 </div>
                                 <div class="m-b10">
                                     <p>【事後返送する荷物】</p>
