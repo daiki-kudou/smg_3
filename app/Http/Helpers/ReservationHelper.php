@@ -413,7 +413,9 @@ class ReservationHelper
         break;
       }
       $selected = $time == date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) ? "selected" : "";
-      $html1 = "<option value=" . date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) . " " . $selected . ">";
+      $limit1 = $limit_start > date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) && (date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute'))!=='00:00:00') ? "disabled" : "";
+      $limit2 = $limit_finish < date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) ? "disabled" : "";
+      $html1 = "<option value=" . date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) . " " . $selected . $limit1 . $limit2 . ">";
       $html2 = date('H時i分', strtotime('00:00 +' . $i * 30 . ' minute'));
       $html3 = "</option>";
       $arrays[] = $html1 . $html2 . $html3;
