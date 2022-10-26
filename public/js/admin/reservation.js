@@ -182,6 +182,6 @@ $(function () {
 
 // 日付を変更されたら、再度荷物の到着日の値をクリア
 $(document).on('change', 'input[name="reserve_date"]', function () {
-  console.log("変更したよ");
+  // console.log("変更したよ");
   $('input[name="luggage_arrive"]').val("");
 });
