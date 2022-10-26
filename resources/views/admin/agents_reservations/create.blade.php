@@ -161,7 +161,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">イベント名称1</td>
+            <td class="table-active" id="eventRequired">イベント名称1</td>
             <td>
               <div class="align-items-end d-flex">
                 {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください',

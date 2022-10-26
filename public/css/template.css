@@ -298,7 +298,7 @@ form {
 
 .wrapper {
     margin: 0 auto !important;
-    background-color: #f4f6f9;
+    /* background-color: #f4f6f9; */
 }
 
 .pc-wrapper {

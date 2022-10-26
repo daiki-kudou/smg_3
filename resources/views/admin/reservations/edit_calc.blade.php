@@ -165,7 +165,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="table-active">イベント名称1</td>
+                        <td class="table-active" id="eventRequired">イベント名称1</td>
                         <td>
                             <div class="align-items-end d-flex">
                                 {{ Form::text('event_name1', !empty($data['event_name1']) && !empty($data['board_flag']) ? $data['event_name1'] : null, ['class' => 'form-control', 'id' => 'eventname1Count']) }}

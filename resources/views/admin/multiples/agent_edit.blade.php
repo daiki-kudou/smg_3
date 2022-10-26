@@ -197,7 +197,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="table-active"><label for="eventName1">イベント名称1</label></td>
+                    <td class="table-active" id="eventRequired"><label for="eventName1">イベント名称1</label></td>
                     <td>
                       <div class="align-items-end d-flex">
                         {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください',
