@@ -231,7 +231,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="table-active">イベント名称1</td>
+                        <td class="table-active" id="eventRequired">イベント名称1</td>
                         <td>
                             {{ Form::text('event_name1', $all_requests['event_name1'], ['class' => 'form-control']) }}
                         </td>

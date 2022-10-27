@@ -15,23 +15,28 @@ String.prototype.bytes = function () {
 
 $(document).ready(function () {
   $("#board_flag:checked").each(function () {
-    $("td:contains('イベント名称1')").addClass("form_required"); 
+    $("#eventRequired").addClass("form_required"); 
   });
 });
 
 $(document).ready(function () {
   $("#no_board_flag:checked").each(function () {
     var flag = $(this);
-    $("td:contains('イベント名称1')").addClass("form_required"); 
+    $("#eventRequired").addClass("form_required"); 
     if ($(flag).is(":checked") != null) {
       $("#event_start").prop("readonly", true);
+      $("#event_start").css("color", "#ccc");
       $("#event_finish").prop("readonly", true);
+      $("#event_finish").css("color", "#ccc");
       $("#eventname1Count").prop("readonly", true);
+      $("#eventname1Count").css("color", "#ccc");
       $("#eventname2Count").prop("readonly", true);
+      $("#eventname2Count").css("color", "#ccc");
       $("#eventownerCount").prop("readonly", true);
+      $("#eventownerCount").css("color", "#ccc");
       $("#event_start").prop("disabled", true);
       $("#event_finish").prop("disabled", true);
-      $("td:contains('イベント名称1')").removeClass("form_required"); 
+      $("#eventRequired").removeClass("form_required"); 
     }
   });
 });
@@ -44,10 +49,15 @@ $(function () {
       $("#event_start").prop("readonly", true);
       $("#event_finish").prop("readonly", true);
       $("#eventname1Count").prop("readonly", true);
+      $("#eventname1Count").css("color", "#ccc");
       $("#eventname2Count").prop("readonly", true);
+      $("#eventname2Count").css("color", "#ccc");
       $("#eventownerCount").prop("readonly", true);
+      $("#eventownerCount").css("color", "#ccc");
       $("#event_start").prop("disabled", true);
+      $("#event_start").css("color", "#ccc");
       $("#event_finish").prop("disabled", true);
+      $("#event_finish").css("color", "#ccc");
       // $(".board-table input[type='text']").val("");
       $("[class^='is-error-event']").hide();
       $("input[name^='event_']").removeClass("is-error");
@@ -57,16 +67,21 @@ $(function () {
       $('.count_num1').html(len1 + "/28");
       $('.count_num2').html(len2 + "/28");
       $('.count_num3').html(len3 + "/53");
-      $("td:contains('イベント名称1')").removeClass("form_required"); 
+      $("#eventRequired").removeClass("form_required"); 
     } else {
       $("#event_start").prop("readonly", false);
+      $("#event_start").css("color", "#333");
       $("#event_finish").prop("readonly", false);
+      $("#event_finish").css("color", "#333");
       $("#eventname1Count").prop("readonly", false);
+      $("#eventname1Count").css("color", "#333");
       $("#eventname2Count").prop("readonly", false);
+      $("#eventname2Count").css("color", "#333");
       $("#eventownerCount").prop("readonly", false);
+      $("#eventownerCount").css("color", "#333");
       $("#event_start").prop("disabled", false);
       $("#event_finish").prop("disabled", false);
-      $("td:contains('イベント名称1')").addClass("form_required"); 
+      $("#eventRequired").addClass("form_required"); 
     }
   });
 });
@@ -120,10 +135,15 @@ $(document).ready(function () {
     var flag = $(this);
     if ($(flag).is(":checked") != null) {
       $("#cp_master_event_start").prop("disabled", true);
+      $("#cp_master_event_start").css("color", "#ccc");
       $("#cp_master_event_finish").prop("disabled", true);
+      $("#cp_master_event_finish").css("color", "#ccc");
       $("#eventname1Count").prop("readonly", true);
+      $("#eventname1Count").css("color", "#ccc");
       $("#eventname2Count").prop("readonly", true);
+      $("#eventname2Count").css("color", "#ccc");
       $("#eventownerCount").prop("readonly", true);
+      $("#eventownerCount").css("color", "#ccc");
     }
   });
 });
@@ -134,10 +154,15 @@ $(function () {
     var prop = $("#cp_master_board_no_board_flag").prop("checked");
     if (prop) {
       $("#cp_master_event_start").prop("disabled", true);
+      $("#cp_master_event_start").css("color", "#ccc");
       $("#cp_master_event_finish").prop("disabled", true);
+      $("#cp_master_event_finish").css("color", "#ccc");
       $("#eventname1Count").prop("readonly", true);
+      $("#eventname1Count").css("color", "#ccc");
       $("#eventname2Count").prop("readonly", true);
+      $("#eventname2Count").css("color", "#ccc");
       $("#eventownerCount").prop("readonly", true);
+      $("#eventownerCount").css("color", "#ccc");
       $(".board-table input[type='text']").val("");
       $("[class^='is-error-cp_master_event']").hide();
       $("input[name^='cp_master_event_']").removeClass("is-error");
@@ -149,10 +174,15 @@ $(function () {
       $('.count_num3').html(len3 + "/53");
     } else {
       $("#cp_master_event_start").prop("disabled", false);
+      $("#cp_master_event_start").css("color", "#333");
       $("#cp_master_event_finish").prop("disabled", false);
+      $("#cp_master_event_finish").css("color", "#333");
       $("#eventname1Count").prop("readonly", false);
+      $("#eventname1Count").css("color", "#333");
       $("#eventname2Count").prop("readonly", false);
+      $("#eventname2Count").css("color", "#333");
       $("#eventownerCount").prop("readonly", false);
+      $("#eventownerCount").css("color", "#333");
     }
   });
 });
@@ -162,32 +192,42 @@ $(function () {
   var prop = $("#no_luggage_flag").prop("checked");
   if (prop) {
     $("#luggage_count").prop("readonly", true);
+    $("#luggage_count").css("color", "#ccc");
     $("#luggage_arrive").prop("readonly", true);
+    $("#luggage_arrive").css("color", "#ccc");
     $('input[name="luggage_arrive"]').prop("readonly", true);
+    $('input[name="luggage_arrive"]').css("color", "#ccc");
     $("#luggage_return").prop("readonly", true);
+    $("#luggage_return").css("color", "#ccc");
     $("#luggage_price").prop("readonly", true);
+    $("#luggage_price").css("color", "#ccc");
     $("#luggage_arrive").removeClass("readonly-no-gray");
-    $(".luggage_info").css("display","none");
+    // $(".luggage_info").css("display","none");
   } else {
     $("#luggage_count").prop("readonly", false);
+    $("#luggage_count").css("color", "#333");
     $("#luggage_arrive").prop("readonly", true);
+    $("#luggage_arrive").css("color", "#333");
     $('input[name="luggage_arrive"]').prop("readonly", true);
+    $('input[name="luggage_arrive"]').css("color", "#333");
     $("#luggage_return").prop("readonly", false);
+    $("#luggage_return").css("color", "#333");
     $("#luggage_price").prop("readonly", false);
+    $("#luggage_price").css("color", "#333");
     $("#luggage_arrive").addClass("readonly-no-gray");
-    $(".luggage_info").css("display","block");
+    // $(".luggage_info").css("display","block");
   }
 });
 
         // 荷物預かりのラジオボタン選択の表示、非表示
-      //   $(function() {
-      //     var no_luggage_flag = $('#no_luggage_flag').val();
-      //     if (no_luggage_flag == 0) {
-      //         $(".luggage_info").addClass("d-none");
-      //     } else {
-      //         $(".luggage_info").removeClass("d-none");
-      //     }
-      // });
+        $(function() {
+          var no_luggage_flag = $('#no_luggage_flag').prop('checked');
+          if (no_luggage_flag) {
+              $(".luggage_info").addClass("d-none");
+          } else {
+              $(".luggage_info").removeClass("d-none");
+          }
+      });
 
       $(function() {
           $("input[name='luggage_flag']").change(function() {
@@ -205,18 +245,28 @@ $(document).on('change', 'input[name="luggage_flag"]', function () {
   var prop = $("#no_luggage_flag").prop("checked");
   if (prop) {
     $("#luggage_count").prop("readonly", true);
+    $("#luggage_count").css("color", "#ccc");
     $("#luggage_arrive").prop("readonly", true);
+    $("#luggage_arrive").css("color", "#ccc");
     $('input[name="luggage_arrive"]').prop("readonly", true);
+    $('input[name="luggage_arrive"]').css("color", "#ccc");
     $("#luggage_return").prop("readonly", true);
+    $("#luggage_return").css("color", "#ccc");
     $("#luggage_price").prop("readonly", true);
+    $("#luggage_price").css("color", "#ccc");
     $("#luggage_arrive").removeClass("readonly-no-gray");
     // $(".luggage_info").css("display","none");
   } else {
     $("#luggage_count").prop("readonly", false);
+    $("#luggage_count").css("color", "#333");
     $("#luggage_arrive").prop("readonly", true);
+    $("#luggage_arrive").css("color", "#333");
     $('input[name="luggage_arrive"]').prop("readonly", true);
+    $('input[name="luggage_arrive"]').css("color", "#333");
     $("#luggage_return").prop("readonly", false);
+    $("#luggage_return").css("color", "#333");
     $("#luggage_price").prop("readonly", false);
+    $("#luggage_price").css("color", "#333");
     $("#luggage_arrive").addClass("readonly-no-gray");
     // $(".luggage_info").css("display","block");
   }
@@ -228,8 +278,11 @@ $(function () {
     var flag = $(this);
     if ($(flag).is(":checked") != null) {
       $("#cp_master_luggage_count").prop("readonly", true);
+      $("#cp_master_luggage_count").css("color", "#ccc");
       $("#cp_master_luggage_arrive").prop("readonly", true);
+      $("#cp_master_luggage_arrive").css("color", "#ccc");
       $("#cp_master_luggage_return").prop("readonly", true);
+      $("#cp_master_luggage_return").css("color", "#ccc");
     $(".luggage_info").css("display","none");
     } else {
     $(".luggage_info").css("display","block");
@@ -243,15 +296,21 @@ $(document).on('change', 'input[name*="luggage_flag"]', function () {
   if (prop) {
     $("#cp_master_luggage_arrive").removeClass("readonly-no-gray");
     $("#cp_master_luggage_count").prop("readonly", true);
+    $("#cp_master_luggage_count").css("color", "#ccc");
     $("#cp_master_luggage_arrive").prop("readonly", true);
+    $("#cp_master_luggage_arrive").css("color", "#ccc");
     $("#cp_master_luggage_return").prop("readonly", true);
-    $(".luggage_info").css("display","none");
+    $("#cp_master_luggage_return").css("color", "#ccc");
+    // $(".luggage_info").css("display","none");
   } else {
     $("#cp_master_luggage_count").prop("readonly", false);
+    $("#cp_master_luggage_count").css("color", "#333");
     $("#cp_master_luggage_arrive").prop("readonly", true);
+    $("#cp_master_luggage_arrive").css("color", "#333");
     $("#cp_master_luggage_return").prop("readonly", false);
+    $("#cp_master_luggage_return").css("color", "#333");
     $("#cp_master_luggage_arrive").addClass("readonly-no-gray");
-    $(".luggage_info").css("display","block");
+    // $(".luggage_info").css("display","block");
   }
 });
 
