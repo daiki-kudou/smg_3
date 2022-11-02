@@ -6,6 +6,7 @@
     <script src="{{ asset('/js/lettercounter.js') }}"></script>
     <script src="{{ asset('/js/user/validation.js') }}"></script>
     <script src="{{ asset('/js/holidays.js') }}"></script>
+    <script src="{{ asset('/js/edit_luggage_date.js') }}"></script>
 
     <div class="container-field mt-3 d-md-flex justify-content-md-between">
         <h2 class="mt-3 mb-md-5">仮押え 申込み</h2>
@@ -470,6 +471,7 @@
                     <tr>
                         <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                         <td>
+                            <div id="luggage-arrive-main">
                             @if ($pre_reservation['luggage_flag'] == 1)
                                 {{ Form::text(
                                     'luggage_arrive',
@@ -485,6 +487,8 @@
                                     'id' => 'luggage_arrive',
                                 ]) }}
                             @endif
+                            <span id="changeLuggageArriveDate" class="luggage-arrive-day-of-week-2"></span>
+                            </div>
                             <div class="mt-1 luggage_info">
                             ※利用日3日前～前日（平日のみ）を到着日に指定下さい<br>
                             ※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送 PDF」をご確認下さい。<br>
