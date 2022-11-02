@@ -53,7 +53,8 @@ class UserFinPreRes extends Mailable
 		$enter_time = !empty($this->prereservation->enter_time) ? date('H:i', strtotime($this->prereservation->enter_time)) : null;
 		$leave_time = !empty($this->prereservation->leave_time) ? date('H:i', strtotime($this->prereservation->leave_time)) : null;
 		$venue_name = $this->venue->name_area . $this->venue->name_bldg . $this->venue->name_venue;
-		$url = $this->venue->smg_url;
+		$smg_url = $this->venue->smg_url;
+		$user_id = $this->prereservation->user_id;
 
 		$subtitle = str_replace('${pre_reservation_id}', $pre_reservation_id, $subtitle);
 
@@ -64,7 +65,8 @@ class UserFinPreRes extends Mailable
 		$send_html = str_replace('${enter_time}', $enter_time, $send_html);
 		$send_html = str_replace('${leave_time}', $leave_time, $send_html);
 		$send_html = str_replace('${venue_name}', $venue_name, $send_html);
-		$send_html = str_replace('${url}', $url, $send_html);
+		$send_html = str_replace('${smg_url}', $smg_url, $send_html);
+		$send_html = str_replace('${user_id}', $user_id, $send_html);
 
 		return $this->view('maileclipse::templates.userFinPreRes')
 			->subject($subtitle)
