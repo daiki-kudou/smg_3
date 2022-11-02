@@ -58,7 +58,7 @@ class UserFinPreRes extends Mailable
 		$subtitle = str_replace('${pre_reservation_id}', $pre_reservation_id, $subtitle);
 
 		$send_html = str_replace('${company}', $company, $body);
-		$send_html = str_replace('${login}', $login, $send_html);
+		$send_html = str_replace('${user_id}', $this->prereservation->user_id, $send_html);
 		$send_html = str_replace('${pre_reservation_id}', $pre_reservation_id, $send_html);
 		$send_html = str_replace('${reserve_date}', $reserve_date, $send_html);
 		$send_html = str_replace('${enter_time}', $enter_time, $send_html);
