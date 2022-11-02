@@ -17,4 +17,21 @@ $(function () {
             $('#changeLuggageArriveDate').text('');
         }
     });
+
+    if ($('#luggage_arrive').val() !== "") {
+        let dObj = new Date($('#luggage_arrive').val());
+        let wDay = dObj.getDay();
+        $('#changeLuggageArriveDate').text(WeekChars[wDay]);
+    }
+
+    $("#luggage_arrive").change(function () {
+        if ($('#luggage_arrive').val() !== "") {
+            let dObj = new Date($('#luggage_arrive').val());
+            let wDay = dObj.getDay();
+            $('#changeLuggageArriveDate').text(WeekChars[wDay]);
+        } else {
+            $('#changeLuggageArriveDate').text('');
+        }
+    });
+
 });
