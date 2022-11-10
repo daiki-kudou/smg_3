@@ -16,7 +16,7 @@
   <!-- 予約内容 -------------------------------------------->
   <h2>予約1</h2>
   <div class="bgColorGray">
-    <table class="table-box">
+    <table class="">
       <tr>
         <th>利用日</th>
         <td>
