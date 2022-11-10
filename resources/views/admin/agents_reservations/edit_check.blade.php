@@ -166,7 +166,7 @@
                                         {{ $service->item }}({{ $service->price }}円)
                                     </td>
                                     <td>
-                                        {{ Form::text('services_breakdown[]', (int) $data['services_breakdown'][$key] === 1 ? '有り' : '無し', ['class' => 'form-control', 'readonly']) }}
+                                        {{ Form::text('services_breakdown[]', (int) $data['services_breakdown'][$key] === 1 ? 'あり' : 'なし', ['class' => 'form-control', 'readonly']) }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -192,7 +192,7 @@
                                         準備({{ number_format($venue->layout_prepare) }}円)
                                     </td>
                                     <td>
-                                        {{ Form::text('', $data['layout_prepare'] == 1 ? '有り' : '無し', ['class' => 'form-control', 'readonly']) }}
+                                        {{ Form::text('', $data['layout_prepare'] == 1 ? 'あり' : 'なし', ['class' => 'form-control', 'readonly']) }}
                                         {{ Form::hidden('layout_prepare', $data['layout_prepare'], ['class' => 'form-control', 'readonly']) }}
                                     </td>
                                 </tr>
@@ -201,7 +201,7 @@
                                         片付({{ number_format($venue->layout_clean) }}円)
                                     </td>
                                     <td>
-                                        {{ Form::text('', $data['layout_clean'] == 1 ? '有り' : '無し', ['class' => 'form-control', 'readonly']) }}
+                                        {{ Form::text('', $data['layout_clean'] == 1 ? 'あり' : 'なし', ['class' => 'form-control', 'readonly']) }}
                                         {{ Form::hidden('layout_clean', $data['layout_clean'], ['class' => 'form-control', 'readonly']) }}
                                     </td>
                                 </tr>
@@ -226,7 +226,7 @@
                                 <tr>
                                     <td class="table-active">荷物預かり</td>
                                     <td>
-                                        {{ Form::text('', (int) $data['luggage_flag'] === 1 ? '有り' : '無し', ['class' => 'form-control', 'readonly']) }}
+                                        {{ Form::text('', (int) $data['luggage_flag'] === 1 ? 'あり' : 'なし', ['class' => 'form-control', 'readonly']) }}
                                         {{ Form::hidden('luggage_flag', $data['luggage_flag'], ['class' => 'form-control', 'readonly']) }}
                                     </td>
                                 </tr>

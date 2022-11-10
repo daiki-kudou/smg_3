@@ -454,11 +454,11 @@
                 <div class="radio-box">
                   <p>
                     {{Form::radio('email_flag', '1', true, ['id' => 'no_email_flag', 'class' => ''])}}
-                    {{Form::label('no_email_flag',"有り")}}
+                    {{Form::label('no_email_flag',"あり")}}
                   </p>
                   <p>
                     {{Form::radio('email_flag', '0', false, ['id' => 'email_flag', 'class' => ''])}}
-                    {{Form::label('email_flag', "無し")}}
+                    {{Form::label('email_flag', "なし")}}
                   </p>
                 </div>
               </td>

@@ -268,7 +268,7 @@
                                 <tr>
                                     <td class="table-active">荷物預かり</td>
                                     <td>
-                                        {{ Form::text('', (int) $master_info['luggage_flag'] === 1 ? '有り' : '無し', ['class' => 'form-control', 'readonly']) }}
+                                        {{ Form::text('', (int) $master_info['luggage_flag'] === 1 ? 'あり' : 'なし', ['class' => 'form-control', 'readonly']) }}
                                         {{ Form::hidden('luggage_flag', $master_info['luggage_flag'], ['class' => 'form-control', 'readonly']) }}
                                     </td>
                                 </tr>

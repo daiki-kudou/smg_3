@@ -254,11 +254,11 @@
                                         <div class="radio-box">
                                             <p>
                                                 {{ Form::radio('services_breakdown' . $key, 1, $value['services_breakdown' . $key] == 1 ? true : false, ['id' => 'service' . $key . 'on']) }}
-                                                <label for="{{ 'service' . $key . 'on' }}" class="form-check-label">有り</label>
+                                                <label for="{{ 'service' . $key . 'on' }}" class="form-check-label">あり</label>
                                             </p>
                                             <p>
                                                 {{ Form::radio('services_breakdown' . $key, 0, $value['services_breakdown' . $key] == 0 ? true : false, ['id' => 'services_breakdown' . $key . 'off']) }}
-                                                <label for="{{ 'services_breakdown' . $key . 'off' }}" class="form-check-label">無し</label>
+                                                <label for="{{ 'services_breakdown' . $key . 'off' }}" class="form-check-label">なし</label>
                                             </p>
                                         </div>
                                     </td>
@@ -287,11 +287,11 @@
                                         <div class="radio-box">
                                             <p>
                                                 {{ Form::radio('layout_prepare', 1, $value['layout_prepare'] == 1 ? true : false, ['id' => 'layout_prepare']) }}
-                                                <label for='layout_prepare' class="form-check-label">有り</label>
+                                                <label for='layout_prepare' class="form-check-label">あり</label>
                                             </p>
                                             <p>
                                                 {{ Form::radio('layout_prepare', 0, $value['layout_prepare'] == 0 ? true : false, ['id' => 'no_layout_prepare']) }}
-                                                <label for='no_layout_prepare' class="form-check-label">無し</label>
+                                                <label for='no_layout_prepare' class="form-check-label">なし</label>
                                             </p>
                                         </div>
                                     </td>
@@ -302,11 +302,11 @@
                                         <div class="radio-box">
                                             <p>
                                                 {{ Form::radio('layout_clean', 1, $value['layout_clean'] == 1 ? true : false, ['id' => 'layout_clean']) }}
-                                                <label for='layout_clean' class="form-check-label">有り</label>
+                                                <label for='layout_clean' class="form-check-label">あり</label>
                                             </p>
                                             <p>
                                                 {{ Form::radio('layout_clean', 0, $value['layout_clean'] == 0 ? true : false, ['id' => 'no_layout_clean']) }}
-                                                <label for='no_layout_clean' class="form-check-label">無し</label>
+                                                <label for='no_layout_clean' class="form-check-label">なし</label>
                                             </p>
                                         </div>
                                     </td>
@@ -335,11 +335,11 @@
                                         <div class="radio-box">
                                             <p>
                                                 {{ Form::radio('luggage_flag', 1, (int) $value['luggage_flag'] === 1 ? true : false, ['id' => 'luggage_flag']) }}
-                                                {{ Form::label('luggage_flag', '有り') }}
+                                                {{ Form::label('luggage_flag', 'あり') }}
                                             </p>
                                             <p>
                                                 {{ Form::radio('luggage_flag', 0, (int) $value['luggage_flag'] === 0 ? true : false, ['id' => 'no_luggage_flag']) }}
-                                                {{ Form::label('no_luggage_flag', '無し') }}
+                                                {{ Form::label('no_luggage_flag', 'なし') }}
                                             </p>
                                         </div>
                                         <div class="mt-2 luggage-border">
@@ -549,9 +549,9 @@
                             <td class="table-active"><label for="email_flag">送信メール</label></td>
                             <td>
                                 {{ Form::radio('email_flag', 1, $value['email_flag'] == 1 ? true : false, ['class' => '', 'id' => 'email_flag1']) }}
-                                {{ Form::label('email_flag1', '有り') }}
+                                {{ Form::label('email_flag1', 'あり') }}
                                 {{ Form::radio('email_flag', 0, $value['email_flag'] == 0 ? true : false, ['class' => '', 'id' => 'email_flag2']) }}
-                                {{ Form::label('email_flag2', '無し') }}
+                                {{ Form::label('email_flag2', 'なし') }}
                             </td>
                         </tr>
                     </tbody>

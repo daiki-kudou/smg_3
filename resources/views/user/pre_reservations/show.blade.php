@@ -124,7 +124,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table table-bordered board-table">
+                    <table class="table table-bordered board-table mb-0">
                         <tbody>
                             <tr>
                                 <td colspan="2">
@@ -215,6 +215,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <p class="warning-text mb-3 mt-1">※イベント時間を非表示にする場合は、イベント開始・終了時間ともに「00時00分」を選択して下さい。</p>
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -655,25 +656,25 @@
     });
 
     // 荷物預かりのラジオボタン選択の表示、非表示
-    $(function() {
-        var no_luggage_flag = $('#no_luggage_flag').val();
-        if (no_luggage_flag == 0) {
-            $(".luggage_info").addClass("d-none");
-        } else {
-            $(".luggage_info").removeClass("d-none");
-        }
-    });
+    // $(function() {
+    //     var no_luggage_flag = $('#no_luggage_flag').val();
+    //     if (no_luggage_flag == 0) {
+    //         $(".luggage_info").addClass("d-none");
+    //     } else {
+    //         $(".luggage_info").removeClass("d-none");
+    //     }
+    // });
 
-    $(function() {
-        $("input[name='luggage_flag']").change(function() {
-            var no_luggage_flag = $('#no_luggage_flag').prop('checked');
-            if (no_luggage_flag) {
-                $(".luggage_info").addClass("d-none");
-            } else {
-                $(".luggage_info").removeClass("d-none");
-            }
-        });
-    });
+    // $(function() {
+    //     $("input[name='luggage_flag']").change(function() {
+    //         var no_luggage_flag = $('#no_luggage_flag').prop('checked');
+    //         if (no_luggage_flag) {
+    //             $(".luggage_info").addClass("d-none");
+    //         } else {
+    //             $(".luggage_info").removeClass("d-none");
+    //         }
+    //     });
+    // });
 
     $(document).on("click", "input:radio[name='eat_in']", function() {
         var radioTarget = $('input:radio[name="eat_in"]:checked').val();

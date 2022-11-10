@@ -201,11 +201,12 @@ $(function () {
     $("#luggage_return").css("color", "#ccc");
     $("#luggage_price").prop("readonly", true);
     $("#luggage_price").css("color", "#ccc");
+    $("#changeLuggageArriveDate").css("color", "#ccc");
     $("#luggage_arrive").removeClass("readonly-no-gray");
     // $(".luggage_info").css("display","none");
   } else {
     $("#luggage_count").prop("readonly", false);
-    $("#luggage_count").css("color", "#333");
+    $("#luggage_count").css("color", "#333!important");
     $("#luggage_arrive").prop("readonly", true);
     $("#luggage_arrive").css("color", "#333");
     $('input[name="luggage_arrive"]').prop("readonly", true);
@@ -214,6 +215,7 @@ $(function () {
     $("#luggage_return").css("color", "#333");
     $("#luggage_price").prop("readonly", false);
     $("#luggage_price").css("color", "#333");
+    $("#changeLuggageArriveDate").css("color", "#333");
     $("#luggage_arrive").addClass("readonly-no-gray");
     // $(".luggage_info").css("display","block");
   }
@@ -254,6 +256,7 @@ $(document).on('change', 'input[name="luggage_flag"]', function () {
     $("#luggage_return").css("color", "#ccc");
     $("#luggage_price").prop("readonly", true);
     $("#luggage_price").css("color", "#ccc");
+    $("#changeLuggageArriveDate").css("color", "#ccc");
     $("#luggage_arrive").removeClass("readonly-no-gray");
     // $(".luggage_info").css("display","none");
   } else {
@@ -267,6 +270,7 @@ $(document).on('change', 'input[name="luggage_flag"]', function () {
     $("#luggage_return").css("color", "#333");
     $("#luggage_price").prop("readonly", false);
     $("#luggage_price").css("color", "#333");
+    $("#changeLuggageArriveDate").css("color", "#333");
     $("#luggage_arrive").addClass("readonly-no-gray");
     // $(".luggage_info").css("display","block");
   }

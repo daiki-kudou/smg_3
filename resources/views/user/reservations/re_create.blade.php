@@ -176,6 +176,7 @@
                                         </div>
                                     </li>
                                 </ul>
+                                <p class="m-t10"><span class="txt-indent txtRed">※イベント時間を非表示にする場合は、イベント開始・終了時間ともに<br>「00時00分」を選択して下さい。</span></p>
                             </li>
                     </td>
 

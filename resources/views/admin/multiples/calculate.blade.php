@@ -289,13 +289,13 @@
                             {{Form::radio('cp_master_services_breakdown'.$key, 1,
                             (int)$request->{'cp_master_services_breakdown'.$key}===1?true:false , ['id' =>
                             'cp_master_service'.$key.'on'])}}
-                            {{Form::label('cp_master_service'.$key.'on','有り')}}
+                            {{Form::label('cp_master_service'.$key.'on','あり')}}
                           </p>
                           <p>
                             {{Form::radio('cp_master_services_breakdown'.$key, 0,
                             (int)$request->{'cp_master_services_breakdown'.$key}===0?true:false, ['id' =>
                             'cp_master_service'.$key.'off'])}}
-                            {{Form::label('cp_master_service'.$key.'on','無し')}}
+                            {{Form::label('cp_master_service'.$key.'on','なし')}}
                           </p>
                         </div>
                       </td>
@@ -325,13 +325,13 @@
                             {{Form::radio('cp_master_layout_prepare', 1,
                             (int)$request->cp_master_layout_prepare===1?true:false, ['id' =>
                             'cp_master_layout_prepare'])}}
-                            {{Form::label('cp_master_layout_prepare','有り')}}
+                            {{Form::label('cp_master_layout_prepare','あり')}}
                           </p>
                           <p>
                             {{Form::radio('cp_master_layout_prepare', 0,
                             (int)$request->cp_master_layout_prepare===0?true:false, ['id' =>
                             'cp_master_no_layout_prepare'])}}
-                            {{Form::label('cp_master_no_layout_prepare','無し')}}
+                            {{Form::label('cp_master_no_layout_prepare','なし')}}
                           </p>
                         </div>
                       </td>
@@ -345,13 +345,13 @@
                           <p>
                             {{Form::radio('cp_master_layout_clean', 1,
                             (int)$request->cp_master_layout_clean===1?true:false, ['id' => 'cp_master_layout_clean'])}}
-                            {{Form::label('cp_master_layout_clean','有り')}}
+                            {{Form::label('cp_master_layout_clean','あり')}}
                           </p>
                           <p>
                             {{Form::radio('cp_master_layout_clean', 0,
                             (int)$request->cp_master_layout_clean===0?true:false, ['id' =>
                             'cp_master_no_layout_clean'])}}
-                            {{Form::label('cp_master_no_layout_clean','無し')}}
+                            {{Form::label('cp_master_no_layout_clean','なし')}}
                           </p>
                         </div>
                       </td>
@@ -380,11 +380,11 @@
                         <div class="radio-box">
                           <p>
                             {{Form::radio('luggage_flag',1,(int)$request->luggage_flag===1?true:false,['id'=>'cp_master_luggage_flag'])}}
-                            {{Form::label('cp_master_luggage_flag','有り')}}
+                            {{Form::label('cp_master_luggage_flag','あり')}}
                           </p>
                           <p>
                             {{Form::radio('luggage_flag',0,(int)$request->luggage_flag===0?true:false,['id'=>'cp_master_no_luggage_flag'])}}
-                            {{Form::label('cp_master_no_luggage_flag','無し')}}
+                            {{Form::label('cp_master_no_luggage_flag','なし')}}
                           </p>
                         </div>
                         <div class="mt-2 luggage-border">
@@ -531,11 +531,11 @@
                           <div class="radio-box">
                             <p>
                               {{Form::radio('cp_master_email_flag', 1, false, ['id' => 'cp_master_email_flag'])}}
-                              {{Form::label('cp_master_email_flag','有り')}}
+                              {{Form::label('cp_master_email_flag','あり')}}
                             </p>
                             <p>
                               {{Form::radio('cp_master_email_flag', 0, true, ['id' => 'cp_master_no_email_flag'])}}
-                              {{Form::label('cp_master_no_email_flag','無し')}}
+                              {{Form::label('cp_master_no_email_flag','なし')}}
                             </p>
                           </div>
                         </div>
@@ -855,13 +855,13 @@
                               {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1,
                               $request->{'cp_master_services_breakdown'.$s_key}==1?true:false , ['id' =>
                               'services_breakdown'.$s_key.'_copied'.$key])}}
-                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'あり')}}
                             </p>
                             <p>
                               {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0,
                               $request->{'cp_master_services_breakdown'.$s_key}==0?true:false, ['id' =>
                               'services_breakdown_off'.$s_key.'_copied'.$key])}}
-                              {{Form::label('services_breakdown_off'.$s_key.'_copied'.$key,'無し')}}
+                              {{Form::label('services_breakdown_off'.$s_key.'_copied'.$key,'なし')}}
                             </p>
                           </div>
                         </td>
@@ -890,13 +890,13 @@
                               {{Form::radio('layout_prepare_copied'.$key, 1,
                               $request->cp_master_layout_prepare==1?true:false, ['id' =>
                               'layout_prepare_copied'.$key])}}
-                              {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                              {{Form::label('layout_prepare_copied'.$key,'あり')}}
                             </p>
                             <p>
                               {{Form::radio('layout_prepare_copied'.$key, 0,
                               $request->cp_master_layout_prepare==0?true:false, ['id' =>
                               'no_layout_prepare_copied'.$key])}}
-                              {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                              {{Form::label('no_layout_prepare_copied'.$key,'なし')}}
                             </p>
                           </div>
                         </td>
@@ -908,12 +908,12 @@
                             <p>
                               {{Form::radio('layout_clean_copied'.$key, 1,
                               $request->cp_master_layout_clean==1?true:false, ['id' => 'layout_clean_copied'.$key])}}
-                              {{Form::label('layout_clean_copied'.$key,'有り')}}
+                              {{Form::label('layout_clean_copied'.$key,'あり')}}
                             </p>
                             <p>
                               {{Form::radio('layout_clean_copied'.$key, 0,
                               $request->cp_master_layout_clean==0?true:false, ['id' => 'no_layout_clean_copied'.$key])}}
-                              {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                              {{Form::label('no_layout_clean_copied'.$key,'なし')}}
                             </p>
                           </div>
                         </td>
@@ -941,11 +941,11 @@
                           <div class="radio-box">
                             <p>
                               {{Form::radio('luggage_flag_copied'.$key,1,(int)$request->cp_master_luggage_flag===1?true:false,['id'=>'luggage_flag'.$key])}}
-                              {{Form::label('luggage_flag'.$key,'有り')}}
+                              {{Form::label('luggage_flag'.$key,'あり')}}
                             </p>
                             <p>
                               {{Form::radio('luggage_flag_copied'.$key,0,(int)$request->cp_master_luggage_flag===0?true:false,['id'=>'no_luggage_flag'.$key])}}
-                              {{Form::label('no_luggage_flag'.$key,'無し')}}
+                              {{Form::label('no_luggage_flag'.$key,'なし')}}
                             </p>
                           </div>
                         </td>
@@ -1088,12 +1088,12 @@
                             <p>
                               {{Form::radio('email_flag_copied'.$key, 1, $request->cp_master_email_flag==1?true:false,
                               ['id' => 'email_flag_copied'.$key])}}
-                              {{Form::label('email_flag_copied'.$key,'有り')}}
+                              {{Form::label('email_flag_copied'.$key,'あり')}}
                             </p>
                             <p>
                               {{Form::radio('email_flag_copied'.$key, 0, $request->cp_master_email_flag==0?true:false,
                               ['id' => 'no_email_flag_copied'.$key])}}
-                              {{Form::label('no_email_flag_copied'.$key,'無し')}}
+                              {{Form::label('no_email_flag_copied'.$key,'なし')}}
                             </p>
                           </div>
                         </td>
@@ -1241,7 +1241,7 @@
                             </tr>
                           </tbody>
 
-                          @else{{--料金体系無し、手打ち--}}
+                          @else{{--料金体系なし、手打ち--}}
                           <p class="mb-2">※営業時間外の予約の為、管理者側にて料金設定を行います。</p>
                           <tbody class="venue_head">
                             <tr>

@@ -276,22 +276,22 @@
                                             @if ($value['unit_item'] === $service->item)
                                                 <p>
                                                     {{ Form::radio('services_breakdown[' . $key . ']', 1, true, ['id' => 'service' . $key . 'on', 'class' => '']) }}
-                                                    {{ Form::label('service' . $key . 'on', '有り') }}
+                                                    {{ Form::label('service' . $key . 'on', 'あり') }}
                                                 </p>
                                                 <p>
                                                     {{ Form::radio('services_breakdown[' . $key . ']', 0, false, ['id' => 'service' . $key . 'off', 'class' => '']) }}
-                                                    {{ Form::label('service' . $key . 'off', '無し') }}
+                                                    {{ Form::label('service' . $key . 'off', 'なし') }}
                                                 </p>
                                             @break
 
                                         @elseif($loop->last)
                                             <p>
                                                 {{ Form::radio('services_breakdown[' . $key . ']', 1, false, ['id' => 'service' . $key . 'on', 'class' => '']) }}
-                                                {{ Form::label('service' . $key . 'on', '有り') }}
+                                                {{ Form::label('service' . $key . 'on', 'あり') }}
                                             </p>
                                             <p>
                                                 {{ Form::radio('services_breakdown[' . $key . ']', 0, true, ['id' => 'service' . $key . 'off', 'class' => '']) }}
-                                                {{ Form::label('service' . $key . 'off', '無し') }}
+                                                {{ Form::label('service' . $key . 'off', 'なし') }}
                                             </p>
                                         @endif
                                     @endforeach
@@ -324,11 +324,11 @@
                                 <div class="radio-box">
                                     <p>
                                         {{ Form::radio('layout_prepare', 1, collect($reservation['bills'][0]['breakdowns'])->contains('unit_item', 'レイアウト準備料金') ? true : false, ['id' => 'layout_prepare', 'class' => '']) }}
-                                        <label for='layout_prepare' class="form-check-label">有り</label>
+                                        <label for='layout_prepare' class="form-check-label">あり</label>
                                     </p>
                                     <p>
                                         {{ Form::radio('layout_prepare', 0, collect($reservation['bills'][0]['breakdowns'])->contains('unit_item', 'レイアウト準備料金') ? false : true, ['id' => 'no_layout_prepare', 'class' => '']) }}
-                                        <label for='no_layout_prepare' class="form-check-label">無し</label>
+                                        <label for='no_layout_prepare' class="form-check-label">なし</label>
                                     </p>
                                 </div>
                             </td>
@@ -341,11 +341,11 @@
                                 <div class="radio-box">
                                     <p>
                                         {{ Form::radio('layout_clean', 1, collect($reservation['bills'][0]['breakdowns'])->contains('unit_item', 'レイアウト片付料金') ? true : false, ['id' => 'layout_clean', 'class' => '']) }}
-                                        <label for='layout_clean' class="form-check-label">有り</label>
+                                        <label for='layout_clean' class="form-check-label">あり</label>
                                     </p>
                                     <p>
                                         {{ Form::radio('layout_clean', 0, collect($reservation['bills'][0]['breakdowns'])->contains('unit_item', 'レイアウト片付料金') ? false : true, ['id' => 'no_layout_clean', 'class' => '']) }}
-                                        <label for='no_layout_clean' class="form-check-label">無し</label>
+                                        <label for='no_layout_clean' class="form-check-label">なし</label>
                                     </p>
                                 </div>
                             </td>
@@ -374,11 +374,11 @@
                                 <div class="radio-box">
                                     <p>
                                         {{ Form::radio('luggage_flag', 1, (int) $reservation['luggage_flag'] === 1 ? true : false, ['id' => 'luggage_flag']) }}
-                                        {{ Form::label('luggage_flag', '有り') }}
+                                        {{ Form::label('luggage_flag', 'あり') }}
                                     </p>
                                     <p>
                                         {{ Form::radio('luggage_flag', 0, (int) $reservation['luggage_flag'] === 0 ? true : false, ['id' => 'no_luggage_flag']) }}
-                                        {{ Form::label('no_luggage_flag', '無し') }}
+                                        {{ Form::label('no_luggage_flag', 'なし') }}
                                     </p>
                                 </div>
                                 <div class="mt-2 luggage-border">

@@ -143,7 +143,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table table-bordered board-table">
+                    <table class="table table-bordered board-table mb-0">
                         <tbody>
                             <tr>
                                 <td colspan="2">
@@ -225,6 +225,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <p class="warning-text mb-3 mt-1">※イベント時間を非表示にする場合は、イベント開始・終了時間ともに「00時00分」を選択して下さい。</p>
                 </div>
 
                 <div class="col-md-6 col-12">
@@ -385,12 +386,12 @@
                                             <div class="radio-box">
                                                 <p>
                                                     {{ Form::radio('luggage_flag', 1, (int) $request->luggage_flag === 1 ? true : false, ['id' => 'luggage_flag']) }}
-                                                    {{ Form::label('luggage_flag', '有り') }} </p>
+                                                    {{ Form::label('luggage_flag', 'あり') }} </p>
                                                 <p>
                                                     {{ Form::radio('luggage_flag', 0, (int) $request->luggage_flag === 0 ? true : false, [
                                                         'id' => 'no_luggage_flag',
                                                     ]) }}
-                                                    {{ Form::label('no_luggage_flag', '無し') }}
+                                                    {{ Form::label('no_luggage_flag', 'なし') }}
                                                 </p>
                                                 <div>500円(税抜)</div>
                                             </div>
@@ -425,7 +426,7 @@
                                     <tr>
                                         <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                                         <td>
-                                            <div id="luggage-arrive-main">
+                                        <div id="luggage-arrive-main">
                                             @if ($request->luggage_flag == 1)
                                                 {{ Form::text('luggage_arrive', !empty($request->luggage_arrive)?date('Y-m-d', strtotime($request->luggage_arrive)):null, [
                                                     'class' => 'form-control luggage_arrive holidays',
