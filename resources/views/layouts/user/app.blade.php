@@ -124,15 +124,13 @@
     <script src="{{ asset('js/adminlte.min.js') }}"></script>
     <script>
       var rootPath="{{url('/')}}";
-
-
       // マイナスを赤字に
           $('HTML').on('DOMSubtreeModified propertychange', function() {
           // DOMが変更された時に動く処理
           $('input').each(function(index, element){
           var this_val=$('input').eq(index);
           if (Number(this_val.val())<0) { this_val.css('color','red'); }else if(Number(this_val.val())>0){
-            this_val.css('color','black');
+            // this_val.css('color','black');
             }
             })
             });

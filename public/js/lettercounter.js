@@ -206,7 +206,7 @@ $(function () {
     // $(".luggage_info").css("display","none");
   } else {
     $("#luggage_count").prop("readonly", false);
-    $("#luggage_count").css("color", "#333");
+    $("#luggage_count").css("color", "#333!important");
     $("#luggage_arrive").prop("readonly", true);
     $("#luggage_arrive").css("color", "#333");
     $('input[name="luggage_arrive"]').prop("readonly", true);
