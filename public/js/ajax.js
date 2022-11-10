@@ -67,8 +67,8 @@ $(function () {
         $('.services table tbody').html('');
         $.each($items[1], function (index, value) {
           // ココでサービス取得
-          // 有り・無しに変更するため以下コメントアウト
-          $('.services table tbody').append("<tr><td class='table-active'>" + value['item'] + "(" + (Number(value['price'])).toLocaleString() + "円)" + "</td>" + "<td><input type='radio' value='1' name='services_breakdown" + index + "' id='service" + index + "on'><label class='mr-3 ml-1' for='service" + index + "on'>有り</label><input type='radio' value='0' id='service" + index + "off' name='services_breakdown" + index + "' checked><label for='service" + index + "off' class='ml-1'>無し</label></td></tr>");
+          // あり・なしに変更するため以下コメントアウト
+          $('.services table tbody').append("<tr><td class='table-active'>" + value['item'] + "(" + (Number(value['price'])).toLocaleString() + "円)" + "</td>" + "<td><input type='radio' value='1' name='services_breakdown" + index + "' id='service" + index + "on'><label class='mr-3 ml-1' for='service" + index + "on'>あり</label><input type='radio' value='0' id='service" + index + "off' name='services_breakdown" + index + "' checked><label for='service" + index + "off' class='ml-1'>なし</label></td></tr>");
         });
       })
       .fail(function (data) {
@@ -169,7 +169,7 @@ $(function () {
 
 
 
-  // レイアウト有りなし判別
+  // レイアウトありなし判別
   function ajaxGetLayout($venue_id) {
     $.ajax({
       headers: {
@@ -187,7 +187,7 @@ $(function () {
     })
       .done(function ($result) {
         $('.layouts table tbody').html(''); //初期化
-        $result == 1 ? $('.layouts table tbody').append("<tr><td class='table-active'>準備</td><td><input type='radio' name='layout_prepare' id='layout_prepare' value='" + 1 + "' class='mr-1'><label for='layout_prepare' class='mr-2'>有り</label><input type='radio' name='layout_prepare' id='no_layout_prepare' value='" + 0 + "' checked class='mr-1'><label for='no_layout_prepare'>無し</label></td></tr><tr><td class='table-active'>片付</td><td><input type='radio' name='layout_clean' id='layout_clean' value='" + 1 + "' class='mr-1'><label for='layout_clean' class='mr-2'>有り</label><input type='radio' name='layout_clean' id='no_layout_clean' value='" + 0 + "'checked class='mr-1'><label for='no_layout_clean'>無し</label></td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
+        $result == 1 ? $('.layouts table tbody').append("<tr><td class='table-active'>準備</td><td><input type='radio' name='layout_prepare' id='layout_prepare' value='" + 1 + "' class='mr-1'><label for='layout_prepare' class='mr-2'>あり</label><input type='radio' name='layout_prepare' id='no_layout_prepare' value='" + 0 + "' checked class='mr-1'><label for='no_layout_prepare'>なし</label></td></tr><tr><td class='table-active'>片付</td><td><input type='radio' name='layout_clean' id='layout_clean' value='" + 1 + "' class='mr-1'><label for='layout_clean' class='mr-2'>あり</label><input type='radio' name='layout_clean' id='no_layout_clean' value='" + 0 + "'checked class='mr-1'><label for='no_layout_clean'>なし</label></td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
       })
       .fail(function ($result) {
         // $('#fullOverlay').css('display', 'none');
@@ -240,7 +240,7 @@ $(function () {
   };
 
 
-  // 荷物預り　有りなし判別
+  // 荷物預り　ありなし判別
   function ajaxGetLuggage($venue_id) {
     $.ajax({
       headers: {

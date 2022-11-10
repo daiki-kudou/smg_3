@@ -231,7 +231,7 @@
                                 <tr>
                                     <td class="table-active">荷物預かり</td>
                                     <td>
-                                        {{ (int) $value['luggage_flag'] === 1 ? '有り' : '無し' }}
+                                        {{ (int) $value['luggage_flag'] === 1 ? 'あり' : 'なし' }}
                                     </td>
                                 </tr>
                                 @if ($value['luggage_count'] && $value['luggage_flag'] == 1)

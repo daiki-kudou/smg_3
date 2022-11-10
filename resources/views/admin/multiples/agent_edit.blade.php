@@ -292,12 +292,12 @@
                           <p>
                             {{Form::radio('cp_master_services_breakdown'.$key, 1, false , ['id' =>
                             'cp_master_service'.$key.'on'])}}
-                            {{Form::label('cp_master_service'.$key.'on','有り')}}
+                            {{Form::label('cp_master_service'.$key.'on','あり')}}
                           </p>
                           <p>
                             {{Form::radio('cp_master_services_breakdown'.$key, 0, true, ['id' =>
                             'cp_master_service'.$key.'off'])}}
-                            {{Form::label('cp_master_service'.$key.'on','無し')}}
+                            {{Form::label('cp_master_service'.$key.'on','なし')}}
                           </p>
                         </div>
                       </td>
@@ -326,12 +326,12 @@
                         <div class="radio-box">
                           <p>
                             {{Form::radio('cp_master_layout_prepare', 1, false, ['id' => 'cp_master_layout_prepare'])}}
-                            {{Form::label('cp_master_layout_prepare','有り')}}
+                            {{Form::label('cp_master_layout_prepare','あり')}}
                           </p>
                           <p>
                             {{Form::radio('cp_master_layout_prepare', 0, true, ['id' =>
                             'cp_master_no_layout_prepare'])}}
-                            {{Form::label('cp_master_no_layout_prepare','無し')}}
+                            {{Form::label('cp_master_no_layout_prepare','なし')}}
                           </p>
                         </div>
                       </td>
@@ -344,11 +344,11 @@
                         <div class="radio-box">
                           <p>
                             {{Form::radio('cp_master_layout_clean', 1, false, ['id' => 'cp_master_layout_clean'])}}
-                            {{Form::label('cp_master_layout_clean','有り')}}
+                            {{Form::label('cp_master_layout_clean','あり')}}
                           </p>
                           <p>
                             {{Form::radio('cp_master_layout_clean', 0, true, ['id' => 'cp_master_no_layout_clean'])}}
-                            {{Form::label('cp_master_no_layout_clean','無し')}}
+                            {{Form::label('cp_master_no_layout_clean','なし')}}
                           </p>
                         </div>
                       </td>
@@ -378,11 +378,11 @@
                         <div class="radio-box">
                           <p>
                             {{Form::radio('luggage_flag', 1, true, ['id' => 'cp_master_luggage_flag'])}}
-                            {{Form::label('cp_master_luggage_flag','有り')}}
+                            {{Form::label('cp_master_luggage_flag','あり')}}
                           </p>
                           <p>
                             {{Form::radio('luggage_flag',0,true,['id'=>'cp_master_no_luggage_flag'])}}
-                            {{Form::label('cp_master_no_luggage_flag','無し')}}
+                            {{Form::label('cp_master_no_luggage_flag','なし')}}
                           </p>
                         </div>
                         <div class="mt-2 luggage-border">
@@ -864,12 +864,12 @@
                             <p>
                               {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, true , ['id' =>
                               'services_breakdown'.$s_key.'_copied'.$key])}}
-                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'あり')}}
                             </p>
                             <p>
                               {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, false, ['id' =>
                               'services_breakdown'.$s_key.'_copied'.$key."off"])}}
-                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'なし')}}
                             </p>
                           </div>
                           @break
@@ -878,12 +878,12 @@
                             <p>
                               {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' =>
                               'services_breakdown'.$s_key.'_copied'.$key])}}
-                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'あり')}}
                             </p>
                             <p>
                               {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' =>
                               'services_breakdown'.$s_key.'_copied'.$key."off"])}}
-                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'なし')}}
                             </p>
                           </div>
                           @endif
@@ -893,12 +893,12 @@
                             <p>
                               {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' =>
                               'services_breakdown'.$s_key.'_copied'.$key])}}
-                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'あり')}}
                             </p>
                             <p>
                               {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' =>
                               'services_breakdown'.$s_key.'_copied'.$key."off"])}}
-                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'なし')}}
                             </p>
                           </div>
                           @endif
@@ -930,24 +930,24 @@
                             <p>
                               {{Form::radio('layout_prepare_copied'.$key, 1, true, ['id' =>
                               'layout_prepare_copied'.$key])}}
-                              {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                              {{Form::label('layout_prepare_copied'.$key,'あり')}}
                             </p>
                             <p>
                               {{Form::radio('layout_prepare_copied'.$key, 0, false, ['id' =>
                               'no_layout_prepare_copied'.$key])}}
-                              {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                              {{Form::label('no_layout_prepare_copied'.$key,'なし')}}
                             </p>
                             @break
                             @elseif($loop->last)
                             <p>
                               {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' =>
                               'layout_prepare_copied'.$key])}}
-                              {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                              {{Form::label('layout_prepare_copied'.$key,'あり')}}
                             </p>
                             <p>
                               {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' =>
                               'no_layout_prepare_copied'.$key])}}
-                              {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                              {{Form::label('no_layout_prepare_copied'.$key,'なし')}}
                             </p>
                             @endif
                             @endforeach
@@ -962,24 +962,24 @@
                             @if ($layout_prepares->unit_item=="レイアウト片付料金")
                             <p>
                               {{Form::radio('layout_clean_copied'.$key, 1, true, ['id' => 'layout_clean_copied'.$key])}}
-                              {{Form::label('layout_clean_copied'.$key,'有り')}}
+                              {{Form::label('layout_clean_copied'.$key,'あり')}}
                             </p>
                             <p>
                               {{Form::radio('layout_clean_copied'.$key, 0, false, ['id' =>
                               'no_layout_clean_copied'.$key])}}
-                              {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                              {{Form::label('no_layout_clean_copied'.$key,'なし')}}
                             </p>
                             @break
                             @elseif($loop->last)
                             <p>
                               {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' =>
                               'layout_clean_copied'.$key])}}
-                              {{Form::label('layout_clean_copied'.$key,'有り')}}
+                              {{Form::label('layout_clean_copied'.$key,'あり')}}
                             </p>
                             <p>
                               {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' =>
                               'no_layout_clean_copied'.$key])}}
-                              {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                              {{Form::label('no_layout_clean_copied'.$key,'なし')}}
                             </p>
                             @endif
                             @endforeach
@@ -1009,11 +1009,11 @@
                           <div class="radio-box">
                             <p>
                               {{Form::radio('luggage_flag_copied'.$key,1,(int)$pre_reservation->luggage_flag===1?true:false,['id'=>'luggage_flag'.$key])}}
-                              {{Form::label('luggage_flag'.$key,'有り')}}
+                              {{Form::label('luggage_flag'.$key,'あり')}}
                             </p>
                             <p>
                               {{Form::radio('luggage_flag_copied'.$key,0,(int)$pre_reservation->luggage_flag===0?true:false,['id'=>'no_luggage_flag'.$key])}}
-                              {{Form::label('no_luggage_flag'.$key,'無し')}}
+                              {{Form::label('no_luggage_flag'.$key,'なし')}}
                             </p>
                           </div>
                         </td>

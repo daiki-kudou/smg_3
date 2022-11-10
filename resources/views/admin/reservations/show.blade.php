@@ -335,7 +335,7 @@
                             <tbody>
                                 <tr>
                                     <td class="table-active"><label for="preDelivery">荷物預かり</label></td>
-                                    <td>{{ (int) $reservation->luggage_flag === 1 ? '有り' : '無し' }}</td>
+                                    <td>{{ (int) $reservation->luggage_flag === 1 ? 'あり' : 'なし' }}</td>
                                 </tr>
                                 <tr>
                                     <td class="table-active"><label for="preDelivery">事前に預かる荷物(目安)</label></td>

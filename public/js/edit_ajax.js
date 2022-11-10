@@ -336,9 +336,9 @@ function ajaxGetItems($venue_id) {
       $('.services table tbody').html('');
       $.each($items[1], function (index, value) {
         // ココでサービス取得
-        // 有り・無しに変更するため以下コメントアウト
+        // あり・なしに変更するため以下コメントアウト
         // $('.services table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='number' value='0' max='1' min='0' name='" + value['id'] + "' class='form-control'></td></tr>");
-        $('.services table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='service" + value['id'] + "'>有り<input type='radio' value='0' name='service" + value['id'] + "' checked>無し</td></tr>");
+        $('.services table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='service" + value['id'] + "'>あり<input type='radio' value='0' name='service" + value['id'] + "' checked>なし</td></tr>");
       });
     })
     .fail(function (data) {
@@ -617,7 +617,7 @@ function ajaxGetLayout($venue_id) {
     .done(function ($result) {
       $('#fullOverlay').css('display', 'none');
       $('.layouts table tbody').html(''); //初期化
-      $result == 1 ? $('.layouts table tbody').append("<tr><td>レイアウト準備</td><td><input type='radio' name='layout_prepare' value='1'>有り<input type='radio' name='layout_prepare' value='0' checked >無し</td></tr><tr><td>レイアウト片付</td><td><input type='radio' name='layout_clean' value='1'>有り<input type='radio' name='layout_clean' value='0'checked>無し</td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
+      $result == 1 ? $('.layouts table tbody').append("<tr><td>レイアウト準備</td><td><input type='radio' name='layout_prepare' value='1'>あり<input type='radio' name='layout_prepare' value='0' checked >なし</td></tr><tr><td>レイアウト片付</td><td><input type='radio' name='layout_clean' value='1'>あり<input type='radio' name='layout_clean' value='0'checked>なし</td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
     })
     .fail(function ($result) {
       $('#fullOverlay').css('display', 'none');

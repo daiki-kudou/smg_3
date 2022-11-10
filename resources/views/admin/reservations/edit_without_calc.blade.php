@@ -146,12 +146,12 @@
               <p>
                 <input type="radio" name="board_flag" value="1" id="board_flag"
                   {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>
-                <span>有り</span>
+                <span>あり</span>
               </p>
               <p>
                 <input type="radio" name="board_flag" value="0" id="no_board_flag"
                   {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>
-                <span>無し</span>
+                <span>なし</span>
               </p>
             </div>
           </td>
@@ -260,11 +260,11 @@
                 <div class="radio-box">
                   <p>
                     {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
-                    {{Form::label('service'.$key.'on',"有り")}}
+                    {{Form::label('service'.$key.'on',"あり")}}
                   </p>
                   <p>
                     {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off'])}}
-                    {{Form::label('service'.$key.'off',"無し")}}
+                    {{Form::label('service'.$key.'off',"なし")}}
                   </p>
                 </div>
               </td>
@@ -292,20 +292,20 @@
                   @if ($bill->breakdowns->where('unit_item','レイアウト準備料金')->count()!=0)
                   <p>
                     {{Form::radio('layout_prepare', 1, true, ['id' => 'layout_prepare'])}}
-                    {{Form::label('layout_prepare',"有り")}}
+                    {{Form::label('layout_prepare',"あり")}}
                   </p>
                   <p>
                     {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare'])}}
-                    {{Form::label('no_layout_prepare',"無し")}}
+                    {{Form::label('no_layout_prepare',"なし")}}
                   </p>
                   @else
                   <p>
                     {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare'])}}
-                    {{Form::label('layout_prepare',"有り")}}
+                    {{Form::label('layout_prepare',"あり")}}
                   </p>
                   <p>
                     {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
-                    {{Form::label('no_layout_prepare',"無し")}}
+                    {{Form::label('no_layout_prepare',"なし")}}
                   </p>
                 </div>
               </td>
@@ -319,20 +319,20 @@
                   @if ($bill->breakdowns->where('unit_item','レイアウト片付料金')->count()!=0)
                   <p>
                     {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean'])}}
-                    {{Form::label('layout_clean',"有り")}}
+                    {{Form::label('layout_clean',"あり")}}
                   </p>
                   <p>
                     {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean'])}}
-                    {{Form::label('no_layout_clean',"無し")}}
+                    {{Form::label('no_layout_clean',"なし")}}
                   </p>
                   @else
                   <p>
                     {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
-                    {{Form::label('layout_clean',"有り")}}
+                    {{Form::label('layout_clean',"あり")}}
                   </p>
                   <p>
                     {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
-                    {{Form::label('no_layout_clean',"無し")}}
+                    {{Form::label('no_layout_clean',"なし")}}
                   </p>
                   @endif
                 </div>
@@ -549,7 +549,7 @@
         <tr>
           <td class="table-active"><label for="email_flag">送信メール</label></td>
           <td>
-            {{ Form::text('', $reservation->email_flag==1?"有り":"無し",['class'=>'form-control'] ) }}
+            {{ Form::text('', $reservation->email_flag==1?"あり":"なし",['class'=>'form-control'] ) }}
             {{ Form::hidden('email_flag', $reservation->email_flag,['class'=>'form-control'] ) }}
           </td>
         </tr>

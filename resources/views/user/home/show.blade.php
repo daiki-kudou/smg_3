@@ -200,13 +200,13 @@
                         <tr>
                             <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                             <td>
-                                {{ isset($reservation->event_start) ? ReservationHelper::formatTime($reservation->event_start) : '無し' }}
+                                {{ isset($reservation->event_start) ? ReservationHelper::formatTime($reservation->event_start) : 'なし' }}
                             </td>
                         </tr>
                         <tr>
                             <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                             <td>
-                                {{ isset($reservation->event_finish) ? ReservationHelper::formatTime($reservation->event_finish) : '無し' }}
+                                {{ isset($reservation->event_finish) ? ReservationHelper::formatTime($reservation->event_finish) : 'なし' }}
                             </td>
                         </tr>
                     </table>
@@ -283,16 +283,16 @@
                                         <td class="table-active"><label for="prelayout">準備</label></td>
                                         <td>
                                             {{ $reservation->bills->sortBy('id')->first()->breakdowns->where('unit_item', 'レイアウト準備料金')->contains('unit_item', 'レイアウト準備料金')
-                                                ? '有り'
-                                                : '無し' }}
+                                                ? 'あり'
+                                                : 'なし' }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="table-active"><label for="postlayout">片付</label></td>
                                         <td>
                                             {{ $reservation->bills->sortBy('id')->first()->breakdowns->where('unit_item', 'レイアウト片付料金')->contains('unit_item', 'レイアウト片付料金')
-                                                ? '有り'
-                                                : '無し' }}
+                                                ? 'あり'
+                                                : 'なし' }}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -315,7 +315,7 @@
                             <tbody>
                                 <tr>
                                     <td class="table-active"><label for="preDelivery">荷物預かり　</label></td>
-                                    <td>{{ (int) $reservation->luggage_flag === 1 ? '有り' : '無し' }}</td>
+                                    <td>{{ (int) $reservation->luggage_flag === 1 ? 'あり' : 'なし' }}</td>
                                 </tr>
                                 <tr>
                                     <td class="table-active"><label for="preDelivery">事前にお預りする荷物(目安)</label></td>

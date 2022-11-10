@@ -147,8 +147,8 @@ function ajaxAddBillsLayout($reservation_id) {
     .done(function ($layouts) {
       $('#fullOverlay').css('display', 'none');
       $('.extra-bill-table tbody').html(''); //初期化
-      $('.extra-bill-table tbody').append("<tr><td>" + "レイアウト準備" + "</td><td>" + $layouts[0] + "</td><td><select class='layout_prepare" + "'><option value='0'>無し</option><option value='1'>有り</option></select></td ></tr > ");
-      $('.extra-bill-table tbody').append("<tr><td>" + "レイアウト片付" + "</td><td>" + $layouts[1] + "</td><td><select class='layout_clean" + "'><option value='0'>無し</option><option value='1'>有り</option></select></td></tr>");
+      $('.extra-bill-table tbody').append("<tr><td>" + "レイアウト準備" + "</td><td>" + $layouts[0] + "</td><td><select class='layout_prepare" + "'><option value='0'>なし</option><option value='1'>あり</option></select></td ></tr > ");
+      $('.extra-bill-table tbody').append("<tr><td>" + "レイアウト片付" + "</td><td>" + $layouts[1] + "</td><td><select class='layout_clean" + "'><option value='0'>なし</option><option value='1'>あり</option></select></td></tr>");
     })
     .fail(function ($layouts) {
       $('#fullOverlay').css('display', 'none');

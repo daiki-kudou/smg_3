@@ -177,7 +177,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('reservations/getlayout', 'ReservationsController@getlayout');
     // ajax レイアウト金額取得
     Route::post('reservations/getlayoutprice', 'ReservationsController@getlayoutprice');
-    // ajax 荷物有り、無し　判別
+    // ajax 荷物あり、なし　判別
     Route::post('reservations/getluggage', 'ReservationsController@getluggage');
     // ajax 会場　直営 or 提携　判別
     Route::post('reservations/getoperation', 'ReservationsController@getoperation');

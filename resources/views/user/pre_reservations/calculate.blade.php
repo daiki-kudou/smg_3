@@ -386,12 +386,12 @@
                                             <div class="radio-box">
                                                 <p>
                                                     {{ Form::radio('luggage_flag', 1, (int) $request->luggage_flag === 1 ? true : false, ['id' => 'luggage_flag']) }}
-                                                    {{ Form::label('luggage_flag', '有り') }} </p>
+                                                    {{ Form::label('luggage_flag', 'あり') }} </p>
                                                 <p>
                                                     {{ Form::radio('luggage_flag', 0, (int) $request->luggage_flag === 0 ? true : false, [
                                                         'id' => 'no_luggage_flag',
                                                     ]) }}
-                                                    {{ Form::label('no_luggage_flag', '無し') }}
+                                                    {{ Form::label('no_luggage_flag', 'なし') }}
                                                 </p>
                                                 <div>500円(税抜)</div>
                                             </div>

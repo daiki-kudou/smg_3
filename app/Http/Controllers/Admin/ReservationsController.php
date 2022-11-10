@@ -138,7 +138,7 @@ class ReservationsController extends Controller
     }
   }
 
-  /**** ajax レイアウト有り無し判別取得****/
+  /**** ajax レイアウトありなし判別取得****/
   public function getlayout(Request $request)
   {
     $venue = Venue::find($request->venue_id);
@@ -173,7 +173,7 @@ class ReservationsController extends Controller
     return [$result, $total];
   }
 
-  /**** ajax 荷物預り　有り無し　判別****/
+  /**** ajax 荷物預り　ありなし　判別****/
   public function getluggage(Request $request)
   {
     $venue = Venue::find($request->venue_id);
