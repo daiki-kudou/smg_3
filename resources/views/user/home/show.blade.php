@@ -161,7 +161,7 @@
                         </table>
                     </div>
 
-                    <table class="table table-bordered board-table">
+                    <table class="table table-bordered board-table mb-0">
                         <tr>
                             <td colspan="2">
                                 <div class="d-flex align-items-center justify-content-between">
@@ -210,6 +210,7 @@
                             </td>
                         </tr>
                     </table>
+                    <p class="warning-text mb-3 mt-1">※イベント時間を非表示にする場合は、イベント開始・終了時間ともに「00時00分」を選択して下さい。</p>
                 </div>
                 <!-- 左側の項目 終わり-------------------------------------------------- -->
 

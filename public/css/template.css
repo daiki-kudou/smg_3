@@ -537,7 +537,7 @@ option:disabled {
 .form-control:disabled,
 .form-control[readonly] {
     background-color: #ccc;
-    color: #ccc;
+    /* color: #ccc; */
 }
 
 
