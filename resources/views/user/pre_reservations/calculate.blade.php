@@ -426,6 +426,7 @@
                                     <tr>
                                         <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                                         <td>
+                                        <div id="luggage-arrive-main">
                                             @if ($request->luggage_flag == 1)
                                                 {{ Form::text('luggage_arrive', !empty($request->luggage_arrive)?date('Y-m-d', strtotime($request->luggage_arrive)):null, [
                                                     'class' => 'form-control luggage_arrive holidays',
@@ -437,6 +438,8 @@
                                                     'id' => 'luggage_arrive',
                                                 ]) }}
                                             @endif
+                                            <span id="changeLuggageArriveDate" class="luggage-arrive-day-of-week-2"></span>
+                                            </div>
                                             <div class="mt-1 luggage_info">
                                                 ※利用日3日前～前日（平日のみ）を到着日に指定下さい<br>
                                                 ※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送 PDF」をご確認下さい。<br>
