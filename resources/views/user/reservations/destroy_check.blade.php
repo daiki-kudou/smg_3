@@ -320,7 +320,7 @@
                                 @endforeach
                                 @if ($slctSession[0]['luggage_flag'])
                                     <li>
-                                        <p>荷物預かり/返送</p>
+                                        <p>荷物預かり</p>
                                         <p>500<span>円</span></p>
                                     </li>
                                 @endif
