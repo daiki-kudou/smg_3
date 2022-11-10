@@ -140,7 +140,7 @@
                                         </td>
                                     </tr>
                                 @endif
-                                @if (!empty(ReservationHelper::DBLJsonDecode($reservation[0]['items_results'])[2]))
+                                @if (!empty(ReservationHelper::DBLJsonDecode($reservation[0]['items_results'])[2]) || $reservation[0]['luggage_flag'])
                                     <tr>
                                         <th class=""><label for="service">有料サービス</label></th>
                                         <td>
