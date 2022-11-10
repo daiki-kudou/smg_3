@@ -151,7 +151,7 @@
                                                         <p>{{ $ser[1] }}<span>円</span></p>
                                                     </li>
                                                 @endforeach
-                                                @if (optional($reservation[0])['luggage_count'] || optional($reservation[0])['luggage_arrive'] || optional($reservation[0])['luggage_return'])
+                                                @if (optional($reservation[0])['luggage_flag'] || optional($reservation[0])['luggage_count'] || optional($reservation[0])['luggage_arrive'] || optional($reservation[0])['luggage_return'])
                                                     <li>
                                                         <p>荷物預かり/返送</p>
                                                         <p>500<span>円</span></p>
