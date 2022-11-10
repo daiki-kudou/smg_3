@@ -185,32 +185,38 @@
                     @endif
 
                     @if ($venue->luggage_flag != 0)
-                        @if (!empty($slctSession[0]['luggage_count']) && !empty($slctSession[0]['luggage_arrive']) && !empty($slctSession[0]['luggage_return']))
+                        @if (!empty($slctSession[0]['luggage_count']) || !empty($slctSession[0]['luggage_arrive']) || !empty($slctSession[0]['luggage_return']))
                             <tr>
                                 <th>荷物預かり</th>
                                 <td class="spec-space">
                                     <ul class="option-list">
                                         <li>
-                                            <dl class="form-cell2">
-                                                <dt>事前荷物の個数：</dt>
-                                                <dd>
-                                                    {{ $slctSession[0]['luggage_count'] ?? '' }}<span>個</span>
-                                                </dd>
-                                            </dl>
-                                            <dl class="form-cell2">
-                                                <dt>事前荷物の到着日：</dt>
-                                                <dd>
-                                                    <p>{{ $slctSession[0]['luggage_arrive'] ?? '' }}<span id="changeLuggageArriveDate"></span></p>
-                                                    {{ Form::hidden('luggage_arrive', $slctSession[0]['luggage_arrive'], ['id' => 'datepicker2']) }}
-                                                </dd>
-                                            </dl>
-                                            <dl class="form-cell2">
-                                                <dt>事後返送する荷物の個数：</dt>
-                                                <dd>
-                                                    {{ $slctSession[0]['luggage_return'] ?? '' }}
-                                                    <span>個</span>
-                                                </dd>
-                                            </dl>
+                                            @if (!empty($slctSession[0]['luggage_count']))
+                                                <dl class="form-cell2">
+                                                    <dt>事前荷物の個数：</dt>
+                                                    <dd>
+                                                        {{ $slctSession[0]['luggage_count'] ?? '' }}<span>個</span>
+                                                    </dd>
+                                                </dl>
+                                            @endif
+                                            @if (!empty($slctSession[0]['luggage_arrive']))
+                                                <dl class="form-cell2">
+                                                    <dt>事前荷物の到着日：</dt>
+                                                    <dd>
+                                                        <p>{{ $slctSession[0]['luggage_arrive'] ?? '' }}<span id="changeLuggageArriveDate"></span></p>
+                                                        {{ Form::hidden('luggage_arrive', $slctSession[0]['luggage_arrive'], ['id' => 'datepicker2']) }}
+                                                    </dd>
+                                                </dl>
+                                            @endif
+                                            @if (!empty($slctSession[0]['luggage_return']))
+                                                <dl class="form-cell2">
+                                                    <dt>事後返送する荷物の個数：</dt>
+                                                    <dd>
+                                                        {{ $slctSession[0]['luggage_return'] ?? '' }}
+                                                        <span>個</span>
+                                                    </dd>
+                                                </dl>
+                                            @endif
                                         </li>
                                     </ul>
                                 </td>
@@ -312,6 +318,12 @@
                                         <p>{{ number_format($b_ser[1]) }}<span>円</span></p>
                                     </li>
                                 @endforeach
+                                @if ($slctSession[0]['luggage_flag'])
+                                    <li>
+                                        <p>荷物預かり/返送</p>
+                                        <p>500<span>円</span></p>
+                                    </li>
+                                @endif
                             </ul>
                         </td>
                     </tr>
