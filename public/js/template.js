@@ -155,16 +155,16 @@ $(function () {
 	$('#sales_start').on('change', function () {
 	  var child_target = $('#event_start').val();
 	  $('#event_start option').prop('disabled', false);
-      if ($(this).val() > child_target || $('#event_start').is(':disabled')) {
-        $('#event_start').val($(this).val());
+    if ($(this).val() > child_target || $('#event_start').is(':disabled')) {
+      $('#event_start').val($(this).val());
 		// swal('イベント開始時間は入室時間より後に設定してください');
 	  }
 	})
 	$('#sales_finish').on('change', function () {
 	  var child_target2 = $('#event_finish').val();
 	  $('#event_finish option').prop('disabled', false);
-      if ($(this).val() < child_target2 || $('#event_finish').is(':disabled')) {
-        $('#event_finish').val($(this).val());
+    if ($(this).val() < child_target2 || $('#event_finish').is(':disabled')) {
+      $('#event_finish').val($(this).val());
 		// swal('イベント終了時間は退室時間より前に設定してください');
 	  }
 	})
