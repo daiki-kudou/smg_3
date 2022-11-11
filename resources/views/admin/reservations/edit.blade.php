@@ -199,12 +199,10 @@
                         <td class="table-active">イベント開始時間</td>
                         <td>
                             <select name="event_start" id="event_start" class="form-control">
-                                @if ($reservation['board_flag'] == 1)
-                                    <option value="" disabled>選択してください</option>
-                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($reservation['event_start'], $reservation['enter_time'], $reservation['leave_time']) !!}
+                                @if ($reservation['board_flag'] === 0)
+                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($reservation['enter_time'], $reservation['enter_time'], $reservation['leave_time']) !!}
                                 @else
-                                    <option value="" selected></option>
-                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit('', $reservation['enter_time'], $reservation['leave_time']) !!}
+                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($reservation['event_start'], $reservation['enter_time'], $reservation['leave_time']) !!}
                                 @endif
                             </select>
                         </td>
@@ -213,12 +211,10 @@
                         <td class="table-active">イベント終了時間</td>
                         <td>
                             <select name="event_finish" id="event_finish" class="form-control">
-                                @if ($reservation['board_flag'] == 1)
-                                    <option value="" disabled>選択してください</option>
-                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($reservation['event_finish'], $reservation['enter_time'], $reservation['leave_time']) !!}
+                                @if ($reservation['board_flag'] === 0)
+                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($reservation['leave_time'], $reservation['enter_time'], $reservation['leave_time']) !!}
                                 @else
-                                    <option value="" selected></option>
-                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit('', $reservation['enter_time'], $reservation['leave_time']) !!}
+                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($reservation['event_finish'], $reservation['enter_time'], $reservation['leave_time']) !!}
                                 @endif
                             </select>
                         </td>

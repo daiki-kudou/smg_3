@@ -221,9 +221,7 @@
               <td>
                 <div>
                   <select name="event_finish" id="event_finish" class="form-control">
-                    <option disabled>選択してください</option>
                     {!!ReservationHelper::timeOptions()!!}
-
                   </select>
                 </div>
               </td>

@@ -313,8 +313,11 @@
                             <td class="table-active">イベント開始時間</td>
                             <td>
                                 <select name="event_start" id="event_start" class="form-control">
-                                    <option value=""></option>
-                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_start, $PreReservation->enter_time, $PreReservation->leave_time) !!}
+                                    @if ($PreReservation->board_flag === 0)
+                                        {!! ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->enter_time, $PreReservation->enter_time, $PreReservation->leave_time) !!}
+                                    @else
+                                        {!! ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_start, $PreReservation->enter_time, $PreReservation->leave_time) !!}
+                                    @endif
                                 </select>
                             </td>
                         </tr>
@@ -322,8 +325,11 @@
                             <td class="table-active">イベント終了時間</td>
                             <td>
                                 <select name="event_finish" id="event_finish" class="form-control">
-                                    <option value=""></option>
-                                    {!! ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_finish, $PreReservation->enter_time, $PreReservation->leave_time) !!}
+                                    @if ($PreReservation->board_flag === 0)
+                                        {!! ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->leave_time, $PreReservation->enter_time, $PreReservation->leave_time) !!}
+                                    @else
+                                        {!! ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_finish, $PreReservation->enter_time, $PreReservation->leave_time) !!}
+                                    @endif
                                 </select>
                             </td>
                         </tr>
