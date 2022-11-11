@@ -262,7 +262,6 @@
                                 <td>
                                     <div>
                                         <select name="event_start" id="event_start" class="form-control">
-                                            <option disabled>選択してください</option>
                                             {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->pre_enter0, $request->pre_enter0, $request->pre_leave0) !!}
                                         </select>
                                     </div>
@@ -273,7 +272,6 @@
                                 <td>
                                     <div>
                                         <select name="event_finish" id="event_finish" class="form-control">
-                                            <option disabled>選択してください</option>
                                             {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->pre_leave0, $request->pre_enter0, $request->pre_leave0) !!}
                                         </select>
                                     </div>
