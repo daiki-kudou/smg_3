@@ -20,6 +20,7 @@ class UserPreResCxl extends Mailable
 	public function __construct(
 		$template_id,
 		$company,
+		$user_id,
 		$pre_reservation_id,
 		$reserve_date,
 		$enter_time,
@@ -29,6 +30,7 @@ class UserPreResCxl extends Mailable
 	) {
 		$this->template_id = $template_id;
 		$this->company = $company;
+		$this->user_id = $user_id;
 		$this->pre_reservation_id = $pre_reservation_id;
 		$this->reserve_date = $reserve_date;
 		$this->enter_time = $enter_time;
@@ -62,6 +64,7 @@ class UserPreResCxl extends Mailable
 		$subtitle = str_replace('${pre_reservation_id}', $this->pre_reservation_id, $subtitle);
 
 		$send_html = str_replace('${company}', $this->company, $body);
+		$send_html = str_replace('${user_id}', $this->user_id, $send_html);
 		$send_html = str_replace('${pre_reservation_id}', $this->pre_reservation_id, $send_html);
 		$send_html = str_replace('${reserve_date}', $this->reserve_date, $send_html);
 		$send_html = str_replace('${enter_time}', $this->enter_time, $send_html);

@@ -483,6 +483,7 @@ class MultiplesController extends Controller
 							->send(new UserPreResCxl(
 								MailTemplateConst::PRE_RESERVATION_CXL,
 								$preReservation->user->company,
+								$preReservation->user_id,
 								sprintf('%06d', $preReservation->id),
 								date('Y年m月d日', strtotime($preReservation->reserve_date)),
 								date('H:i', strtotime($preReservation->enter_time)),

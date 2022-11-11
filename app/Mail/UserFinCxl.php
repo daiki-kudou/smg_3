@@ -50,6 +50,7 @@ class UserFinCxl extends Mailable
 		//   ]);
 		$template = MailTemplate::find($this->template_id);
 		$subtitle = $template->subtitle;
+		$category = 'キャンセル';
 		$body = $template->body;
 
 		$subtitle = str_replace('${reservation_id}', $this->cxl_data->reservation_id, $subtitle);
@@ -58,6 +59,7 @@ class UserFinCxl extends Mailable
 		$send_html = str_replace('${reservation_id}', $this->cxl_data->reservation_id, $send_html);
 		$send_html = str_replace('${reserve_date}', $this->cxl_data->reserve_date, $send_html);
 		$send_html = str_replace('${user_id}', $this->cxl_data->user_id, $send_html);
+		$send_html = str_replace('${category}', $category, $send_html);
 		$send_html = str_replace('${invoice_number}', $this->cxl_data->invoice_number, $send_html);
 		$send_html = str_replace('${enter_time}', $this->cxl_data->enter_time, $send_html);
 		$send_html = str_replace('${leave_time}', $this->cxl_data->leave_time, $send_html);
