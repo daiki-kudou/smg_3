@@ -175,12 +175,10 @@
                                 <td>
                                     <div>
                                         <select name="event_start" id="event_start" class="form-control">
-                                            @if ($master_info['board_flag'] == 1)
-                                                <option value="" disabled>選択してください</option>
-                                                {!! ReservationHelper::timeOptionsWithRequestAndLimit($master_info['event_start'], $master_info['enter_time'], $master_info['leave_time']) !!}
+                                            @if ($master_info['board_flag'] === 0)
+                                                {!! ReservationHelper::timeOptionsWithRequestAndLimit($master_info['enter_time'], $master_info['enter_time'], $master_info['leave_time']) !!}
                                             @else
-                                                <option value="" selected></option>
-                                                {!! ReservationHelper::timeOptionsWithRequestAndLimit('', $master_info['enter_time'], $master_info['leave_time']) !!}
+                                                {!! ReservationHelper::timeOptionsWithRequestAndLimit($master_info['event_start'] ?? $master_info['enter_time'], $master_info['enter_time'], $master_info['leave_time']) !!}
                                             @endif
                                         </select>
                                     </div>
@@ -192,12 +190,10 @@
                                     <div>
                                         <select name="event_finish" id="event_finish" class="form-control">
 
-                                            @if ($master_info['board_flag'] == 1)
-                                                <option value="" disabled>選択してください</option>
-                                                {!! ReservationHelper::timeOptionsWithRequestAndLimit($master_info['event_finish'], $master_info['enter_time'], $master_info['leave_time']) !!}
+                                            @if ($master_info['board_flag'] === 0)
+                                                {!! ReservationHelper::timeOptionsWithRequestAndLimit($master_info['leave_time'], $master_info['enter_time'], $master_info['leave_time']) !!}
                                             @else
-                                                <option value="" selected></option>
-                                                {!! ReservationHelper::timeOptionsWithRequestAndLimit('', $master_info['enter_time'], $master_info['leave_time']) !!}
+                                                {!! ReservationHelper::timeOptionsWithRequestAndLimit($master_info['event_finish'] ?? $master_info['leave_time'], $master_info['enter_time'], $master_info['leave_time']) !!}
                                             @endif
 
                                         </select>

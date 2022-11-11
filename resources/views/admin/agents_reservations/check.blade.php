@@ -149,7 +149,9 @@
                             <td class="table-active">イベント開始時間</td>
                             <td>
                                 <div>
-                                    {{ Form::text('', !empty($master_info['event_start']) ? ReservationHelper::formatTime($master_info['event_start']) : '', ['class' => 'form-control', 'readonly']) }}
+                                    @if (!empty($master_info['event_start']))
+                                        {{ Form::text('', ($master_info['event_start'] !== '00:00:00') ? ReservationHelper::formatTime($master_info['event_start']) : '', ['class' => 'form-control', 'readonly']) }}
+                                    @endif
                                     {{ Form::hidden('event_start', !empty($master_info['event_start']) ? $master_info['event_start'] : '', ['class' => 'form-control', 'readonly']) }}
                                 </div>
                             </td>
@@ -157,7 +159,9 @@
                         <tr>
                             <td class="table-active">イベント終了時間</td>
                             <td>
-                                {{ Form::text('', !empty($master_info['event_finish']) ? ReservationHelper::formatTime($master_info['event_finish']) : '', ['class' => 'form-control', 'readonly']) }}
+                                @if (!empty($master_info['event_finish']))
+                                    {{ Form::text('', ($master_info['event_finish'] !== '00:00:00') ? ReservationHelper::formatTime($master_info['event_finish']) : '', ['class' => 'form-control', 'readonly']) }}
+                                @endif
                                 {{ Form::hidden('event_finish', !empty($master_info['event_finish']) ? $master_info['event_finish'] : '', ['class' => 'form-control', 'readonly']) }}
                             </td>
                         </tr>

@@ -214,7 +214,7 @@
                             <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                             <td>
                                 @if (!empty($reservation->board_flag))
-                                    {{ ReservationHelper::formatTime($reservation->event_start) }}
+                                    {{ $reservation->event_start === '00:00:00' ? '' : ReservationHelper::formatTime($reservation->event_start) }}
                                 @endif
                             </td>
                         </tr>
@@ -222,7 +222,7 @@
                             <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                             <td>
                                 @if (!empty($reservation->board_flag))
-                                    {{ ReservationHelper::formatTime($reservation->event_finish) }}
+                                    {{ $reservation->event_finish === '00:00:00' ?  '' : ReservationHelper::formatTime($reservation->event_finish) }}
                                 @endif
                             </td>
                         </tr>

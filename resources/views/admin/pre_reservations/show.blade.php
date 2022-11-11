@@ -404,14 +404,18 @@
                                     <td class="table-active"><label for="eventStart">イベント開始時間</label>
                                     </td>
                                     <td>
-                                        {{ ReservationHelper::formatTime($pre_reservation->event_start) }}
+                                        @if ($pre_reservation->event_start !== '00:00:00')
+                                            {{ ReservationHelper::formatTime($pre_reservation->event_start) }}
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="table-active"><label for="eventFinish">イベント終了時間</label>
                                     </td>
                                     <td>
-                                        {{ ReservationHelper::formatTime($pre_reservation->event_finish) }}
+                                        @if ($pre_reservation->event_finish !== '00:00:00')
+                                            {{ ReservationHelper::formatTime($pre_reservation->event_finish) }}
+                                        @endif
                                     </td>
                                 </tr>
                             </table>

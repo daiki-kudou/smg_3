@@ -124,7 +124,9 @@
                             <td class="table-active">イベント開始時間</td>
                             <td>
                                 @if (!empty($value['event_start']) && !empty($value['board_flag']))
-                                    {{ date('H:i', strtotime($value['event_start'])) }}
+                                    @if ($value['event_start'] !== '00:00:00')
+                                        {{ date('H:i', strtotime($value['event_start'])) }}
+                                    @endif
                                 @endif
                             </td>
                         </tr>
@@ -132,7 +134,9 @@
                             <td class="table-active">イベント終了時間</td>
                             <td>
                                 @if (!empty($value['event_finish']) && !empty($value['board_flag']))
-                                    {{ date('H:i', strtotime($value['event_finish'])) }}
+                                    @if ($value['event_finish'] !== '00:00:00')
+                                        {{ date('H:i', strtotime($value['event_finish'])) }}
+                                    @endif
                                 @endif
                             </td>
                         </tr>

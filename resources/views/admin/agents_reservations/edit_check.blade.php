@@ -100,7 +100,11 @@
                             <td class="table-active">イベント開始時間</td>
                             <td>
                                 @if ($data['board_flag'] == 1)
-                                    {{ Form::text('', date('H:i', strtotime($data['event_start'])), ['class' => 'form-control', 'readonly']) }}
+                                    @if ($data['event_start'] === '00:00:00')
+                                        {{ Form::text('', '', ['class' => 'form-control', 'readonly']) }}
+                                    @else
+                                        {{ Form::text('', date('H:i', strtotime($data['event_start'])), ['class' => 'form-control', 'readonly']) }}
+                                    @endif
                                     {{ Form::hidden('event_start', $data['event_start'], ['class' => 'form-control', 'readonly']) }}
                                 @else
                                     {{ Form::text('', '', ['class' => 'form-control', 'readonly']) }}
@@ -112,8 +116,12 @@
                             <td class="table-active">イベント終了時間</td>
                             <td>
                                 @if ($data['board_flag'] == 1)
-                                    {{ Form::text('', date('H:i', strtotime($data['event_finish'])), ['class' => 'form-control', 'readonly']) }}
-                                    {{ Form::hidden('event_finish', $data['event_start'], ['class' => 'form-control', 'readonly']) }}
+                                    @if ($data['event_finish'] === '00:00:00')
+                                        {{ Form::text('', '', ['class' => 'form-control', 'readonly']) }}
+                                    @else
+                                        {{ Form::text('', date('H:i', strtotime($data['event_finish'])), ['class' => 'form-control', 'readonly']) }}
+                                    @endif
+                                    {{ Form::hidden('event_finish', $data['event_finish'], ['class' => 'form-control', 'readonly']) }}
                                 @else
                                     {{ Form::text('', '', ['class' => 'form-control', 'readonly']) }}
                                     {{ Form::hidden('event_finish', '', ['class' => 'form-control', 'readonly']) }}
