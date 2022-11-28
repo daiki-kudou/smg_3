@@ -209,8 +209,11 @@
                                 <td class="table-active">イベント開始時間</td>
                                 <td>
                                     <select name="event_start" id="event_start" class="form-control">
-                                        <option disabled>選択してください</option>
-                                        {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start, $pre_reservation->enter_time, $pre_reservation->leave_time) !!}
+                                        @if ($request->board_flag == 0)
+                                            {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->enter_time, $pre_reservation->enter_time, $pre_reservation->leave_time) !!}
+                                        @else
+                                            {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start, $pre_reservation->enter_time, $pre_reservation->leave_time) !!}
+                                        @endif
                                     </select>
                                 </td>
                             </tr>
@@ -218,8 +221,11 @@
                                 <td class="table-active">イベント終了時間</td>
                                 <td>
                                     <select name="event_finish" id="event_finish" class="form-control">
-                                        <option disabled>選択してください</option>
-                                        {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish, $pre_reservation->enter_time, $pre_reservation->leave_time) !!}
+                                        @if ($request->board_flag == 0)
+                                            {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->leave_time, $pre_reservation->enter_time, $pre_reservation->leave_time) !!}
+                                        @else
+                                            {!! ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish, $pre_reservation->enter_time, $pre_reservation->leave_time) !!}
+                                        @endif
                                     </select>
                                 </td>
                             </tr>
@@ -882,26 +888,26 @@
         //     });
         // });
 
-        // // ラジオボタンクリック時の案内板入力制御
-        // $(function() {
-        //     $('input[name="board_flag"]').change(function() {
-        //         var prop = $("#no_board_flag").prop("checked");
-        //         if (prop) {
-        //             $("#event_start").prop("disabled", true);
-        //             $("#event_finish").prop("disabled", true);
-        //             $("#eventname1Count").prop("disabled", true);
-        //             $("#eventname2Count").prop("disabled", true);
-        //             $("#eventownerCount").prop("disabled", true);
-        //             // $(".board-table input[type='text']").val("");
-        //         } else {
-        //             $("#event_start").prop("disabled", false);
-        //             $("#event_finish").prop("disabled", false);
-        //             $("#eventname1Count").prop("disabled", false);
-        //             $("#eventname2Count").prop("disabled", false);
-        //             $("#eventownerCount").prop("disabled", false);
-        //         }
-        //     });
-        // });
+        // ラジオボタンクリック時の案内板入力制御
+        $(function() {
+            $('input[name="board_flag"]').change(function() {
+                var prop = $("#no_board_flag").prop("checked");
+                if (prop) {
+                    $("#event_start").prop("disabled", true);
+                    $("#event_finish").prop("disabled", true);
+                    $("#eventname1Count").prop("disabled", true);
+                    $("#eventname2Count").prop("disabled", true);
+                    $("#eventownerCount").prop("disabled", true);
+                    // $(".board-table input[type='text']").val("");
+                } else {
+                    $("#event_start").prop("disabled", false);
+                    $("#event_finish").prop("disabled", false);
+                    $("#eventname1Count").prop("disabled", false);
+                    $("#eventname2Count").prop("disabled", false);
+                    $("#eventownerCount").prop("disabled", false);
+                }
+            });
+        });
 
         // 荷物預かりのラジオボタン選択の表示、非表示
         // $(function() {
