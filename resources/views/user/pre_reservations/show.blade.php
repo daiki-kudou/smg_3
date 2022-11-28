@@ -199,8 +199,11 @@
                                 <td class="table-active">イベント開始時間</td>
                                 <td>
                                     <select name="event_start" id="event_start" class="form-control">
-                                        <option disabled>選択してください</option>
-                                        {!! ReservationHelper::timeOptionsWithRequestAndLimit($pre_reservation->event_start, $pre_reservation->enter_time, $pre_reservation->leave_time) !!}
+                                        @if ($pre_reservation->board_flag === 0)
+                                            {!! ReservationHelper::timeOptionsWithRequestAndLimit($pre_reservation->enter_time, $pre_reservation->enter_time, $pre_reservation->leave_time) !!}
+                                        @else
+                                            {!! ReservationHelper::timeOptionsWithRequestAndLimit($pre_reservation->event_start, $pre_reservation->enter_time, $pre_reservation->leave_time) !!}
+                                        @endif
                                     </select>
                                 </td>
                             </tr>
@@ -208,8 +211,11 @@
                                 <td class="table-active">イベント終了時間</td>
                                 <td>
                                     <select name="event_finish" id="event_finish" class="form-control">
-                                        <option disabled>選択してください</option>
-                                        {!! ReservationHelper::timeOptionsWithRequestAndLimit($pre_reservation->event_finish, $pre_reservation->enter_time, $pre_reservation->leave_time) !!}
+                                        @if ($pre_reservation->board_flag === 0)
+                                            {!! ReservationHelper::timeOptionsWithRequestAndLimit($pre_reservation->leave_time, $pre_reservation->enter_time, $pre_reservation->leave_time) !!}
+                                        @else
+                                            {!! ReservationHelper::timeOptionsWithRequestAndLimit($pre_reservation->event_finish, $pre_reservation->enter_time, $pre_reservation->leave_time) !!}
+                                        @endif
                                     </select>
                                 </td>
                             </tr>
@@ -618,20 +624,20 @@
     })
 
     // ロード時の、案内板入力制御
-    $(document).ready(function() {
-        $("#no_board_flag:checked").each(function() {
-            var flag = $(this);
-            if ($(flag).is(":checked") != null) {
-                $("#event_start").prop("disabled", true);
-                $("#event_finish").prop("disabled", true);
-                $("#eventname1Count").prop("disabled", true);
-                $("#eventname2Count").prop("disabled", true);
-                $("#eventownerCount").prop("disabled", true);
-                // $(".board-table input[type='text']").val("");
-                $(".board-table option:selected").val("");
-            }
-        });
-    });
+    // $(document).ready(function() {
+    //     $("#no_board_flag:checked").each(function() {
+    //         var flag = $(this);
+    //         if ($(flag).is(":checked") != null) {
+                // $("#event_start").prop("disabled", true);
+                // $("#event_finish").prop("disabled", true);
+    //             $("#eventname1Count").prop("disabled", true);
+    //             $("#eventname2Count").prop("disabled", true);
+    //             $("#eventownerCount").prop("disabled", true);
+    //             // $(".board-table input[type='text']").val("");
+    //             $(".board-table option:selected").val("");
+    //         }
+    //     });
+    // });
 
     // ラジオボタンクリック時の案内板入力制御
     $(function() {
