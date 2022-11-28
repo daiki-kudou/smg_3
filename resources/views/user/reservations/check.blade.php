@@ -357,7 +357,7 @@
                                         {{ Form::hidden('service_breakdown_count[]', $service_result[2]) }}
                                         {{ Form::hidden('service_breakdown_subtotal[]', ReservationHelper::numTimesNum($service_result[1], $service_result[2])) }}
                                     @endforeach
-                                    @if ($request->luggage_flag || $request->luggage_count || $request->luggage_arrive || $request->luggage_return)
+                                    @if ($request->luggage_flag)
                                         <li>
                                             <p>荷物預かり</p>
                                             <p>500<span>円</span></p>
