@@ -70,7 +70,7 @@ class ReservationsController extends Controller
 
 		// 荷物はユーザーから依頼があったタイミングでは0円の固定 ← 変更:デフォルト500円
 		$luggage_price = 0;
-		if ($request->luggage_flag || $request->luggage_count || $request->luggage_arrive || $request->luggage_return) {
+		if ($request->luggage_flag) {
 			$luggage_price += 500;
 		}
 
