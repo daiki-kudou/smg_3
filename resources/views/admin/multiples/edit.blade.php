@@ -791,8 +791,7 @@
                                             <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                                             <td>
                                                 <select name="{{ 'event_start_copied' . $key }}" id="{{ 'event_start_copied' . $key }}" class="form-control">
-                                                    <option disabled>選択してください</option>
-                                                    {!! ReservationHelper::timeOptionsWithRequest($pre_reservation->enter_time) !!}
+                                                    {!! ReservationHelper::timeOptionsWithRequest($pre_reservation->event_start) !!}
                                                 </select>
                                                 <p class="annotation caution_color mt-1">※利用時間内で入力してください。</p>
                                             </td>
@@ -801,8 +800,7 @@
                                             <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                                             <td>
                                                 <select name="{{ 'event_finish_copied' . $key }}" id="{{ 'event_finish_copied' . $key }}" class="form-control">
-                                                    <option disabled>選択してください</option>
-                                                    {!! ReservationHelper::timeOptionsWithRequest($pre_reservation->leave_time) !!}
+                                                    {!! ReservationHelper::timeOptionsWithRequest($pre_reservation->event_finish) !!}
                                                 </select>
                                                 <p class="annotation caution_color mt-1">※利用時間内で入力してください。</p>
                                             </td>
