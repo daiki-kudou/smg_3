@@ -43,20 +43,21 @@ class CommandCronPayDayTwoDaysLeft extends Command
    */
   public function handle()
   {
-    //キャンセルしていない予約の２営業日前抽出
     $targetPaymentLimit = $this->getSalesDate('ADD'); //addDays
-    $bills = $this->BillQuey($targetPaymentLimit);
-    foreach ($bills as $b) {
-      $SendSMGEmail = new SendSMGEmail();
-      $SendSMGEmail->CronSend("入金期日2営業日前(催促)", $b);
-    }
+    if ($targetPaymentLimit) {
+      // キャンセルしていない予約の２営業日前抽出
+      $bills = $this->BillQuey($targetPaymentLimit);
+      foreach ($bills as $b) {
+        $SendSMGEmail = new SendSMGEmail();
+        $SendSMGEmail->CronSend("入金期日2営業日前(催促)", $b);
+      }
 
-    //キャンセルの２営業日前抽出
-    $targetPaymentLimit = $this->getSalesDate('ADD'); //addDays
-    $cxls = $this->CxlQuey($targetPaymentLimit);
-    foreach ($cxls as $c) {
-      $SendSMGEmail = new SendSMGEmail();
-      $SendSMGEmail->CronSend("入金期日2営業日前(催促)", $c);
+      // キャンセルの２営業日前抽出
+      $cxls = $this->CxlQuey($targetPaymentLimit);
+      foreach ($cxls as $c) {
+        $SendSMGEmail = new SendSMGEmail();
+        $SendSMGEmail->CronSend("入金期日2営業日前(催促)", $c);
+      }
     }
   }
 
@@ -71,6 +72,11 @@ class CommandCronPayDayTwoDaysLeft extends Command
     $tarAry = [];
     for ($i = 1; $i <= 14; $i++) {
       $today = Carbon::today();
+
+      // 実行日が土日祝の場合、実行しない
+      if ($today->isSaturday() || $today->isSunday() || in_array(date('Ymd', strtotime($today)), $holidays)) {
+        return false;
+      }
       $add_or_sub_day = ($add_or_sub === "ADD" ? $today->addDays($i) : $today->subDays($i));
       if (!$add_or_sub_day->isSaturday() && !$add_or_sub_day->isSunday() && !in_array(date('Ymd', strtotime($add_or_sub_day)), $holidays)) {
         $tarAry[] = date('Y-m-d', strtotime($add_or_sub_day));
@@ -131,14 +137,16 @@ class CommandCronPayDayTwoDaysLeft extends Command
         when DAYOFWEEK(bills.payment_limit) = 7 then '(土)'
         end
         ) as payment_limit,
-      venues.smg_url as smg_url
+      venues.smg_url as smg_url,
+      bills.paid as paid
         "
       ))
       ->leftJoin(DB::raw('(select cxls.reservation_id as cxl_reservation_id, cxls.master_total as master_total, cxls.invoice_number as invoice_number, cxls.payment_limit as payment_limit from cxls ) as cxls_list'), 'bills.reservation_id', '=', 'cxls_list.cxl_reservation_id')
       ->leftJoin('reservations', 'reservations.id', '=', 'bills.reservation_id')
       ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
       ->leftJoin('venues', 'venues.id', '=', 'reservations.venue_id')
-      ->whereRaw('reservations.deleted_at is null and bills.deleted_at is null and bills.reservation_status <= 3 and bills.reservation_status <= 3')
+      ->whereRaw('reservations.deleted_at is null and bills.deleted_at is null and bills.reservation_status = 3')
+      ->whereRaw('bills.paid in (0, 2)')
       ->whereRaw('bills.payment_limit = ?', [$targetPaymentLimit])->get();
     return $bills;
   }
@@ -182,13 +190,16 @@ cxls.invoice_number as invoice_number,
         when DAYOFWEEK(cxls.payment_limit) = 7 then '(土)'
         end
         ) as payment_limit,
-venues.smg_url as smg_url
+        venues.smg_url as smg_url,
+        cxls.paid as paid
         "
       ))
       ->leftJoin('reservations', 'reservations.id', '=', 'cxls.reservation_id')
       ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
       ->leftJoin('venues', 'venues.id', '=', 'reservations.venue_id')
       ->whereRaw('reservations.deleted_at is null')
+      ->whereRaw('cxls.paid in (0, 2)')
+      ->whereRaw('cxls.cxl_status = 2')
       ->whereRaw('cxls.payment_limit = ?', [$targetPaymentLimit])->get();
 
     return $cxls;
