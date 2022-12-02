@@ -342,7 +342,7 @@
                             </td>
                         </tr>
                     @endif
-                    @if (ReservationHelper::checkServiceBreakdowns($request->all()) != 0 || $request->luggage_flag || $request->luggage_count || $request->luggage_arrive || $request->luggage_return)
+                    @if (ReservationHelper::checkServiceBreakdowns($request->all()) != 0 || $request->luggage_flag)
                         <tr>
                             <th class=""><label for="service">有料サービス</label></th>
                             <td>
