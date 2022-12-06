@@ -602,7 +602,10 @@ class ReservationsController extends Controller
   {
     $data = $request->all();
     if (!empty($data['back'])) {
-      return redirect(route('admin.reservations.edit', $data['reservation_id']));
+      foreach ($data['services_breakdown'] as $key => $breakdow) {
+        $data['services_breakdown'][$key] = ($breakdow === 'あり') ? 1 : 0;
+      }
+      return $this->edit_calc($data);
     }
     $reservation = Reservation::find($data['reservation_id']);
     $bill = Bill::with('breakdowns')->find($data['bill_id']);
