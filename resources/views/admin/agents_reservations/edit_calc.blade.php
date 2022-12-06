@@ -34,8 +34,6 @@
         }
     </style>
 
-    @include('layouts.admin.breadcrumbs', ['id' => $data['reservation_id']])
-
     <div id="fullOverlay">
         <div class="frame_spinner">
             <div class="spinner-border text-primary " role="status">

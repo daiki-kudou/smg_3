@@ -299,7 +299,11 @@ class AgentsReservationsController extends Controller
   {
     $data = $request->all();
     if (!empty($data['back'])) {
-      return redirect(route('admin.agents_reservations.edit', $data['reservation_id']));
+      foreach ($data['services_breakdown'] as $key => $breakdow) {
+        $data['services_breakdown'][$key] = ($breakdow === 'あり') ? 1 : 0;
+      }
+      $data['others_breakdown_item'] = isset($data['others_breakdown_item']) ? $data['others_breakdown_item'] : '';
+      return $this->edit_calc($data);
     }
 
     $reservation = Reservation::find($data['reservation_id']);
