@@ -761,16 +761,16 @@
                                 <tbody class="venue_main">
                                     <tr>
                                         <td>
-                                            {{ Form::text('venue_breakdown_item0', '会場料金', ['class' => 'form-control']) }}
+                                            {{ Form::text('venue_breakdown_item0', ($checkInfo['venue_breakdown_item0'] ?? '会場料金'), ['class' => 'form-control']) }}
                                         </td>
                                         <td>
-                                            {{ Form::text('venue_breakdown_cost0', 0, ['class' => 'form-control']) }}
+                                            {{ Form::text('venue_breakdown_cost0', ($checkInfo['venue_breakdown_cost0'] ?? 0), ['class' => 'form-control']) }}
                                         </td>
                                         <td>
-                                            {{ Form::text('venue_breakdown_count0', 1, ['class' => 'form-control']) }}
+                                            {{ Form::text('venue_breakdown_count0', ($checkInfo['venue_breakdown_count0'] ?? 1), ['class' => 'form-control']) }}
                                         </td>
                                         <td>
-                                            {{ Form::text('venue_breakdown_subtotal0', 0, ['class' => 'form-control']) }}
+                                            {{ Form::text('venue_breakdown_subtotal0', ($checkInfo['venue_breakdown_subtotal0'] ?? 0), ['class' => 'form-control']) }}
                                         </td>
                                         <td>
                                             <input type="button" value="＋" class="add pluralBtn">
@@ -783,7 +783,7 @@
                                         <td colspan="4"></td>
                                         <td colspan="1">
                                             <p class="text-left">合計</p>
-                                            {{ Form::text('venue_price', '', ['class' => 'form-control col-xs-3', 'readonly']) }}
+                                            {{ Form::text('venue_price', ($checkInfo['venue_price'] ?? ''), ['class' => 'form-control col-xs-3', 'readonly']) }}
                                             <p class="is-error-venue_price" style="color: red"></p>
                                         </td>
                                     </tr>
@@ -791,7 +791,7 @@
                             @endif
                         </table>
                     </div>
-                    @if (!empty($priceResult['item_details'][0]) || !empty($value['luggage_price']))
+                    @if (!empty($priceResult['item_details'][0]) || (!empty($value['luggage_price']) && !empty($value['luggage_flag'])))
                         <div class="equipment billdetails_content">
                             <table class="table table-borderless">
                                 <tr>
@@ -842,7 +842,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                    @if (!empty($value['luggage_price']))
+                                    @if (!empty($value['luggage_price']) && !empty($value['luggage_flag']))
                                         <tr>
                                             <td>
                                                 {{ Form::text('luggage_item', '荷物預かり', ['class' => 'form-control', 'readonly']) }}
@@ -864,7 +864,7 @@
                                         <td colspan="3"></td>
                                         <td colspan="1">
                                             <p class="text-left">合計</p>
-                                            {{ Form::text('equipment_price', $priceResult['item_details'][0] + (!empty($value['luggage_price']) ? $value['luggage_price'] : 0), ['class' => 'form-control', 'readonly']) }}
+                                            {{ Form::text('equipment_price', $priceResult['item_details'][0] + ((!empty($value['luggage_price']) && !empty($value['luggage_flag'])) ? $value['luggage_price'] : 0), ['class' => 'form-control', 'readonly']) }}
                                         </td>
                                     </tr>
                                 </tbody>

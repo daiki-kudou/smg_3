@@ -562,14 +562,14 @@ class ReservationsController extends Controller
     if ($price_details === 0) {
       $masters =
         ($item_details[0] +
-          (!empty($data['luggage_price']) ? $data['luggage_price'] : 0)) +
+          ((!empty($data['luggage_price']) && !empty($data['luggage_flag'])) ? $data['luggage_price'] : 0)) +
         $layouts_details[2] +
         (!empty($data['others_price']) ? $data['others_price'] : 0);
     } else {
       $masters =
         ($price_details[0]) +
         ($item_details[0] +
-          (!empty($data['luggage_price']) ? $data['luggage_price'] : 0)) +
+          ((!empty($data['luggage_price']) && !empty($data['luggage_flag'])) ? $data['luggage_price'] : 0)) +
         $layouts_details[2] +
         (!empty($data['others_price']) ? $data['others_price'] : 0);
     }

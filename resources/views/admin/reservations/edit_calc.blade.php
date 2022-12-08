@@ -702,44 +702,61 @@
                             </tbody>
                             @if (array_sum($price_details) !== 0)
                                 <tbody class="venue_main">
-                                    @if ($price_details[1])
-                                        <tr>
-                                            <td>{{ Form::text('venue_breakdown_item[]', '会場料金', ['class' => 'form-control', 'readonly']) }} </td>
-                                            <td>
-                                                {{ Form::text('venue_breakdown_cost[]', $price_details[0] - $price_details[1], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('venue_breakdown_count[]', 1, ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('venue_breakdown_subtotal[]', $price_details[0] - $price_details[1], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ Form::text('venue_breakdown_item[]', '延長料金', ['class' => 'form-control', 'readonly']) }} </td>
-                                            <td>
-                                                {{ Form::text('venue_breakdown_cost[]', $price_details[1], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('venue_breakdown_count[]', 1, ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('venue_breakdown_subtotal[]', $price_details[1], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                        </tr>
+                                    @if (empty($data['back']))
+                                        @if ($price_details[1])
+                                            <tr>
+                                                <td>{{ Form::text('venue_breakdown_item[]', '会場料金', ['class' => 'form-control', 'readonly']) }} </td>
+                                                <td>
+                                                    {{ Form::text('venue_breakdown_cost[]', $price_details[0] - $price_details[1], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('venue_breakdown_count[]', 1, ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('venue_breakdown_subtotal[]', $price_details[0] - $price_details[1], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ Form::text('venue_breakdown_item[]', '延長料金', ['class' => 'form-control', 'readonly']) }} </td>
+                                                <td>
+                                                    {{ Form::text('venue_breakdown_cost[]', $price_details[1], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('venue_breakdown_count[]', 1, ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('venue_breakdown_subtotal[]', $price_details[1], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                            </tr>
+                                        @else
+                                            <tr>
+                                                <td>{{ Form::text('venue_breakdown_item[]', '会場料金', ['class' => 'form-control', 'readonly']) }} </td>
+                                                <td>
+                                                    {{ Form::text('venue_breakdown_cost[]', $price_details[0], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('venue_breakdown_count[]', 1, ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('venue_breakdown_subtotal[]', $price_details[0], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @else
-                                        <tr>
-                                            <td>{{ Form::text('venue_breakdown_item[]', '会場料金', ['class' => 'form-control', 'readonly']) }} </td>
-                                            <td>
-                                                {{ Form::text('venue_breakdown_cost[]', $price_details[0], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('venue_breakdown_count[]', 1, ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('venue_breakdown_subtotal[]', $price_details[0], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                        </tr>
+                                        @foreach ($data['venue_breakdown_item'] as $key => $venueItem)
+                                            <tr>
+                                                <td>{{ Form::text('venue_breakdown_item[]', $venueItem, ['class' => 'form-control', 'readonly']) }} </td>
+                                                <td>
+                                                    {{ Form::text('venue_breakdown_cost[]', $data['venue_breakdown_cost'][$key], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('venue_breakdown_count[]', $data['venue_breakdown_count'][$key], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('venue_breakdown_subtotal[]', $data['venue_breakdown_subtotal'][$key], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     @endif
                                 </tbody>
                                 <tbody class="venue_result">
@@ -747,7 +764,11 @@
                                         <td colspan="3"></td>
                                         <td colspan="1">
                                             <p class="text-left">合計</p>
-                                            {{ Form::text('venue_price', $price_details[0], ['class' => 'form-control col-xs-3', 'readonly']) }}
+                                            @if (empty($data['back']))
+                                                {{ Form::text('venue_price', $price_details[0], ['class' => 'form-control col-xs-3', 'readonly']) }}
+                                            @else
+                                                {{ Form::text('venue_price', $data['venue_price'], ['class' => 'form-control col-xs-3', 'readonly']) }}
+                                            @endif
                                         </td>
                                     </tr>
                                 </tbody>
@@ -783,30 +804,41 @@
                                 <span class="text-red">※料金体系がないため、手打ちで会場料を入力してください</span>
                                 <tbody class="venue_main">
 
-                                    @foreach ($reservation->bills->first()->breakdowns->where('unit_type', 1) as $key => $value)
-                                        @if (strpos($value->unit_item, '割引料金') === false)
+                                    @if (empty($data['back']))
+                                        <tr>
+                                            <td>
+                                                {{ Form::text('venue_breakdown_item[]', '会場料金', ['class' => 'form-control']) }}
+                                            </td>
+                                            <td>
+                                                {{ Form::text('venue_breakdown_cost[]', 0, ['class' => 'form-control']) }}
+                                            </td>
+                                            <td>
+                                                {{ Form::text('venue_breakdown_count[]', 1, ['class' => 'form-control']) }}
+                                            </td>
+                                            <td>
+                                                {{ Form::text('venue_breakdown_subtotal[]', 0, ['class' => 'form-control']) }}
+                                            </td>
+                                            <td>
+                                                <input type="button" value="＋" class="add pluralBtn">
+                                                <input type="button" value="ー" class="del pluralBtn">
+                                            </td>
+                                        </tr>
+                                    @else
+                                        @foreach ($data['venue_breakdown_item'] as $key => $venueItem)
                                             <tr>
+                                                <td>{{ Form::text('venue_breakdown_item[]', $venueItem, ['class' => 'form-control']) }} </td>
                                                 <td>
-                                                    {{ Form::text('venue_breakdown_item[]', $value->unit_item, ['class' => 'form-control', $judge_calc !== 0 ? 'readonly' : '']) }}
+                                                    {{ Form::text('venue_breakdown_cost[]', $data['venue_breakdown_cost'][$key], ['class' => 'form-control']) }}
                                                 </td>
                                                 <td>
-                                                    {{ Form::text('venue_breakdown_cost[]', $value['unit_cost'], ['class' => 'form-control', $judge_calc !== 0 ? 'readonly' : '']) }}
+                                                    {{ Form::text('venue_breakdown_count[]', $data['venue_breakdown_count'][$key], ['class' => 'form-control']) }}
                                                 </td>
                                                 <td>
-                                                    {{ Form::text('venue_breakdown_count[]', $value['unit_count'], ['class' => 'form-control', $judge_calc !== 0 ? 'readonly' : '']) }}
+                                                    {{ Form::text('venue_breakdown_subtotal[]', $data['venue_breakdown_subtotal'][$key], ['class' => 'form-control']) }}
                                                 </td>
-                                                <td>
-                                                    {{ Form::text('venue_breakdown_subtotal[]', $value['unit_subtotal'], ['class' => 'form-control', 'readonly']) }}
-                                                </td>
-                                                @if ($judge_calc === 0)
-                                                    <td>
-                                                        <input type="button" value="＋" class="add pluralBtn">
-                                                        <input type="button" value="ー" class="del pluralBtn">
-                                                    </td>
-                                                @endif
                                             </tr>
-                                        @endif
-                                    @endforeach
+                                        @endforeach
+                                    @endif
                                 </tbody>
                                 <tbody class="venue_result">
                                     <tr>
@@ -823,7 +855,7 @@
                     </div>
 
                     {{-- 以下備品 --}}
-                    @if (array_sum($s_equipment) !== 0 || array_sum($s_services) !== 0 || !empty($data['luggage_count']))
+                    @if (array_sum($s_equipment) !== 0 || array_sum($s_services) !== 0 || (!empty($data['luggage_flag']) && !empty($data['luggage_price'])))
                         <div class="equipment billdetails_content">
                             <table class="table table-borderless">
                                 <tr>
@@ -842,53 +874,92 @@
                                     </tr>
                                 </tbody>
                                 <tbody class="equipment_main">
-                                    @foreach ($item_details[1] as $key => $item)
-                                        <tr>
-                                            <td>
-                                                {{ Form::text('equipment_breakdown_item[]', $item[0], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('equipment_breakdown_cost[]', $item[1], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('equipment_breakdown_count[]', $item[2], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('equipment_breakdown_subtotal[]', $item[1] * $item[2], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    @foreach ($item_details[2] as $key => $item)
-                                        <tr>
-                                            <td>
-                                                {{ Form::text('service_breakdown_item[]', $item[0], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('service_breakdown_cost[]', $item[1], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('service_breakdown_count[]', $item[2], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('service_breakdown_subtotal[]', $item[1] * $item[2], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    @if (!empty($data['luggage_price']))
-                                        <tr>
-                                            <td>
-                                                {{ Form::text('service_breakdown_item[]', '荷物預かり', ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('service_breakdown_cost[]', $data['luggage_price'], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('service_breakdown_count[]', 1, ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::text('service_breakdown_subtotal[]', $data['luggage_price'], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                        </tr>
+                                    @if (empty($data['back']))
+                                        @foreach ($item_details[1] as $key => $item)
+                                            <tr>
+                                                <td>
+                                                    {{ Form::text('equipment_breakdown_item[]', $item[0], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('equipment_breakdown_cost[]', $item[1], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('equipment_breakdown_count[]', $item[2], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('equipment_breakdown_subtotal[]', $item[1] * $item[2], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        @foreach ($item_details[2] as $key => $item)
+                                            <tr>
+                                                <td>
+                                                    {{ Form::text('service_breakdown_item[]', $item[0], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('service_breakdown_cost[]', $item[1], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('service_breakdown_count[]', $item[2], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('service_breakdown_subtotal[]', $item[1] * $item[2], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        @if (!empty($data['luggage_flag']) && !empty($data['luggage_price']))
+                                            <tr>
+                                                <td>
+                                                    {{ Form::text('service_breakdown_item[]', '荷物預かり', ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('service_breakdown_cost[]', $data['luggage_price'], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('service_breakdown_count[]', 1, ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>
+                                                    {{ Form::text('service_breakdown_subtotal[]', $data['luggage_price'], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @else
+                                        @if (isset($data['equipment_breakdown_item']))
+                                            @foreach ($data['equipment_breakdown_item'] as $key => $equipmentItem)
+                                                <tr>
+                                                    <td>
+                                                        {{ Form::text('equipment_breakdown_item[]', $equipmentItem, ['class' => 'form-control', 'readonly']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ Form::text('equipment_breakdown_cost[]', $data['equipment_breakdown_cost'][$key], ['class' => 'form-control', 'readonly']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ Form::text('equipment_breakdown_count[]', $data['equipment_breakdown_count'][$key], ['class' => 'form-control', 'readonly']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ Form::text('equipment_breakdown_subtotal[]', $data['equipment_breakdown_subtotal'][$key], ['class' => 'form-control', 'readonly']) }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                        @if (isset($data['service_breakdown_item']))
+                                            @foreach ($data['service_breakdown_item'] as $key => $equipmentItem)
+                                                <tr>
+                                                    <td>
+                                                        {{ Form::text('service_breakdown_item[]', $equipmentItem, ['class' => 'form-control', 'readonly']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ Form::text('service_breakdown_cost[]', $data['service_breakdown_cost'][$key], ['class' => 'form-control', 'readonly']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ Form::text('service_breakdown_count[]', $data['service_breakdown_count'][$key], ['class' => 'form-control', 'readonly']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ Form::text('service_breakdown_subtotal[]', $data['service_breakdown_subtotal'][$key], ['class' => 'form-control', 'readonly']) }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                     @endif
                                 </tbody>
                                 <tbody class="equipment_result">
@@ -896,7 +967,11 @@
                                         <td colspan="3"></td>
                                         <td colspan="1">
                                             <p class="text-left">合計</p>
-                                            {{ Form::text('equipment_price', (int) $item_details[0] + (!empty($data['luggage_price']) ? $data['luggage_price'] : 0), ['class' => 'form-control col-xs-3', 'readonly']) }}
+                                            @if (empty($data['back']))
+                                                {{ Form::text('equipment_price', (int) $item_details[0] + (!empty($data['luggage_flag']) ? $data['luggage_price'] : 0), ['class' => 'form-control col-xs-3', 'readonly']) }}
+                                            @else
+                                                {{ Form::text('equipment_price', $data['equipment_price'], ['class' => 'form-control col-xs-3', 'readonly']) }}
+                                            @endif
                                         </td>
                                     </tr>
                                 </tbody>
@@ -955,29 +1030,44 @@
                                     </tr>
                                 </tbody>
                                 <tbody class="layout_main">
-                                    @if ($layouts_details[0])
-                                        <tr>
-                                            <td>{{ Form::text('layout_breakdown_item[]', 'レイアウト準備料金', ['class' => 'form-control', 'readonly']) }}</td>
-                                            <td>
-                                                {{ Form::text('layout_breakdown_cost[]', $layouts_details[0], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>{{ Form::text('layout_breakdown_count[]', 1, ['class' => 'form-control', 'readonly']) }}</td>
-                                            <td>
-                                                {{ Form::text('layout_breakdown_subtotal[]', $layouts_details[0], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                        </tr>
-                                    @endif
-                                    @if ($layouts_details[1])
-                                        <tr>
-                                            <td>{{ Form::text('layout_breakdown_item[]', 'レイアウト片付料金', ['class' => 'form-control', 'readonly']) }}</td>
-                                            <td>
-                                                {{ Form::text('layout_breakdown_cost[]', $layouts_details[1], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                            <td>{{ Form::text('layout_breakdown_count[]', 1, ['class' => 'form-control', 'readonly']) }}</td>
-                                            <td>
-                                                {{ Form::text('layout_breakdown_subtotal[]', $layouts_details[1], ['class' => 'form-control', 'readonly']) }}
-                                            </td>
-                                        </tr>
+                                    @if (empty($data['back']))
+                                        @if ($layouts_details[0])
+                                            <tr>
+                                                <td>{{ Form::text('layout_breakdown_item[]', 'レイアウト準備料金', ['class' => 'form-control', 'readonly']) }}</td>
+                                                <td>
+                                                    {{ Form::text('layout_breakdown_cost[]', $layouts_details[0], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>{{ Form::text('layout_breakdown_count[]', 1, ['class' => 'form-control', 'readonly']) }}</td>
+                                                <td>
+                                                    {{ Form::text('layout_breakdown_subtotal[]', $layouts_details[0], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                            </tr>
+                                        @endif
+                                        @if ($layouts_details[1])
+                                            <tr>
+                                                <td>{{ Form::text('layout_breakdown_item[]', 'レイアウト片付料金', ['class' => 'form-control', 'readonly']) }}</td>
+                                                <td>
+                                                    {{ Form::text('layout_breakdown_cost[]', $layouts_details[1], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>{{ Form::text('layout_breakdown_count[]', 1, ['class' => 'form-control', 'readonly']) }}</td>
+                                                <td>
+                                                    {{ Form::text('layout_breakdown_subtotal[]', $layouts_details[1], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @else
+                                        @foreach ($data['layout_breakdown_item'] as $key => $layoutItem)
+                                            <tr>
+                                                <td>{{ Form::text('layout_breakdown_item[]', $layoutItem, ['class' => 'form-control', 'readonly']) }}</td>
+                                                <td>
+                                                    {{ Form::text('layout_breakdown_cost[]', $data['layout_breakdown_cost'][$key], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                                <td>{{ Form::text('layout_breakdown_count[]', $data['layout_breakdown_count'][$key], ['class' => 'form-control', 'readonly']) }}</td>
+                                                <td>
+                                                    {{ Form::text('layout_breakdown_subtotal[]', $data['layout_breakdown_subtotal'][$key], ['class' => 'form-control', 'readonly']) }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     @endif
                                 </tbody>
                                 <tbody class="layout_result">
@@ -985,7 +1075,11 @@
                                         <td colspan="3"></td>
                                         <td colspan="1">
                                             <p class="text-left">合計</p>
-                                            {{ Form::text('layout_price', $layouts_details[2], ['class' => 'form-control', 'readonly']) }}
+                                            @if (empty($data['back']))
+                                                {{ Form::text('layout_price', $layouts_details[2], ['class' => 'form-control', 'readonly']) }}
+                                            @else
+                                                {{ Form::text('layout_price', $data['layout_price'], ['class' => 'form-control', 'readonly']) }}
+                                            @endif
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1082,19 +1176,31 @@
                             <tr>
                                 <td>小計：</td>
                                 <td>
-                                    {{ Form::text('master_subtotal', (int) $masters, ['class' => 'form-control text-right', 'readonly']) }}
+                                    @if (empty($data['back']))
+                                        {{ Form::text('master_subtotal', (int) $masters, ['class' => 'form-control text-right', 'readonly']) }}
+                                    @else
+                                        {{ Form::text('master_subtotal', $data['master_subtotal'], ['class' => 'form-control text-right', 'readonly']) }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td>消費税：</td>
                                 <td>
-                                    {{ Form::text('master_tax', ReservationHelper::getTax((int) $masters), ['class' => 'form-control text-right', 'readonly']) }}
+                                    @if (empty($data['back']))
+                                        {{ Form::text('master_tax', ReservationHelper::getTax((int) $masters), ['class' => 'form-control text-right', 'readonly']) }}
+                                    @else
+                                        {{ Form::text('master_tax', $data['master_tax'], ['class' => 'form-control text-right', 'readonly']) }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td class="font-weight-bold">合計金額</td>
                                 <td>
-                                    {{ Form::text('master_total', ReservationHelper::taxAndPrice((int) $masters), ['class' => 'form-control text-right', 'readonly']) }}
+                                    @if (empty($data['back']))
+                                        {{ Form::text('master_total', ReservationHelper::taxAndPrice((int) $masters), ['class' => 'form-control text-right', 'readonly']) }}
+                                    @else
+                                        {{ Form::text('master_total', $data['master_total'], ['class' => 'form-control text-right', 'readonly']) }}
+                                    @endif
                                 </td>
                             </tr>
                         </table>

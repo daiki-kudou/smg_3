@@ -734,7 +734,7 @@
                                                 </tr>
                                             @endif
                                         @endforeach
-                                        @if (!empty($master_info['luggage_count']))
+                                        @if (!empty($data['luggage_flag']) && !empty($data['luggage_count']))
                                             <tr>
                                                 <td>
                                                     {{ Form::text('luggage_item', '荷物預かり', ['class' => 'form-control', 'readonly']) }}
@@ -838,14 +838,31 @@
                                 </tbody>
                                 <tbody class="others_main">
                                     <tr>
-                                        <td>{{ Form::text('others_input_item[]', '', ['class' => 'form-control']) }}</td>
-                                        <td><input class="form-control" readonly value="0"></td>
-                                        <td>{{ Form::text('others_input_count[]', '', ['class' => 'form-control']) }}</td>
-                                        <td><input class="form-control" readonly value="0"></td>
-                                        <td class="text-left">
-                                            <input type="button" value="＋" class="add pluralBtn">
-                                            <input type="button" value="ー" class="del pluralBtn">
-                                        </td>
+                                        @if (!empty($check_info['others_input_item']))
+                                            @foreach ($check_info['others_input_item'] as $key => $otherItem)
+                                                <td>
+                                                    {{ Form::text('others_input_item[]', $otherItem, ['class' => 'form-control']) }}
+                                                </td>
+                                                <td><input class="form-control" readonly value="0"></td>
+                                                <td>
+                                                    {{ Form::text('others_input_count[]', $check_info['others_input_count'][$key], ['class' => 'form-control']) }}
+                                                </td>
+                                                <td><input class="form-control" readonly value="0"></td>
+                                                <td class="text-left">
+                                                    <input type="button" value="＋" class="add pluralBtn bg-blue">
+                                                    <input type="button" value="ー" class="del pluralBtn bg-red">
+                                                </td>
+                                            @endforeach
+                                        @else
+                                            <td>{{ Form::text('others_input_item[]', '', ['class' => 'form-control']) }}</td>
+                                            <td><input class="form-control" readonly value="0"></td>
+                                            <td>{{ Form::text('others_input_count[]', '', ['class' => 'form-control']) }}</td>
+                                            <td><input class="form-control" readonly value="0"></td>
+                                            <td class="text-left">
+                                                <input type="button" value="＋" class="add pluralBtn">
+                                                <input type="button" value="ー" class="del pluralBtn">
+                                            </td>
+                                        @endif
                                     </tr>
                                 </tbody>
                             </table>
