@@ -302,7 +302,6 @@ class AgentsReservationsController extends Controller
       foreach ($data['services_breakdown'] as $key => $breakdow) {
         $data['services_breakdown'][$key] = ($breakdow === 'あり') ? 1 : 0;
       }
-      $data['others_breakdown_item'] = isset($data['others_breakdown_item']) ? $data['others_breakdown_item'] : '';
       return $this->edit_calc($data);
     }
 

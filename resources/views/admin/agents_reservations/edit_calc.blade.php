@@ -737,7 +737,7 @@
                                             </tr>
                                         @endforeach
                                     @endif
-                                    @if (!empty($data['luggage_count']))
+                                    @if (!empty($data['luggage_flag']) && !empty($data['luggage_count']))
                                         <tr>
                                             <td>
                                                 {{ Form::text('service_breakdown_item[]', '荷物預かり', ['class' => 'form-control', 'readonly']) }}
@@ -817,26 +817,26 @@
                     @endif
 
                     {{-- 以下、その他 --}}
-                    @if ($data['others_breakdown_item'])
-                        <div class="others billdetails_content">
-                            <table class="table table-borderless">
+                    <div class="others billdetails_content">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td colspan="5">
+                                    <h4 class="billdetails_content_ttl">
+                                        その他
+                                    </h4>
+                                </td>
+                            </tr>
+                            <tbody class="others_head">
                                 <tr>
-                                    <td colspan="5">
-                                        <h4 class="billdetails_content_ttl">
-                                            その他
-                                        </h4>
-                                    </td>
+                                    <td>内容</td>
+                                    <td>単価</td>
+                                    <td>数量</td>
+                                    <td>金額</td>
+                                    <td>追加/削除</td>
                                 </tr>
-                                <tbody class="others_head">
-                                    <tr>
-                                        <td>内容</td>
-                                        <td>単価</td>
-                                        <td>数量</td>
-                                        <td>金額</td>
-                                        <td>追加/削除</td>
-                                    </tr>
-                                </tbody>
-                                <tbody class="others_main">
+                            </tbody>
+                            <tbody class="others_main">
+                                @if (isset($data['others_breakdown_item']))
                                     @foreach ($data['others_breakdown_item'] as $key => $value)
                                         <tr>
                                             <td>
@@ -857,11 +857,30 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                </tbody>
+                                @else
+                                    <tr>
+                                        <td>
+                                            {{ Form::text('others_breakdown_item[]', '', ['class' => 'form-control']) }}
+                                        </td>
+                                        <td>
+                                            {{ Form::text('others_breakdown_cost[]', 0, ['class' => 'form-control', 'readonly']) }}
+                                        </td>
+                                        <td>
+                                            {{ Form::text('others_breakdown_count[]', 0, ['class' => 'form-control']) }}
+                                        </td>
+                                        <td>
+                                            {{ Form::text('others_breakdown_subtotal[]', 0, ['class' => 'form-control', 'readonly']) }}
+                                        </td>
+                                        <td class="text-left">
+                                            <input type="button" value="＋" class="add pluralBtn bg-blue">
+                                            <input type="button" value="ー" class="del pluralBtn bg-red">
+                                        </td>
+                                    </tr>
+                                @endif
+                            </tbody>
 
-                            </table>
-                        </div>
-                    @endif
+                        </table>
+                    </div>
 
                     {{-- 以下、総合計 --}}
                     <div class="bill_total">

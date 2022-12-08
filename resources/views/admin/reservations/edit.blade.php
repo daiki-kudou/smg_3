@@ -887,22 +887,10 @@
                     <td colspan="3"></td>
                     <td colspan="1">
                         <p class="text-left">合計</p>
-                        @foreach (collect($reservation['bills'][0]['breakdowns'])->where('unit_type', 2) as $key => $value)
-                            @if (strpos($value['unit_item'], '割引料金') !== false)
-                                {{ Form::text('equipment_price', ((int) $reservation['bills'][0]['equipment_price']) + ((int) -$value['unit_cost']), [
-                                    'class' => 'form-control
-                                                  col-xs-3',
-                                    'readonly',
-                                ]) }}
-                            @break
-
-                        @elseif($loop->last)
-                            {{ Form::text('equipment_price', (int) $reservation['bills'][0]['equipment_price'], ['class' => 'form-control col-xs-3', 'readonly']) }}
-                        @endif
-                    @endforeach
-                </td>
-            </tr>
-        </tbody>
+                        {{ Form::text('equipment_price', $reservation['bills'][0]['equipment_price'], ['class' => 'form-control col-xs-3', 'readonly']) }}
+                    </td>
+                </tr>
+            </tbody>
         <tbody class="equipment_discount">
             <tr>
                 <td>割引計算欄</td>
@@ -911,15 +899,16 @@
                         割引金額
                     </p>
                     <div class="d-flex align-items-end">
-                        @foreach (collect($reservation['bills'][0]['breakdowns'])->where('unit_type', 2) as $key => $value)
+                        @forelse (collect($reservation['bills'][0]['breakdowns'])->where('unit_type', 2) as $key => $value)
                             @if (strpos($value['unit_item'], '割引料金') !== false)
                                 {{ Form::text('equipment_number_discount', $value['unit_cost'] * -1, ['class' => 'form-control']) }}
                             @break
-
-                        @elseif($loop->last)
+                            @elseif($loop->last)
+                                {{ Form::text('equipment_number_discount', '', ['class' => 'form-control']) }}
+                            @endif
+                        @empty
                             {{ Form::text('equipment_number_discount', '', ['class' => 'form-control']) }}
-                        @endif
-                    @endforeach
+                        @endforelse
                     <p class="ml-1">円</p>
                 </div>
                 <p class="is-error-equipment_number_discount" style="color: red"></p>
