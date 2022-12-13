@@ -115,7 +115,7 @@ class RegisterController extends Controller
 				'tel' => $data['tel'],
 				'fax' => $data['fax'],
 				'pay_method' => 1,
-				'pay_limit' => 1,
+				'pay_limit' => 2,
 			]);
 			//   $SendSMGEmail = new SendSMGEmail();
 			//   $SendSMGEmail->AuthSend("ユーザー会員登録用成功", [
