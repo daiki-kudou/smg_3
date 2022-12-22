@@ -169,16 +169,34 @@ class User extends Authenticatable
 			$limit = Carbon::parse($date->subDays($subDays));
 		} elseif ($this->pay_limit == 3) {
 			$limit = $date->endOfMonth();
+      $limit = $this->check_holiday($limit);
 		} elseif ($this->pay_limit == 4) {
 			$months = 1; // 追加する月数
 			$limit = $date->day(1)->addMonths($months)->endOfMonth();
+      $limit = $this->check_holiday($limit);
 		} elseif ($this->pay_limit == 5) {
 			$months = 2; // 追加する月数
 			$limit = $date->day(1)->addMonths($months)->endOfMonth();
+      $limit = $this->check_holiday($limit);
 		}
 		$result = Carbon::parse($limit)->toDateTimeString();
 		return date("Y-m-d", strtotime($result));
 	}
+
+  public function check_holiday($checkDay)
+  {
+    $HOLIDAY_CHECK_MAX_COUNT = 14;
+    $holidays = Yasumi::create('Japan', date('Y', strtotime($checkDay)));
+    for ($i = 1; $i <= $HOLIDAY_CHECK_MAX_COUNT; $i++) {
+      if ($checkDay->isSunday() || $checkDay->isSaturday() || $holidays->isHoliday($checkDay)) {
+        $checkDay = $checkDay->subDays(1);
+      } else {
+        break;
+      }
+    }
+    $limitWeekDay = $checkDay;
+    return $limitWeekDay;
+  }
 
   public function getCompany()
   {
