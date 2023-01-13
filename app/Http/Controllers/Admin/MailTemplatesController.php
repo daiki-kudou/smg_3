@@ -34,6 +34,7 @@ class MailTemplatesController extends Controller
 		]);
 
 		$data = $request->all();
+		$data['body'] = str_replace('<p', '<p style="margin:3px"', $data['body']);
 		$template = MailTemplate::find($data['id'])
 			->update(
 				[
