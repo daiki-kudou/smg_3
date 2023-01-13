@@ -318,7 +318,7 @@
                                         <p>{{ number_format($b_ser[1]) }}<span>円</span></p>
                                     </li>
                                 @endforeach
-                                @if ($slctSession[0]['luggage_flag'])
+                                @if (!empty($slctSession[0]['luggage_flag']))
                                     <li>
                                         <p>荷物預かり</p>
                                         <p>500<span>円</span></p>
