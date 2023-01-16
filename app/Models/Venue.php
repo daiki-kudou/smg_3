@@ -238,7 +238,7 @@ class Venue extends Model implements PresentableInterface
       $extend_final_prices = []; //網羅した場合、延長した場合の料金が入ってる
       for ($extend_final = 0; $extend_final < count($price_arrays); $extend_final++) {
         if ($extend_prices[$extend_final] != 'false') {
-          $extend_final_prices[] = ($price_arrays[$extend_final]->price) + ($extend_prices[$extend_final]);
+          $extend_final_prices[] = ($price_arrays[$extend_final]->price);
         } elseif ($cover_price_result[$extend_final] != 'false') {
           $extend_final_prices[] = $price_arrays[$extend_final]->price;
         } else {
@@ -270,22 +270,17 @@ class Venue extends Model implements PresentableInterface
       } elseif ($exted_specific_price == 'false') {
         $exted_specific_price = 0;
       }
-      // 延長料金抽出（夜間以外の延長料金を加算した会場料金算出）
-      // 「個別日程に反映して保存」時は通らない
-      if ($click_btn_flg == 0) {
-        $min_result = $this->getTotalResult($start_time, $min_result, $price_arrays);        
-      }
-      // 延長料金抽出（最終）
       $exted_specific_price = $this->getExtendPrice($start_time, $exted_specific_price, $price_arrays);
 
       
       // // 23時例外：22時から23時を選択すると時間に応じて延長料金適応
       //17時以降は無条件で夜間料金適応
       if ($start_time == '17:00:00') {
-        $min_result = $min_result + ($price_arrays[0]->extend) * 1;
+        $exted_specific_price = ($price_arrays[0]->extend) * 1;
       } elseif ($start_time == '17:30:00') {
-        $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
+        $exted_specific_price = ($price_arrays[0]->extend) * 0.5;
       }
+      $min_result += $exted_specific_price;
 
       // 選択した時間取得
       $f_start = Carbon::createFromTimeString($start_time, 'Asia/Tokyo');
@@ -464,7 +459,9 @@ class Venue extends Model implements PresentableInterface
   {
     $extend_lists = [];
     for ($i = 0; $i < count($price_arrays); $i++) {
-      if (in_array($generate_start_time, $between_time_list[$i]) && !in_array($generate_finish_time, $between_time_list[$i])) {
+      if (in_array($generate_start_time, $between_time_list[$i]) && !in_array($generate_finish_time, $between_time_list[$i]) ||
+          !in_array($generate_start_time, $between_time_list[$i]) && in_array($generate_finish_time, $between_time_list[$i])
+          ) {
         $extend_lists[] = Carbon::parse($generate_finish_time)->diffInMinutes(Carbon::parse($price_arrays[$i]->finish)) / 60;
       } else {
         $extend_lists[] = 'false';
