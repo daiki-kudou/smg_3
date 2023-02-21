@@ -50,6 +50,7 @@
               <dd>大阪市西区北堀江1丁目6番2号</dd>
               <dd>サンワールドビル11階</dd>
               <dd>TEL：06-6556-6462</dd>
+              <dd>登録番号：T112000112832</dd>
             </dl>
           </td>
         </tr>
@@ -190,7 +191,7 @@
       <table cellpadding="0" cellspacing="0" class="total-table">
         <tr class="total">
           <td>
-            <p class="sub-total"><span>小計：</span>
+            <p class="sub-total"><span>小計(10%税率対象)：</span>
               <span class="master-subtotal">
                 @if ($cxl)
                 {{ number_format($cxl->master_subtotal) }}円
