@@ -203,7 +203,7 @@ class CommandPayDayOverLimit extends Command
       ->whereRaw('reservations.deleted_at is null and users.id > 0')
       ->whereRaw('cxls.paid in (0, 2)')
       ->whereRaw('cxls.cxl_status = 2')
-      ->whereRaw('cxls.payment_limit = ?', [$targetPaymentLimit])->get();
+      ->whereRaw('cxls.payment_limit in (' . $targetPaymentLimit . ')')->get();
 
     return $cxls;
   }
