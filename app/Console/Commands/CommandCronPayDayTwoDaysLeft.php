@@ -44,7 +44,6 @@ class CommandCronPayDayTwoDaysLeft extends Command
   public function handle()
   {
     $targetPaymentLimit = $this->getSalesDate();
-    echo $targetPaymentLimit;
     if ($targetPaymentLimit) {
       // キャンセルしていない予約の２営業日前抽出
       $bills = $this->BillQuey($targetPaymentLimit);
@@ -91,7 +90,7 @@ class CommandCronPayDayTwoDaysLeft extends Command
     if ($tarAry[0] === $tarAry[2]) {
       $targetPaymentLimit = $tarAry[0];
     } else {
-      $targetPaymentLimit = $tarAry[0] . ", " . $tarAry[2];
+      $targetPaymentLimit = "'" . $tarAry[0] . "', '" . $tarAry[2] . "'";
     }
 
     return $targetPaymentLimit;
@@ -154,7 +153,7 @@ class CommandCronPayDayTwoDaysLeft extends Command
       ->leftJoin('venues', 'venues.id', '=', 'reservations.venue_id')
       ->whereRaw('reservations.deleted_at is null and bills.deleted_at is null and bills.reservation_status = 3')
       ->whereRaw('bills.paid in (0, 2)')
-      ->whereRaw('bills.payment_limit in (?)', [$targetPaymentLimit])->get();
+      ->whereRaw('bills.payment_limit in (' . $targetPaymentLimit . ')')->get();
     return $bills;
   }
 

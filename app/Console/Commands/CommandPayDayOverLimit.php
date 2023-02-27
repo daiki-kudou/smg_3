@@ -44,7 +44,6 @@ class CommandPayDayOverLimit extends Command
   {
 
     $targetPaymentLimit = $this->getSalesDate();
-    echo $targetPaymentLimit;
     if ($targetPaymentLimit) {
       // キャンセルしていない予約の1営業日後抽出
       $bills = $this->BillQuey($targetPaymentLimit);
@@ -92,9 +91,9 @@ class CommandPayDayOverLimit extends Command
     $targetPaymentLimit = '';
     foreach ($tarAry as $index => $date) {
       if ($index === 0) {
-        $targetPaymentLimit = $date;
+        $targetPaymentLimit = "'" . $date . "'";
       } else {
-        $targetPaymentLimit = $targetPaymentLimit . ', ' . $date;
+        $targetPaymentLimit = $targetPaymentLimit . ", '" . $date . "'";
       }
     }
 
@@ -151,7 +150,7 @@ class CommandPayDayOverLimit extends Command
       ->leftJoin('venues', 'venues.id', '=', 'reservations.venue_id')
       ->whereRaw('reservations.deleted_at is null and bills.deleted_at is null and bills.reservation_status = 3 and users.id > 0')
       ->whereRaw('bills.paid in (0, 2)')
-      ->whereRaw('bills.payment_limit = ?', [$targetPaymentLimit])->get();
+      ->whereRaw('bills.payment_limit in (' . $targetPaymentLimit . ')')->get();
     return $bills;
   }
 
