@@ -158,11 +158,8 @@ class User extends Authenticatable
 			$subDays = 3;
 			for ($i = 1; $i <= $subDays; $i++) {
 				$checkDay = Carbon::parse($reserve_date)->subDays($i);
-				if ($checkDay->isSunday() || $checkDay->isSaturday()) {
-					$subDays++;
-				}
 				$holidays = Yasumi::create('Japan', date('Y', strtotime($checkDay)));
-				if ($holidays->isHoliday($checkDay)) {
+        if ($checkDay->isSunday() || $checkDay->isSaturday() || $holidays->isHoliday($checkDay)) {
 					$subDays++;
 				}
 			}
