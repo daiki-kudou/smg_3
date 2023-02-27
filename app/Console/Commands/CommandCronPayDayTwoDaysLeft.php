@@ -88,7 +88,7 @@ class CommandCronPayDayTwoDaysLeft extends Command
 
     // 配列のindex0番目が2日後の日付 === 配列のindex2番目が2営業日後の日付
     if ($tarAry[0] === $tarAry[2]) {
-      $targetPaymentLimit = $tarAry[0];
+      $targetPaymentLimit = "'" . $tarAry[0] . "'";
     } else {
       $targetPaymentLimit = "'" . $tarAry[0] . "', '" . $tarAry[2] . "'";
     }
@@ -206,7 +206,7 @@ cxls.invoice_number as invoice_number,
       ->whereRaw('reservations.deleted_at is null')
       ->whereRaw('cxls.paid in (0, 2)')
       ->whereRaw('cxls.cxl_status = 2')
-      ->whereRaw('cxls.payment_limit in (?)', [$targetPaymentLimit])->get();
+      ->whereRaw('cxls.payment_limit in (' . $targetPaymentLimit . ')')->get();
 
     return $cxls;
   }
