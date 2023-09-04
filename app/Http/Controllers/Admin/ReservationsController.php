@@ -19,18 +19,14 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 use PDF;
 use App\Mail\SendUserApprove;
 use Illuminate\Support\Facades\Mail;
-
 use App\Traits\PregTrait;
 use Illuminate\Support\Facades\Auth;
-
 use App\Traits\PaginatorTrait;
 use App\Traits\SortTrait;
 use App\Traits\SearchTrait;
-
-// ふぉーむリクエスト
 use App\Http\Requests\Admin\Reservations\ReservationsStore;
-
 use App\Service\SendSMGEmail;
+use App\Http\Requests\ReservationsRequest;
 
 
 class ReservationsController extends Controller
@@ -45,7 +41,7 @@ class ReservationsController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index(Request $request)
+  public function index(ReservationsRequest $request)
   {
 
     $venues = Venue::all()->toArray();

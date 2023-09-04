@@ -311,7 +311,6 @@ class Reservation extends Model implements PresentableInterface
 
 		if (isset($data['search_id']) && $data['search_id'] !== '') {
 			$searchId = trim($data['search_id'], "0");
-
 			$searchTarget->whereRaw('reservations.id = ?', $searchId);
 		}
 
