@@ -23,6 +23,7 @@ use Carbon\Carbon;
 use App\Service\SendSMGEmail;
 use App\Consts\MailTemplateConst;
 use App\Mail\UserPreResCxl;
+use App\Http\Requests\MultiplesRequest;
 
 
 class MultiplesController extends Controller
@@ -31,7 +32,7 @@ class MultiplesController extends Controller
 	use PaginatorTrait;
 
 
-	public function index(Request $request)
+	public function index(MultiplesRequest $request)
 	{
 		$data = $request->all();
 

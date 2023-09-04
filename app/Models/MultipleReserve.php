@@ -843,7 +843,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
       ->leftJoin('unknown_users', 'pre_reservations.id', '=', 'unknown_users.pre_reservation_id')
       ->leftJoin('agents', 'pre_reservations.agent_id', '=', 'agents.id')
       ->leftJoin('pre_endusers', 'pre_reservations.id', '=', 'pre_endusers.pre_reservation_id')
-      ->groupByRaw("multiple_reserves.id, users.id, unknown_users.unknown_user_company, agents.name, pre_endusers.company")
+      ->groupByRaw("multiple_reserves.id, users.id, unknown_users.unknown_user_company, agents.name, pre_endusers.company, multiple_reserves.created_at, users.company, users.first_name, users.last_name, users.mobile, users.tel, users.attention")
       ->havingRaw('pre_reservation_count > 0');
     return $searchTarget;
   }
@@ -852,9 +852,9 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
   {
     $searchTarget = $this->MultipleSearchTarget();
 
-    if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
-		$id = abs($data['search_id']);
-      $searchTarget->whereRaw('multiple_reserve_id LIKE ? ',  ['%' . $id . '%']);
+    if (isset($data['search_id']) && $data['search_id'] !== '') {
+			$searchId = trim($data['search_id'], "0");
+      $searchTarget->whereRaw('multiple_reserve_id = ? ',  $searchId);
     }
 
     if (!empty($data['search_created_at'])) {
