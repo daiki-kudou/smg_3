@@ -304,31 +304,20 @@ class Reservation extends Model implements PresentableInterface
 		$id = null;
 		$searchTarget = $this->ReservationSearchTarget();
 
-		if (!empty($data['multiple_id']) ) 
-		{		
-			$id = abs($data['multiple_id']);
-			// $searchTarget->whereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']);
-			$searchTarget->whereRaw('reservations.multiple_reserve_id LIKE ? ',  ['%' . $id . '%']);
+		if (isset($data['multiple_id']) && $data['multiple_id'] !== '') {
+			$multipleId = trim($data['multiple_id']);
+			$searchTarget->whereRaw('reservations.multiple_reserve_id = ? ',  $multipleId);
 		}
 
-		if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
-			for ($i = 0; $i < strlen($data['search_id']); $i++) {
-				if ((int)$data['search_id'][$i] !== 0) {
-					$id = substr($data['search_id'], $i, strlen($data['search_id']));
-					break;
-				}
-			}
-			$searchTarget->whereRaw('reservations.id LIKE ? ',  ['%' . $id . '%']);
+		if (isset($data['search_id']) && $data['search_id'] !== '') {
+			$searchId = trim($data['search_id'], "0");
+
+			$searchTarget->whereRaw('reservations.id = ?', $searchId);
 		}
 
-		if (!empty($data['user_id']) && (int)$data['user_id'] > 0) {
-			for ($i = 0; $i < strlen($data['user_id']); $i++) {
-				if ((int)$data['user_id'][$i] !== 0) {
-					$id = strstr($data['user_id'], $data['user_id'][$i]);
-					break;
-				}
-			}
-			$searchTarget->whereRaw('users.id = ?', [$id]);
+		if (isset($data['user_id']) && $data['user_id'] !== '') {
+			$userId = trim($data['user_id'], "0");
+			$searchTarget->whereRaw('users.id = ?', [$userId]);
 		}
 
 		if (!empty($data['reserve_date'])) {

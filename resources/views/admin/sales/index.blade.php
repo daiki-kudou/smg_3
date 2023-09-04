@@ -49,6 +49,10 @@
         <h2 class="mt-3 mb-3">売上・請求情報</h2>
         <hr>
     </div>
+    @foreach ($errors->all() as $error)
+        <p class="is-error" style="color: red">{{ $error }}</p>
+    @endforeach
+
 
 
 
