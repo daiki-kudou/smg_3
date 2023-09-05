@@ -27,7 +27,6 @@
 
 </style>
 
-@include('layouts.admin.errors')
 
 <div class="content">
   <div class="container-fluid">
@@ -36,6 +35,8 @@
       <h2 class="mt-3 mb-3">予約一覧</h2>
       <hr>
     </div>
+
+    @include('layouts.admin.errors')
 
     {{ Form::open(['url' => '/admin/reservations', 'method'=>'get', 'id'=>'reserve_search','autocomplete'=>'off',])}}
     @csrf

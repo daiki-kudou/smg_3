@@ -20,7 +20,6 @@
   }
 </style>
 
-@include('layouts.admin.errors')
 @if (session('flash_message'))
 <div class="flash_message bg-success text-center py-3 my-0">
   {{ session('flash_message') }}
@@ -47,6 +46,8 @@
       <h2 class="mt-3 mb-3">一括仮押え 一覧</h2>
       <hr>
     </div>
+
+    @include('layouts.admin.errors')
 
     <!-- 検索--------------------------------------- -->
     {{Form::open(['url' => '/admin/multiples', 'method' => 'GET', 'id'=>'searchMultiple','autocomplete'=>'off',])}}

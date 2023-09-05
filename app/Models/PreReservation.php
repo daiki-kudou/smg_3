@@ -631,16 +631,9 @@ class PreReservation extends Model
   {
     $searchTarget = $this->PreReservationSearchTarget();
 
-    if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
-		$id=null;
-      for ($i = 0; $i < strlen($data['search_id']); $i++) {
-        if ((int)$data['search_id'][$i] !== 0) {
-          $id = strstr($data['search_id'], $data['search_id'][$i]);
-          break;
-        }
-      }
-
-      $searchTarget->whereRaw('pre_reservations.id LIKE ? ',  ['%' . $id . '%']);
+    if (isset($data['search_id']) && $data['search_id'] !== '') {
+			$searchId = trim($data['search_id'], "0");
+      $searchTarget->whereRaw('pre_reservations.id = ? ',  $searchId);
     }
 
     if (!empty($data['search_created_at'])) {
