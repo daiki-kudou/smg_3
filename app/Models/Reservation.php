@@ -305,17 +305,17 @@ class Reservation extends Model implements PresentableInterface
 		$searchTarget = $this->ReservationSearchTarget();
 
 		if (isset($data['multiple_id']) && $data['multiple_id'] !== '') {
-			$multipleId = trim($data['multiple_id']);
+			$multipleId = (int)$data['multiple_id'];
 			$searchTarget->whereRaw('reservations.multiple_reserve_id = ? ',  $multipleId);
 		}
 
 		if (isset($data['search_id']) && $data['search_id'] !== '') {
-			$searchId = trim($data['search_id'], "0");
+			$searchId = (int)$data['search_id'];
 			$searchTarget->whereRaw('reservations.id = ?', $searchId);
 		}
 
 		if (isset($data['user_id']) && $data['user_id'] !== '') {
-			$userId = trim($data['user_id'], "0");
+			$userId = (int)$data['user_id'];
 			$searchTarget->whereRaw('users.id = ?', [$userId]);
 		}
 
@@ -360,8 +360,8 @@ class Reservation extends Model implements PresentableInterface
 			$searchTarget->whereRaw('endusers.company LIKE ? ',  ['%' . $data['enduser_person'] . '%']);
 		}
 
-		if (!empty($data['sogaku'])) {
-			$searchTarget->whereRaw('sogaku = ?', [$data['sogaku']]);
+		if (isset($data['sogaku'])) {
+			$searchTarget->whereRaw('sogaku = ?', [(int)$data['sogaku']]);
 		}
 
 		if (!empty($data['payment_limit'])) {

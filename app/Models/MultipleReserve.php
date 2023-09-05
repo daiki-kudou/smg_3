@@ -853,7 +853,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
     $searchTarget = $this->MultipleSearchTarget();
 
     if (isset($data['search_id']) && $data['search_id'] !== '') {
-			$searchId = trim($data['search_id'], "0");
+      $searchId = (int)$data['search_id'];
       $searchTarget->whereRaw('multiple_reserve_id = ? ',  $searchId);
     }
 

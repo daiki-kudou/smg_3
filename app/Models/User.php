@@ -236,14 +236,10 @@ class User extends Authenticatable
   public function search($ary)
   {
     $users = $this->search_target();
-    if (!empty($ary['search_id'])) {
-      for ($i = 0; $i < strlen($ary['search_id']); $i++) {
-        if ((int)$ary['search_id'][$i] !== 0) {
-          $id = substr($ary['search_id'], $i, strlen($ary['search_id']));
-          break;
-        }
-      }
-      $users = $users->whereRaw('users.id like ?', ['%' . $id . '%']);
+
+    if (isset($ary['search_id']) && $ary['search_id'] !== '') {
+      $searchId = (int)$ary['search_id'];
+      $users = $users->whereRaw('users.id = ?', $searchId);
     }
     if (!empty($ary['search_company'])) {
       $users = $users->whereRaw('users.company like ?', ['%' . $ary['search_company'] . '%']);

@@ -6,13 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-
 use App\Models\User;
-
 use App\Traits\PaginatorTrait;
 use App\Traits\SortTrait;
 use App\Traits\SearchTrait;
-
+use App\Http\Requests\ClientsRequest;
 
 
 class ClientsController extends Controller
@@ -26,7 +24,7 @@ class ClientsController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index(Request $request)
+  public function index(ClientsRequest $request)
   {
     $data = $request->all();
     $user = new User;
