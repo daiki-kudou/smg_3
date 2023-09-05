@@ -13,17 +13,16 @@ use App\Models\Venue;
 use App\Models\Enduser;
 use App\Models\Cxl;
 use Carbon\Carbon;
-
 use App\Traits\PaginatorTrait;
 use App\Traits\SearchTrait;
-
 use App\Http\Helpers\ReservationHelper;
+use App\Http\Requests\SalesRequest;
 
 class SalesController extends Controller
 {
   use PaginatorTrait;
   use SearchTrait;
-  public function index(Request $request)
+  public function index(SalesRequest $request)
   {
 
     $_reservation = new Reservation;

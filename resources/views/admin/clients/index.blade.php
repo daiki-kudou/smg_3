@@ -19,6 +19,8 @@
         <h2 class="mt-3 mb-3">顧客管理　一覧</h2>
         <hr>
 
+        @include('layouts.admin.errors')
+
         <!-- 検索-------------------------------------------------------- -->
         {{ Form::open(['url' => '/admin/clients', 'method' => 'GET', 'id' => 'clients_search', 'autocomplete' => 'off']) }}
         @csrf

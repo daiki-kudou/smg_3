@@ -50,7 +50,7 @@
         <hr>
     </div>
 
-
+    @include('layouts.admin.errors')
 
     <!-- 検索--------------------------------------- -->
     {{ Form::open(['url' => '/admin/sales', 'method' => 'GET', 'id' => 'sales_search', 'autocomplete' => 'off']) }}

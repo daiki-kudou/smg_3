@@ -28,6 +28,7 @@ use App\Http\Requests\Admin\PreReservations\Common\VenuePriceRequiredRequest;
 use App\Service\SendSMGEmail;
 use App\Consts\MailTemplateConst;
 use App\Mail\UserPreResCxl;
+use App\Http\Requests\PreReservationsRequest;
 
 
 class PreReservationsController extends Controller
@@ -41,7 +42,7 @@ class PreReservationsController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index(Request $request)
+  public function index(PreReservationsRequest $request)
   {
     $data = $request->all();
     $_pre_reservations = new PreReservation;

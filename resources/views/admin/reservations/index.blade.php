@@ -27,6 +27,7 @@
 
 </style>
 
+
 <div class="content">
   <div class="container-fluid">
     <div class="container-field mt-3">
@@ -34,6 +35,8 @@
       <h2 class="mt-3 mb-3">予約一覧</h2>
       <hr>
     </div>
+
+    @include('layouts.admin.errors')
 
     {{ Form::open(['url' => '/admin/reservations', 'method'=>'get', 'id'=>'reserve_search','autocomplete'=>'off',])}}
     @csrf
