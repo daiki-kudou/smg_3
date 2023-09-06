@@ -85,7 +85,7 @@
                                         <ul class="sum-list">
                                             <li>
                                                 <p>
-                                                    {{ ReservationHelper::getVenueForUser((int) $reservation[0]['venue_id']) }}
+                                                    {{ ReservationHelper::getVenueForUser((int) $reservation[0]['venue_id']) }}{{ $reservation[0]['price_system'] == 2 ? '(音響HG)' : '' }}
                                                 </p>
                                             </li>
                                         </ul>
@@ -221,8 +221,8 @@
                                             <p><span
                                                     class="f-wb">{{ ReservationHelper::formatDateJA($t_reservation[0]['date']) }}</span><br
                                                     class="sp">
-                                                 {{ReservationHelper::getVenueForUser($t_reservation[0]["venue_id"])}}
-                                                会場ご利用料
+                                                 {{ReservationHelper::getVenueForUser($t_reservation[0]["venue_id"])}}{{ $t_reservation[0]['price_system'] === '2' ? '(音響HG)' : '' }}
+                                                 会場ご利用料
                                             </p>
                                             <p>{{ number_format($t_reservation[0]['master']) }}<span>円</span></p>
                                         </li>
