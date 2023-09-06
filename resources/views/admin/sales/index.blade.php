@@ -196,7 +196,7 @@
                     <td class="text-right form-group">
                         {{ Form::text('payment_limit', optional($data)['payment_limit'], ['class' => 'form-control']) }}
                     </td>
-                    <th class="search_item_name"><label for="enduser">入金日</label></th>
+                    <th class="search_item_name"><label for="enduser">支払日</label></th>
                     <td class="text-right">
                         {{ Form::text('pay_day', optional($data)['pay_day'], ['class' => 'form-control']) }}
                     </td>
@@ -290,6 +290,7 @@
 
     <!-- 一覧　　------------------------------------------------ -->
     <div class="table-wrap">
+    <p class="text-left mb-2">※予約確認中⇒弊社でご予約内容の確認中です。お客様にご対応頂くことはありません</p>
         <table class="table table-bordered compact hover order-column" id="sales_sort" style="height: 100%;">
             <thead>
                 <tr class="table_row">
@@ -311,7 +312,7 @@
                     <th>予約状況</th>
                     <th>入金状況</th>
                     <th>支払期日</th>
-                    <th>入金日</th>
+                    <th>支払日</th>
                     <th>振込名</th>
                     <th>顧客属性</th>
                     <th>運営</th>

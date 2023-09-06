@@ -234,7 +234,7 @@
                             <td colspan="2">
                                 <p class="checkbox-txt">
                                     <span>小計(税抜)</span>
-                                    {{ number_format(ReservationHelper::numTimesNumArrays($sessions, 'master')) }}円
+                                    {{ number_format(ReservationHelper::numTimesNumArrays($sessions, 'master')) }}<span>円</span>
                                 </p>
                                 <p class="">
                                     <span>消費税</span>

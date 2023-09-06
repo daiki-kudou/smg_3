@@ -465,7 +465,7 @@
                                         請求書No. {{ $reservation->bills->sortBy('id')->first()->invoice_number }} 会場予約
                                     </h2>
                                 </td>
-                                <td style="width: 70%;">
+                                <td>
                                     <div class="d-flex align-items-center justify-content-end">
                                         <dl class="ttl_box">
                                             <dt>合計金額(税込)：</dt>
@@ -843,7 +843,7 @@
                                             請求書No. {{ $other_bill->invoice_number }} 追加{{ $key }}
                                         </h2>
                                     </td>
-                                    <td style="width: 70%;">
+                                    <td>
                                         <div class="d-flex align-items-center justify-content-end">
                                             <dl class="ttl_box">
                                                 <dt>合計金額(税込)：</dt>
@@ -1214,7 +1214,7 @@
                                             請求書No. {{ $cxl->invoice_number }} キャンセル料
                                         </h2>
                                     </td>
-                                    <td style="width: 70%;">
+                                    <td>
                                         <div class="d-flex align-items-center justify-content-end">
                                             <dl class="ttl_box">
                                                 <dt>合計金額(税込)：</dt>

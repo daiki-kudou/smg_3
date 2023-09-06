@@ -56,7 +56,9 @@
         <td>{{ReservationHelper::getPersonNameKANA($user->id)}}</td>
       </tr>
       <tr>
-        <th>郵便番号</th>
+        <th>郵便番号<br>
+        <span class="annotation">※半角数字、ハイフンなしで入力下さい。</span>
+        </th>
         <td class="d-flex align-items-center">
           <p>〒{{$user->post_code}}</p>
         </td>
