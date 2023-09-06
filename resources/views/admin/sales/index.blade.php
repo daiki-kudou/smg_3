@@ -290,6 +290,7 @@
 
     <!-- 一覧　　------------------------------------------------ -->
     <div class="table-wrap">
+    <p class="text-left mb-2">※予約確認中⇒弊社でご予約内容の確認中です。お客様にご対応頂くことはありません</p>
         <table class="table table-bordered compact hover order-column" id="sales_sort" style="height: 100%;">
             <thead>
                 <tr class="table_row">
