@@ -17,6 +17,10 @@
             <h1 class="page-title oddcolor"><span>会場予約 変更画面</span></h1>
             <p>下記フォームに必要事項を入力してください。(＊は必須項目です)</p>
             <p class="txtRed">複数日程を希望の場合は予約日毎に予約入力してください。</p>
+            <p class="txtRed m-t10">
+                日程や会場を選択しなおす場合は最初の手順「会場予約」ページにお戻り下さい。<br>
+            ※その際、今まで入力された情報はリセットされます。
+            </p>
         </div>
     </div>
     <section class="contents">
