@@ -70,7 +70,7 @@ class DataTableController extends Controller
           'reserve_date' => "<div>" . ReservationHelper::formatDate($record->reserve_date) . "</div>",
           'enter_time' => "<div>" . ReservationHelper::formatTime($record->enter_time) . "</div>",
           'leave_time' => "<div>" . ReservationHelper::formatTime($record->leave_time) . "</div>",
-          'venue_name' => "<div>" . $record->venue_name . "</div>",
+          'venue_name' => "<div>" . $record->venue_name . ($record->price_system === 2 ? '(音響HG)' : '') . "</div>",
           'company_name' => "<div>" . $record->company_name . "</div>",
           'user_name' => "<div>" . $record->user_name . "</div>",
           'mobile' => "<div>" . $record->mobile . "</div>",
