@@ -609,6 +609,7 @@ class PreReservation extends Model
         users.attention as attention,
         pre_endusers.company as enduser,
         pre_reservations.status as pre_reservation_status,
+        pre_reservations.price_system as price_system,
       case when pre_bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
       case when pre_reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
       case when pre_reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,

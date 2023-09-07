@@ -341,9 +341,8 @@
                                         <td class="table-active"><label for="venue">会場</label></td>
                                         <td>
                                             <p>
-                                                {{ ReservationHelper::getVenue($pre_reservation->venue_id) }}
+                                                {{ ReservationHelper::getVenue($pre_reservation->venue_id) . ($pre_reservation->price_system === 2 ? '(音響HG)' : '') }}
                                             </p>
-                                            <p>{{ $pre_reservation->price_system == 1 ? '通常（枠貸し）' : '(音響HG)' }}</p>
                                         </td>
                                     </tr>
                                     <tr>
