@@ -239,7 +239,7 @@ class User extends Authenticatable
 
     if (isset($ary['search_id']) && $ary['search_id'] !== '') {
       $searchId = (int)$ary['search_id'];
-      $users = $users->whereRaw('users.id = ?', $searchId);
+      $users = $users->whereRaw('users.id like ?', $searchId . '%');
     }
     if (!empty($ary['search_company'])) {
       $users = $users->whereRaw('users.company like ?', ['%' . $ary['search_company'] . '%']);

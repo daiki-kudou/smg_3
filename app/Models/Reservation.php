@@ -306,17 +306,17 @@ class Reservation extends Model implements PresentableInterface
 
 		if (isset($data['multiple_id']) && $data['multiple_id'] !== '') {
 			$multipleId = (int)$data['multiple_id'];
-			$searchTarget->whereRaw('reservations.multiple_reserve_id = ? ',  $multipleId);
+			$searchTarget->whereRaw('reservations.multiple_reserve_id like ? ', $multipleId . '%');
 		}
 
 		if (isset($data['search_id']) && $data['search_id'] !== '') {
 			$searchId = (int)$data['search_id'];
-			$searchTarget->whereRaw('reservations.id = ?', $searchId);
+			$searchTarget->whereRaw('reservations.id like ?', $searchId . '%');
 		}
 
 		if (isset($data['user_id']) && $data['user_id'] !== '') {
 			$userId = (int)$data['user_id'];
-			$searchTarget->whereRaw('users.id = ?', [$userId]);
+			$searchTarget->whereRaw('users.id like ?', $userId . '%');
 		}
 
 		if (!empty($data['reserve_date'])) {
