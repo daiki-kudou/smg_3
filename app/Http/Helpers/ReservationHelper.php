@@ -101,7 +101,7 @@ class ReservationHelper
   {
     if (!empty($venue_id)) {
       $venue = Venue::find($venue_id);
-      return  $venue->name_bldg . $venue->name_venue;
+      return  $venue->name_area . $venue->name_bldg . $venue->name_venue;
     } else {
       return NULL;
     }

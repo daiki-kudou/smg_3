@@ -636,7 +636,7 @@ class Reservation extends Model implements PresentableInterface
       reservations.venue_id as venue_id,
       reservations.price_system as price_system,
       reservations.eat_in as eat_in,
-      concat(venues.name_area,"・",venues.name_bldg,venues.name_venue) as venue_name, 
+      concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name, 
       venues.alliance_flag as alliance_flag,
       users.company as company_name,
       concat(users.first_name, users.last_name) as user_name, 
