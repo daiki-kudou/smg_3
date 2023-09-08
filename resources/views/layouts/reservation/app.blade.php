@@ -267,7 +267,17 @@
         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
           <a itemscope itemtype="http://schema.org/Thing" itemprop="item"
             href="https://system.osaka-conference.com/calendar/">
-            <span itemprop="name"><span class="changeTtl">会員登録</span></span></a>
+            <span itemprop="name"><span class="changeTtl">
+              @if (Request::is('user/preusers*') || Request::is('user/register*') || Request::is('timeout'))
+                {{ '会員登録' }}
+              @elseif (Request::is('user/login') && session('flash_message'))
+                {{ '会員登録完了' }}
+              @elseif (Request::is('user/login'))
+                {{ 'ログイン/会員登録' }}
+              @elseif (Request::is('user/password*'))
+                {{ 'パスワードの再設定' }}
+              @endif
+            </span></span></a>
           <meta itemprop="position" content="2">
         </li>
         @else
