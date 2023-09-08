@@ -633,7 +633,7 @@ class PreReservation extends Model
 
     if (isset($data['search_id']) && $data['search_id'] !== '') {
 			$searchId = (int)$data['search_id'];
-      $searchTarget->whereRaw('pre_reservations.id = ? ',  $searchId);
+      $searchTarget->whereRaw('pre_reservations.id like ? ', $searchId . '%');
     }
 
     if (!empty($data['search_created_at'])) {
