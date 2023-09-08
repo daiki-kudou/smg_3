@@ -321,7 +321,7 @@ class ReservationsController extends Controller
 					'reserve_date' => ReservationHelper::formatDate($record->reserve_date),
 					'enter_time' => ReservationHelper::formatTime($record->enter_time),
 					'leave_time' => ReservationHelper::formatTime($record->leave_time),
-					'venue_name' => ($record->venue_name),
+					'venue_name' => $record->venue_name_user . ($record->price_system === 2 ? '(音響HG)' : ''),
 					'reservation_status' => $this->getSalesStatus($record->reservation_id),
 					'category' => $this->getSalesCategory($record->reservation_id),
 					'sogaku' => (int)$record->sogaku < 0 ? "<p style='color:red;'>" . number_format($record->sogaku) . "</p>" : number_format($record->sogaku),

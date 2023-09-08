@@ -26,7 +26,8 @@ class UserPreResCxl extends Mailable
 		$enter_time,
 		$leave_time,
 		$venue_name,
-		$smg_url
+		$smg_url,
+		$price_system
 	) {
 		$this->template_id = $template_id;
 		$this->company = $company;
@@ -37,6 +38,7 @@ class UserPreResCxl extends Mailable
 		$this->leave_time = $leave_time;
 		$this->venue_name = $venue_name;
 		$this->smg_url = $smg_url;
+		$this->price_system = $price_system;
 	}
 
 	/**
@@ -69,7 +71,7 @@ class UserPreResCxl extends Mailable
 		$send_html = str_replace('${reserve_date}', $this->reserve_date, $send_html);
 		$send_html = str_replace('${enter_time}', $this->enter_time, $send_html);
 		$send_html = str_replace('${leave_time}', $this->leave_time, $send_html);
-		$send_html = str_replace('${venue_name}', $this->venue_name, $send_html);
+		$send_html = str_replace('${venue_name}', $this->venue_name . ($this->price_system === 2 ? '(音響HG)' : ''), $send_html);
 		$send_html = str_replace('${smg_url}', $this->smg_url, $send_html);
 		$send_html = str_replace('${login}', url('/user/login'), $send_html);
 

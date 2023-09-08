@@ -127,7 +127,8 @@ class CommandPayDayOverLimit extends Command
         ) as reserve_date,
         time_format(reservations.enter_time, '%H:%i') as enter_time,
         time_format(reservations.leave_time, '%H:%i') as leave_time,
-        concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name,
+        concat(venues.name_area,\"・\",venues.name_bldg,venues.name_venue) as venue_name,
+        reservations.price_system as price_system,
         case when cxls_list.cxl_reservation_id is null then bills.invoice_number else null end as invoice_number,
         concat(date_format(bills.payment_limit, '%Y/%m/%d'),
         case 
@@ -180,7 +181,8 @@ class CommandPayDayOverLimit extends Command
         ) as reserve_date,
         time_format(reservations.enter_time, '%H:%i') as enter_time,
         time_format(reservations.leave_time, '%H:%i') as leave_time,
-        concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name,
+        concat(venues.name_area,\"・\",venues.name_bldg,venues.name_venue) as venue_name,
+        reservations.price_system as price_system,
         cxls.invoice_number as invoice_number,
         concat(date_format(cxls.payment_limit, '%Y/%m/%d'),
         case 

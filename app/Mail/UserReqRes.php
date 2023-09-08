@@ -59,7 +59,7 @@ class UserReqRes extends Mailable
 		$send_html = str_replace('${user_id}', $this->data->user_id, $send_html);
 		$send_html = str_replace('${enter_time}', $this->data->enter_time, $send_html);
 		$send_html = str_replace('${leave_time}', $this->data->leave_time, $send_html);
-		$send_html = str_replace('${venue_name}', $this->data->venue_name, $send_html);
+		$send_html = str_replace('${venue_name}', $this->data->venue_name . ($this->data->price_system === 2 ? '(音響HG)' : ''), $send_html);
 		$send_html = str_replace('${smg_url}', $this->data->smg_url, $send_html);
 		$send_html = str_replace('${master_total}', $this->master_total, $send_html);
 		$send_html = str_replace('${login}', url('/user/login'), $send_html);

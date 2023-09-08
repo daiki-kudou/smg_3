@@ -604,6 +604,7 @@ class PreReservationsController extends Controller
 				date('H:i',strtotime($preReservation->leave_time)),
 				$preReservation->venue->full_name,
 				$preReservation->venue->smg_url,
+        $preReservation->price_system,
 			));
 
           } else {

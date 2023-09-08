@@ -111,7 +111,7 @@
               <select name="venue_id" id="venue_id">
                 <option value=""></option>
                 @foreach ($venues as $venue)
-                <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
+                <option value="{{$venue->id}}">{{ReservationHelper::getVenueUser($venue->id)}}</option>
                 @endforeach
               </select>
             </div>

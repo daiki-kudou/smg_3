@@ -10,7 +10,7 @@
   日時： {{ReservationHelper::formatDate($bill->reservation->reserve_date)}}　{{$bill->reservation->enter_time}} -
   {{$bill->reservation->leave_time}}<br>
   会場：
-  {{ReservationHelper::getVenue($bill->reservation->venue_id)}}
+  {{ReservationHelper::getVenueUser($bill->reservation->venue_id)}}
   <br>
   住所：
   {{ReservationHelper::getVenueAddreess($bill->reservation->venue_id)[0]}}

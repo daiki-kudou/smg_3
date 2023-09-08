@@ -491,6 +491,7 @@ class MultiplesController extends Controller
 								date('H:i', strtotime($preReservation->leave_time)),
 								$preReservation->venue->full_name,
 								$preReservation->venue->smg_url,
+								$preReservation->price_system,
 							));
 					}
 					//仲介会社の場合メール送付せず、削除

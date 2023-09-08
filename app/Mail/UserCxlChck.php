@@ -64,7 +64,7 @@ class UserCxlChck extends Mailable
 		$send_html = str_replace('${invoice_number}', $this->cxl_data->invoice_number, $send_html);
 		$send_html = str_replace('${enter_time}', $this->cxl_data->enter_time, $send_html);
 		$send_html = str_replace('${leave_time}', $this->cxl_data->leave_time, $send_html);
-		$send_html = str_replace('${venue_name}', $this->cxl_data->venue_name, $send_html);
+		$send_html = str_replace('${venue_name}', $this->cxl_data->venue_name . ($this->cxl_data->price_system === 2 ? '(音響HG)' : ''), $send_html);
 		$send_html = str_replace('${smg_url}', $this->cxl_data->smg_url, $send_html);
 		$send_html = str_replace('${master_total}', $this->cxl_data->master_total, $send_html);
 		$send_html = str_replace('${login}', url('/user/login'), $send_html);
