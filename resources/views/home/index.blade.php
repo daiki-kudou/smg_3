@@ -51,7 +51,7 @@
               <div class="selectWrap">
                 <select name="room04" id="changeSelect">
                   @foreach ($venues as $venue)
-                  <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
+                  <option value="{{$venue->id}}">{{ReservationHelper::getVenueUser($venue->id)}}</option>
                   @endforeach
                 </select>
               </div>

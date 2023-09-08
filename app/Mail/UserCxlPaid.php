@@ -66,7 +66,7 @@ class UserCxlPaid extends Mailable
 		$send_html = str_replace('${invoice_number}', $this->cxl_data->invoice_number, $send_html);
 		$send_html = str_replace('${enter_time}', $this->reservation_data->enter_time, $send_html);
 		$send_html = str_replace('${leave_time}', $this->reservation_data->leave_time, $send_html);
-		$send_html = str_replace('${venue_name}', $this->reservation_data->venue_name, $send_html);
+		$send_html = str_replace('${venue_name}', $this->reservation_data->venue_name . ($this->reservation_data->price_system === 2 ? '(音響HG)' : ''), $send_html);
 		$send_html = str_replace('${smg_url}', $this->reservation_data->smg_url, $send_html);
 		$send_html = str_replace('${master_total}', $this->cxl_data->master_total, $send_html);
 		$send_html = str_replace('${payment_limit}', $this->cxl_data->payment_limit, $send_html);

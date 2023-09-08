@@ -609,6 +609,7 @@ class PreReservation extends Model
         users.attention as attention,
         pre_endusers.company as enduser,
         pre_reservations.status as pre_reservation_status,
+        pre_reservations.price_system as price_system,
       case when pre_bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
       case when pre_reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
       case when pre_reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
@@ -763,8 +764,9 @@ class PreReservation extends Model
         ) as reserve_date,
         time_format(pre_reservations.enter_time, '%H:%i') as enter_time,
         time_format(pre_reservations.leave_time, '%H:%i') as leave_time,
-        concat(venues.name_area, venues.name_bldg, venues.name_venue) as venue_name,
+        concat(venues.name_area, \"・\", venues.name_bldg, venues.name_venue) as venue_name,
         concat(users.first_name, users.last_name) as person_name,
+        pre_reservations.price_system as price_system,
         pre_reservations.status as pre_reservation_status,
         venues.smg_url as smg_url
         "

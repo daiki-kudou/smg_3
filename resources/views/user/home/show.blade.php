@@ -114,8 +114,7 @@
                                 <td class="table-active"><label for="venue">会場</label></td>
                                 <td>
                                     <p>
-                                        {{ ReservationHelper::getVenueForUser($reservation->venue_id) }}<br>
-                                        <span>{{ (int) $reservation->price_system === 2 ? '(音響HG)' : '' }}</span>
+                                        {{ ReservationHelper::getVenueForUser($reservation->venue_id) . ($reservation->price_system === 2 ? '(音響HG)' : '') }}
                                     </p>
                                 </td>
                             </tr>

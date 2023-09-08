@@ -203,7 +203,8 @@ class PreReservationsController extends Controller
         ) as reserve_date,
         time_format(pre_reservations.enter_time, '%H:%i') as enter_time,
         time_format(pre_reservations.leave_time, '%H:%i') as leave_time,
-        concat(venues.name_area, venues.name_bldg, venues.name_venue) as venue_name,
+        concat(venues.name_area, \"・\", venues.name_bldg, venues.name_venue) as venue_name,
+        pre_reservations.price_system as price_system,
         pre_reservations.id as original_id,
         case when pre_reservations.reserve_date >= CURRENT_DATE() then 0 else 1 end as 今日以降かどうか,
         case when pre_reservations.reserve_date >= CURRENT_DATE() then reserve_date end as 今日以降日付,
@@ -242,7 +243,7 @@ class PreReservationsController extends Controller
           'reserve_date' => $record->reserve_date,
           'enter_time' => $record->enter_time,
           'leave_time' => $record->leave_time,
-          'venue_name' => $record->venue_name,
+          'venue_name' => $record->venue_name . ($record->price_system === 2 ? '(音響HG)' : ''),
           'details' => "<a href=" . url('/user/pre_reservations/' . $record->pre_reservation_id)  . " class='more_btn btn'>詳細</a>"
         ];
     }

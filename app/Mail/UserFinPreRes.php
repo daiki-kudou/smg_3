@@ -52,7 +52,8 @@ class UserFinPreRes extends Mailable
 		$reserve_date = !empty($this->prereservation->reserve_date) ? date('Y年m月d日', strtotime($this->prereservation->reserve_date)) : null;
 		$enter_time = !empty($this->prereservation->enter_time) ? date('H:i', strtotime($this->prereservation->enter_time)) : null;
 		$leave_time = !empty($this->prereservation->leave_time) ? date('H:i', strtotime($this->prereservation->leave_time)) : null;
-		$venue_name = $this->venue->name_area . $this->venue->name_bldg . $this->venue->name_venue;
+		$venue_name = $this->venue->name_area . '・' . $this->venue->name_bldg . $this->venue->name_venue;
+		$price_system = $this->prereservation->price_system === 2 ? '(音響HG)' : '';
 		$smg_url = $this->venue->smg_url;
 		$user_id = $this->prereservation->user_id;
 
@@ -64,7 +65,7 @@ class UserFinPreRes extends Mailable
 		$send_html = str_replace('${reserve_date}', $reserve_date, $send_html);
 		$send_html = str_replace('${enter_time}', $enter_time, $send_html);
 		$send_html = str_replace('${leave_time}', $leave_time, $send_html);
-		$send_html = str_replace('${venue_name}', $venue_name, $send_html);
+		$send_html = str_replace('${venue_name}', $venue_name . $price_system, $send_html);
 		$send_html = str_replace('${smg_url}', $smg_url, $send_html);
 		$send_html = str_replace('${user_id}', $user_id, $send_html);
 

@@ -58,7 +58,7 @@ class PreReservationsController extends Controller
         $p->reserve_date,
         $p->enter_time,
         $p->leave_time,
-        $p->venue_name,
+        $p->venue_name . ($p->price_system === 2 ? '(音響HG)' : ''),
         $p->company,
         $p->person_name,
         $p->mobile,
@@ -604,6 +604,7 @@ class PreReservationsController extends Controller
 				date('H:i',strtotime($preReservation->leave_time)),
 				$preReservation->venue->full_name,
 				$preReservation->venue->smg_url,
+        $preReservation->price_system,
 			));
 
           } else {

@@ -12,7 +12,7 @@
     様<br /><br />この度は、SMG貸し会議室のご予約をいただきありがとうございます。<br />下記の内容で、予約が完了しました。</p>
   <p>
     <br /><br />ご予約内容<br />======================================<br />日時：{{ReservationHelper::formatDate($reservation_id->reserve_date)}}　{{$reservation_id->enter_time}}
-    - {{$reservation_id->leave_time}}<br />会場： {{ReservationHelper::getVenue($reservation_id->venue_id)}}<br />住所：
+    - {{$reservation_id->leave_time}}<br />会場： {{ReservationHelper::getVenueUser($reservation_id->venue_id)}}<br />住所：
     {{ReservationHelper::getVenueAddreess($reservation_id->venue_id)[0]}}
     {{ReservationHelper::getVenueAddreess($reservation_id->venue_id)[1]}}
     {{ReservationHelper::getVenueAddreess($reservation_id->venue_id)[2]}}
