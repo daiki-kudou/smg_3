@@ -155,11 +155,17 @@
                   <p class="title-icon">
                     <i class="fas fa-clipboard icon-size" aria-hidden="true"></i>案内版
                   </p>
+                  <p>
+                  <a target="_blank" rel="noopener noreferrer" href="https://system.osaka-conference.com/welcomboard/">
+                  <i class="fas fa-external-link-alt form-icon"></i>
+                  案内板サンプルはこちら
+                  </a>
+                  </p>
                 </div>
               </td>
             </tr>
             <tr>
-              <td class="table-active">案内板</td>
+              <td class="table-active form_required">案内板</td>
               <td>
                 <div class="radio-box">
                   <p>
@@ -228,6 +234,8 @@
             </tr>
           </tbody>
         </table>
+        <p class="warning-text mb-3 mt-1">※イベント時間を非表示にする場合は、イベント開始・終了時間ともに「00時00分」を選択して下さい。</p>
+
         <div class="equipemnts">
           <table class="table table-bordered">
             <thead class="accordion-ttl">
