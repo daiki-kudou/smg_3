@@ -220,7 +220,7 @@ class DataTableController extends Controller
           'multiple_reserve_id' => ReservationHelper::fixId($record->multiple_reserve_id),
           'reservation_id' => ReservationHelper::fixId($record->reservation_id),
           'reserve_date' => ReservationHelper::formatDate($record->reserve_date),
-          'venue_name' => ($record->venue_name),
+          'venue_name' => ($record->venue_name) . ($record->price_system === 2 ? '(音響HG)' : ''),
           'user_id' => ReservationHelper::fixId($record->user_id),
           'company_name' => $record->company_name,
           'user_name' => $record->user_name,
