@@ -121,7 +121,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="table-active">案内板</td>
+                            <td class="table-active form_required">案内板</td>
                             <td>
                                 {{ Form::text('', $master_info['board_flag'] == 1 ? 'あり' : 'なし', ['class' => 'form-control', 'readonly']) }}
                                 {{ Form::hidden('board_flag', $master_info['board_flag'], ['class' => 'form-control', 'readonly']) }}
@@ -167,7 +167,7 @@
                         </tr>
                     </tbody>
                 </table>
-
+                <p class="warning-text mb-3 mt-1">※イベント時間を非表示にする場合は、イベント開始・終了時間ともに「00時00分」を選択して下さい。</p>
 
                 <div class="equipemnts">
                     <table class="table table-bordered">
