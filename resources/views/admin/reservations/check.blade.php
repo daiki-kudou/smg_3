@@ -142,6 +142,8 @@
                         </tr>
                     </tbody>
                 </table>
+                <p class="warning-text mb-3 mt-1">※イベント時間を非表示にする場合は、イベント開始・終了時間ともに「00時00分」を選択して下さい。</p>
+
                 <div class="equipemnts">
                     <table class="table table-bordered" style="table-layout: fixed;">
                         <thead class="accordion-ttl">
