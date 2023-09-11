@@ -71,6 +71,7 @@
                     <thead>
                         <tr>
                             <th>詳細</th>
+                            <th>詳細</th>
                             <th>予約ID</th>
                             <th>利用日</th>
                             <th>入室</th>
@@ -82,7 +83,6 @@
                             <th>利用料金</th>
                             <th>支払期日</th>
                             <th>入金状況</th>
-                            <th>詳細</th>
                             <th>請求書</th>
                             <th>領収書</th>
                         </tr>
@@ -131,6 +131,9 @@
                         data: 'details'
                     },
                     {
+                        data: 'details'
+                    },
+                    {
                         data: 'reservation_id'
                     },
                     {
@@ -164,9 +167,6 @@
                         data: 'paid'
                     },
                     {
-                        data: 'details'
-                    },
-                    {
                         data: 'invoice'
                     },
                     {
@@ -178,12 +178,12 @@
                     $('#counter').text('').text(test.page.info().recordsDisplay);
                 },
                 columnDefs: [{
-                        targets: [0, 6, 7, 9, 10, 11, 12, 13, 14],
+                        targets: [0, 1, 7, 8, 10, 11, 12, 13, 14],
                         sortable: false,
                         orderable: false
                     },
                     {
-                        targets: [8, 9],
+                        targets: [9, 10],
                         className: "text-right",
                     },
                     {
@@ -191,7 +191,7 @@
                         className: "sp-table",
                     },
                     {
-                        targets: [12],
+                        targets: [1],
                         className: "pc-table",
                     }
                 ],
