@@ -5,6 +5,7 @@
     <script src="{{ asset('/js/lettercounter.js') }}"></script>
     <script src="{{ asset('/js/admin/multiples/validation.js') }}"></script>
     <script src="{{ asset('/js/multiples/calculate.js') }}"></script>
+    <script src="{{ asset('/js/holidays.js') }}"></script>
 
 
     <div class="container-field mt-3">
@@ -1693,6 +1694,43 @@
         $('input[name="delete_target"]').val("");
         $('#all_check').prop('checked', false);
     });
+
+    $(function() {
+        let dates = $('input[name^="reserve_date"]');
+        let latestDate = new Date(-8640000000000000);
+        let oldestDate = new Date(8640000000000000);
+        let start_date;
+        let end_date;
+
+        for (let i = 0; i < dates.length; i++) {
+            let target_date = $('input[name="reserve_date' + i + '"]');
+            let target_elament = $('input[name="luggage_arrive_copied' + i + '"]');
+            getHolidayCalendar(target_elament, target_date, 0);
+
+            let date = new Date($(dates[i]).val().split(' ')[0]);
+            if (date < oldestDate) {
+                oldestDate = date;
+                start_date = $('input[name="reserve_date' + i + '"]');
+            }
+            if (date > latestDate) {
+                latestDate = date;
+                end_date = $('input[name="reserve_date' + i + '"]');
+            }
+        }
+        getHolidayCalendar($('#cp_master_luggage_arrive'), end_date, 0, start_date);
+
+        $('#cp_master_luggage_arrive').click(function() {
+            getHolidayCalendar($('#cp_master_luggage_arrive')[0], end_date, 0, start_date);
+        });
+
+        $('input[name^="luggage_arrive_copied"]').click(function() {
+            let index = $('input[name^="luggage_arrive_copied"]').index(this);
+            let target_date = $('input[name="reserve_date' + index + '"]')[0];
+            let target_elament = $('input[name="luggage_arrive_copied' + index + '"]')[0];
+            getHolidayCalendar(target_elament, target_date, 0);
+        });
+    });
+
 </script>
 
 
