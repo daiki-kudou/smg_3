@@ -273,6 +273,7 @@ $(function () {
             "<input id='no_luggage_flag' name='luggage_flag' type='radio' value='0' checked>" +
             "<label for='no_luggage_flag' class ='form-check-label'>なし</label>" +
             "</p>" +
+            "<p>500円 (税抜)</p>" +
             "</div>" +
             "<div class='mt-2 luggage-border'>"+
             "【事前・事後】預かりの荷物について<br>"+
@@ -310,7 +311,9 @@ $(function () {
             "<tr>" +
             "<td class='table-active'>荷物預かり料金(税抜)</td>" +
             "<td class=''>" +
+            "<div class='d-flex align-items-end'>" +
             "<input type='text' id='luggage_price' autocomplete='off' class='form-control luggage_price' placeholder='金額入力' name='luggage_price' readonly>" +
+            "<span class='ml-1'>円</span></div>"+
             "<p class='is-error-luggage_price' style='color: red'></p>" +
             "</td>" +
             "</tr>";

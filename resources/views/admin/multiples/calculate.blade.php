@@ -386,6 +386,7 @@
                             {{Form::radio('luggage_flag',0,(int)$request->luggage_flag===0?true:false,['id'=>'cp_master_no_luggage_flag'])}}
                             {{Form::label('cp_master_no_luggage_flag','なし')}}
                           </p>
+                          <p>500円 (税抜)</p>
                         </div>
                         <div class="mt-2 luggage-border">
                                             【事前・事後】預かりの荷物について<br>
@@ -947,6 +948,7 @@
                               {{Form::radio('luggage_flag_copied'.$key,0,(int)$request->cp_master_luggage_flag===0?true:false,['id'=>'no_luggage_flag'.$key])}}
                               {{Form::label('no_luggage_flag'.$key,'なし')}}
                             </p>
+                            <p>500円 (税抜)</p>
                           </div>
                         </td>
                       </tr>
