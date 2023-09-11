@@ -246,7 +246,7 @@ class PreReservation extends Model
         'luggage_flag' => $request->{'luggage_flag_copied' . $splitKey} ?? 0,
       ]);
 
-      $venue_price = empty($result[0][2]) ? 0 : $result[0][2];
+      $venue_price = empty($result[0][0]) ? 0 : $result[0][0];
 
       $equipment_price = empty($result[1][0]) ? 0 : $result[1][0];
 
@@ -270,13 +270,13 @@ class PreReservation extends Model
       ]);
 
       if (!empty($result[0][1])) {
-        $venue_prices = ['会場料金', $result[0][0], $result[0][3], $result[0][0]];
+        $venue_prices = ['会場料金', ($result[0][0] - $result[0][1]), $result[0][3], $result[0][0]];
         $extend_prices = ['延長料金', $result[0][1], $result[0][4], $result[0][1]];
       } elseif (empty($result[0][0])) {
         $venue_prices = [];
         $extend_prices = [];
       } else {
-        $venue_prices = ['会場料金', $result[0][0], $result[0][3], $result[0][0]];
+        $venue_prices = ['会場料金', ($result[0][0] - $result[0][1]), $result[0][3], $result[0][0]];
         $extend_prices = [];
       }
 
@@ -286,7 +286,7 @@ class PreReservation extends Model
             'unit_item' => $venue_prices[0],
             'unit_cost' => $venue_prices[1],
             'unit_count' => $venue_prices[2],
-            'unit_subtotal' => $venue_prices[3],
+            'unit_subtotal' => $venue_prices[1],
             'unit_type' => 1,
           ]);
           $pre_bill->pre_breakdowns()->create([
@@ -301,7 +301,7 @@ class PreReservation extends Model
             'unit_item' => $venue_prices[0],
             'unit_cost' => $venue_prices[1],
             'unit_count' => $venue_prices[2],
-            'unit_subtotal' => $venue_prices[3],
+            'unit_subtotal' => $venue_prices[1],
             'unit_type' => 1,
           ]);
         }
