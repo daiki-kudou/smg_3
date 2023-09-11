@@ -328,7 +328,7 @@ class ReservationsController extends Controller
 					'sales' => $this->getSales($record->reservation_id, $record->sogaku),
 					'payment_limit' => $this->getPaymentLimit($record->reservation_id),
 					'paid' => $this->getPaid($record->reservation_id),
-					'details' => "<a href=" . route('user.home.show', $record->reservation_id) . " class='more_btn btn'>予約<br>詳細</a>",
+					'details' => "<a href=" . route('user.home.show', $record->reservation_id) . " class='more_btn btn'>詳細</a>",
 					'invoice' => $this->getInvoice($record->reservation_id),
 					'receipt' => $this->getReceipt($record->reservation_id),
 				];
