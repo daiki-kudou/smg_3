@@ -12,6 +12,16 @@ function getHolidayCalendar($target, $reserve_date, $show_trigger = 1, $edit_dat
   let start_date = $edit_date ? new Date($edit_date.val()) : new Date($reserve_date.val());
   start_date.setDate(1);
   let default_date = start_date.getFullYear() + '-' + (start_date.getMonth() + 1) + '-01';
+
+  var min_date = new Date($reserve_date.val());
+  let daysToSubtract = 3;
+  while (daysToSubtract > 0) {
+    min_date.setDate(min_date.getDate() - 1);
+    if (min_date.getDay() !== 0 && min_date.getDay() !== 6) {
+      daysToSubtract--;
+    }
+  }
+
   $target.datepicker({
     beforeShowDay: function (date) {
       var ymd = date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + date.getDate()).slice(-2);
@@ -30,7 +40,7 @@ function getHolidayCalendar($target, $reserve_date, $show_trigger = 1, $edit_dat
       }
     },
     dateFormat: 'yy-mm-dd',
-    minDate: 0,
+    minDate: min_date,
     defaultDate: default_date,
     maxDate: max_date
   });
