@@ -524,15 +524,25 @@
         var today = new Date();
         var dd = today.getDate();
         var dt = new Date(target_day);
-        dt.setDate(dt.getDate() - 3);
+        dt.setDate(dt.getDate() - 1);
         var max_date = dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
+
+        let min_date = new Date(target_day);
+            let daysToSubtract = 3;
+            while (daysToSubtract > 0) {
+            min_date.setDate(min_date.getDate() - 1);
+            if (min_date.getDay() !== 0 && min_date.getDay() !== 6) {
+                daysToSubtract--;
+            }
+        }
+
         $("#datepicker2").datepicker({
             showButtonPanel: true,
             dateFormat: 'yy-mm-dd',
             showOn: "both",
             buttonImage: "https://system.osaka-conference.com/img/icon_calender.png",
             buttonImageOnly: true,
-            minDate: 0,
+            minDate: min_date,
             maxDate: max_date,
             beforeShow: function(input, inst, date) {
                 // カレンダーを必ず下側へ表示させるための表示位置計算function

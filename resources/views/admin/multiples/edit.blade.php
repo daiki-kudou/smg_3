@@ -1717,11 +1717,6 @@
                 end_date = $('input[name="reserve_date' + i + '"]');
             }
         }
-        getHolidayCalendar($('#cp_master_luggage_arrive'), end_date, 0, start_date);
-
-        $('#cp_master_luggage_arrive').click(function() {
-            getHolidayCalendar($('#cp_master_luggage_arrive')[0], end_date, 0, start_date);
-        });
 
         $('input[name^="luggage_arrive_copied"]').click(function() {
             let index = $('input[name^="luggage_arrive_copied"]').index(this);
