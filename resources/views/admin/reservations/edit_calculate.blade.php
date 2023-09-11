@@ -371,6 +371,7 @@
                                                 <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
                                                 <label for="" class="form-check-label">なし</label>
                                             </p>
+                                            <p>500円 (税抜)</p>
                                         </div>
                                     </td>
                                 </tr>
