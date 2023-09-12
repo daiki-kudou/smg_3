@@ -499,7 +499,7 @@ class ReservationsController extends Controller
       DB::rollback();
       return back()->withInput()->withErrors($e->getMessage());
     }
-    return redirect()->route('admin.reservations.index')->with('flash_message', '予約を確定しました');
+    return redirect()->route('admin.reservations.show', $data['reservation_id'])->with('flash_message', '予約を確定しました');
   }
 
   public function edit($id)
