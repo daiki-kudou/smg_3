@@ -37,7 +37,7 @@ class ResetEmail extends Mailable
 
 		$send_html = str_replace('${compny}', $this->company, $body);
 		$send_html = str_replace('${link}', $this->link, $send_html);
-		$send_html = str_replace('${login}', url('user/preusers'), $send_html);
+		$send_html = str_replace('${login}', url('/user/login'), $send_html);
 
 		return $this->view('maileclipse::templates.resetEmail')
 			->subject($subtitle)
