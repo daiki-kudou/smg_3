@@ -203,7 +203,8 @@ $(function () {
     $("#luggage_price").css("color", "#ccc");
     $("#changeLuggageArriveDate").css("color", "#ccc");
     $("#luggage_arrive").removeClass("readonly-no-gray");
-    // $(".luggage_info").css("display","none");
+    $(".luggage-table input[type='text']").val("");
+    $(".luggage-table input[type='number']").val("");
   } else {
     $("#luggage_count").prop("readonly", false);
     $("#luggage_count").css("color", "#333!important");
@@ -305,7 +306,8 @@ $(document).on('change', 'input[name*="luggage_flag"]', function () {
     $("#cp_master_luggage_arrive").css("color", "#ccc");
     $("#cp_master_luggage_return").prop("readonly", true);
     $("#cp_master_luggage_return").css("color", "#ccc");
-    // $(".luggage_info").css("display","none");
+    $(".luggage-table input[type='text']").val("");
+    $(".luggage-table input[type='number']").val("");
   } else {
     $("#cp_master_luggage_count").prop("readonly", false);
     $("#cp_master_luggage_count").css("color", "#333");

@@ -379,11 +379,11 @@
                       <td>
                         <div class="radio-box">
                           <p>
-                            {{Form::radio('luggage_flag',1,(int)$request->luggage_flag===1?true:false,['id'=>'cp_master_luggage_flag'])}}
+                            {{Form::radio('luggage_flag',1,($request->cp_master_luggage_flag==='1' || $request->luggage_flag==='1')?true:false,['id'=>'cp_master_luggage_flag'])}}
                             {{Form::label('cp_master_luggage_flag','あり')}}
                           </p>
                           <p>
-                            {{Form::radio('luggage_flag',0,(int)$request->luggage_flag===0?true:false,['id'=>'cp_master_no_luggage_flag'])}}
+                            {{Form::radio('luggage_flag',0,($request->cp_master_luggage_flag==='0' || $request->luggage_flag==='0')?true:false,['id'=>'cp_master_no_luggage_flag'])}}
                             {{Form::label('cp_master_no_luggage_flag','なし')}}
                           </p>
                         </div>
@@ -940,11 +940,11 @@
                         <td>
                           <div class="radio-box">
                             <p>
-                              {{Form::radio('luggage_flag_copied'.$key,1,(int)$request->cp_master_luggage_flag===1?true:false,['id'=>'luggage_flag'.$key])}}
+                              {{Form::radio('luggage_flag_copied'.$key,1,($request->cp_master_luggage_flag==='1' || $request->luggage_flag==='1')?true:false,['id'=>'luggage_flag'.$key])}}
                               {{Form::label('luggage_flag'.$key,'あり')}}
                             </p>
                             <p>
-                              {{Form::radio('luggage_flag_copied'.$key,0,(int)$request->cp_master_luggage_flag===0?true:false,['id'=>'no_luggage_flag'.$key])}}
+                              {{Form::radio('luggage_flag_copied'.$key,0,($request->cp_master_luggage_flag==='0' || $request->luggage_flag==='0')?true:false,['id'=>'no_luggage_flag'.$key])}}
                               {{Form::label('no_luggage_flag'.$key,'なし')}}
                             </p>
                           </div>
