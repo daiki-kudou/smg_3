@@ -111,16 +111,20 @@
                                         {{ Form::hidden('event_owner', $request->event_owner) }}
                                     </div>
                                     <ul class="">
-                                        <li class="m-b10">
-                                            <p>【イベント開始時間】</p>
-                                            {{ ReservationHelper::formatTime($request->event_start) }}
-                                            {{ Form::hidden('event_start', $request->event_start) }}
-                                        </li>
+                                        @if ($request->event_start !== '00:00:00')
+                                            <li class="m-b10">
+                                                <p>【イベント開始時間】</p>
+                                                {{ ReservationHelper::formatTime($request->event_start) }}
+                                            </li>
+                                        @endif
+                                        @if ($request->event_finish !== '00:00:00')
                                         <li>
                                             <p>【イベント終了時間】</p>
                                             {{ ReservationHelper::formatTime($request->event_finish) }}
-                                            {{ Form::hidden('event_finish', $request->event_finish) }}
                                         </li>
+                                        @endif
+                                        {{ Form::hidden('event_start', $request->event_start) }}
+                                        {{ Form::hidden('event_finish', $request->event_finish) }}
                                     </ul>
                                 </li>
                             @endif
