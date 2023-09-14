@@ -474,7 +474,6 @@
                                                     {{ Form::radio('luggage_flag', 0, (int) $request->luggage_flag === 0 ? true : false, ['id' => 'no_luggage_flag']) }}
                                                     {{ Form::label('no_luggage_flag', 'なし') }}
                                                 </p>
-                                                <p>500円 (税抜)</p>
                                             </div>
                                             <div class="mt-2 luggage-border">
                                             【事前・事後】預かりの荷物について<br>

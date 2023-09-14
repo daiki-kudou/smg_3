@@ -398,7 +398,6 @@
                                                     ]) }}
                                                     {{ Form::label('no_luggage_flag', 'なし') }}
                                                 </p>
-                                                <div>500円(税抜)</div>
                                             </div>
                                             <p class="is-error-luggage_flag" style="color: red"></p>
                                             <div class="mt-2 luggage-border">
