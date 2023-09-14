@@ -93,14 +93,18 @@
                                         <p>主催者名</p>
                                         <p>{{ $slctSession[0]['event_owner'] ?? '' }}</p>
                                     </li>
-                                    <li>
-                                        <p>イベント開始時間</p>
-                                        <p>{{ ReservationHelper::formatTime($slctSession[0]['event_start'] ?? '') }}</p>
-                                    </li>
-                                    <li>
-                                        <p>イベント終了時間</p>
-                                        <p>{{ ReservationHelper::formatTime($slctSession[0]['event_finish'] ?? '') }}</p>
-                                    </li>
+                                    @if (isset($slctSession[0]['event_start']) && $slctSession[0]['event_start'] !== '00:00:00')
+                                        <li>
+                                            <p>イベント開始時間</p>
+                                            <p>{{ ReservationHelper::formatTime($slctSession[0]['event_start'] ?? '') }}</p>
+                                        </li>
+                                    @endif
+                                    @if (isset($slctSession[0]['event_finish']) && $slctSession[0]['event_finish'] !== '00:00:00')
+                                        <li>
+                                            <p>イベント終了時間</p>
+                                            <p>{{ ReservationHelper::formatTime($slctSession[0]['event_finish'] ?? '') }}</p>
+                                        </li>
+                                    @endif
                                 @endif
                         </td>
                     </tr>

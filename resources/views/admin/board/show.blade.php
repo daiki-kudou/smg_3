@@ -18,8 +18,10 @@
       <tr class="date">
         <td>
           <span>{{ReservationHelper::formatDate($reservation->reserve_date)}}</span>
-		  @if ((!empty($reservation->event_start)&&!empty($reservation->event_finish)&&($reservation->event_start!=='00:00:00'&&$reservation->event_finish!=='00:00:00')))
-          <span>{{ReservationHelper::formatTime($reservation->event_start)}}～{{ReservationHelper::formatTime($reservation->event_finish)}}</span>
+		  @if ($reservation->event_start !== '00:00:00' || $reservation->event_finish !== '00:00:00')
+          <span>
+            {{ ($reservation->event_start !== '00:00:00') ? ReservationHelper::formatTime($reservation->event_start) : '' }}～{{ ($reservation->event_finish !== '00:00:00') ? ReservationHelper::formatTime($reservation->event_finish) : '' }}
+          </span>
 		  @endif
         </td>
       </tr>
