@@ -203,7 +203,10 @@
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('payer', '振込名') }}</th>
-            <td><input type="text" name="payer" value="{{ $user->payer }}" class="form-control"></td>
+            <td>
+              <input type="text" name="payer" value="{{ $user->payer }}" class="form-control">
+              <p class="is-error-payer" style="color: red"></p>
+            </td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('pay_post_code', '請求書送付先郵便番号') }}</th>
