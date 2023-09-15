@@ -133,6 +133,9 @@ $(function () {
           number: true,
           minlength: 10,
         },
+        payer: {
+          hankaku: true,
+        },
         email: {
           required: true,
           email: true,
@@ -193,6 +196,9 @@ $(function () {
         fax: {
           number: "※半角数字、ハイフンなしで入力して下さい",
           minlength: "※10桁で入力してください",
+        },
+        payer: {
+          hankaku: "※半角で入力してください",
         },
         email: {
           required: "※必須項目です",

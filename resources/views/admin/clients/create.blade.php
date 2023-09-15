@@ -211,7 +211,8 @@
           <tr>
             <td class="table-active ">{{ Form::label('payer', '振込名') }}</td>
             <td>
-				<input type="text" name="payer" class="form-control">
+              <input type="text" name="payer" class="form-control">
+              <p class="is-error-payer" style="color: red"></p>
             </td>
           </tr>
           <tr>
