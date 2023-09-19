@@ -166,7 +166,7 @@
                                         <div class="selectWrap">
                                             <select name="event_start" id="event_start" class="form-control timeScale">
                                                 <option disabled>選択してください</option>
-                                                {!! ReservationHelper::timeOptionsWithRequest($fix->event_start ?? $fix->enter_time) !!}
+                                                {!! ReservationHelper::timeOptionsWithRequestAndLimit($fix->event_start ?? $fix->enter_time, $fix->enter_time, $fix->leave_time) !!}
                                             </select>
                                         </div>
                                     </li>
@@ -175,7 +175,7 @@
                                         <div class="selectWrap">
                                             <select name="event_finish" id="event_finish" class="form-control timeScale">
                                                 <option disabled>選択してください</option>
-                                                {!! ReservationHelper::timeOptionsWithRequest($fix->event_finish ?? $fix->leave_time) !!}
+                                                {!! ReservationHelper::timeOptionsWithRequestAndLimit($fix->event_finish ?? $fix->leave_time, $fix->enter_time, $fix->leave_time) !!}
                                             </select>
                                         </div>
                                     </li>
