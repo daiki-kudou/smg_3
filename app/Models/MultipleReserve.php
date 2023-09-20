@@ -691,13 +691,11 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
 
         $carbon1 = new Carbon($pre_reservation->enter_time);
         $carbon2 = new Carbon($pre_reservation->leave_time);
-        $usage_hours = $carbon1->diffInMinutes($carbon2);
-        $usage_hours = $usage_hours / 60;
 
         $pre_bill->pre_breakdowns()->create([
           'unit_item' => "会場料金",
           'unit_cost' => 0,
-          'unit_count' => $usage_hours,
+          'unit_count' => 1,
           'unit_subtotal' => 0,
           'unit_type' => 1,
         ]);

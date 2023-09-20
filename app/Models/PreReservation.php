@@ -425,13 +425,11 @@ class PreReservation extends Model
 
       $carbon1 = new Carbon($this->enter_time);
       $carbon2 = new Carbon($this->leave_time);
-      $usage_hours = $carbon1->diffInMinutes($carbon2);
-      $usage_hours = $usage_hours / 60;
 
       $pre_bill->pre_breakdowns()->create([
         'unit_item' => "会場料金",
         'unit_cost' => 0,
-        'unit_count' => $usage_hours,
+        'unit_count' => 1,
         'unit_subtotal' => 0,
         'unit_type' => 1,
       ]);

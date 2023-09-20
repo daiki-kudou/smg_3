@@ -596,7 +596,7 @@
                 </td>
                 <td>
                     <div class="d-flex align-items-center">
-                        {{ Form::text('end_user_charge', $reservation['bills'][0]['end_user_charge'] ? $reservation['bills'][0]['end_user_charge'] : null, [
+                        {{ Form::text('end_user_charge', $reservation['enduser']['charge'] ?: null, [
                             'class' => 'form-control
                                       ',
                             'placeholder' => '入力してください',

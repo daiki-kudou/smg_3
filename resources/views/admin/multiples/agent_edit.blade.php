@@ -937,32 +937,40 @@
                         <td class="table-active">準備</td>
                         <td>
                           <div class="radio-box">
-                            @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
-                            @if ($layout_prepares->unit_item=="レイアウト準備料金")
-                            <p>
-                              {{Form::radio('layout_prepare_copied'.$key, 1, true, ['id' =>
-                              'layout_prepare_copied'.$key])}}
-                              {{Form::label('layout_prepare_copied'.$key,'あり')}}
-                            </p>
-                            <p>
-                              {{Form::radio('layout_prepare_copied'.$key, 0, false, ['id' =>
-                              'no_layout_prepare_copied'.$key])}}
-                              {{Form::label('no_layout_prepare_copied'.$key,'なし')}}
-                            </p>
-                            @break
-                            @elseif($loop->last)
-                            <p>
-                              {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' =>
-                              'layout_prepare_copied'.$key])}}
-                              {{Form::label('layout_prepare_copied'.$key,'あり')}}
-                            </p>
-                            <p>
-                              {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' =>
-                              'no_layout_prepare_copied'.$key])}}
-                              {{Form::label('no_layout_prepare_copied'.$key,'なし')}}
-                            </p>
+                            @if ($pre_reservation->pre_bill)
+                              @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
+                                @if ($layout_prepares->unit_item == 'レイアウト準備料金')
+                                  <p>
+                                    {{ Form::radio('layout_prepare_copied' . $key, 1, true, ['id' => 'layout_prepare_copied' . $key]) }}
+                                    {{ Form::label('layout_prepare_copied' . $key, 'あり') }}
+                                  </p>
+                                  <p>
+                                    {{ Form::radio('layout_prepare_copied' . $key, 0, false, ['id' => 'no_layout_prepare_copied' . $key]) }}
+                                    {{ Form::label('no_layout_prepare_copied' . $key, 'なし') }}
+                                  </p>
+                                @break
+
+                                @elseif($loop->last)
+                                  <p>
+                                    {{ Form::radio('layout_prepare_copied' . $key, 1, false, ['id' => 'layout_prepare_copied' . $key]) }}
+                                    {{ Form::label('layout_prepare_copied' . $key, 'あり') }}
+                                  </p>
+                                  <p>
+                                    {{ Form::radio('layout_prepare_copied' . $key, 0, true, ['id' => 'no_layout_prepare_copied' . $key]) }}
+                                    {{ Form::label('no_layout_prepare_copied' . $key, 'なし') }}
+                                  </p>
+                                @endif
+                              @endforeach
+                            @else
+                              <p>
+                                {{ Form::radio('layout_prepare_copied' . $key, 1, false, ['id' => 'layout_prepare_copied' . $key]) }}
+                                {{ Form::label('layout_prepare_copied' . $key, 'あり') }}
+                              </p>
+                              <p>
+                                {{ Form::radio('layout_prepare_copied' . $key, 0, true, ['id' => 'no_layout_prepare_copied' . $key]) }}
+                                {{ Form::label('no_layout_prepare_copied' . $key, 'なし') }}
+                              </p>
                             @endif
-                            @endforeach
                           </div>
                         </td>
                       </tr>
@@ -970,31 +978,40 @@
                         <td class="table-active">片付</td>
                         <td>
                           <div class="radio-box">
-                            @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
-                            @if ($layout_prepares->unit_item=="レイアウト片付料金")
-                            <p>
-                              {{Form::radio('layout_clean_copied'.$key, 1, true, ['id' => 'layout_clean_copied'.$key])}}
-                              {{Form::label('layout_clean_copied'.$key,'あり')}}
-                            </p>
-                            <p>
-                              {{Form::radio('layout_clean_copied'.$key, 0, false, ['id' =>
-                              'no_layout_clean_copied'.$key])}}
-                              {{Form::label('no_layout_clean_copied'.$key,'なし')}}
-                            </p>
-                            @break
-                            @elseif($loop->last)
-                            <p>
-                              {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' =>
-                              'layout_clean_copied'.$key])}}
-                              {{Form::label('layout_clean_copied'.$key,'あり')}}
-                            </p>
-                            <p>
-                              {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' =>
-                              'no_layout_clean_copied'.$key])}}
-                              {{Form::label('no_layout_clean_copied'.$key,'なし')}}
-                            </p>
+                            @if ($pre_reservation->pre_bill)
+                              @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
+                                @if ($layout_prepares->unit_item == 'レイアウト片付料金')
+                                  <p>
+                                    {{ Form::radio('layout_clean_copied' . $key, 1, true, ['id' => 'layout_clean_copied' . $key]) }}
+                                    {{ Form::label('layout_clean_copied' . $key, 'あり') }}
+                                  </p>
+                                  <p>
+                                    {{ Form::radio('layout_clean_copied' . $key, 0, false, ['id' => 'no_layout_clean_copied' . $key]) }}
+                                    {{ Form::label('no_layout_clean_copied' . $key, 'なし') }}
+                                  </p>
+                                @break
+
+                                @elseif($loop->last)
+                                  <p>
+                                    {{ Form::radio('layout_clean_copied' . $key, 1, false, ['id' => 'layout_clean_copied' . $key]) }}
+                                    {{ Form::label('layout_clean_copied' . $key, 'あり') }}
+                                  </p>
+                                  <p>
+                                    {{ Form::radio('layout_clean_copied' . $key, 0, true, ['id' => 'no_layout_clean_copied' . $key]) }}
+                                    {{ Form::label('no_layout_clean_copied' . $key, 'なし') }}
+                                  </p>
+                                @endif
+                              @endforeach
+                            @else
+                              <p>
+                                {{ Form::radio('layout_clean_copied' . $key, 1, false, ['id' => 'layout_clean_copied' . $key]) }}
+                                {{ Form::label('layout_clean_copied' . $key, 'あり') }}
+                              </p>
+                              <p>
+                                {{ Form::radio('layout_clean_copied' . $key, 0, true, ['id' => 'no_layout_clean_copied' . $key]) }}
+                                {{ Form::label('no_layout_clean_copied' . $key, 'なし') }}
+                              </p>
                             @endif
-                            @endforeach
                           </div>
                         </td>
                       </tr>
@@ -1290,6 +1307,7 @@
                       3が備品料金
                       4がサービス料金 --}}
                       {{-- 以下備品 --}}
+                      @if ($pre_reservation->pre_breakdowns()->where('unit_type',2)->count() > 0)
                       <div class="equipment billdetails_content">
                         <table class="table table-borderless">
                           <tr>
@@ -1353,9 +1371,10 @@
                           </tbody>
                         </table>
                       </div>
+                      @endif
 
                       {{-- 以下、レイアウト --}}
-                      @if ($venue->layout!=0)
+                      @if (isset($pre_reservation->pre_bill->layout_price) && $pre_reservation->pre_bill->layout_price > 0)
                       <div class="layout billdetails_content">
                         <table class="table table-borderless">
                           <tr>

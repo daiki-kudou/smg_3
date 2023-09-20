@@ -229,7 +229,7 @@ class MultiplesController extends Controller
 		$end_user_charge = [];
 		foreach ($request->all() as $key => $value) {
 			if (preg_match('/end_user_charge_copied/', $key)) {
-				if (!empty($value)) {
+				if (isset($value)) {
 					$end_user_charge[] = $value;
 				}
 			}
