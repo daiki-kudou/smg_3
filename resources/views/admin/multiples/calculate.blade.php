@@ -499,14 +499,13 @@
                     <tr>
                       <td class="table-active"><label for="ondayName">氏名</label></td>
                       <td>
-                        {{ Form::text('cp_master_in_charge', '',['class'=>'form-control'] ) }}
+                        {{ Form::text('cp_master_in_charge', $request->cp_master_in_charge, ['class' => 'form-control']) }}
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                       <td>
-                        {{ Form::text('cp_master_tel', '',['class'=>'form-control','placeholder' =>
-                        '半角数字、ハイフンなしで入力してください'] ) }}
+                        {{ Form::text('cp_master_tel', $request->cp_master_tel, ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                         <p class="is-error-cp_master_tel" style="color: red"></p>
                         <p class="annotation mt-1">※半角数字、ハイフンなしで入力下さい。</p>
                       </td>
@@ -530,11 +529,11 @@
                         <div class="d-flex">
                           <div class="radio-box">
                             <p>
-                              {{Form::radio('cp_master_email_flag', 1, false, ['id' => 'cp_master_email_flag'])}}
+                              {{ Form::radio('cp_master_email_flag', 1, $request->cp_master_email_flag === '1' ? true : false, ['id' => 'cp_master_email_flag']) }}
                               {{Form::label('cp_master_email_flag','あり')}}
                             </p>
                             <p>
-                              {{Form::radio('cp_master_email_flag', 0, true, ['id' => 'cp_master_no_email_flag'])}}
+                              {{ Form::radio('cp_master_email_flag', 0, $request->cp_master_email_flag === '0' ? true : false, ['id' => 'cp_master_no_email_flag']) }}
                               {{Form::label('cp_master_no_email_flag','なし')}}
                             </p>
                           </div>
@@ -559,7 +558,7 @@
                       <td class="table-active"><label for="sale">原価率</label></td>
                       <td>
                         <div class="d-flex align-items-center">
-                          {{ Form::text('cp_master_cost', '',['class'=>'form-control'] ) }}
+                          {{ Form::text('cp_master_cost', $request->cp_master_cost, ['class' => 'form-control']) }}
                           <span class="ml-2">%</span>
                         </div>
                         <p class="is-error-cp_master_cost" style="color: red"></p>
@@ -582,7 +581,7 @@
                     <tr>
                       <td>
                         <label for="adminNote">管理者備考</label>
-                        {{ Form::textarea('cp_master_admin_details', '',['class'=>'form-control'] ) }}
+                        {{ Form::textarea('cp_master_admin_details', $request->cp_master_admin_details, ['class' => 'form-control']) }}
                       </td>
                     </tr>
                   </tbody>

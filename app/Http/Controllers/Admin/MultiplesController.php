@@ -211,7 +211,7 @@ class MultiplesController extends Controller
 		$result = $agent->agentPriceCalculate($request->cp_master_end_user_charge);
 		$multiple->AgentPreStore($venue_id, $request, $result);
 
-		return redirect(url('/admin/multiples/agent/' . $multiple_id . '/edit/' . $venue_id));
+		return redirect(url('/admin/multiples/agent/' . $multiple_id . '/edit/' . $venue_id))->with('original', $request->all());
 	}
 
 	public function specificUpdate(Request $request, $multiple_id, $venue_id, $pre_reservation_id)

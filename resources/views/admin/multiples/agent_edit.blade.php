@@ -142,26 +142,22 @@
                           @if ($venue->time_prices->count()!=0&&$venue->frame_prices->count()!=0)
                           <div>
                             <p>
-                              {{ Form::radio('cp_master_price_system', 1, true, ['id'=>'cp_master_price_system_radio1'])
-                              }}
+                              {{ Form::radio('cp_master_price_system', 1, !(isset(session('original')['cp_master_price_system']) && session('original')['cp_master_price_system'] === '2') ? true : false, ['id' => 'cp_master_price_system_radio1']) }}
                               {{Form::label('cp_master_price_system_radio1','通常（枠貸）')}}
                             </p>
                             <p>
-                              {{ Form::radio('cp_master_price_system', 2, false,
-                              ['id'=>'cp_master_price_system_radio2']) }}
+                              {{ Form::radio('cp_master_price_system', 2, isset(session('original')['cp_master_price_system']) && session('original')['cp_master_price_system'] === '2' ? true : false, ['id' => 'cp_master_price_system_radio2']) }}
                               {{Form::label('cp_master_price_system_radio2','音響HG')}}
                             </p>
                           </div>
                           @elseif($venue->frame_prices->count()!=0&&$venue->time_prices->count()==0)
                           <p>
-                            {{ Form::radio('cp_master_price_system', 1, true, ['id'=>'cp_master_price_system_radio1'])
-                            }}
+                            {{ Form::radio('cp_master_price_system', 1, true, ['id' => 'cp_master_price_system_radio1']) }}
                             {{Form::label('cp_master_price_system_radio1','通常（枠貸）')}}
                           </p>
                           @elseif($venue->frame_prices->count()==0&&$venue->time_prices->count()!=0)
                           <p>
-                            {{ Form::radio('cp_master_price_system', 2, true, ['id'=>'cp_master_price_system_radio2'])
-                            }}
+                            {{ Form::radio('cp_master_price_system', 2, true, ['id' => 'cp_master_price_system_radio2']) }}
                             {{Form::label('cp_master_price_system_radio2','音響HG')}}
                           </p>
                           @endif
@@ -193,11 +189,11 @@
                     <td>
                       <div class="radio-box">
                         <p>
-                          {{ Form::radio('cp_master_board_flag', 1, false, ['id'=>'cp_master_board_flag1']) }}
+                          {{ Form::radio('cp_master_board_flag', 1, isset(session('original')['cp_master_board_flag']) && session('original')['cp_master_board_flag'] === '1' ? true : false, ['id' => 'cp_master_board_flag1']) }}
                           {{Form::label('cp_master_board_flag1','あり')}}
                         </p>
                         <p>
-                          {{ Form::radio('cp_master_board_flag', 0, true, ['id'=>'cp_master_board_no_board_flag']) }}
+                          {{ Form::radio('cp_master_board_flag', 0, !(isset(session('original')['cp_master_board_flag']) && session('original')['cp_master_board_flag'] === '1') ? true : false, ['id' => 'cp_master_board_no_board_flag']) }}
                           {{Form::label('cp_master_board_no_board_flag','なし')}}
                         </p>
                       </div>
@@ -207,8 +203,7 @@
                     <td class="table-active" id="eventRequired"><label for="eventName1">イベント名称1</label></td>
                     <td>
                       <div class="align-items-end d-flex">
-                        {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください',
-                        'id'=>'eventname1Count'] ) }}
+                        {{ Form::text('cp_master_event_name1', isset(session('original')['cp_master_event_name1']) ? session('original')['cp_master_event_name1'] : '', ['class' => 'form-control', 'placeholder' => '入力してください', 'id' => 'eventname1Count']) }}
                         <span class="ml-1 annotation count_num1"></span>
                       </div>
                       <p class="is-error-cp_master_event_name1" style="color: red"></p>
@@ -218,8 +213,7 @@
                     <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                     <td>
                       <div class="align-items-end d-flex">
-                        {{ Form::text('cp_master_event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください',
-                        'id'=>'eventname2Count'] ) }}
+                        {{ Form::text('cp_master_event_name2', isset(session('original')['cp_master_event_name2']) ? session('original')['cp_master_event_name2'] : '', ['class' => 'form-control', 'placeholder' => '入力してください', 'id' => 'eventname2Count']) }}
                         <span class="ml-1 annotation count_num2"></span>
                       </div>
                       <p class="is-error-cp_master_event_name2" style="color: red"></p>
@@ -229,8 +223,7 @@
                     <td class="table-active"><label for="organizer">主催者名</label></td>
                     <td>
                       <div class="align-items-end d-flex">
-                        {{ Form::text('cp_master_event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください',
-                        'id'=>'eventownerCount'] ) }}
+                        {{ Form::text('cp_master_event_owner', isset(session('original')['cp_master_event_owner']) ? session('original')['cp_master_event_owner'] : '', ['class' => 'form-control', 'placeholder' => '入力してください', 'id' => 'eventownerCount']) }}
                         <span class="ml-1 annotation count_num3"></span>
                       </div>
                       <p class="is-error-cp_master_event_owner" style="color: red"></p>
@@ -240,7 +233,7 @@
                     <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                     <td>
                       <select name="cp_master_event_start" id="cp_master_event_start" class="form-control">
-                        {!!ReservationHelper::timeOptions()!!}
+                        {!! ReservationHelper::timeOptionsWithRequest(isset(session('original')['cp_master_event_start']) ? session('original')['cp_master_event_start'] : '') !!}
                       </select>
                     </td>
                   </tr>
@@ -248,7 +241,7 @@
                     <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                     <td>
                       <select name="cp_master_event_finish" id="cp_master_event_finish" class="form-control">
-                        {!!ReservationHelper::timeOptions()!!}
+                        {!! ReservationHelper::timeOptionsWithRequest(isset(session('original')['cp_master_event_finish']) ? session('original')['cp_master_event_finish'] : '') !!}
                       </select>
                     </td>
                   </tr>
@@ -271,8 +264,7 @@
                     <tr>
                       <td class="table-active">{{$equipment->item}}</td>
                       <td>
-                        {{Form::number('cp_master_equipment_breakdown' . $key , '', ['class' => 'form-control
-                        equipment_validation'])}}
+                        {{ Form::number('cp_master_equipment_breakdown' . $key, isset(session('original')['cp_master_equipment_breakdown' . $key]) ? session('original')['cp_master_equipment_breakdown' . $key] : '', ['class' => 'form-control equipment_validation']) }}
                       </td>
                     </tr>
                     @endforeach
@@ -297,13 +289,11 @@
                       <td>
                         <div class="radio-box">
                           <p>
-                            {{Form::radio('cp_master_services_breakdown'.$key, 1, false , ['id' =>
-                            'cp_master_service'.$key.'on'])}}
+                            {{ Form::radio('cp_master_services_breakdown' . $key, 1, isset(session('original')['cp_master_services_breakdown' . $key]) && session('original')['cp_master_services_breakdown' . $key] === '1' ? true : false, ['id' => 'cp_master_service' . $key . 'on']) }}
                             {{Form::label('cp_master_service'.$key.'on','あり')}}
                           </p>
                           <p>
-                            {{Form::radio('cp_master_services_breakdown'.$key, 0, true, ['id' =>
-                            'cp_master_service'.$key.'off'])}}
+                            {{ Form::radio('cp_master_services_breakdown' . $key, 0, !(isset(session('original')['cp_master_services_breakdown' . $key]) && session('original')['cp_master_services_breakdown' . $key] === '1') ? true : false, ['id' => 'cp_master_service' . $key . 'off']) }}
                             {{Form::label('cp_master_service'.$key.'on','なし')}}
                           </p>
                         </div>
@@ -332,12 +322,11 @@
                       <td>
                         <div class="radio-box">
                           <p>
-                            {{Form::radio('cp_master_layout_prepare', 1, false, ['id' => 'cp_master_layout_prepare'])}}
+                            {{ Form::radio('cp_master_layout_prepare', 1, isset(session('original')['cp_master_layout_prepare']) && session('original')['cp_master_layout_prepare'] === '1' ? true : false, ['id' => 'cp_master_layout_prepare']) }}
                             {{Form::label('cp_master_layout_prepare','あり')}}
                           </p>
                           <p>
-                            {{Form::radio('cp_master_layout_prepare', 0, true, ['id' =>
-                            'cp_master_no_layout_prepare'])}}
+                            {{ Form::radio('cp_master_layout_prepare', 0, !(isset(session('original')['cp_master_layout_prepare']) && session('original')['cp_master_layout_prepare'] === '1') ? true : false, ['id' => 'cp_master_no_layout_prepare']) }}
                             {{Form::label('cp_master_no_layout_prepare','なし')}}
                           </p>
                         </div>
@@ -350,11 +339,11 @@
                       <td>
                         <div class="radio-box">
                           <p>
-                            {{Form::radio('cp_master_layout_clean', 1, false, ['id' => 'cp_master_layout_clean'])}}
+                            {{ Form::radio('cp_master_layout_clean', 1, isset(session('original')['cp_master_layout_clean']) && session('original')['cp_master_layout_clean'] === '1' ? true : false, ['id' => 'cp_master_layout_clean']) }}
                             {{Form::label('cp_master_layout_clean','あり')}}
                           </p>
                           <p>
-                            {{Form::radio('cp_master_layout_clean', 0, true, ['id' => 'cp_master_no_layout_clean'])}}
+                            {{ Form::radio('cp_master_layout_clean', 0, !(isset(session('original')['cp_master_layout_clean']) && session('original')['cp_master_layout_clean'] === '1') ? true : false, ['id' => 'cp_master_no_layout_clean']) }}
                             {{Form::label('cp_master_no_layout_clean','なし')}}
                           </p>
                         </div>
@@ -384,11 +373,11 @@
                       <td>
                         <div class="radio-box">
                           <p>
-                            {{Form::radio('luggage_flag', 1, true, ['id' => 'cp_master_luggage_flag'])}}
+                            {{ Form::radio('luggage_flag', 1, isset(session('original')['luggage_flag']) && session('original')['luggage_flag'] === '1' ? true : false, ['id' => 'cp_master_luggage_flag']) }}
                             {{Form::label('cp_master_luggage_flag','あり')}}
                           </p>
                           <p>
-                            {{Form::radio('luggage_flag',0,true,['id'=>'cp_master_no_luggage_flag'])}}
+                            {{ Form::radio('luggage_flag', 0, !(isset(session('original')['luggage_flag']) && session('original')['luggage_flag'] === '1') ? true : false, ['id' => 'cp_master_no_luggage_flag']) }}
                             {{Form::label('cp_master_no_luggage_flag','なし')}}
                           </p>
                         </div>
@@ -403,16 +392,14 @@
                     <tr>
                       <td class="table-active">事前に預かる荷物<br>(目安)</td>
                       <td>
-                        {{ Form::number('cp_master_luggage_count',
-                        '',['class'=>'form-control','id'=>'cp_master_luggage_count','min'=>0] ) }}
+                        {{ Form::number('cp_master_luggage_count', isset(session('original')['cp_master_luggage_count']) ? session('original')['cp_master_luggage_count'] : '', ['class' => 'form-control', 'id' => 'cp_master_luggage_count', 'min' => 0]) }}
                         <p class="is-error-cp_master_luggage_count" style="color: red"></p>
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active">事前荷物の到着日<br>(平日午前指定)</td>
                       <td>
-                        {{ Form::text('cp_master_luggage_arrive', '',['class'=>'form-control
-                        datepicker9','id'=>'cp_master_luggage_arrive'] ) }}
+                        {{ Form::text('cp_master_luggage_arrive', isset(session('original')['cp_master_luggage_arrive']) ? session('original')['cp_master_luggage_arrive'] : '', ['class' => 'form-control datepicker9', 'id' => 'cp_master_luggage_arrive']) }}
                         <div class="mt-1 luggage_info">
                                                 ※利用日3日前～前日（平日のみ）を到着日に指定下さい<br>
                                                 ※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預かり / 返送 PDF」をご確認下さい。<br>
@@ -425,8 +412,7 @@
                     <tr>
                       <td class="table-active">事後返送する荷物</td>
                       <td>
-                        {{ Form::number('cp_master_luggage_return',
-                        '',['class'=>'form-control','id'=>'cp_master_luggage_return','min'=>0] ) }}
+                        {{ Form::number('cp_master_luggage_return', isset(session('original')['cp_master_luggage_return']) ? session('original')['cp_master_luggage_return'] : '', ['class' => 'form-control', 'id' => 'cp_master_luggage_return', 'min' => 0]) }}
                         <p class="is-error-cp_master_luggage_return" style="color: red"></p>
                         <div class="mt-1 luggage_info">
                           ※返送時の「発送伝票（元払）/返送伝票（着払）」は会場内に用意しているものを必ず使用して下さい。
@@ -454,19 +440,19 @@
                   <tbody>
                     <tr>
                       <td>
-                        {{Form::radio('cp_master_eat_in', 1, false , ['id' => 'eat_in'])}}
+                        {{ Form::radio('cp_master_eat_in', 1, isset(session('original')['cp_master_eat_in']) && session('original')['cp_master_eat_in'] === '1' ? true : false, ['id' => 'eat_in']) }}
                         {{Form::label('eat_in',"あり")}}
                       </td>
                       <td>
-                        {{Form::radio('cp_master_eat_in_prepare', 1, "" , ['id' => 'eat_in_prepare','disabled' ])}}
+                        {{ Form::radio('cp_master_eat_in_prepare', 1, isset(session('original')['cp_master_eat_in_prepare']) && session('original')['cp_master_eat_in_prepare'] === '1' ? true : false, ['id' => 'eat_in_prepare', 'disabled']) }}
                         {{Form::label('eat_in_prepare',"手配済み")}}
-                        {{Form::radio('cp_master_eat_in_prepare', 2, "" , ['id' => 'eat_in_consider','disabled'])}}
+                        {{ Form::radio('cp_master_eat_in_prepare', 2, isset(session('original')['cp_master_eat_in_prepare']) && session('original')['cp_master_eat_in_prepare'] === '2' ? true : false, ['id' => 'eat_in_consider', 'disabled']) }}
                         {{Form::label('eat_in_consider',"検討中")}}
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        {{Form::radio('cp_master_eat_in', 0, true , ['id' => 'no_eat_in'])}}
+                        {{ Form::radio('cp_master_eat_in', 0, !(isset(session('original')['cp_master_eat_in']) && session('original')['cp_master_eat_in'] === '1') ? true : false, ['id' => 'no_eat_in']) }}
                         {{Form::label('no_eat_in',"なし")}}
                       </td>
                       <td></td>
@@ -495,7 +481,7 @@
                       <tr>
                         <td class="table-active form_required"><label for="ondayName">支払い料 </label></td>
                         <td>
-                          {{ Form::text('cp_master_end_user_charge', '',['class'=>'form-control'] ) }}
+                          {{ Form::text('cp_master_end_user_charge', isset(session('original')['cp_master_end_user_charge']) ? session('original')['cp_master_end_user_charge'] : '', ['class' => 'form-control']) }}
                           <p class="is-error-cp_master_end_user_charge" style="color: red"></p>
                         </td>
                       </tr>
@@ -521,7 +507,7 @@
                       <td class="table-active"><label for="sale">原価率</label></td>
                       <td>
                         <div class="d-flex align-items-center">
-                          {{ Form::text('cp_master_cost', $venue->cost,['class'=>'form-control'] ) }}
+                          {{ Form::text('cp_master_cost', isset(session('original')['cp_master_cost']) ? session('original')['cp_master_cost'] : $venue->cost, ['class' => 'form-control']) }}
                           <span class="ml-2">%</span>
                         </div>
                         <p class="is-error-cp_master_cost" style="color: red"></p>
@@ -545,7 +531,7 @@
                     <tr>
                       <td>
                         <label for="adminNote">管理者備考</label>
-                        {{ Form::textarea('cp_master_admin_details', '',['class'=>'form-control'] ) }}
+                        {{ Form::textarea('cp_master_admin_details', isset(session('original')['cp_master_admin_details']) ? session('original')['cp_master_admin_details'] : '', ['class' => 'form-control']) }}
                       </td>
                     </tr>
                   </tbody>
@@ -695,14 +681,11 @@
                           <div>
                             @if ($venue->time_prices->count()!=0&&$venue->frame_prices->count()!=0)
                             <div class="">
-                              {{ Form::radio('price_system_copied'.$key, 1,
-                              $pre_reservation->price_system?($pre_reservation->price_system==1?true:false):true,
-                              ['id'=>'price_system_copied'.$key]) }}
+                              {{ Form::radio('price_system_copied'.$key, 1, $pre_reservation->price_system?($pre_reservation->price_system==1?true:false):true, ['id'=>'price_system_copied'.$key]) }}
                               {{Form::label('price_system_copied'.$key,'通常（枠貸）')}}
                             </div>
                             <div>
-                              {{ Form::radio('price_system_copied'.$key, 2,
-                              $pre_reservation->price_system?($pre_reservation->price_system==2?true:false):false,
+                              {{ Form::radio('price_system_copied'.$key, 2, $pre_reservation->price_system?($pre_reservation->price_system==2?true:false):false,
                               ['id'=>'price_system_copied_off'.$key]) }}
                               {{Form::label('price_system_copied_off'.$key,'音響HG')}}
                             </div>
@@ -1559,6 +1542,10 @@
 <script>
   // 室内飲食マスタ
     $(function() {
+      var radioTarget = $('input:radio[name="cp_master_eat_in"]:checked').val();
+      if (radioTarget == 1) {
+        $('input:radio[name="cp_master_eat_in_prepare"]').prop('disabled', false);
+      }
     $(document).on("click", "input:radio[name='cp_master_eat_in']", function() {
       var radioTarget = $('input:radio[name="cp_master_eat_in"]:checked').val();
       if (radioTarget == 1) {
